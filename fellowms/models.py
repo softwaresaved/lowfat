@@ -3,6 +3,11 @@ from django.db import models
 MAX_CHAR_LENGHT = 120
 MAX_DIGITS = 10
 
+EXPENSE_STATUS = (
+        ('P', 'Processing'),
+        ('F', 'Finished'),
+        )
+
 class Fellow(models.Model):
     """Describe a fellow."""
     class Meta:
@@ -41,3 +46,17 @@ class Event(models.Model):
 
     def __str__(self):
         return "{}".format(self.name)
+
+class Expense(models.Model):
+    """This describe one expense for one event."""
+    class Meta:
+        app_label = 'fellowms'
+
+    proof = models.FileField(null=False,
+            blank=False)  # This need to be a PDF.
+    event = models.ForeignKey('Event',
+            null=False,
+            blank=False)
+    status = models.CharField(choices=EXPENSE_STATUS,
+            max_length=1,
+            default="P")

@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.core.files.uploadedfile import SimpleUploadedFile
 
-from .models import Fellow, Event
-from .forms import FellowForm, EventForm
+from .models import Fellow, Event, Expense
+from .forms import FellowForm, EventForm, ExpenseForm
 
 def fellow(request):
     if request.POST:
@@ -59,6 +60,31 @@ def event_detail(request, event_id):
             }
 
     return render(request, 'fellowms/event_detail.html', context)
+
+def expense(request):
+    if request.POST:
+        # Handle submission
+        formset = ExpenseForm(request.POST, request.FILES)
+
+        if formset.is_valid():
+            expense = formset.save()
+            return HttpResponseRedirect(reverse('expense_detail',
+                args=[expense.id,]))
+    else:
+        formset = ExpenseForm
+
+    # Show submission form.
+    context = {
+            "formset": formset,
+            }
+    return render(request, 'fellowms/expense.html', context)
+
+def expense_detail(request, expense_id):
+    context = {
+            'expense': Expense.objects.get(id=expense_id),
+            }
+
+    return render(request, 'fellowms/expense_detail.html', context)
 
 
 def board(request):

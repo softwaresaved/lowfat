@@ -23,6 +23,8 @@ urlpatterns = [
     url(r'^fellow/', views.fellow, name="fellow"),
     url(r'^event/(?P<event_id>[0-9]+)/', views.event_detail, name="event_detail"),
     url(r'^event/', views.event),
+    url(r'^expense/(?P<expense_id>[0-9]+)/', views.expense_detail, name="expense_detail"),
+    url(r'^expense/', views.expense, name="expense"),
     url(r'^board/', views.board),
     url(r'^admin/', admin.site.urls),
 ]
