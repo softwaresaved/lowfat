@@ -45,7 +45,7 @@ class Event(models.Model):
 class Blog(models.Model):
     """Provide the link to the blog post about the event."""
     class Meta:
-        app_label = 'fellowsm'
+        app_label = 'fellowms'
     
     event = models.ForeignKey('Event', 
             null=False,
