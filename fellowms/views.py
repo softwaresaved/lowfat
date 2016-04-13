@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
 from .models import Fellow, Event
 from .forms import FellowForm, EventForm
@@ -9,7 +11,9 @@ def fellow(request):
         formset = FellowForm(request.POST)
 
         if formset.is_valid():
-            formset.save()
+            fellow = formset.save()
+            return HttpResponseRedirect(reverse('fellow_detail',
+                args=[fellow.id,]))
     else:
         formset = FellowForm
 
@@ -19,13 +23,27 @@ def fellow(request):
             }
     return render(request, 'fellowms/fellow.html', context)
 
+def fellow_detail(request, fellow_id):
+    context = {
+            'fellow': Fellow.objects.get(id=fellow_id),
+            }
+
+    return render(request, 'fellowms/fellow_detail.html', context)
+
 def event(request):
     if request.POST:
         # Handle submission
-        formset = EventForm(request.POST)
+        post = request.POST.copy()
+        print(post)
+        fellow = Fellow.objects.get(email=post['fellow'])
+        print(fellow)
+        post['fellow'] = fellow.id
+        formset = EventForm(post)
 
         if formset.is_valid():
-            formset.save()
+            event = formset.save()
+            return HttpResponseRedirect(reverse('event_detail',
+                args=[event.id,]))
     else:
         formset = EventForm
 
@@ -34,6 +52,13 @@ def event(request):
             "formset": formset,
             }
     return render(request, 'fellowms/event.html', context)
+
+def event_detail(request, event_id):
+    context = {
+            'event': Event.objects.get(id=event_id),
+            }
+
+    return render(request, 'fellowms/event_detail.html', context)
 
 
 def board(request):

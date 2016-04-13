@@ -10,7 +10,6 @@ class Fellow(models.Model):
 
     email = models.CharField(max_length=MAX_CHAR_LENGHT,
             blank=False,
-            primary_key=True,
             unique=True)
     full_name = models.CharField(max_length=MAX_CHAR_LENGHT,
             blank=False,
@@ -30,7 +29,6 @@ class Event(models.Model):
             blank=False)
     url = models.CharField(max_length=MAX_CHAR_LENGHT,
             blank=False,
-            primary_key=True,
             unique=True)
     name = models.CharField(max_length=MAX_CHAR_LENGHT,
             blank=False)

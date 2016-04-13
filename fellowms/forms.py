@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, widgets
 
 from .models import Fellow, Event
 
@@ -12,3 +12,13 @@ class EventForm(ModelForm):
     class Meta:
         model = Event
         fields = '__all__'
+
+        # We don't want to expose fellows' data
+        # so we will request the email
+        # and match on the database.
+        widgets = {
+                'fellow': widgets.TextInput(),
+                }
+        lables = {
+                'fellow': 'Email',
+                }
