@@ -1,0 +1,10 @@
+{% extends "fellowms/base.html" %}
+
+{% block content %}
+<h1>Fellow Creation</h1>
+<form method="post" action="">
+    {% csrf_token %}
+    {{ formset }}
+    <input type="submit" value="Save" />
+</form>
+{% endblock %}

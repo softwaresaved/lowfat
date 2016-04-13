@@ -1,0 +1,7 @@
+/* Start all label from forms at the begin of the line. */
+form input[type="submit"],
+form label::before {
+    content: '';
+    display: block;
+}
+

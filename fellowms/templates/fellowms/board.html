@@ -1,0 +1,40 @@
+{% extends "fellowms/base.html" %}
+
+{% block content %}
+<h1>Board</h1>
+<h2>Fellows</h2>
+<table>
+    <tbody>
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+        </tr>
+{% for fellow in fellows %}
+<tr>
+    <td>
+{{fellow.full_name}}
+    </td>
+    <td>
+{{fellow.email}}
+    </td>
+</tr>
+{% endfor %}
+    </tbody>
+</table>
+
+<h2>Events</h2>
+<table>
+    <tbody>
+        <tr>
+            <th>Name</th>
+        </tr>
+{% for event in events %}
+<tr>
+    <td>
+{{event.name}}
+    </td>
+</tr>
+{% endfor %}
+    </tbody>
+</table>
+{% endblock %}
