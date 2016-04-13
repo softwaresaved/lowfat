@@ -6,26 +6,32 @@ from .forms import FellowForm, EventForm
 def fellow(request):
     if request.POST:
         # Handle submission
-        new_fellow = FellowForm(request.POST)
+        formset = FellowForm(request.POST)
 
-        new_fellow.save()
+        if formset.is_valid():
+            formset.save()
+    else:
+        formset = FellowForm
 
     # Show submission form.
     context = {
-            "formset": FellowForm,
+            "formset": formset,
             }
     return render(request, 'fellowms/fellow.html', context)
 
 def event(request):
     if request.POST:
         # Handle submission
-        new_event = EventForm(request.POST)
+        formset = EventForm(request.POST)
 
-        new_event.save()
+        if formset.is_valid():
+            formset.save()
+    else:
+        formset = EventForm
 
     # Show submission form.
     context = {
-            "formset": EventForm,
+            "formset": formset,
             }
     return render(request, 'fellowms/event.html', context)
 

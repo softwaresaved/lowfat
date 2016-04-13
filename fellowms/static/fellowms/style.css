@@ -5,3 +5,11 @@ form label::before {
     display: block;
 }
 
+form .errorlist,
+form .errorlist li {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    display: inline;
+    color: red;
+}
