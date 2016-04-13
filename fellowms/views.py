@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-from .models import Fellow, Event
-from .forms import FellowForm, EventForm
+from .models import Fellow, Event, Blog
+from .forms import FellowForm, EventForm, BlogForm
 
 def fellow(request):
     if request.POST:
@@ -67,3 +67,31 @@ def board(request):
             'events': Event.objects.all(),
             }
     return render(request, 'fellowms/board.html', context)
+
+
+def blog(request):
+    if request.POST:
+        # Handle submission
+        formset = Blog(request.POST)
+
+        if formset.is_valid():
+            blog = formset.save()
+            return HttpResponseRedirect(reverse('blog_detail',
+                args=[blog.id,]))
+    else:
+        formset = BlogForm
+
+    # Show submission form.
+    context = {
+            "formset": formset,
+            }
+    return render(request, 'fellowms/blog.html', context)
+
+def blog_detail(request, blog_id):
+    context = {
+            'blog': Blog.objects.get(id=blog_id),
+            }
+
+    return render(request, 'fellowms/blog_detail.html', context)
+
+

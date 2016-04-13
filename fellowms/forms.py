@@ -1,6 +1,6 @@
 from django.forms import ModelForm, widgets
 
-from .models import Fellow, Event
+from .models import Fellow, Event, Blog
 
 class FellowForm(ModelForm):
     class Meta:
@@ -22,3 +22,9 @@ class EventForm(ModelForm):
         lables = {
                 'fellow': 'Email',
                 }
+
+
+class BlogForm(ModelForm):
+    class Meta:
+        model = Blog
+        fields = '__all__'

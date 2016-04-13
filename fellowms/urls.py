@@ -23,6 +23,9 @@ urlpatterns = [
     url(r'^fellow/', views.fellow, name="fellow"),
     url(r'^event/(?P<event_id>[0-9]+)/', views.event_detail, name="event_detail"),
     url(r'^event/', views.event),
+    url(r'^blog/(?P<blog_id>[0-9]+)/', views.blog_detail, name="blog_detail"),
+    url(r'^blog/', views.blog),
     url(r'^board/', views.board),
     url(r'^admin/', admin.site.urls),
+ 
 ]

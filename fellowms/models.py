@@ -38,6 +38,20 @@ class Event(models.Model):
     budget_request = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
             blank=False)
-
     def __str__(self):
         return "{}".format(self.name)
+
+
+class Blog(models.Model):
+    """Provide the link to the blog post about the event."""
+    class Meta:
+        app_label = 'fellowsm'
+    
+    event = models.ForeignKey('Event', 
+            null=False,
+            blank=False)
+
+    draft_url = models.CharField(max_length=MAX_CHAR_LENGHT,
+                blank=False)
+    def __str__(self):
+        return "{}".format(self.draft_url)
