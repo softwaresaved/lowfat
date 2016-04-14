@@ -13,6 +13,7 @@ class EventForm(ModelForm):
         model = Event
         exclude = [
                 "status",
+                "budget_approve",
                 ]
 
         # We don't want to expose fellows' data
