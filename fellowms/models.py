@@ -1,7 +1,15 @@
 from django.db import models
 
 MAX_CHAR_LENGHT = 120
+MAX_PHONE_LENGHT = 14
 MAX_DIGITS = 10
+
+GENDER = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('O', 'Other'),
+        ('R', 'Rather not say'),
+        )
 
 EVENT_STATUS = (
         ('U', 'Unprocessed'),
@@ -20,13 +28,32 @@ class Fellow(models.Model):
     class Meta:
         app_label = 'fellowms'
 
+    forenames = models.CharField(max_length=MAX_CHAR_LENGHT,
+            blank=False,
+            unique=True)
+    surname = models.CharField(max_length=MAX_CHAR_LENGHT,
+            blank=False,
+            unique=True)
+    affiliation = models.CharField(max_length=MAX_CHAR_LENGHT,
+            blank=False,
+            unique=True)
+    # JACS code for research_area.
+    # https://www.hesa.ac.uk/jacs/
+    research_area = models.CharField(max_length=4,
+            blank=False,
+            unique=True)
     email = models.CharField(max_length=MAX_CHAR_LENGHT,
             blank=False,
             unique=True)
-    full_name = models.CharField(max_length=MAX_CHAR_LENGHT,
+    phone = models.CharField(max_length=MAX_PHONE_LENGHT,
             blank=False,
             unique=True)
-    year = models.IntegerField(blank=False)
+    gender = models.CharField(choices=GENDER,
+            max_length=1,
+            default="R")
+    work_description = models.TextField(blank=False)
+    year = models.IntegerField(blank=False,
+            default=2017)
 
     def __str__(self):
         return "{} <{}>".format(self.full_name, self.email)
