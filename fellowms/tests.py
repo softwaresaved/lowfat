@@ -20,11 +20,18 @@ class FellowTestCase(TestCase):
         for fellow in fellows:
             Fellow.objects.create(**fellow)
 
+    def test_setUp(self):
+        pass
+
+
 class EventTestCase(TestCase):
     def setUp(self):
+        fellow = FellowTestCase()
+        fellow.setUp()
+
         events = (
                 {
-                    "fellow": 1,
+                    "fellow": Fellow.objects.get(id=1),
                     "category": "O",
                     "name": "CW16",
                     "url": "http://www.software.ac.uk/cw16",
@@ -42,3 +49,6 @@ class EventTestCase(TestCase):
                 )
         for event in events:
             Event.objects.create(**event)
+
+    def test_setUp(self):
+        pass
