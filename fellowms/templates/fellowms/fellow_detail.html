@@ -2,5 +2,20 @@
 
 {% block content %}
 <h1>Fellow Detail</h1>
-{{ fellow.full_name }}
+<table>
+    <tbody>
+        <tr>
+            <th>Name</th>
+            <td>{{ fellow.forenames }} {{ fellow.surname }}</td>
+        </tr>
+        <tr>
+            <th>Affiliation</th>
+            <td>{{ fellow.affiliation }}</td>
+        </tr>
+        <tr>
+            <th>Research area</th>
+            <td>{{ fellow.research_area }}</td>
+        </tr>
+    </tbody>
+</table>
 {% endblock %}
