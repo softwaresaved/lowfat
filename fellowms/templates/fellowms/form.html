@@ -3,9 +3,9 @@
 {% block content %}
 <h1>{{ title }}</h1>
 {% if formset.is_multipart %}
-<form enctype="multipart/form-data" method="post" action="/foo/">
+<form enctype="multipart/form-data" method="post" action="">
     {% else %}
-<form method="post" action="/foo/">
+<form method="post" action="">
 {% endif %}
     {% csrf_token %}
     {{ formset }}
