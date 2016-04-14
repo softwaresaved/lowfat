@@ -37,4 +37,27 @@
 {% endfor %}
     </tbody>
 </table>
+
+<h2>Expenses</h2>
+<table>
+    <tbody>
+        <tr>
+            <th>Event</th>
+            <th>Status</th>
+            <th>Proof</th>
+        </tr>
+{% for expense in expenses %}
+<tr>
+    <td>
+{{expense.event.name}}
+    </td>
+    <td>
+{{expense.status}}
+    </td>
+    <td><a href="/{{expense.proof}}">PDF</td>
+    </td>
+</tr>
+{% endfor %}
+    </tbody>
+</table>
 {% endblock %}

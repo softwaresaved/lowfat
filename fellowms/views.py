@@ -97,5 +97,6 @@ def board(request):
     context = {
             'fellows': Fellow.objects.all(),
             'events': Event.objects.all(),
+            'expenses': Expense.objects.all(),
             }
     return render(request, 'fellowms/board.html', context)
