@@ -36,19 +36,15 @@ class Fellow(models.Model):
         app_label = 'fellowms'
 
     forenames = models.CharField(max_length=MAX_CHAR_LENGHT,
-            blank=False,
-            unique=True)
+            blank=False)
     surname = models.CharField(max_length=MAX_CHAR_LENGHT,
-            blank=False,
-            unique=True)
+            blank=False)
     affiliation = models.CharField(max_length=MAX_CHAR_LENGHT,
-            blank=False,
-            unique=True)
+            blank=False)
     # JACS code for research_area.
     # https://www.hesa.ac.uk/jacs/
     research_area = models.CharField(max_length=4,
-            blank=False,
-            unique=True)
+            blank=False)
     email = models.CharField(max_length=MAX_CHAR_LENGHT,
             blank=False,
             unique=True)
