@@ -3,6 +3,13 @@ from django.db import models
 MAX_CHAR_LENGHT = 120
 MAX_DIGITS = 10
 
+EVENT_STATUS = (
+        ('U', 'Unprocessed'),
+        ('P', 'Processing'),
+        ('A', 'Approved'),
+        ('R', 'Reproved'),
+        )
+
 EXPENSE_STATUS = (
         ('P', 'Processing'),
         ('F', 'Finished'),
@@ -44,6 +51,14 @@ class Event(models.Model):
     budget_request = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
             blank=False)
+    budget_approve = models.DecimalField(max_digits=MAX_DIGITS,
+            decimal_places=2,
+            blank=False,
+            default=0.00)
+    status = models.CharField(choices=EVENT_STATUS,
+            max_length=1,
+            default="U")
+
     def __str__(self):
         return "{}".format(self.name)
 

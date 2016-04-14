@@ -11,7 +11,9 @@ class FellowForm(ModelForm):
 class EventForm(ModelForm):
     class Meta:
         model = Event
-        fields = '__all__'
+        exclude = [
+                "status",
+                ]
 
         # We don't want to expose fellows' data
         # so we will request the email
@@ -19,8 +21,10 @@ class EventForm(ModelForm):
         widgets = {
                 'fellow': widgets.TextInput(),
                 }
-        lables = {
-                'fellow': 'Email',
+        labels = {
+                'fellow': 'Your email',
+                'url': "Event's homepage url",
+                'name': "Event's name",
                 }
 
 
