@@ -1,5 +1,24 @@
 from django.test import TestCase
-from .models import Event
+from .models import Fellow, Event
+
+class FellowTestCase(TestCase):
+    def setUp(self):
+        fellows = (
+                {
+                    "forenames": "A",
+                    "surname": "C",
+                    "affiliation": "King's College",
+                    "research_area": "L391",
+                    "email": "a.c@mail.com",
+                    "phone": "+441111111111",
+                    "gender": "M",
+                    "work_description": "Sociology of science & technology",
+                    "year": "2013",
+                },
+                )
+
+        for fellow in fellows:
+            Fellow.objects.create(**fellow)
 
 class EventTestCase(TestCase):
     def setUp(self):
