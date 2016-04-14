@@ -3,8 +3,8 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from .models import Fellow, Event, Expense
-from .forms import FellowForm, EventForm, ExpenseForm
+from .models import Fellow, Event, Expense, Blog
+from .forms import FellowForm, EventForm, ExpenseForm, BlogForm
 
 def fellow(request):
     if request.POST:
@@ -92,7 +92,6 @@ def expense_detail(request, expense_id):
 
     return render(request, 'fellowms/expense_detail.html', context)
 
-
 def board(request):
     context = {
             'fellows': Fellow.objects.all(),
@@ -100,3 +99,30 @@ def board(request):
             'expenses': Expense.objects.all(),
             }
     return render(request, 'fellowms/board.html', context)
+
+def blog(request):
+    if request.POST:
+        # Handle submission
+        formset = Blog(request.POST)
+
+        if formset.is_valid():
+            blog = formset.save()
+            return HttpResponseRedirect(reverse('blog_detail',
+                args=[blog.id,]))
+    else:
+        formset = BlogForm
+
+    # Show submission form.
+    context = {
+            "title": "Submit blog",
+            "formset": formset,
+            "submit_text": "Submit",
+            }
+    return render(request, 'fellowms/form.html', context)
+
+def blog_detail(request, blog_id):
+    context = {
+            'blog': Blog.objects.get(id=blog_id),
+            }
+
+    return render(request, 'fellowms/blog_detail.html', context)

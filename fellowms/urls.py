@@ -25,6 +25,8 @@ urlpatterns = [
     url(r'^event/', views.event),
     url(r'^expense/(?P<expense_id>[0-9]+)/', views.expense_detail, name="expense_detail"),
     url(r'^expense/', views.expense, name="expense"),
+    url(r'^blog/(?P<blog_id>[0-9]+)/', views.blog_detail, name="blog_detail"),
+    url(r'^blog/', views.blog),
     url(r'^board/', views.board),
     url(r'^admin/', admin.site.urls),
 ]

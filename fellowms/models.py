@@ -24,6 +24,7 @@ class Fellow(models.Model):
     def __str__(self):
         return "{} <{}>".format(self.full_name, self.email)
 
+
 class Event(models.Model):
     """Describe a event from one fellow."""
     class Meta:
@@ -43,9 +44,9 @@ class Event(models.Model):
     budget_request = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
             blank=False)
-
     def __str__(self):
         return "{}".format(self.name)
+
 
 class Expense(models.Model):
     """This describe one expense for one event."""
@@ -65,3 +66,18 @@ class Expense(models.Model):
 
     def __str__(self):
         return self.proof
+
+
+class Blog(models.Model):
+    """Provide the link to the blog post about the event."""
+    class Meta:
+        app_label = 'fellowms'
+
+    event = models.ForeignKey('Event',
+            null=False,
+            blank=False)
+    draft_url = models.CharField(max_length=MAX_CHAR_LENGHT,
+                blank=False)
+
+    def __str__(self):
+        return "{}".format(self.draft_url)

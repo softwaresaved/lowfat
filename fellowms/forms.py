@@ -1,6 +1,6 @@
 from django.forms import ModelForm, widgets
 
-from .models import Fellow, Event, Expense
+from .models import Fellow, Event, Expense, Blog
 
 class FellowForm(ModelForm):
     class Meta:
@@ -23,7 +23,14 @@ class EventForm(ModelForm):
                 'fellow': 'Email',
                 }
 
+
 class ExpenseForm(ModelForm):
     class Meta:
         model = Expense
         exclude = ['status']
+
+
+class BlogForm(ModelForm):
+    class Meta:
+        model = Blog
+        fields = '__all__'
