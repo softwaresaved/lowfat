@@ -6,6 +6,9 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from .models import Fellow, Event, Expense, Blog
 from .forms import FellowForm, EventForm, ExpenseForm, BlogForm
 
+def index(request):
+    return render(request, 'fellowms/index.html')
+
 def fellow(request):
     if request.POST:
         # Handle submission
@@ -83,7 +86,7 @@ def expense(request):
             "formset": formset,
             "submit_text": "Submit",
             }
-    return render(request, 'fellowms/expense.html', context)
+    return render(request, 'fellowms/form.html', context)
 
 def expense_detail(request, expense_id):
     context = {
@@ -91,14 +94,6 @@ def expense_detail(request, expense_id):
             }
 
     return render(request, 'fellowms/expense_detail.html', context)
-
-def board(request):
-    context = {
-            'fellows': Fellow.objects.all(),
-            'events': Event.objects.all(),
-            'expenses': Expense.objects.all(),
-            }
-    return render(request, 'fellowms/board.html', context)
 
 def blog(request):
     if request.POST:
@@ -126,3 +121,11 @@ def blog_detail(request, blog_id):
             }
 
     return render(request, 'fellowms/blog_detail.html', context)
+
+def board(request):
+    context = {
+            'fellows': Fellow.objects.all(),
+            'events': Event.objects.all(),
+            'expenses': Expense.objects.all(),
+            }
+    return render(request, 'fellowms/board.html', context)

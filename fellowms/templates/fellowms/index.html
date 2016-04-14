@@ -1,0 +1,12 @@
+{% extends "fellowms/base.html" %}
+
+{% block content %}
+<h1>Software Sustainability Institute Admin</h1>
+<p>If you need us to process something please use one of the links bellow:</p>
+<ul>
+    <li><a href="{% url 'event' %}">Request event support</a></li>
+    <li><a href="{% url 'blog' %}">Request process of blog post</a></li>
+    <li><a href="{% url 'expense' %}">Claim reimbursement for expense</a></li>
+</ul>
+<p>If you didn't find what you are looking for please email us at <a href="">admin</a>.</p>
+{% endblock %}
