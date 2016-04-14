@@ -20,9 +20,11 @@ def fellow(request):
 
     # Show submission form.
     context = {
+            "title": "Create fellow",
             "formset": formset,
+            "submit_text": "Save",
             }
-    return render(request, 'fellowms/fellow.html', context)
+    return render(request, 'fellowms/form.html', context)
 
 def fellow_detail(request, fellow_id):
     context = {
@@ -50,9 +52,11 @@ def event(request):
 
     # Show submission form.
     context = {
+            "title": "Submit event",
             "formset": formset,
+            "submit_text": "Submit",
             }
-    return render(request, 'fellowms/event.html', context)
+    return render(request, 'fellowms/form.html', context)
 
 def event_detail(request, event_id):
     context = {
@@ -75,7 +79,9 @@ def expense(request):
 
     # Show submission form.
     context = {
+            "title": "Submit expenses",
             "formset": formset,
+            "submit_text": "Submit",
             }
     return render(request, 'fellowms/expense.html', context)
 
