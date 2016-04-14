@@ -115,7 +115,7 @@ class Event(models.Model):
             blank=False,
             default=0.00)
     justification = models.TextField(blank=False)
-    additional_info = models.TextField(blank=False)
+    additional_info = models.TextField(blank=True)
     status = models.CharField(choices=EVENT_STATUS,
             max_length=1,
             default="U")
