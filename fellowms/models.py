@@ -4,11 +4,18 @@ MAX_CHAR_LENGHT = 120
 MAX_PHONE_LENGHT = 14
 MAX_DIGITS = 10
 
-GENDER = (
+GENDERS = (
         ('M', 'Male'),
         ('F', 'Female'),
         ('O', 'Other'),
         ('R', 'Rather not say'),
+        )
+
+EVENT_CATEGORY = (
+        ('A', 'Attending a conference/workshop'),
+        ('H', 'Organising a conference/workshop (e.g. Software Carpentry)'),
+        ('P', 'Policy related event'),
+        ('O', 'Other'),
         )
 
 EVENT_STATUS = (
@@ -48,7 +55,7 @@ class Fellow(models.Model):
     phone = models.CharField(max_length=MAX_PHONE_LENGHT,
             blank=False,
             unique=True)
-    gender = models.CharField(choices=GENDER,
+    gender = models.CharField(choices=GENDERS,
             max_length=1,
             default="R")
     work_description = models.TextField(blank=False)
@@ -67,21 +74,48 @@ class Event(models.Model):
     fellow = models.ForeignKey('Fellow',
             null=False,
             blank=False)
+    category = models.CharField(choices=EVENT_CATEGORY,
+            max_length=1,
+            default="O")
+    name = models.CharField(max_length=MAX_CHAR_LENGHT,
+            blank=False)
     url = models.CharField(max_length=MAX_CHAR_LENGHT,
             blank=False,
             unique=True)
-    name = models.CharField(max_length=MAX_CHAR_LENGHT,
+    location = models.CharField(max_length=MAX_CHAR_LENGHT,
             blank=False)
     start_date = models.DateField(blank=False)
     end_date = models.DateField(blank=False)
-    description = models.TextField(blank=False)
-    budget_request = models.DecimalField(max_digits=MAX_DIGITS,
+    budget_request_travel = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
-            blank=False)
+            blank=False,
+            default=0.00)
+    budget_request_attendance_fees = models.DecimalField(max_digits=MAX_DIGITS,
+            decimal_places=2,
+            blank=False,
+            default=0.00)
+    budget_request_subsistence_cost = models.DecimalField(max_digits=MAX_DIGITS,
+            decimal_places=2,
+            blank=False,
+            default=0.00)
+    budget_request_venue_hire = models.DecimalField(max_digits=MAX_DIGITS,
+            decimal_places=2,
+            blank=False,
+            default=0.00)
+    budget_request_catering = models.DecimalField(max_digits=MAX_DIGITS,
+            decimal_places=2,
+            blank=False,
+            default=0.00)
+    budget_request_others = models.DecimalField(max_digits=MAX_DIGITS,
+            decimal_places=2,
+            blank=False,
+            default=0.00)
     budget_approve = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
             blank=False,
             default=0.00)
+    justification = models.TextField(blank=False)
+    additional_info = models.TextField(blank=False)
     status = models.CharField(choices=EVENT_STATUS,
             max_length=1,
             default="U")
