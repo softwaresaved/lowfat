@@ -6,6 +6,11 @@
     </head>
 
     <body>
+        {% if user.is_authenticated %}
+            <a href="{% url 'sign_out' %}" />Sign out</a>
+        {% else %}
+            <a href="{% url 'sign_in' %}" />Sign in</a>
+        {% endif %}
         {% block content %}{% endblock %}
     </body>
 </html>

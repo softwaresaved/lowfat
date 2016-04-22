@@ -15,10 +15,17 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 
 from . import views
 
 urlpatterns = [
+    url(r'^sign_in/', auth_views.login,
+        {'template_name': 'fellowms/sign_in.html'},
+        name="sign_in"),
+    url(r'^sign_out/', auth_views.logout,
+        {'next_page': '/'},
+        name="sign_out"),
     url(r'^fellow/(?P<fellow_id>[0-9]+)/', views.fellow_detail, name="fellow_detail"),
     url(r'^fellow/', views.fellow, name="fellow"),
     url(r'^event/(?P<event_id>[0-9]+)/', views.event_detail, name="event_detail"),
@@ -27,7 +34,6 @@ urlpatterns = [
     url(r'^expense/', views.expense, name="expense"),
     url(r'^blog/(?P<blog_id>[0-9]+)/', views.blog_detail, name="blog_detail"),
     url(r'^blog/', views.blog, name="blog"),
-    url(r'^board/', views.board, name="board"),
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.index),
+    url(r'^$', views.index, name="index"),
 ]

@@ -1,13 +1,22 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
+from django.contrib.auth import authenticate, login
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 
 from .models import Fellow, Event, Expense, Blog
 from .forms import FellowForm, EventForm, ExpenseForm, BlogForm
 
 def index(request):
-    return render(request, 'fellowms/index.html')
+    if request.user.is_authenticated():
+        context = {
+                'fellows': Fellow.objects.all(),
+                'events': Event.objects.all(),
+                'expenses': Expense.objects.all(),
+                }
+        return render(request, 'fellowms/board.html', context)
+    else:
+        return render(request, 'fellowms/index.html')
 
 def fellow(request):
     if request.POST:
@@ -121,11 +130,3 @@ def blog_detail(request, blog_id):
             }
 
     return render(request, 'fellowms/blog_detail.html', context)
-
-def board(request):
-    context = {
-            'fellows': Fellow.objects.all(),
-            'events': Event.objects.all(),
-            'expenses': Expense.objects.all(),
-            }
-    return render(request, 'fellowms/board.html', context)
