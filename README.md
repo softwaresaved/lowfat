@@ -6,16 +6,25 @@ program.
 ## Dependencies
 
 ~~~
-$ python3 -m pip install django
+$ sudo python3 -m pip install django
 ~~~
 
 ## Initialization
 
-**Only run this command once or when you pull new commits.**
+**Only run the following commands after you clone this repository
+or when you pull new commits.**
 
 ~~~
 $ ./bootstrap.sh
 $ python3 manage.py migrate
+~~~
+
+## Super User
+
+To create super user:
+
+~~~
+$ python3 manage.py createsuperuser
 ~~~
 
 ## Run
