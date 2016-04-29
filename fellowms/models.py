@@ -35,17 +35,12 @@ class Fellow(models.Model):
     class Meta:
         app_label = 'fellowms'
 
+    # Personal info
     forenames = models.CharField(max_length=MAX_CHAR_LENGHT,
             blank=False)
     surname = models.CharField(max_length=MAX_CHAR_LENGHT,
             blank=False)
-    affiliation = models.CharField(max_length=MAX_CHAR_LENGHT,
-            blank=False)
-    # JACS code for research_area.
-    # https://www.hesa.ac.uk/jacs/
-    research_area = models.CharField(max_length=4,
-            blank=False)
-    email = models.CharField(max_length=MAX_CHAR_LENGHT,
+    email = models.EmailField(
             blank=False,
             unique=True)
     phone = models.CharField(max_length=MAX_PHONE_LENGHT,
@@ -54,9 +49,45 @@ class Fellow(models.Model):
     gender = models.CharField(choices=GENDERS,
             max_length=1,
             default="R")
+    home_location = models.CharField(max_length=MAX_CHAR_LENGHT,
+            blank=False)
+    photo = models.FileField(
+            upload_to='photos/',  # File will be uploaded to MEDIA_ROOT/photos
+            null=False,
+            blank=False)  # This need to be a JPG.
+
+    # Professional info
+    # JACS code for research_area.
+    # https://www.hesa.ac.uk/jacs/
+    research_area = models.CharField(max_length=4,
+            blank=False)
+    affiliation = models.CharField(max_length=MAX_CHAR_LENGHT,
+            blank=False)
+    funding = models.CharField(max_length=MAX_CHAR_LENGHT,
+            blank=False)
     work_description = models.TextField(blank=False)
-    year = models.IntegerField(blank=False,
+
+    # Social media
+    website = models.CharField(max_length=MAX_CHAR_LENGHT,
+            blank=True)
+    website_feed = models.CharField(max_length=MAX_CHAR_LENGHT,
+            blank=True)
+    orcid = models.CharField(max_length=MAX_CHAR_LENGHT,
+            blank=True)
+    github = models.CharField(max_length=MAX_CHAR_LENGHT,
+            blank=True)
+    gitlab = models.CharField(max_length=MAX_CHAR_LENGHT,
+            blank=True)
+    twitter = models.CharField(max_length=MAX_CHAR_LENGHT,
+            blank=True)
+    facebook = models.CharField(max_length=MAX_CHAR_LENGHT,
+            blank=True)
+
+    # Admin fields
+    inauguration_year = models.IntegerField(blank=False,
             default=2017)
+    # Mentors need to be another fellow
+    mentor = models.ForeignKey('self')
 
     def __str__(self):
         return "{} <{}>".format(self.full_name, self.email)
