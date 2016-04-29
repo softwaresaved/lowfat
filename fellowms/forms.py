@@ -35,7 +35,10 @@ class EventForm(ModelForm):
 class ExpenseForm(ModelForm):
     class Meta:
         model = Expense
-        exclude = ['status']
+        exclude = [
+                'id',
+                'status',
+                ]
 
 
 class BlogForm(ModelForm):

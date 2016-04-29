@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 
 MAX_CHAR_LENGHT = 120
@@ -158,6 +160,12 @@ class Expense(models.Model):
     class Meta:
         app_label = 'fellowms'
 
+    # Hash for id to avoid leak of information
+    id = models.UUIDField(primary_key=True,
+            default=uuid.uuid4,
+            editable=False)
+
+    # Form
     event = models.ForeignKey('Event',
             null=False,
             blank=False)
@@ -165,6 +173,8 @@ class Expense(models.Model):
             upload_to='expenses/',  # File will be uploaded to MEDIA_ROOT/expenses
             null=False,
             blank=False)  # This need to be a PDF.
+
+    # Admin fields
     status = models.CharField(choices=EXPENSE_STATUS,
             max_length=1,
             default="P")
