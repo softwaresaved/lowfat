@@ -13,7 +13,7 @@ def index(request):
             'fellows': Fellow.objects.all(),
             'events': Event.objects.all(),
             }
-    return render(request, 'fellowms/index.html')
+    return render(request, 'fellowms/index.html', context)
 
 def dashboard(request):
     return render(request, 'fellowms/dashboard.html')
@@ -22,7 +22,7 @@ def dashboard(request):
 def fellow(request):
     if request.POST:
         # Handle submission
-        formset = FellowForm(request.POST)
+        formset = FellowForm(request.POST, request.FILES)
 
         if formset.is_valid():
             fellow = formset.save()

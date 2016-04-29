@@ -6,8 +6,9 @@
 {% for fellow in fellows %}
 <div class="row">
     <div class="col-md-4">
-        <img src="{{fellow.photo}}" alt="{{fellow.full_name}}" class="img-responsive img-circle">
-        {{fellow.full_name}}
+        <img src="{{fellow.photo.url}}" alt="Photo of {{ fellow.forenames }} {{ fellow.surname }}" class="img-responsive img-circle">
+        <br>
+        {{ fellow.forenames }} {{ fellow.surname }}
     </div>
     <!--
     <div class="col-md-4">.col-md-4</div>

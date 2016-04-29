@@ -16,8 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.conf.urls.static import static
 
 from . import views
+from . import settings 
 
 urlpatterns = [
     url(r'^sign_in/', auth_views.login,
@@ -37,4 +39,4 @@ urlpatterns = [
     url(r'^dashboard/', views.dashboard, name="dashboard"),
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name="index"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

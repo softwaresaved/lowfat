@@ -87,10 +87,12 @@ class Fellow(models.Model):
     inauguration_year = models.IntegerField(blank=False,
             default=2017)
     # Mentors need to be another fellow
-    mentor = models.ForeignKey('self')
+    mentor = models.ForeignKey('self',
+            blank=True,
+            null=True)
 
     def __str__(self):
-        return "{} <{}>".format(self.full_name, self.email)
+        return "{} {} <{}>".format(self.forenames, self.surname, self.email)
 
 
 class Event(models.Model):
