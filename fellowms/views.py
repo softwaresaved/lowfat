@@ -9,15 +9,14 @@ from .models import Fellow, Event, Expense, Blog
 from .forms import FellowForm, EventForm, ExpenseForm, BlogForm
 
 def index(request):
-    if request.user.is_authenticated():
-        context = {
-                'fellows': Fellow.objects.all(),
-                'events': Event.objects.all(),
-                'expenses': Expense.objects.all(),
-                }
-        return render(request, 'fellowms/board.html', context)
-    else:
-        return render(request, 'fellowms/index.html')
+    context = {
+            'fellows': Fellow.objects.all(),
+            'events': Event.objects.all(),
+            }
+    return render(request, 'fellowms/index.html')
+
+def dashboard(request):
+    return render(request, 'fellowms/dashboard.html')
 
 @login_required
 def fellow(request):

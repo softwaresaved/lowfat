@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^expense/', views.expense, name="expense"),
     url(r'^blog/(?P<blog_id>[0-9]+)/', views.blog_detail, name="blog_detail"),
     url(r'^blog/', views.blog, name="blog"),
+    url(r'^dashboard/', views.dashboard, name="dashboard"),
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name="index"),
 ]

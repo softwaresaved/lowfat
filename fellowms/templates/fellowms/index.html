@@ -1,23 +1,34 @@
 {% extends "fellowms/base.html" %}
 
 {% block content %}
-{% if user.is_authenticated %}
-<h1>Software Sustainability Institute Fellowship Program - Admin</h1>
-{% else %}
 <h1>Software Sustainability Institute Fellowship Program</h1>
-{% endif %}
-<p>If you need us to process something please use one of the links bellow:</p>
-<ul>
-    {% if user.is_authenticated %}
-    <li><a href="{% url 'fellow' %}">Create fellow profile</a></li>
-    {% endif %}
-    <li><a href="{% url 'event' %}">Request event support</a></li>
-    <li><a href="{% url 'blog' %}">Request process of blog post</a></li>
-    <li><a href="{% url 'expense' %}">Claim reimbursement for expense</a></li>
-</ul>
-{% if user.is_authenticated %}
-<p>You can edit the information on the database <a href="{% url 'admin' %}">here</a>.</p>
-{% else %}
-<p>If you didn't find what you are looking for please email us at <a href="">admin</a>.</p>
-{% endif %}
+<h2>Fellows</h2>
+{% for fellow in fellows %}
+<div class="row">
+    <div class="col-md-4">
+        <img src="{{fellow.photo}}" alt="{{fellow.full_name}}" class="img-responsive img-circle">
+        {{fellow.full_name}}
+    </div>
+    <!--
+    <div class="col-md-4">.col-md-4</div>
+    <div class="col-md-4">.col-md-4</div>
+    -->
+</div>
+{% endfor %}
+
+<h2>Events</h2>
+<table>
+    <tbody>
+        <tr>
+            <th>Name</th>
+        </tr>
+{% for event in events %}
+<tr>
+    <td>
+{{event.name}}
+    </td>
+</tr>
+{% endfor %}
+    </tbody>
+</table>
 {% endblock %}
