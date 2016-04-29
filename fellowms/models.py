@@ -158,13 +158,13 @@ class Expense(models.Model):
     class Meta:
         app_label = 'fellowms'
 
+    event = models.ForeignKey('Event',
+            null=False,
+            blank=False)
     proof = models.FileField(
             upload_to='expenses/',  # File will be uploaded to MEDIA_ROOT/expenses
             null=False,
             blank=False)  # This need to be a PDF.
-    event = models.ForeignKey('Event',
-            null=False,
-            blank=False)
     status = models.CharField(choices=EXPENSE_STATUS,
             max_length=1,
             default="P")
