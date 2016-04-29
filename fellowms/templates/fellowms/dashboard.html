@@ -16,7 +16,7 @@
     <li><a href="{% url 'expense' %}">Claim reimbursement for expense</a></li>
 </ul>
 {% if user.is_authenticated %}
-<p>You can edit the information on the database <a href="{% url 'admin' %}">here</a>.</p>
+<p>You can edit the information on the database <a href="{% url 'admin:index' %}">here</a>.</p>
 {% else %}
 <p>If you didn't find what you are looking for please email us at <a href="">admin</a>.</p>
 {% endif %}
