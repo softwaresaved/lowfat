@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
@@ -18,6 +19,7 @@ def index(request):
     else:
         return render(request, 'fellowms/index.html')
 
+@login_required
 def fellow(request):
     if request.POST:
         # Handle submission
