@@ -3,19 +3,17 @@
 {% block content %}
 <h1>Software Sustainability Institute Fellowship Program</h1>
 <h2>Fellows</h2>
+<div class="container">
+<ul class="list-group row">
 {% for fellow in fellows %}
-<div class="row">
-    <div class="col-md-4">
-        <img src="{{fellow.photo.url}}" alt="Photo of {{ fellow.forenames }} {{ fellow.surname }}" class="img-responsive img-circle">
-        <br>
-        {{ fellow.forenames }} {{ fellow.surname }}
-    </div>
-    <!--
-    <div class="col-md-4">.col-md-4</div>
-    <div class="col-md-4">.col-md-4</div>
-    -->
-</div>
+<li class="list-group-item col-xs-3">
+    <img src="{{fellow.photo.url}}" alt="Photo of {{ fellow.forenames }} {{ fellow.surname }}" class="img-responsive img-circle">
+    <br>
+    {{ fellow.forenames }} {{ fellow.surname }}
+</li>
 {% endfor %}
+<ul>
+</div>
 
 <h2>Events</h2>
 <table>
