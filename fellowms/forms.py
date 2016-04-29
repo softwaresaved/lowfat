@@ -5,7 +5,10 @@ from .models import Fellow, Event, Expense, Blog
 class FellowForm(ModelForm):
     class Meta:
         model = Fellow
-        fields = '__all__'
+        exclude = [
+                "inauguration_year",
+                "mentor",
+                ]
 
 
 class EventForm(ModelForm):

@@ -11,9 +11,10 @@ $ python3 -m pip install django
 
 ## Initialization
 
-**Only run this command once.**
+**Only run this command once or when you pull new commits.**
 
 ~~~
+$ ./bootstrap.sh
 $ python3 manage.py migrate
 ~~~
 
