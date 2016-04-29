@@ -2,7 +2,7 @@
 #
 # Configure the CSS.
 
-STATIC_FOLDER=static/
+STATIC_FOLDER=fellowms/static/
 TMP_FOLDER=/tmp/
 ZIP_FILE=/tmp/bootstrap.zip
 
