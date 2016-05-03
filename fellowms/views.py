@@ -40,8 +40,10 @@ def fellow(request):
     return render(request, 'fellowms/form.html', context)
 
 def fellow_detail(request, fellow_id):
+    this_fellow = Fellow.objects.get(id=fellow_id)
     context = {
-            'fellow': Fellow.objects.get(id=fellow_id),
+            'fellow': this_fellow,
+            'events': Event.objects.filter(fellow=this_fellow),
             }
 
     return render(request, 'fellowms/fellow_detail.html', context)
