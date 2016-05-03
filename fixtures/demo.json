@@ -1,0 +1,204 @@
+[
+{
+    "model": "fellowms.fellow",
+    "pk": 1,
+    "fields": {
+        "forenames": "Captain",
+        "surname": "America",
+        "email": "c.america@averengers.com",
+        "phone": "+441111111111",
+        "gender": "M",
+        "home_location": "London, UK",
+        "photo": "photos/ca.jpg",
+        "research_area": "L391",
+        "affiliation": "King's College",
+        "funding": "Self-funded",
+        "work_description": "Work",
+        "website": "",
+        "website_feed": "",
+        "orcid": "",
+        "github": "",
+        "gitlab": "",
+        "twitter": "",
+        "facebook": "",
+        "inauguration_year": 2017,
+        "mentor": null
+    }
+},
+{
+    "model": "fellowms.fellow",
+    "pk": 2,
+    "fields": {
+        "forenames": "Iron",
+        "surname": "Man",
+        "email": "i.man@averengers.com",
+        "phone": "+441111111112",
+        "gender": "R",
+        "home_location": "Bath, UK",
+        "photo": "photos/im.jpg",
+        "research_area": "F331",
+        "affiliation": "University of Bath",
+        "funding": "EPSRC",
+        "work_description": "Tech",
+        "website": "",
+        "website_feed": "",
+        "orcid": "",
+        "github": "",
+        "gitlab": "",
+        "twitter": "",
+        "facebook": "",
+        "inauguration_year": 2017,
+        "mentor": null
+    }
+},
+{
+    "model": "fellowms.fellow",
+    "pk": 3,
+    "fields": {
+        "forenames": "Green",
+        "surname": "Arrow",
+        "email": "g.arrow@averengers.com",
+        "phone": "+441111111113",
+        "gender": "F",
+        "home_location": "Lancaster, UK",
+        "photo": "photos/av.jpg",
+        "research_area": "H690",
+        "affiliation": "Lancaster University",
+        "funding": "EPSRC",
+        "work_description": "Work",
+        "website": "",
+        "website_feed": "",
+        "orcid": "",
+        "github": "",
+        "gitlab": "",
+        "twitter": "",
+        "facebook": "",
+        "inauguration_year": 2017,
+        "mentor": null
+    }
+},
+{
+    "model": "fellowms.fellow",
+    "pk": 4,
+    "fields": {
+        "forenames": "Black",
+        "surname": "Widow",
+        "email": "b.widow@averengers.com",
+        "phone": "+441111111114",
+        "gender": "F",
+        "home_location": "London, UK",
+        "photo": "photos/vn.jpg",
+        "research_area": "I520",
+        "affiliation": "UCL",
+        "funding": "AHRC",
+        "work_description": "Work.",
+        "website": "",
+        "website_feed": "",
+        "orcid": "",
+        "github": "",
+        "gitlab": "",
+        "twitter": "",
+        "facebook": "",
+        "inauguration_year": 2017,
+        "mentor": null
+    }
+},
+{
+    "model": "fellowms.fellow",
+    "pk": 5,
+    "fields": {
+        "forenames": "The",
+        "surname": "Hulk",
+        "email": "t.hulk@averengers.com",
+        "phone": "+441111111115",
+        "gender": "R",
+        "home_location": "Southampton, UK",
+        "photo": "photos/hu.jpg",
+        "research_area": "I710",
+        "affiliation": "University of Southampton",
+        "funding": "EPSRC",
+        "work_description": "Work",
+        "website": "",
+        "website_feed": "",
+        "orcid": "",
+        "github": "",
+        "gitlab": "",
+        "twitter": "",
+        "facebook": "",
+        "inauguration_year": 2017,
+        "mentor": null
+    }
+},
+{
+    "model": "fellowms.event",
+    "pk": 1,
+    "fields": {
+        "fellow": 2,
+        "category": "O",
+        "name": "Test 1",
+        "url": "test1.com",
+        "location": "UK",
+        "start_date": "2016-05-16",
+        "end_date": "2016-05-18",
+        "budget_request_travel": "300.00",
+        "budget_request_attendance_fees": "0.00",
+        "budget_request_subsistence_cost": "0.00",
+        "budget_request_venue_hire": "0.00",
+        "budget_request_catering": "0.00",
+        "budget_request_others": "0.00",
+        "budget_approve": "0.00",
+        "justification": ":-)",
+        "additional_info": "",
+        "status": "U"
+    }
+},
+{
+    "model": "fellowms.event",
+    "pk": 2,
+    "fields": {
+        "fellow": 5,
+        "category": "O",
+        "name": "Annual Meeting of the US Biophysical Society",
+        "url": "http://www.biophysics.org/2015meeting/Main/tabid/4837/Default.aspx",
+        "location": "Baltimore, USA",
+        "start_date": "2016-05-14",
+        "end_date": "2016-05-24",
+        "budget_request_travel": "100.00",
+        "budget_request_attendance_fees": "0.00",
+        "budget_request_subsistence_cost": "0.00",
+        "budget_request_venue_hire": "0.00",
+        "budget_request_catering": "0.00",
+        "budget_request_others": "0.00",
+        "budget_approve": "0.00",
+        "justification": "Bio",
+        "additional_info": "",
+        "status": "U"
+    }
+},
+{
+    "model": "fellowms.expense",
+    "pk": "aafa331a-0467-44a5-a067-726bed8efce2",
+    "fields": {
+        "event": 1,
+        "proof": "expenses/ex.pdf",
+        "status": "P"
+    }
+},
+{
+    "model": "fellowms.expense",
+    "pk": "b7cb4d08-3bdc-452d-92e4-6bab1cd2f925",
+    "fields": {
+        "event": 1,
+        "proof": "expenses/expense.pdf",
+        "status": "P"
+    }
+},
+{
+    "model": "fellowms.blog",
+    "pk": 1,
+    "fields": {
+        "event": 1,
+        "draft_url": "http://google.com/"
+    }
+}
+]
