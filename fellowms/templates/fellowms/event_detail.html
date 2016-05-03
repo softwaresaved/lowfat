@@ -2,5 +2,52 @@
 
 {% block content %}
 <h1>Event Detail</h1>
-{{ event.name }}
+<table>
+    <tbody>
+        <tr>
+            <th>Name</th>
+            <td>{{ event.name }}<td>
+        </tr>
+        <tr>
+            <th>URL</th>
+            <td>{{ event.url }}<td>
+        </tr>
+        <tr>
+            <th>Start date</th>
+            <td>{{ event.start_date }}<td>
+        </tr>
+        <tr>
+            <th>End data</th>
+            <td>{{ event.end_data }}<td>
+        </tr>
+        {% if user.is_authenticated %}
+        <tr>
+            <th>Budget request travel</th>
+            <td>{{ event.budget_request_travel }}<td>
+        </tr>
+        <tr>
+            <th>Budget request attendance fees</th>
+            <td>{{ event.budget_request_attendance_fees }}<td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+{% if user.is_authenticated %}
+<h2>Expenses</h2>
+<ul>
+{% for expense in expenses %}
+<li><a href="{{ expense.proof.url }}">{{ expense.proof.url }}</a></li>
+{% empty %}
+<li>No expenses.</li>
+{% endfor %}
+</ul>
+{% endif %}
+<h2>Blogs</h2>
+<ul>
+{% for blog in blogs %}
+<li><a href="{{ blog.draft_url }}">{{ blog.draft_url }}</a></li>
+{% empty %}
+<li>No blog.</li>
+{% endfor %}
+</ul>
 {% endblock %}

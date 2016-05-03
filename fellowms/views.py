@@ -72,8 +72,11 @@ def event(request):
     return render(request, 'fellowms/form.html', context)
 
 def event_detail(request, event_id):
+    this_event = Event.objects.get(id=event_id)
     context = {
-            'event': Event.objects.get(id=event_id),
+            'event': this_event,
+            'expenses': Expense.objects.filter(event=this_event),
+            'blogs': Blog.objects.filter(event=this_event),
             }
 
     return render(request, 'fellowms/event_detail.html', context)
