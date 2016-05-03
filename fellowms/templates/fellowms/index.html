@@ -7,9 +7,11 @@
 <ul class="list-group row">
 {% for fellow in fellows %}
 <li class="list-group-item col-xs-3">
+    <a href="{% url 'fellow_detail' fellow.id %}">
     <img src="{{fellow.photo.url}}" alt="Photo of {{ fellow.forenames }} {{ fellow.surname }}" class="img-responsive img-circle">
     <br>
     {{ fellow.forenames }} {{ fellow.surname }}
+    </a>
 </li>
 {% endfor %}
 <ul>
