@@ -108,7 +108,7 @@ def expense_detail(request, expense_id):
 def blog(request):
     if request.POST:
         # Handle submission
-        formset = Blog(request.POST)
+        formset = BlogForm(request.POST)
 
         if formset.is_valid():
             blog = formset.save()
