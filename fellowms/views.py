@@ -50,9 +50,7 @@ def event(request):
     if request.POST:
         # Handle submission
         post = request.POST.copy()
-        print(post)
         fellow = Fellow.objects.get(email=post['fellow'])
-        print(fellow)
         post['fellow'] = fellow.id
         formset = EventForm(post)
 
