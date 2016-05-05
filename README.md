@@ -97,3 +97,11 @@ $ git push origin master
 - `requirements.txt`
 
   Python dependencies used by `pip`.
+
+## Unit Test
+
+To run the unit test collection:
+
+~~~
+$ python3 manage.py test
+~~~

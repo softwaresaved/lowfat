@@ -1,3 +1,4 @@
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from .models import Fellow, Event
 
@@ -7,13 +8,22 @@ class FellowTestCase(TestCase):
                 {
                     "forenames": "A",
                     "surname": "C",
-                    "affiliation": "King's College",
-                    "research_area": "L391",
                     "email": "a.c@mail.com",
                     "phone": "+441111111111",
                     "gender": "M",
-                    "work_description": "Sociology of science & technology",
-                    "year": "2013",
+                    "home_location": "London",
+                    "photo": SimpleUploadedFile('a_c.jpg', ''),
+                    "research_area": "L391",
+                    "affiliation": "King's College",
+                    "funding": "Self-funded",
+                    "work_description": "Work",
+                    "website": "",
+                    "website_feed": "",
+                    "orcid": "",
+                    "github": "",
+                    "gitlab": "",
+                    "twitter": "",
+                    "facebook": "",
                 },
                 )
 
@@ -33,18 +43,20 @@ class EventTestCase(TestCase):
                 {
                     "fellow": Fellow.objects.get(id=1),
                     "category": "O",
-                    "name": "CW16",
-                    "url": "http://www.software.ac.uk/cw16",
-                    "location": "Edinburgh",
-                    "start_date": "2016-03-18",
-                    "end_date": "2016-03-20",
-                    "budget_request_travel": 100.00,
-                    "budget_request_attendance_fees": 50.00,
-                    "budget_request_subsistence_cost": 50.00,
-                    "budget_request_venue_hire": 0.00,
-                    "budget_request_catering": 0.00,
-                    "budget_request_others": 0.00,
-                    "justification": "Collaborate.",
+                    "name": "Test 1",
+                    "url": "test1.com",
+                    "location": "UK",
+                    "start_date": "2016-05-16",
+                    "end_date": "2016-05-18",
+                    "budget_request_travel": "300.00",
+                    "budget_request_attendance_fees": "0.00",
+                    "budget_request_subsistence_cost": "0.00",
+                    "budget_request_venue_hire": "0.00",
+                    "budget_request_catering": "0.00",
+                    "budget_request_others": "0.00",
+                    "budget_approve": "0.00",
+                    "justification": ":-)",
+                    "additional_info": "",
                 },
                 )
         for event in events:
