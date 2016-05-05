@@ -13,7 +13,7 @@ program.
 
 ~~~
 $ sudo apt-get install python3 sqlite3
-$ sudo python3 -m pip install django
+$ sudo python3 -m pip install -r requirements.txt
 ~~~
 
 ## Initialization
@@ -93,3 +93,7 @@ $ git push origin master
 - `README.md`
 
   Root of documentation.
+
+- `requirements.txt`
+
+  Python dependencies used by `pip`.
