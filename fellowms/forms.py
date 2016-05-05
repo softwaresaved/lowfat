@@ -22,11 +22,8 @@ class EventForm(ModelForm):
         # We don't want to expose fellows' data
         # so we will request the email
         # and match on the database.
-        widgets = {
-                'fellow': widgets.TextInput(),
-                }
         labels = {
-                'fellow': 'Your email',
+                'fellow': 'Fellow',
                 'url': "Event's homepage url",
                 'name': "Event's name",
                 }

@@ -94,7 +94,7 @@ class Fellow(models.Model):
             null=True)
 
     def __str__(self):
-        return "{} {} <{}>".format(self.forenames, self.surname, self.email)
+        return "{} {}".format(self.forenames, self.surname)
 
 
 class Event(models.Model):
