@@ -139,3 +139,6 @@ MEDIA_ROOT = BASE_DIR
 # https://docs.djangoproject.com/en/1.9/topics/auth/default/
 
 LOGIN_URL = '/sign_in/'
+
+# Email backend for development
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

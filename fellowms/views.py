@@ -7,6 +7,7 @@ from django.shortcuts import render
 
 from .models import Fellow, Event, Expense, Blog
 from .forms import FellowForm, EventForm, ExpenseForm, BlogForm
+from .mail import *
 
 def index(request):
     context = {
@@ -52,12 +53,14 @@ def event(request):
     if request.POST:
         # Handle submission
         post = request.POST.copy()
-        fellow = Fellow.objects.get(email=post['fellow'])
+        fellow = Fellow.objects.get(id=post['fellow'])
         post['fellow'] = fellow.id
         formset = EventForm(post)
 
         if formset.is_valid():
             event = formset.save()
+            event2admin(event.id)
+            event2user(fellow.email, event.id)
             return HttpResponseRedirect(reverse('event_detail',
                 args=[event.id,]))
     else:
