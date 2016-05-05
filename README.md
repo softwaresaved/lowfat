@@ -5,7 +5,14 @@ program.
 
 ## Dependencies
 
+- Python 3
+- Django
+- SQLite 3
+
+### Dependencies Resolution on Debian and Ubuntu
+
 ~~~
+$ sudo apt-get install python3 sqlite3
 $ sudo python3 -m pip install django
 ~~~
 
@@ -13,6 +20,8 @@ $ sudo python3 -m pip install django
 
 **Only run the following commands after you clone this repository
 or when you pull new commits.**
+
+Need to get CSS files and create local database.
 
 ~~~
 $ ./bootstrap.sh
@@ -48,3 +57,39 @@ $ python3 manage.py dumpdata --indent 4 fellowms > fixtures/demo.json
 $ git commit -am 'Update database'
 $ git push origin master
 ~~~
+
+## Development
+
+### File System
+
+- `bootstrap.sh`
+
+  File to download CSS files.
+
+- `db.sqlite3`
+
+  Local database.
+
+- `expenses/`
+
+  Expense files used for test.
+
+- `fellowms/`
+
+  Django application root.
+
+- `fixtures/`
+
+  Data used when testing.
+
+- `manage.py
+
+  Django command line script.
+
+- `photos/`
+
+  Photos used for test.
+
+- `README.md`
+
+  Root of documentation.
