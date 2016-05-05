@@ -13,7 +13,6 @@ curl \
 unzip \
     $ZIP_FILE \
     -d $TMP_FOLDER
-mkdir $STATIC_FOLDER
 for folder in css fonts js
 do
     cp -r $TMP_FOLDER/*/$folder $STATIC_FOLDER
