@@ -1,7 +1,7 @@
 # Fellow Management System
 
-Software Sustainability Institute internal tool to manager the Fellowship
-program.
+Software Sustainability Institute internal tool to manage the Fellowship
+programme.
 
 ## Dependencies
 
