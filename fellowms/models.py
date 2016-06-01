@@ -53,6 +53,12 @@ class Fellow(models.Model):
             default="R")
     home_location = models.CharField(max_length=MAX_CHAR_LENGHT,
             blank=False)
+    home_lon = models.FloatField(
+            null=True,
+            blank=True)
+    home_lat = models.FloatField(
+            null=True,
+            blank=True)
     photo = models.FileField(
             upload_to='photos/',  # File will be uploaded to MEDIA_ROOT/photos
             null=False,
