@@ -32,8 +32,7 @@ def handle_applicants():
                 github="",
                 gitlab="",
                 twitter="",
-                facebook="",
-                inauguration_year=row["Year"])
+                facebook="")
 
         # FIXME The script must be more stable.
         try:
