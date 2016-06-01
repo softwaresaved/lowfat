@@ -121,8 +121,7 @@ class Event(models.Model):
     name = models.CharField(max_length=MAX_CHAR_LENGHT,
             blank=False)
     url = models.CharField(max_length=MAX_CHAR_LENGHT,
-            blank=False,
-            unique=True)
+            blank=False)
     location = models.CharField(max_length=MAX_CHAR_LENGHT,
             blank=False)
     start_date = models.DateField(blank=False)
