@@ -53,6 +53,14 @@ def handle_info():
                 row["Funding (self-reported)"],
                 row["funding (google)"])
 
+        # XXX The is some problem with the data. :-(
+        home_lon = row["Home Longitude"]
+        if type(home_lon) != float:
+            home_lon = home_lon[0]
+        home_lat = row["Home Latitude"]
+        if type(home_lat) != float:
+            home_lat = home_lat[0]
+
         try:
             # XXX This can create duplicates.
             fellow = Fellow.objects.get(
@@ -61,8 +69,8 @@ def handle_info():
 
             fellow.inauguration_year = row["Inauguration year"]
             fellow.home_location = row["Home Location"],
-            fellow.home_lon = row["Home Longitude"],
-            fellow.home_lat = row["Home Latitude"],
+            fellow.home_lon = home_lon
+            fellow.home_lat = home_lat
             fellow.research_area = row["HESA JACS3 Level 2 Code"],
             fellow.affiliation = row["Home institution"],
         except ObjectDoesNotExist as e:
@@ -73,8 +81,8 @@ def handle_info():
                     phone="{}{}".format(forenames[0], surname[0]),
                     gender='R',
                     home_location=row["Home Location"],
-                    home_lon=row["Home Longitude"],
-                    home_lat=row["Home Latitude"],
+                    home_lon=home_lon,
+                    home_lat=home_lat,
                     photo="blank.jpg",
                     research_area=row["HESA JACS3 Level 2 Code"],
                     affiliation=row["Home institution"],
@@ -127,6 +135,6 @@ class Command(BaseCommand):
 
     # TODO Make use of args and options.
     def handle(self, *args, **options):
-        # handle_applicants()
+        handle_applicants()
         handle_info()
         # handle_events()
