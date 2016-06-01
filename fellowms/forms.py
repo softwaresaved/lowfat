@@ -9,6 +9,7 @@ class FellowForm(ModelForm):
                 "home_lon",
                 "home_lat",
                 "inauguration_year",
+                "funding_notes",
                 "mentor",
                 ]
 
