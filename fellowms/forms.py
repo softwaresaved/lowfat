@@ -6,6 +6,8 @@ class FellowForm(ModelForm):
     class Meta:
         model = Fellow
         exclude = [
+                "home_lon",
+                "home_lat",
                 "inauguration_year",
                 "mentor",
                 ]
