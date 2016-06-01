@@ -46,8 +46,7 @@ class Fellow(models.Model):
             blank=False,
             unique=True)
     phone = models.CharField(max_length=MAX_PHONE_LENGHT,
-            blank=False,
-            unique=True)
+            blank=False)
     gender = models.CharField(choices=GENDERS,
             max_length=1,
             default="R")
