@@ -76,10 +76,26 @@ def event(request):
 
 def event_detail(request, event_id):
     this_event = Event.objects.get(id=event_id)
+
+    # Get summary of budget request
+    budget_request = sum([
+        this_event.budget_request_travel,
+        this_event.budget_request_attendance_fees,
+        this_event.budget_request_subsistence_cost,
+        this_event.budget_request_venue_hire,
+        this_event.budget_request_catering,
+        this_event.budget_request_others,
+        ])
+
+    # Get others events from same fellow to know budget available.
+    budget_available = 0
+
     context = {
             'event': this_event,
             'expenses': Expense.objects.filter(event=this_event),
             'blogs': Blog.objects.filter(event=this_event),
+            'budget_request': budget_request,
+            'budget_available': budget_available,
             }
 
     return render(request, 'fellowms/event_detail.html', context)

@@ -1,7 +1,8 @@
 {% extends "fellowms/base.html" %}
 
 {% block content %}
-<h1>Event Detail</h1>
+<h1>Event</h1>
+<h2>General Details</h1>
 <table>
     <tbody>
         <tr>
@@ -20,19 +21,55 @@
             <th>End data</th>
             <td>{{ event.end_data }}<td>
         </tr>
-        {% if user.is_authenticated %}
-        <tr>
-            <th>Budget request travel</th>
-            <td>{{ event.budget_request_travel }}<td>
-        </tr>
-        <tr>
-            <th>Budget request attendance fees</th>
-            <td>{{ event.budget_request_attendance_fees }}<td>
-        </tr>
-        {% endif %}
     </tbody>
 </table>
 {% if user.is_authenticated %}
+<h2>Budget Summary</h2>
+<table>
+    <tbody>
+        <tr>
+            <th>Budget request</th>
+            <td>{{ budget_request }}<td>
+        </tr>
+        <tr>
+            <th>Budget available</th>
+            <td>{{ budget_available }}<td>
+        </tr>
+        <tr>
+            <th>Budget approve</th>
+            <td>{{ event.budget_approve }}<td>
+        </tr>
+    </tbody>
+</table>
+<h2>Budget Details</h2>
+<table>
+    <tbody>
+        <tr>
+            <th>Travel expenses</th>
+            <td>{{ event.budget_request_travel }}<td>
+        </tr>
+        <tr>
+            <th>Attendance fees</th>
+            <td>{{ event.budget_request_attendance_fees }}<td>
+        </tr>
+        <tr>
+            <th>Subsistence cost</th>
+            <td>{{ event.budget_request_subsistence_cost }}<td>
+        </tr>
+        <tr>
+            <th>Venue hire</th>
+            <td>{{ event.budget_request_venue_hire }}<td>
+        </tr>
+        <tr>
+            <th>Catering</th>
+            <td>{{ event.budget_request_catering }}<td>
+        </tr>
+        <tr>
+            <th>Others</th>
+            <td>{{ event.budget_request_others }}<td>
+        </tr>
+    </tbody>
+</table>
 <h2>Expenses</h2>
 <ul>
 {% for expense in expenses %}
