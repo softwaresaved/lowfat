@@ -73,6 +73,9 @@ class Fellow(models.Model):
             blank=False)
     funding = models.CharField(max_length=MAX_CHAR_LENGHT,
             blank=False)
+    funding_notes = models.TextField(
+            null=True,
+            blank=True)
     work_description = models.TextField(blank=False)
 
     # Social media
