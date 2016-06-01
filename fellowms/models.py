@@ -95,8 +95,9 @@ class Fellow(models.Model):
             blank=True)
 
     # Admin fields
-    inauguration_year = models.IntegerField(blank=False,
-            default=2017)
+    inauguration_year = models.IntegerField(
+            null=True,
+            blank=True)
     # Mentors need to be another fellow
     mentor = models.ForeignKey('self',
             blank=True,
