@@ -1,32 +1,85 @@
 import pandas as pd
 
 from django.core.management.base import BaseCommand, CommandError
+from django.core.exceptions import ObjectDoesNotExist
 
 from fellowms.models import Fellow
 
 # TODO Add others files
-CSV_FILEAME = "data/applicants.csv"
+APPLICANTS_CSV = "data/applicants.csv"
+INFO_CSV = "data/info.csv"
+EVENTS_CSV = "data/events.csv"
 
-class Command(BaseCommand):
-    help = "Add old information to database."
+def handle_applicants():
+    data = pd.read_csv(APPLICANTS_CSV)
 
-    # TODO Make use of args and options.
-    def handle(self, *args, **options):
-        data = pd.read_csv(CSV_FILEAME)
+    for index, row in data.iterrows():
+        fellow = Fellow(
+                forenames=row["Forename(s)"],
+                surname=row["Surname"],
+                email=row["E-mail"],
+                phone=row["Telephone number"],
+                gender=row["Gender"],
+                home_location="",
+                photo="blank.jpg",
+                research_area=row["Research area"],
+                affiliation=row["Home institution"],
+                funding=row["Primary funder"],
+                work_description=row["Describe your work"],
+                website="",
+                website_feed="",
+                orcid="",
+                github="",
+                gitlab="",
+                twitter="",
+                facebook="",
+                inauguration_year=row["Year"])
 
-        for index, row in data.iterrows():
+        # FIXME The script must be more stable.
+        try:
+            fellow.save()
+        except:
+            pass
+
+def handle_info():
+    data = pd.read_csv(INFO_CSV)
+
+    for index, row in data.iterrows():
+        fullname = row["Fellow"].strip().split(" ")
+        surname = fullname[-1]
+        forenames = " ".join(fullname[:-1])
+
+        funding = "{}, {}".format(
+                row["Funding (self-reported)"],
+                row["funding (google)"])
+
+        try:
+            # XXX This can create duplicates.
+            fellow = Fellow.objects.get(
+                    forenames=forenames,
+                    surname=surname)
+
+            fellow.inauguration_year = row["Inauguration year"]
+            fellow.home_location = row["Home Location"],
+            fellow.home_lon = row["Home Longitude"],
+            fellow.home_lat = row["Home Latitude"],
+            fellow.research_area = row["HESA JACS3 Level 2 Code"],
+            fellow.affiliation = row["Home institution"],
+        except ObjectDoesNotExist as e:
             fellow = Fellow(
-                    forenames=row["Forename(s)"],
-                    surname=row["Surname"],
-                    email=row["E-mail"],
-                    phone=row["Telephone number"],
-                    gender=row["Gender"],
-                    home_location="",
+                    forenames=forenames,
+                    surname=surname,
+                    email="{}.{}@missing.com".format(forenames, surname),
+                    phone="{}{}".format(forenames[0], surname[0]),
+                    gender='R',
+                    home_location=row["Home Location"],
+                    home_lon=row["Home Longitude"],
+                    home_lat=row["Home Latitude"],
                     photo="blank.jpg",
-                    research_area=row["Research area"],
+                    research_area=row["HESA JACS3 Level 2 Code"],
                     affiliation=row["Home institution"],
-                    funding=row["Primary funder"],
-                    work_description=row["Describe your work"],
+                    funding=funding,
+                    work_description="",
                     website="",
                     website_feed="",
                     orcid="",
@@ -34,10 +87,46 @@ class Command(BaseCommand):
                     gitlab="",
                     twitter="",
                     facebook="",
-                    inauguration_year=row["Year"])
+                    inauguration_year=row["Inauguration year"])
 
-            # FIXME The script must be more stable.
-            try:
-                fellow.save()
-            except:
-                pass
+        fellow.save()
+
+def handle_events():
+    data = pd.read_csv(INFO_CSV)
+
+    for index, row in data.iterrows():
+        fellow = Fellow(
+                forenames=row["Forename(s)"],
+                surname=row["Surname"],
+                email=row["E-mail"],
+                phone=row["Telephone number"],
+                gender=row["Gender"],
+                home_location="",
+                photo="blank.jpg",
+                research_area=row["Research area"],
+                affiliation=row["Home institution"],
+                funding=row["Primary funder"],
+                work_description=row["Describe your work"],
+                website="",
+                website_feed="",
+                orcid="",
+                github="",
+                gitlab="",
+                twitter="",
+                facebook="",
+                inauguration_year=row["Year"])
+
+        # FIXME The script must be more stable.
+        try:
+            fellow.save()
+        except:
+            pass
+
+class Command(BaseCommand):
+    help = "Add old information to database."
+
+    # TODO Make use of args and options.
+    def handle(self, *args, **options):
+        # handle_applicants()
+        handle_info()
+        # handle_events()
