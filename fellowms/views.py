@@ -11,7 +11,7 @@ from .mail import *
 
 def index(request):
     context = {
-            'fellows': Fellow.objects.all(),
+            'fellows': Fellow.objects.exclude(inauguration_year=None).order_by('inauguration_year').reverse(),
             'events': Event.objects.all(),
             }
     return render(request, 'fellowms/index.html', context)
