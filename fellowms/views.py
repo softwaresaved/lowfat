@@ -12,7 +12,7 @@ from .mail import *
 def index(request):
     context = {
             'fellows': Fellow.objects.exclude(inauguration_year=None).order_by('inauguration_year').reverse(),
-            'events': Event.objects.all(),
+            'events': Event.objects.filter(category="H").order_by("start_date").reverse(),
             }
     return render(request, 'fellowms/index.html', context)
 
