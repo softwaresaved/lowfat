@@ -36,6 +36,7 @@ class Fellow(models.Model):
     """Describe a fellow."""
     class Meta:
         app_label = 'fellowms'
+        unique_together = ('forenames', 'surname')
 
     # Personal info
     forenames = models.CharField(max_length=MAX_CHAR_LENGHT,
