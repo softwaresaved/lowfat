@@ -3,7 +3,7 @@ import pandas as pd
 from django.core.management.base import BaseCommand, CommandError
 from django.core.exceptions import ObjectDoesNotExist
 
-from fellowms.models import Fellow
+from fellowms.models import Fellow, Event
 
 # TODO Add others files
 APPLICANTS_CSV = "data/applicants.csv"
@@ -99,41 +99,57 @@ def handle_info():
         fellow.save()
 
 def handle_events():
-    data = pd.read_csv(INFO_CSV)
+    data = pd.read_csv(EVENTS_CSV)
 
     for index, row in data.iterrows():
-        fellow = Fellow(
-                forenames=row["Forename(s)"],
-                surname=row["Surname"],
-                email=row["E-mail"],
-                phone=row["Telephone number"],
-                gender=row["Gender"],
-                home_location="",
-                photo="blank.jpg",
-                research_area=row["Research area"],
-                affiliation=row["Home institution"],
-                funding=row["Primary funder"],
-                work_description=row["Describe your work"],
-                website="",
-                website_feed="",
-                orcid="",
-                github="",
-                gitlab="",
-                twitter="",
-                facebook="",
-                inauguration_year=row["Year"])
+        fullname = row["Fellow name"].strip().split(" ")
+        surname = fullname[-1]
+        forenames = " ".join(fullname[:-1])
+
+        fellow = Fellow.objects.get(
+                forenames=forenames,
+                surname=surname)
+
+        category = "O"
+        print(row)
+        if row["Event type"] == "Attending a conference/workshop":
+            category = "A"
+        elif row["Event type"] == "Organising a workshop (e.g. Software Carpentry)":
+            category = "H"
+
+        if row["Approved"] == "Yes":
+            budget_approve = True
+        else:
+            budget_approve = False
+
+        event = Event(
+                fellow=fellow,
+                category=category,
+                name=row["Event name"],
+                url=row["Event website"],
+                location=row["Event location"],
+                start_date=pd.to_datetime(row['Start date'], format='%d/%m/%Y'),
+                end_date=pd.to_datetime(row['End date'], format='%d/%m/%Y'),
+                budget_request_travel=row["Travel costs"],
+                budget_request_attendance_fees=row["Conference/Workshop attendance fees"],
+                budget_request_subsistence_cost=row["Subsistence costs"],
+                budget_request_venue_hire=row["Venue hire"],
+                budget_request_catering=row["Catering"],
+                budget_request_others=row["Other costs"],
+                budget_approve=budget_approve,
+                justification=row["How is the event relevant to the work of the Software Sustainability Institute?"],
+                additional_info=row["Any other information relevant to this application?"],
+                status="A"  # FIXME
+                )
 
         # FIXME The script must be more stable.
-        try:
-            fellow.save()
-        except:
-            pass
+        event.save()
 
 class Command(BaseCommand):
     help = "Add old information to database."
 
     # TODO Make use of args and options.
     def handle(self, *args, **options):
-        handle_applicants()
-        handle_info()
-        # handle_events()
+        # handle_applicants()
+        # handle_info()
+        handle_events()
