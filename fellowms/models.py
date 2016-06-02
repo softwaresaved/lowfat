@@ -28,7 +28,10 @@ EVENT_STATUS = (
         )
 
 EXPENSE_STATUS = (
+        ('W', 'Not submitted yet'),
+        ('S', 'Submitted (but not processed yet)'),
         ('P', 'Processing'),
+        ('A', 'Approved (waiting reply from finances)'),
         ('F', 'Finished'),
         )
 
