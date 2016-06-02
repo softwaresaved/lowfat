@@ -1,5 +1,6 @@
 import uuid
 
+from django.conf import settings
 from django.db import models
 
 MAX_CHAR_LENGHT = 120
@@ -49,6 +50,13 @@ class Fellow(models.Model):
     class Meta:
         app_label = 'fellowms'
         unique_together = ('forenames', 'surname')
+
+    # Authentication
+    #
+    # We use this to only allow fellow to access their own data.
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,
+            null=True,
+            blank=True)
 
     # Personal info
     forenames = models.CharField(max_length=MAX_CHAR_LENGHT,
