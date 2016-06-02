@@ -35,6 +35,15 @@ EXPENSE_STATUS = (
         ('F', 'Finished'),
         )
 
+BLOG_POST_STATUS = (
+        ('U', 'Unprocessed'),
+        ('R', 'On Google Drive (for review)'),
+        ('L', 'On pipeline to be published'),
+        ('P', 'Published'),
+        ('D', 'Declined'),
+        ('O', 'Out of date'),
+        )
+
 class Fellow(models.Model):
     """Describe a fellow."""
     class Meta:
@@ -205,6 +214,9 @@ class Blog(models.Model):
             blank=False)
     draft_url = models.CharField(max_length=MAX_CHAR_LENGHT,
                 blank=False)
+    status = models.CharField(choices=BLOG_POST_STATUS,
+            max_length=1,
+            default="U")
 
     def __str__(self):
         return "{}".format(self.draft_url)
