@@ -1,21 +1,31 @@
 {% extends "fellowms/base.html" %}
 
 {% block content %}
-{% if user.is_authenticated %}
+{% if user.is_superuser %}
 <h1>Software Sustainability Institute Fellowship Program - Admin</h1>
 {% else %}
 <h1>Software Sustainability Institute Fellowship Program</h1>
 {% endif %}
+{% if user.is_authenticated %}
+<p>Your events are:</p>
+<ul>
+{% for event in events %}
+<li><a href="{% url 'event_detail' event.id %}">{{ event.name }}</a></li>
+{% empty %}
+<li>No events.</li>
+{% endfor %}
+</ul>
+{% endif %}
 <p>If you need us to process something please use one of the links bellow:</p>
 <ul>
-    {% if user.is_authenticated %}
+    {% if user.is_superuser %}
     <li><a href="{% url 'fellow' %}">Create fellow profile</a></li>
     {% endif %}
     <li><a href="{% url 'event' %}">Request event support</a></li>
     <li><a href="{% url 'blog' %}">Request process of blog post</a></li>
     <li><a href="{% url 'expense' %}">Claim reimbursement for expense</a></li>
 </ul>
-{% if user.is_authenticated %}
+{% if user.is_superuser %}
 <p>You can edit the information on the database <a href="{% url 'admin:index' %}">here</a>.</p>
 {% else %}
 <p>If you didn't find what you are looking for please email us at <a href="">admin</a>.</p>

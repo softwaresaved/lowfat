@@ -19,7 +19,14 @@ def index(request):
     return render(request, 'fellowms/index.html', context)
 
 def dashboard(request):
-    return render(request, 'fellowms/dashboard.html')
+    context = {}
+
+    if request.user.is_authenticated():
+        fellow = Fellow.objects.get(user=request.user)
+
+        context['events'] = Event.objects.filter(fellow=fellow)
+
+    return render(request, 'fellowms/dashboard.html', context)
 
 @login_required
 def fellow(request):
