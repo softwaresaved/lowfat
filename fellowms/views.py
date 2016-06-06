@@ -22,9 +22,10 @@ def dashboard(request):
     context = {}
 
     if request.user.is_authenticated():
-        fellow = Fellow.objects.get(user=request.user)
+        if not request.user.is_superuser and not request.user.is_staff:
+            fellow = Fellow.objects.get(user=request.user)
 
-        context['events'] = Event.objects.filter(fellow=fellow)
+            context['events'] = Event.objects.filter(fellow=fellow)
 
     return render(request, 'fellowms/dashboard.html', context)
 
