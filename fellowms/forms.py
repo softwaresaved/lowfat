@@ -20,6 +20,7 @@ class EventForm(ModelForm):
         model = Event
         exclude = [
                 "status",
+                "ad_status",
                 "budget_approve",
                 "report_url",
                 ]

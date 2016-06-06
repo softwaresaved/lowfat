@@ -21,6 +21,13 @@ EVENT_CATEGORY = (
         ('O', 'Other'),
         )
 
+AD_STATUS = (
+        ('U', 'Unprocessed'),
+        ('V', 'Visible'),
+        ('H', 'Hide'),
+        ('A', 'Archived'),
+        )
+
 EVENT_STATUS = (
         ('U', 'Unprocessed'),
         ('P', 'Processing'),
@@ -184,6 +191,9 @@ class Event(models.Model):
     additional_info = models.TextField(blank=True)
 
     # Admin fields
+    ad_status = models.CharField(choices=AD_STATUS,
+            max_length=1,
+            default="U")
     status = models.CharField(choices=EVENT_STATUS,
             max_length=1,
             default="U")
