@@ -30,7 +30,7 @@
         </tr>
 {% for event in events %}
 <tr>
-    <td><a href="{{event.url}}">{{event.name}}</a></td>
+    <td><a href="{% url "event_detail" event.id %}">{{event.name}}</a> <a href="{{event.url}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
     <td>{{event.start_date}}</td>
     <td>{{event.end_date}}</td>
 </tr>
