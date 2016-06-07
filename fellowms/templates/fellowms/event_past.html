@@ -1,0 +1,27 @@
+{% extends "fellowms/base.html" %}
+
+{% block content %}
+<h1>Previous events</h1>
+<table>
+    <tbody>
+        <tr>
+            <th>Name</th>
+            <th>Start date</th>
+            <th>End data</th>
+        </tr>
+{% for event in events %}
+<tr>
+    <td><a href="{{event.url}}">{{event.name}}</a></td>
+    <td>{{event.start_date}}</td>
+    <td>{{event.end_date}}</td>
+</tr>
+{% empty %}
+<tr>
+    <td>No events.</td>
+    <td></td>
+    <td></td>
+</tr>
+{% endfor %}
+    </tbody>
+</table>
+{% endblock %}

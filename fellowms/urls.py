@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^fellow/(?P<fellow_id>[0-9]+)/', views.fellow_detail, name="fellow_detail"),
     url(r'^fellow/', views.fellow, name="fellow"),
     url(r'^event/(?P<event_id>[0-9]+)/', views.event_detail, name="event_detail"),
+    url(r'^event/previous/', views.event_past, name="event_past"),
     url(r'^event/', views.event, name="event"),
     url(r'^expense/(?P<expense_id>[0-9a-z\-]+)/', views.expense_detail, name="expense_detail"),
     url(r'^expense/', views.expense, name="expense"),

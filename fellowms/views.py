@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -99,6 +101,18 @@ def event_detail(request, event_id):
             }
 
     return render(request, 'fellowms/event_detail.html', context)
+
+def event_past(request):
+    events = Event.objects.filter(
+            start_date__lt=date.today(),
+            category="H"
+            ).order_by("start_date").reverse()
+
+    context = {
+            'events': events,
+            }
+
+    return render(request, 'fellowms/event_past.html', context)
 
 def expense(request):
     if request.POST:
