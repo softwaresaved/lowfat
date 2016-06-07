@@ -110,7 +110,12 @@ def expense(request):
             return HttpResponseRedirect(reverse('expense_detail',
                 args=[expense.id,]))
     else:
-        formset = ExpenseForm
+        event_id = request.GET.get("event_id")
+        if event_id:
+            initial = {"event": Event.objects.get(id=event_id)}
+        else:
+            initial = {}
+        formset = ExpenseForm(initial=initial)
 
     # Show submission form.
     context = {
@@ -137,7 +142,12 @@ def blog(request):
             return HttpResponseRedirect(reverse('blog_detail',
                 args=[blog.id,]))
     else:
-        formset = BlogForm
+        event_id = request.GET.get("event_id")
+        if event_id:
+            initial = {"event": Event.objects.get(id=event_id)}
+        else:
+            initial = {}
+        formset = BlogForm(initial=initial)
 
     # Show submission form.
     context = {
