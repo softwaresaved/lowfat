@@ -176,6 +176,98 @@
     }
 },
 {
+    "model": "fellowms.event",
+    "pk": 3,
+    "fields": {
+        "fellow": 1,
+        "category": "O",
+        "name": "Test - Captain America",
+        "url": "test-captain-america.com",
+        "location": "UK",
+        "start_date": "2016-06-16",
+        "end_date": "2016-06-24",
+        "budget_request_travel": "100.00",
+        "budget_request_attendance_fees": "0.00",
+        "budget_request_subsistence_cost": "0.00",
+        "budget_request_venue_hire": "0.00",
+        "budget_request_catering": "0.00",
+        "budget_request_others": "0.00",
+        "budget_approve": "0.00",
+        "justification": "Bio",
+        "additional_info": "",
+        "status": "U"
+    }
+},
+{
+    "model": "fellowms.event",
+    "pk": 4,
+    "fields": {
+        "fellow": 2,
+        "category": "O",
+        "name": "Test - Iron Man",
+        "url": "test-iron-man.com",
+        "location": "US",
+        "start_date": "2016-05-20",
+        "end_date": "2016-05-24",
+        "budget_request_travel": "100.00",
+        "budget_request_attendance_fees": "0.00",
+        "budget_request_subsistence_cost": "0.00",
+        "budget_request_venue_hire": "0.00",
+        "budget_request_catering": "0.00",
+        "budget_request_others": "0.00",
+        "budget_approve": "0.00",
+        "justification": "Bio",
+        "additional_info": "",
+        "status": "U"
+    }
+},
+{
+    "model": "fellowms.event",
+    "pk": 5,
+    "fields": {
+        "fellow": 3,
+        "category": "O",
+        "name": "Test Green Arrow",
+        "url": "test-green-arrow.com",
+        "location": "US",
+        "start_date": "2016-05-14",
+        "end_date": "2016-05-15",
+        "budget_request_travel": "100.00",
+        "budget_request_attendance_fees": "0.00",
+        "budget_request_subsistence_cost": "0.00",
+        "budget_request_venue_hire": "0.00",
+        "budget_request_catering": "0.00",
+        "budget_request_others": "0.00",
+        "budget_approve": "0.00",
+        "justification": "Bio",
+        "additional_info": "",
+        "status": "U"
+    }
+},
+{
+    "model": "fellowms.event",
+    "pk": 6,
+    "fields": {
+        "fellow": 4,
+        "category": "O",
+        "name": "Test Black Widow",
+        "url": "test-black-widow.com",
+        "location": "US",
+        "start_date": "2016-08-01",
+        "end_date": "2016-08-03",
+        "budget_request_travel": "100.00",
+        "budget_request_attendance_fees": "0.00",
+        "budget_request_subsistence_cost": "0.00",
+        "budget_request_venue_hire": "0.00",
+        "budget_request_catering": "0.00",
+        "budget_request_others": "0.00",
+        "budget_approve": "0.00",
+        "justification": "Bio",
+        "additional_info": "",
+        "status": "U"
+    }
+},
+{
     "model": "fellowms.expense",
     "pk": "aafa331a-0467-44a5-a067-726bed8efce2",
     "fields": {
