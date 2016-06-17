@@ -168,9 +168,14 @@ class Event(models.Model):
             default=0.00)
     justification = models.TextField(blank=False)
     additional_info = models.TextField(blank=True)
+
+    # Admin fields
     status = models.CharField(choices=EVENT_STATUS,
             max_length=1,
             default="U")
+    report_url = models.CharField(max_length=MAX_CHAR_LENGHT,
+            blank=True,
+            null=True)
 
     def __str__(self):
         return "{}".format(self.name)
