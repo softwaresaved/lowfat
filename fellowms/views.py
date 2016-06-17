@@ -31,16 +31,21 @@ def dashboard(request):
 
 @login_required
 def fellow(request):
+    if not request.user.is_superuser and not request.user.is_staff:
+       instance = Fellow.objects.get(user=request.user)
+    else:
+       instance = None
+
     if request.POST:
         # Handle submission
-        formset = FellowForm(request.POST, request.FILES)
+        formset = FellowForm(request.POST, request.FILES, instance=instance)
 
         if formset.is_valid():
             fellow = formset.save()
             return HttpResponseRedirect(reverse('fellow_detail',
                 args=[fellow.id,]))
     else:
-        formset = FellowForm
+        formset = FellowForm(None, instance=instance)
 
     # Show submission form.
     context = {
