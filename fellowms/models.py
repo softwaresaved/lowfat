@@ -136,6 +136,12 @@ class Event(models.Model):
             blank=False)
     location = models.CharField(max_length=MAX_CHAR_LENGHT,
             blank=False)
+    lon = models.FloatField(
+            null=True,
+            blank=True)
+    lat = models.FloatField(
+            null=True,
+            blank=True)
     start_date = models.DateField(blank=False)
     end_date = models.DateField(blank=False)
     budget_request_travel = models.DecimalField(max_digits=MAX_DIGITS,
