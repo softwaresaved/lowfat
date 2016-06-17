@@ -9,10 +9,13 @@
         "phone": "+441111111111",
         "gender": "M",
         "home_location": "L, UK",
+        "home_lon": null,
+        "home_lat": null,
         "photo": "photos/ca.jpg",
         "research_area": "L391",
         "affiliation": "College",
         "funding": "Self-funded",
+        "funding_notes": null,
         "work_description": "Work",
         "website": "",
         "website_feed": "",
@@ -35,10 +38,13 @@
         "phone": "+441111111112",
         "gender": "R",
         "home_location": "B, UK",
+        "home_lon": null,
+        "home_lat": null,
         "photo": "photos/im.jpg",
         "research_area": "F331",
         "affiliation": "University",
         "funding": "EPSRC",
+        "funding_notes": null,
         "work_description": "Tech",
         "website": "",
         "website_feed": "",
@@ -61,10 +67,13 @@
         "phone": "+441111111113",
         "gender": "F",
         "home_location": "L, UK",
+        "home_lon": null,
+        "home_lat": null,
         "photo": "photos/av.jpg",
         "research_area": "H690",
         "affiliation": "University",
         "funding": "EPSRC",
+        "funding_notes": null,
         "work_description": "Work",
         "website": "",
         "website_feed": "",
@@ -87,10 +96,13 @@
         "phone": "+441111111114",
         "gender": "F",
         "home_location": "L, UK",
+        "home_lon": null,
+        "home_lat": null,
         "photo": "photos/vn.jpg",
         "research_area": "I520",
         "affiliation": "College",
         "funding": "AHRC",
+        "funding_notes": null,
         "work_description": "Work.",
         "website": "",
         "website_feed": "",
@@ -113,10 +125,13 @@
         "phone": "+441111111115",
         "gender": "R",
         "home_location": "S, UK",
+        "home_lon": null,
+        "home_lat": null,
         "photo": "photos/hu.jpg",
         "research_area": "I710",
         "affiliation": "University",
         "funding": "EPSRC",
+        "funding_notes": null,
         "work_description": "Work",
         "website": "",
         "website_feed": "",
@@ -138,6 +153,8 @@
         "name": "Test 1",
         "url": "test1.com",
         "location": "UK",
+        "lon": null,
+        "lat": null,
         "start_date": "2016-05-16",
         "end_date": "2016-05-18",
         "budget_request_travel": "300.00",
@@ -149,7 +166,8 @@
         "budget_approve": "0.00",
         "justification": ":-)",
         "additional_info": "",
-        "status": "U"
+        "status": "U",
+        "report_url": null
     }
 },
 {
@@ -161,6 +179,8 @@
         "name": "Test 2",
         "url": "test2.com",
         "location": "US",
+        "lon": null,
+        "lat": null,
         "start_date": "2016-05-14",
         "end_date": "2016-05-24",
         "budget_request_travel": "100.00",
@@ -172,7 +192,8 @@
         "budget_approve": "0.00",
         "justification": "Bio",
         "additional_info": "",
-        "status": "U"
+        "status": "U",
+        "report_url": null
     }
 },
 {
@@ -184,6 +205,8 @@
         "name": "Test - Captain America",
         "url": "test-captain-america.com",
         "location": "UK",
+        "lon": null,
+        "lat": null,
         "start_date": "2016-06-16",
         "end_date": "2016-06-24",
         "budget_request_travel": "100.00",
@@ -195,7 +218,8 @@
         "budget_approve": "0.00",
         "justification": "Bio",
         "additional_info": "",
-        "status": "U"
+        "status": "U",
+        "report_url": null
     }
 },
 {
@@ -207,6 +231,8 @@
         "name": "Test - Iron Man",
         "url": "test-iron-man.com",
         "location": "US",
+        "lon": null,
+        "lat": null,
         "start_date": "2016-05-20",
         "end_date": "2016-05-24",
         "budget_request_travel": "100.00",
@@ -218,7 +244,8 @@
         "budget_approve": "0.00",
         "justification": "Bio",
         "additional_info": "",
-        "status": "U"
+        "status": "U",
+        "report_url": null
     }
 },
 {
@@ -230,6 +257,8 @@
         "name": "Test Green Arrow",
         "url": "test-green-arrow.com",
         "location": "US",
+        "lon": null,
+        "lat": null,
         "start_date": "2016-05-14",
         "end_date": "2016-05-15",
         "budget_request_travel": "100.00",
@@ -241,7 +270,8 @@
         "budget_approve": "0.00",
         "justification": "Bio",
         "additional_info": "",
-        "status": "U"
+        "status": "U",
+        "report_url": null
     }
 },
 {
@@ -253,6 +283,8 @@
         "name": "Test Black Widow",
         "url": "test-black-widow.com",
         "location": "US",
+        "lon": null,
+        "lat": null,
         "start_date": "2016-08-01",
         "end_date": "2016-08-03",
         "budget_request_travel": "100.00",
@@ -264,7 +296,8 @@
         "budget_approve": "0.00",
         "justification": "Bio",
         "additional_info": "",
-        "status": "U"
+        "status": "U",
+        "report_url": null
     }
 },
 {
@@ -290,7 +323,8 @@
     "pk": 1,
     "fields": {
         "event": 1,
-        "draft_url": "http://google.com/"
+        "draft_url": "http://google.com/",
+        "status": "U"
     }
 }
 ]
