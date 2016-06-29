@@ -97,9 +97,8 @@ def event_detail(request, event_id):
                 }
 
     if request.user.is_authenticated():
-        fellow = Fellow.objects.get(user=request.user)
-
-        if fellow == this_event.fellow:
+        if (request.user.is_superuser or
+            Fellow.objects.get(user=request.user) == this_event.fellow):
             budget_request = sum([
                 this_event.budget_request_travel,
                 this_event.budget_request_attendance_fees,
