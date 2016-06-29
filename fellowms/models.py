@@ -230,7 +230,7 @@ class Expense(models.Model):
             default="P")
 
     def __str__(self):
-        return self.proof
+        return self.proof.name
 
 
 class Blog(models.Model):
