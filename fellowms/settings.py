@@ -133,7 +133,7 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#media-url
 
 MEDIA_URL = '/upload/'
-MEDIA_ROOT = BASE_DIR
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'upload')
 
 # Authentication system
 # https://docs.djangoproject.com/en/1.9/topics/auth/default/

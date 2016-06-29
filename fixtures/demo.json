@@ -694,7 +694,7 @@
     "pk": "aafa331a-0467-44a5-a067-726bed8efce2",
     "fields": {
         "event": 1,
-        "proof": "expenses/ex.pdf",
+        "proof": "expenses/ec1.pdf",
         "status": "P"
     }
 },
@@ -703,7 +703,7 @@
     "pk": "b7cb4d08-3bdc-452d-92e4-6bab1cd2f925",
     "fields": {
         "event": 1,
-        "proof": "expenses/expense.pdf",
+        "proof": "expenses/ec2.pdf",
         "status": "P"
     }
 },
