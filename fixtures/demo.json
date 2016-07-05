@@ -271,27 +271,9 @@
 },
 {
     "model": "auth.user",
-    "pk": 1,
-    "fields": {
-        "password": "pbkdf2_sha256$24000$dU0CzepDR5wS$B0QoG/MS+nkMfadL0/852pGKbgwvsbwWDiCNym6Itt0=",
-        "last_login": "2016-06-17T14:14:16.967Z",
-        "is_superuser": true,
-        "username": "raniere",
-        "first_name": "",
-        "last_name": "",
-        "email": "raniere@rgaiacs.com",
-        "is_staff": true,
-        "is_active": true,
-        "date_joined": "2016-06-17T14:14:00.409Z",
-        "groups": [],
-        "user_permissions": []
-    }
-},
-{
-    "model": "auth.user",
     "pk": 2,
     "fields": {
-        "password": "pbkdf2_sha256$24000$5kuaOL6tTxDj$9wAKj12tJljejQyHO4Catz0hZLjufWcbq4WZhQZZwic=",
+        "password": "pbkdf2_sha256$24000$akC4vLu5QtP1$ceLsF/7gpsEGkmlizCoGzl8pzvSc6aDOAnFx+8UJzqQ=",
         "last_login": null,
         "is_superuser": false,
         "username": "hulk",
@@ -309,7 +291,7 @@
     "model": "auth.user",
     "pk": 3,
     "fields": {
-        "password": "pbkdf2_sha256$24000$yVN9lmiMua0U$740qnFFWUWCZoz4xhSAs7hMZVKL6US2cJDrLYVdFnCA=",
+        "password": "pbkdf2_sha256$24000$cb0Dakeo8TNj$y63m1p5W1VkZ/qFlhjSkIPAKPuU9JTeQBN2usxo8UN8=",
         "last_login": null,
         "is_superuser": false,
         "username": "widow",
@@ -327,7 +309,7 @@
     "model": "auth.user",
     "pk": 4,
     "fields": {
-        "password": "pbkdf2_sha256$24000$2km6duHtju9x$GCGLwcDyz2FfrLbdCnQ8AXI7+BohN88VXKc0qias3xQ=",
+        "password": "pbkdf2_sha256$24000$KscCA8Wg9TQF$GVK2xEU5e3W7E7cv1IW07twHsP60uXJjgpvCefGE6Og=",
         "last_login": null,
         "is_superuser": false,
         "username": "arrow",
@@ -345,7 +327,7 @@
     "model": "auth.user",
     "pk": 5,
     "fields": {
-        "password": "pbkdf2_sha256$24000$gsbAiifr1vWk$BxF6OD3EIlV8xM8Fe+j/sG6Hlo6ozFDKwtuJDfn0ZxQ=",
+        "password": "pbkdf2_sha256$24000$nXq347kNluUI$WF+AB68gagyMKeuZ5bBvX6aYUVJVPSeJ6M6XddyPwXQ=",
         "last_login": null,
         "is_superuser": false,
         "username": "iron",
@@ -363,7 +345,7 @@
     "model": "auth.user",
     "pk": 6,
     "fields": {
-        "password": "pbkdf2_sha256$24000$qPb46NHkl57y$ei30ZmZt6VreCp6Vv1KgxzlH3UzHVa/vYDmooP+iZAk=",
+        "password": "pbkdf2_sha256$24000$1ajXNzBVQ5we$NuLVWhlQIwRvmJt3+17YOpcCmp6J+ZAXEVT8ctQeSeE=",
         "last_login": null,
         "is_superuser": false,
         "username": "captain",
@@ -373,6 +355,24 @@
         "is_staff": false,
         "is_active": true,
         "date_joined": "2016-06-17T14:16:38.097Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$24000$4cknmJktNDQD$Ir+1GfOnaww5Mf8KF86k43qCEA6SmxQxEP27LVtQ9vQ=",
+        "last_login": "2016-07-05T15:37:25.372Z",
+        "is_superuser": true,
+        "username": "info@software.ac.uk",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2016-07-05T15:35:20Z",
         "groups": [],
         "user_permissions": []
     }
