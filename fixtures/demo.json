@@ -364,7 +364,7 @@
     "pk": 8,
     "fields": {
         "password": "pbkdf2_sha256$24000$4cknmJktNDQD$Ir+1GfOnaww5Mf8KF86k43qCEA6SmxQxEP27LVtQ9vQ=",
-        "last_login": "2016-07-05T15:37:25.372Z",
+        "last_login": null,
         "is_superuser": true,
         "username": "info@software.ac.uk",
         "first_name": "",
