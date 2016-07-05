@@ -3,70 +3,70 @@
 {% block content %}
 <h1>Event</h1>
 <h2>General Details</h1>
-<table>
+<table class="table table-bordered">
     <tbody>
         <tr>
             <th>Name</th>
-            <td>{{ event.name }}<td>
+            <td>{{ event.name }}</td>
         </tr>
         <tr>
             <th>URL</th>
-            <td><a href="{{ event.url }}">{{ event.url }}</a><td>
+            <td><a href="{{ event.url }}">{{ event.url }}</a></td>
         </tr>
         <tr>
             <th>Start date</th>
-            <td>{{ event.start_date }}<td>
+            <td>{{ event.start_date }}</td>
         </tr>
         <tr>
             <th>End data</th>
-            <td>{{ event.end_data }}<td>
+            <td>{{ event.end_data }}</td>
         </tr>
     </tbody>
 </table>
 {% if budget_request %}
 <h2>Budget Summary</h2>
-<table>
+<table class="table table-bordered">
     <tbody>
         <tr>
             <th>Budget request</th>
-            <td>{{ budget_request }}<td>
+            <td>{{ budget_request }}</td>
         </tr>
         <tr>
             <th>Budget available</th>
-            <td>{{ budget_available }}<td>
+            <td>{{ budget_available }}</td>
         </tr>
         <tr>
             <th>Budget approve</th>
-            <td>{{ event.budget_approve }}<td>
+            <td>{{ event.budget_approve }}</td>
         </tr>
     </tbody>
 </table>
 <h2>Budget Details</h2>
-<table>
+<table class="table table-bordered">
     <tbody>
         <tr>
             <th>Travel expenses</th>
-            <td>{{ event.budget_request_travel }}<td>
+            <td>{{ event.budget_request_travel }}</td>
         </tr>
         <tr>
             <th>Attendance fees</th>
-            <td>{{ event.budget_request_attendance_fees }}<td>
+            <td>{{ event.budget_request_attendance_fees }}</td>
         </tr>
         <tr>
             <th>Subsistence cost</th>
-            <td>{{ event.budget_request_subsistence_cost }}<td>
+            <td>{{ event.budget_request_subsistence_cost }}</td>
         </tr>
         <tr>
             <th>Venue hire</th>
-            <td>{{ event.budget_request_venue_hire }}<td>
+            <td>{{ event.budget_request_venue_hire }}</td>
         </tr>
         <tr>
             <th>Catering</th>
-            <td>{{ event.budget_request_catering }}<td>
+            <td>{{ event.budget_request_catering }}</td>
         </tr>
         <tr>
             <th>Others</th>
-            <td>{{ event.budget_request_others }}<td>
+            <td>{{ event.budget_request_others }}</td>
         </tr>
     </tbody>
 </table>
