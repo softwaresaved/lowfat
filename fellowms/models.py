@@ -122,7 +122,8 @@ class Fellow(models.Model):
     class Meta:
         app_label = 'fellowms'
 
-    collaborator = models.OneToOneField(Collaborator,
+    collaborator = models.ForeignKey(Collaborator,
+            related_name='collaborator',
             null=False,
             blank=False)
 
@@ -145,6 +146,7 @@ class Fellow(models.Model):
 
     # Mentors need to be another collaborator
     mentor = models.ForeignKey(Collaborator,
+            related_name='mentor',
             blank=True,
             null=True)
 
