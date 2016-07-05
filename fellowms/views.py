@@ -25,7 +25,12 @@ def dashboard(request):
         if not request.user.is_superuser and not request.user.is_staff:
             fellow = Fellow.objects.get(user=request.user)
 
-            context['events'] = Event.objects.filter(fellow=fellow)
+            this_fellow_events = Event.objects.filter(fellow=fellow)
+            budget_available = 3000 - sum([event.budget_total() for event in this_fellow_events])
+            context.update({
+                'events': this_fellow_events,
+                'budget_available': budget_available,
+                })
 
     return render(request, 'fellowms/dashboard.html', context)
 
@@ -99,23 +104,12 @@ def event_detail(request, event_id):
     if request.user.is_authenticated():
         if (request.user.is_superuser or
             Fellow.objects.get(user=request.user) == this_event.fellow):
-            budget_request = sum([
-                this_event.budget_request_travel,
-                this_event.budget_request_attendance_fees,
-                this_event.budget_request_subsistence_cost,
-                this_event.budget_request_venue_hire,
-                this_event.budget_request_catering,
-                this_event.budget_request_others,
-                ])
-
-            # Get others events from same fellow to know budget available.
-            budget_available = 0
+            budget_request = this_event.budget_total()
 
             context.update({
                     'expenses': Expense.objects.filter(event=this_event),
                     'blogs': Blog.objects.filter(event=this_event),
                     'budget_request': budget_request,
-                    'budget_available': budget_available,
                     })
 
     return render(request, 'fellowms/event_detail.html', context)

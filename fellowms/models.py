@@ -204,6 +204,17 @@ class Event(models.Model):
     def __str__(self):
         return "{}".format(self.name)
 
+    def budget_total(self):
+        """Return the sum of all `budget_request`s."""
+        return sum([
+                self.budget_request_travel,
+                self.budget_request_attendance_fees,
+                self.budget_request_subsistence_cost,
+                self.budget_request_venue_hire,
+                self.budget_request_catering,
+                self.budget_request_others,
+                ])
+
 
 class Expense(models.Model):
     """This describe one expense for one event."""
