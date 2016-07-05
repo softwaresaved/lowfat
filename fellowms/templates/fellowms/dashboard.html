@@ -8,13 +8,36 @@
 {% endif %}
 {% if user.is_authenticated %}
 <p>Your events are:</p>
-<ul>
-{% for event in events %}
-<li><a href="{% url 'event_detail' event.id %}">{{ event.name }}</a></li>
-{% empty %}
-<li>No events.</li>
-{% endfor %}
-</ul>
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <th>
+        Event
+      </th>
+      <th>
+        Status
+      </th>
+    </tr>
+    {% for event in events %}
+    <tr
+       {% if event.status in 'U' %}
+       class="danger"
+       {% elif event.status in 'P' %}
+       class="warning"
+       {% elif event.status in 'AR' %}
+       class="sucess"
+       {% endif %}
+       >
+      <td>
+        <a href="{% url 'event_detail' event.id %}">{{ event.name }}</a>
+      </td>
+      <td>
+        {{ event.get_status_display }}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endif %}
 <p>If you need us to process something please use one of the links bellow:</p>
 <ul>
