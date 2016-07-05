@@ -25,11 +25,9 @@ def dashboard(request):
         if not request.user.is_superuser and not request.user.is_staff:
             fellow = Fellow.objects.get(user=request.user)
 
-            this_fellow_events = Event.objects.filter(fellow=fellow)
-            budget_available = 3000 - sum([event.budget_total() for event in this_fellow_events])
             context.update({
-                'events': this_fellow_events,
-                'budget_available': budget_available,
+                'events': Event.objects.filter(fellow=fellow),
+                'budget_available': fellow.fellowship_available(),
                 })
 
     return render(request, 'fellowms/dashboard.html', context)
