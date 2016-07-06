@@ -1,14 +1,21 @@
 from django.forms import ModelForm, widgets
 
-from .models import Fellow, Event, Expense, Blog
+from .models import Collaborator, Fellow, Event, Expense, Blog
+
+class CollaboratorForm(ModelForm):
+    class Meta:
+        model = Collaborator
+        exclude = [
+                "user",
+                "home_lon",
+                "home_lat",
+                ]
+
 
 class FellowForm(ModelForm):
     class Meta:
         model = Fellow
         exclude = [
-                "user",
-                "home_lon",
-                "home_lat",
                 "funding_notes",
                 "inauguration_year",
                 "fellowship_grant",

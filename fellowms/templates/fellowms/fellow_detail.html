@@ -3,20 +3,20 @@
 
 {% block content %}
 <h1>Fellow Detail</h1>
-<img src="{{ fellow.photo.url }}" alt="Photo of {{ fellow.forenames }} {{ fellow.surname }}" class="img-responsive img-circle" />
+<img src="{{ fellow.application.collaborator.photo.url }}" alt="Photo of {{ fellow.application.collaborator.forenames }} {{ fellow.application.collaborator.surname }}" class="img-responsive img-circle" />
 <table class="table table-bordered">
     <tbody>
         <tr>
             <th>Name</th>
-            <td>{{ fellow.forenames }} {{ fellow.surname }}</td>
+            <td>{{ fellow.application.collaborator.forenames }} {{ fellow.application.collaborator.surname }}</td>
         </tr>
         <tr>
             <th>Affiliation</th>
-            <td>{{ fellow.affiliation }}</td>
+            <td>{{ fellow.application.collaborator.affiliation }}</td>
         </tr>
         <tr>
             <th>Research area</th>
-            <td>{{ fellow.research_area }}</td>
+            <td>{{ fellow.application.collaborator.research_area }}</td>
         </tr>
     </tbody>
 </table>

@@ -52,15 +52,13 @@ BLOG_POST_STATUS = (
         ('O', 'Out of date'),
         )
 
-class Fellow(models.Model):
-    """Describe a fellow."""
+class Collaborator(models.Model):
+    """Describe a collaborator (staff or fellow)."""
     class Meta:
         app_label = 'fellowms'
         unique_together = ('forenames', 'surname')
 
     # Authentication
-    #
-    # We use this to only allow fellow to access their own data.
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
             null=True,
             blank=True)
@@ -98,12 +96,6 @@ class Fellow(models.Model):
             blank=False)
     affiliation = models.CharField(max_length=MAX_CHAR_LENGHT,
             blank=False)
-    funding = models.CharField(max_length=MAX_CHAR_LENGHT,
-            blank=False)
-    funding_notes = models.TextField(
-            null=True,
-            blank=True)
-    work_description = models.TextField(blank=False)
 
     # Social media
     website = models.CharField(max_length=MAX_CHAR_LENGHT,
@@ -121,21 +113,57 @@ class Fellow(models.Model):
     facebook = models.CharField(max_length=MAX_CHAR_LENGHT,
             blank=True)
 
-    # Admin fields
-    inauguration_year = models.IntegerField(
+    def __str__(self):
+        return "{} {}".format(self.forenames, self.surname)
+
+
+class Application(models.Model):
+    """Describe a application."""
+    class Meta:
+        app_label = 'fellowms'
+
+    collaborator = models.ForeignKey(Collaborator,
+            related_name='collaborator',
+            null=False,
+            blank=False)
+
+    # Application
+    funding = models.CharField(max_length=MAX_CHAR_LENGHT,
+            blank=False)
+    funding_notes = models.TextField(
             null=True,
             blank=True)
+    work_description = models.TextField(blank=False)
+
+    def __str__(self):
+        return "application-{}".format(self.id)
+
+
+class Fellow(models.Model):
+    """Describe a fellow."""
+    class Meta:
+        app_label = 'fellowms'
+
+    # Admin fields
+    application = models.OneToOneField(Application,
+            null=False,
+            blank=False)
+    inauguration_year = models.IntegerField(
+            null=False,
+            blank=False)
     fellowship_grant = models.IntegerField(
             default=0,
             null=False,
             blank=False)
-    # Mentors need to be another fellow
-    mentor = models.ForeignKey('self',
+
+    # Mentors need to be another collaborator
+    mentor = models.ForeignKey(Collaborator,
+            related_name='mentor',
             blank=True,
             null=True)
 
     def __str__(self):
-        return "{} {}".format(self.forenames, self.surname)
+        return "fellow-{}".format(self.id)
 
     def fellowship_available(self):
         """Return the remain fellowship grant."""
@@ -148,7 +176,7 @@ class Event(models.Model):
     class Meta:
         app_label = 'fellowms'
 
-    fellow = models.ForeignKey('Fellow',
+    collaborator = models.ForeignKey('Collaborator',
             null=False,
             blank=False)
     category = models.CharField(choices=EVENT_CATEGORY,

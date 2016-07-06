@@ -378,7 +378,7 @@
     }
 },
 {
-    "model": "fellowms.fellow",
+    "model": "fellowms.collaborator",
     "pk": 1,
     "fields": {
         "user": 6,
@@ -393,23 +393,37 @@
         "photo": "photos/ca.jpg",
         "research_area": "L391",
         "affiliation": "College",
-        "funding": "Self-funded",
-        "funding_notes": "",
-        "work_description": "Work",
         "website": "",
         "website_feed": "",
         "orcid": "",
         "github": "",
         "gitlab": "",
         "twitter": "",
-        "facebook": "",
+        "facebook": ""
+    }
+},
+{
+    "model": "fellowms.application",
+    "pk": 1,
+    "fields": {
+        "collaborator": 1,
+        "funding": "Self-funded",
+        "funding_notes": "",
+        "work_description": "Work"
+    }
+},
+{
+    "model": "fellowms.fellow",
+    "pk": 1,
+    "fields": {
+        "application": 1,
         "inauguration_year": 2017,
         "fellowship_grant": 3000,
         "mentor": null
     }
 },
 {
-    "model": "fellowms.fellow",
+    "model": "fellowms.collaborator",
     "pk": 2,
     "fields": {
         "user": 5,
@@ -424,23 +438,37 @@
         "photo": "photos/im.jpg",
         "research_area": "F331",
         "affiliation": "University",
-        "funding": "EPSRC",
-        "funding_notes": "",
-        "work_description": "Tech",
         "website": "",
         "website_feed": "",
         "orcid": "",
         "github": "",
         "gitlab": "",
         "twitter": "",
-        "facebook": "",
+        "facebook": ""
+    }
+},
+{
+    "model": "fellowms.application",
+    "pk": 2,
+    "fields": {
+        "collaborator": 2,
+        "funding": "EPSRC",
+        "funding_notes": "",
+        "work_description": "Tech"
+    }
+},
+{
+    "model": "fellowms.fellow",
+    "pk": 2,
+    "fields": {
+        "application": 2,
         "inauguration_year": 2017,
         "fellowship_grant": 3000,
         "mentor": null
     }
 },
 {
-    "model": "fellowms.fellow",
+    "model": "fellowms.collaborator",
     "pk": 3,
     "fields": {
         "user": 4,
@@ -455,23 +483,37 @@
         "photo": "photos/av.jpg",
         "research_area": "H690",
         "affiliation": "University",
-        "funding": "EPSRC",
-        "funding_notes": "",
-        "work_description": "Work",
         "website": "",
         "website_feed": "",
         "orcid": "",
         "github": "",
         "gitlab": "",
         "twitter": "",
-        "facebook": "",
+        "facebook": ""
+    }
+},
+{
+    "model": "fellowms.application",
+    "pk": 3,
+    "fields": {
+        "collaborator": 3,
+        "funding": "EPSRC",
+        "funding_notes": "",
+        "work_description": "Work"
+    }
+},
+{
+    "model": "fellowms.fellow",
+    "pk": 3,
+    "fields": {
+        "application": 3,
         "inauguration_year": 2017,
         "fellowship_grant": 3000,
         "mentor": null
     }
 },
 {
-    "model": "fellowms.fellow",
+    "model": "fellowms.collaborator",
     "pk": 4,
     "fields": {
         "user": 3,
@@ -486,23 +528,47 @@
         "photo": "photos/vn.jpg",
         "research_area": "I520",
         "affiliation": "College",
-        "funding": "AHRC",
-        "funding_notes": "",
-        "work_description": "Work.",
         "website": "",
         "website_feed": "",
         "orcid": "",
         "github": "",
         "gitlab": "",
         "twitter": "",
-        "facebook": "",
+        "facebook": ""
+    }
+},
+{
+    "model": "fellowms.application",
+    "pk": 4,
+    "fields": {
+        "collaborator": 4,
+        "funding": "AHRC",
+        "funding_notes": "",
+        "work_description": "Work."
+    }
+},
+{
+    "model": "fellowms.application",
+    "pk": 5,
+    "fields": {
+        "collaborator": 4,
+        "funding": "EPSRC",
+        "funding_notes": "",
+        "work_description": "Work"
+    }
+},
+{
+    "model": "fellowms.fellow",
+    "pk": 4,
+    "fields": {
+        "application": 5,
         "inauguration_year": 2017,
         "fellowship_grant": 3000,
         "mentor": null
     }
 },
 {
-    "model": "fellowms.fellow",
+    "model": "fellowms.collaborator",
     "pk": 5,
     "fields": {
         "user": 2,
@@ -517,16 +583,30 @@
         "photo": "photos/hu.jpg",
         "research_area": "I710",
         "affiliation": "University",
-        "funding": "EPSRC",
-        "funding_notes": "",
-        "work_description": "Work",
         "website": "",
         "website_feed": "",
         "orcid": "",
         "github": "",
         "gitlab": "",
         "twitter": "",
-        "facebook": "",
+        "facebook": ""
+    }
+},
+{
+    "model": "fellowms.application",
+    "pk": 6,
+    "fields": {
+        "collaborator": 5,
+        "funding": "EPSRC",
+        "funding_notes": "",
+        "work_description": "Work"
+    }
+},
+{
+    "model": "fellowms.fellow",
+    "pk": 5,
+    "fields": {
+        "application": 6,
         "inauguration_year": 2017,
         "fellowship_grant": 3000,
         "mentor": null
@@ -536,7 +616,7 @@
     "model": "fellowms.event",
     "pk": 1,
     "fields": {
-        "fellow": 2,
+        "collaborator": 2,
         "category": "O",
         "name": "Test 1",
         "url": "test1.com",
@@ -563,7 +643,7 @@
     "model": "fellowms.event",
     "pk": 2,
     "fields": {
-        "fellow": 5,
+        "collaborator": 5,
         "category": "O",
         "name": "Test 2",
         "url": "test2.com",
@@ -590,7 +670,7 @@
     "model": "fellowms.event",
     "pk": 3,
     "fields": {
-        "fellow": 1,
+        "collaborator": 1,
         "category": "O",
         "name": "Test - Captain America",
         "url": "test-captain-america.com",
@@ -617,7 +697,7 @@
     "model": "fellowms.event",
     "pk": 4,
     "fields": {
-        "fellow": 2,
+        "collaborator": 2,
         "category": "O",
         "name": "Test - Iron Man",
         "url": "test-iron-man.com",
@@ -644,7 +724,7 @@
     "model": "fellowms.event",
     "pk": 5,
     "fields": {
-        "fellow": 3,
+        "collaborator": 3,
         "category": "O",
         "name": "Test Green Arrow",
         "url": "test-green-arrow.com",
@@ -671,7 +751,7 @@
     "model": "fellowms.event",
     "pk": 6,
     "fields": {
-        "fellow": 4,
+        "collaborator": 4,
         "category": "O",
         "name": "Test Black Widow",
         "url": "test-black-widow.com",
