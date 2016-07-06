@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import Fellow, Event, Expense, Blog
+from .models import Collaborator, Fellow, Event, Expense, Blog
 
 PUBLIC_MODELS = (
+        Collaborator,
         Fellow,
         Event,
         Expense,
