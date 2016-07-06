@@ -167,8 +167,8 @@ class Fellow(models.Model):
 
     def fellowship_available(self):
         """Return the remain fellowship grant."""
-        this_fellow_events = Event.objects.filter(fellow=self)
-        return self.fellowship_grant - sum([event.approve for event in this_fellow_events])
+        this_fellow_events = Event.objects.filter(collaborator=self.application.collaborator)
+        return self.fellowship_grant - sum([event.budget_approve for event in this_fellow_events])
 
 
 class Event(models.Model):

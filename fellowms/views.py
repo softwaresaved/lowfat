@@ -25,11 +25,11 @@ def dashboard(request):
         if not request.user.is_superuser and not request.user.is_staff:
             collaborator = Collaborator.objects.get(user=request.user)
             #applications = Application.objects.get(collaborator=collaborator)
-            #fellow = Fellow.objects.get(user=request.user)
+            fellow = Fellow.objects.get(application__collaborator=collaborator)
 
             context.update({
                 'events': Event.objects.filter(collaborator=collaborator),
-                #'budget_available': fellow.fellowship_available(),
+                'budget_available': fellow.fellowship_available(),
                 })
 
     return render(request, 'fellowms/dashboard.html', context)
