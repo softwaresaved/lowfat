@@ -3,8 +3,8 @@ import uuid
 from django.conf import settings
 from django.db import models
 
-MAX_CHAR_LENGHT = 120
-MAX_PHONE_LENGHT = 14
+MAX_CHAR_LENGTH = 120
+MAX_PHONE_LENGTH = 14
 MAX_DIGITS = 10
 
 GENDERS = (
@@ -66,19 +66,19 @@ class Fellow(models.Model):
             blank=True)
 
     # Personal info
-    forenames = models.CharField(max_length=MAX_CHAR_LENGHT,
+    forenames = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=False)
-    surname = models.CharField(max_length=MAX_CHAR_LENGHT,
+    surname = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=False)
     email = models.EmailField(
             blank=False,
             unique=True)
-    phone = models.CharField(max_length=MAX_PHONE_LENGHT,
+    phone = models.CharField(max_length=MAX_PHONE_LENGTH,
             blank=False)
     gender = models.CharField(choices=GENDERS,
             max_length=1,
             default="R")
-    home_location = models.CharField(max_length=MAX_CHAR_LENGHT,
+    home_location = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=False)
     home_lon = models.FloatField(
             null=True,
@@ -96,9 +96,9 @@ class Fellow(models.Model):
     # https://www.hesa.ac.uk/jacs/
     research_area = models.CharField(max_length=4,
             blank=False)
-    affiliation = models.CharField(max_length=MAX_CHAR_LENGHT,
+    affiliation = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=False)
-    funding = models.CharField(max_length=MAX_CHAR_LENGHT,
+    funding = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=False)
     funding_notes = models.TextField(
             null=True,
@@ -106,19 +106,19 @@ class Fellow(models.Model):
     work_description = models.TextField(blank=False)
 
     # Social media
-    website = models.CharField(max_length=MAX_CHAR_LENGHT,
+    website = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=True)
-    website_feed = models.CharField(max_length=MAX_CHAR_LENGHT,
+    website_feed = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=True)
-    orcid = models.CharField(max_length=MAX_CHAR_LENGHT,
+    orcid = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=True)
-    github = models.CharField(max_length=MAX_CHAR_LENGHT,
+    github = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=True)
-    gitlab = models.CharField(max_length=MAX_CHAR_LENGHT,
+    gitlab = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=True)
-    twitter = models.CharField(max_length=MAX_CHAR_LENGHT,
+    twitter = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=True)
-    facebook = models.CharField(max_length=MAX_CHAR_LENGHT,
+    facebook = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=True)
 
     # Admin fields
@@ -154,11 +154,11 @@ class Event(models.Model):
     category = models.CharField(choices=EVENT_CATEGORY,
             max_length=1,
             default="O")
-    name = models.CharField(max_length=MAX_CHAR_LENGHT,
+    name = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=False)
-    url = models.CharField(max_length=MAX_CHAR_LENGHT,
+    url = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=False)
-    location = models.CharField(max_length=MAX_CHAR_LENGHT,
+    location = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=False)
     lon = models.FloatField(
             null=True,
@@ -206,7 +206,7 @@ class Event(models.Model):
     status = models.CharField(choices=EVENT_STATUS,
             max_length=1,
             default="U")
-    report_url = models.CharField(max_length=MAX_CHAR_LENGHT,
+    report_url = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=True,
             null=True)
 
@@ -261,7 +261,7 @@ class Blog(models.Model):
     event = models.ForeignKey('Event',
             null=False,
             blank=False)
-    draft_url = models.CharField(max_length=MAX_CHAR_LENGHT,
+    draft_url = models.CharField(max_length=MAX_CHAR_LENGTH,
                 blank=False)
     status = models.CharField(choices=BLOG_POST_STATUS,
             max_length=1,
