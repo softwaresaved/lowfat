@@ -117,8 +117,8 @@ class Collaborator(models.Model):
         return "{} {}".format(self.forenames, self.surname)
 
 
-class Fellow(models.Model):
-    """Describe a fellow."""
+class Application(models.Model):
+    """Describe a application."""
     class Meta:
         app_label = 'fellowms'
 
@@ -135,10 +135,22 @@ class Fellow(models.Model):
             blank=True)
     work_description = models.TextField(blank=False)
 
+    def __str__(self):
+        return "application-{}".format(self.id)
+
+
+class Fellow(models.Model):
+    """Describe a fellow."""
+    class Meta:
+        app_label = 'fellowms'
+
     # Admin fields
+    application = models.OneToOneField(Application,
+            null=False,
+            blank=False)
     inauguration_year = models.IntegerField(
-            null=True,
-            blank=True)
+            null=False,
+            blank=False)
     fellowship_grant = models.IntegerField(
             default=0,
             null=False,
@@ -151,7 +163,7 @@ class Fellow(models.Model):
             null=True)
 
     def __str__(self):
-        return "{} {}".format(self.forenames, self.surname)
+        return "fellow-{}".format(self.id)
 
     def fellowship_available(self):
         """Return the remain fellowship grant."""
@@ -164,7 +176,7 @@ class Event(models.Model):
     class Meta:
         app_label = 'fellowms'
 
-    fellow = models.ForeignKey('Fellow',
+    collaborator = models.ForeignKey('Collaborator',
             null=False,
             blank=False)
     category = models.CharField(choices=EVENT_CATEGORY,
