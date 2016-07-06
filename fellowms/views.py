@@ -77,8 +77,7 @@ def event(request):
 
         if formset.is_valid():
             event = formset.save()
-            event2admin(event.id)
-            event2user(fellow.email, event.id)
+            new_event_notification(event)
             return HttpResponseRedirect(reverse('event_detail',
                 args=[event.id,]))
     else:
@@ -131,6 +130,7 @@ def expense(request):
 
         if formset.is_valid():
             expense = formset.save()
+            new_expense_notification(expense)
             return HttpResponseRedirect(reverse('expense_detail',
                 args=[expense.id,]))
     else:
@@ -163,6 +163,7 @@ def blog(request):
 
         if formset.is_valid():
             blog = formset.save()
+            new_blog_notification(blog)
             return HttpResponseRedirect(reverse('blog_detail',
                 args=[blog.id,]))
     else:
