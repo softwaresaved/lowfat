@@ -7,13 +7,13 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from .models import Fellow, Event, Expense, Blog
-from .forms import FellowForm, EventForm, ExpenseForm, BlogForm
+from .models import Collaborator, Fellow, Event, Expense, Blog
+from .forms import CollaboratorForm, FellowForm, EventForm, ExpenseForm, BlogForm
 from .mail import *
 
 def index(request):
     context = {
-            'fellows': Fellow.objects.exclude(inauguration_year=None).order_by('inauguration_year').reverse(),
+            'fellows': Fellow.objects.order_by('inauguration_year').reverse(),
             'events': Event.objects.filter(category="H").order_by("start_date").reverse(),
             }
     return render(request, 'fellowms/index.html', context)
