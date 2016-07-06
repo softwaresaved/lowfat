@@ -23,11 +23,13 @@ def dashboard(request):
 
     if request.user.is_authenticated():
         if not request.user.is_superuser and not request.user.is_staff:
-            fellow = Fellow.objects.get(user=request.user)
+            collaborator = Collaborator.objects.get(user=request.user)
+            #applications = Application.objects.get(collaborator=collaborator)
+            #fellow = Fellow.objects.get(user=request.user)
 
             context.update({
-                'events': Event.objects.filter(fellow=fellow),
-                'budget_available': fellow.fellowship_available(),
+                'events': Event.objects.filter(collaborator=collaborator),
+                #'budget_available': fellow.fellowship_available(),
                 })
 
     return render(request, 'fellowms/dashboard.html', context)
@@ -35,20 +37,20 @@ def dashboard(request):
 @login_required
 def fellow(request):
     if not request.user.is_superuser and not request.user.is_staff:
-       instance = Fellow.objects.get(user=request.user)
+       instance = Collaborator.objects.get(user=request.user)
     else:
        instance = None
 
     if request.POST:
         # Handle submission
-        formset = FellowForm(request.POST, request.FILES, instance=instance)
+        formset = CollaboratorForm(request.POST, request.FILES, instance=instance)
 
         if formset.is_valid():
-            fellow = formset.save()
+            collaborator = formset.save()
             return HttpResponseRedirect(reverse('fellow_detail',
-                args=[fellow.id,]))
+                args=[collaborator.id,]))
     else:
-        formset = FellowForm(None, instance=instance)
+        formset = CollaboratorForm(None, instance=instance)
 
     # Show submission form.
     context = {
@@ -62,7 +64,7 @@ def fellow_detail(request, fellow_id):
     this_fellow = Fellow.objects.get(id=fellow_id)
     context = {
             'fellow': this_fellow,
-            'events': Event.objects.filter(fellow=this_fellow),
+            'events': Event.objects.filter(collaborator=this_fellow.application.collaborator),
             }
 
     return render(request, 'fellowms/fellow_detail.html', context)
@@ -101,7 +103,7 @@ def event_detail(request, event_id):
 
     if request.user.is_authenticated():
         if (request.user.is_superuser or
-            Fellow.objects.get(user=request.user) == this_event.fellow):
+            Collaborator.objects.get(user=request.user) == this_event.collaborator):
             budget_request = this_event.budget_total()
 
             context.update({
