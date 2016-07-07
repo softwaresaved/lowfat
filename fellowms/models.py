@@ -134,6 +134,10 @@ class Fellow(models.Model):
             blank=True,
             null=True)
 
+    # Control
+    added = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    
     def __str__(self):
         return "{} {}".format(self.forenames, self.surname)
 
@@ -210,6 +214,10 @@ class Event(models.Model):
             blank=True,
             null=True)
 
+    # Control
+    added = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    
     def __str__(self):
         return "{}".format(self.name)
 
@@ -249,6 +257,10 @@ class Expense(models.Model):
             max_length=1,
             default="P")
 
+    # Control
+    added = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    
     def __str__(self):
         return self.proof.name
 
@@ -266,6 +278,10 @@ class Blog(models.Model):
     status = models.CharField(choices=BLOG_POST_STATUS,
             max_length=1,
             default="U")
+
+    # Control
+    added = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return "{}".format(self.draft_url)
