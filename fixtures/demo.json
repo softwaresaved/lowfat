@@ -405,7 +405,9 @@
         "facebook": "",
         "inauguration_year": 2017,
         "fellowship_grant": 3000,
-        "mentor": null
+        "mentor": null,
+        "added": "2016-07-07T14:59:46.412Z",
+        "updated": "2016-07-07T14:59:47.967Z"
     }
 },
 {
@@ -436,7 +438,9 @@
         "facebook": "",
         "inauguration_year": 2017,
         "fellowship_grant": 3000,
-        "mentor": null
+        "mentor": null,
+        "added": "2016-07-07T14:59:46.412Z",
+        "updated": "2016-07-07T14:59:47.967Z"
     }
 },
 {
@@ -467,7 +471,9 @@
         "facebook": "",
         "inauguration_year": 2017,
         "fellowship_grant": 3000,
-        "mentor": null
+        "mentor": null,
+        "added": "2016-07-07T14:59:46.412Z",
+        "updated": "2016-07-07T14:59:47.967Z"
     }
 },
 {
@@ -498,7 +504,9 @@
         "facebook": "",
         "inauguration_year": 2017,
         "fellowship_grant": 3000,
-        "mentor": null
+        "mentor": null,
+        "added": "2016-07-07T14:59:46.412Z",
+        "updated": "2016-07-07T14:59:47.967Z"
     }
 },
 {
@@ -529,7 +537,9 @@
         "facebook": "",
         "inauguration_year": 2017,
         "fellowship_grant": 3000,
-        "mentor": null
+        "mentor": null,
+        "added": "2016-07-07T14:59:46.412Z",
+        "updated": "2016-07-07T14:59:47.967Z"
     }
 },
 {
@@ -556,7 +566,9 @@
         "additional_info": "",
         "ad_status": "U",
         "status": "U",
-        "report_url": null
+        "report_url": null,
+        "added": "2016-07-07T14:59:46.412Z",
+        "updated": "2016-07-07T14:59:47.967Z"
     }
 },
 {
@@ -583,7 +595,9 @@
         "additional_info": "",
         "ad_status": "U",
         "status": "U",
-        "report_url": null
+        "report_url": null,
+        "added": "2016-07-07T14:59:46.412Z",
+        "updated": "2016-07-07T14:59:47.967Z"
     }
 },
 {
@@ -610,7 +624,9 @@
         "additional_info": "",
         "ad_status": "U",
         "status": "U",
-        "report_url": null
+        "report_url": null,
+        "added": "2016-07-07T14:59:46.412Z",
+        "updated": "2016-07-07T14:59:47.967Z"
     }
 },
 {
@@ -637,7 +653,9 @@
         "additional_info": "",
         "ad_status": "U",
         "status": "U",
-        "report_url": null
+        "report_url": null,
+        "added": "2016-07-07T14:59:46.412Z",
+        "updated": "2016-07-07T14:59:47.967Z"
     }
 },
 {
@@ -664,7 +682,9 @@
         "additional_info": "",
         "ad_status": "U",
         "status": "U",
-        "report_url": null
+        "report_url": null,
+        "added": "2016-07-07T14:59:46.412Z",
+        "updated": "2016-07-07T14:59:47.967Z"
     }
 },
 {
@@ -691,7 +711,9 @@
         "additional_info": "",
         "ad_status": "U",
         "status": "U",
-        "report_url": null
+        "report_url": null,
+        "added": "2016-07-07T14:59:46.412Z",
+        "updated": "2016-07-07T14:59:47.967Z"
     }
 },
 {
@@ -700,7 +722,9 @@
     "fields": {
         "event": 1,
         "proof": "expenses/ec1.pdf",
-        "status": "P"
+        "status": "P",
+        "added": "2016-07-07T14:59:46.412Z",
+        "updated": "2016-07-07T14:59:47.967Z"
     }
 },
 {
@@ -709,7 +733,9 @@
     "fields": {
         "event": 1,
         "proof": "expenses/ec2.pdf",
-        "status": "P"
+        "status": "P",
+        "added": "2016-07-07T14:59:46.412Z",
+        "updated": "2016-07-07T14:59:47.967Z"
     }
 },
 {
@@ -718,7 +744,9 @@
     "fields": {
         "event": 1,
         "draft_url": "http://google.com/",
-        "status": "U"
+        "status": "U",
+        "added": "2016-07-07T14:59:46.412Z",
+        "updated": "2016-07-07T14:59:47.967Z"
     }
 }
 ]
