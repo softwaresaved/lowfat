@@ -38,6 +38,7 @@ urlpatterns = [
     url(r'^blog/(?P<blog_id>[0-9]+)/', views.blog_detail, name="blog_detail"),
     url(r'^blog/', views.blog, name="blog"),
     url(r'^dashboard/', views.dashboard, name="dashboard"),
+    url(r'^geojson/', views.geojson, name="geojson"),
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name="index"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

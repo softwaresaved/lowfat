@@ -194,3 +194,13 @@ def blog_detail(request, blog_id):
             }
 
     return render(request, 'fellowms/blog_detail.html', context)
+
+def geojson(request):
+    """Return the GeoJSON file."""
+
+    context = {
+            'fellows': Fellow.objects.all(),
+            'events': Event.objects.all(),
+            }
+
+    return render(request, 'fellowms/map.geojson', context)
