@@ -81,7 +81,6 @@ class Fellow(models.Model):
         unique_together = ('forenames', 'surname')
 
     fellow = models.ForeignKey('Applicant')
-    Applicant.selected = "Yes"
 
     # Authentication
     #
