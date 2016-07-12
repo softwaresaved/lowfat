@@ -95,8 +95,7 @@ class Fellow(models.Model):
     surname = models.CharField(max_length=MAX_CHAR_LENGHT,
             blank=False)
     email = models.EmailField(
-            blank=False,
-            unique=True)
+            blank=False)
     phone = models.CharField(max_length=MAX_PHONE_LENGHT,
             blank=False)
     gender = models.CharField(choices=GENDERS,
