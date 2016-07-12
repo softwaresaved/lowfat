@@ -25,7 +25,16 @@ def dashboard(request):
         if not request.user.is_superuser and not request.user.is_staff:
             fellow = Fellow.objects.get(user=request.user)
 
-            context['events'] = Event.objects.filter(fellow=fellow)
+            context.update({
+                'events': Event.objects.filter(fellow=fellow),
+                'budget_available': fellow.fellowship_available(),
+                })
+        else:
+            context.update({
+                'events': Event.objects.filter(status__in=['U', 'P']),
+                'expenses': Expense.objects.filter(status__in=['W', 'S', 'P']),
+                'blogs': Blog.objects.filter(status__in=['U', 'R']),
+                })
 
     return render(request, 'fellowms/dashboard.html', context)
 
@@ -74,8 +83,7 @@ def event(request):
 
         if formset.is_valid():
             event = formset.save()
-            event2admin(event.id)
-            event2user(fellow.email, event.id)
+            new_event_notification(event)
             return HttpResponseRedirect(reverse('event_detail',
                 args=[event.id,]))
     else:
@@ -97,26 +105,14 @@ def event_detail(request, event_id):
                 }
 
     if request.user.is_authenticated():
-        fellow = Fellow.objects.get(user=request.user)
-
-        if fellow == this_event.fellow:
-            budget_request = sum([
-                this_event.budget_request_travel,
-                this_event.budget_request_attendance_fees,
-                this_event.budget_request_subsistence_cost,
-                this_event.budget_request_venue_hire,
-                this_event.budget_request_catering,
-                this_event.budget_request_others,
-                ])
-
-            # Get others events from same fellow to know budget available.
-            budget_available = 0
+        if (request.user.is_superuser or
+            Fellow.objects.get(user=request.user) == this_event.fellow):
+            budget_request = this_event.budget_total()
 
             context.update({
                     'expenses': Expense.objects.filter(event=this_event),
                     'blogs': Blog.objects.filter(event=this_event),
                     'budget_request': budget_request,
-                    'budget_available': budget_available,
                     })
 
     return render(request, 'fellowms/event_detail.html', context)
@@ -140,6 +136,7 @@ def expense(request):
 
         if formset.is_valid():
             expense = formset.save()
+            new_expense_notification(expense)
             return HttpResponseRedirect(reverse('expense_detail',
                 args=[expense.id,]))
     else:
@@ -172,6 +169,7 @@ def blog(request):
 
         if formset.is_valid():
             blog = formset.save()
+            new_blog_notification(blog)
             return HttpResponseRedirect(reverse('blog_detail',
                 args=[blog.id,]))
     else:
@@ -196,3 +194,13 @@ def blog_detail(request, blog_id):
             }
 
     return render(request, 'fellowms/blog_detail.html', context)
+
+def geojson(request):
+    """Return the GeoJSON file."""
+
+    context = {
+            'fellows': Fellow.objects.all(),
+            'events': Event.objects.all(),
+            }
+
+    return render(request, 'fellowms/map.geojson', context)

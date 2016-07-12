@@ -7,14 +7,98 @@
 <h1>Software Sustainability Institute Fellowship Program</h1>
 {% endif %}
 {% if user.is_authenticated %}
+{% if user.is_superuser %}
+<p>Your pending tasks are:</p>
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <th>
+        Type
+      </th>
+      <th>
+        Name
+      </th>
+      <th>
+        Status
+      </th>
+    </tr>
+    {% for event in events %}
+    <tr>
+      <td>
+        Event
+      </td>
+      <td>
+        <a href="{% url 'event_detail' event.id %}">{{ event.name }}</a>
+      </td>
+      <td>
+        {{ event.get_status_display }}
+      </td>
+    </tr>
+    {% endfor %}
+    {% for expense in expenses %}
+    <tr>
+      <td>
+        Expense
+      </td>
+      <td>
+        <a href="/ {{ expense.proof }}">{{ expense.proof }}</a> from
+        <a href="{% url 'event_detail' expense.event.id %}">{{ expense.event.name }}</a>
+      </td>
+      <td>
+        {{ expense.get_status_display }}
+      </td>
+    </tr>
+    {% endfor %}
+    {% for blog in blogs %}
+    <tr>
+      <td>
+        Report
+      </td>
+      <td>
+        <a href="{{ blog.draft_url }}">{{ blog.draft_url }}</a> from
+        <a href="{% url 'event_detail' blog.event.id %}">{{ blog.event.name }}</a>
+      </td>
+      <td>
+        {{ blog.get_status_display }}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>You still have £{{ budget_available }} from your fellowship.</p>
 <p>Your events are:</p>
-<ul>
-{% for event in events %}
-<li><a href="{% url 'event_detail' event.id %}">{{ event.name }}</a></li>
-{% empty %}
-<li>No events.</li>
-{% endfor %}
-</ul>
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <th>
+        Event
+      </th>
+      <th>
+        Status
+      </th>
+    </tr>
+    {% for event in events %}
+    <tr
+       {% if event.status in 'U' %}
+       class="danger"
+       {% elif event.status in 'P' %}
+       class="warning"
+       {% elif event.status in 'AR' %}
+       class="sucess"
+       {% endif %}
+       >
+      <td>
+        <a href="{% url 'event_detail' event.id %}">{{ event.name }}</a>
+      </td>
+      <td>
+        {{ event.get_status_display }}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
 {% endif %}
 <p>If you need us to process something please use one of the links bellow:</p>
 <ul>

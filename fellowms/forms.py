@@ -9,9 +9,12 @@ class FellowForm(ModelForm):
                 "user",
                 "home_lon",
                 "home_lat",
-                "inauguration_year",
                 "funding_notes",
+                "inauguration_year",
+                "fellowship_grant",
                 "mentor",
+                "added",
+                "updated",
                 ]
 
 
@@ -23,6 +26,8 @@ class EventForm(ModelForm):
                 "ad_status",
                 "budget_approve",
                 "report_url",
+                "added",
+                "updated",
                 ]
 
         # We don't want to expose fellows' data
@@ -41,6 +46,8 @@ class ExpenseForm(ModelForm):
         exclude = [
                 'id',
                 'status',
+                "added",
+                "updated",
                 ]
 
 
@@ -49,4 +56,6 @@ class BlogForm(ModelForm):
         model = Blog
         exclude = [
                 'status',
+                "added",
+                "updated",
                 ]

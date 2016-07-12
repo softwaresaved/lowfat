@@ -133,12 +133,33 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#media-url
 
 MEDIA_URL = '/upload/'
-MEDIA_ROOT = BASE_DIR
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'upload')
 
 # Authentication system
 # https://docs.djangoproject.com/en/1.9/topics/auth/default/
 
 LOGIN_URL = '/sign_in/'
 
-# Email backend for development
+
+# Email
+
+# Email backend for development (print on console)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Email backend for development (save on file)
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_FILE_PATH = '/tmp/fellowms-emails'
+
+# Default email address to use for various automated correspondence from the site manager(s).
+DEFAULT_FROM_EMAIL = 'no-reply@software.ac.uk'
+
+# The email address that error messages come from.
+SERVER_EMAIL = 'no-reply@software.ac.uk'
+
+# A list of all the people who get code error notifications.
+ADMINS = [
+    ('admin', 'admin@software.ac.uk'),
+    ]
+
+# Subject-line prefix for email messages sent
+EMAIL_SUBJECT_PREFIX = 'Software Sustainability Institute - Fellowship - '

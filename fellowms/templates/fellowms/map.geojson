@@ -1,0 +1,42 @@
+{
+  "features": [
+  {% for fellow in fellows %}
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#ebf722",
+        "marker-size": "medium",
+        "marker-symbol": "star",
+        "Name": "{{ fellow.forenames }} {{ fellow.surname }}",
+        "Inauguration": "{{ fellow.inauguration_year }}"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          {{ fellow.home_lon }},
+          {{ fellow.home_lat }}
+        ]
+      }
+    },
+    {% endfor %}
+    {% for event in events %}
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Event": "{{ event.name }}",
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          {{ event.home_lon }},
+          {{ event.home_lat }}
+        ]
+      }
+    },
+    {% endfor %}
+  "type": "FeatureCollection"
+  ]
+}
