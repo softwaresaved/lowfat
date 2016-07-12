@@ -52,11 +52,36 @@ BLOG_POST_STATUS = (
         ('O', 'Out of date'),
         )
 
+
+class Applicant(models.Model):
+    """Application details."""
+    class Meta:
+        app_label = 'fellowms'
+        unique_together = ('inauguration_year', 'website_submission')
+    
+    #Application details
+    inauguration_year = models.CharField(max_length=4,
+            blank=False)
+    selected = models.CharField(max_length=3)
+    website_submission = models.CharField(max_length=4,
+            blank=False)
+    forenames = models.CharField(max_length=MAX_CHAR_LENGHT,
+            blank=False)
+    surname = models.CharField(max_length=MAX_CHAR_LENGHT,
+            blank=False)
+
+    def __str__(self):
+        return "{} {}".format(self.forenames, self.surname)
+    
 class Fellow(models.Model):
     """Describe a fellow."""
+
     class Meta:
         app_label = 'fellowms'
         unique_together = ('forenames', 'surname')
+
+    fellow = models.ForeignKey('Applicant')
+    Applicant.selected = "Yes"
 
     # Authentication
     #
@@ -126,9 +151,9 @@ class Fellow(models.Model):
             null=True,
             blank=True)
     # Mentors need to be another fellow
-    mentor = models.ForeignKey('self',
-            blank=True,
-            null=True)
+    #mentor = models.ForeignKey('self',
+            #blank=True,
+            #null=True)
 
     def __str__(self):
         return "{} {}".format(self.forenames, self.surname)

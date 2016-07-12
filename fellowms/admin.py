@@ -1,11 +1,12 @@
 from django.contrib import admin
-from .models import Fellow, Event, Expense, Blog
+from .models import Fellow, Event, Expense, Blog, Applicant
 
 PUBLIC_MODELS = (
         Fellow,
         Event,
         Expense,
-        Blog
+        Blog,
+        Applicant
         )
 
 for public_model in PUBLIC_MODELS:
