@@ -5,7 +5,7 @@ PUBLIC_MODELS = (
         Fellow,
         Event,
         Expense,
-        Blog
+        Blog,
         )
 
 for public_model in PUBLIC_MODELS:

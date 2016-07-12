@@ -1,3 +1,4 @@
+from datetime import date
 import uuid
 
 from django.conf import settings
@@ -52,11 +53,12 @@ BLOG_POST_STATUS = (
         ('O', 'Out of date'),
         )
 
+
 class Fellow(models.Model):
     """Describe a fellow."""
+
     class Meta:
         app_label = 'fellowms'
-        unique_together = ('forenames', 'surname')
 
     # Authentication
     #
@@ -65,15 +67,14 @@ class Fellow(models.Model):
             null=True,
             blank=True)
 
-    # Personal info
+    # Personal info (application details)
     forenames = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=False)
     surname = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=False)
     email = models.EmailField(
-            blank=False,
-            unique=True)
-    phone = models.CharField(max_length=MAX_PHONE_LENGTH,
+            blank=False)
+    phone = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=False)
     gender = models.CharField(choices=GENDERS,
             max_length=1,
@@ -88,13 +89,16 @@ class Fellow(models.Model):
             blank=True)
     photo = models.FileField(
             upload_to='photos/',  # File will be uploaded to MEDIA_ROOT/photos
-            null=False,
-            blank=False)  # This need to be a JPG.
+            null=True,
+            blank=True)  # This need to be a JPG.
 
     # Professional info
     # JACS code for research_area.
     # https://www.hesa.ac.uk/jacs/
-    research_area = models.CharField(max_length=4,
+    research_area = models.TextField(
+            null=True,
+            blank=True)
+    research_area_code = models.CharField(max_length=4,
             blank=False)
     affiliation = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=False)
@@ -122,9 +126,11 @@ class Fellow(models.Model):
             blank=True)
 
     # Admin fields
-    inauguration_year = models.IntegerField(
-            null=True,
-            blank=True)
+    application_year = models.IntegerField(
+                null=False,
+                blank=False,
+                default=date.today().year)
+    selected = models.BooleanField(default=False)
     fellowship_grant = models.DecimalField(max_digits=MAX_DIGITS,
                                            decimal_places=2,
                                            null=False,
@@ -164,54 +170,57 @@ class Event(models.Model):
         app_label = 'fellowms'
 
     fellow = models.ForeignKey('Fellow',
-            null=False,
-            blank=False)
+            null=True,
+            blank=True)
     category = models.CharField(choices=EVENT_CATEGORY,
             max_length=1,
             default="O")
     name = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=False)
+            blank=True)
     url = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=False)
+            blank=True)
     location = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=False)
+            blank=True)
     lon = models.FloatField(
             null=True,
             blank=True)
     lat = models.FloatField(
             null=True,
             blank=True)
-    start_date = models.DateField(blank=False)
-    end_date = models.DateField(blank=False)
+    start_date = models.DateField(
+            blank=True,
+            null=True)
+    end_date = models.DateField(blank=True, null=True)
     budget_request_travel = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
-            blank=False,
+            blank=True,
             default=0.00)
     budget_request_attendance_fees = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
-            blank=False,
+            blank=True,
             default=0.00)
     budget_request_subsistence_cost = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
-            blank=False,
+            blank=True,
             default=0.00)
     budget_request_venue_hire = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
-            blank=False,
+            blank=True,
             default=0.00)
     budget_request_catering = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
-            blank=False,
+            blank=True,
             default=0.00)
     budget_request_others = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
-            blank=False,
+            blank=True,
             default=0.00)
-    budget_approve = models.DecimalField(max_digits=MAX_DIGITS,
+    budget_approved = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
             null=True,
-            blank=True)
-    justification = models.TextField(blank=False)
+            blank=True,
+            default=0.00)    
+    justification = models.TextField(blank=True)
     additional_info = models.TextField(blank=True)
 
     # Admin fields
@@ -265,8 +274,12 @@ class Expense(models.Model):
             blank=False)
     proof = models.FileField(
             upload_to='expenses/',  # File will be uploaded to MEDIA_ROOT/expenses
-            null=False,
-            blank=False)  # This need to be a PDF.
+            null=True,
+            blank=True)  # This need to be a PDF.
+    amount_claimed = models.DecimalField(max_digits=MAX_DIGITS,
+            decimal_places=2,
+            blank=False,
+            default=0.00)
 
     # Admin fields
     status = models.CharField(choices=EXPENSE_STATUS,
