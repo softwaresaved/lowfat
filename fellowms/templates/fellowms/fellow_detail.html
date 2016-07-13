@@ -20,6 +20,9 @@
         </tr>
     </tbody>
 </table>
+{% if show_finances %}
+{% include 'fellowms/finances.html' %}
+{% endif %}
 <h2>Events</h2>
 <ul>
 {% for event in events %}
