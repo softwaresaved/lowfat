@@ -66,8 +66,8 @@
   </tbody>
 </table>
 {% else %}
-<p>You still have £{{ budget_available }} from your fellowship.</p>
-<p>Your events are:</p>
+{% include 'fellowms/finances.html' %}
+<h2>Events</h2>
 <table class="table table-bordered">
   <tbody>
     <tr>

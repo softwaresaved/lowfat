@@ -1,5 +1,6 @@
 from datetime import date
 
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -26,6 +27,7 @@ def dashboard(request):
             fellow = Fellow.objects.get(user=request.user)
 
             context.update({
+                'fellow': fellow,
                 'events': Event.objects.filter(fellow=fellow),
                 'budget_available': fellow.fellowship_available(),
                 })
@@ -70,6 +72,12 @@ def fellow_detail(request, fellow_id):
             'fellow': this_fellow,
             'events': Event.objects.filter(fellow=this_fellow),
             }
+
+    if request.user.is_authenticated() and (request.user.is_superuser or
+            Fellow.objects.get(user=request.user) == this_fellow):
+            context.update({
+                'show_finances': True,
+                })
 
     return render(request, 'fellowms/fellow_detail.html', context)
 

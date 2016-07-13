@@ -22,17 +22,17 @@ EVENT_CATEGORY = (
         )
 
 AD_STATUS = (
-        ('U', 'Unprocessed'),
-        ('V', 'Visible'),
-        ('H', 'Hide'),
-        ('A', 'Archived'),
+        ('U', 'Unprocessed'),  # Initial status
+        ('V', 'Visible'),  # Event is visible on map
+        ('H', 'Hide'),  # Event is invisible on map
         )
 
 EVENT_STATUS = (
-        ('U', 'Unprocessed'),
-        ('P', 'Processing'),
-        ('A', 'Approved'),
-        ('R', 'Reproved'),
+        ('U', 'Unprocessed'),  # Initial status
+        ('P', 'Processing'),  # When someone was assigned to review the request
+        ('A', 'Approved'),  # Event was approved. Funds are reserved.
+        ('R', 'Reproved'),  # Event was declided.
+        ('F', 'Archived'),  # Approved events with all claims and blog posts were processed. No funds are reserved.
         )
 
 EXPENSE_STATUS = (
@@ -125,10 +125,12 @@ class Fellow(models.Model):
     inauguration_year = models.IntegerField(
             null=True,
             blank=True)
-    fellowship_grant = models.IntegerField(
-            default=0,
-            null=False,
-            blank=False)
+    fellowship_grant = models.DecimalField(max_digits=MAX_DIGITS,
+                                           decimal_places=2,
+                                           null=False,
+                                           blank=False,
+                                           default=0.00)
+
     # Mentors need to be another fellow
     mentor = models.ForeignKey('self',
             blank=True,
@@ -141,10 +143,19 @@ class Fellow(models.Model):
     def __str__(self):
         return "{} {}".format(self.forenames, self.surname)
 
+    def fellowship_used(self):
+        """Return the ammount alread used from the fellowship grant."""
+        this_fellow_expenses = Expense.objects.filter(event__fellow=self, status__in=['A', 'F'])
+        return sum([expense.amount for expense in this_fellow_expenses])
+
+    def fellowship_reserve(self):
+        """Return the ammount reserved from the fellowship grant."""
+        this_fellow_events = Event.objects.filter(fellow=self, status__in=['U', 'P', 'A'])
+        return sum([event.budget_approve if event.budget_approve else event.budget_total() for event in this_fellow_events])
+
     def fellowship_available(self):
         """Return the remain fellowship grant."""
-        this_fellow_events = Event.objects.filter(fellow=self)
-        return self.fellowship_grant - sum([event.approve for event in this_fellow_events])
+        return self.fellowship_grant - self.fellowship_reserve() - self.fellowship_used()
 
 
 class Event(models.Model):
@@ -198,8 +209,8 @@ class Event(models.Model):
             default=0.00)
     budget_approve = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
-            blank=False,
-            default=0.00)
+            null=True,
+            blank=True)
     justification = models.TextField(blank=False)
     additional_info = models.TextField(blank=True)
 
@@ -256,6 +267,10 @@ class Expense(models.Model):
     status = models.CharField(choices=EXPENSE_STATUS,
             max_length=1,
             default="P")
+    amount = models.DecimalField(max_digits=MAX_DIGITS,
+                                 decimal_places=2,
+                                 blank=False,
+                                 default=0.00)
 
     # Control
     added = models.DateTimeField(auto_now_add=True)
