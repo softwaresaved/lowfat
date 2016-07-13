@@ -243,6 +243,11 @@ class Event(models.Model):
                 self.budget_request_others,
                 ])
 
+    def expenses_claimed(self):
+        """Return the total ammount of expenses claimed."""
+        this_event_expenses = Expense.objects.filter(event=self)
+        return sum([expense.amount for expense in this_event_expenses])
+
 
 class Expense(models.Model):
     """This describe one expense for one event."""

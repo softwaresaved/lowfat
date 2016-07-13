@@ -78,6 +78,9 @@
       <th>
         Status
       </th>
+      <th>
+        Amount
+      </th>
     </tr>
     {% for expense in expenses %}
     <tr
@@ -95,8 +98,22 @@
       <td>
         {{ expense.get_status_display }}
       </td>
+      <td>
+        {{ expense.amount }}
+      </td>
     </tr>
     {% endfor %}
+    <tr>
+      <td>
+        <strong>Total</strong>
+      </td>
+      <td>
+        -
+      </td>
+      <th>
+        {{ event.expenses_claimed }}
+      </th>
+    </tr>
   </tbody>
 </table>
 {% endif %}
