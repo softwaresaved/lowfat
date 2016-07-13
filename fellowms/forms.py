@@ -1,6 +1,6 @@
-from django.forms import ModelForm, widgets
+from django.forms import ModelForm
 
-from .models import Fellow, Event, Expense, Blog
+from .models import *
 
 class FellowForm(ModelForm):
     class Meta:
@@ -46,6 +46,18 @@ class ExpenseForm(ModelForm):
         exclude = [
                 'id',
                 'status',
+                "added",
+                "updated",
+                ]
+
+
+class ExpenseReviewForm(ModelForm):
+    class Meta:
+        model = Expense
+        exclude = [
+                'id',
+                'event',
+                'proof',
                 "added",
                 "updated",
                 ]

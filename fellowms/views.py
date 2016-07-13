@@ -8,8 +8,8 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from .models import Fellow, Event, Expense, Blog
-from .forms import FellowForm, EventForm, ExpenseForm, BlogForm
+from .models import *
+from .forms import *
 from .mail import *
 
 def index(request):
@@ -169,6 +169,28 @@ def expense_detail(request, expense_id):
             }
 
     return render(request, 'fellowms/expense_detail.html', context)
+
+def expense_review(request, expense_id):
+    this_expense = Expense.objects.get(id=expense_id)
+
+    if request.POST:
+        # Handle submission
+        formset = ExpenseReviewForm(request.POST, instance=this_expense)
+
+        if formset.is_valid():
+            expense = formset.save()
+            return HttpResponseRedirect(reverse('expense_detail',
+                args=[expense.id,]))
+
+    formset = ExpenseReviewForm(None, instance=this_expense)
+
+    context = {
+            'expense': this_expense,
+            'formset': formset,
+            'submit_text': 'Update',
+            }
+
+    return render(request, 'fellowms/expense_review.html', context)
 
 def blog(request):
     if request.POST:
