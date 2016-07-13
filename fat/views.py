@@ -7,8 +7,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
+from django.db.models import Count
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
+
+from bokeh.charts import Bar, Histogram
+from bokeh.embed import components
+from bokeh.resources import CDN
 
 from .models import *
 from .forms import *
@@ -330,6 +335,36 @@ def blog_review(request, blog_id):
             }
 
     return render(request, 'fat/blog_review.html', context)
+
+@staff_member_required
+def report(request):
+    """Report view."""
+    # XXX Pandas can't process Django QuerySet so we need to convert it into list.
+    # XXX Pandas doesn't support DecimalField so we need to convert it into float.
+
+    # Number of fellows per year
+    fellows_per_year = Fellow.objects.all().values('application_year').annotate(total=Count('application_year'))
+    fellows_per_year_plot = Bar(list(fellows_per_year),
+               values='total',
+               label='application_year',
+               title='Number of fellows')
+
+    # Event requests
+    fund_amount = Fund.objects.all().values('budget_approved')
+    fund_amount_hist = Histogram([float(amount['budget_approved']) for amount in list(fund_amount)],
+                                  title='Amount request')
+
+    bokeh_script, bokeh_plots = components({
+        'fellows_per_year': fellows_per_year_plot,
+        'fund_amount': fund_amount_hist,
+        }, CDN)
+
+    context = {
+        'bokeh_script': bokeh_script,
+        }
+    context.update(bokeh_plots)
+
+    return render(request, 'fat/report.html', context)
 
 def geojson(request):
     """Return the GeoJSON file."""

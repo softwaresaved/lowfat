@@ -1,0 +1,25 @@
+{% extends "fat/base.html" %}
+
+{% block extra_css %}
+<link 
+    href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.0.min.css"
+    rel="stylesheet" type="text/css">
+<link
+    href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.0.min.css"
+    rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block extra_js %}
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.0.min.js"></script>
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.0.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<h1>Report</h1>
+<h2>Fellows</h2>
+{{ fellows_per_year | safe }}
+<h2>fund</h2>
+{{ fund_amount | safe }}
+
+{{ bokeh_script | safe }}
+{% endblock %}
