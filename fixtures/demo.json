@@ -403,11 +403,11 @@
         "gitlab": "",
         "twitter": "",
         "facebook": "",
-        "inauguration_year": 2017,
-        "fellowship_grant": 3000,
+        "inauguration_year": 2014,
+        "fellowship_grant": "3000.00",
         "mentor": null,
         "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-07T14:59:47.967Z"
+        "updated": "2016-07-13T14:29:07.964Z"
     }
 },
 {
@@ -436,11 +436,11 @@
         "gitlab": "",
         "twitter": "",
         "facebook": "",
-        "inauguration_year": 2017,
-        "fellowship_grant": 3000,
+        "inauguration_year": 2014,
+        "fellowship_grant": "3000.00",
         "mentor": null,
         "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-07T14:59:47.967Z"
+        "updated": "2016-07-13T14:29:02.422Z"
     }
 },
 {
@@ -469,11 +469,11 @@
         "gitlab": "",
         "twitter": "",
         "facebook": "",
-        "inauguration_year": 2017,
-        "fellowship_grant": 3000,
+        "inauguration_year": 2016,
+        "fellowship_grant": "3000.00",
         "mentor": null,
         "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-07T14:59:47.967Z"
+        "updated": "2016-07-13T14:28:54.783Z"
     }
 },
 {
@@ -502,11 +502,11 @@
         "gitlab": "",
         "twitter": "",
         "facebook": "",
-        "inauguration_year": 2017,
-        "fellowship_grant": 3000,
+        "inauguration_year": 2016,
+        "fellowship_grant": "3000.00",
         "mentor": null,
         "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-07T14:59:47.967Z"
+        "updated": "2016-07-13T14:28:46.741Z"
     }
 },
 {
@@ -535,11 +535,11 @@
         "gitlab": "",
         "twitter": "",
         "facebook": "",
-        "inauguration_year": 2017,
-        "fellowship_grant": 3000,
+        "inauguration_year": 2015,
+        "fellowship_grant": "3000.00",
         "mentor": null,
         "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-07T14:59:47.967Z"
+        "updated": "2016-07-13T14:28:38.973Z"
     }
 },
 {
@@ -548,27 +548,27 @@
     "fields": {
         "fellow": 2,
         "category": "O",
-        "name": "Test 1",
-        "url": "test1.com",
+        "name": "9d680248 - Iron Man",
+        "url": "9d680248.com",
         "location": "UK",
-        "lon": null,
-        "lat": null,
-        "start_date": "2016-05-16",
-        "end_date": "2016-05-18",
-        "budget_request_travel": "300.00",
+        "lon": -71.04731,
+        "lat": 167.75629,
+        "start_date": "2014-05-16",
+        "end_date": "2014-05-18",
+        "budget_request_travel": "1500.00",
         "budget_request_attendance_fees": "0.00",
         "budget_request_subsistence_cost": "0.00",
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
-        "budget_approve": "0.00",
+        "budget_approve": "1500.00",
         "justification": ":-)",
         "additional_info": "",
-        "ad_status": "U",
-        "status": "U",
-        "report_url": null,
+        "ad_status": "V",
+        "status": "F",
+        "report_url": "",
         "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-07T14:59:47.967Z"
+        "updated": "2016-07-13T14:51:11.990Z"
     }
 },
 {
@@ -576,28 +576,28 @@
     "pk": 2,
     "fields": {
         "fellow": 5,
-        "category": "O",
-        "name": "Test 2",
-        "url": "test2.com",
+        "category": "A",
+        "name": "9d683330 - The Hulk",
+        "url": "9d683330.com",
         "location": "US",
-        "lon": null,
-        "lat": null,
-        "start_date": "2016-05-14",
-        "end_date": "2016-05-24",
-        "budget_request_travel": "100.00",
+        "lon": -178.32413,
+        "lat": -20.63223,
+        "start_date": "2015-05-14",
+        "end_date": "2015-05-24",
+        "budget_request_travel": "2000.00",
         "budget_request_attendance_fees": "0.00",
-        "budget_request_subsistence_cost": "0.00",
+        "budget_request_subsistence_cost": "1000.00",
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
-        "budget_approve": "0.00",
-        "justification": "Bio",
+        "budget_approve": "3000.00",
+        "justification": ":-)",
         "additional_info": "",
-        "ad_status": "U",
-        "status": "U",
-        "report_url": null,
+        "ad_status": "V",
+        "status": "F",
+        "report_url": "",
         "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-07T14:59:47.967Z"
+        "updated": "2016-07-13T14:50:28.359Z"
     }
 },
 {
@@ -606,27 +606,27 @@
     "fields": {
         "fellow": 1,
         "category": "O",
-        "name": "Test - Captain America",
-        "url": "test-captain-america.com",
+        "name": "9d681148 - Captain America",
+        "url": "9d681148.com",
         "location": "UK",
-        "lon": null,
-        "lat": null,
+        "lon": -90.89369,
+        "lat": -13.13435,
         "start_date": "2016-06-16",
         "end_date": "2016-06-24",
-        "budget_request_travel": "100.00",
+        "budget_request_travel": "2000.00",
         "budget_request_attendance_fees": "0.00",
         "budget_request_subsistence_cost": "0.00",
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
-        "budget_approve": "0.00",
-        "justification": "Bio",
+        "budget_approve": "2000.00",
+        "justification": ":-)",
         "additional_info": "",
-        "ad_status": "U",
-        "status": "U",
-        "report_url": null,
+        "ad_status": "V",
+        "status": "F",
+        "report_url": "",
         "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-07T14:59:47.967Z"
+        "updated": "2016-07-13T14:52:28.942Z"
     }
 },
 {
@@ -635,27 +635,27 @@
     "fields": {
         "fellow": 2,
         "category": "O",
-        "name": "Test - Iron Man",
-        "url": "test-iron-man.com",
+        "name": "9d680716 - Iron Man",
+        "url": "9d680716.com",
         "location": "US",
-        "lon": null,
-        "lat": null,
-        "start_date": "2016-05-20",
-        "end_date": "2016-05-24",
-        "budget_request_travel": "100.00",
+        "lon": 173.44064,
+        "lat": 12.25341,
+        "start_date": "2014-05-20",
+        "end_date": "2014-05-24",
+        "budget_request_travel": "1000.00",
         "budget_request_attendance_fees": "0.00",
         "budget_request_subsistence_cost": "0.00",
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
-        "budget_approve": "0.00",
-        "justification": "Bio",
+        "budget_approve": "1000.00",
+        "justification": ":-)",
         "additional_info": "",
-        "ad_status": "U",
-        "status": "U",
-        "report_url": null,
+        "ad_status": "V",
+        "status": "F",
+        "report_url": "",
         "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-07T14:59:47.967Z"
+        "updated": "2016-07-13T14:52:53.846Z"
     }
 },
 {
@@ -664,27 +664,27 @@
     "fields": {
         "fellow": 3,
         "category": "O",
-        "name": "Test Green Arrow",
-        "url": "test-green-arrow.com",
+        "name": "9d68144a - Green Arrow",
+        "url": "9d68144a.com",
         "location": "US",
-        "lon": null,
-        "lat": null,
+        "lon": 102.7173,
+        "lat": 3.91522,
         "start_date": "2016-05-14",
         "end_date": "2016-05-15",
-        "budget_request_travel": "100.00",
+        "budget_request_travel": "2500.00",
         "budget_request_attendance_fees": "0.00",
         "budget_request_subsistence_cost": "0.00",
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
-        "budget_approve": "0.00",
-        "justification": "Bio",
+        "budget_approve": "2500.00",
+        "justification": ":-)",
         "additional_info": "",
-        "ad_status": "U",
-        "status": "U",
-        "report_url": null,
+        "ad_status": "V",
+        "status": "F",
+        "report_url": "",
         "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-07T14:59:47.967Z"
+        "updated": "2016-07-13T14:53:57.273Z"
     }
 },
 {
@@ -693,27 +693,150 @@
     "fields": {
         "fellow": 4,
         "category": "O",
-        "name": "Test Black Widow",
-        "url": "test-black-widow.com",
+        "name": "9d6816de - Black Widow",
+        "url": "9d6816de.com",
         "location": "US",
-        "lon": null,
-        "lat": null,
+        "lon": -65.84834,
+        "lat": 30.0518,
         "start_date": "2016-08-01",
         "end_date": "2016-08-03",
-        "budget_request_travel": "100.00",
+        "budget_request_travel": "500.00",
+        "budget_request_attendance_fees": "0.00",
+        "budget_request_subsistence_cost": "0.00",
+        "budget_request_venue_hire": "0.00",
+        "budget_request_catering": "0.00",
+        "budget_request_others": "0.00",
+        "budget_approve": "500.00",
+        "justification": ":-)",
+        "additional_info": "",
+        "ad_status": "V",
+        "status": "A",
+        "report_url": "",
+        "added": "2016-07-07T14:59:46.412Z",
+        "updated": "2016-07-13T14:55:06.874Z"
+    }
+},
+{
+    "model": "fellowms.event",
+    "pk": 8,
+    "fields": {
+        "fellow": 1,
+        "category": "A",
+        "name": "9d6818e6 - Captain America",
+        "url": "9d6818e6.com",
+        "location": "UK",
+        "lon": -6.73372,
+        "lat": 46.95474,
+        "start_date": "2014-02-20",
+        "end_date": "2014-02-22",
+        "budget_request_travel": "500.00",
+        "budget_request_attendance_fees": "0.00",
+        "budget_request_subsistence_cost": "0.00",
+        "budget_request_venue_hire": "0.00",
+        "budget_request_catering": "0.00",
+        "budget_request_others": "0.00",
+        "budget_approve": "500.00",
+        "justification": ":-)",
+        "additional_info": "",
+        "ad_status": "V",
+        "status": "F",
+        "report_url": "",
+        "added": "2016-07-13T14:58:08.260Z",
+        "updated": "2016-07-13T14:58:18.769Z"
+    }
+},
+{
+    "model": "fellowms.event",
+    "pk": 9,
+    "fields": {
+        "fellow": 1,
+        "category": "A",
+        "name": "9d681b66 - Captain America",
+        "url": "9d681b66.com",
+        "location": "UK",
+        "lon": -9.87283,
+        "lat": -73.47064,
+        "start_date": "2014-11-10",
+        "end_date": "2014-11-12",
+        "budget_request_travel": "0.00",
+        "budget_request_attendance_fees": "0.00",
+        "budget_request_subsistence_cost": "0.00",
+        "budget_request_venue_hire": "0.00",
+        "budget_request_catering": "1000.00",
+        "budget_request_others": "0.00",
+        "budget_approve": "0.00",
+        "justification": ":-(",
+        "additional_info": "",
+        "ad_status": "H",
+        "status": "R",
+        "report_url": "",
+        "added": "2016-07-13T14:59:44.036Z",
+        "updated": "2016-07-13T14:59:44.036Z"
+    }
+},
+{
+    "model": "fellowms.event",
+    "pk": 10,
+    "fields": {
+        "fellow": 3,
+        "category": "A",
+        "name": "9d681d8c - Green Arrow",
+        "url": "9d681d8c.com",
+        "location": "US",
+        "lon": 48.89437,
+        "lat": 15.53126,
+        "start_date": "2015-07-01",
+        "end_date": "2015-07-29",
+        "budget_request_travel": "1500.00",
         "budget_request_attendance_fees": "0.00",
         "budget_request_subsistence_cost": "0.00",
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
         "budget_approve": "0.00",
-        "justification": "Bio",
+        "justification": ":-(",
         "additional_info": "",
-        "ad_status": "U",
-        "status": "U",
-        "report_url": null,
-        "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-07T14:59:47.967Z"
+        "ad_status": "H",
+        "status": "R",
+        "report_url": "",
+        "added": "2016-07-13T15:01:25.316Z",
+        "updated": "2016-07-13T15:01:25.317Z"
+    }
+},
+{
+    "model": "fellowms.expense",
+    "pk": "3979af36-5a05-4ef7-ba57-e67cb8a9d454",
+    "fields": {
+        "event": 8,
+        "proof": "expenses/ec7.pdf",
+        "status": "F",
+        "amount": "500.00",
+        "added": "2016-07-13T15:05:50.610Z",
+        "updated": "2016-07-13T15:05:50.610Z"
+    }
+},
+{
+    "model": "fellowms.expense",
+    "pk": "7d8d67af-d8aa-465c-a6ab-31ed9217bf5d",
+    "fields": {
+        "event": 2,
+        "proof": "expenses/ec3.pdf",
+        "status": "F",
+        "amount": "2000.00",
+        "added": "2016-07-13T15:03:29.250Z",
+        "updated": "2016-07-13T15:03:29.250Z"
+    }
+},
+{
+    "model": "fellowms.expense",
+    "pk": "a18fc323-844e-49da-8d1c-38768713e9f7",
+    "fields": {
+        "event": 3,
+        "proof": "expenses/ec4.pdf",
+        "status": "F",
+        "amount": "400.00",
+        "added": "2016-07-13T15:03:57.771Z",
+        "updated": "2016-07-13T15:03:57.771Z"
     }
 },
 {
@@ -723,8 +846,21 @@
         "event": 1,
         "proof": "expenses/ec1.pdf",
         "status": "P",
+        "amount": "1000.00",
         "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-07T14:59:47.967Z"
+        "updated": "2016-07-13T15:02:46.990Z"
+    }
+},
+{
+    "model": "fellowms.expense",
+    "pk": "b2486ce7-c392-427d-b32e-9d58698f8687",
+    "fields": {
+        "event": 5,
+        "proof": "expenses/ec6.pdf",
+        "status": "F",
+        "amount": "2500.00",
+        "added": "2016-07-13T15:04:56.919Z",
+        "updated": "2016-07-13T15:04:56.919Z"
     }
 },
 {
@@ -734,8 +870,33 @@
         "event": 1,
         "proof": "expenses/ec2.pdf",
         "status": "P",
+        "amount": "500.00",
         "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-07T14:59:47.967Z"
+        "updated": "2016-07-13T15:02:41.015Z"
+    }
+},
+{
+    "model": "fellowms.expense",
+    "pk": "da29f63f-de4a-407a-b24c-f7702ab34c4a",
+    "fields": {
+        "event": 6,
+        "proof": "expenses/ec8.pdf",
+        "status": "A",
+        "amount": "500.00",
+        "added": "2016-07-13T15:05:22.698Z",
+        "updated": "2016-07-13T15:05:22.698Z"
+    }
+},
+{
+    "model": "fellowms.expense",
+    "pk": "eabbab9b-47fd-4359-b3b4-b39ee5913613",
+    "fields": {
+        "event": 4,
+        "proof": "expenses/ec5.pdf",
+        "status": "F",
+        "amount": "1000.00",
+        "added": "2016-07-13T15:04:23.530Z",
+        "updated": "2016-07-13T15:04:23.530Z"
     }
 },
 {
