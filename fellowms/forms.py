@@ -10,7 +10,7 @@ class FellowForm(ModelForm):
                 "home_lon",
                 "home_lat",
                 "funding_notes",
-                "inauguration_year",
+                "application_year",
                 "fellowship_grant",
                 "mentor",
                 "added",

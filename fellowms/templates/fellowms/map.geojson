@@ -8,7 +8,7 @@
         "marker-size": "medium",
         "marker-symbol": "star",
         "Name": "{{ fellow.forenames }} {{ fellow.surname }}",
-        "Inauguration": "{{ fellow.inauguration_year }}"
+        "Inauguration": "{{ fellow.application_year }}"
       },
       "geometry": {
         "type": "Point",
