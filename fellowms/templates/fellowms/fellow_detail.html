@@ -3,7 +3,7 @@
 
 {% block content %}
 <h1>Fellow Detail</h1>
-<img src="{{ fellow.photo.url }}" alt="Photo of {{ fellow.forenames }} {{ fellow.surname }}" class="img-responsive img-circle" />
+{% include 'fellowms/photo.html' %}
 <table class="table table-bordered">
     <tbody>
         <tr>

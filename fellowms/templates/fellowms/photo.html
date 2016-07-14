@@ -1,0 +1,5 @@
+{% if fellow.photo %}
+<img src="{{fellow.photo.url}}" alt="Photo of {{ fellow.forenames }} {{ fellow.surname }}" class="img-responsive img-circle">
+{% else %}
+<div style='width=120px;height=120px'></div>
+{% endif %}
