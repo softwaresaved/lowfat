@@ -23,7 +23,7 @@
         </tr>
     </tbody>
 </table>
-{% if budget_request %}
+{% if budget_summary %}
 <h2>Budget Summary</h2>
 <table class="table table-bordered">
     <tbody>
@@ -93,7 +93,11 @@
        {% endif %}
        >
       <td>
+        {% if expense.proof %}
         <a href="{{ expense.proof.url }}">{{ expense.proof.url }}</a>
+        {% else %}
+        Missing proof of expense
+        {% endif %}
       </td>
       <td>
         {{ expense.get_status_display }}
