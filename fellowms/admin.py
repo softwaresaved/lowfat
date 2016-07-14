@@ -50,7 +50,7 @@ class AmountListFilter(admin.SimpleListFilter):
     title = 'amount'
 
     # Parameter for the filter that will be used in the URL query.
-    parameter_name = 'amount'
+    parameter_name = 'amount_claimed'
 
     def lookups(self, request, model_admin):
         """

@@ -152,7 +152,7 @@ class Fellow(models.Model):
     def fellowship_used(self):
         """Return the ammount alread used from the fellowship grant."""
         this_fellow_expenses = Expense.objects.filter(event__fellow=self, status__in=['A', 'F'])
-        return sum([expense.amount for expense in this_fellow_expenses])
+        return sum([expense.amount_claimed for expense in this_fellow_expenses])
 
     def fellowship_reserve(self):
         """Return the ammount reserved from the fellowship grant."""
@@ -252,7 +252,7 @@ class Event(models.Model):
     def expenses_claimed(self):
         """Return the total ammount of expenses claimed."""
         this_event_expenses = Expense.objects.filter(event=self)
-        return sum([expense.amount for expense in this_event_expenses])
+        return sum([expense.amount_claimed for expense in this_event_expenses])
 
 
 class Expense(models.Model):
