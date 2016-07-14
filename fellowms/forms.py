@@ -26,7 +26,6 @@ class EventForm(ModelForm):
                 "status",
                 "ad_status",
                 "budget_approved",
-                "report_url",
                 "added",
                 "updated",
                 ]
