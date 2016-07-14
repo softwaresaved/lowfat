@@ -30,12 +30,13 @@ class Command(BaseCommand):
                 }
                 event = Event(**events_dict)
                 event.save()
-                expense_dict = {
+                if line["Revised estimate"]:
+                    expense_dict = {
                         "event": event,
                         "amount_claimed": line["Revised estimate"]
                     }
-                expense = Expense(**expense_dict)
-                expense.save()
+                    expense = Expense(**expense_dict)
+                    expense.save()
             except BaseException as e:
                 print("Error: {}".format(e))
                 print("{} {}".format(line["Forename(s)"], line["Surname"]))
