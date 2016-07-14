@@ -230,9 +230,6 @@ class Event(models.Model):
     status = models.CharField(choices=EVENT_STATUS,
             max_length=1,
             default="U")
-    report_url = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=True,
-            null=True)
 
     # Control
     added = models.DateTimeField(auto_now_add=True)
