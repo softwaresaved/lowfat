@@ -79,7 +79,10 @@
         Status
       </th>
       <th>
-        Amount
+        Amount claimed
+      </th>
+      <th>
+        Amount authorized for payment
       </th>
     </tr>
     {% for expense in expenses %}
@@ -103,7 +106,10 @@
         {{ expense.get_status_display }}
       </td>
       <td>
-        {{ expense.amount }}
+        {{ expense.amount_claimed }}
+      </td>
+      <td>
+        {{ expense.amount_authorized_for_payment }}
       </td>
     </tr>
     {% endfor %}
