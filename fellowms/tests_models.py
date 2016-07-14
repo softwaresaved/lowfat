@@ -54,7 +54,7 @@ class EventTestCase(TestCase):
                     "budget_request_venue_hire": "0.00",
                     "budget_request_catering": "0.00",
                     "budget_request_others": "0.00",
-                    "budget_approve": "0.00",
+                    "budget_approved": "0.00",
                     "justification": ":-)",
                     "additional_info": "",
                 },

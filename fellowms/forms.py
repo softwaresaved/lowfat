@@ -24,7 +24,7 @@ class EventForm(ModelForm):
         exclude = [
                 "status",
                 "ad_status",
-                "budget_approve",
+                "budget_approved",
                 "report_url",
                 "added",
                 "updated",

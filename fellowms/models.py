@@ -157,7 +157,7 @@ class Fellow(models.Model):
     def fellowship_reserve(self):
         """Return the ammount reserved from the fellowship grant."""
         this_fellow_events = Event.objects.filter(fellow=self, status__in=['U', 'P', 'A'])
-        return sum([event.budget_approve if event.budget_approve else event.budget_total() for event in this_fellow_events])
+        return sum([event.budget_approved if event.budget_approved else event.budget_total() for event in this_fellow_events])
 
     def fellowship_available(self):
         """Return the remain fellowship grant."""
