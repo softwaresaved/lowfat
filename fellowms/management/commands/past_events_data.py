@@ -32,7 +32,7 @@ class Command(BaseCommand):
                 event.save()
                 expense_dict = {
                         "event": event,
-                        "amount_claimed": line["Submitted"]
+                        "amount_claimed": line["Revised estimate"]
                     }
                 expense = Expense(**expense_dict)
                 expense.save()
