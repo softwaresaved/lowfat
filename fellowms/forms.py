@@ -11,6 +11,7 @@ class FellowForm(ModelForm):
                 "home_lat",
                 "funding_notes",
                 "application_year",
+                "selected",
                 "fellowship_grant",
                 "mentor",
                 "added",
@@ -46,9 +47,13 @@ class ExpenseForm(ModelForm):
         exclude = [
                 'id',
                 'status',
+                'amount_authorized_for_payment',
                 "added",
                 "updated",
                 ]
+        labels = {
+                'amount_authorized_for_payment': 'Amount authorized for payment',
+                }
 
 
 class ExpenseReviewForm(ModelForm):
