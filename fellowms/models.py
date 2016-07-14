@@ -285,7 +285,7 @@ class Expense(models.Model):
     status = models.CharField(choices=EXPENSE_STATUS,
             max_length=1,
             default="P")
-    amount = models.DecimalField(max_digits=MAX_DIGITS,
+    amount_authorized_for_payment = models.DecimalField(max_digits=MAX_DIGITS,
                                  decimal_places=2,
                                  blank=False,
                                  default=0.00)
