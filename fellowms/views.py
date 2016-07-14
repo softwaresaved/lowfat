@@ -120,7 +120,7 @@ def event_detail(request, event_id):
             context.update({
                     'expenses': Expense.objects.filter(event=this_event),
                     'blogs': Blog.objects.filter(event=this_event),
-                    'budget_request': budget_request,
+                    'budget_summary': True,
                     })
 
     return render(request, 'fellowms/event_detail.html', context)
