@@ -136,6 +136,9 @@ class Fellow(models.Model):
                                            null=False,
                                            blank=False,
                                            default=0.00)
+    notes_from_admin = models.TextField(
+            null=True,
+            blank=True)
 
     # Mentors need to be another fellow
     mentor = models.ForeignKey('self',
@@ -222,6 +225,9 @@ class Event(models.Model):
     status = models.CharField(choices=EVENT_STATUS,
             max_length=1,
             default="U")
+    notes_from_admin = models.TextField(
+            null=True,
+            blank=True)
 
     # Control
     added = models.DateTimeField(auto_now_add=True)
@@ -283,6 +289,9 @@ class Expense(models.Model):
                                  decimal_places=2,
                                  blank=False,
                                  default=0.00)
+    notes_from_admin = models.TextField(
+            null=True,
+            blank=True)
 
     # Control
     added = models.DateTimeField(auto_now_add=True)
@@ -305,6 +314,11 @@ class Blog(models.Model):
     status = models.CharField(choices=BLOG_POST_STATUS,
             max_length=1,
             default="U")
+
+    # Admin fields
+    notes_from_admin = models.TextField(
+            null=True,
+            blank=True)
 
     # Control
     added = models.DateTimeField(auto_now_add=True)
