@@ -291,6 +291,9 @@ class Expense(models.Model):
     status = models.CharField(choices=EXPENSE_STATUS,
             max_length=1,
             default="P")
+    received_date = models.DateTimeField(default=date.today())
+    asked_for_authorization_date = models.DateTimeField(null=True)
+    send_to_finance_date = models.DateTimeField(null=True)
     amount_authorized_for_payment = models.DecimalField(max_digits=MAX_DIGITS,
                                  decimal_places=2,
                                  blank=False,
