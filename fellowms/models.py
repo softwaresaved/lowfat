@@ -1,6 +1,7 @@
 from datetime import date
 import uuid
 
+import django.utils
 from django.conf import settings
 from django.db import models
 
@@ -291,7 +292,7 @@ class Expense(models.Model):
     status = models.CharField(choices=EXPENSE_STATUS,
             max_length=1,
             default="P")
-    received_date = models.DateField(default=date.today())
+    received_date = models.DateField(default=django.utils.timezone.now)
     asked_for_authorization_date = models.DateField(null=True)
     send_to_finance_date = models.DateField(null=True)
     amount_authorized_for_payment = models.DecimalField(max_digits=MAX_DIGITS,
