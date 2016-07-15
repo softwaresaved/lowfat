@@ -17,6 +17,12 @@ def index(request):
             'fellows': Fellow.objects.exclude(selected=False).order_by('application_year').reverse(),
             'events': Event.objects.filter(category="H").order_by("start_date").reverse(),
             }
+
+    if request.user.is_authenticated() and request.user.is_superuser:
+        context.update({
+            'show_grant_available': True,
+            })
+
     return render(request, 'fellowms/index.html', context)
 
 def dashboard(request):

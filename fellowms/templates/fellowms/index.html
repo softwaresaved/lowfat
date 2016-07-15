@@ -12,6 +12,10 @@
     <br>
     {{ fellow.forenames }} {{ fellow.surname }}
     </a>
+    {% if show_grant_available %}
+    <br>
+    £{{ fellow.fellowship_available }}
+    {% endif %}
     <br>
     {{ fellow.application_year }}
 </li>
