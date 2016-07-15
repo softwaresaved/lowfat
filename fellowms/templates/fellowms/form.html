@@ -2,6 +2,7 @@
 
 {% block content %}
 <h1>{{ title }}</h1>
+<p>Fields marked with <span class="form-field-required"></span> are required.</p>
 {% if formset.is_multipart %}
 <form enctype="multipart/form-data" method="post" action="">
     {% else %}

@@ -2,3 +2,9 @@
     width: 100%;
     height: 400px;
 }
+
+span.form-field-required::after,
+.form-field-required th::after {
+    content: "(*)";
+    color: red;
+}

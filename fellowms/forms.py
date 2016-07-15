@@ -19,6 +19,9 @@ class FellowForm(ModelForm):
                 ]
 
 
+    required_css_class = 'form-field-required'
+
+
 class EventForm(ModelForm):
     class Meta:
         model = Event
@@ -40,6 +43,9 @@ class EventForm(ModelForm):
                 }
 
 
+    required_css_class = 'form-field-required'
+
+
 class ExpenseForm(ModelForm):
     class Meta:
         model = Expense
@@ -55,6 +61,9 @@ class ExpenseForm(ModelForm):
                 }
 
 
+    required_css_class = 'form-field-required'
+
+
 class ExpenseReviewForm(ModelForm):
     class Meta:
         model = Expense
@@ -67,6 +76,9 @@ class ExpenseReviewForm(ModelForm):
                 ]
 
 
+    required_css_class = 'form-field-required'
+
+
 class BlogForm(ModelForm):
     class Meta:
         model = Blog
@@ -75,3 +87,6 @@ class BlogForm(ModelForm):
                 "added",
                 "updated",
                 ]
+
+
+    required_css_class = 'form-field-required'
