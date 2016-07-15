@@ -18,8 +18,17 @@ class Command(BaseCommand):
         for idx, line in data.iterrows():
             try:
                 this_fellow = Fellow.objects.get(forenames=line["Forename(s)"], surname=line["Surname"], selected=True)
+                if line['Event type'] == 'Attending a conference/workshop':
+                    event_category = 'A'
+                elif line['Event type'] == ' Organising a workshop (e.g. Software Carpentry)':
+                    event_category = 'H'
+                elif line['Event type'] == 'Policy related event':
+                    event_category = 'P'
+                else:
+                    event_category = 'O'
                 events_dict = {
                         "fellow": this_fellow,
+                        "category": event_category,
                         "name": line["Event name"],
                         "url": line["Event website"],
                         "location": line["Event location"],
