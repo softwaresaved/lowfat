@@ -40,6 +40,10 @@ class Command(BaseCommand):
                 }
                 event = Event(**events_dict)
                 event.save()
+                if pd.notnull(line['Approved']) and line['Approved'] != 'N/A':
+                    event.ad_status = 'V'
+                    event.status = 'A'
+                    event.save()
                 if line["Revised estimate"]:
                     expense_dict = {
                         "event": event,
@@ -47,11 +51,8 @@ class Command(BaseCommand):
                     }
                     expense = Expense(**expense_dict)
                     expense.save()
-                    if line['Approved'] == 'Yes':
-                        event.ad_status = 'V'
-                        event.status = 'A'
-                        event.save()
-                    if line['Claim'] == 'Yes' and line['Authorised'] == 'Yes':
+                    if line['Claim'] in ['Yes', 'SVN', 'Partial', 'Hard copy', 'Ask accounts for copy of invoice'] and pd.notnul(line['Authorised']):
+                        expense.funds_from = line["Type"] if pd.notnull(line["Type"]) else 'C'
                         expense.status = 'A'
                         expense.amount_authorized_for_payment = line["Revised estimate"]
                         expense.save()
