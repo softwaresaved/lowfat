@@ -246,6 +246,11 @@ class Event(models.Model):
         this_event_expenses = Expense.objects.filter(event=self)
         return sum([expense.amount_claimed for expense in this_event_expenses])
 
+    def expenses_authorized_for_payment(self):
+        """Return the total ammount of expenses authorized_for_payment."""
+        this_event_expenses = Expense.objects.filter(event=self)
+        return sum([expense.amount_authorized_for_payment for expense in this_event_expenses])
+
 
 class Expense(models.Model):
     """This describe one expense for one event."""
