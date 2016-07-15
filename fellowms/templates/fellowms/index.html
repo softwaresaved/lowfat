@@ -7,6 +7,9 @@
 <ul class="list-group row">
 {% for fellow in fellows %}
 <li class="list-group-item col-xs-3">
+  <div class="ribbon">
+    <span>{{ fellow.application_year }}</span>
+  </div>
   <a href="{% url 'fellow_detail' fellow.id %}">
     {% include 'fellowms/photo.html' %}
     <br>
@@ -16,8 +19,6 @@
     <br>
     £{{ fellow.fellowship_available }}
     {% endif %}
-    <br>
-    {{ fellow.application_year }}
 </li>
 {% endfor %}
 <ul>
