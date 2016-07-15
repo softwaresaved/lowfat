@@ -2,20 +2,24 @@
 <table class="table table-bordered">
   <tbody>
   <tr>
+    <th>Grant</th>
+    <td>£{{ fellow.fellowship_grant }}</td>
+  </tr>
+  <tr>
     <th>Available</th>
     <td>£{{ fellow.fellowship_available }}</td>
   </tr>
   <tr>
-    <th>Reserve</th>
-    <td>£{{ fellow.fellowship_reserve }}</td>
+    <th>Committed</th>
+    <td>£{{ fellow.fellowship_committed }}</td>
   </tr>
   <tr>
     <th>Spent</th>
-    <td>£{{ fellow.fellowship_used }}</td>
+    <td>£{{ fellow.fellowship_spent }}</td>
   <tr>
-  <tr>
-    <th>Total</th>
-    <td>£{{ fellow.fellowship_grant }}</td>
+    <th>Remaining to claim</th>
+    <td>£{{ fellow.fellowship_remaining }}</td>
   </tr>
+  <tr>
   </tbody>
 </table>

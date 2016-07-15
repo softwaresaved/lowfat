@@ -158,19 +158,25 @@ class Fellow(models.Model):
     def __str__(self):
         return "{} {}".format(self.forenames, self.surname)
 
-    def fellowship_used(self):
-        """Return the ammount alread used from the fellowship grant."""
+    def fellowship_available(self):
+        """Return the remain fellowship grant."""
+        return self.fellowship_grant - self.fellowship_committed()
+
+    def fellowship_committed(self):
+        """Return the ammount committed from the fellowship grant."""
+        this_fellow_events = Event.objects.filter(fellow=self, status__in=['A', 'F'])
+        return sum([event.amount_approved for event in this_fellow_events])
+
+    def fellowship_spent(self):
+        """Return the ammount alread spent from the fellowship grant."""
         this_fellow_expenses = Expense.objects.filter(event__fellow=self, status__in=['A', 'F'])
         return sum([expense.amount_claimed for expense in this_fellow_expenses])
 
-    def fellowship_reserve(self):
-        """Return the ammount reserved from the fellowship grant."""
+    def fellowship_remaining(self):
+        """Return the ammount remaining to claim from the total committed."""
         this_fellow_events = Event.objects.filter(fellow=self, status__in=['U', 'P', 'A'])
-        return sum([event.budget_approved if event.budget_approved else event.budget_total() for event in this_fellow_events])
+        return self.fellowship_committed() - self.fellowship_spent()
 
-    def fellowship_available(self):
-        """Return the remain fellowship grant."""
-        return self.fellowship_grant - self.fellowship_reserve() - self.fellowship_used()
 
 
 class Event(models.Model):
