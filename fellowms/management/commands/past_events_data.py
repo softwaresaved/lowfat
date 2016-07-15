@@ -52,7 +52,7 @@ class Command(BaseCommand):
                     }
                     expense = Expense(**expense_dict)
                     expense.save()
-                    if line['Claim'] in ['Yes', 'SVN', 'Partial', 'Hard copy', 'Ask accounts for copy of invoice'] and pd.notnul(line['Authorised']):
+                    if line['Claim'] in ['Yes', 'SVN', 'Partial', 'Hard copy', 'Ask accounts for copy of invoice'] and pd.notnull(line['Authorised']):
                         expense.funds_from = line["Type"] if pd.notnull(line["Type"]) else 'C'
                         expense.status = 'A'
                         expense.amount_authorized_for_payment = line["Revised estimate"]
