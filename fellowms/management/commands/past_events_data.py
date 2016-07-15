@@ -25,6 +25,12 @@ class Command(BaseCommand):
                         "location": ["Event location"],
                         "start_date": conv_date(line["Start date"]),
                         "end_date": conv_date(line["End date"]) if line["End date"] else conv_date(line["Start date"]),
+                        "budget_request_travel": line["Travel costs"],
+                        "budget_request_attendance_fees": line["Conference/Workshop attendance fees"],
+                        "budget_request_subsistence_cost": line["Subsistence costs"],
+                        "budget_request_venue_hire": line["Venue hire"],
+                        "budget_request_catering": line["Catering"],
+                        "budget_request_others": line["Other costs"],
                         "budget_approved": line["Estimate"],
                         "justification": line["How is the event relevant to the work of the Software Sustainability Institute?"],
                 }
@@ -38,6 +44,4 @@ class Command(BaseCommand):
                     expense = Expense(**expense_dict)
                     expense.save()
             except BaseException as e:
-                print("Error: {}".format(e))
-                print("{} {}".format(line["Forename(s)"], line["Surname"]))
-                print("{} {}".format(line["Start date"], line["End date"]))
+                print("Error: {}\n\t{}".format(e, line))
