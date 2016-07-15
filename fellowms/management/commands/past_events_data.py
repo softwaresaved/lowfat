@@ -22,7 +22,7 @@ class Command(BaseCommand):
                         "fellow": this_fellow,
                         "name": line["Event name"],
                         "url": line["Event website"],
-                        "location": ["Event location"],
+                        "location": line["Event location"],
                         "start_date": conv_date(line["Start date"]),
                         "end_date": conv_date(line["End date"]) if line["End date"] else conv_date(line["Start date"]),
                         "budget_request_travel": line["Travel costs"] if pd.notnull(line["Travel costs"]) else 0,
