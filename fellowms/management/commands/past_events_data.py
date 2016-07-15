@@ -48,6 +48,7 @@ class Command(BaseCommand):
                     expense_dict = {
                         "event": event,
                         "amount_claimed": line["Revised estimate"] if pd.notnull(line["Revised estimate"]) else 0,
+                        "received_date": '01-01-0001',
                     }
                     expense = Expense(**expense_dict)
                     expense.save()
