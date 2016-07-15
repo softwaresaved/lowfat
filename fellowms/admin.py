@@ -80,6 +80,8 @@ class AmountListFilter(admin.SimpleListFilter):
 class ExpenseAdmin(admin.ModelAdmin):
     list_display = [
         'event',
+        'get_fellow',
+        'get_start_date',
         'status',
     ]
     search_fields = [
@@ -91,6 +93,18 @@ class ExpenseAdmin(admin.ModelAdmin):
         'status',
         AmountListFilter,
     ]
+
+    def get_fellow(self, obj):
+        return obj.event.fellow
+
+    get_fellow.short_description = 'fellow'
+    get_fellow.admin_order_field = 'event__fellow'
+
+    def get_start_date(self, obj):
+        return obj.event.start_date
+
+    get_start_date.short_description = 'Start date'
+    get_start_date.admin_order_field = 'event__start_date'
 
 
 class BlogAdmin(admin.ModelAdmin):
