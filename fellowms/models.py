@@ -166,7 +166,7 @@ class Fellow(models.Model):
     def fellowship_committed(self):
         """Return the ammount committed from the fellowship grant."""
         this_fellow_events = Event.objects.filter(fellow=self, status__in=['A', 'F'])
-        return sum([event.amount_approved for event in this_fellow_events])
+        return sum([event.budget_approved for event in this_fellow_events])
 
     def fellowship_spent(self):
         """Return the ammount alread spent from the fellowship grant."""
