@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 import os
 
 URL_SRC = "https://github.com/rgaiacs/softwaresaved-fellowms/"
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 
 SETTINGS_EXPORT = [
         'URL_SRC',
