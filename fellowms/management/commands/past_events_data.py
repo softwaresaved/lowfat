@@ -47,7 +47,7 @@ class Command(BaseCommand):
                         event.ad_status = 'V'
                         event.status = 'A'
                         event.save()
-                    if line['Claim'] == True and line['Authorized']:
+                    if line['Claim'] == 'Yes' and line['Authorised'] == 'Yes':
                         expense.status = 'A'
                         expense.amount_authorized_for_payment = line["Revised estimate"]
                         expense.save()
