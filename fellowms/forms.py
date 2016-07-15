@@ -55,6 +55,7 @@ class ExpenseForm(ModelForm):
                 'id',
                 'status',
                 'amount_authorized_for_payment',
+                "funds_from",
                 "notes_from_admin",
                 "added",
                 "updated",
