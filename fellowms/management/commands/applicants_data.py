@@ -29,6 +29,7 @@ class Command(BaseCommand):
                     "gender": line["Gender"] if line["Gender"] else 'R',
                     "work_description": line["Work area"],
                     "funding": "{}, {}".format(line["Primary funder"],line["Additional funder"]),
+                    "fellowship_grant": 3000 if is_fellow else 0,
                 }
             applicant = Fellow(**applicants_dict)
             applicant.save()
