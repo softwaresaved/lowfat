@@ -31,6 +31,4 @@ class Command(BaseCommand):
                     "funding": "{}, {}".format(line["Primary funder"],line["Additional funder"]),
                 }
             applicant = Fellow(**applicants_dict)
-            print(applicant)
             applicant.save()
-          
