@@ -161,7 +161,7 @@ class Fellow(models.Model):
 
     def fellowship_available(self):
         """Return the remain fellowship grant."""
-        return self.fellowship_grant - self.fellowship_committed()
+        return self.fellowship_grant - self.fellowship_spent() - self.fellowship_remaining()
 
     def fellowship_committed(self):
         """Return the ammount committed from the fellowship grant."""
@@ -170,7 +170,7 @@ class Fellow(models.Model):
 
     def fellowship_spent(self):
         """Return the ammount alread spent from the fellowship grant."""
-        this_fellow_expenses = Expense.objects.filter(event__fellow=self, status__in=['A', 'F'])
+        this_fellow_expenses = Expense.objects.filter(event__fellow=self, status__in=['A', 'F']).exclude(funds_from__in=["C", "I"])
         return sum([expense.amount_claimed for expense in this_fellow_expenses])
 
     def fellowship_remaining(self):
