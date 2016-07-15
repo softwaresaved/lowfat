@@ -44,6 +44,12 @@ EXPENSE_STATUS = (
         ('F', 'Finished'),
         )
 
+FUNDS_FROM = (
+    ('C', 'Continuing (fellowship)'),
+    ('I', 'Core (Software Sustainability Institute)'),
+    ('F', 'Grant (inauguration fellowship)'),
+    )
+
 BLOG_POST_STATUS = (
         ('U', 'Unprocessed'),
         ('R', 'On Google Drive (for review)'),
@@ -289,6 +295,9 @@ class Expense(models.Model):
                                  decimal_places=2,
                                  blank=False,
                                  default=0.00)
+    funds_from = models.CharField(choices=FUNDS_FROM,
+            max_length=1,
+            default="C")
     notes_from_admin = models.TextField(
             null=True,
             blank=True)
