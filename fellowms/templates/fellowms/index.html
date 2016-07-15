@@ -26,27 +26,6 @@
 
 <h2>Events</h2>
 <p>The following events will happen in the short future and have the support of at least one of the Institute fellows.</p>
-<table>
-    <tbody>
-        <tr>
-            <th>Name</th>
-            <th>Start date</th>
-            <th>End data</th>
-        </tr>
-{% for event in events %}
-<tr>
-    <td><a href="{% url "event_detail" event.id %}">{{event.name}}</a> <a href="{{event.url}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
-    <td>{{event.start_date}}</td>
-    <td>{{event.end_date}}</td>
-</tr>
-{% empty %}
-<tr>
-    <td>No events.</td>
-    <td></td>
-    <td></td>
-</tr>
-{% endfor %}
-    </tbody>
-</table>
+{% include 'fellowms/events.html' %}
 <p>Check <a href="{% url 'event_past' %}">previous events</a> also organized by Institute fellows.</p>
 {% endblock %}

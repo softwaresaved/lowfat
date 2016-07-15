@@ -2,26 +2,5 @@
 
 {% block content %}
 <h1>Previous events</h1>
-<table class="table table-bordered">
-    <tbody>
-        <tr>
-            <th>Name</th>
-            <th>Start date</th>
-            <th>End data</th>
-        </tr>
-{% for event in events %}
-<tr>
-    <td><a href="{% url "event_detail" event.id %}">{{event.name}}</a> <a href="{{event.url}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
-    <td>{{event.start_date}}</td>
-    <td>{{event.end_date}}</td>
-</tr>
-{% empty %}
-<tr>
-    <td>No events.</td>
-    <td></td>
-    <td></td>
-</tr>
-{% endfor %}
-    </tbody>
-</table>
+{% include "fellowms/events.html" %}
 {% endblock %}
