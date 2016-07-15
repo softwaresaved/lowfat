@@ -25,13 +25,13 @@ class Command(BaseCommand):
                         "location": ["Event location"],
                         "start_date": conv_date(line["Start date"]),
                         "end_date": conv_date(line["End date"]) if line["End date"] else conv_date(line["Start date"]),
-                        "budget_request_travel": line["Travel costs"] if line["Travel costs"] else 0,
-                        "budget_request_attendance_fees": line["Conference/Workshop attendance fees"] if line["Conference/Workshop attendance fees"] else 0,
-                        "budget_request_subsistence_cost": line["Subsistence costs"] if line["Subsistence costs"] else 0,
-                        "budget_request_venue_hire": line["Venue hire"] if line["Venue hire"] else 0,
-                        "budget_request_catering": line["Catering"] if line["Catering"] else 0,
-                        "budget_request_others": line["Other costs"] if line["Other costs"] else 0,
-                        "budget_approved": line["Estimate"] if line["Estimate"] else 0,
+                        "budget_request_travel": line["Travel costs"] if pd.notnull(line["Travel costs"]) else 0,
+                        "budget_request_attendance_fees": line["Conference/Workshop attendance fees"] if pd.notnull(line["Conference/Workshop attendance fees"]) else 0,
+                        "budget_request_subsistence_cost": line["Subsistence costs"] if pd.notnull(line["Subsistence costs"]) else 0,
+                        "budget_request_venue_hire": line["Venue hire"] if pd.notnull(line["Venue hire"]) else 0,
+                        "budget_request_catering": line["Catering"] if pd.notnull(line["Catering"]) else 0,
+                        "budget_request_others": line["Other costs"] if pd.notnull(line["Other costs"]) else 0,
+                        "budget_approved": line["Estimate"] if pd.notnull(line["Estimate"]) else 0,
                         "justification": line["How is the event relevant to the work of the Software Sustainability Institute?"],
                 }
                 event = Event(**events_dict)
@@ -39,7 +39,7 @@ class Command(BaseCommand):
                 if line["Revised estimate"]:
                     expense_dict = {
                         "event": event,
-                        "amount_claimed": line["Revised estimate"] if line["Revised estimate"] else 0,
+                        "amount_claimed": line["Revised estimate"] if pd.notnull(line["Revised estimate"]) else 0,
                     }
                     expense = Expense(**expense_dict)
                     expense.save()
