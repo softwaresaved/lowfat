@@ -14,6 +14,7 @@ class FellowForm(ModelForm):
                 "selected",
                 "fellowship_grant",
                 "mentor",
+                "notes_from_admin",
                 "added",
                 "updated",
                 ]
@@ -29,6 +30,7 @@ class EventForm(ModelForm):
                 "status",
                 "ad_status",
                 "budget_approved",
+                "notes_from_admin",
                 "added",
                 "updated",
                 ]
@@ -53,6 +55,7 @@ class ExpenseForm(ModelForm):
                 'id',
                 'status',
                 'amount_authorized_for_payment',
+                "notes_from_admin",
                 "added",
                 "updated",
                 ]
@@ -84,6 +87,7 @@ class BlogForm(ModelForm):
         model = Blog
         exclude = [
                 'status',
+                "notes_from_admin",
                 "added",
                 "updated",
                 ]
