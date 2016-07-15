@@ -43,5 +43,14 @@ class Command(BaseCommand):
                     }
                     expense = Expense(**expense_dict)
                     expense.save()
+                if line['Approved'] == 'Yes':
+                    event.ad_status = 'V'
+                    event.status = 'A'
+                    event.save()
+                if line['Claim'] == True and line['Authorized']:
+                    expense.status = 'A'
+                    expense.save()
+                    event.status = 'F'
+                    event.save()
             except BaseException as e:
                 print("Error: {}\n\t{}".format(e, line))
