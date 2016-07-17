@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, SelectDateWidget
 
 from .models import *
 
@@ -43,6 +43,11 @@ class EventForm(ModelForm):
                 'url': "Event's homepage url",
                 'name': "Event's name",
                 }
+
+        widgets = {
+            'start_date': SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day")),
+            'end_date': SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day")),
+        }
 
 
     required_css_class = 'form-field-required'
