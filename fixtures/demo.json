@@ -824,16 +824,16 @@
     "fields": {
         "event": 8,
         "proof": "expenses/ec7.pdf",
-        "amount_claimed": "0.00",
+        "amount_claimed": "500.00",
         "status": "F",
-        "received_date": null,
-        "asked_for_authorization_date": null,
-        "send_to_finance_date": null,
+        "received_date": "2016-07-17",
+        "asked_for_authorization_date": "2016-07-17",
+        "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "500.00",
-        "funds_from": "C",
-        "notes_from_admin": null,
+        "funds_from": "F",
+        "notes_from_admin": "",
         "added": "2016-07-13T15:05:50.610",
-        "updated": "2016-07-13T15:05:50.610"
+        "updated": "2016-07-17T13:58:56.945"
     }
 },
 {
@@ -842,16 +842,16 @@
     "fields": {
         "event": 2,
         "proof": "expenses/ec3.pdf",
-        "amount_claimed": "0.00",
+        "amount_claimed": "20000.00",
         "status": "F",
-        "received_date": null,
-        "asked_for_authorization_date": null,
-        "send_to_finance_date": null,
+        "received_date": "2016-07-17",
+        "asked_for_authorization_date": "2016-07-17",
+        "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "2000.00",
-        "funds_from": "C",
-        "notes_from_admin": null,
+        "funds_from": "F",
+        "notes_from_admin": "",
         "added": "2016-07-13T15:03:29.250",
-        "updated": "2016-07-13T15:03:29.250"
+        "updated": "2016-07-17T13:59:13.965"
     }
 },
 {
@@ -860,16 +860,16 @@
     "fields": {
         "event": 3,
         "proof": "expenses/ec4.pdf",
-        "amount_claimed": "0.00",
+        "amount_claimed": "400.00",
         "status": "F",
-        "received_date": null,
-        "asked_for_authorization_date": null,
-        "send_to_finance_date": null,
+        "received_date": "2016-07-17",
+        "asked_for_authorization_date": "2016-07-17",
+        "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "400.00",
-        "funds_from": "C",
-        "notes_from_admin": null,
+        "funds_from": "F",
+        "notes_from_admin": "",
         "added": "2016-07-13T15:03:57.771",
-        "updated": "2016-07-13T15:03:57.771"
+        "updated": "2016-07-17T13:59:25.548"
     }
 },
 {
@@ -878,16 +878,16 @@
     "fields": {
         "event": 1,
         "proof": "expenses/ec1.pdf",
-        "amount_claimed": "0.00",
+        "amount_claimed": "1000.00",
         "status": "P",
-        "received_date": null,
-        "asked_for_authorization_date": null,
-        "send_to_finance_date": null,
-        "amount_authorized_for_payment": "1000.00",
+        "received_date": "2016-07-17",
+        "asked_for_authorization_date": "2016-07-17",
+        "send_to_finance_date": "2016-07-17",
+        "amount_authorized_for_payment": "0.00",
         "funds_from": "C",
-        "notes_from_admin": null,
+        "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
-        "updated": "2016-07-13T15:02:46.990"
+        "updated": "2016-07-17T14:03:11.682"
     }
 },
 {
@@ -896,16 +896,16 @@
     "fields": {
         "event": 5,
         "proof": "expenses/ec6.pdf",
-        "amount_claimed": "0.00",
+        "amount_claimed": "2500.00",
         "status": "F",
-        "received_date": null,
-        "asked_for_authorization_date": null,
-        "send_to_finance_date": null,
+        "received_date": "2016-07-17",
+        "asked_for_authorization_date": "2016-07-17",
+        "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "2500.00",
-        "funds_from": "C",
-        "notes_from_admin": null,
+        "funds_from": "F",
+        "notes_from_admin": "",
         "added": "2016-07-13T15:04:56.919",
-        "updated": "2016-07-13T15:04:56.919"
+        "updated": "2016-07-17T14:03:06.035"
     }
 },
 {
@@ -914,16 +914,16 @@
     "fields": {
         "event": 1,
         "proof": "expenses/ec2.pdf",
-        "amount_claimed": "0.00",
-        "status": "P",
-        "received_date": null,
-        "asked_for_authorization_date": null,
-        "send_to_finance_date": null,
+        "amount_claimed": "500.00",
+        "status": "F",
+        "received_date": "2016-07-17",
+        "asked_for_authorization_date": "2016-07-17",
+        "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "500.00",
-        "funds_from": "C",
-        "notes_from_admin": null,
+        "funds_from": "F",
+        "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
-        "updated": "2016-07-13T15:02:41.015"
+        "updated": "2016-07-17T14:02:48.682"
     }
 },
 {
@@ -932,16 +932,16 @@
     "fields": {
         "event": 6,
         "proof": "expenses/ec8.pdf",
-        "amount_claimed": "0.00",
+        "amount_claimed": "500.00",
         "status": "A",
-        "received_date": null,
-        "asked_for_authorization_date": null,
-        "send_to_finance_date": null,
+        "received_date": "2016-07-17",
+        "asked_for_authorization_date": "2016-07-17",
+        "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "500.00",
-        "funds_from": "C",
-        "notes_from_admin": null,
+        "funds_from": "F",
+        "notes_from_admin": "",
         "added": "2016-07-13T15:05:22.698",
-        "updated": "2016-07-13T15:05:22.698"
+        "updated": "2016-07-17T14:02:32.024"
     }
 },
 {
@@ -950,16 +950,16 @@
     "fields": {
         "event": 4,
         "proof": "expenses/ec5.pdf",
-        "amount_claimed": "0.00",
+        "amount_claimed": "1000.00",
         "status": "F",
-        "received_date": null,
-        "asked_for_authorization_date": null,
-        "send_to_finance_date": null,
+        "received_date": "2016-07-17",
+        "asked_for_authorization_date": "2016-07-17",
+        "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "1000.00",
-        "funds_from": "C",
-        "notes_from_admin": null,
+        "funds_from": "F",
+        "notes_from_admin": "",
         "added": "2016-07-13T15:04:23.530",
-        "updated": "2016-07-13T15:04:23.530"
+        "updated": "2016-07-17T14:02:07.034"
     }
 },
 {
