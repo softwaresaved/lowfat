@@ -22,13 +22,8 @@
 </table>
 {% if show_finances %}
 {% include 'fellowms/finances.html' %}
+{% include 'fellowms/expenses.html' %}
 {% endif %}
 <h2>Events</h2>
-<ul>
-{% for event in events %}
-<li><a href="{% url 'event_detail' event.id %}">{{ event.name }}</a></li>
-{% empty %}
-<li>No events.</li>
-{% endfor %}
-</ul>
+{% include 'fellowms/events.html' %}
 {% endblock %}

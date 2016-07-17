@@ -83,6 +83,7 @@ def fellow_detail(request, fellow_id):
     if request.user.is_authenticated() and (request.user.is_superuser or
             Fellow.objects.get(user=request.user) == this_fellow):
             context.update({
+                'expenses': Expense.objects.filter(event__fellow=this_fellow),
                 'show_finances': True,
                 })
 

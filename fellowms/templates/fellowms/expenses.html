@@ -1,0 +1,66 @@
+<h2>Expenses</h2>
+<p><a href="{% url 'expense' %}?event_id={{event.id}}">Submit new
+    expense.</a></p>
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <th>
+        Proof
+      </th>
+      <th>
+        Status
+      </th>
+      <th>
+        Amount claimed
+      </th>
+      <th>
+        Amount authorized for payment
+      </th>
+    </tr>
+    {% for expense in expenses %}
+    <tr
+       {% if expense.status in 'WS' %}
+       class="danger"
+       {% elif expense.status in 'P' %}
+       class="warning"
+       {% elif expense.status in 'AF' %}
+       class="sucess"
+       {% endif %}
+       >
+      <td>
+        {% if expense.proof %}
+        <a href="{{ expense.proof.url }}">{{ expense.proof.url }}</a>
+        <a href="{% url 'expense_review' expense.id %}"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a
+        {% else %}
+        Missing proof of expense
+        {% endif %}
+      </td>
+      <td>
+        {{ expense.get_status_display }}
+      </td>
+      <td>
+        {{ expense.amount_claimed }}
+      </td>
+      <td>
+        {{ expense.amount_authorized_for_payment }}
+      </td>
+    </tr>
+    {% endfor %}
+    {% if event %}
+    <tr>
+      <td>
+        <strong>Total</strong>
+      </td>
+      <td>
+        -
+      </td>
+      <th>
+        {{ event.expenses_claimed }}
+      </th>
+      <th>
+        {{ event.expenses_authorized_for_payment }}
+      </th>
+    </tr>
+   {% endif %}
+  </tbody>
+</table>
