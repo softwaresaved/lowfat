@@ -282,7 +282,7 @@
         "email": "",
         "is_staff": false,
         "is_active": true,
-        "date_joined": "2016-06-17T14:15:09.775Z",
+        "date_joined": "2016-06-17T14:15:09.775",
         "groups": [],
         "user_permissions": []
     }
@@ -300,7 +300,7 @@
         "email": "",
         "is_staff": false,
         "is_active": true,
-        "date_joined": "2016-06-17T14:15:51.545Z",
+        "date_joined": "2016-06-17T14:15:51.545",
         "groups": [],
         "user_permissions": []
     }
@@ -318,7 +318,7 @@
         "email": "",
         "is_staff": false,
         "is_active": true,
-        "date_joined": "2016-06-17T14:16:10.787Z",
+        "date_joined": "2016-06-17T14:16:10.787",
         "groups": [],
         "user_permissions": []
     }
@@ -336,7 +336,7 @@
         "email": "",
         "is_staff": false,
         "is_active": true,
-        "date_joined": "2016-06-17T14:16:27.618Z",
+        "date_joined": "2016-06-17T14:16:27.618",
         "groups": [],
         "user_permissions": []
     }
@@ -354,7 +354,7 @@
         "email": "",
         "is_staff": false,
         "is_active": true,
-        "date_joined": "2016-06-17T14:16:38.097Z",
+        "date_joined": "2016-06-17T14:16:38.097",
         "groups": [],
         "user_permissions": []
     }
@@ -372,7 +372,7 @@
         "email": "",
         "is_staff": true,
         "is_active": true,
-        "date_joined": "2016-07-05T15:35:20Z",
+        "date_joined": "2016-07-05T15:35:20",
         "groups": [],
         "user_permissions": []
     }
@@ -392,6 +392,7 @@
         "home_lat": null,
         "photo": "photos/ca.jpg",
         "research_area": "L391",
+        "research_area_code": "",
         "affiliation": "College",
         "funding": "Self-funded",
         "funding_notes": "",
@@ -403,11 +404,13 @@
         "gitlab": "",
         "twitter": "",
         "facebook": "",
-        "inauguration_year": 2014,
+        "application_year": 2016,
+        "selected": false,
         "fellowship_grant": "3000.00",
+        "notes_from_admin": null,
         "mentor": null,
-        "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-13T14:29:07.964Z"
+        "added": "2016-07-07T14:59:46.412",
+        "updated": "2016-07-13T14:29:07.964"
     }
 },
 {
@@ -425,6 +428,7 @@
         "home_lat": null,
         "photo": "photos/im.jpg",
         "research_area": "F331",
+        "research_area_code": "",
         "affiliation": "University",
         "funding": "EPSRC",
         "funding_notes": "",
@@ -436,11 +440,13 @@
         "gitlab": "",
         "twitter": "",
         "facebook": "",
-        "inauguration_year": 2014,
+        "application_year": 2016,
+        "selected": false,
         "fellowship_grant": "3000.00",
+        "notes_from_admin": null,
         "mentor": null,
-        "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-13T14:29:02.422Z"
+        "added": "2016-07-07T14:59:46.412",
+        "updated": "2016-07-13T14:29:02.422"
     }
 },
 {
@@ -458,6 +464,7 @@
         "home_lat": null,
         "photo": "photos/av.jpg",
         "research_area": "H690",
+        "research_area_code": "",
         "affiliation": "University",
         "funding": "EPSRC",
         "funding_notes": "",
@@ -469,11 +476,13 @@
         "gitlab": "",
         "twitter": "",
         "facebook": "",
-        "inauguration_year": 2016,
+        "application_year": 2016,
+        "selected": false,
         "fellowship_grant": "3000.00",
+        "notes_from_admin": null,
         "mentor": null,
-        "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-13T14:28:54.783Z"
+        "added": "2016-07-07T14:59:46.412",
+        "updated": "2016-07-13T14:28:54.783"
     }
 },
 {
@@ -491,6 +500,7 @@
         "home_lat": null,
         "photo": "photos/vn.jpg",
         "research_area": "I520",
+        "research_area_code": "",
         "affiliation": "College",
         "funding": "AHRC",
         "funding_notes": "",
@@ -502,11 +512,13 @@
         "gitlab": "",
         "twitter": "",
         "facebook": "",
-        "inauguration_year": 2016,
+        "application_year": 2016,
+        "selected": false,
         "fellowship_grant": "3000.00",
+        "notes_from_admin": null,
         "mentor": null,
-        "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-13T14:28:46.741Z"
+        "added": "2016-07-07T14:59:46.412",
+        "updated": "2016-07-13T14:28:46.741"
     }
 },
 {
@@ -524,6 +536,7 @@
         "home_lat": null,
         "photo": "photos/hu.jpg",
         "research_area": "I710",
+        "research_area_code": "",
         "affiliation": "University",
         "funding": "EPSRC",
         "funding_notes": "",
@@ -535,11 +548,13 @@
         "gitlab": "",
         "twitter": "",
         "facebook": "",
-        "inauguration_year": 2015,
+        "application_year": 2016,
+        "selected": false,
         "fellowship_grant": "3000.00",
+        "notes_from_admin": null,
         "mentor": null,
-        "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-13T14:28:38.973Z"
+        "added": "2016-07-07T14:59:46.412",
+        "updated": "2016-07-13T14:28:38.973"
     }
 },
 {
@@ -561,14 +576,14 @@
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
-        "budget_approve": "1500.00",
+        "budget_approved": "0.00",
         "justification": ":-)",
         "additional_info": "",
         "ad_status": "V",
         "status": "F",
-        "report_url": "",
-        "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-13T14:51:11.990Z"
+        "notes_from_admin": null,
+        "added": "2016-07-07T14:59:46.412",
+        "updated": "2016-07-13T14:51:11.990"
     }
 },
 {
@@ -590,14 +605,14 @@
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
-        "budget_approve": "3000.00",
+        "budget_approved": "0.00",
         "justification": ":-)",
         "additional_info": "",
         "ad_status": "V",
         "status": "F",
-        "report_url": "",
-        "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-13T14:50:28.359Z"
+        "notes_from_admin": null,
+        "added": "2016-07-07T14:59:46.412",
+        "updated": "2016-07-13T14:50:28.359"
     }
 },
 {
@@ -619,14 +634,14 @@
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
-        "budget_approve": "2000.00",
+        "budget_approved": "0.00",
         "justification": ":-)",
         "additional_info": "",
         "ad_status": "V",
         "status": "F",
-        "report_url": "",
-        "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-13T14:52:28.942Z"
+        "notes_from_admin": null,
+        "added": "2016-07-07T14:59:46.412",
+        "updated": "2016-07-13T14:52:28.942"
     }
 },
 {
@@ -648,14 +663,14 @@
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
-        "budget_approve": "1000.00",
+        "budget_approved": "0.00",
         "justification": ":-)",
         "additional_info": "",
         "ad_status": "V",
         "status": "F",
-        "report_url": "",
-        "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-13T14:52:53.846Z"
+        "notes_from_admin": null,
+        "added": "2016-07-07T14:59:46.412",
+        "updated": "2016-07-13T14:52:53.846"
     }
 },
 {
@@ -677,14 +692,14 @@
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
-        "budget_approve": "2500.00",
+        "budget_approved": "0.00",
         "justification": ":-)",
         "additional_info": "",
         "ad_status": "V",
         "status": "F",
-        "report_url": "",
-        "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-13T14:53:57.273Z"
+        "notes_from_admin": null,
+        "added": "2016-07-07T14:59:46.412",
+        "updated": "2016-07-13T14:53:57.273"
     }
 },
 {
@@ -706,14 +721,14 @@
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
-        "budget_approve": "500.00",
+        "budget_approved": "0.00",
         "justification": ":-)",
         "additional_info": "",
         "ad_status": "V",
         "status": "A",
-        "report_url": "",
-        "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-13T14:55:06.874Z"
+        "notes_from_admin": null,
+        "added": "2016-07-07T14:59:46.412",
+        "updated": "2016-07-13T14:55:06.874"
     }
 },
 {
@@ -735,14 +750,14 @@
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
-        "budget_approve": "500.00",
+        "budget_approved": "0.00",
         "justification": ":-)",
         "additional_info": "",
         "ad_status": "V",
         "status": "F",
-        "report_url": "",
-        "added": "2016-07-13T14:58:08.260Z",
-        "updated": "2016-07-13T14:58:18.769Z"
+        "notes_from_admin": null,
+        "added": "2016-07-13T14:58:08.260",
+        "updated": "2016-07-13T14:58:18.769"
     }
 },
 {
@@ -764,14 +779,14 @@
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "1000.00",
         "budget_request_others": "0.00",
-        "budget_approve": "0.00",
+        "budget_approved": "0.00",
         "justification": ":-(",
         "additional_info": "",
         "ad_status": "H",
         "status": "R",
-        "report_url": "",
-        "added": "2016-07-13T14:59:44.036Z",
-        "updated": "2016-07-13T14:59:44.036Z"
+        "notes_from_admin": null,
+        "added": "2016-07-13T14:59:44.036",
+        "updated": "2016-07-13T14:59:44.036"
     }
 },
 {
@@ -793,14 +808,14 @@
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
-        "budget_approve": "0.00",
+        "budget_approved": "0.00",
         "justification": ":-(",
         "additional_info": "",
         "ad_status": "H",
         "status": "R",
-        "report_url": "",
-        "added": "2016-07-13T15:01:25.316Z",
-        "updated": "2016-07-13T15:01:25.317Z"
+        "notes_from_admin": null,
+        "added": "2016-07-13T15:01:25.316",
+        "updated": "2016-07-13T15:01:25.317"
     }
 },
 {
@@ -809,10 +824,16 @@
     "fields": {
         "event": 8,
         "proof": "expenses/ec7.pdf",
+        "amount_claimed": "0.00",
         "status": "F",
-        "amount": "500.00",
-        "added": "2016-07-13T15:05:50.610Z",
-        "updated": "2016-07-13T15:05:50.610Z"
+        "received_date": null,
+        "asked_for_authorization_date": null,
+        "send_to_finance_date": null,
+        "amount_authorized_for_payment": "500.00",
+        "funds_from": "C",
+        "notes_from_admin": null,
+        "added": "2016-07-13T15:05:50.610",
+        "updated": "2016-07-13T15:05:50.610"
     }
 },
 {
@@ -821,10 +842,16 @@
     "fields": {
         "event": 2,
         "proof": "expenses/ec3.pdf",
+        "amount_claimed": "0.00",
         "status": "F",
-        "amount": "2000.00",
-        "added": "2016-07-13T15:03:29.250Z",
-        "updated": "2016-07-13T15:03:29.250Z"
+        "received_date": null,
+        "asked_for_authorization_date": null,
+        "send_to_finance_date": null,
+        "amount_authorized_for_payment": "2000.00",
+        "funds_from": "C",
+        "notes_from_admin": null,
+        "added": "2016-07-13T15:03:29.250",
+        "updated": "2016-07-13T15:03:29.250"
     }
 },
 {
@@ -833,10 +860,16 @@
     "fields": {
         "event": 3,
         "proof": "expenses/ec4.pdf",
+        "amount_claimed": "0.00",
         "status": "F",
-        "amount": "400.00",
-        "added": "2016-07-13T15:03:57.771Z",
-        "updated": "2016-07-13T15:03:57.771Z"
+        "received_date": null,
+        "asked_for_authorization_date": null,
+        "send_to_finance_date": null,
+        "amount_authorized_for_payment": "400.00",
+        "funds_from": "C",
+        "notes_from_admin": null,
+        "added": "2016-07-13T15:03:57.771",
+        "updated": "2016-07-13T15:03:57.771"
     }
 },
 {
@@ -845,10 +878,16 @@
     "fields": {
         "event": 1,
         "proof": "expenses/ec1.pdf",
+        "amount_claimed": "0.00",
         "status": "P",
-        "amount": "1000.00",
-        "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-13T15:02:46.990Z"
+        "received_date": null,
+        "asked_for_authorization_date": null,
+        "send_to_finance_date": null,
+        "amount_authorized_for_payment": "1000.00",
+        "funds_from": "C",
+        "notes_from_admin": null,
+        "added": "2016-07-07T14:59:46.412",
+        "updated": "2016-07-13T15:02:46.990"
     }
 },
 {
@@ -857,10 +896,16 @@
     "fields": {
         "event": 5,
         "proof": "expenses/ec6.pdf",
+        "amount_claimed": "0.00",
         "status": "F",
-        "amount": "2500.00",
-        "added": "2016-07-13T15:04:56.919Z",
-        "updated": "2016-07-13T15:04:56.919Z"
+        "received_date": null,
+        "asked_for_authorization_date": null,
+        "send_to_finance_date": null,
+        "amount_authorized_for_payment": "2500.00",
+        "funds_from": "C",
+        "notes_from_admin": null,
+        "added": "2016-07-13T15:04:56.919",
+        "updated": "2016-07-13T15:04:56.919"
     }
 },
 {
@@ -869,10 +914,16 @@
     "fields": {
         "event": 1,
         "proof": "expenses/ec2.pdf",
+        "amount_claimed": "0.00",
         "status": "P",
-        "amount": "500.00",
-        "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-13T15:02:41.015Z"
+        "received_date": null,
+        "asked_for_authorization_date": null,
+        "send_to_finance_date": null,
+        "amount_authorized_for_payment": "500.00",
+        "funds_from": "C",
+        "notes_from_admin": null,
+        "added": "2016-07-07T14:59:46.412",
+        "updated": "2016-07-13T15:02:41.015"
     }
 },
 {
@@ -881,10 +932,16 @@
     "fields": {
         "event": 6,
         "proof": "expenses/ec8.pdf",
+        "amount_claimed": "0.00",
         "status": "A",
-        "amount": "500.00",
-        "added": "2016-07-13T15:05:22.698Z",
-        "updated": "2016-07-13T15:05:22.698Z"
+        "received_date": null,
+        "asked_for_authorization_date": null,
+        "send_to_finance_date": null,
+        "amount_authorized_for_payment": "500.00",
+        "funds_from": "C",
+        "notes_from_admin": null,
+        "added": "2016-07-13T15:05:22.698",
+        "updated": "2016-07-13T15:05:22.698"
     }
 },
 {
@@ -893,10 +950,16 @@
     "fields": {
         "event": 4,
         "proof": "expenses/ec5.pdf",
+        "amount_claimed": "0.00",
         "status": "F",
-        "amount": "1000.00",
-        "added": "2016-07-13T15:04:23.530Z",
-        "updated": "2016-07-13T15:04:23.530Z"
+        "received_date": null,
+        "asked_for_authorization_date": null,
+        "send_to_finance_date": null,
+        "amount_authorized_for_payment": "1000.00",
+        "funds_from": "C",
+        "notes_from_admin": null,
+        "added": "2016-07-13T15:04:23.530",
+        "updated": "2016-07-13T15:04:23.530"
     }
 },
 {
@@ -906,8 +969,9 @@
         "event": 1,
         "draft_url": "http://google.com/",
         "status": "U",
-        "added": "2016-07-07T14:59:46.412Z",
-        "updated": "2016-07-07T14:59:47.967Z"
+        "notes_from_admin": null,
+        "added": "2016-07-07T14:59:46.412",
+        "updated": "2016-07-07T14:59:47.967"
     }
 }
 ]
