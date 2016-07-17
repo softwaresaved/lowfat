@@ -391,8 +391,8 @@
         "home_lon": null,
         "home_lat": null,
         "photo": "photos/ca.jpg",
-        "research_area": "L391",
-        "research_area_code": "",
+        "research_area": "",
+        "research_area_code": "L391",
         "affiliation": "College",
         "funding": "Self-funded",
         "funding_notes": "",
@@ -405,12 +405,12 @@
         "twitter": "",
         "facebook": "",
         "application_year": 2016,
-        "selected": false,
+        "selected": true,
         "fellowship_grant": "3000.00",
-        "notes_from_admin": null,
+        "notes_from_admin": "",
         "mentor": null,
         "added": "2016-07-07T14:59:46.412",
-        "updated": "2016-07-13T14:29:07.964"
+        "updated": "2016-07-17T13:52:12.679"
     }
 },
 {
@@ -427,8 +427,8 @@
         "home_lon": null,
         "home_lat": null,
         "photo": "photos/im.jpg",
-        "research_area": "F331",
-        "research_area_code": "",
+        "research_area": "",
+        "research_area_code": "F331",
         "affiliation": "University",
         "funding": "EPSRC",
         "funding_notes": "",
@@ -441,12 +441,12 @@
         "twitter": "",
         "facebook": "",
         "application_year": 2016,
-        "selected": false,
+        "selected": true,
         "fellowship_grant": "3000.00",
-        "notes_from_admin": null,
+        "notes_from_admin": "",
         "mentor": null,
         "added": "2016-07-07T14:59:46.412",
-        "updated": "2016-07-13T14:29:02.422"
+        "updated": "2016-07-17T13:52:00.867"
     }
 },
 {
@@ -463,8 +463,8 @@
         "home_lon": null,
         "home_lat": null,
         "photo": "photos/av.jpg",
-        "research_area": "H690",
-        "research_area_code": "",
+        "research_area": "",
+        "research_area_code": "H690",
         "affiliation": "University",
         "funding": "EPSRC",
         "funding_notes": "",
@@ -477,12 +477,12 @@
         "twitter": "",
         "facebook": "",
         "application_year": 2016,
-        "selected": false,
+        "selected": true,
         "fellowship_grant": "3000.00",
-        "notes_from_admin": null,
+        "notes_from_admin": "",
         "mentor": null,
         "added": "2016-07-07T14:59:46.412",
-        "updated": "2016-07-13T14:28:54.783"
+        "updated": "2016-07-17T13:51:50.036"
     }
 },
 {
@@ -499,8 +499,8 @@
         "home_lon": null,
         "home_lat": null,
         "photo": "photos/vn.jpg",
-        "research_area": "I520",
-        "research_area_code": "",
+        "research_area": "",
+        "research_area_code": "I520",
         "affiliation": "College",
         "funding": "AHRC",
         "funding_notes": "",
@@ -513,12 +513,12 @@
         "twitter": "",
         "facebook": "",
         "application_year": 2016,
-        "selected": false,
+        "selected": true,
         "fellowship_grant": "3000.00",
-        "notes_from_admin": null,
+        "notes_from_admin": "",
         "mentor": null,
         "added": "2016-07-07T14:59:46.412",
-        "updated": "2016-07-13T14:28:46.741"
+        "updated": "2016-07-17T13:51:35.851"
     }
 },
 {
@@ -535,8 +535,8 @@
         "home_lon": null,
         "home_lat": null,
         "photo": "photos/hu.jpg",
-        "research_area": "I710",
-        "research_area_code": "",
+        "research_area": "",
+        "research_area_code": "I710",
         "affiliation": "University",
         "funding": "EPSRC",
         "funding_notes": "",
@@ -549,12 +549,12 @@
         "twitter": "",
         "facebook": "",
         "application_year": 2016,
-        "selected": false,
+        "selected": true,
         "fellowship_grant": "3000.00",
-        "notes_from_admin": null,
+        "notes_from_admin": "",
         "mentor": null,
         "added": "2016-07-07T14:59:46.412",
-        "updated": "2016-07-13T14:28:38.973"
+        "updated": "2016-07-17T13:51:23.492"
     }
 },
 {
