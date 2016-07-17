@@ -576,14 +576,14 @@
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
-        "budget_approved": "0.00",
+        "budget_approved": "1500.00",
         "justification": ":-)",
         "additional_info": "",
         "ad_status": "V",
         "status": "F",
-        "notes_from_admin": null,
+        "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
-        "updated": "2016-07-13T14:51:11.990"
+        "updated": "2016-07-17T14:10:36.273"
     }
 },
 {
@@ -605,14 +605,14 @@
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
-        "budget_approved": "0.00",
+        "budget_approved": "2000.00",
         "justification": ":-)",
         "additional_info": "",
         "ad_status": "V",
         "status": "F",
-        "notes_from_admin": null,
+        "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
-        "updated": "2016-07-13T14:50:28.359"
+        "updated": "2016-07-17T14:10:28.847"
     }
 },
 {
@@ -634,14 +634,14 @@
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
-        "budget_approved": "0.00",
+        "budget_approved": "2000.00",
         "justification": ":-)",
         "additional_info": "",
         "ad_status": "V",
         "status": "F",
-        "notes_from_admin": null,
+        "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
-        "updated": "2016-07-13T14:52:28.942"
+        "updated": "2016-07-17T14:09:12.999"
     }
 },
 {
@@ -663,14 +663,14 @@
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
-        "budget_approved": "0.00",
+        "budget_approved": "1000.00",
         "justification": ":-)",
         "additional_info": "",
         "ad_status": "V",
         "status": "F",
-        "notes_from_admin": null,
+        "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
-        "updated": "2016-07-13T14:52:53.846"
+        "updated": "2016-07-17T14:10:21.669"
     }
 },
 {
@@ -692,14 +692,14 @@
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
-        "budget_approved": "0.00",
+        "budget_approved": "2500.00",
         "justification": ":-)",
         "additional_info": "",
         "ad_status": "V",
         "status": "F",
-        "notes_from_admin": null,
+        "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
-        "updated": "2016-07-13T14:53:57.273"
+        "updated": "2016-07-17T14:10:06.354"
     }
 },
 {
@@ -721,14 +721,14 @@
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
-        "budget_approved": "0.00",
+        "budget_approved": "500.00",
         "justification": ":-)",
         "additional_info": "",
         "ad_status": "V",
         "status": "A",
-        "notes_from_admin": null,
+        "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
-        "updated": "2016-07-13T14:55:06.874"
+        "updated": "2016-07-17T14:09:50.846"
     }
 },
 {
@@ -750,14 +750,14 @@
         "budget_request_venue_hire": "0.00",
         "budget_request_catering": "0.00",
         "budget_request_others": "0.00",
-        "budget_approved": "0.00",
+        "budget_approved": "500.00",
         "justification": ":-)",
         "additional_info": "",
         "ad_status": "V",
         "status": "F",
-        "notes_from_admin": null,
+        "notes_from_admin": "",
         "added": "2016-07-13T14:58:08.260",
-        "updated": "2016-07-13T14:58:18.769"
+        "updated": "2016-07-17T14:09:23.715"
     }
 },
 {
