@@ -117,9 +117,9 @@ class Fellow(models.Model):
     work_description = models.TextField(blank=False)
 
     # Social media
-    website = models.CharField(max_length=MAX_CHAR_LENGTH,
+    website = models.URLField(max_length=MAX_CHAR_LENGTH,
             blank=True)
-    website_feed = models.CharField(max_length=MAX_CHAR_LENGTH,
+    website_feed = models.URLField(max_length=MAX_CHAR_LENGTH,
             blank=True)
     orcid = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=True)
@@ -193,7 +193,7 @@ class Event(models.Model):
             default="O")
     name = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=True)
-    url = models.CharField(max_length=MAX_CHAR_LENGTH,
+    url = models.URLField(max_length=MAX_CHAR_LENGTH,
             blank=True)
     location = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=True)
