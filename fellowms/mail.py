@@ -17,7 +17,6 @@ def new_event_notification(event):
             "Please review {}.".format(
                 reverse_full("event_detail", args=[event.id])),
                 fail_silently=False,
-                connection='django.core.mail.backends.console.EmailBackend'
             )
 
     # Email to user
