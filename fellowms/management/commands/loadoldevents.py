@@ -48,9 +48,9 @@ class Command(BaseCommand):
                         "budget_approved": line["Estimate"] if pd.notnull(line["Estimate"]) else 0,
                         "justification": line["How is the event relevant to the work of the Software Sustainability Institute?"],
                         "notes_from_admin": "{}\n{}\n{}".format(
-                            line["Notes A"],
-                            line["Notes B"],
-                            line["Notes C"])
+                            line["Notes A"] if pd.notnull(line["Notes A"]) else "",
+                            line["Notes B"] if pd.notnull(line["Notes B"]) else "",
+                            line["Notes C"] if pd.notnull(line["Notes C"]) else "")
                 }
                 event = Event(**events_dict)
                 event.save()
