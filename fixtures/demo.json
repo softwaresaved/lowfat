@@ -881,8 +881,8 @@
         "amount_claimed": "1000.00",
         "status": "P",
         "received_date": "2016-07-17",
-        "asked_for_authorization_date": "2016-07-17",
-        "send_to_finance_date": "2016-07-17",
+        "asked_for_authorization_date": null,
+        "send_to_finance_date": null,
         "amount_authorized_for_payment": "0.00",
         "funds_from": "C",
         "notes_from_admin": "",
@@ -970,6 +970,7 @@
         "draft_url": "http://google.com/",
         "status": "U",
         "notes_from_admin": null,
+        "published_url": null,
         "added": "2016-07-07T14:59:46.412",
         "updated": "2016-07-07T14:59:47.967"
     }
