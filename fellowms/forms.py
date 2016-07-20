@@ -53,6 +53,20 @@ class EventForm(ModelForm):
     required_css_class = 'form-field-required'
 
 
+class EventReviewForm(ModelForm):
+    class Meta:
+        model = Event
+        fields = [
+                "status",
+                "ad_status",
+                "budget_approved",
+                "notes_from_admin",
+                ]
+
+
+    required_css_class = 'form-field-required'
+
+
 class ExpenseForm(ModelForm):
     class Meta:
         model = Expense

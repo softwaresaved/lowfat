@@ -30,6 +30,7 @@ urlpatterns = [
         name="sign_out"),
     url(r'^fellow/(?P<fellow_id>[0-9]+)/', views.fellow_detail, name="fellow_detail"),
     url(r'^fellow/', views.fellow, name="fellow"),
+    url(r'^event/(?P<event_id>[0-9]+)/review', views.event_review, name="event_review"),
     url(r'^event/(?P<event_id>[0-9]+)/', views.event_detail, name="event_detail"),
     url(r'^event/previous/', views.event_past, name="event_past"),
     url(r'^event/', views.event, name="event"),

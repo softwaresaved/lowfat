@@ -133,6 +133,28 @@ def event_detail(request, event_id):
 
     return render(request, 'fellowms/event_detail.html', context)
 
+def event_review(request, event_id):
+    this_event = Event.objects.get(id=event_id)
+
+    if request.POST:
+        # Handle submission
+        formset = EventReviewForm(request.POST, instance=this_event)
+
+        if formset.is_valid():
+            event = formset.save()
+            return HttpResponseRedirect(reverse('event_detail',
+                args=[event.id,]))
+
+    formset = EventReviewForm(None, instance=this_event)
+
+    context = {
+            'event': this_event,
+            'formset': formset,
+            'submit_text': 'Update',
+            }
+
+    return render(request, 'fellowms/event_review.html', context)
+
 def event_past(request):
     events = Event.objects.filter(
             start_date__lt=django.utils.timezone.now(),

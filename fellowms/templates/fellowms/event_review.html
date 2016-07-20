@@ -1,0 +1,82 @@
+{% extends "fellowms/base.html" %}
+
+{% block content %}
+<h1>Event Review</h1>
+<h2>General Details</h1>
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th>Name</th>
+            <td>{{ event.name }}</td>
+        </tr>
+        <tr>
+            <th>URL</th>
+            <td><a href="{{ event.url }}">{{ event.url }}</a></td>
+        </tr>
+        <tr>
+            <th>Start date</th>
+            <td>{{ event.start_date }}</td>
+        </tr>
+        <tr>
+            <th>End data</th>
+            <td>{{ event.end_date }}</td>
+        </tr>
+    </tbody>
+</table>
+<div class="row">
+  <div class="col-md-6">
+<h2>Budget Summary</h2>
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th>Budget request</th>
+            <td>{{ event.budget_total }}</td>
+        </tr>
+        <tr>
+            <th>Budget approve</th>
+            <td>{{ event.budget_approved }}</td>
+        </tr>
+    </tbody>
+</table>
+<h2>Budget Details</h2>
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th>Travel expenses</th>
+            <td>{{ event.budget_request_travel }}</td>
+        </tr>
+        <tr>
+            <th>Attendance fees</th>
+            <td>{{ event.budget_request_attendance_fees }}</td>
+        </tr>
+        <tr>
+            <th>Subsistence cost</th>
+            <td>{{ event.budget_request_subsistence_cost }}</td>
+        </tr>
+        <tr>
+            <th>Venue hire</th>
+            <td>{{ event.budget_request_venue_hire }}</td>
+        </tr>
+        <tr>
+            <th>Catering</th>
+            <td>{{ event.budget_request_catering }}</td>
+        </tr>
+        <tr>
+            <th>Others</th>
+            <td>{{ event.budget_request_others }}</td>
+        </tr>
+    </tbody>
+</table>
+  </div>
+  <div class="col-md-6">
+<h2>Review</h2>
+<form method="post" action="">
+    {% csrf_token %}
+    <table>
+    {{ formset.as_table }}
+    </table>
+    <input type="submit" value="{{ submit_text }}" />
+</form>
+  </div>
+</div>
+{% endblock %}
