@@ -5,24 +5,27 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from fellowms.models import Fellow
 
+CSV_TO_IMPORT = 'old_applications.csv'
+
 class Command(BaseCommand):
-    help = "Add old information to database."
+    help = "Import CSV (old_applications.csv) with applications to fellowship to the database."
 
     # TODO Make use of args and options.
     def handle(self, *args, **options):
-        data =  pd.read_csv('all_applications_details.csv')
+        data =  pd.read_csv(CSV_TO_IMPORT)
         for idx, line in data.iterrows():
-            if line['Selected']=='Yes':
-                is_fellow=True
-            else:
-                is_fellow=False
+            try:
+                if line['Selected']=='Yes':
+                    is_fellow=True
+                else:
+                    is_fellow=False
 
-            if pd.notnull(line["Research classification"]):
-                jacs = "{}00".format(line["Research classification"][0:2])
-            else:
-                jacs = "Y000"
+                if pd.notnull(line["Research classification"]):
+                    jacs = "{}00".format(line["Research classification"][0:2])
+                else:
+                    jacs = "Y000"
 
-            applicants_dict = {
+                applicants_dict = {
                     "application_year": line["Inauguration year"],
                     "selected": is_fellow,
                     "forenames": line["Forename(s)"],
@@ -37,5 +40,8 @@ class Command(BaseCommand):
                     "funding": "{}, {}".format(line["Primary funder"],line["Additional funder"]),
                     "fellowship_grant": 3000 if is_fellow else 0,
                 }
-            applicant = Fellow(**applicants_dict)
-            applicant.save()
+                applicant = Fellow(**applicants_dict)
+                applicant.save()
+
+            except BaseException as e:
+                print("Error: {}\n\t{}".format(e, line))
