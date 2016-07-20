@@ -5,16 +5,18 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from fellowms.models import Fellow, Event, Expense
 
+CSV_TO_IMPORT = 'old_events.csv'
+
 def conv_date(new_date):
     day, month, year = new_date.split('/')
     return "{}-{}-{}".format(year, month, day)
 
 class Command(BaseCommand):
-    help = "Upload old event data to the database"
+    help = "Import CSV (old_events.csv) with events from fellows to the database."
 
     # TODO Make use of args and options.
     def handle(self, *args, **options):
-        data =  pd.read_csv('fellows_events.csv')
+        data =  pd.read_csv(CSV_TO_IMPORT)
         for idx, line in data.iterrows():
             try:
                 this_fellow = Fellow.objects.get(forenames=line["Forename(s)"], surname=line["Surname"], selected=True)
