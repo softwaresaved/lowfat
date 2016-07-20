@@ -233,6 +233,28 @@ def blog_detail(request, blog_id):
 
     return render(request, 'fellowms/blog_detail.html', context)
 
+def blog_review(request, blog_id):
+    this_blog = Blog.objects.get(id=blog_id)
+
+    if request.POST:
+        # Handle submission
+        formset = BlogReviewForm(request.POST, instance=this_blog)
+
+        if formset.is_valid():
+            blog = formset.save()
+            return HttpResponseRedirect(reverse('blog_detail',
+                args=[blog.id,]))
+
+    formset = BlogReviewForm(None, instance=this_blog)
+
+    context = {
+            'blog': this_blog,
+            'formset': formset,
+            'submit_text': 'Update',
+            }
+
+    return render(request, 'fellowms/blog_review.html', context)
+
 def geojson(request):
     """Return the GeoJSON file."""
 

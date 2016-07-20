@@ -110,3 +110,16 @@ class BlogForm(ModelForm):
 
 
     required_css_class = 'form-field-required'
+
+
+class BlogReviewForm(ModelForm):
+    class Meta:
+        model = Blog
+        exclude = [
+                "event",
+                "added",
+                "updated",
+                ]
+
+
+    required_css_class = 'form-field-required'

@@ -36,6 +36,7 @@ urlpatterns = [
     url(r'^expense/(?P<expense_id>[0-9a-z\-]+)/review', views.expense_review, name="expense_review"),
     url(r'^expense/(?P<expense_id>[0-9a-z\-]+)/', views.expense_detail, name="expense_detail"),
     url(r'^expense/', views.expense, name="expense"),
+    url(r'^blog/(?P<blog_id>[0-9]+)/review', views.blog_review, name="blog_review"),
     url(r'^blog/(?P<blog_id>[0-9]+)/', views.blog_detail, name="blog_detail"),
     url(r'^blog/', views.blog, name="blog"),
     url(r'^dashboard/', views.dashboard, name="dashboard"),
