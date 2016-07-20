@@ -1,7 +1,10 @@
+import io
+
 import pandas as pd
 
-from django.core.management.base import BaseCommand, CommandError
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.management.base import BaseCommand, CommandError
 
 from fellowms.models import Fellow, Event, Expense
 
@@ -61,6 +64,21 @@ class Command(BaseCommand):
                         "amount_claimed": line["Revised estimate"] if pd.notnull(line["Revised estimate"]) else 0,
                         "received_date": '0001-01-01',
                     }
+
+                    with io.BytesIO(b"""# Missing document
+
+The document that you are looking for doesn't exist because
+
+1. it wasnr't send to us,
+2. it is stored only as paper copy in our archives,
+3. it is stored on our SVN server, or
+4. it is stored on our Google Drive account.
+
+Sorry for the inconvenience.""") as fake_file:
+                        expense_dict.update({
+                            "proof": SimpleUploadedFile('missing-proof.pdf', fake_file.read()),
+                        })
+
                     expense = Expense(**expense_dict)
                     expense.save()
                     if line['Claim'] in ['Yes', 'SVN', 'Partial', 'Hard copy', 'Ask accounts for copy of invoice'] and pd.notnull(line['Authorised']):

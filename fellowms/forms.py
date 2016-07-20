@@ -59,6 +59,9 @@ class ExpenseForm(ModelForm):
         exclude = [
                 'id',
                 'status',
+                'received_date',
+                'asked_for_authorization_date',
+                'send_to_finance_date',
                 'amount_authorized_for_payment',
                 "funds_from",
                 "notes_from_admin",
@@ -94,6 +97,7 @@ class BlogForm(ModelForm):
         exclude = [
                 'status',
                 "notes_from_admin",
+                'published_url',
                 "added",
                 "updated",
                 ]

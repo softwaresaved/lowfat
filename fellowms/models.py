@@ -191,22 +191,17 @@ class Event(models.Model):
     category = models.CharField(choices=EVENT_CATEGORY,
             max_length=1,
             default="O")
-    name = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=True)
-    url = models.URLField(max_length=MAX_CHAR_LENGTH,
-            blank=True)
-    location = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=True)
+    name = models.CharField(max_length=MAX_CHAR_LENGTH)
+    url = models.URLField(max_length=MAX_CHAR_LENGTH)
+    location = models.CharField(max_length=MAX_CHAR_LENGTH)
     lon = models.FloatField(
             null=True,
             blank=True)
     lat = models.FloatField(
             null=True,
             blank=True)
-    start_date = models.DateField(
-            blank=True,
-            null=True)
-    end_date = models.DateField(blank=True, null=True)
+    start_date = models.DateField()
+    end_date = models.DateField()
     budget_request_travel = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
             default=0.00)
@@ -228,7 +223,7 @@ class Event(models.Model):
     budget_approved = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
             default=0.00)    
-    justification = models.TextField(blank=True)
+    justification = models.TextField()
     additional_info = models.TextField(blank=True)
 
     # Admin fields
@@ -282,13 +277,10 @@ class Expense(models.Model):
             editable=False)
 
     # Form
-    event = models.ForeignKey('Event',
-            null=False,
-            blank=False)
+    event = models.ForeignKey('Event')
     proof = models.FileField(
-            upload_to='expenses/',  # File will be uploaded to MEDIA_ROOT/expenses
-            null=True,
-            blank=True)  # This need to be a PDF.
+            upload_to='expenses/'  # File will be uploaded to MEDIA_ROOT/expenses
+        )
     amount_claimed = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
             blank=False,
@@ -325,17 +317,17 @@ class Blog(models.Model):
     class Meta:
         app_label = 'fellowms'
 
-    event = models.ForeignKey('Event',
-            null=False,
-            blank=False)
-    draft_url = models.CharField(max_length=MAX_CHAR_LENGTH,
-                blank=False)
+    event = models.ForeignKey('Event')
+    draft_url = models.URLField(max_length=MAX_CHAR_LENGTH)
+
+    # Admin fields
     status = models.CharField(choices=BLOG_POST_STATUS,
             max_length=1,
             default="U")
-
-    # Admin fields
     notes_from_admin = models.TextField(
+            null=True,
+            blank=True)
+    published_url = models.URLField(max_length=MAX_CHAR_LENGTH,
             null=True,
             blank=True)
 
