@@ -16,6 +16,12 @@ class Command(BaseCommand):
                 is_fellow=True
             else:
                 is_fellow=False
+
+            if pd.notnull(line["Research classification"]):
+                jacs = "{}00".format(line["Research classification"][0:2])
+            else:
+                jacs = "Y000"
+
             applicants_dict = {
                     "application_year": line["Inauguration year"],
                     "selected": is_fellow,
@@ -23,7 +29,7 @@ class Command(BaseCommand):
                     "surname": line["Surname"],
                     "affiliation": line["Home institution"],
                     "research_area": line["Research area"],
-                    "research_area_code": line["Research classification"],
+                    "research_area_code": jacs,
                     "email": line["E-mail"],
                     "phone": line["Telephone"],
                     "gender": line["Gender"] if line["Gender"] else 'R',
