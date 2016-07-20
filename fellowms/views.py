@@ -133,6 +133,7 @@ def event_detail(request, event_id):
 
     return render(request, 'fellowms/event_detail.html', context)
 
+@staff_member_required
 def event_review(request, event_id):
     this_event = Event.objects.get(id=event_id)
 
@@ -200,6 +201,7 @@ def expense_detail(request, expense_id):
 
     return render(request, 'fellowms/expense_detail.html', context)
 
+@staff_member_required
 def expense_review(request, expense_id):
     this_expense = Expense.objects.get(id=expense_id)
 
@@ -255,6 +257,7 @@ def blog_detail(request, blog_id):
 
     return render(request, 'fellowms/blog_detail.html', context)
 
+@staff_member_required
 def blog_review(request, blog_id):
     this_blog = Blog.objects.get(id=blog_id)
 
