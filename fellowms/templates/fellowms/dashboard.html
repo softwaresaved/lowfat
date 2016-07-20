@@ -43,6 +43,7 @@
       </td>
       <td>
         <a href="{% url 'event_detail' event.id %}">{{ event.name }}</a>
+        from <a href="{% url 'fellow_detail' event.fellow.id %}">{{ event.fellow.forenames }} {{ event.fellow.surname }}</a>
       </td>
       <td>
         {{ event.get_status_display }}
@@ -57,7 +58,8 @@
       </td>
       <td>
         <a href="/upload/{{ expense.proof }}">{{ expense.proof }}</a>
-        from <a href="{% url 'event_detail' expense.event.id %}">{{ expense.event.name }}</a>
+        from <a href="{% url 'fellow_detail' expense.event.fellow.id %}">{{ expense.event.fellow.forenames }} {{ expense.event.fellow.surname }}</a>
+        for <a href="{% url 'event_detail' expense.event.id %}">{{ expense.event.name }}</a>
       </td>
       <td>
         {{ expense.get_status_display }}
