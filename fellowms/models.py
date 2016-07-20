@@ -341,5 +341,10 @@ class Blog(models.Model):
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    def save(self, *args, **kwargs):
+        if self.published_url:
+            self.status = 'P'
+        super(Blog, self).save(*args, **kwargs)
+
     def __str__(self):
         return "{}".format(self.draft_url)
