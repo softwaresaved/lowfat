@@ -121,29 +121,6 @@ class SimpleTest(unittest.TestCase):
         form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
-    def test_FellowForm_wrong_research_area(self):
-        data = {
-        "forenames": "C",
-        "surname": "A",
-        "email": "c.a@fake.fellowms.software.ac.uk",
-        "phone": "+441111111111",
-        "gender": "M",
-        "home_location": "L, UK",
-        "research_area": "RESEARCH_AREA",
-        "research_area_code": "Y000",
-        "affiliation": "College",
-        "funding": "Self-funded",
-        "work_description": "Work",
-            }
-
-        with io.BytesIO(b'000') as fake_file:
-            file_data = {
-                "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
-            }
-
-        form = FellowForm(data, file_data)
-        self.assertFalse(form.is_valid())
-
     def test_FellowForm_blank_research_area_code(self):
         data = {
         "forenames": "C",

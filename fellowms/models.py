@@ -104,9 +104,7 @@ class Fellow(models.Model):
     # Professional info
     # JACS code for research_area.
     # https://www.hesa.ac.uk/jacs/
-    research_area = models.TextField(
-            null=True,
-            blank=True)
+    research_area = models.TextField()
     research_area_code = models.CharField(choices=JACS_LEVEL_2,
                                           max_length=4,
                                           default="Y000")
