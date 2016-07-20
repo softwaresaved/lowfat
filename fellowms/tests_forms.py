@@ -6,7 +6,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from .forms import FellowForm
 
 class SimpleTest(unittest.TestCase):
-    def test_FellowForm_missing_name(self):
+    def test_FellowForm_blank_name(self):
         data = {
         "forenames": "",
         "surname": "",
@@ -15,6 +15,7 @@ class SimpleTest(unittest.TestCase):
         "gender": "M",
         "home_location": "L, UK",
         "research_area": "L391",
+        "research_area_code": "L391",
         "affiliation": "College",
         "funding": "Self-funded",
         "work_description": "Work",
@@ -28,7 +29,7 @@ class SimpleTest(unittest.TestCase):
         form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
-    def test_FellowForm_missing_email(self):
+    def test_FellowForm_blank_email(self):
         data = {
         "forenames": "C",
         "surname": "A",
@@ -37,6 +38,7 @@ class SimpleTest(unittest.TestCase):
         "gender": "M",
         "home_location": "L, UK",
         "research_area": "L391",
+        "research_area_code": "L391",
         "affiliation": "College",
         "funding": "Self-funded",
         "work_description": "Work",
@@ -50,7 +52,7 @@ class SimpleTest(unittest.TestCase):
         form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
-    def test_FellowForm_missing_phone(self):
+    def test_FellowForm_blank_phone(self):
         data = {
         "forenames": "C",
         "surname": "A",
@@ -59,6 +61,7 @@ class SimpleTest(unittest.TestCase):
         "gender": "M",
         "home_location": "L, UK",
         "research_area": "L391",
+        "research_area_code": "L391",
         "affiliation": "College",
         "funding": "Self-funded",
         "work_description": "Work",
@@ -72,7 +75,7 @@ class SimpleTest(unittest.TestCase):
         form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
-    def test_FellowForm_missing_location(self):
+    def test_FellowForm_blank_location(self):
         data = {
         "forenames": "C",
         "surname": "A",
@@ -81,6 +84,7 @@ class SimpleTest(unittest.TestCase):
         "gender": "M",
         "home_location": "",
         "research_area": "L391",
+        "research_area_code": "L391",
         "affiliation": "College",
         "funding": "Self-funded",
         "work_description": "Work",
@@ -94,7 +98,7 @@ class SimpleTest(unittest.TestCase):
         form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
-    def test_FellowForm_missing_research_area(self):
+    def test_FellowForm_blank_research_area(self):
         data = {
         "forenames": "C",
         "surname": "A",
@@ -103,6 +107,7 @@ class SimpleTest(unittest.TestCase):
         "gender": "M",
         "home_location": "L, UK",
         "research_area": "",
+        "research_area_code": "L391",
         "affiliation": "College",
         "funding": "Self-funded",
         "work_description": "Work",
@@ -112,7 +117,7 @@ class SimpleTest(unittest.TestCase):
             file_data = {
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
-            
+
         form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
@@ -125,6 +130,30 @@ class SimpleTest(unittest.TestCase):
         "gender": "M",
         "home_location": "L, UK",
         "research_area": "RESEARCH_AREA",
+        "research_area_code": "L391",
+        "affiliation": "College",
+        "funding": "Self-funded",
+        "work_description": "Work",
+            }
+
+        with io.BytesIO(b'000') as fake_file:
+            file_data = {
+                "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
+            }
+
+        form = FellowForm(data, file_data)
+        self.assertFalse(form.is_valid())
+
+    def test_FellowForm_blank_research_area_code(self):
+        data = {
+        "forenames": "C",
+        "surname": "A",
+        "email": "c.a@fake.fellowms.software.ac.uk",
+        "phone": "+441111111111",
+        "gender": "M",
+        "home_location": "L, UK",
+        "research_area": "L391",
+        "research_area_code": "",
         "affiliation": "College",
         "funding": "Self-funded",
         "work_description": "Work",
@@ -138,7 +167,7 @@ class SimpleTest(unittest.TestCase):
         form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
-    def test_FellowForm_missing_affiliation(self):
+    def test_FellowForm_blank_affiliation(self):
         data = {
         "forenames": "C",
         "surname": "A",
@@ -161,7 +190,7 @@ class SimpleTest(unittest.TestCase):
         self.assertFalse(form.is_valid())
 
 
-    def test_FellowForm_missing_funding(self):
+    def test_FellowForm_blank_funding(self):
         data = {
         "forenames": "C",
         "surname": "A",
@@ -183,7 +212,7 @@ class SimpleTest(unittest.TestCase):
         form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
-    def test_FellowForm_missing_description(self):
+    def test_FellowForm_blank_description(self):
         data = {
         "forenames": "C",
         "surname": "A",
@@ -205,7 +234,7 @@ class SimpleTest(unittest.TestCase):
         form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
         
-    def test_FellowForm_missing_photo(self):
+    def test_FellowForm_null_photo(self):
         data = {
         "forenames": "C",
         "surname": "A",
@@ -231,6 +260,7 @@ class SimpleTest(unittest.TestCase):
         "gender": "M",
         "home_location": "L, UK",
         "research_area": "L391",
+        "research_area_code": "L391",
         "affiliation": "College",
         "funding": "Self-funded",
         "work_description": "Work",
@@ -253,6 +283,7 @@ class SimpleTest(unittest.TestCase):
         "gender": "M",
         "home_location": "L, UK",
         "research_area": "L391",
+        "research_area_code": "L391",
         "affiliation": "College",
         "funding": "Self-funded",
         "work_description": "Work",
