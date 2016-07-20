@@ -58,7 +58,7 @@ class Command(BaseCommand):
                     event.ad_status = 'V'
                     event.status = 'A'
                     event.save()
-                if line["Revised estimate"]:
+                if pd.notnull(line["Revised estimate"]):
                     expense_dict = {
                         "event": event,
                         "amount_claimed": line["Revised estimate"] if pd.notnull(line["Revised estimate"]) else 0,
