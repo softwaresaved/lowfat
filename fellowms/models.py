@@ -5,6 +5,8 @@ import django.utils
 from django.conf import settings
 from django.db import models
 
+from .jacs import JACS_LEVEL_2
+
 MAX_CHAR_LENGTH = 120
 MAX_PHONE_LENGTH = 14
 MAX_DIGITS = 10
@@ -105,8 +107,9 @@ class Fellow(models.Model):
     research_area = models.TextField(
             null=True,
             blank=True)
-    research_area_code = models.CharField(max_length=4,
-            blank=False)
+    research_area_code = models.CharField(choices=JACS_LEVEL_2,
+                                          max_length=4,
+                                          default="Y000")
     affiliation = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=False)
     funding = models.CharField(max_length=MAX_CHAR_LENGTH,
