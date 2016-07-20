@@ -55,7 +55,7 @@
         Expense
       </td>
       <td>
-        <a href="/{{ expense.proof }}">{{ expense.proof }}</a>
+        <a href="/upload/{{ expense.proof }}">{{ expense.proof }}</a>
         <a href="{% url 'expense_review' expense.id %}"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a>
         from <a href="{% url 'event_detail' expense.event.id %}">{{ expense.event.name }}</a>
       </td>
