@@ -87,6 +87,12 @@ class ExpenseReviewForm(ModelForm):
                 "updated",
                 ]
 
+        widgets = {
+            'received_date': SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day")),
+            'asked_for_authorization_date': SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day")),
+            'send_to_finance_date': SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day")),
+        }
+
 
     required_css_class = 'form-field-required'
 
