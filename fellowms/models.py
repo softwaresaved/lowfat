@@ -186,9 +186,8 @@ class Event(models.Model):
     class Meta:
         app_label = 'fellowms'
 
-    fellow = models.ForeignKey('Fellow',
-            null=True,
-            blank=True)
+    # TODO Make fellow more generic to include staffs.
+    fellow = models.ForeignKey('Fellow')
     category = models.CharField(choices=EVENT_CATEGORY,
             max_length=1,
             default="O")
