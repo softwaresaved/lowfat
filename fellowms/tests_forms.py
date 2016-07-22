@@ -1,12 +1,14 @@
+from datetime import date
 import io
 import unittest
 
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from .forms import FellowForm
+from .models import *
+from .forms import *
 
-class SimpleTest(unittest.TestCase):
-    def test_FellowForm_blank_name(self):
+class FellowFormTest(unittest.TestCase):
+    def test_blank_name(self):
         data = {
         "forenames": "",
         "surname": "",
@@ -25,11 +27,11 @@ class SimpleTest(unittest.TestCase):
             file_data = {
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
-            
+
         form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
-    def test_FellowForm_blank_email(self):
+    def test_blank_email(self):
         data = {
         "forenames": "C",
         "surname": "A",
@@ -48,11 +50,11 @@ class SimpleTest(unittest.TestCase):
             file_data = {
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
-            
+
         form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
-    def test_FellowForm_blank_phone(self):
+    def test_blank_phone(self):
         data = {
         "forenames": "C",
         "surname": "A",
@@ -71,11 +73,11 @@ class SimpleTest(unittest.TestCase):
             file_data = {
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
-            
+
         form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
-    def test_FellowForm_blank_location(self):
+    def test_blank_location(self):
         data = {
         "forenames": "C",
         "surname": "A",
@@ -94,11 +96,11 @@ class SimpleTest(unittest.TestCase):
             file_data = {
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
-            
+
         form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
-    def test_FellowForm_blank_research_area(self):
+    def test_blank_research_area(self):
         data = {
         "forenames": "C",
         "surname": "A",
@@ -121,7 +123,7 @@ class SimpleTest(unittest.TestCase):
         form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
-    def test_FellowForm_blank_research_area_code(self):
+    def test_blank_research_area_code(self):
         data = {
         "forenames": "C",
         "surname": "A",
@@ -140,11 +142,11 @@ class SimpleTest(unittest.TestCase):
             file_data = {
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
-            
+
         form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
-    def test_FellowForm_blank_affiliation(self):
+    def test_blank_affiliation(self):
         data = {
         "forenames": "C",
         "surname": "A",
@@ -162,12 +164,12 @@ class SimpleTest(unittest.TestCase):
             file_data = {
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
-            
+
         form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
 
-    def test_FellowForm_blank_funding(self):
+    def test_blank_funding(self):
         data = {
         "forenames": "C",
         "surname": "A",
@@ -185,11 +187,11 @@ class SimpleTest(unittest.TestCase):
             file_data = {
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
-            
+
         form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
-    def test_FellowForm_blank_description(self):
+    def test_blank_description(self):
         data = {
         "forenames": "C",
         "surname": "A",
@@ -207,11 +209,11 @@ class SimpleTest(unittest.TestCase):
             file_data = {
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
-            
+
         form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
-        
-    def test_FellowForm_null_photo(self):
+
+    def test_null_photo(self):
         data = {
         "forenames": "C",
         "surname": "A",
@@ -228,7 +230,7 @@ class SimpleTest(unittest.TestCase):
         form = FellowForm(data, {})
         self.assertFalse(form.is_valid())
 
-    def test_FellowForm_minimal_expected(self):
+    def test_minimal_expected(self):
         data = {
         "forenames": "C",
         "surname": "A",
@@ -247,11 +249,11 @@ class SimpleTest(unittest.TestCase):
             file_data = {
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
-            
+
         form = FellowForm(data, file_data)
         self.assertTrue(form.is_valid())
 
-    def test_FellowForm_full_expected(self):
+    def test_expected(self):
         data = {
         "forenames": "C",
         "surname": "A",
@@ -277,6 +279,504 @@ class SimpleTest(unittest.TestCase):
             file_data = {
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
-            
+
         form = FellowForm(data, file_data)
         self.assertTrue(form.is_valid())
+
+class EventFormTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(self):
+        # Insert fellow
+        data = {
+            "forenames": "C",
+            "surname": "A",
+            "email": "c.a@fake.fellowms.software.ac.uk",
+            "phone": "+441111111111",
+            "gender": "M",
+            "home_location": "L, UK",
+            "research_area": "Y000",
+            "research_area_code": "Y000",
+            "affiliation": "College",
+            "funding": "Self-funded",
+            "work_description": "Work",
+        }
+
+        with io.BytesIO(b'000') as fake_file:
+            data.update({
+                "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
+            })
+
+        fellow = Fellow(**data)
+        fellow.save()
+        self.fellow_id = fellow.id
+
+    def test_null_fellow(self):
+        data = {
+            "category": "A",
+            "name": "Fake",
+            "url": "http://fake.com",
+            "location": "UK",
+            "start_date": date.today(),
+            "end_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_blank_fellow(self):
+        data = {
+            "fellow": "",
+            "category": "A",
+            "name": "Fake",
+            "url": "http://fake.com",
+            "location": "UK",
+            "start_date": date.today(),
+            "end_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_null_name(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "url": "http://fake.com",
+            "location": "UK",
+            "start_date": date.today(),
+            "end_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_blank_name(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "name": "",
+            "url": "http://fake.com",
+            "location": "UK",
+            "start_date": date.today(),
+            "end_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+        
+    def test_null_url(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "name": "Fake",
+            "location": "UK",
+            "start_date": date.today(),
+            "end_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_blank_url(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "name": "Fake",
+            "url": "",
+            "location": "UK",
+            "start_date": date.today(),
+            "end_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_not_http_url(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "name": "Fake",
+            "url": "fake",
+            "location": "UK",
+            "start_date": date.today(),
+            "end_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_null_location(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "name": "Fake",
+            "url": "http://fake.com",
+            "start_date": date.today(),
+            "end_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_blank_location(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "name": "Fake",
+            "url": "http://fake.com",
+            "location": "",
+            "start_date": date.today(),
+            "end_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_null_start_date(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "name": "Fake",
+            "url": "http://fake.com",
+            "location": "UK",
+            "end_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_blank_start_date(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "name": "Fake",
+            "url": "http://fake.com",
+            "location": "UK",
+            "start_date": "",
+            "end_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_null_end_date(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "name": "Fake",
+            "url": "http://fake.com",
+            "location": "UK",
+            "start_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_blank_end_date(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "name": "Fake",
+            "url": "http://fake.com",
+            "location": "UK",
+            "start_date": date.today(),
+            "end_date": "",
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_null_budget_request_travel(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "name": "Fake",
+            "url": "http://fake.com",
+            "location": "UK",
+            "start_date": date.today(),
+            "end_date": date.today(),
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_null_budget_request_attendance_fees(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "name": "Fake",
+            "url": "http://fake.com",
+            "location": "UK",
+            "start_date": date.today(),
+            "end_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_null_budget_request_subsistence_cost(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "name": "Fake",
+            "url": "http://fake.com",
+            "location": "UK",
+            "start_date": date.today(),
+            "end_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_null_request_venue_hire(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "name": "Fake",
+            "url": "http://fake.com",
+            "location": "UK",
+            "start_date": date.today(),
+            "end_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_null_budget_request_catering(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "name": "Fake",
+            "url": "http://fake.com",
+            "location": "UK",
+            "start_date": date.today(),
+            "end_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_null_budget_request_others(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "name": "Fake",
+            "url": "http://fake.com",
+            "location": "UK",
+            "start_date": date.today(),
+            "end_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "justification": ":-)",
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_null_justification(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "name": "Fake",
+            "url": "http://fake.com",
+            "location": "UK",
+            "start_date": date.today(),
+            "end_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_blank_justification(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "name": "Fake",
+            "url": "http://fake.com",
+            "location": "UK",
+            "start_date": date.today(),
+            "end_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": "",
+            }
+
+        form = EventForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_minimal_expected(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "name": "Fake",
+            "url": "http://fake.com",
+            "location": "UK",
+            "start_date": date.today(),
+            "end_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+            }
+
+        form = EventForm(data)
+        self.assertTrue(form.is_valid())
+
+    def test_full_expected(self):
+        data = {
+            "fellow": self.fellow_id,
+            "category": "A",
+            "name": "Fake",
+            "url": "http://fake.com",
+            "location": "UK",
+            "start_date": date.today(),
+            "end_date": date.today(),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+            "additional_info": "",
+            }
+
+        form = EventForm(data)
+        self.assertTrue(form.is_valid())
+
