@@ -780,3 +780,125 @@ class EventFormTest(unittest.TestCase):
         form = EventForm(data)
         self.assertTrue(form.is_valid())
 
+class EventReviewFormTest(FellowmsTestCase):
+    @classmethod
+    def setUpClass(self):
+        # Insert fellow
+        data = {
+            "forenames": "C",
+            "surname": "A",
+            "email": "c.a@fake.fellowms.software.ac.uk",
+            "phone": "+441111111111",
+            "gender": "M",
+            "home_location": "L, UK",
+            "research_area": "Y000",
+            "research_area_code": "Y000",
+            "affiliation": "College",
+            "funding": "Self-funded",
+            "work_description": "Work",
+        }
+
+        with io.BytesIO(b'000') as fake_file:
+            data.update({
+                "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
+            })
+
+        fellow = Fellow(**data)
+        fellow.save()
+        self.fellow_id = fellow.id
+
+        # Insert event
+        data = {
+            "fellow": fellow,
+            "category": "A",
+            "name": "Fake",
+            "url": "http://fake.com",
+            "location": "UK",
+            "start_date": "2014-02-20",
+            "end_date": "2014-02-22",
+            "budget_request_travel": "100.00",
+            "budget_request_attendance_fees": "0.00",
+            "budget_request_subsistence_cost": "0.00",
+            "budget_request_venue_hire": "0.00",
+            "budget_request_catering": "0.00",
+            "budget_request_others": "0.00",
+            "justification": ":-)",
+            "additional_info": "",
+            }
+
+        event = Event(**data)
+        event.save()
+        self.event_id = event.id
+
+    def test_null_status(self):
+        data = {
+            "ad_status": "V",
+            "budget_approved": 100.00,
+            "notes_from_admin": ":-)",
+            }
+
+        form = EventReviewForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_blank_status(self):
+        data = {
+            "status": "",
+            "ad_status": "V",
+            "budget_approved": 100.00,
+            "notes_from_admin": ":-)",
+            }
+
+        form = EventReviewForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_null_add_status(self):
+        data = {
+            "status": "A",
+            "budget_approved": 100.00,
+            "notes_from_admin": ":-)",
+            }
+
+        form = EventReviewForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_blank_ad_status(self):
+        data = {
+            "status": "A",
+            "ad_status": "",
+            "budget_approved": 100.00,
+            "notes_from_admin": ":-)",
+            }
+
+        form = EventReviewForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_null_budget_approved(self):
+        data = {
+            "status": "A",
+            "ad_status": "V",
+            "notes_from_admin": ":-)",
+            }
+
+        form = EventReviewForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_minimal_expected(self):
+        data = {
+            "status": "A",
+            "ad_status": "V",
+            "budget_approved": 100.00,
+            }
+
+        form = EventReviewForm(data)
+        self.assertTrue(form.is_valid())
+
+    def test_full_expected(self):
+        data = {
+            "status": "A",
+            "ad_status": "V",
+            "budget_approved": 100.00,
+            "notes_from_admin": ":-)",
+            }
+
+        form = EventReviewForm(data)
+        self.assertTrue(form.is_valid())
