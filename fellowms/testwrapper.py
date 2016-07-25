@@ -67,7 +67,7 @@ def create_event():
     event.save()
     return fellow_id, event.id
 
-def create_expense():
+def create_all():
     fellow_id, event_id = create_event()
     event = Event.objects.get(id=event_id)
 
@@ -83,11 +83,6 @@ def create_expense():
 
     expense = Expense(**data)
     expense.save()
-    return fellow_id, event_id, expense.id
-
-def create_blog():
-    fellow_id, event_id = create_event()
-    event = Event.objects.get(id=event_id)
 
     data = {
         "event": event,
@@ -96,4 +91,5 @@ def create_blog():
 
     blog = Blog(**data)
     blog.save()
-    return fellow_id, event_id, blog.id
+
+    return fellow_id, event_id, expense.id, blog.id

@@ -909,7 +909,7 @@ class ExpenseFormTest(unittest.TestCase):
 class ExpenseReviewFormTest(unittest.TestCase):
     @classmethod
     def setUpClass(self):
-        self.fellow_id, self.event_id, self.expense_id = create_expense()
+        self.fellow_id, self.event_id, self.expense_id, self.blog_id = create_all()
 
         def test_funds_from(self):
             for fund in ['C', 'I', 'F']:
@@ -1011,7 +1011,7 @@ class BlogFormTest(unittest.TestCase):
 class ExpenseReviewFormTest(unittest.TestCase):
     @classmethod
     def setUpClass(self):
-        self.fellow_id, self.event_id, self.blog_id = create_blog()
+        self.fellow_id, self.event_id, self.expense_id, self.blog_id = create_all()
 
         def test_blog_status(self):
             for status in ('U', 'R', 'L', 'P', 'D', 'O'):
