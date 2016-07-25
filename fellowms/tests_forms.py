@@ -4,6 +4,7 @@ import unittest
 
 from django.core.files.uploadedfile import SimpleUploadedFile
 
+from .testwrapper import *
 from .models import *
 from .forms import *
 
@@ -286,29 +287,7 @@ class FellowFormTest(unittest.TestCase):
 class EventFormTest(unittest.TestCase):
     @classmethod
     def setUpClass(self):
-        # Insert fellow
-        data = {
-            "forenames": "C",
-            "surname": "A",
-            "email": "c.a@fake.fellowms.software.ac.uk",
-            "phone": "+441111111111",
-            "gender": "M",
-            "home_location": "L, UK",
-            "research_area": "Y000",
-            "research_area_code": "Y000",
-            "affiliation": "College",
-            "funding": "Self-funded",
-            "work_description": "Work",
-        }
-
-        with io.BytesIO(b'000') as fake_file:
-            data.update({
-                "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
-            })
-
-        fellow = Fellow(**data)
-        fellow.save()
-        self.fellow_id = fellow.id
+        self.fellow_id = create_fellow()
 
     def test_null_fellow(self):
         data = {
@@ -780,55 +759,10 @@ class EventFormTest(unittest.TestCase):
         form = EventForm(data)
         self.assertTrue(form.is_valid())
 
-class EventReviewFormTest(FellowmsTestCase):
+class EventReviewFormTest(unittest.TestCase):
     @classmethod
     def setUpClass(self):
-        # Insert fellow
-        data = {
-            "forenames": "C",
-            "surname": "A",
-            "email": "c.a@fake.fellowms.software.ac.uk",
-            "phone": "+441111111111",
-            "gender": "M",
-            "home_location": "L, UK",
-            "research_area": "Y000",
-            "research_area_code": "Y000",
-            "affiliation": "College",
-            "funding": "Self-funded",
-            "work_description": "Work",
-        }
-
-        with io.BytesIO(b'000') as fake_file:
-            data.update({
-                "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
-            })
-
-        fellow = Fellow(**data)
-        fellow.save()
-        self.fellow_id = fellow.id
-
-        # Insert event
-        data = {
-            "fellow": fellow,
-            "category": "A",
-            "name": "Fake",
-            "url": "http://fake.com",
-            "location": "UK",
-            "start_date": "2014-02-20",
-            "end_date": "2014-02-22",
-            "budget_request_travel": "100.00",
-            "budget_request_attendance_fees": "0.00",
-            "budget_request_subsistence_cost": "0.00",
-            "budget_request_venue_hire": "0.00",
-            "budget_request_catering": "0.00",
-            "budget_request_others": "0.00",
-            "justification": ":-)",
-            "additional_info": "",
-            }
-
-        event = Event(**data)
-        event.save()
-        self.event_id = event.id
+        self.fellow_id, self.event_id = create_event()
 
     def test_null_status(self):
         data = {
