@@ -836,3 +836,77 @@ class EventReviewFormTest(unittest.TestCase):
 
         form = EventReviewForm(data)
         self.assertTrue(form.is_valid())
+
+
+class ExpenseFormTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(self):
+        self.fellow_id, self.event_id = create_event()
+
+    def test_null_event(self):
+        data = {
+        "amount_claimed": 100.00,
+            }
+
+        with io.BytesIO(b'000') as fake_file:
+            file_data = {
+                "proof": SimpleUploadedFile('proof.png', fake_file.read()),
+            }
+
+        form = ExpenseForm(data, file_data)
+        self.assertFalse(form.is_valid())
+
+    def test_blank_event(self):
+        data = {
+        "event": "",
+        "amount_claimed": 100.00,
+            }
+
+        with io.BytesIO(b'000') as fake_file:
+            file_data = {
+                "proof": SimpleUploadedFile('proof.png', fake_file.read()),
+            }
+
+        form = ExpenseForm(data, file_data)
+        self.assertFalse(form.is_valid())
+
+    def test_null_amount_claimed(self):
+        data = {
+        "event": self.event_id,
+            }
+
+        with io.BytesIO(b'000') as fake_file:
+            file_data = {
+                "proof": SimpleUploadedFile('proof.png', fake_file.read()),
+            }
+
+        form = ExpenseForm(data, file_data)
+        self.assertFalse(form.is_valid())
+
+    def test_null_proof(self):
+        data = {
+        "event": self.event_id,
+        "amount_claimed": 100.00,
+            }
+
+        form = ExpenseForm(data)
+        self.assertFalse(form.is_valid())
+        
+    def test_full_expected(self):
+        data = {
+        "event": self.event_id,
+        "amount_claimed": 100.00,
+            }
+
+        with io.BytesIO(b'000') as fake_file:
+            file_data = {
+                "proof": SimpleUploadedFile('proof.png', fake_file.read()),
+            }
+
+        form = ExpenseForm(data, file_data)
+        self.assertTrue(form.is_valid())
+
+class ExpenseReviewFormTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(self):
+        self.fellow_id = create_fellow()
