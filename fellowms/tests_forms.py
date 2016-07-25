@@ -909,4 +909,52 @@ class ExpenseFormTest(unittest.TestCase):
 class ExpenseReviewFormTest(unittest.TestCase):
     @classmethod
     def setUpClass(self):
-        self.fellow_id = create_fellow()
+        self.fellow_id, self.event_id, self.expense_id = create_expense()
+
+        def test_funds_from(self):
+            for fund in ['C', 'I', 'F']:
+                data = {
+                    "status": "S",
+                    "asked_for_authorization_date": "2016-01-01",
+                    "amount_authorized_for_payment": 100.00,
+                    "funds_from": fund,
+                    }
+
+                form = ExpenseReviewForm(data)
+                self.assertTrue(form.is_valid())
+
+
+        def test_expense_status(self):
+            for status in ('W', 'S', 'P', 'A', 'F'):
+                data = {
+                    "status": status,
+                    }
+
+                form = ExpenseReviewForm(data)
+                self.assertTrue(form.is_valid())
+
+
+        def test_minimal_expected(self):
+            data = {
+                "status": "S",
+                "asked_for_authorization_date": "2016-01-01",
+                "send_to_finance_date": "2016-01-01",
+                "amount_authorized_for_payment": 100.00,
+                "funds_from": "F",
+                }
+
+            form = ExpenseReviewForm(data)
+            self.assertTrue(form.is_valid())
+
+        def test_full_expected(self):
+            data = {
+                "status": "V",
+                "asked_for_authorization_date": "2016-01-01",
+                "send_to_finance_date": "2016-01-01",
+                "amount_authorized_for_payment": 100.00,
+                "funds_from": "F",
+                "notes_from_admin": ":-)",
+                }
+
+            form = ExpenseReviewForm(data)
+            self.assertTrue(form.is_valid())

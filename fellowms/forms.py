@@ -98,6 +98,7 @@ class ExpenseReviewForm(ModelForm):
                 'event',
                 'proof',
                 "added",
+                'received_date',
                 "updated",
                 ]
 
