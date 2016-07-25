@@ -958,3 +958,86 @@ class ExpenseReviewFormTest(unittest.TestCase):
 
             form = ExpenseReviewForm(data)
             self.assertTrue(form.is_valid())
+
+
+class BlogFormTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(self):
+        self.fellow_id, self.event_id = create_event()
+
+    def test_null_event(self):
+        data = {
+        "draft_url": "http://software.ac.uk",
+            }
+
+        form = BlogForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_blank_event(self):
+        data = {
+        "event": "",
+        "draft_url": "http://software.ac.uk",
+            }
+
+        form = BlogForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_null_draft_url(self):
+        data = {
+        "event": self.event_id,
+            }
+
+        form = BlogForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_blank_draft_url(self):
+        data = {
+        "event": self.event_id,
+        "draft_url": "",
+            }
+
+        form = BlogForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_full_expected(self):
+        data = {
+        "event": self.event_id,
+        "draft_url": "http://google.co.uk",
+            }
+
+        form = BlogForm(data)
+        self.assertTrue(form.is_valid())
+
+class ExpenseReviewFormTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(self):
+        self.fellow_id, self.event_id, self.blog_id = create_blog()
+
+        def test_blog_status(self):
+            for status in ('U', 'R', 'L', 'P', 'D', 'O'):
+                data = {
+                    "status": status,
+                    }
+
+                form = BlogReviewForm(data)
+                self.assertTrue(form.is_valid())
+
+
+        def test_minimal_expected(self):
+            data = {
+                "status": "P",
+                "published_url": "http://google.co.uk",
+                }
+
+            form = BlogReviewForm(data)
+            self.assertTrue(form.is_valid())
+
+        def test_full_expected(self):
+            data = {
+                "status": "P",
+                "published_url": "http://google.co.uk",
+                "notes_from_admin": ":-)",
+                }
+
+            form = BlogReviewForm(data)
+            self.assertTrue(form.is_valid())
