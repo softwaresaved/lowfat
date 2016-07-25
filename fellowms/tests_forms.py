@@ -1002,7 +1002,7 @@ class BlogFormTest(unittest.TestCase):
     def test_full_expected(self):
         data = {
         "event": self.event_id,
-        "draft_url": "http://google.co.uk",
+        "draft_url": "http://software.ac.uk",
             }
 
         form = BlogForm(data)
@@ -1026,7 +1026,7 @@ class ExpenseReviewFormTest(unittest.TestCase):
         def test_minimal_expected(self):
             data = {
                 "status": "P",
-                "published_url": "http://google.co.uk",
+                "published_url": "http://software.ac.uk",
                 }
 
             form = BlogReviewForm(data)
@@ -1035,7 +1035,7 @@ class ExpenseReviewFormTest(unittest.TestCase):
         def test_full_expected(self):
             data = {
                 "status": "P",
-                "published_url": "http://google.co.uk",
+                "published_url": "http://software.ac.uk",
                 "notes_from_admin": ":-)",
                 }
 

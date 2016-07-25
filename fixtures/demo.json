@@ -967,7 +967,7 @@
     "pk": 1,
     "fields": {
         "event": 1,
-        "draft_url": "http://google.com/",
+        "draft_url": "http://software.ac.uk",
         "status": "U",
         "notes_from_admin": null,
         "published_url": null,

@@ -82,7 +82,7 @@ class URLTest(unittest.TestCase):
         # Insert blog
         data = {
             "event": event,
-            "draft_url": "http://google.com/",
+            "draft_url": "http://software.ac.uk/",
             }
 
         blog = Blog(**data)
