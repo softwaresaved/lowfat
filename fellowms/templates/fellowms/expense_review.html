@@ -28,6 +28,14 @@
   </div>
   <div class="col-md-6">
 <h2>Expenses</h2>
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th>Received date</th>
+            <td>{{ expense.event.received_date }}</td>
+        </tr>
+    </tbody>
+</table>
 <form method="post" action="">
     {% csrf_token %}
     <table>
