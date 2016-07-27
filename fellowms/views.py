@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 
 from .models import *
@@ -75,6 +75,10 @@ def fellow(request):
 
 def fellow_detail(request, fellow_id):
     this_fellow = Fellow.objects.get(id=fellow_id)
+
+    if not this_fellow.selected:
+        return HttpResponseNotFound("Fellow does not exist.")
+
     context = {
             'fellow': this_fellow,
             'events': Event.objects.filter(fellow=this_fellow),
