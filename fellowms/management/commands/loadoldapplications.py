@@ -35,7 +35,7 @@ class Command(BaseCommand):
                     "research_area_code": jacs,
                     "email": line["E-mail"],
                     "phone": line["Telephone"],
-                    "gender": line["Gender"] if line["Gender"] else 'R',
+                    "gender": line["Gender"] if pd.notnull(line["Gender"]) else 'R',
                     "work_description": line["Work area"],
                     "funding": "{}, {}".format(line["Primary funder"],line["Additional funder"]),
                     "fellowship_grant": 3000 if is_fellow else 0,
