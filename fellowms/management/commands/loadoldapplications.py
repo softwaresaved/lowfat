@@ -1,7 +1,10 @@
+import urllib.request
+
 import pandas as pd
 
-from django.core.management.base import BaseCommand, CommandError
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.files import File
+from django.core.management.base import BaseCommand, CommandError
 
 from fellowms.models import Fellow
 
@@ -19,6 +22,11 @@ class Command(BaseCommand):
                     is_fellow=True
                 else:
                     is_fellow=False
+
+                if pd.notnull(line["Photo"]):
+                    photo_name, photo_info = urllib.request.urlretrieve(line["Photo"])
+                    photo = File(open(photo_name, "rb"))
+                    photo.name = line["Photo"].split("/")[-1]
 
                 if pd.notnull(line["Research classification"]):
                     jacs = "{}00".format(line["Research classification"][0:2])
@@ -43,6 +51,12 @@ class Command(BaseCommand):
                     "funding": "{}, {}".format(line["Primary funder"],line["Additional funder"]),
                     "fellowship_grant": 3000 if is_fellow else 0,
                 }
+
+                if photo:
+                    applicants_dict.update({
+                        "photo": photo,
+                        })
+
                 applicant = Fellow(**applicants_dict)
                 applicant.save()
 
