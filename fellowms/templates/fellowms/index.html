@@ -14,7 +14,26 @@
     {% include 'fellowms/photo.html' %}
     <br>
     {{ fellow.forenames }} {{ fellow.surname }}
-    </a>
+  </a>
+  <br>
+  {% if fellow.website %}
+  <a href="{{ fellow.website }}"<span class="svg-icon dribble"></span></a>
+  {% endif %}
+  {% if fellow.orcid %}
+  <a href="http://orcid.org/{{ fellow.orcid }}"<span class="svg-icon orcid"></span></a>
+  {% endif %}
+  {% if fellow.github %}
+  <a href="http://github.com/{{ fellow.github }}"<span class="svg-icon github"></span></a>
+  {% endif %}
+  {% if fellow.gitlab %}
+  <a href="https://gitlab.com/{{ fellow.gitlab }}"<span class="svg-icon gitlab"></span></a>
+  {% endif %}
+  {% if fellow.twitter %}
+  <a href="https://twitter.com/{{ fellow.twitter }}"<span class="svg-icon twitter"></span></a>
+  {% endif %}
+  {% if fellow.facebook %}
+  <a href="https://facebook.com/{{ fellow.facebook }}"<span class="svg-icon facebook"></span></a>
+  {% endif %}
     {% if show_grant_available %}
     <br>
     £{{ fellow.fellowship_available }}
