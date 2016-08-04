@@ -23,12 +23,17 @@
 {% if user.is_authenticated %}
 {% if user.is_superuser %}
 <p>Your pending tasks are:</p>
-<h2>Events</h2>
-<p><a href="{% url 'blog' %}">Add new event.</a></p>
+<h2>
+  Events
+  <a class="btn btn-default" href="{% url 'blog' %}">New event</a>
+</h2>
 {% if events %}
 <table class="table table-bordered">
   <tbody>
     <tr>
+      <th>
+        Date
+      </th>
       <th>
         Name
       </th>
@@ -38,6 +43,7 @@
     </tr>
     {% for event in events %}
     <tr>
+      <td>{{ event.added }}</td>
       <td>
         <a href="{% url 'event_detail' event.id %}">{{ event.name }}</a>
         from <a href="{% url 'fellow_detail' event.fellow.id %}">{{ event.fellow.forenames }} {{ event.fellow.surname }}</a>
@@ -51,12 +57,17 @@
   </tbody>
 </table>
 {% endif %}
-<h2>Expenses</h2>
-<p><a href="{% url 'blog' %}">Add new blog.</a></p>
+<h2>
+  Expenses
+ <a class="btn btn-default" href="{% url 'expense' %}">New expense</a>
+</h2>
 {% if expenses %}
 <table class="table table-bordered">
   <tbody>
     <tr>
+      <th>
+        Date
+      </th>
       <th>
         Name
       </th>
@@ -66,6 +77,7 @@
     </tr>
     {% for expense in expenses %}
     <tr>
+      <td>{{ expense.added }}</td>
       <td>
         <a href="/upload/{{ expense.claim }}">{{ expense.claim }}</a>
         from <a href="{% url 'fellow_detail' expense.event.fellow.id %}">{{ expense.event.fellow.forenames }} {{ expense.event.fellow.surname }}</a>
@@ -80,12 +92,17 @@
   </tbody>
 </table>
 {% endif %}
-<h2>Blogs</h2>
-<p><a href="{% url 'blog' %}">Add new blog.</a></p>
+<h2>
+  Blogs
+  <a class="btn btn-default" href="{% url 'blog' %}">New blog</a>
+</h2>
 {% if blogs %}
 <table class="table table-bordered">
   <tbody>
     <tr>
+      <th>
+        Date
+      </th>
       <th>
         Name
       </th>
@@ -95,6 +112,7 @@
     </tr>
     {% for blog in blogs %}
     <tr>
+      <td>{{ blog.added }}</td>
       <td>
         <a href="{{ blog.draft_url }}">{{ blog.draft_url }}</a> from
         <a href="{% url 'event_detail' blog.event.id %}">{{ blog.event.name }}</a>
