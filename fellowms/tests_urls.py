@@ -35,7 +35,7 @@ class URLTest(unittest.TestCase):
         response = self.admin.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_fellow_detils(self):
+    def test_fellow_details(self):
         url = '/fellow/{}/'.format(self.fellow_id)
 
         response = self.client.get(url)
