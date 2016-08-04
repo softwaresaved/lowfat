@@ -23,8 +23,9 @@
 {% if user.is_authenticated %}
 {% if user.is_superuser %}
 <p>Your pending tasks are:</p>
-{% if events %}
 <h2>Events</h2>
+<p><a href="{% url 'blog' %}">Add new event.</a></p>
+{% if events %}
 <table class="table table-bordered">
   <tbody>
     <tr>
@@ -50,8 +51,9 @@
   </tbody>
 </table>
 {% endif %}
-{% if expenses %}
 <h2>Expenses</h2>
+<p><a href="{% url 'blog' %}">Add new blog.</a></p>
+{% if expenses %}
 <table class="table table-bordered">
   <tbody>
     <tr>
@@ -78,8 +80,9 @@
   </tbody>
 </table>
 {% endif %}
-{% if blogs %}
 <h2>Blogs</h2>
+<p><a href="{% url 'blog' %}">Add new blog.</a></p>
+{% if blogs %}
 <table class="table table-bordered">
   <tbody>
     <tr>
@@ -108,6 +111,7 @@
 {% else %}
 {% include 'fellowms/finances.html' %}
 <h2>Events</h2>
+<p><a href="{% url 'event' %}">Request new event.</a></p>
 <table class="table table-bordered">
   <tbody>
     <tr>
