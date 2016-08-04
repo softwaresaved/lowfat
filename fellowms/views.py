@@ -107,7 +107,12 @@ def event(request):
             return HttpResponseRedirect(reverse('event_detail',
                 args=[event.id,]))
     else:
-        formset = EventForm
+        fellow_id = request.GET.get("fellow_id")
+        if fellow_id:
+            initial = {"fellow": Fellow.objects.get(id=fellow_id)}
+        else:
+            initial = {}
+        formset = EventForm(initial=initial)
 
     # Show submission form.
     context = {

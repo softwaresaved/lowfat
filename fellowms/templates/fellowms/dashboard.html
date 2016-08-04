@@ -111,7 +111,7 @@
 {% else %}
 {% include 'fellowms/finances.html' %}
 <h2>Events</h2>
-<p><a href="{% url 'event' %}">Request new event.</a></p>
+<p><a href="{% url 'event' %}?fellow_id={{ fellow.id }}">Request new event.</a></p>
 <table class="table table-bordered">
   <tbody>
     <tr>
