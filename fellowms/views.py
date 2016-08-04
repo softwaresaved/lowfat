@@ -195,12 +195,21 @@ def expense(request):
             return HttpResponseRedirect(reverse('expense_claim',
                 args=[expense.id,]))
     else:
+        # Store GET parameters
         event_id = request.GET.get("event_id")
+
+        # Setup Event if provided
         if event_id:
             initial = {"event": Event.objects.get(id=event_id)}
         else:
             initial = {}
+
         formset = ExpenseForm(initial=initial)
+
+        # Limit dropdown list to fellow
+        if request.user.is_authenticated() and not request.user.is_superuser:
+            fellow = Fellow.objects.get(user=request.user)
+            formset.fields["event"].queryset = Event.objects.filter(fellow=fellow)
 
     # Show submission form.
     context = {
