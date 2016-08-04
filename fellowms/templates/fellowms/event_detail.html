@@ -1,7 +1,11 @@
 {% extends "fellowms/base.html" %}
 
 {% block content %}
-<h1>Event</h1>
+<h1>Event
+  {% if user.is_superuser %}
+  <a class="btn btn-default" href="{% url 'event_review' event.id %}" role="button">Review</a>
+  {% endif %}
+</h1>
 <h2>General Details</h1>
 <table class="table table-bordered">
     <tbody>

@@ -1,6 +1,10 @@
 {% extends "fellowms/base.html" %}
 
 {% block content %}
-<h1>Blog Detail</h1>
+<h1>Blog Detail
+  {% if user.is_superuser %}
+  <a class="btn btn-default" href="{% url 'blog_review' blog.id %}" role="button">Review</a>
+  {% endif %}
+</h1>
 {{ blog.draft_url}}
 {% endblock %}
