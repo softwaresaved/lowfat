@@ -5,7 +5,7 @@
   <tbody>
     <tr>
       <th>
-        Proof
+        Claim
       </th>
       <th>
         Status
@@ -28,11 +28,11 @@
        {% endif %}
        >
       <td>
-        {% if expense.proof %}
-        <a href="{{ expense.proof.url }}">{{ expense.proof.url }}</a>
+        {% if expense.claim %}
+        <a href="{{ expense.claim.url }}">{{ expense.claim.url }}</a>
         <a href="{% url 'expense_review' expense.id %}"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a
         {% else %}
-        Missing proof of expense
+        Missing claim of expense
         {% endif %}
       </td>
       <td>

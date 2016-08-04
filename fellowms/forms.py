@@ -98,7 +98,7 @@ class ExpenseReviewForm(ModelForm):
         exclude = [
                 'id',
                 'event',
-                'proof',
+                'claim',
                 "added",
                 'received_date',
                 "updated",

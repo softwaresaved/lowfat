@@ -286,7 +286,7 @@ class Expense(models.Model):
 
     # Form
     event = models.ForeignKey('Event')
-    proof = models.FileField(
+    claim = models.FileField(
             upload_to='expenses/'  # File will be uploaded to MEDIA_ROOT/expenses
         )
     amount_claimed = models.DecimalField(max_digits=MAX_DIGITS,
@@ -323,7 +323,7 @@ class Expense(models.Model):
     updated = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return self.proof.name
+        return self.claim.name
 
 
 class Blog(models.Model):
