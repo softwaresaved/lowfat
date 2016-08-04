@@ -917,7 +917,7 @@ class ExpenseFormTest(unittest.TestCase):
 
         with io.BytesIO(b'000') as fake_file:
             file_data = {
-                "proof": SimpleUploadedFile('proof.png', fake_file.read()),
+                "claim": SimpleUploadedFile('claim.png', fake_file.read()),
             }
 
         form = ExpenseForm(data, file_data)

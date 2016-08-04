@@ -79,7 +79,7 @@ def create_all():
 
     with io.BytesIO(b'000') as fake_file:
         data.update({
-            "proof": SimpleUploadedFile('fake-claim.jpg', fake_file.read()),
+            "claim": SimpleUploadedFile('fake-claim.jpg', fake_file.read()),
         })
 
     expense = Expense(**data)
