@@ -92,7 +92,7 @@ class Fellow(models.Model):
             default="R")
     home_country = CountryField(
         blank=False,
-        default='UK')
+        default='GB')  # Default for United Kingdom
     home_city = models.CharField(
         blank=False,
         max_length=MAX_CHAR_LENGTH)
@@ -199,7 +199,7 @@ class Event(models.Model):
             default="O")
     name = models.CharField(max_length=MAX_CHAR_LENGTH)
     url = models.URLField(max_length=MAX_CHAR_LENGTH)
-    country = CountryField(default='UK')
+    country = CountryField(default='GB')  # Default for United Kingdom
     city = models.CharField(max_length=MAX_CHAR_LENGTH)
     lon = models.FloatField(
             null=True,
