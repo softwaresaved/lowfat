@@ -26,6 +26,7 @@ def index(request):
 
     return render(request, 'fellowms/index.html', context)
 
+@login_required
 def dashboard(request):
     context = {}
 
@@ -93,6 +94,7 @@ def fellow_detail(request, fellow_id):
 
     return render(request, 'fellowms/fellow_detail.html', context)
 
+@login_required
 def my_profile(request):
     if not request.user.is_superuser and not request.user.is_staff:
         fellow = Fellow.objects.get(user=request.user)
@@ -100,6 +102,7 @@ def my_profile(request):
 
     return HttpResponseNotFound("Fellow does not exist.")
 
+@login_required
 def event(request):
     if request.POST:
         # Handle submission
@@ -129,6 +132,7 @@ def event(request):
             }
     return render(request, 'fellowms/form.html', context)
 
+@login_required
 def event_detail(request, event_id):
     this_event = Event.objects.get(id=event_id)
     
@@ -184,6 +188,7 @@ def event_past(request):
 
     return render(request, 'fellowms/event_past.html', context)
 
+@login_required
 def expense(request):
     if request.POST:
         # Handle submission
@@ -219,6 +224,7 @@ def expense(request):
             }
     return render(request, 'fellowms/form.html', context)
 
+@login_required
 def expense_claim(request, expense_id):
     context = {
             'expense': Expense.objects.get(id=expense_id),
@@ -249,6 +255,7 @@ def expense_review(request, expense_id):
 
     return render(request, 'fellowms/expense_review.html', context)
 
+@login_required
 def blog(request):
     if request.POST:
         # Handle submission
@@ -280,6 +287,7 @@ def blog(request):
             }
     return render(request, 'fellowms/form.html', context)
 
+@login_required
 def blog_detail(request, blog_id):
     context = {
             'blog': Blog.objects.get(id=blog_id),
