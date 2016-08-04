@@ -93,6 +93,13 @@ def fellow_detail(request, fellow_id):
 
     return render(request, 'fellowms/fellow_detail.html', context)
 
+def my_profile(request):
+    if not request.user.is_superuser and not request.user.is_staff:
+        fellow = Fellow.objects.get(user=request.user)
+        return fellow_detail(request, fellow.id)
+
+    return HttpResponseNotFound("Fellow does not exist.")
+
 def event(request):
     if request.POST:
         # Handle submission

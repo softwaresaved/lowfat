@@ -22,10 +22,10 @@ from . import views
 from . import settings 
 
 urlpatterns = [
-    url(r'^sign_in/', auth_views.login,
+    url(r'^sign-in/', auth_views.login,
         {'template_name': 'fellowms/sign_in.html'},
         name="sign_in"),
-    url(r'^sign_out/', auth_views.logout,
+    url(r'^sign-out/', auth_views.logout,
         {'next_page': '/'},
         name="sign_out"),
     url(r'^fellow/(?P<fellow_id>[0-9]+)/', views.fellow_detail, name="fellow_detail"),
@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^blog/(?P<blog_id>[0-9]+)/', views.blog_detail, name="blog_detail"),
     url(r'^blog/', views.blog, name="blog"),
     url(r'^dashboard/', views.dashboard, name="dashboard"),
+    url(r'^my-profile/', views.my_profile, name="my_profile"),
     url(r'^geojson/', views.geojson, name="geojson"),
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name="index"),
