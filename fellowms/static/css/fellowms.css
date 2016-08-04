@@ -1,3 +1,8 @@
+.navbar-brand > img.logo {
+    width: 18px;  /* same of font-size */
+    height: 18px;  /* same of font-size */
+}
+
 .passport-photo {
     width: 120px;
     height: 120px;
