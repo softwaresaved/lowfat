@@ -116,13 +116,18 @@ def event(request):
             new_event_notification(event)
             return HttpResponseRedirect(reverse('event_detail',
                 args=[event.id,]))
+
+    if not request.user.is_superuser:
+        initial = {
+            "fellow": Fellow.objects.get(user=request.user),
+        }
     else:
-        fellow_id = request.GET.get("fellow_id")
-        if fellow_id:
-            initial = {"fellow": Fellow.objects.get(id=fellow_id)}
-        else:
-            initial = {}
-        formset = EventForm(initial=initial)
+        initial = {}
+
+    formset = EventForm(initial=initial)
+
+    if not request.user.is_superuser:
+        formset.fields["fellow"].queryset = Fellow.objects.filter(user=request.user)
 
     # Show submission form.
     context = {

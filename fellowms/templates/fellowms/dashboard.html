@@ -143,8 +143,10 @@
 {% endif %}
 {% else %}
 {% include 'fellowms/finances.html' %}
-<h2>Events</h2>
-<p><a href="{% url 'event' %}?fellow_id={{ fellow.id }}">Request new event.</a></p>
+<h2>
+  Events
+  <a class="btn btn-default" href="{% url 'event' %}">New event</a>
+</h2>
 <table class="table table-bordered">
   <tbody>
     <tr>
