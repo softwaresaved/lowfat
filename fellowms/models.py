@@ -5,6 +5,8 @@ import django.utils
 from django.conf import settings
 from django.db import models
 
+from django_countries.fields import CountryField
+
 from .jacs import JACS_LEVEL_2
 
 MAX_CHAR_LENGTH = 120
@@ -88,8 +90,12 @@ class Fellow(models.Model):
     gender = models.CharField(choices=GENDERS,
             max_length=1,
             default="R")
-    home_location = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=False)
+    home_country = CountryField(
+        blank=False,
+        default='UK')
+    home_city = models.CharField(
+        blank=False,
+        max_length=MAX_CHAR_LENGTH)
     home_lon = models.FloatField(
             null=True,
             blank=True)
@@ -193,7 +199,8 @@ class Event(models.Model):
             default="O")
     name = models.CharField(max_length=MAX_CHAR_LENGTH)
     url = models.URLField(max_length=MAX_CHAR_LENGTH)
-    location = models.CharField(max_length=MAX_CHAR_LENGTH)
+    country = CountryField(default='UK')
+    city = models.CharField(max_length=MAX_CHAR_LENGTH)
     lon = models.FloatField(
             null=True,
             blank=True)
