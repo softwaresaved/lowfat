@@ -30,6 +30,7 @@ class EventForm(ModelForm):
                 "status",
                 "ad_status",
                 "budget_approved",
+                "required_blog_posts",
                 "notes_from_admin",
                 "added",
                 "updated",
@@ -59,6 +60,7 @@ class EventReviewForm(ModelForm):
         fields = [
                 "status",
                 "ad_status",
+                "required_blog_posts",
                 "budget_approved",
                 "notes_from_admin",
                 ]
