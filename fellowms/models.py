@@ -233,6 +233,10 @@ class Event(models.Model):
     status = models.CharField(choices=EVENT_STATUS,
             max_length=1,
             default="U")
+    required_blog_posts = models.IntegerField(
+                null=False,
+                blank=False,
+                default=1)
     notes_from_admin = models.TextField(
             null=True,
             blank=True)
