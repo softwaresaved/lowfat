@@ -30,6 +30,7 @@ def create_fellow():
         "affiliation": "College",
         "funding": "Self-funded",
         "work_description": "Work",
+        "selected": True,
     }
 
     with io.BytesIO(b'000') as fake_file:
