@@ -269,6 +269,10 @@ class Event(models.Model):
         this_event_expenses = Expense.objects.filter(event=self)
         return sum([expense.amount_authorized_for_payment for expense in this_event_expenses])
 
+    def total_of_blog_posts(self):
+        """Return number of blog posts."""
+        return Blog.objects.filter(event=self).count()
+
 
 class Expense(models.Model):
     """This describe one expense for one event."""

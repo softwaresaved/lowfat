@@ -73,7 +73,8 @@
 {% include 'fellowms/expenses.html' %}
 {% endif %}
 <h2>Blogs</h2>
-<p><a href="{% url 'blog' %}?event_id={{event.id}}">Submit new blog.</a></p>
+<p><strong>This event requires {{ event.required_blog_posts }} blog posts.</strong>
+  <a href="{% url 'blog' %}?event_id={{event.id}}">Submit new blog.</a></p>
 <table class="table table-bordered">
   <tbody>
     <tr>
