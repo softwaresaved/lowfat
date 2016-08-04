@@ -35,14 +35,14 @@ def dashboard(request):
 
             context.update({
                 'fellow': fellow,
-                'events': Event.objects.filter(fellow=fellow),
+                'events': Event.objects.filter(fellow=fellow).reverse(),
                 'budget_available': fellow.fellowship_available(),
                 })
         else:
             context.update({
-                'events': Event.objects.filter(status__in=['U', 'P']),
-                'expenses': Expense.objects.filter(status__in=['W', 'S', 'P']),
-                'blogs': Blog.objects.filter(status__in=['U', 'R']),
+                'events': Event.objects.filter(status__in=['U', 'P']).reverse(),
+                'expenses': Expense.objects.filter(status__in=['W', 'S', 'P']).reverse(),
+                'blogs': Blog.objects.filter(status__in=['U', 'R']).reverse(),
                 })
 
     return render(request, 'fellowms/dashboard.html', context)
