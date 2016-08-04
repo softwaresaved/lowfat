@@ -89,7 +89,7 @@ class URLTest(unittest.TestCase):
         response = self.admin.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_expense_details(self):
+    def test_expense_claims(self):
         url = '/expense/{}/'.format(self.expense_id)
 
         response = self.client.get(url)

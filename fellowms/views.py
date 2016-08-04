@@ -180,7 +180,7 @@ def expense(request):
         if formset.is_valid():
             expense = formset.save()
             new_expense_notification(expense)
-            return HttpResponseRedirect(reverse('expense_detail',
+            return HttpResponseRedirect(reverse('expense_claim',
                 args=[expense.id,]))
     else:
         event_id = request.GET.get("event_id")
@@ -198,12 +198,12 @@ def expense(request):
             }
     return render(request, 'fellowms/form.html', context)
 
-def expense_detail(request, expense_id):
+def expense_claim(request, expense_id):
     context = {
             'expense': Expense.objects.get(id=expense_id),
             }
 
-    return render(request, 'fellowms/expense_detail.html', context)
+    return render(request, 'fellowms/expense_claim.html', context)
 
 @staff_member_required
 def expense_review(request, expense_id):
@@ -215,7 +215,7 @@ def expense_review(request, expense_id):
 
         if formset.is_valid():
             expense = formset.save()
-            return HttpResponseRedirect(reverse('expense_detail',
+            return HttpResponseRedirect(reverse('expense_claim',
                 args=[expense.id,]))
 
     formset = ExpenseReviewForm(None, instance=this_expense)
