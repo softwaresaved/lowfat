@@ -767,6 +767,7 @@ class EventReviewFormTest(unittest.TestCase):
     def test_null_status(self):
         data = {
             "ad_status": "V",
+            "required_blog_posts": 1,
             "budget_approved": 100.00,
             "notes_from_admin": ":-)",
             }
@@ -778,6 +779,7 @@ class EventReviewFormTest(unittest.TestCase):
         data = {
             "status": "",
             "ad_status": "V",
+            "required_blog_posts": 1,
             "budget_approved": 100.00,
             "notes_from_admin": ":-)",
             }
@@ -788,6 +790,7 @@ class EventReviewFormTest(unittest.TestCase):
     def test_null_add_status(self):
         data = {
             "status": "A",
+            "required_blog_posts": 1,
             "budget_approved": 100.00,
             "notes_from_admin": ":-)",
             }
@@ -799,8 +802,19 @@ class EventReviewFormTest(unittest.TestCase):
         data = {
             "status": "A",
             "ad_status": "",
+            "required_blog_posts": 1,
             "budget_approved": 100.00,
             "notes_from_admin": ":-)",
+            }
+
+        form = EventReviewForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_null_required_blog_posts(self):
+        data = {
+            "status": "A",
+            "ad_status": "V",
+            "budget_approved": 100.00,
             }
 
         form = EventReviewForm(data)
@@ -810,6 +824,7 @@ class EventReviewFormTest(unittest.TestCase):
         data = {
             "status": "A",
             "ad_status": "V",
+            "required_blog_posts": 1,
             "notes_from_admin": ":-)",
             }
 
@@ -820,6 +835,7 @@ class EventReviewFormTest(unittest.TestCase):
         data = {
             "status": "A",
             "ad_status": "V",
+            "required_blog_posts": 1,
             "budget_approved": 100.00,
             }
 
@@ -830,6 +846,7 @@ class EventReviewFormTest(unittest.TestCase):
         data = {
             "status": "A",
             "ad_status": "V",
+            "required_blog_posts": 1,
             "budget_approved": 100.00,
             "notes_from_admin": ":-)",
             }
