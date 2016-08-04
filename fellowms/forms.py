@@ -121,6 +121,7 @@ class BlogForm(ModelForm):
                 'status',
                 "notes_from_admin",
                 'published_url',
+                "tweet_url",
                 "added",
                 "updated",
                 ]
