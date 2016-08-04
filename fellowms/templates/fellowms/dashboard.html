@@ -23,12 +23,11 @@
 {% if user.is_authenticated %}
 {% if user.is_superuser %}
 <p>Your pending tasks are:</p>
+{% if events %}
+<h2>Events</h2>
 <table class="table table-bordered">
   <tbody>
     <tr>
-      <th>
-        Type
-      </th>
       <th>
         Name
       </th>
@@ -39,9 +38,6 @@
     {% for event in events %}
     <tr>
       <td>
-        Event
-      </td>
-      <td>
         <a href="{% url 'event_detail' event.id %}">{{ event.name }}</a>
         from <a href="{% url 'fellow_detail' event.fellow.id %}">{{ event.fellow.forenames }} {{ event.fellow.surname }}</a>
       </td>
@@ -51,11 +47,23 @@
       </td>
     </tr>
     {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% if expenses %}
+<h2>Expenses</h2>
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <th>
+        Name
+      </th>
+      <th>
+        Status
+      </th>
+    </tr>
     {% for expense in expenses %}
     <tr>
-      <td>
-        Expense
-      </td>
       <td>
         <a href="/upload/{{ expense.proof }}">{{ expense.proof }}</a>
         from <a href="{% url 'fellow_detail' expense.event.fellow.id %}">{{ expense.event.fellow.forenames }} {{ expense.event.fellow.surname }}</a>
@@ -67,11 +75,23 @@
       </td>
     </tr>
     {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% if blogs %}
+<h2>Blogs</h2>
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <th>
+        Name
+      </th>
+      <th>
+        Status
+      </th>
+    </tr>
     {% for blog in blogs %}
     <tr>
-      <td>
-        Report
-      </td>
       <td>
         <a href="{{ blog.draft_url }}">{{ blog.draft_url }}</a> from
         <a href="{% url 'event_detail' blog.event.id %}">{{ blog.event.name }}</a>
@@ -84,6 +104,7 @@
     {% endfor %}
   </tbody>
 </table>
+{% endif %}
 {% else %}
 {% include 'fellowms/finances.html' %}
 <h2>Events</h2>
