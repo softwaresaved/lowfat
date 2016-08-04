@@ -267,6 +267,11 @@ def blog(request):
             initial = {}
         formset = BlogForm(initial=initial)
 
+        # Limit dropdown list to fellow
+        if request.user.is_authenticated() and not request.user.is_superuser:
+            fellow = Fellow.objects.get(user=request.user)
+            formset.fields["event"].queryset = Event.objects.filter(fellow=fellow)
+
     # Show submission form.
     context = {
             "title": "Submit blog",
