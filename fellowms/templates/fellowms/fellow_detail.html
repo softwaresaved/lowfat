@@ -2,7 +2,11 @@
 {% load staticfiles %}
 
 {% block content %}
-<h1>Fellow Detail</h1>
+<h1>Fellow Detail
+  {% if user == fellow.user %}
+  <a class="btn btn-default" href="{% url 'fellow' %}" role="button">Edit</a>
+  {% endif %}
+</h1>
 {% include 'fellowms/photo.html' %}
 <table class="table table-bordered">
     <tbody>
