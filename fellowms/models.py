@@ -351,6 +351,9 @@ class Blog(models.Model):
     published_url = models.URLField(max_length=MAX_CHAR_LENGTH,
             null=True,
             blank=True)
+    tweet_url = models.URLField(max_length=MAX_CHAR_LENGTH,
+            null=True,
+            blank=True)
 
     # Control
     added = models.DateTimeField(auto_now_add=True)
