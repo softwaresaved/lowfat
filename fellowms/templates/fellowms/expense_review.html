@@ -2,8 +2,8 @@
 
 {% block content %}
 <h1>Expense Review</h1>
-<object class="expense-review-pdf" data="{{ expense.proof.url }}" type="application/pdf">
-  <p>You will need to download the <a href="{{ expense.proof.url }}">PDF file.</a></p>
+<object class="expense-review-pdf" data="{{ expense.claim.url }}" type="application/pdf">
+  <p>You will need to download the <a href="{{ expense.claim.url }}">PDF file.</a></p>
 </object>
 
 <div class="row">

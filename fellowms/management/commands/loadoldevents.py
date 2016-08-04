@@ -76,7 +76,7 @@ The document that you are looking for doesn't exist because
 
 Sorry for the inconvenience.""") as fake_file:
                         expense_dict.update({
-                            "proof": SimpleUploadedFile('missing-proof.pdf', fake_file.read()),
+                            "claim": SimpleUploadedFile('missing-proof.pdf', fake_file.read()),
                         })
 
                     expense = Expense(**expense_dict)
