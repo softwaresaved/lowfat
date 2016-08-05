@@ -378,7 +378,7 @@
     }
 },
 {
-    "model": "fellowms.fellow",
+    "model": "fat.fellow",
     "pk": 1,
     "fields": {
         "user": 6,
@@ -415,7 +415,7 @@
     }
 },
 {
-    "model": "fellowms.fellow",
+    "model": "fat.fellow",
     "pk": 2,
     "fields": {
         "user": 5,
@@ -452,7 +452,7 @@
     }
 },
 {
-    "model": "fellowms.fellow",
+    "model": "fat.fellow",
     "pk": 3,
     "fields": {
         "user": 4,
@@ -489,7 +489,7 @@
     }
 },
 {
-    "model": "fellowms.fellow",
+    "model": "fat.fellow",
     "pk": 4,
     "fields": {
         "user": 3,
@@ -526,7 +526,7 @@
     }
 },
 {
-    "model": "fellowms.fellow",
+    "model": "fat.fellow",
     "pk": 5,
     "fields": {
         "user": 2,
@@ -563,7 +563,7 @@
     }
 },
 {
-    "model": "fellowms.event",
+    "model": "fat.event",
     "pk": 1,
     "fields": {
         "fellow": 2,
@@ -594,7 +594,7 @@
     }
 },
 {
-    "model": "fellowms.event",
+    "model": "fat.event",
     "pk": 2,
     "fields": {
         "fellow": 5,
@@ -625,7 +625,7 @@
     }
 },
 {
-    "model": "fellowms.event",
+    "model": "fat.event",
     "pk": 3,
     "fields": {
         "fellow": 1,
@@ -656,7 +656,7 @@
     }
 },
 {
-    "model": "fellowms.event",
+    "model": "fat.event",
     "pk": 4,
     "fields": {
         "fellow": 2,
@@ -687,7 +687,7 @@
     }
 },
 {
-    "model": "fellowms.event",
+    "model": "fat.event",
     "pk": 5,
     "fields": {
         "fellow": 3,
@@ -718,7 +718,7 @@
     }
 },
 {
-    "model": "fellowms.event",
+    "model": "fat.event",
     "pk": 6,
     "fields": {
         "fellow": 4,
@@ -749,7 +749,7 @@
     }
 },
 {
-    "model": "fellowms.event",
+    "model": "fat.event",
     "pk": 8,
     "fields": {
         "fellow": 1,
@@ -780,7 +780,7 @@
     }
 },
 {
-    "model": "fellowms.event",
+    "model": "fat.event",
     "pk": 9,
     "fields": {
         "fellow": 1,
@@ -811,7 +811,7 @@
     }
 },
 {
-    "model": "fellowms.event",
+    "model": "fat.event",
     "pk": 10,
     "fields": {
         "fellow": 3,
@@ -842,7 +842,7 @@
     }
 },
 {
-    "model": "fellowms.expense",
+    "model": "fat.expense",
     "pk": "3979af36-5a05-4ef7-ba57-e67cb8a9d454",
     "fields": {
         "event": 8,
@@ -860,7 +860,7 @@
     }
 },
 {
-    "model": "fellowms.expense",
+    "model": "fat.expense",
     "pk": "7d8d67af-d8aa-465c-a6ab-31ed9217bf5d",
     "fields": {
         "event": 2,
@@ -878,7 +878,7 @@
     }
 },
 {
-    "model": "fellowms.expense",
+    "model": "fat.expense",
     "pk": "a18fc323-844e-49da-8d1c-38768713e9f7",
     "fields": {
         "event": 3,
@@ -896,7 +896,7 @@
     }
 },
 {
-    "model": "fellowms.expense",
+    "model": "fat.expense",
     "pk": "aafa331a-0467-44a5-a067-726bed8efce2",
     "fields": {
         "event": 1,
@@ -914,7 +914,7 @@
     }
 },
 {
-    "model": "fellowms.expense",
+    "model": "fat.expense",
     "pk": "b2486ce7-c392-427d-b32e-9d58698f8687",
     "fields": {
         "event": 5,
@@ -932,7 +932,7 @@
     }
 },
 {
-    "model": "fellowms.expense",
+    "model": "fat.expense",
     "pk": "b7cb4d08-3bdc-452d-92e4-6bab1cd2f925",
     "fields": {
         "event": 1,
@@ -950,7 +950,7 @@
     }
 },
 {
-    "model": "fellowms.expense",
+    "model": "fat.expense",
     "pk": "da29f63f-de4a-407a-b24c-f7702ab34c4a",
     "fields": {
         "event": 6,
@@ -968,7 +968,7 @@
     }
 },
 {
-    "model": "fellowms.expense",
+    "model": "fat.expense",
     "pk": "eabbab9b-47fd-4359-b3b4-b39ee5913613",
     "fields": {
         "event": 4,
@@ -986,7 +986,7 @@
     }
 },
 {
-    "model": "fellowms.blog",
+    "model": "fat.blog",
     "pk": 1,
     "fields": {
         "event": 1,
