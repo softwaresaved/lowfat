@@ -6,7 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
 from django.core.management.base import BaseCommand, CommandError
 
-from fellowms.models import Fellow
+from fat.models import Fellow
 
 CSV_TO_IMPORT = 'old_applications.csv'
 

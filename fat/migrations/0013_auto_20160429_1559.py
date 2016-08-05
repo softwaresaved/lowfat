@@ -9,7 +9,7 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fellowms', '0012_auto_20160429_1457'),
+        ('fat', '0012_auto_20160429_1457'),
     ]
 
     operations = [

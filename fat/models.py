@@ -69,7 +69,7 @@ class Fellow(models.Model):
     """Describe a fellow."""
 
     class Meta:
-        app_label = 'fellowms'
+        app_label = 'fat'
 
     # Authentication
     #
@@ -190,7 +190,7 @@ class Fellow(models.Model):
 class Event(models.Model):
     """Describe a event from one fellow."""
     class Meta:
-        app_label = 'fellowms'
+        app_label = 'fat'
 
     # TODO Make fellow more generic to include staffs.
     fellow = models.ForeignKey('Fellow')
@@ -284,7 +284,7 @@ class Event(models.Model):
 class Expense(models.Model):
     """This describe one expense for one event."""
     class Meta:
-        app_label = 'fellowms'
+        app_label = 'fat'
 
     # Hash for id to avoid leak of information
     id = models.UUIDField(primary_key=True,
@@ -336,7 +336,7 @@ class Expense(models.Model):
 class Blog(models.Model):
     """Provide the link to the blog post about the event."""
     class Meta:
-        app_label = 'fellowms'
+        app_label = 'fat'
 
     event = models.ForeignKey('Event')
     draft_url = models.URLField(max_length=MAX_CHAR_LENGTH)

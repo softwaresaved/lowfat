@@ -1,4 +1,4 @@
-{% extends "fellowms/base.html" %}
+{% extends "fat/base.html" %}
 
 {% block content %}
 {% if user.is_superuser %}
@@ -142,7 +142,7 @@
 </table>
 {% endif %}
 {% else %}
-{% include 'fellowms/finances.html' %}
+{% include 'fat/finances.html' %}
 <h2>
   Events
   <a class="btn btn-default" href="{% url 'event' %}">New event</a>

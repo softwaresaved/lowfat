@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('fellowms', '0021_blog_status'),
+        ('fat', '0021_blog_status'),
     ]
 
     operations = [

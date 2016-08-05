@@ -9,7 +9,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fellowms', '0003_auto_20160413_1551'),
+        ('fat', '0003_auto_20160413_1551'),
     ]
 
     operations = [
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('proof', models.FileField(upload_to='')),
                 ('status', models.CharField(choices=[('P', 'Processing'), ('F', 'Finished')], default='P', max_length=1)),
-                ('event', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='fellowms.Event')),
+                ('event', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='fat.Event')),
             ],
         ),
     ]

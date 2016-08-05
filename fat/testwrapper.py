@@ -21,7 +21,7 @@ def create_fellow():
     data = {
         "forenames": "C",
         "surname": "A",
-        "email": "c.a@fake.fellowms.software.ac.uk",
+        "email": "c.a@fake.fat.software.ac.uk",
         "phone": "+441111111111",
         "gender": "M",
         "home_country": "GB",

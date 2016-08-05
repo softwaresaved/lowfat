@@ -1,4 +1,4 @@
-"""fellowms URL Configuration
+"""fat URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.9/topics/http/urls/
@@ -23,7 +23,7 @@ from . import settings
 
 urlpatterns = [
     url(r'^sign-in/', auth_views.login,
-        {'template_name': 'fellowms/sign_in.html'},
+        {'template_name': 'fat/sign_in.html'},
         name="sign_in"),
     url(r'^sign-out/', auth_views.logout,
         {'next_page': '/'},

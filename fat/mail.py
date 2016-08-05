@@ -9,7 +9,7 @@ from .settings import DEFAULT_FROM_EMAIL
 def reverse_full(*args, **kargs):
     """Return the full address using Django reverse."""
     # FIXME Avoid hard code the domain.
-    return 'http://dev.fellowms.software.ac.uk{}'.format(reverse(*args, **kargs))
+    return 'http://dev.fat.software.ac.uk{}'.format(reverse(*args, **kargs))
 
 def new_event_notification(event):
     # Email to admin

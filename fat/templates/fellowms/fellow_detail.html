@@ -1,4 +1,4 @@
-{% extends "fellowms/base.html" %}
+{% extends "fat/base.html" %}
 {% load staticfiles %}
 
 {% block content %}
@@ -7,7 +7,7 @@
   <a class="btn btn-default" href="{% url 'fellow' %}" role="button">Edit</a>
   {% endif %}
 </h1>
-{% include 'fellowms/photo.html' %}
+{% include 'fat/photo.html' %}
 <table class="table table-bordered">
     <tbody>
         <tr>
@@ -25,9 +25,9 @@
     </tbody>
 </table>
 {% if show_finances %}
-{% include 'fellowms/finances.html' %}
-{% include 'fellowms/expenses.html' %}
+{% include 'fat/finances.html' %}
+{% include 'fat/expenses.html' %}
 {% endif %}
 <h2>Events</h2>
-{% include 'fellowms/events.html' %}
+{% include 'fat/events.html' %}
 {% endblock %}

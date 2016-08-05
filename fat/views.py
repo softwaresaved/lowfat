@@ -24,7 +24,7 @@ def index(request):
             'show_grant_available': True,
             })
 
-    return render(request, 'fellowms/index.html', context)
+    return render(request, 'fat/index.html', context)
 
 @login_required
 def dashboard(request):
@@ -46,7 +46,7 @@ def dashboard(request):
                 'blogs': Blog.objects.filter(status__in=['U', 'R']).reverse(),
                 })
 
-    return render(request, 'fellowms/dashboard.html', context)
+    return render(request, 'fat/dashboard.html', context)
 
 @login_required
 def fellow(request):
@@ -72,7 +72,7 @@ def fellow(request):
             "formset": formset,
             "submit_text": "Save",
             }
-    return render(request, 'fellowms/form.html', context)
+    return render(request, 'fat/form.html', context)
 
 def fellow_detail(request, fellow_id):
     this_fellow = Fellow.objects.get(id=fellow_id)
@@ -92,7 +92,7 @@ def fellow_detail(request, fellow_id):
                 'show_finances': True,
                 })
 
-    return render(request, 'fellowms/fellow_detail.html', context)
+    return render(request, 'fat/fellow_detail.html', context)
 
 @login_required
 def my_profile(request):
@@ -135,7 +135,7 @@ def event(request):
             "formset": formset,
             "submit_text": "Submit",
             }
-    return render(request, 'fellowms/form.html', context)
+    return render(request, 'fat/form.html', context)
 
 @login_required
 def event_detail(request, event_id):
@@ -156,7 +156,7 @@ def event_detail(request, event_id):
                     'budget_summary': True,
                     })
 
-    return render(request, 'fellowms/event_detail.html', context)
+    return render(request, 'fat/event_detail.html', context)
 
 @staff_member_required
 def event_review(request, event_id):
@@ -179,7 +179,7 @@ def event_review(request, event_id):
             'submit_text': 'Update',
             }
 
-    return render(request, 'fellowms/event_review.html', context)
+    return render(request, 'fat/event_review.html', context)
 
 def event_past(request):
     events = Event.objects.filter(
@@ -191,7 +191,7 @@ def event_past(request):
             'events': events,
             }
 
-    return render(request, 'fellowms/event_past.html', context)
+    return render(request, 'fat/event_past.html', context)
 
 @login_required
 def expense(request):
@@ -227,7 +227,7 @@ def expense(request):
             "formset": formset,
             "submit_text": "Submit",
             }
-    return render(request, 'fellowms/form.html', context)
+    return render(request, 'fat/form.html', context)
 
 @login_required
 def expense_claim(request, expense_id):
@@ -235,7 +235,7 @@ def expense_claim(request, expense_id):
             'expense': Expense.objects.get(id=expense_id),
             }
 
-    return render(request, 'fellowms/expense_claim.html', context)
+    return render(request, 'fat/expense_claim.html', context)
 
 @staff_member_required
 def expense_review(request, expense_id):
@@ -258,7 +258,7 @@ def expense_review(request, expense_id):
             'submit_text': 'Update',
             }
 
-    return render(request, 'fellowms/expense_review.html', context)
+    return render(request, 'fat/expense_review.html', context)
 
 @login_required
 def blog(request):
@@ -290,7 +290,7 @@ def blog(request):
             "formset": formset,
             "submit_text": "Submit",
             }
-    return render(request, 'fellowms/form.html', context)
+    return render(request, 'fat/form.html', context)
 
 @login_required
 def blog_detail(request, blog_id):
@@ -298,7 +298,7 @@ def blog_detail(request, blog_id):
             'blog': Blog.objects.get(id=blog_id),
             }
 
-    return render(request, 'fellowms/blog_detail.html', context)
+    return render(request, 'fat/blog_detail.html', context)
 
 @staff_member_required
 def blog_review(request, blog_id):
@@ -321,7 +321,7 @@ def blog_review(request, blog_id):
             'submit_text': 'Update',
             }
 
-    return render(request, 'fellowms/blog_review.html', context)
+    return render(request, 'fat/blog_review.html', context)
 
 def geojson(request):
     """Return the GeoJSON file."""
@@ -331,4 +331,4 @@ def geojson(request):
             'events': Event.objects.all(),
             }
 
-    return render(request, 'fellowms/map.geojson', context)
+    return render(request, 'fat/map.geojson', context)
