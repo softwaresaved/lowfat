@@ -33,11 +33,17 @@
     <tbody>
         <tr>
             <th>Budget request</th>
-            <td>{{ event.budget_total }}</td>
+            <td>£{{ event.budget_total }}</td>
         </tr>
         <tr>
             <th>Budget approve</th>
-            <td>{{ event.budget_approved }}</td>
+            <td>
+              {% if event.status in ['A', 'F'] %}
+              £{{ event.budget_approved }}
+              {% else %}
+              £0.00
+              {% endif %}
+            </td>
         </tr>
     </tbody>
 </table>
