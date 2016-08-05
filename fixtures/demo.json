@@ -994,6 +994,7 @@
         "status": "U",
         "notes_from_admin": null,
         "published_url": null,
+        "tweet_url": null,
         "added": "2016-07-07T14:59:46.412",
         "updated": "2016-07-07T14:59:47.967"
     }
