@@ -53,7 +53,7 @@ $ python3 manage.py loaddata fixtures/demo.json
 To export your changes on the database, run
 
 ~~~
-$ python3 manage.py dumpdata --indent 4 fellowms > fixtures/demo.json
+$ python3 manage.py dumpdata --indent 4 fat > fixtures/demo.json
 $ git commit -am 'Update database'
 $ git push origin master
 ~~~
