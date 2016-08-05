@@ -113,6 +113,12 @@ def event(request):
 
         if formset.is_valid():
             event = formset.save()
+
+            # Default value for budget_approved is budget_total.
+            # The reason for this is to save staffs to copy and paste the approved amount.
+            event.budget_approved = event.budget_total()
+            event.save()
+
             new_event_notification(event)
             return HttpResponseRedirect(reverse('event_detail',
                 args=[event.id,]))
