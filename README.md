@@ -70,11 +70,7 @@ $ git push origin master
 
   Local database.
 
-- `expenses/`
-
-  Expense files used for test.
-
-- `fellowms/`
+- `fat/`
 
   Django application root.
 
@@ -86,10 +82,6 @@ $ git push origin master
 
   Django command line script.
 
-- `photos/`
-
-  Photos used for test.
-
 - `README.md`
 
   Root of documentation.
@@ -97,6 +89,10 @@ $ git push origin master
 - `requirements.txt`
 
   Python dependencies used by `pip`.
+
+- `upload/`
+
+  Where user upload files are stored.
 
 ## Unit Test
 
