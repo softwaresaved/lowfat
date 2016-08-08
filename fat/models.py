@@ -300,6 +300,7 @@ class Expense(models.Model):
             decimal_places=2,
             blank=False,
             default=0.00)
+    final = models.BooleanField(default=False)
 
     # Admin fields
     status = models.CharField(choices=EXPENSE_STATUS,
@@ -338,8 +339,10 @@ class Blog(models.Model):
     class Meta:
         app_label = 'fat'
 
+    # Form
     event = models.ForeignKey('Event')
     draft_url = models.URLField(max_length=MAX_CHAR_LENGTH)
+    final = models.BooleanField(default=False)
 
     # Admin fields
     status = models.CharField(choices=BLOG_POST_STATUS,
