@@ -72,17 +72,11 @@ class EventReviewForm(ModelForm):
 class ExpenseForm(ModelForm):
     class Meta:
         model = Expense
-        exclude = [
-                'id',
-                'status',
-                'received_date',
-                'asked_for_authorization_date',
-                'send_to_finance_date',
-                'amount_authorized_for_payment',
-                "funds_from",
-                "notes_from_admin",
-                "added",
-                "updated",
+        fields = [
+            'event',
+            'claim',
+            'amount_claimed',
+            'final',
                 ]
         labels = {
                 'amount_authorized_for_payment': 'Amount authorized for payment',
