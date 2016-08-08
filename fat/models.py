@@ -55,6 +55,12 @@ FUNDS_FROM = (
     ('F', 'Grant (inauguration fellowship)'),
     )
 
+GRANTS = (
+    ('SSI1', 'Software Sustainability Institute - Phase 1'),
+    ('SSI2', 'Software Sustainability Institute - Phase 2'),
+    ('SSI3', 'Software Sustainability Institute - Phase 3'),
+    )
+
 BLOG_POST_STATUS = (
         ('U', 'Unprocessed'),
         ('R', 'On Google Drive (for review)'),
@@ -325,6 +331,9 @@ class Expense(models.Model):
     funds_from = models.CharField(choices=FUNDS_FROM,
             max_length=1,
             default="C")
+    grant_used = models.CharField(choices=GRANTS,
+            max_length=4,
+            default="SS2")
     notes_from_admin = models.TextField(
             null=True,
             blank=True)
