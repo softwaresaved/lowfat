@@ -232,6 +232,8 @@ class Event(models.Model):
             default=0.00)    
     justification = models.TextField()
     additional_info = models.TextField(blank=True)
+    can_be_advertise_before = models.BooleanField(default=False)
+    can_be_advertise_after = models.BooleanField(default=False)
 
     # Admin fields
     ad_status = models.CharField(choices=AD_STATUS,
