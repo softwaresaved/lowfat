@@ -21,7 +21,13 @@
         </tr>
         <tr>
             <th>Budget approved</th>
-            <td>{{ expense.event.budget_approved }}</td>
+            <td>
+              {% if expense.event.status in 'AF' %}
+              £{{ expense.event.budget_approved }}
+              {% else %}
+              £0.00
+              {% endif %}
+            </td>
         </tr>
         <tr>
             <th>Blog posts</th>
