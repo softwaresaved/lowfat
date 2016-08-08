@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, HttpResponseNotFound
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
 
 from .models import *
@@ -79,7 +79,7 @@ def fellow_detail(request, fellow_id):
     this_fellow = Fellow.objects.get(id=fellow_id)
 
     if not this_fellow.selected:
-        return HttpResponseNotFound("Fellow does not exist.")
+        raise Http404("Fellow does not exist.")
 
     context = {
             'fellow': this_fellow,
@@ -101,7 +101,7 @@ def my_profile(request):
         fellow = Fellow.objects.get(user=request.user)
         return fellow_detail(request, fellow.id)
 
-    return HttpResponseNotFound("Fellow does not exist.")
+    raise Http404("Fellow does not exist.")
 
 @login_required
 def event(request):
@@ -161,7 +161,7 @@ def event_detail(request, event_id):
 
         return render(request, 'fat/event_detail.html', context)
 
-    return HttpResponseNotFound("Event does not exist.")
+    raise Http404("Event does not exist.")
 
 @staff_member_required
 def event_review(request, event_id):
@@ -247,7 +247,7 @@ def expense_claim(request, expense_id):
 
         return render(request, 'fat/expense_claim.html', context)
 
-    return HttpResponseNotFound("Expense claim does not exist.")
+    raise Http404("Expense claim does not exist.")
 
 @staff_member_required
 def expense_review(request, expense_id):
