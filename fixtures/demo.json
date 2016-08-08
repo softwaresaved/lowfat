@@ -1001,6 +1001,7 @@
         "draft_url": "http://software.ac.uk",
         "final": false,
         "status": "U",
+        "reviewer": null,
         "notes_from_admin": null,
         "published_url": null,
         "tweet_url": null,
