@@ -313,7 +313,10 @@ class Expense(models.Model):
             decimal_places=2,
             blank=False,
             default=0.00)
-    final = models.BooleanField(default=False)
+    final = models.BooleanField(
+        default=False,
+        help_text="This is your last expense claim for the event"
+    )
 
     # Admin fields
     status = models.CharField(choices=EXPENSE_STATUS,
@@ -358,7 +361,10 @@ class Blog(models.Model):
     # Form
     event = models.ForeignKey('Event')
     draft_url = models.URLField(max_length=MAX_CHAR_LENGTH)
-    final = models.BooleanField(default=False)
+    final = models.BooleanField(
+        default=False,
+        help_text="This is your last blog post about the event"
+    )
 
     # Admin fields
     status = models.CharField(choices=BLOG_POST_STATUS,
