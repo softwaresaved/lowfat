@@ -17,7 +17,7 @@ from .mail import *
 def index(request):
     context = {
             'fellows': Fellow.objects.exclude(selected=False).order_by('application_year').reverse(),
-            'events': Event.objects.filter(category="H", start_date__gte=django.utils.timezone.now()).order_by("start_date").reverse(),
+            'events': Event.objects.filter(category="H", start_date__gte=django.utils.timezone.now(), can_be_advertise_before=True).order_by("start_date").reverse(),
             }
 
     if request.user.is_authenticated() and request.user.is_superuser:
@@ -191,7 +191,8 @@ def event_review(request, event_id):
 def event_past(request):
     events = Event.objects.filter(
             start_date__lt=django.utils.timezone.now(),
-            category="H"
+            category="H",
+            can_be_advertise_after=True,
             ).order_by("start_date").reverse()
 
     context = {
