@@ -59,7 +59,7 @@ class EventReviewForm(ModelForm):
         model = Event
         fields = [
                 "status",
-                "ad_status",
+                #"ad_status",  # TODO uncomment in the future
                 "required_blog_posts",
                 "budget_approved",
                 "notes_from_admin",
