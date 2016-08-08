@@ -348,6 +348,9 @@ class Blog(models.Model):
     status = models.CharField(choices=BLOG_POST_STATUS,
             max_length=1,
             default="U")
+    reviewer = models.ForeignKey(settings.AUTH_USER_MODEL,
+            null=True,
+            blank=True)
     notes_from_admin = models.TextField(
             null=True,
             blank=True)
