@@ -111,13 +111,10 @@ class ExpenseReviewForm(ModelForm):
 class BlogForm(ModelForm):
     class Meta:
         model = Blog
-        exclude = [
-                'status',
-                "notes_from_admin",
-                'published_url',
-                "tweet_url",
-                "added",
-                "updated",
+        fields = [
+            'event',
+            'draft_url',
+            'final',
                 ]
 
 
