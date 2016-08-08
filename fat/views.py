@@ -148,22 +148,20 @@ def event(request):
 def event_detail(request, event_id):
     this_event = Event.objects.get(id=event_id)
     
-    context = {
-            'event': this_event,
-                }
-
-    if request.user.is_authenticated():
-        if (request.user.is_superuser or
+    if (request.user.is_superuser or
             Fellow.objects.get(user=request.user) == this_event.fellow):
-            budget_request = this_event.budget_total()
+        budget_request = this_event.budget_total()
 
-            context.update({
-                    'expenses': Expense.objects.filter(event=this_event),
-                    'blogs': Blog.objects.filter(event=this_event),
-                    'budget_summary': True,
-                    })
+        context = {
+            'event': this_event,
+            'expenses': Expense.objects.filter(event=this_event),
+            'blogs': Blog.objects.filter(event=this_event),
+            'budget_summary': True,
+        }
 
-    return render(request, 'fat/event_detail.html', context)
+        return render(request, 'fat/event_detail.html', context)
+
+    return HttpResponseNotFound("Event does not exist.")
 
 @staff_member_required
 def event_review(request, event_id):
@@ -239,11 +237,17 @@ def expense(request):
 
 @login_required
 def expense_claim(request, expense_id):
-    context = {
+    this_expense = Expense.objects.get(id=expense_id)
+    
+    if (request.user.is_superuser or
+            Fellow.objects.get(user=request.user) == this_expense.event.fellow):
+        context = {
             'expense': Expense.objects.get(id=expense_id),
-            }
+        }
 
-    return render(request, 'fat/expense_claim.html', context)
+        return render(request, 'fat/expense_claim.html', context)
+
+    return HttpResponseNotFound("Expense claim does not exist.")
 
 @staff_member_required
 def expense_review(request, expense_id):
