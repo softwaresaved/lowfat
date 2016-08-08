@@ -1,4 +1,5 @@
 {% extends "fat/base.html" %}
+{% load markdown %}
 
 {% block content %}
 <h1>Event
@@ -25,6 +26,16 @@
             <th>End data</th>
             <td>{{ event.end_date }}</td>
         </tr>
+        {% if user.is_superuser %}
+        <tr>
+          <th>Justication</th>
+          <td>{{ event.justification | markdown | safe }}</td>
+        </tr>
+        <tr>
+          <th>Additional information</th>
+          <td>{{ event.additional_info | markdown | safe }}</td>
+        </tr>
+  {% endif %}
     </tbody>
 </table>
 {% if budget_summary %}
