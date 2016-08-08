@@ -92,7 +92,9 @@ class Fellow(models.Model):
     email = models.EmailField(
             blank=False)
     phone = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=False)
+                             blank=False,
+                             help_text="The number that we can contact you.",
+    )
     gender = models.CharField(choices=GENDERS,
             max_length=1,
             default="R")
@@ -116,7 +118,9 @@ class Fellow(models.Model):
     # Professional info
     # JACS code for research_area.
     # https://www.hesa.ac.uk/jacs/
-    research_area = models.TextField()
+    research_area = models.TextField(
+        help_text="Please describe your research"
+    )
     research_area_code = models.CharField(choices=JACS_LEVEL_2,
                                           max_length=4,
                                           default="Y000")
