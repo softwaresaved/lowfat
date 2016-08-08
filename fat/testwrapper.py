@@ -11,17 +11,29 @@ from django.test import Client
 from .models import *
 
 ADMIN_PASSWORD = '123456'
+FELLOW_A_PASSWORD = '123456'
+FELLOW_B_PASSWORD = '123456'
 
-def create_superuser():
+def create_users():
     User.objects.create_superuser('admin',
-                                  'admin@fake.software.ac.uk',
+                                  'admin@fake.fat.software.ac.uk',
                                   ADMIN_PASSWORD)
+    User.objects.create_user('fellow-a',
+                                  'a.fellow@fake.fat.software.ac.uk',
+                                  FELLOW_A_PASSWORD)
+    User.objects.create_user('fellow-b',
+                                  'b.fellow@fake.fat.software.ac.uk',
+                                  FELLOW_B_PASSWORD)
+
 
 def create_fellow():
+    create_users()
+
     data = {
-        "forenames": "C",
-        "surname": "A",
-        "email": "c.a@fake.fat.software.ac.uk",
+        "user": User.objects.get(username="fellow-b"),
+        "forenames": "B",
+        "surname": "B",
+        "email": "b.b@fake.fat.software.ac.uk",
         "phone": "+441111111111",
         "gender": "M",
         "home_country": "GB",
@@ -36,7 +48,32 @@ def create_fellow():
 
     with io.BytesIO(b'000') as fake_file:
         data.update({
-            "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
+            "photo": SimpleUploadedFile('b_b.jpg', fake_file.read()),
+        })
+
+    fellow = Fellow(**data)
+    fellow.save()
+
+    data = {
+        "user": User.objects.get(username="fellow-a"),
+        "forenames": "A",
+        "surname": "A",
+        "email": "a.a@fake.fat.software.ac.uk",
+        "phone": "+441111111111",
+        "gender": "M",
+        "home_country": "GB",
+        "home_city": "L",
+        "research_area": "Y000",
+        "research_area_code": "Y000",
+        "affiliation": "College",
+        "funding": "Self-funded",
+        "work_description": "Work",
+        "selected": True,
+    }
+
+    with io.BytesIO(b'000') as fake_file:
+        data.update({
+            "photo": SimpleUploadedFile('a_a.jpg', fake_file.read()),
         })
 
     fellow = Fellow(**data)

@@ -1,162 +1,393 @@
 import io
-import unittest
 
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import Client
+from django.test import TestCase, Client
 
 from .testwrapper import *
 from .models import *
 
-ADMIN_PASSWORD = '123456'
 
-class URLTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(self):
-        # Insert admin
-        create_superuser()
+class URLTest(TestCase):
+    def setUp(self):
         self.fellow_id, self.event_id, self.expense_id, self.blog_id = create_all()
 
-    def setUp(self):
         # Every test needs a client.
-        self.client = Client()
+        self.public = Client()
+        self.public.name = 'public'
+
+        self.fellow_a = Client()
+        self.fellow_a.login(username='fellow-a',
+                         password=FELLOW_A_PASSWORD)
+        self.fellow_a.name = 'fellow-a'
+
+        self.fellow_b = Client()
+        self.fellow_b.login(username='fellow-b',
+                         password=FELLOW_B_PASSWORD)
+        self.fellow_b.name = 'fellow-b'
 
         self.admin = Client()
         self.admin.login(username='admin',
                          password=ADMIN_PASSWORD)
+        self.admin.name = 'admin'
 
+    def run_requests(self, url, queries):
+        """Wrapper to run the requests.
+
+        queries = [
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            }
+        ]"""
+        for query in queries:
+            response = query["user"].get(url)
+            self.assertEqual(response.status_code,
+                             query["expect_code"],
+                             "when requested by {}".format(query["user"].name)
+            )
 
     def test_sign_in(self):
-        url = '/sign_in/'
+        url = '/sign-in/'
 
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 200,
+            },
+            {
+                "user": self.fellow_a,
+                "expect_code": 200,
+            },
+            {
+                "user": self.fellow_b,
+                "expect_code": 200,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
 
-        response = self.admin.get(url)
-        self.assertEqual(response.status_code, 200)
+        self.run_requests(url, queries)
 
     def test_fellow_details(self):
         url = '/fellow/{}/'.format(self.fellow_id)
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 200,
+            },
+            {
+                "user": self.fellow_a,
+                "expect_code": 200,
+            },
+            {
+                "user": self.fellow_b,
+                "expect_code": 200,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
 
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-        response = self.admin.get(url)
-        self.assertEqual(response.status_code, 200)
+        self.run_requests(url, queries)
 
     def test_fellow(self):
         url = '/fellow/'
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 302,
+            },
+            {
+                "user": self.fellow_a,
+                "expect_code": 200,
+            },
+            {
+                "user": self.fellow_b,
+                "expect_code": 200,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
 
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 302)  # Need admin permission
-
-        response = self.admin.get(url)
-        self.assertEqual(response.status_code, 200)
+        self.run_requests(url, queries)
 
     def test_event_review(self):
         url = '/event/{}/review'.format(self.event_id)
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 302,
+            },
+            {
+                "user": self.fellow_a,
+                "expect_code": 302,
+            },
+            {
+                "user": self.fellow_b,
+                "expect_code": 302,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
 
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 302)  # Need admin permission
-
-        response = self.admin.get(url)
-        self.assertEqual(response.status_code, 200)
+        self.run_requests(url, queries)
 
     def test_event_details(self):
         url = '/event/{}/'.format(self.event_id)
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 302,
+            },
+            {
+                "user": self.fellow_a,
+                "expect_code": 200,
+            },
+            {
+                "user": self.fellow_b,
+                "expect_code": 404,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
 
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-        response = self.admin.get(url)
-        self.assertEqual(response.status_code, 200)
+        self.run_requests(url, queries)
 
     def test_event(self):
         url = '/event/'
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 302,
+            },
+            {
+                "user": self.fellow_a,
+                "expect_code": 200,
+            },
+            {
+                "user": self.fellow_b,
+                "expect_code": 200,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
 
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-        response = self.admin.get(url)
-        self.assertEqual(response.status_code, 200)
+        self.run_requests(url, queries)
 
     def test_expense_review(self):
         url = '/expense/{}/review'.format(self.expense_id)
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 302,
+            },
+            {
+                "user": self.fellow_a,
+                "expect_code": 302,
+            },
+            {
+                "user": self.fellow_b,
+                "expect_code": 302,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
 
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 302)  # Need admin permission
-
-        response = self.admin.get(url)
-        self.assertEqual(response.status_code, 200)
+        self.run_requests(url, queries)
 
     def test_expense_claims(self):
         url = '/expense/{}/'.format(self.expense_id)
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 302,
+            },
+            {
+                "user": self.fellow_a,
+                "expect_code": 200,
+            },
+            {
+                "user": self.fellow_b,
+                "expect_code": 404,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
 
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-        response = self.admin.get(url)
-        self.assertEqual(response.status_code, 200)
+        self.run_requests(url, queries)
 
     def test_expense(self):
         url = '/expense/'
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 302,
+            },
+            {
+                "user": self.fellow_a,
+                "expect_code": 200,
+            },
+            {
+                "user": self.fellow_b,
+                "expect_code": 200,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
 
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-        response = self.admin.get(url)
-        self.assertEqual(response.status_code, 200)
+        self.run_requests(url, queries)
 
     def test_blog_review(self):
         url = '/blog/{}/review'.format(self.blog_id)
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 302,
+            },
+            {
+                "user": self.fellow_a,
+                "expect_code": 302,
+            },
+            {
+                "user": self.fellow_b,
+                "expect_code": 302,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
 
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 302)  # Need admin permission
-
-        response = self.admin.get(url)
-        self.assertEqual(response.status_code, 200)
+        self.run_requests(url, queries)
 
     def test_blog_details(self):
         url = '/blog/{}/'.format(self.blog_id)
-
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-        response = self.admin.get(url)
-        self.assertEqual(response.status_code, 200)
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 302,
+            },
+            {
+                "user": self.fellow_a,
+                "expect_code": 200,
+            },
+            {
+                "user": self.fellow_b,
+                "expect_code": 404,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
 
     def test_blog(self):
         url = '/blog/'
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 302,
+            },
+            {
+                "user": self.fellow_a,
+                "expect_code": 200,
+            },
+            {
+                "user": self.fellow_b,
+                "expect_code": 200,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
 
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-        response = self.admin.get(url)
-        self.assertEqual(response.status_code, 200)
+        self.run_requests(url, queries)
 
     def test_dashboard(self):
         url = '/dashboard/'
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 302,
+            },
+            {
+                "user": self.fellow_a,
+                "expect_code": 200,
+            },
+            {
+                "user": self.fellow_b,
+                "expect_code": 200,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
 
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-        response = self.admin.get(url)
-        self.assertEqual(response.status_code, 200)
+        self.run_requests(url, queries)
 
     def test_geo(self):
-        url = '/dashboard/'
+        url = '/geojson/'
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 200,
+            },
+            {
+                "user": self.fellow_a,
+                "expect_code": 200,
+            },
+            {
+                "user": self.fellow_b,
+                "expect_code": 200,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
 
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-        response = self.admin.get(url)
-        self.assertEqual(response.status_code, 200)
+        self.run_requests(url, queries)
 
     def test_index(self):
         url = '/'
 
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 200,
+            },
+            {
+                "user": self.fellow_a,
+                "expect_code": 200,
+            },
+            {
+                "user": self.fellow_b,
+                "expect_code": 200,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
 
-        response = self.admin.get(url)
-        self.assertEqual(response.status_code, 200)
+        self.run_requests(url, queries)

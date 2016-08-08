@@ -1,14 +1,14 @@
 from datetime import date
 import io
-import unittest
 
+from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from .testwrapper import *
 from .models import *
 from .forms import *
 
-class FellowFormTest(unittest.TestCase):
+class FellowFormTest(TestCase):
     def test_blank_name(self):
         data = {
         "forenames": "",
@@ -320,9 +320,8 @@ class FellowFormTest(unittest.TestCase):
         form = FellowForm(data, file_data)
         self.assertTrue(form.is_valid())
 
-class EventFormTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(self):
+class EventFormTest(TestCase):
+    def setUp(self):
         self.fellow_id = create_fellow()
 
     def test_null_fellow(self):
@@ -861,9 +860,8 @@ class EventFormTest(unittest.TestCase):
         form = EventForm(data)
         self.assertTrue(form.is_valid())
 
-class EventReviewFormTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(self):
+class EventReviewFormTest(TestCase):
+    def setUp(self):
         self.fellow_id, self.event_id = create_event()
 
     def test_null_status(self):
@@ -957,9 +955,8 @@ class EventReviewFormTest(unittest.TestCase):
         self.assertTrue(form.is_valid())
 
 
-class ExpenseFormTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(self):
+class ExpenseFormTest(TestCase):
+    def setUp(self):
         self.fellow_id, self.event_id = create_event()
 
     def test_null_event(self):
@@ -1025,9 +1022,8 @@ class ExpenseFormTest(unittest.TestCase):
         form = ExpenseForm(data, file_data)
         self.assertTrue(form.is_valid())
 
-class ExpenseReviewFormTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(self):
+class ExpenseReviewFormTest(TestCase):
+    def setUp(self):
         self.fellow_id, self.event_id, self.expense_id, self.blog_id = create_all()
 
         def test_funds_from(self):
@@ -1079,9 +1075,8 @@ class ExpenseReviewFormTest(unittest.TestCase):
             self.assertTrue(form.is_valid())
 
 
-class BlogFormTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(self):
+class BlogFormTest(TestCase):
+    def setUp(self):
         self.fellow_id, self.event_id = create_event()
 
     def test_null_event(self):
@@ -1127,9 +1122,8 @@ class BlogFormTest(unittest.TestCase):
         form = BlogForm(data)
         self.assertTrue(form.is_valid())
 
-class ExpenseReviewFormTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(self):
+class ExpenseReviewFormTest(TestCase):
+    def setUp(self):
         self.fellow_id, self.event_id, self.expense_id, self.blog_id = create_all()
 
         def test_blog_status(self):
