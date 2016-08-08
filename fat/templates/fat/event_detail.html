@@ -38,7 +38,7 @@
         <tr>
             <th>Budget approve</th>
             <td>
-              {% if event.status in ['A', 'F'] %}
+              {% if event.status in 'AF' %}
               £{{ event.budget_approved }}
               {% else %}
               £0.00
