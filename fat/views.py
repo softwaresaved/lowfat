@@ -4,6 +4,7 @@ import django.utils
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User, Group
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponseNotFound
@@ -320,6 +321,10 @@ def blog_review(request, blog_id):
                 args=[blog.id,]))
 
     formset = BlogReviewForm(None, instance=this_blog)
+
+    # Limit dropdown list to staffs
+    if not this_blog.reviewer:
+        formset.fields["reviewer"].queryset = User.objects.filter(is_staff=True)
 
     context = {
             'blog': this_blog,
