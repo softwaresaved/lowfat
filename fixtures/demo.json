@@ -882,6 +882,7 @@
         "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "500.00",
         "funds_from": "F",
+        "grant_used": "SS2",
         "notes_from_admin": "",
         "added": "2016-07-13T15:05:50.610",
         "updated": "2016-07-17T13:58:56.945"
@@ -901,6 +902,7 @@
         "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "2000.00",
         "funds_from": "F",
+        "grant_used": "SS2",
         "notes_from_admin": "",
         "added": "2016-07-13T15:03:29.250",
         "updated": "2016-07-17T13:59:13.965"
@@ -920,6 +922,7 @@
         "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "400.00",
         "funds_from": "F",
+        "grant_used": "SS2",
         "notes_from_admin": "",
         "added": "2016-07-13T15:03:57.771",
         "updated": "2016-07-17T13:59:25.548"
@@ -939,6 +942,7 @@
         "send_to_finance_date": null,
         "amount_authorized_for_payment": "0.00",
         "funds_from": "C",
+        "grant_used": "SS2",
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
         "updated": "2016-07-17T14:03:11.682"
@@ -958,6 +962,7 @@
         "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "2500.00",
         "funds_from": "F",
+        "grant_used": "SS2",
         "notes_from_admin": "",
         "added": "2016-07-13T15:04:56.919",
         "updated": "2016-07-17T14:03:06.035"
@@ -977,6 +982,7 @@
         "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "500.00",
         "funds_from": "F",
+        "grant_used": "SS2",
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
         "updated": "2016-07-17T14:02:48.682"
@@ -996,6 +1002,7 @@
         "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "500.00",
         "funds_from": "F",
+        "grant_used": "SS2",
         "notes_from_admin": "",
         "added": "2016-07-13T15:05:22.698",
         "updated": "2016-07-17T14:02:32.024"
@@ -1015,6 +1022,7 @@
         "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "1000.00",
         "funds_from": "F",
+        "grant_used": "SS2",
         "notes_from_admin": "",
         "added": "2016-07-13T15:04:23.530",
         "updated": "2016-07-17T14:02:07.034"
