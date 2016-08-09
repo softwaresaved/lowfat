@@ -3,6 +3,13 @@
 
 {% block content %}
 <h1>Event
+  {% if event.status in 'AF' %}
+  <span class="label label-success">{{ event.get_status_display }}</span>
+  {% elif event.status in 'R' %}
+  <span class="label label-danger">{{ event.get_status_display }}</span>
+  {% else %}
+  <span class="label label-warning">{{ event.get_status_display }}</span>
+  {% endif %}
   {% if user.is_superuser %}
   <a class="btn btn-default" href="{% url 'event_review' event.id %}" role="button">Review</a>
   {% endif %}
@@ -17,6 +24,10 @@
         <tr>
             <th>URL</th>
             <td><a href="{{ event.url }}">{{ event.url }}</a></td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ event.get_status_display }}</td>
         </tr>
         <tr>
             <th>Start date</th>
