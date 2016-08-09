@@ -174,6 +174,9 @@ class Fellow(models.Model):
     updated = models.DateTimeField(auto_now=True)
     
     def __str__(self):
+        return self.fullname()
+
+    def fullname(self):
         return "{} {}".format(self.forenames, self.surname)
 
     def fellowship_available(self):
