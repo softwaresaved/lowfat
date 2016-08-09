@@ -52,20 +52,16 @@ def dashboard(request):
 @login_required
 def fellow(request):
     if not request.user.is_superuser and not request.user.is_staff:
-       instance = Fellow.objects.get(user=request.user)
+        instance = Fellow.objects.get(user=request.user)
     else:
-       instance = None
+        instance = None
 
-    if request.POST:
-        # Handle submission
-        formset = FellowForm(request.POST, request.FILES, instance=instance)
+    formset = FellowForm(request.POST or None, request.FILES or None, instance=instance)
 
-        if formset.is_valid():
-            fellow = formset.save()
-            return HttpResponseRedirect(reverse('fellow_detail',
-                args=[fellow.id,]))
-    else:
-        formset = FellowForm(None, instance=instance)
+    if formset.is_valid():
+        fellow = formset.save()
+        return HttpResponseRedirect(reverse('fellow_detail',
+                                            args=[fellow.id,]))
 
     # Show submission form.
     context = {
@@ -201,31 +197,29 @@ def event_past(request):
 
 @login_required
 def expense(request):
-    if request.POST:
-        # Handle submission
-        formset = ExpenseForm(request.POST, request.FILES)
+    formset = ExpenseForm(request.POST or None, request.FILES or None)
 
-        if formset.is_valid():
-            expense = formset.save()
-            new_expense_notification(expense)
-            return HttpResponseRedirect(reverse('expense_claim',
-                args=[expense.id,]))
+    if formset.is_valid():
+        expense = formset.save()
+        new_expense_notification(expense)
+        return HttpResponseRedirect(reverse('expense_claim',
+                                            args=[expense.id,]))
+
+    # Store GET parameters
+    event_id = request.GET.get("event_id")
+
+    # Setup Event if provided
+    if event_id:
+        initial = {"event": Event.objects.get(id=event_id)}
     else:
-        # Store GET parameters
-        event_id = request.GET.get("event_id")
+        initial = {}
 
-        # Setup Event if provided
-        if event_id:
-            initial = {"event": Event.objects.get(id=event_id)}
-        else:
-            initial = {}
+    formset = ExpenseForm(initial=initial)
 
-        formset = ExpenseForm(initial=initial)
-
-        # Limit dropdown list to fellow
-        if request.user.is_authenticated() and not request.user.is_superuser:
-            fellow = Fellow.objects.get(user=request.user)
-            formset.fields["event"].queryset = Event.objects.filter(fellow=fellow)
+    # Limit dropdown list to fellow
+    if not request.user.is_superuser:
+        fellow = Fellow.objects.get(user=request.user)
+        formset.fields["event"].queryset = Event.objects.filter(fellow=fellow)
 
     # Show submission form.
     context = {
@@ -274,27 +268,25 @@ def expense_review(request, expense_id):
 
 @login_required
 def blog(request):
-    if request.POST:
-        # Handle submission
-        formset = BlogForm(request.POST)
+    formset = BlogForm(request.POST or None)
 
-        if formset.is_valid():
-            blog = formset.save()
-            new_blog_notification(blog)
-            return HttpResponseRedirect(reverse('blog_detail',
-                args=[blog.id,]))
+    if formset.is_valid():
+        blog = formset.save()
+        new_blog_notification(blog)
+        return HttpResponseRedirect(reverse('blog_detail',
+                                            args=[blog.id,]))
+
+    event_id = request.GET.get("event_id")
+    if event_id:
+        initial = {"event": Event.objects.get(id=event_id)}
     else:
-        event_id = request.GET.get("event_id")
-        if event_id:
-            initial = {"event": Event.objects.get(id=event_id)}
-        else:
-            initial = {}
+        initial = {}
         formset = BlogForm(initial=initial)
 
         # Limit dropdown list to fellow
-        if request.user.is_authenticated() and not request.user.is_superuser:
-            fellow = Fellow.objects.get(user=request.user)
-            formset.fields["event"].queryset = Event.objects.filter(fellow=fellow)
+    if not request.user.is_superuser:
+        fellow = Fellow.objects.get(user=request.user)
+        formset.fields["event"].queryset = Event.objects.filter(fellow=fellow)
 
     # Show submission form.
     context = {
