@@ -139,7 +139,7 @@ MEDIA_ROOT =  os.path.join(BASE_DIR, 'upload')
 # Authentication system
 # https://docs.djangoproject.com/en/1.9/topics/auth/default/
 
-LOGIN_URL = '/sign_in/'
+LOGIN_URL = '/sign-in/'
 
 
 # Email
