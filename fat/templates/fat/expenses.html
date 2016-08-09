@@ -39,6 +39,10 @@
       </td>
       <td>
         {{ expense.get_status_display }}
+        {% if fund.status == 'F' %}
+        - contact <a href="fellows-management@software.ac.uk">fellows-management@software.ac.uk</a>
+        if need
+        {% endif %}
       </td>
       <td>
         {{ expense.amount_claimed }}
