@@ -34,6 +34,16 @@
             <td>{{ expense.event.extra_sponsored }}</td>
         </tr>
         <tr>
+            <th>Recipient</th>
+            <td>
+              {% if expense.recipient %}
+              {{ expense.event.extra_sponsored }}
+              {% else %}
+              {{ expense.event.fellow.fullname }}
+              {% endif %}
+            </td>
+        </tr>
+        <tr>
             <th>Final claim</th>
             <td>{{ expense.final }}</td>
         </tr>
