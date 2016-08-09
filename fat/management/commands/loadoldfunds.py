@@ -6,7 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.management.base import BaseCommand, CommandError
 
-from fat.models import Fellow, Event, Expense
+from fat.models import Fellow, Fund, Expense
 
 CSV_TO_IMPORT = 'old_funds.csv'
 
@@ -23,20 +23,20 @@ class Command(BaseCommand):
         for idx, line in data.iterrows():
             try:
                 this_fellow = Fellow.objects.get(forenames=line["Forename(s)"], surname=line["Surname"], selected=True)
-                if line['Event type'] == 'Attending a conference/workshop':
+                if line['Fund type'] == 'Attending a conference/workshop':
                     fund_category = 'A'
-                elif line['Event type'] == ' Organising a workshop (e.g. Software Carpentry)':
+                elif line['Fund type'] == ' Organising a workshop (e.g. Software Carpentry)':
                     fund_category = 'H'
-                elif line['Event type'] == 'Policy related fund':
+                elif line['Fund type'] == 'Policy related fund':
                     fund_category = 'P'
                 else:
                     fund_category = 'O'
                 funds_dict = {
                         "fellow": this_fellow,
                         "category": fund_category,
-                        "name": line["Event name"],
-                        "url": line["Event website"],
-                        "location": line["Event location"],
+                        "name": line["Fund name"],
+                        "url": line["Fund website"],
+                        "location": line["Fund location"],
                         "start_date": conv_date(line["Start date"]),
                         "end_date": conv_date(line["End date"]) if line["End date"] else conv_date(line["Start date"]),
                         "budget_request_travel": line["Travel costs"] if pd.notnull(line["Travel costs"]) else 0,
@@ -52,7 +52,7 @@ class Command(BaseCommand):
                             line["Notes B"] if pd.notnull(line["Notes B"]) else "",
                             line["Notes C"] if pd.notnull(line["Notes C"]) else "")
                 }
-                fund = Event(**funds_dict)
+                fund = Fund(**funds_dict)
                 fund.save()
                 if pd.notnull(line['Approved']) and line['Approved'] != 'N/A':
                     fund.ad_status = 'V'

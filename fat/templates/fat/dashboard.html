@@ -24,7 +24,7 @@
 {% if user.is_superuser %}
 <p>Your pending tasks are:</p>
 <h2>
-  Events
+  Funds
   <a class="btn btn-default" href="{% url 'blog' %}">New fund</a>
 </h2>
 {% if funds %}
@@ -144,14 +144,14 @@
 {% else %}
 {% include 'fat/finances.html' %}
 <h2>
-  Events
+  Funds
   <a class="btn btn-default" href="{% url 'fund' %}">New fund</a>
 </h2>
 <table class="table table-bordered">
   <tbody>
     <tr>
       <th>
-        Event
+        Fund
       </th>
       <th>
         Status

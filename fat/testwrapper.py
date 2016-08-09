@@ -103,13 +103,13 @@ def create_fund():
         "additional_info": "",
         }
 
-    fund = Event(**data)
+    fund = Fund(**data)
     fund.save()
     return fellow_id, fund.id
 
 def create_all():
     fellow_id, fund_id = create_fund()
-    fund = Event.objects.get(id=fund_id)
+    fund = Fund.objects.get(id=fund_id)
 
     data = {
         "fund": fund,

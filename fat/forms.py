@@ -23,9 +23,9 @@ class FellowForm(ModelForm):
     required_css_class = 'form-field-required'
 
 
-class EventForm(ModelForm):
+class FundForm(ModelForm):
     class Meta:
-        model = Event
+        model = Fund
         exclude = [
                 "status",
                 "ad_status",
@@ -41,8 +41,8 @@ class EventForm(ModelForm):
         # and match on the database.
         labels = {
                 'fellow': 'Fellow',
-                'url': "Event's homepage url",
-                'name': "Event's name",
+                'url': "Fund's homepage url",
+                'name': "Fund's name",
                 }
 
         widgets = {
@@ -54,9 +54,9 @@ class EventForm(ModelForm):
     required_css_class = 'form-field-required'
 
 
-class EventReviewForm(ModelForm):
+class FundReviewForm(ModelForm):
     class Meta:
-        model = Event
+        model = Fund
         fields = [
                 "status",
                 #"ad_status",  # TODO uncomment in the future

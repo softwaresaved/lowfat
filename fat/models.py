@@ -29,15 +29,15 @@ EVENT_CATEGORY = (
 
 AD_STATUS = (
         ('U', 'Unprocessed'),  # Initial status
-        ('V', 'Visible'),  # Event is visible on map
-        ('H', 'Hide'),  # Event is invisible on map
+        ('V', 'Visible'),  # Fund is visible on map
+        ('H', 'Hide'),  # Fund is invisible on map
         )
 
 EVENT_STATUS = (
         ('U', 'Unprocessed'),  # Initial status
         ('P', 'Processing'),  # When someone was assigned to review the request
-        ('A', 'Approved'),  # Event was approved. Funds are reserved.
-        ('R', 'Reproved'),  # Event was declided.
+        ('A', 'Approved'),  # Fund was approved. Funds are reserved.
+        ('R', 'Reproved'),  # Fund was declided.
         ('F', 'Archived'),  # Approved funds with all claims and blog posts were processed. No funds are reserved.
         )
 
@@ -185,7 +185,7 @@ class Fellow(models.Model):
 
     def fellowship_committed(self):
         """Return the ammount committed from the fellowship grant."""
-        this_fellow_funds = Event.objects.filter(fellow=self, status__in=['A', 'F'])
+        this_fellow_funds = Fund.objects.filter(fellow=self, status__in=['A', 'F'])
         return sum([fund.budget_approved for fund in this_fellow_funds])
 
     def fellowship_spent(self):
@@ -195,12 +195,12 @@ class Fellow(models.Model):
 
     def fellowship_remaining(self):
         """Return the ammount remaining to claim from the total committed."""
-        this_fellow_funds = Event.objects.filter(fellow=self, status__in=['U', 'P', 'A'])
+        this_fellow_funds = Fund.objects.filter(fellow=self, status__in=['U', 'P', 'A'])
         return self.fellowship_committed() - self.fellowship_spent()
 
 
 
-class Event(models.Model):
+class Fund(models.Model):
     """Describe a fund from one fellow."""
     class Meta:
         app_label = 'fat'
@@ -315,7 +315,7 @@ class Expense(models.Model):
             editable=False)
 
     # Form
-    fund = models.ForeignKey('Event')
+    fund = models.ForeignKey('Fund')
     claim = models.FileField(
             upload_to='expenses/'  # File will be uploaded to MEDIA_ROOT/expenses
         )
@@ -373,7 +373,7 @@ class Blog(models.Model):
         app_label = 'fat'
 
     # Form
-    fund = models.ForeignKey('Event')
+    fund = models.ForeignKey('Fund')
     draft_url = models.URLField(max_length=MAX_CHAR_LENGTH)
     final = models.BooleanField(
         default=False,

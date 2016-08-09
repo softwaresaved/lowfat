@@ -2,7 +2,7 @@
 {% load markdown %}
 
 {% block content %}
-<h1>Event
+<h1>Fund
   {% if fund.status in 'AF' %}
   <span class="label label-success">{{ fund.get_status_display }}</span>
   {% elif fund.status in 'R' %}

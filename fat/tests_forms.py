@@ -320,7 +320,7 @@ class FellowFormTest(TestCase):
         form = FellowForm(data, file_data)
         self.assertTrue(form.is_valid())
 
-class EventFormTest(TestCase):
+class FundFormTest(TestCase):
     def setUp(self):
         self.fellow_id = create_fellow()
 
@@ -342,7 +342,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_fellow(self):
@@ -364,7 +364,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_name(self):
@@ -385,7 +385,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_name(self):
@@ -407,7 +407,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
         
     def test_null_url(self):
@@ -428,7 +428,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_url(self):
@@ -450,7 +450,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_not_http_url(self):
@@ -472,7 +472,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_country(self):
@@ -493,7 +493,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_country(self):
@@ -515,7 +515,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_city(self):
@@ -536,7 +536,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_city(self):
@@ -558,7 +558,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_start_date(self):
@@ -579,7 +579,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_start_date(self):
@@ -601,7 +601,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_end_date(self):
@@ -622,7 +622,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_end_date(self):
@@ -643,7 +643,7 @@ class EventFormTest(TestCase):
             "budget_request_others": 0.00,
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_budget_request_travel(self):
@@ -664,7 +664,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_budget_request_attendance_fees(self):
@@ -685,7 +685,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_budget_request_subsistence_cost(self):
@@ -706,7 +706,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_request_venue_hire(self):
@@ -727,7 +727,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_budget_request_catering(self):
@@ -748,7 +748,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_budget_request_others(self):
@@ -769,7 +769,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_justification(self):
@@ -790,7 +790,7 @@ class EventFormTest(TestCase):
             "budget_request_others": 0.00,
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_justification(self):
@@ -812,7 +812,7 @@ class EventFormTest(TestCase):
             "justification": "",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_minimal_expected(self):
@@ -834,7 +834,7 @@ class EventFormTest(TestCase):
             "justification": ":-)",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertTrue(form.is_valid())
 
     def test_full_expected(self):
@@ -857,10 +857,10 @@ class EventFormTest(TestCase):
             "additional_info": "",
             }
 
-        form = EventForm(data)
+        form = FundForm(data)
         self.assertTrue(form.is_valid())
 
-class EventReviewFormTest(TestCase):
+class FundReviewFormTest(TestCase):
     def setUp(self):
         self.fellow_id, self.fund_id = create_fund()
 
@@ -872,7 +872,7 @@ class EventReviewFormTest(TestCase):
             "notes_from_admin": ":-)",
             }
 
-        form = EventReviewForm(data)
+        form = FundReviewForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_status(self):
@@ -884,7 +884,7 @@ class EventReviewFormTest(TestCase):
             "notes_from_admin": ":-)",
             }
 
-        form = EventReviewForm(data)
+        form = FundReviewForm(data)
         self.assertFalse(form.is_valid())
 
     # TODO uncomment in the future
@@ -896,7 +896,7 @@ class EventReviewFormTest(TestCase):
     #        "notes_from_admin": ":-)",
     #        }
     #
-    #    form = EventReviewForm(data)
+    #    form = FundReviewForm(data)
     #    self.assertFalse(form.is_valid())
     #
     #def test_blank_ad_status(self):
@@ -908,7 +908,7 @@ class EventReviewFormTest(TestCase):
     #        "notes_from_admin": ":-)",
     #        }
     #
-    #    form = EventReviewForm(data)
+    #    form = FundReviewForm(data)
     #    self.assertFalse(form.is_valid())
 
     def test_null_required_blog_posts(self):
@@ -918,7 +918,7 @@ class EventReviewFormTest(TestCase):
             "budget_approved": 100.00,
             }
 
-        form = EventReviewForm(data)
+        form = FundReviewForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_budget_approved(self):
@@ -929,7 +929,7 @@ class EventReviewFormTest(TestCase):
             "notes_from_admin": ":-)",
             }
 
-        form = EventReviewForm(data)
+        form = FundReviewForm(data)
         self.assertFalse(form.is_valid())
 
     def test_minimal_expected(self):
@@ -940,7 +940,7 @@ class EventReviewFormTest(TestCase):
             "budget_approved": 100.00,
             }
 
-        form = EventReviewForm(data)
+        form = FundReviewForm(data)
         self.assertTrue(form.is_valid())
 
     def test_full_expected(self):
@@ -952,7 +952,7 @@ class EventReviewFormTest(TestCase):
             "notes_from_admin": ":-)",
             }
 
-        form = EventReviewForm(data)
+        form = FundReviewForm(data)
         self.assertTrue(form.is_valid())
 
 

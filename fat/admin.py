@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Fellow, Event, Expense, Blog
+from .models import Fellow, Fund, Expense, Blog
 
 class FellowAdmin(admin.ModelAdmin):
     list_display = [
@@ -27,7 +27,7 @@ class FellowAdmin(admin.ModelAdmin):
     ]
 
 
-class EventAdmin(admin.ModelAdmin):
+class FundAdmin(admin.ModelAdmin):
     list_display = [
         'fellow',
         'name',
@@ -113,7 +113,7 @@ class BlogAdmin(admin.ModelAdmin):
 
 PUBLIC_MODELS = (
         (Fellow, FellowAdmin),
-        (Event, EventAdmin),
+        (Fund, FundAdmin),
         (Expense, ExpenseAdmin),
         (Blog, BlogAdmin),
         )

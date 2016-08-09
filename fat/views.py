@@ -17,7 +17,7 @@ from .mail import *
 def index(request):
     context = {
             'fellows': Fellow.objects.exclude(selected=False).order_by('application_year').reverse(),
-            'funds': Event.objects.filter(category="H", start_date__gte=django.utils.timezone.now(), can_be_advertise_before=True).order_by("start_date").reverse(),
+            'funds': Fund.objects.filter(category="H", start_date__gte=django.utils.timezone.now(), can_be_advertise_before=True).order_by("start_date").reverse(),
             }
 
     if request.user.is_authenticated() and request.user.is_superuser:
@@ -37,12 +37,12 @@ def dashboard(request):
 
             context.update({
                 'fellow': fellow,
-                'funds': Event.objects.filter(fellow=fellow).reverse(),
+                'funds': Fund.objects.filter(fellow=fellow).reverse(),
                 'budget_available': fellow.fellowship_available(),
                 })
         else:
             context.update({
-                'funds': Event.objects.filter(status__in=['U', 'P']).reverse(),
+                'funds': Fund.objects.filter(status__in=['U', 'P']).reverse(),
                 'expenses': Expense.objects.filter(status__in=['W', 'S', 'P']).reverse(),
                 'blogs': Blog.objects.filter(status__in=['U', 'R']).reverse(),
                 })
@@ -79,7 +79,7 @@ def fellow_detail(request, fellow_id):
 
     context = {
             'fellow': this_fellow,
-            'funds': Event.objects.filter(fellow=this_fellow),
+            'funds': Fund.objects.filter(fellow=this_fellow),
             }
 
     if request.user.is_authenticated() and (request.user.is_superuser or
@@ -106,7 +106,7 @@ def fund(request):
         post = request.POST.copy()
         fellow = Fellow.objects.get(id=post['fellow'])
         post['fellow'] = fellow.id
-        formset = EventForm(post)
+        formset = FundForm(post)
 
         if formset.is_valid():
             fund = formset.save()
@@ -127,7 +127,7 @@ def fund(request):
     else:
         initial = {}
 
-    formset = EventForm(initial=initial)
+    formset = FundForm(initial=initial)
 
     if not request.user.is_superuser:
         formset.fields["fellow"].queryset = Fellow.objects.filter(user=request.user)
@@ -142,7 +142,7 @@ def fund(request):
 
 @login_required
 def fund_detail(request, fund_id):
-    this_fund = Event.objects.get(id=fund_id)
+    this_fund = Fund.objects.get(id=fund_id)
     
     if (request.user.is_superuser or
             Fellow.objects.get(user=request.user) == this_fund.fellow):
@@ -157,22 +157,22 @@ def fund_detail(request, fund_id):
 
         return render(request, 'fat/fund_detail.html', context)
 
-    raise Http404("Event does not exist.")
+    raise Http404("Fund does not exist.")
 
 @staff_member_required
 def fund_review(request, fund_id):
-    this_fund = Event.objects.get(id=fund_id)
+    this_fund = Fund.objects.get(id=fund_id)
 
     if request.POST:
         # Handle submission
-        formset = EventReviewForm(request.POST, instance=this_fund)
+        formset = FundReviewForm(request.POST, instance=this_fund)
 
         if formset.is_valid():
             fund = formset.save()
             return HttpResponseRedirect(reverse('fund_detail',
                 args=[fund.id,]))
 
-    formset = EventReviewForm(None, instance=this_fund)
+    formset = FundReviewForm(None, instance=this_fund)
 
     context = {
             'fund': this_fund,
@@ -183,7 +183,7 @@ def fund_review(request, fund_id):
     return render(request, 'fat/fund_review.html', context)
 
 def fund_past(request):
-    funds = Event.objects.filter(
+    funds = Fund.objects.filter(
             start_date__lt=django.utils.timezone.now(),
             category="H",
             can_be_advertise_after=True,
@@ -208,9 +208,9 @@ def expense(request):
     # Store GET parameters
     fund_id = request.GET.get("fund_id")
 
-    # Setup Event if provided
+    # Setup Fund if provided
     if fund_id:
-        initial = {"fund": Event.objects.get(id=fund_id)}
+        initial = {"fund": Fund.objects.get(id=fund_id)}
     else:
         initial = {}
 
@@ -219,7 +219,7 @@ def expense(request):
     # Limit dropdown list to fellow
     if not request.user.is_superuser:
         fellow = Fellow.objects.get(user=request.user)
-        formset.fields["fund"].queryset = Event.objects.filter(fellow=fellow)
+        formset.fields["fund"].queryset = Fund.objects.filter(fellow=fellow)
 
     # Show submission form.
     context = {
@@ -278,7 +278,7 @@ def blog(request):
 
     fund_id = request.GET.get("fund_id")
     if fund_id:
-        initial = {"fund": Event.objects.get(id=fund_id)}
+        initial = {"fund": Fund.objects.get(id=fund_id)}
     else:
         initial = {}
         formset = BlogForm(initial=initial)
@@ -286,7 +286,7 @@ def blog(request):
         # Limit dropdown list to fellow
     if not request.user.is_superuser:
         fellow = Fellow.objects.get(user=request.user)
-        formset.fields["fund"].queryset = Event.objects.filter(fellow=fellow)
+        formset.fields["fund"].queryset = Fund.objects.filter(fellow=fellow)
 
     # Show submission form.
     context = {
@@ -336,7 +336,7 @@ def geojson(request):
 
     context = {
             'fellows': Fellow.objects.all(),
-            'funds': Event.objects.all(),
+            'funds': Fund.objects.all(),
             }
 
     return render(request, 'fat/map.geojson', context)
