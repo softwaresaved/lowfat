@@ -887,28 +887,29 @@ class EventReviewFormTest(TestCase):
         form = EventReviewForm(data)
         self.assertFalse(form.is_valid())
 
-    def test_null_add_status(self):
-        data = {
-            "status": "A",
-            "required_blog_posts": 1,
-            "budget_approved": 100.00,
-            "notes_from_admin": ":-)",
-            }
-
-        form = EventReviewForm(data)
-        self.assertFalse(form.is_valid())
-
-    def test_blank_ad_status(self):
-        data = {
-            "status": "A",
-            "ad_status": "",
-            "required_blog_posts": 1,
-            "budget_approved": 100.00,
-            "notes_from_admin": ":-)",
-            }
-
-        form = EventReviewForm(data)
-        self.assertFalse(form.is_valid())
+    # TODO uncomment in the future
+    #def test_null_ad_status(self):
+    #    data = {
+    #        "status": "A",
+    #        "required_blog_posts": 1,
+    #        "budget_approved": 100.00,
+    #        "notes_from_admin": ":-)",
+    #        }
+    #
+    #    form = EventReviewForm(data)
+    #    self.assertFalse(form.is_valid())
+    #
+    #def test_blank_ad_status(self):
+    #    data = {
+    #        "status": "A",
+    #        "ad_status": "",
+    #        "required_blog_posts": 1,
+    #        "budget_approved": 100.00,
+    #        "notes_from_admin": ":-)",
+    #        }
+    #
+    #    form = EventReviewForm(data)
+    #    self.assertFalse(form.is_valid())
 
     def test_null_required_blog_posts(self):
         data = {
