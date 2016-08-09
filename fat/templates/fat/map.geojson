@@ -7,7 +7,7 @@
         "marker-color": "#ebf722",
         "marker-size": "medium",
         "marker-symbol": "star",
-        "Name": "{{ fellow.forenames }} {{ fellow.surname }}",
+        "Name": "{{ fellow.fullname }}",
         "Inauguration": "{{ fellow.application_year }}"
       },
       "geometry": {

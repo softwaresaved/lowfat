@@ -13,7 +13,7 @@
   <a href="{% url 'fellow_detail' fellow.id %}">
     {% include 'fat/photo.html' %}
     <br>
-    {{ fellow.forenames }} {{ fellow.surname }}
+    {{ fellow.fullname }}
   </a>
   <br>
   {% if fellow.website %}
