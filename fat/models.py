@@ -224,25 +224,32 @@ class Event(models.Model):
     end_date = models.DateField()
     budget_request_travel = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
-            default=0.00)
+            default=0.00,
+            help_text="In £")
     budget_request_attendance_fees = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
-            default=0.00)
+            default=0.00,
+            help_text="In £")
     budget_request_subsistence_cost = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
-            default=0.00)
+            default=0.00,
+            help_text="In £")
     budget_request_venue_hire = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
-            default=0.00)
+            default=0.00,
+            help_text="In £")
     budget_request_catering = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
-            default=0.00)
+            default=0.00,
+            help_text="In £")
     budget_request_others = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
-            default=0.00)
+            default=0.00,
+            help_text="In £")
     budget_approved = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
-            default=0.00)    
+            default=0.00,
+            help_text="In £")
     justification = models.TextField()
     additional_info = models.TextField(blank=True)
     extra_sponsored = models.TextField(blank=True)
