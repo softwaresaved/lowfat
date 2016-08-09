@@ -862,7 +862,7 @@ class EventFormTest(TestCase):
 
 class EventReviewFormTest(TestCase):
     def setUp(self):
-        self.fellow_id, self.event_id = create_event()
+        self.fellow_id, self.fund_id = create_fund()
 
     def test_null_status(self):
         data = {
@@ -958,9 +958,9 @@ class EventReviewFormTest(TestCase):
 
 class ExpenseFormTest(TestCase):
     def setUp(self):
-        self.fellow_id, self.event_id = create_event()
+        self.fellow_id, self.fund_id = create_fund()
 
-    def test_null_event(self):
+    def test_null_fund(self):
         data = {
         "amount_claimed": 100.00,
             }
@@ -973,9 +973,9 @@ class ExpenseFormTest(TestCase):
         form = ExpenseForm(data, file_data)
         self.assertFalse(form.is_valid())
 
-    def test_blank_event(self):
+    def test_blank_fund(self):
         data = {
-        "event": "",
+        "fund": "",
         "amount_claimed": 100.00,
             }
 
@@ -989,7 +989,7 @@ class ExpenseFormTest(TestCase):
 
     def test_null_amount_claimed(self):
         data = {
-        "event": self.event_id,
+        "fund": self.fund_id,
             }
 
         with io.BytesIO(b'000') as fake_file:
@@ -1002,7 +1002,7 @@ class ExpenseFormTest(TestCase):
 
     def test_null_proof(self):
         data = {
-        "event": self.event_id,
+        "fund": self.fund_id,
         "amount_claimed": 100.00,
             }
 
@@ -1011,7 +1011,7 @@ class ExpenseFormTest(TestCase):
         
     def test_full_expected(self):
         data = {
-        "event": self.event_id,
+        "fund": self.fund_id,
         "amount_claimed": 100.00,
             }
 
@@ -1025,7 +1025,7 @@ class ExpenseFormTest(TestCase):
 
 class ExpenseReviewFormTest(TestCase):
     def setUp(self):
-        self.fellow_id, self.event_id, self.expense_id, self.blog_id = create_all()
+        self.fellow_id, self.fund_id, self.expense_id, self.blog_id = create_all()
 
         def test_funds_from(self):
             for fund in ['C', 'I', 'F']:
@@ -1078,9 +1078,9 @@ class ExpenseReviewFormTest(TestCase):
 
 class BlogFormTest(TestCase):
     def setUp(self):
-        self.fellow_id, self.event_id = create_event()
+        self.fellow_id, self.fund_id = create_fund()
 
-    def test_null_event(self):
+    def test_null_fund(self):
         data = {
         "draft_url": "http://software.ac.uk",
             }
@@ -1088,9 +1088,9 @@ class BlogFormTest(TestCase):
         form = BlogForm(data)
         self.assertFalse(form.is_valid())
 
-    def test_blank_event(self):
+    def test_blank_fund(self):
         data = {
-        "event": "",
+        "fund": "",
         "draft_url": "http://software.ac.uk",
             }
 
@@ -1099,7 +1099,7 @@ class BlogFormTest(TestCase):
 
     def test_null_draft_url(self):
         data = {
-        "event": self.event_id,
+        "fund": self.fund_id,
             }
 
         form = BlogForm(data)
@@ -1107,7 +1107,7 @@ class BlogFormTest(TestCase):
 
     def test_blank_draft_url(self):
         data = {
-        "event": self.event_id,
+        "fund": self.fund_id,
         "draft_url": "",
             }
 
@@ -1116,7 +1116,7 @@ class BlogFormTest(TestCase):
 
     def test_full_expected(self):
         data = {
-        "event": self.event_id,
+        "fund": self.fund_id,
         "draft_url": "http://software.ac.uk",
             }
 
@@ -1125,7 +1125,7 @@ class BlogFormTest(TestCase):
 
 class ExpenseReviewFormTest(TestCase):
     def setUp(self):
-        self.fellow_id, self.event_id, self.expense_id, self.blog_id = create_all()
+        self.fellow_id, self.fund_id, self.expense_id, self.blog_id = create_all()
 
         def test_blog_status(self):
             for status in ('U', 'R', 'L', 'P', 'D', 'O'):

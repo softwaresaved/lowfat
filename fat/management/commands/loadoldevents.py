@@ -8,14 +8,14 @@ from django.core.management.base import BaseCommand, CommandError
 
 from fat.models import Fellow, Event, Expense
 
-CSV_TO_IMPORT = 'old_events.csv'
+CSV_TO_IMPORT = 'old_funds.csv'
 
 def conv_date(new_date):
     day, month, year = new_date.split('/')
     return "{}-{}-{}".format(year, month, day)
 
 class Command(BaseCommand):
-    help = "Import CSV (old_events.csv) with events from fellows to the database."
+    help = "Import CSV (old_funds.csv) with funds from fellows to the database."
 
     # TODO Make use of args and options.
     def handle(self, *args, **options):
@@ -24,16 +24,16 @@ class Command(BaseCommand):
             try:
                 this_fellow = Fellow.objects.get(forenames=line["Forename(s)"], surname=line["Surname"], selected=True)
                 if line['Event type'] == 'Attending a conference/workshop':
-                    event_category = 'A'
+                    fund_category = 'A'
                 elif line['Event type'] == ' Organising a workshop (e.g. Software Carpentry)':
-                    event_category = 'H'
-                elif line['Event type'] == 'Policy related event':
-                    event_category = 'P'
+                    fund_category = 'H'
+                elif line['Event type'] == 'Policy related fund':
+                    fund_category = 'P'
                 else:
-                    event_category = 'O'
-                events_dict = {
+                    fund_category = 'O'
+                funds_dict = {
                         "fellow": this_fellow,
-                        "category": event_category,
+                        "category": fund_category,
                         "name": line["Event name"],
                         "url": line["Event website"],
                         "location": line["Event location"],
@@ -46,21 +46,21 @@ class Command(BaseCommand):
                         "budget_request_catering": line["Catering"] if pd.notnull(line["Catering"]) else 0,
                         "budget_request_others": line["Other costs"] if pd.notnull(line["Other costs"]) else 0,
                         "budget_approved": line["Estimate"] if pd.notnull(line["Estimate"]) else 0,
-                        "justification": line["How is the event relevant to the work of the Software Sustainability Institute?"],
+                        "justification": line["How is the fund relevant to the work of the Software Sustainability Institute?"],
                         "notes_from_admin": "{}\n{}\n{}".format(
                             line["Notes A"] if pd.notnull(line["Notes A"]) else "",
                             line["Notes B"] if pd.notnull(line["Notes B"]) else "",
                             line["Notes C"] if pd.notnull(line["Notes C"]) else "")
                 }
-                event = Event(**events_dict)
-                event.save()
+                fund = Event(**funds_dict)
+                fund.save()
                 if pd.notnull(line['Approved']) and line['Approved'] != 'N/A':
-                    event.ad_status = 'V'
-                    event.status = 'A'
-                    event.save()
+                    fund.ad_status = 'V'
+                    fund.status = 'A'
+                    fund.save()
                 if pd.notnull(line["Revised estimate"]):
                     expense_dict = {
-                        "event": event,
+                        "fund": fund,
                         "amount_claimed": line["Revised estimate"] if pd.notnull(line["Revised estimate"]) else 0,
                         "received_date": '0001-01-01',
                     }
@@ -86,7 +86,7 @@ Sorry for the inconvenience.""") as fake_file:
                         expense.status = 'A'
                         expense.amount_authorized_for_payment = line["Revised estimate"]
                         expense.save()
-                        event.status = 'F'
-                        event.save()
+                        fund.status = 'F'
+                        fund.save()
             except BaseException as e:
                 print("Error: {}\n\t{}".format(e, line))

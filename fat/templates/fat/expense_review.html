@@ -13,17 +13,17 @@
     <tbody>
         <tr>
             <th>Fellow</th>
-            <td>{{ expense.event.fellow.fullname }}</td>
+            <td>{{ expense.fund.fellow.fullname }}</td>
         </tr>
         <tr>
             <th>Event</th>
-            <td>{{ expense.event.name }}</td>
+            <td>{{ expense.fund.name }}</td>
         </tr>
         <tr>
             <th>Budget approved</th>
             <td>
-              {% if expense.event.status in 'AF' %}
-              £{{ expense.event.budget_approved }}
+              {% if expense.fund.status in 'AF' %}
+              £{{ expense.fund.budget_approved }}
               {% else %}
               £0.00
               {% endif %}
@@ -31,15 +31,15 @@
         </tr>
         <tr>
             <th>Extra sponsored</th>
-            <td>{{ expense.event.extra_sponsored }}</td>
+            <td>{{ expense.fund.extra_sponsored }}</td>
         </tr>
         <tr>
             <th>Recipient</th>
             <td>
               {% if expense.recipient %}
-              {{ expense.event.extra_sponsored }}
+              {{ expense.fund.extra_sponsored }}
               {% else %}
-              {{ expense.event.fellow.fullname }}
+              {{ expense.fund.fellow.fullname }}
               {% endif %}
             </td>
         </tr>
@@ -49,7 +49,7 @@
         </tr>
         <tr>
             <th>Blog posts</th>
-            <td>{{ expense.event.total_of_blog_posts }} / {{ expense.event.required_blog_posts }}</td>
+            <td>{{ expense.fund.total_of_blog_posts }} / {{ expense.fund.required_blog_posts }}</td>
         </tr>
     </tbody>
 </table>
@@ -60,7 +60,7 @@
     <tbody>
         <tr>
             <th>Received date</th>
-            <td>{{ expense.event.received_date }}</td>
+            <td>{{ expense.fund.received_date }}</td>
         </tr>
     </tbody>
 </table>

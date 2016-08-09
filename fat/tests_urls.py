@@ -10,7 +10,7 @@ from .models import *
 
 class URLTest(TestCase):
     def setUp(self):
-        self.fellow_id, self.event_id, self.expense_id, self.blog_id = create_all()
+        self.fellow_id, self.fund_id, self.expense_id, self.blog_id = create_all()
 
         # Every test needs a client.
         self.public = Client()
@@ -117,8 +117,8 @@ class URLTest(TestCase):
 
         self.run_requests(url, queries)
 
-    def test_event_review(self):
-        url = '/event/{}/review'.format(self.event_id)
+    def test_fund_review(self):
+        url = '/fund/{}/review'.format(self.fund_id)
         queries = [
             {
                 "user": self.public,
@@ -140,8 +140,8 @@ class URLTest(TestCase):
 
         self.run_requests(url, queries)
 
-    def test_event_details(self):
-        url = '/event/{}/'.format(self.event_id)
+    def test_fund_details(self):
+        url = '/fund/{}/'.format(self.fund_id)
         queries = [
             {
                 "user": self.public,
@@ -163,8 +163,8 @@ class URLTest(TestCase):
 
         self.run_requests(url, queries)
 
-    def test_event(self):
-        url = '/event/'
+    def test_fund(self):
+        url = '/fund/'
         queries = [
             {
                 "user": self.public,

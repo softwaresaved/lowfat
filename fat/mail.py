@@ -11,20 +11,20 @@ def reverse_full(*args, **kargs):
     # FIXME Avoid hard code the domain.
     return 'http://dev.fat.software.ac.uk{}'.format(reverse(*args, **kargs))
 
-def new_event_notification(event):
+def new_fund_notification(fund):
     # Email to admin
-    mail_admins("New event request",
+    mail_admins("New fund request",
             "Please review {}.".format(
-                reverse_full("event_review", args=[event.id])),
+                reverse_full("fund_review", args=[fund.id])),
                 fail_silently=False,
             )
 
     # Email to user
-    send_mail('Your event request was received',
-            'You can check the information of your event at {}.'.format(
-                reverse_full("event_detail", args=[event.id])),
+    send_mail('Your fund request was received',
+            'You can check the information of your fund at {}.'.format(
+                reverse_full("fund_detail", args=[fund.id])),
             DEFAULT_FROM_EMAIL,
-            [event.fellow.email],
+            [fund.fellow.email],
             fail_silently=False
             )
 
@@ -41,7 +41,7 @@ def new_expense_notification(expense):
             'You can check the information of your expense claim at {}.'.format(
                 reverse_full("expense_claim", args=[expense.id])),
             DEFAULT_FROM_EMAIL,
-            [expense.event.fellow.email],
+            [expense.fund.fellow.email],
             fail_silently=False
             )
 
@@ -49,15 +49,15 @@ def new_blog_notification(blog):
     # Email to admin
     mail_admins("New blog request",
             "Please review {}.".format(
-                reverse_full("event_review", args=[blog.id])),
+                reverse_full("fund_review", args=[blog.id])),
                 fail_silently=False,
             )
 
     # Email to user
     send_mail('Your new blog post was received',
-            'You can check the information of your event at {}.'.format(
-                reverse_full("event_detail", args=[blog.id])),
+            'You can check the information of your fund at {}.'.format(
+                reverse_full("fund_detail", args=[blog.id])),
             DEFAULT_FROM_EMAIL,
-            [blog.event.fellow.email],
+            [blog.fund.fellow.email],
             fail_silently=False
             )

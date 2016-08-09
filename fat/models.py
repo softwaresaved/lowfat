@@ -23,7 +23,7 @@ GENDERS = (
 EVENT_CATEGORY = (
         ('A', 'Attending a conference/workshop'),
         ('H', 'Organising a conference/workshop (e.g. Software Carpentry)'),
-        ('P', 'Policy related event'),
+        ('P', 'Policy related fund'),
         ('O', 'Other'),
         )
 
@@ -38,7 +38,7 @@ EVENT_STATUS = (
         ('P', 'Processing'),  # When someone was assigned to review the request
         ('A', 'Approved'),  # Event was approved. Funds are reserved.
         ('R', 'Reproved'),  # Event was declided.
-        ('F', 'Archived'),  # Approved events with all claims and blog posts were processed. No funds are reserved.
+        ('F', 'Archived'),  # Approved funds with all claims and blog posts were processed. No funds are reserved.
         )
 
 EXPENSE_STATUS = (
@@ -185,23 +185,23 @@ class Fellow(models.Model):
 
     def fellowship_committed(self):
         """Return the ammount committed from the fellowship grant."""
-        this_fellow_events = Event.objects.filter(fellow=self, status__in=['A', 'F'])
-        return sum([event.budget_approved for event in this_fellow_events])
+        this_fellow_funds = Event.objects.filter(fellow=self, status__in=['A', 'F'])
+        return sum([fund.budget_approved for fund in this_fellow_funds])
 
     def fellowship_spent(self):
         """Return the ammount alread spent from the fellowship grant."""
-        this_fellow_expenses = Expense.objects.filter(event__fellow=self, status__in=['A', 'F']).exclude(funds_from__in=["C", "I"])
+        this_fellow_expenses = Expense.objects.filter(fund__fellow=self, status__in=['A', 'F']).exclude(funds_from__in=["C", "I"])
         return sum([expense.amount_claimed for expense in this_fellow_expenses])
 
     def fellowship_remaining(self):
         """Return the ammount remaining to claim from the total committed."""
-        this_fellow_events = Event.objects.filter(fellow=self, status__in=['U', 'P', 'A'])
+        this_fellow_funds = Event.objects.filter(fellow=self, status__in=['U', 'P', 'A'])
         return self.fellowship_committed() - self.fellowship_spent()
 
 
 
 class Event(models.Model):
-    """Describe a event from one fellow."""
+    """Describe a fund from one fellow."""
     class Meta:
         app_label = 'fat'
 
@@ -291,21 +291,21 @@ class Event(models.Model):
 
     def expenses_claimed(self):
         """Return the total ammount of expenses claimed."""
-        this_event_expenses = Expense.objects.filter(event=self)
-        return sum([expense.amount_claimed for expense in this_event_expenses])
+        this_fund_expenses = Expense.objects.filter(fund=self)
+        return sum([expense.amount_claimed for expense in this_fund_expenses])
 
     def expenses_authorized_for_payment(self):
         """Return the total ammount of expenses authorized_for_payment."""
-        this_event_expenses = Expense.objects.filter(event=self)
-        return sum([expense.amount_authorized_for_payment for expense in this_event_expenses])
+        this_fund_expenses = Expense.objects.filter(fund=self)
+        return sum([expense.amount_authorized_for_payment for expense in this_fund_expenses])
 
     def total_of_blog_posts(self):
         """Return number of blog posts."""
-        return Blog.objects.filter(event=self).count()
+        return Blog.objects.filter(fund=self).count()
 
 
 class Expense(models.Model):
-    """This describe one expense for one event."""
+    """This describe one expense for one fund."""
     class Meta:
         app_label = 'fat'
 
@@ -315,7 +315,7 @@ class Expense(models.Model):
             editable=False)
 
     # Form
-    event = models.ForeignKey('Event')
+    fund = models.ForeignKey('Event')
     claim = models.FileField(
             upload_to='expenses/'  # File will be uploaded to MEDIA_ROOT/expenses
         )
@@ -329,7 +329,7 @@ class Expense(models.Model):
     )
     final = models.BooleanField(
         default=False,
-        help_text="This is your last expense claim for the event"
+        help_text="This is your last expense claim for the fund"
     )
 
     # Admin fields
@@ -368,16 +368,16 @@ class Expense(models.Model):
 
 
 class Blog(models.Model):
-    """Provide the link to the blog post about the event."""
+    """Provide the link to the blog post about the fund."""
     class Meta:
         app_label = 'fat'
 
     # Form
-    event = models.ForeignKey('Event')
+    fund = models.ForeignKey('Event')
     draft_url = models.URLField(max_length=MAX_CHAR_LENGTH)
     final = models.BooleanField(
         default=False,
-        help_text="This is your last blog post about the event"
+        help_text="This is your last blog post about the fund"
     )
 
     # Admin fields

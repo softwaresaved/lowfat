@@ -192,27 +192,27 @@
     "model": "auth.permission",
     "pk": 22,
     "fields": {
-        "name": "Can add event",
+        "name": "Can add fund",
         "content_type": 8,
-        "codename": "add_event"
+        "codename": "add_fund"
     }
 },
 {
     "model": "auth.permission",
     "pk": 23,
     "fields": {
-        "name": "Can change event",
+        "name": "Can change fund",
         "content_type": 8,
-        "codename": "change_event"
+        "codename": "change_fund"
     }
 },
 {
     "model": "auth.permission",
     "pk": 24,
     "fields": {
-        "name": "Can delete event",
+        "name": "Can delete fund",
         "content_type": 8,
-        "codename": "delete_event"
+        "codename": "delete_fund"
     }
 },
 {
@@ -563,7 +563,7 @@
     }
 },
 {
-    "model": "fat.event",
+    "model": "fat.fund",
     "pk": 1,
     "fields": {
         "fellow": 2,
@@ -597,7 +597,7 @@
     }
 },
 {
-    "model": "fat.event",
+    "model": "fat.fund",
     "pk": 2,
     "fields": {
         "fellow": 5,
@@ -631,7 +631,7 @@
     }
 },
 {
-    "model": "fat.event",
+    "model": "fat.fund",
     "pk": 3,
     "fields": {
         "fellow": 1,
@@ -665,7 +665,7 @@
     }
 },
 {
-    "model": "fat.event",
+    "model": "fat.fund",
     "pk": 4,
     "fields": {
         "fellow": 2,
@@ -699,7 +699,7 @@
     }
 },
 {
-    "model": "fat.event",
+    "model": "fat.fund",
     "pk": 5,
     "fields": {
         "fellow": 3,
@@ -733,7 +733,7 @@
     }
 },
 {
-    "model": "fat.event",
+    "model": "fat.fund",
     "pk": 6,
     "fields": {
         "fellow": 4,
@@ -767,7 +767,7 @@
     }
 },
 {
-    "model": "fat.event",
+    "model": "fat.fund",
     "pk": 8,
     "fields": {
         "fellow": 1,
@@ -801,7 +801,7 @@
     }
 },
 {
-    "model": "fat.event",
+    "model": "fat.fund",
     "pk": 9,
     "fields": {
         "fellow": 1,
@@ -835,7 +835,7 @@
     }
 },
 {
-    "model": "fat.event",
+    "model": "fat.fund",
     "pk": 10,
     "fields": {
         "fellow": 3,
@@ -872,7 +872,7 @@
     "model": "fat.expense",
     "pk": "3979af36-5a05-4ef7-ba57-e67cb8a9d454",
     "fields": {
-        "event": 8,
+        "fund": 8,
         "claim": "expenses/ec7.pdf",
         "amount_claimed": "500.00",
         "recipient": "",
@@ -893,7 +893,7 @@
     "model": "fat.expense",
     "pk": "7d8d67af-d8aa-465c-a6ab-31ed9217bf5d",
     "fields": {
-        "event": 2,
+        "fund": 2,
         "claim": "expenses/ec3.pdf",
         "amount_claimed": "20000.00",
         "recipient": "",
@@ -914,7 +914,7 @@
     "model": "fat.expense",
     "pk": "a18fc323-844e-49da-8d1c-38768713e9f7",
     "fields": {
-        "event": 3,
+        "fund": 3,
         "claim": "expenses/ec4.pdf",
         "amount_claimed": "400.00",
         "recipient": "",
@@ -935,7 +935,7 @@
     "model": "fat.expense",
     "pk": "aafa331a-0467-44a5-a067-726bed8efce2",
     "fields": {
-        "event": 1,
+        "fund": 1,
         "claim": "expenses/ec1.pdf",
         "amount_claimed": "1000.00",
         "recipient": "",
@@ -956,7 +956,7 @@
     "model": "fat.expense",
     "pk": "b2486ce7-c392-427d-b32e-9d58698f8687",
     "fields": {
-        "event": 5,
+        "fund": 5,
         "claim": "expenses/ec6.pdf",
         "amount_claimed": "2500.00",
         "recipient": "",
@@ -977,7 +977,7 @@
     "model": "fat.expense",
     "pk": "b7cb4d08-3bdc-452d-92e4-6bab1cd2f925",
     "fields": {
-        "event": 1,
+        "fund": 1,
         "claim": "expenses/ec2.pdf",
         "amount_claimed": "500.00",
         "recipient": "",
@@ -998,7 +998,7 @@
     "model": "fat.expense",
     "pk": "da29f63f-de4a-407a-b24c-f7702ab34c4a",
     "fields": {
-        "event": 6,
+        "fund": 6,
         "claim": "expenses/ec8.pdf",
         "amount_claimed": "500.00",
         "recipient": "",
@@ -1019,7 +1019,7 @@
     "model": "fat.expense",
     "pk": "eabbab9b-47fd-4359-b3b4-b39ee5913613",
     "fields": {
-        "event": 4,
+        "fund": 4,
         "claim": "expenses/ec5.pdf",
         "amount_claimed": "1000.00",
         "recipient": "",
@@ -1040,7 +1040,7 @@
     "model": "fat.blog",
     "pk": 1,
     "fields": {
-        "event": 1,
+        "fund": 1,
         "draft_url": "http://software.ac.uk",
         "final": false,
         "status": "U",

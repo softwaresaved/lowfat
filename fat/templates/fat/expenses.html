@@ -1,5 +1,5 @@
 <h2>Expenses</h2>
-<p><a href="{% url 'expense' %}?event_id={{event.id}}">Submit new
+<p><a href="{% url 'expense' %}?fund_id={{fund.id}}">Submit new
     expense.</a></p>
 <table class="table table-bordered">
   <tbody>
@@ -48,7 +48,7 @@
       </td>
     </tr>
     {% endfor %}
-    {% if event %}
+    {% if fund %}
     <tr>
       <td>
         <strong>Total</strong>
@@ -57,10 +57,10 @@
         -
       </td>
       <th>
-        {{ event.expenses_claimed }}
+        {{ fund.expenses_claimed }}
       </th>
       <th>
-        {{ event.expenses_authorized_for_payment }}
+        {{ fund.expenses_authorized_for_payment }}
       </th>
     </tr>
    {% endif %}

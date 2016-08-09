@@ -5,15 +5,15 @@
             <th>Start date</th>
             <th>End data</th>
         </tr>
-{% for event in events %}
+{% for fund in funds %}
 <tr>
-    <td><a href="{% url "event_detail" event.id %}">{{event.name}}</a> <a href="{{event.url}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
-    <td>{{event.start_date}}</td>
-    <td>{{event.end_date}}</td>
+    <td><a href="{% url "fund_detail" fund.id %}">{{fund.name}}</a> <a href="{{fund.url}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
+    <td>{{fund.start_date}}</td>
+    <td>{{fund.end_date}}</td>
 </tr>
 {% empty %}
 <tr>
-    <td>No events.</td>
+    <td>No funds.</td>
     <td></td>
     <td></td>
 </tr>

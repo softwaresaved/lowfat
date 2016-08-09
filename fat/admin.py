@@ -79,15 +79,15 @@ class AmountListFilter(admin.SimpleListFilter):
 
 class ExpenseAdmin(admin.ModelAdmin):
     list_display = [
-        'event',
+        'fund',
         'get_fellow',
         'get_start_date',
         'status',
     ]
     search_fields = [
-        'event__fellow__surname',
-        'event__fellow__forenames',
-        'event__name',
+        'fund__fellow__surname',
+        'fund__fellow__forenames',
+        'fund__name',
     ]
     list_filter = [
         'status',
@@ -95,16 +95,16 @@ class ExpenseAdmin(admin.ModelAdmin):
     ]
 
     def get_fellow(self, obj):
-        return obj.event.fellow
+        return obj.fund.fellow
 
     get_fellow.short_description = 'fellow'
-    get_fellow.admin_order_field = 'event__fellow'
+    get_fellow.admin_order_field = 'fund__fellow'
 
     def get_start_date(self, obj):
-        return obj.event.start_date
+        return obj.fund.start_date
 
     get_start_date.short_description = 'Start date'
-    get_start_date.admin_order_field = 'event__start_date'
+    get_start_date.admin_order_field = 'fund__start_date'
 
 
 class BlogAdmin(admin.ModelAdmin):

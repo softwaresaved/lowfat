@@ -3,15 +3,15 @@
 
 {% block content %}
 <h1>Event
-  {% if event.status in 'AF' %}
-  <span class="label label-success">{{ event.get_status_display }}</span>
-  {% elif event.status in 'R' %}
-  <span class="label label-danger">{{ event.get_status_display }}</span>
+  {% if fund.status in 'AF' %}
+  <span class="label label-success">{{ fund.get_status_display }}</span>
+  {% elif fund.status in 'R' %}
+  <span class="label label-danger">{{ fund.get_status_display }}</span>
   {% else %}
-  <span class="label label-warning">{{ event.get_status_display }}</span>
+  <span class="label label-warning">{{ fund.get_status_display }}</span>
   {% endif %}
   {% if user.is_superuser %}
-  <a class="btn btn-default" href="{% url 'event_review' event.id %}" role="button">Review</a>
+  <a class="btn btn-default" href="{% url 'fund_review' fund.id %}" role="button">Review</a>
   {% endif %}
 </h1>
 <h2>General Details</h1>
@@ -19,32 +19,32 @@
     <tbody>
         <tr>
             <th>Name</th>
-            <td>{{ event.name }}</td>
+            <td>{{ fund.name }}</td>
         </tr>
         <tr>
             <th>URL</th>
-            <td><a href="{{ event.url }}">{{ event.url }}</a></td>
+            <td><a href="{{ fund.url }}">{{ fund.url }}</a></td>
         </tr>
         <tr>
             <th>Status</th>
-            <td>{{ event.get_status_display }}</td>
+            <td>{{ fund.get_status_display }}</td>
         </tr>
         <tr>
             <th>Start date</th>
-            <td>{{ event.start_date }}</td>
+            <td>{{ fund.start_date }}</td>
         </tr>
         <tr>
             <th>End data</th>
-            <td>{{ event.end_date }}</td>
+            <td>{{ fund.end_date }}</td>
         </tr>
         {% if user.is_superuser %}
         <tr>
           <th>Justication</th>
-          <td>{{ event.justification | markdown | safe }}</td>
+          <td>{{ fund.justification | markdown | safe }}</td>
         </tr>
         <tr>
           <th>Additional information</th>
-          <td>{{ event.additional_info | markdown | safe }}</td>
+          <td>{{ fund.additional_info | markdown | safe }}</td>
         </tr>
   {% endif %}
     </tbody>
@@ -55,13 +55,13 @@
     <tbody>
         <tr>
             <th>Budget request</th>
-            <td>£{{ event.budget_total }}</td>
+            <td>£{{ fund.budget_total }}</td>
         </tr>
         <tr>
             <th>Budget approve</th>
             <td>
-              {% if event.status in 'AF' %}
-              £{{ event.budget_approved }}
+              {% if fund.status in 'AF' %}
+              £{{ fund.budget_approved }}
               {% else %}
               £0.00
               {% endif %}
@@ -74,35 +74,35 @@
     <tbody>
         <tr>
             <th>Travel expenses</th>
-            <td>£{{ event.budget_request_travel }}</td>
+            <td>£{{ fund.budget_request_travel }}</td>
         </tr>
         <tr>
             <th>Attendance fees</th>
-            <td>£{{ event.budget_request_attendance_fees }}</td>
+            <td>£{{ fund.budget_request_attendance_fees }}</td>
         </tr>
         <tr>
             <th>Subsistence cost</th>
-            <td>£{{ event.budget_request_subsistence_cost }}</td>
+            <td>£{{ fund.budget_request_subsistence_cost }}</td>
         </tr>
         <tr>
             <th>Venue hire</th>
-            <td>£{{ event.budget_request_venue_hire }}</td>
+            <td>£{{ fund.budget_request_venue_hire }}</td>
         </tr>
         <tr>
             <th>Catering</th>
-            <td>£{{ event.budget_request_catering }}</td>
+            <td>£{{ fund.budget_request_catering }}</td>
         </tr>
         <tr>
             <th>Others</th>
-            <td>£{{ event.budget_request_others }}</td>
+            <td>£{{ fund.budget_request_others }}</td>
         </tr>
     </tbody>
 </table>
 {% include 'fat/expenses.html' %}
 {% endif %}
 <h2>Blogs</h2>
-<p><strong>This event requires {{ event.required_blog_posts }} blog posts.</strong>
-  <a href="{% url 'blog' %}?event_id={{event.id}}">Submit new blog.</a></p>
+<p><strong>This fund requires {{ fund.required_blog_posts }} blog posts.</strong>
+  <a href="{% url 'blog' %}?fund_id={{fund.id}}">Submit new blog.</a></p>
 <table class="table table-bordered">
   <tbody>
     <tr>

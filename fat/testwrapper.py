@@ -80,7 +80,7 @@ def create_fellow():
     fellow.save()
     return fellow.id
 
-def create_event():
+def create_fund():
     fellow_id = create_fellow()
     fellow = Fellow.objects.get(id=fellow_id)
     
@@ -103,16 +103,16 @@ def create_event():
         "additional_info": "",
         }
 
-    event = Event(**data)
-    event.save()
-    return fellow_id, event.id
+    fund = Event(**data)
+    fund.save()
+    return fellow_id, fund.id
 
 def create_all():
-    fellow_id, event_id = create_event()
-    event = Event.objects.get(id=event_id)
+    fellow_id, fund_id = create_fund()
+    fund = Event.objects.get(id=fund_id)
 
     data = {
-        "event": event,
+        "fund": fund,
         "amount_claimed": "100.00",
         }
 
@@ -125,11 +125,11 @@ def create_all():
     expense.save()
 
     data = {
-        "event": event,
+        "fund": fund,
         "draft_url": "http://software.ac.uk",
         }
 
     blog = Blog(**data)
     blog.save()
 
-    return fellow_id, event_id, expense.id, blog.id
+    return fellow_id, fund_id, expense.id, blog.id

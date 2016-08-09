@@ -73,7 +73,7 @@ class ExpenseForm(ModelForm):
     class Meta:
         model = Expense
         fields = [
-            'event',
+            'fund',
             'claim',
             'amount_claimed',
             'recipient',
@@ -92,7 +92,7 @@ class ExpenseReviewForm(ModelForm):
         model = Expense
         exclude = [
                 'id',
-                'event',
+                'fund',
                 'claim',
                 "added",
                 'received_date',
@@ -113,7 +113,7 @@ class BlogForm(ModelForm):
     class Meta:
         model = Blog
         fields = [
-            'event',
+            'fund',
             'draft_url',
             'final',
                 ]
@@ -126,7 +126,7 @@ class BlogReviewForm(ModelForm):
     class Meta:
         model = Blog
         exclude = [
-                "event",
+                "fund",
                 "added",
                 "updated",
                 ]

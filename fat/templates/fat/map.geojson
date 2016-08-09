@@ -19,20 +19,20 @@
       }
     },
     {% endfor %}
-    {% for event in events %}
+    {% for fund in funds %}
     {
       "type": "Feature",
       "properties": {
         "marker-color": "#7e7e7e",
         "marker-size": "medium",
         "marker-symbol": "",
-        "Event": "{{ event.name }}",
+        "Event": "{{ fund.name }}",
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          {{ event.home_lon }},
-          {{ event.home_lat }}
+          {{ fund.home_lon }},
+          {{ fund.home_lat }}
         ]
       }
     },

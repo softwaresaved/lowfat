@@ -17,7 +17,7 @@ from .mail import *
 def index(request):
     context = {
             'fellows': Fellow.objects.exclude(selected=False).order_by('application_year').reverse(),
-            'events': Event.objects.filter(category="H", start_date__gte=django.utils.timezone.now(), can_be_advertise_before=True).order_by("start_date").reverse(),
+            'funds': Event.objects.filter(category="H", start_date__gte=django.utils.timezone.now(), can_be_advertise_before=True).order_by("start_date").reverse(),
             }
 
     if request.user.is_authenticated() and request.user.is_superuser:
@@ -37,12 +37,12 @@ def dashboard(request):
 
             context.update({
                 'fellow': fellow,
-                'events': Event.objects.filter(fellow=fellow).reverse(),
+                'funds': Event.objects.filter(fellow=fellow).reverse(),
                 'budget_available': fellow.fellowship_available(),
                 })
         else:
             context.update({
-                'events': Event.objects.filter(status__in=['U', 'P']).reverse(),
+                'funds': Event.objects.filter(status__in=['U', 'P']).reverse(),
                 'expenses': Expense.objects.filter(status__in=['W', 'S', 'P']).reverse(),
                 'blogs': Blog.objects.filter(status__in=['U', 'R']).reverse(),
                 })
@@ -79,13 +79,13 @@ def fellow_detail(request, fellow_id):
 
     context = {
             'fellow': this_fellow,
-            'events': Event.objects.filter(fellow=this_fellow),
+            'funds': Event.objects.filter(fellow=this_fellow),
             }
 
     if request.user.is_authenticated() and (request.user.is_superuser or
             Fellow.objects.get(user=request.user) == this_fellow):
             context.update({
-                'expenses': Expense.objects.filter(event__fellow=this_fellow),
+                'expenses': Expense.objects.filter(fund__fellow=this_fellow),
                 'show_finances': True,
                 })
 
@@ -100,7 +100,7 @@ def my_profile(request):
     raise Http404("Fellow does not exist.")
 
 @login_required
-def event(request):
+def fund(request):
     if request.POST:
         # Handle submission
         post = request.POST.copy()
@@ -109,16 +109,16 @@ def event(request):
         formset = EventForm(post)
 
         if formset.is_valid():
-            event = formset.save()
+            fund = formset.save()
 
             # Default value for budget_approved is budget_total.
             # The reason for this is to save staffs to copy and paste the approved amount.
-            event.budget_approved = event.budget_total()
-            event.save()
+            fund.budget_approved = fund.budget_total()
+            fund.save()
 
-            new_event_notification(event)
-            return HttpResponseRedirect(reverse('event_detail',
-                args=[event.id,]))
+            new_fund_notification(fund)
+            return HttpResponseRedirect(reverse('fund_detail',
+                args=[fund.id,]))
 
     if not request.user.is_superuser:
         initial = {
@@ -134,66 +134,66 @@ def event(request):
 
     # Show submission form.
     context = {
-            "title": "Submit event",
+            "title": "Submit fund",
             "formset": formset,
             "submit_text": "Submit",
             }
     return render(request, 'fat/form.html', context)
 
 @login_required
-def event_detail(request, event_id):
-    this_event = Event.objects.get(id=event_id)
+def fund_detail(request, fund_id):
+    this_fund = Event.objects.get(id=fund_id)
     
     if (request.user.is_superuser or
-            Fellow.objects.get(user=request.user) == this_event.fellow):
-        budget_request = this_event.budget_total()
+            Fellow.objects.get(user=request.user) == this_fund.fellow):
+        budget_request = this_fund.budget_total()
 
         context = {
-            'event': this_event,
-            'expenses': Expense.objects.filter(event=this_event),
-            'blogs': Blog.objects.filter(event=this_event),
+            'fund': this_fund,
+            'expenses': Expense.objects.filter(fund=this_fund),
+            'blogs': Blog.objects.filter(fund=this_fund),
             'budget_summary': True,
         }
 
-        return render(request, 'fat/event_detail.html', context)
+        return render(request, 'fat/fund_detail.html', context)
 
     raise Http404("Event does not exist.")
 
 @staff_member_required
-def event_review(request, event_id):
-    this_event = Event.objects.get(id=event_id)
+def fund_review(request, fund_id):
+    this_fund = Event.objects.get(id=fund_id)
 
     if request.POST:
         # Handle submission
-        formset = EventReviewForm(request.POST, instance=this_event)
+        formset = EventReviewForm(request.POST, instance=this_fund)
 
         if formset.is_valid():
-            event = formset.save()
-            return HttpResponseRedirect(reverse('event_detail',
-                args=[event.id,]))
+            fund = formset.save()
+            return HttpResponseRedirect(reverse('fund_detail',
+                args=[fund.id,]))
 
-    formset = EventReviewForm(None, instance=this_event)
+    formset = EventReviewForm(None, instance=this_fund)
 
     context = {
-            'event': this_event,
+            'fund': this_fund,
             'formset': formset,
             'submit_text': 'Update',
             }
 
-    return render(request, 'fat/event_review.html', context)
+    return render(request, 'fat/fund_review.html', context)
 
-def event_past(request):
-    events = Event.objects.filter(
+def fund_past(request):
+    funds = Event.objects.filter(
             start_date__lt=django.utils.timezone.now(),
             category="H",
             can_be_advertise_after=True,
             ).order_by("start_date").reverse()
 
     context = {
-            'events': events,
+            'funds': funds,
             }
 
-    return render(request, 'fat/event_past.html', context)
+    return render(request, 'fat/fund_past.html', context)
 
 @login_required
 def expense(request):
@@ -206,11 +206,11 @@ def expense(request):
                                             args=[expense.id,]))
 
     # Store GET parameters
-    event_id = request.GET.get("event_id")
+    fund_id = request.GET.get("fund_id")
 
     # Setup Event if provided
-    if event_id:
-        initial = {"event": Event.objects.get(id=event_id)}
+    if fund_id:
+        initial = {"fund": Event.objects.get(id=fund_id)}
     else:
         initial = {}
 
@@ -219,7 +219,7 @@ def expense(request):
     # Limit dropdown list to fellow
     if not request.user.is_superuser:
         fellow = Fellow.objects.get(user=request.user)
-        formset.fields["event"].queryset = Event.objects.filter(fellow=fellow)
+        formset.fields["fund"].queryset = Event.objects.filter(fellow=fellow)
 
     # Show submission form.
     context = {
@@ -234,7 +234,7 @@ def expense_claim(request, expense_id):
     this_expense = Expense.objects.get(id=expense_id)
     
     if (request.user.is_superuser or
-            Fellow.objects.get(user=request.user) == this_expense.event.fellow):
+            Fellow.objects.get(user=request.user) == this_expense.fund.fellow):
         context = {
             'expense': Expense.objects.get(id=expense_id),
         }
@@ -276,9 +276,9 @@ def blog(request):
         return HttpResponseRedirect(reverse('blog_detail',
                                             args=[blog.id,]))
 
-    event_id = request.GET.get("event_id")
-    if event_id:
-        initial = {"event": Event.objects.get(id=event_id)}
+    fund_id = request.GET.get("fund_id")
+    if fund_id:
+        initial = {"fund": Event.objects.get(id=fund_id)}
     else:
         initial = {}
         formset = BlogForm(initial=initial)
@@ -286,7 +286,7 @@ def blog(request):
         # Limit dropdown list to fellow
     if not request.user.is_superuser:
         fellow = Fellow.objects.get(user=request.user)
-        formset.fields["event"].queryset = Event.objects.filter(fellow=fellow)
+        formset.fields["fund"].queryset = Event.objects.filter(fellow=fellow)
 
     # Show submission form.
     context = {
@@ -336,7 +336,7 @@ def geojson(request):
 
     context = {
             'fellows': Fellow.objects.all(),
-            'events': Event.objects.all(),
+            'funds': Event.objects.all(),
             }
 
     return render(request, 'fat/map.geojson', context)
