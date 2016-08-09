@@ -76,6 +76,7 @@ class ExpenseForm(ModelForm):
             'event',
             'claim',
             'amount_claimed',
+            'recipient',
             'final',
                 ]
         labels = {
