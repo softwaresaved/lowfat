@@ -172,6 +172,21 @@ class FundReviewForm(ModelForm):
 
 
 class ExpenseForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ExpenseForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                'fund',
+                'claim',
+                PrependedText('amount_claimed', '£'),
+                'recipient',
+                'final',
+                )
+            )
+
     class Meta:
         model = Expense
         fields = [
