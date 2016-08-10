@@ -1,17 +1,8 @@
 {% extends "fat/base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <h1>{{ title }}</h1>
 <p>Fields marked with <span class="form-field-required"></span> are required.</p>
-{% if formset.is_multipart %}
-<form enctype="multipart/form-data" method="post" action="">
-    {% else %}
-<form method="post" action="">
-{% endif %}
-    {% csrf_token %}
-    <table>
-    {{ formset.as_table }}
-    </table>
-    <input type="submit" value="{{ submit_text }}" />
-</form>
+{% crispy formset %}
 {% endblock %}
