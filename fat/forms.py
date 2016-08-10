@@ -69,19 +69,6 @@ class FellowForm(ModelForm):
             'twitter',
             'facebook',
             ]
-        exclude = [
-                "user",
-                "home_lon",
-                "home_lat",
-                "funding_notes",
-                "application_year",
-                "selected",
-                "fellowship_grant",
-                "mentor",
-                "notes_from_admin",
-                "added",
-                "updated",
-                ]
 
 
     required_css_class = 'form-field-required'
@@ -196,25 +183,42 @@ class ExpenseForm(ModelForm):
             'recipient',
             'final',
                 ]
-        labels = {
-                'amount_authorized_for_payment': 'Amount authorized for payment',
-                }
 
 
     required_css_class = 'form-field-required'
 
 
 class ExpenseReviewForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ExpenseReviewForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                'status',
+                'received_date',
+                'asked_for_authorization_date',
+                'send_to_finance_date',
+                PrependedText('amount_authorized_for_payment', '£'),
+                'funds_from',
+                'grant_used',
+                'notes_from_admin',
+                )
+            )
+
     class Meta:
         model = Expense
-        exclude = [
-                'id',
-                'fund',
-                'claim',
-                "added",
-                'received_date',
-                "updated",
-                ]
+        fields = [
+            'status',
+            'received_date',
+            'asked_for_authorization_date',
+            'send_to_finance_date',
+            'amount_authorized_for_payment',
+            'funds_from',
+            'grant_used',
+            'notes_from_admin',
+            ]
 
         widgets = {
             'received_date': SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day")),

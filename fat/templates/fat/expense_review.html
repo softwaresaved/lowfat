@@ -1,4 +1,5 @@
 {% extends "fat/base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <h1>Expense Review</h1>
@@ -60,17 +61,11 @@
     <tbody>
         <tr>
             <th>Received date</th>
-            <td>{{ expense.fund.received_date }}</td>
+            <td>{{ expense.received_date }}</td>
         </tr>
     </tbody>
 </table>
-<form method="post" action="">
-    {% csrf_token %}
-    <table>
-    {{ formset.as_table }}
-    </table>
-    <input type="submit" value="{{ submit_text }}" />
-</form>
+{% crispy formset %}
   </div>
 </div>
 {% endblock %}
