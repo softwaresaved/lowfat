@@ -14,10 +14,18 @@
     height: 400px;
 }
 
-span.form-field-required::after,
-.form-field-required th::after {
-    content: "(*)";
+span.asteriskField,
+span.asteriskField::after,
+span.asteriskField::before {
     color: red;
+}
+
+span.asteriskField::after {
+    content: ")";
+}
+
+span.asteriskField::before {
+    content: "(";
 }
 
 .ribbon {

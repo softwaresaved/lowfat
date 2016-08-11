@@ -168,6 +168,7 @@ class ExpenseForm(ModelForm):
         self.helper.layout = Layout(
             Fieldset(
                 '',
+                HTML("</p>Terms and conditions apply.</p>"),  # FIXME Add link
                 'fund',
                 'claim',
                 PrependedText('amount_claimed', '£'),
@@ -185,6 +186,11 @@ class ExpenseForm(ModelForm):
             'recipient',
             'final',
                 ]
+
+        labels = {
+            'fund': 'Fund request',
+            'claim': 'PDF copy of receipt',
+        }
 
 
     required_css_class = 'form-field-required'
