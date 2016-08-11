@@ -125,8 +125,8 @@ class FundForm(ModelForm):
 
         labels = {
                 'claimed': 'Claimed',
-                'url': "Fund's homepage url",
-                'name': "Fund's name",
+                'url': "Funder's homepage url",
+                'name': "Funder's name",
                 }
 
         widgets = {
