@@ -1,4 +1,5 @@
 from datetime import date
+import re
 import uuid
 
 import django.utils
@@ -80,6 +81,12 @@ BLOG_POST_STATUS = (
         ('O', 'Out of date'),
         )
 
+def fix_url(url):
+    """Prepend 'http://' to URL."""
+    if url is not None and (not url and not re.match("https?://", url)):
+        return "http://{}".format(url)
+
+    return url
 
 class Claimed(models.Model):
     """Describe a claimed."""
@@ -145,9 +152,9 @@ class Claimed(models.Model):
     work_description = models.TextField(blank=True)
 
     # Social media
-    website = models.URLField(max_length=MAX_CHAR_LENGTH,
+    website = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=True)
-    website_feed = models.URLField(max_length=MAX_CHAR_LENGTH,
+    website_feed = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=True)
     orcid = models.CharField(max_length=MAX_CHAR_LENGTH,
             blank=True)
@@ -183,6 +190,12 @@ class Claimed(models.Model):
     # Control
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        self.website = fix_url(self.website)
+        self.website_feed = fix_url(self.website)
+
+        super(Claimed, self).save(*args, **kwargs)
     
     def __str__(self):
         return self.fullname()
@@ -222,7 +235,7 @@ class Fund(models.Model):
             max_length=1,
             default="O")
     name = models.CharField(max_length=MAX_CHAR_LENGTH)
-    url = models.URLField(max_length=MAX_CHAR_LENGTH)
+    url = models.CharField(max_length=MAX_CHAR_LENGTH)
     country = CountryField(default='GB')  # Default for United Kingdom
     city = models.CharField(max_length=MAX_CHAR_LENGTH)
     lon = models.FloatField(
@@ -278,6 +291,11 @@ class Fund(models.Model):
     # Control
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        self.url = fix_url(self.url)
+
+        super(Fund, self).save(*args, **kwargs)
     
     def __str__(self):
         return "{}".format(self.name)
@@ -384,7 +402,7 @@ class Blog(models.Model):
 
     # Form
     fund = models.ForeignKey('Fund')
-    draft_url = models.URLField(max_length=MAX_CHAR_LENGTH)
+    draft_url = models.CharField(max_length=MAX_CHAR_LENGTH)
     final = models.BooleanField(
         default=False,
         help_text="This is your last blog post about the fund"
@@ -400,10 +418,10 @@ class Blog(models.Model):
     notes_from_admin = models.TextField(
             null=True,
             blank=True)
-    published_url = models.URLField(max_length=MAX_CHAR_LENGTH,
+    published_url = models.CharField(max_length=MAX_CHAR_LENGTH,
             null=True,
             blank=True)
-    tweet_url = models.URLField(max_length=MAX_CHAR_LENGTH,
+    tweet_url = models.CharField(max_length=MAX_CHAR_LENGTH,
             null=True,
             blank=True)
 
@@ -412,6 +430,10 @@ class Blog(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
+        self.draft_url = fix_url(self.draft_url)
+        self.published_url = fix_url(self.published_url)
+        self.tweet_url = fix_url(self.tweet_url)
+
         if self.published_url:
             self.status = 'P'
         super(Blog, self).save(*args, **kwargs)

@@ -151,7 +151,7 @@ class ClaimedFormTest(TestCase):
             }
 
         form = ClaimedForm(data, file_data)
-        self.assertFalse(form.is_valid())
+        self.assertTrue(form.is_valid())
 
     def test_blank_research_area_code(self):
         data = {
@@ -473,7 +473,7 @@ class FundFormTest(TestCase):
             }
 
         form = FundForm(data)
-        self.assertFalse(form.is_valid())
+        self.assertTrue(form.is_valid())
 
     def test_null_country(self):
         data = {
