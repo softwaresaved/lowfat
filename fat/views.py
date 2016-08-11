@@ -70,7 +70,7 @@ def claimed(request):
 
     # Show submission form.
     context = {
-            "title": "Create claimed",
+            "title": "Create claimed" if instance is None else "Edit claimed",
             "formset": formset,
             "submit_text": "Save",
             }
