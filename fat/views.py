@@ -349,7 +349,7 @@ def report(request):
                label='application_year',
                title='Number of fellows')
 
-    # Event requests
+    # Fund requests
     fund_amount = Fund.objects.all().values('budget_approved')
     fund_amount_hist = Histogram([float(amount['budget_approved']) for amount in list(fund_amount)],
                                   title='Amount request')

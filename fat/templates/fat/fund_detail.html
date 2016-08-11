@@ -27,7 +27,10 @@
         </tr>
         <tr>
             <th>Status</th>
-            <td>{{ fund.get_status_display }}</td>
+            <td>
+              {{ fund.get_status_display }}
+              <span class="glyphicon glyphicon glyphicon-info-sign" title="{{ fund.status_help }}" aria-hidden="true"></span>
+            </td>
         </tr>
         <tr>
             <th>Start date</th>

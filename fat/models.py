@@ -20,7 +20,7 @@ GENDERS = (
         ('R', 'Rather not say'),
         )
 
-EVENT_CATEGORY = (
+FUND_CATEGORY = (
         ('A', 'Attending a conference/workshop'),
         ('H', 'Organising a conference/workshop (e.g. Software Carpentry)'),
         ('P', 'Policy related fund'),
@@ -33,13 +33,22 @@ AD_STATUS = (
         ('H', 'Hide'),  # Fund is invisible on map
         )
 
-EVENT_STATUS = (
+FUND_STATUS = (
         ('U', 'Unprocessed'),  # Initial status
         ('P', 'Processing'),  # When someone was assigned to review the request
         ('A', 'Approved'),  # Fund was approved. Funds are reserved.
         ('R', 'Reproved'),  # Fund was declided.
         ('F', 'Archived'),  # Approved funds with all claims and blog posts were processed. No funds are reserved.
         )
+
+FUND_STATUS_LONG_DESCRIPTION = {
+    'U': "We didn't start to process your request yet.",
+    'P': "One of your staffs is reviewing your request. You should have our reply soon.",
+    'A': "Your fund request was approved.",
+    'R': "Your fund request was declided.",
+    'F': "We archived your fund request since all the expense claims were processed."
+    }
+
 
 EXPENSE_STATUS = (
         ('W', 'Not submitted yet'),
@@ -208,7 +217,7 @@ class Fund(models.Model):
 
     # TODO Make fellow more generic to include staffs.
     fellow = models.ForeignKey('Fellow')
-    category = models.CharField(choices=EVENT_CATEGORY,
+    category = models.CharField(choices=FUND_CATEGORY,
             max_length=1,
             default="O")
     name = models.CharField(max_length=MAX_CHAR_LENGTH)
@@ -254,7 +263,7 @@ class Fund(models.Model):
     ad_status = models.CharField(choices=AD_STATUS,
             max_length=1,
             default="U")
-    status = models.CharField(choices=EVENT_STATUS,
+    status = models.CharField(choices=FUND_STATUS,
             max_length=1,
             default="U")
     required_blog_posts = models.IntegerField(
@@ -271,6 +280,12 @@ class Fund(models.Model):
     
     def __str__(self):
         return "{}".format(self.name)
+
+    def status_help(self):
+        """Provide long description for the status."""
+
+        # XXX Propably there is a better way to do this.
+        return FUND_STATUS_LONG_DESCRIPTION[self.status]
 
     def budget_total(self):
         """Return the sum of all `budget_request`s."""

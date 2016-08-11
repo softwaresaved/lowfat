@@ -84,7 +84,7 @@ class FundForm(ModelForm):
                 '',
                 HTML('<p>To apply for expenses for eligible events, please fill in this form at least one month before the start date of the event you wish to attend or organise.</p><h2>Fellow details</h2>'),
                 'fellow',
-                HTML('<h2>Event details</h2>'),
+                HTML('<h2>Fund details</h2>'),
                 'category',
                 'name',
                 'url',
