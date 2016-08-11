@@ -125,9 +125,6 @@ class FundForm(ModelForm):
                 "updated",
                 ]
 
-        # We don't want to expose fellows' data
-        # so we will request the email
-        # and match on the database.
         labels = {
                 'fellow': 'Fellow',
                 'url': "Fund's homepage url",
