@@ -10,6 +10,9 @@
     <li><a href="{% url 'fund' %}">Request funding support</a></li>
     <li><a href="{% url 'blog' %}">Submit a blog post</a></li>
     <li><a href="{% url 'expense' %}">Claim expense</a></li>
+    {% if user.is_superuser %}
+    <li><a href="{% url 'report' %}">View report</a></li>
+    {% endif %}
 </ul>
 {% if user.is_superuser %}
 <p>You can edit the information on the database <a href="{% url 'admin:index' %}">here</a>.</p>
