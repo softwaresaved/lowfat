@@ -113,6 +113,12 @@ class FundForm(ModelForm):
             )
             )
 
+        # Force user to select one category
+        self.fields['category'].widget.choices.insert(0, ('', '---------' ) )
+        self.fields['category'].initial = ''
+
+
+
     class Meta:
         model = Fund
         exclude = [
