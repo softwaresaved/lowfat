@@ -54,11 +54,11 @@
 <table class="table table-bordered">
     <tbody>
         <tr>
-            <th>Budget request</th>
+            <th><strong>Total</strong> budget request</th>
             <td>£{{ fund.budget_total }}</td>
         </tr>
         <tr>
-            <th>Budget approve</th>
+            <th><strong>Total</strong> budget approve</th>
             <td>
               {% if fund.status in 'AF' %}
               £{{ fund.budget_approved }}

@@ -154,6 +154,11 @@ class FundReviewForm(ModelForm):
                 "notes_from_admin",
                 ]
 
+        labels = {
+            'budget_approved': 'Total budget approved',
+        }
+
+
 
     required_css_class = 'form-field-required'
 
