@@ -10,21 +10,21 @@ from .models import *
 
 class URLTest(TestCase):
     def setUp(self):
-        self.fellow_id, self.fund_id, self.expense_id, self.blog_id = create_all()
+        self.claimed_id, self.fund_id, self.expense_id, self.blog_id = create_all()
 
         # Every test needs a client.
         self.public = Client()
         self.public.name = 'public'
 
-        self.fellow_a = Client()
-        self.fellow_a.login(username='fellow-a',
-                         password=FELLOW_A_PASSWORD)
-        self.fellow_a.name = 'fellow-a'
+        self.claimed_a = Client()
+        self.claimed_a.login(username='claimed-a',
+                         password=CLAIMED_A_PASSWORD)
+        self.claimed_a.name = 'claimed-a'
 
-        self.fellow_b = Client()
-        self.fellow_b.login(username='fellow-b',
-                         password=FELLOW_B_PASSWORD)
-        self.fellow_b.name = 'fellow-b'
+        self.claimed_b = Client()
+        self.claimed_b.login(username='claimed-b',
+                         password=CLAIMED_B_PASSWORD)
+        self.claimed_b.name = 'claimed-b'
 
         self.admin = Client()
         self.admin.login(username='admin',
@@ -56,11 +56,11 @@ class URLTest(TestCase):
                 "expect_code": 200,
             },
             {
-                "user": self.fellow_a,
+                "user": self.claimed_a,
                 "expect_code": 200,
             },
             {
-                "user": self.fellow_b,
+                "user": self.claimed_b,
                 "expect_code": 200,
             },
             {
@@ -71,19 +71,19 @@ class URLTest(TestCase):
 
         self.run_requests(url, queries)
 
-    def test_fellow_details(self):
-        url = '/fellow/{}/'.format(self.fellow_id)
+    def test_claimed_details(self):
+        url = '/claimed/{}/'.format(self.claimed_id)
         queries = [
             {
                 "user": self.public,
                 "expect_code": 200,
             },
             {
-                "user": self.fellow_a,
+                "user": self.claimed_a,
                 "expect_code": 200,
             },
             {
-                "user": self.fellow_b,
+                "user": self.claimed_b,
                 "expect_code": 200,
             },
             {
@@ -94,19 +94,19 @@ class URLTest(TestCase):
 
         self.run_requests(url, queries)
 
-    def test_fellow(self):
-        url = '/fellow/'
+    def test_claimed(self):
+        url = '/claimed/'
         queries = [
             {
                 "user": self.public,
                 "expect_code": 302,
             },
             {
-                "user": self.fellow_a,
+                "user": self.claimed_a,
                 "expect_code": 200,
             },
             {
-                "user": self.fellow_b,
+                "user": self.claimed_b,
                 "expect_code": 200,
             },
             {
@@ -125,11 +125,11 @@ class URLTest(TestCase):
                 "expect_code": 302,
             },
             {
-                "user": self.fellow_a,
+                "user": self.claimed_a,
                 "expect_code": 302,
             },
             {
-                "user": self.fellow_b,
+                "user": self.claimed_b,
                 "expect_code": 302,
             },
             {
@@ -148,11 +148,11 @@ class URLTest(TestCase):
                 "expect_code": 302,
             },
             {
-                "user": self.fellow_a,
+                "user": self.claimed_a,
                 "expect_code": 200,
             },
             {
-                "user": self.fellow_b,
+                "user": self.claimed_b,
                 "expect_code": 404,
             },
             {
@@ -171,11 +171,11 @@ class URLTest(TestCase):
                 "expect_code": 302,
             },
             {
-                "user": self.fellow_a,
+                "user": self.claimed_a,
                 "expect_code": 200,
             },
             {
-                "user": self.fellow_b,
+                "user": self.claimed_b,
                 "expect_code": 200,
             },
             {
@@ -194,11 +194,11 @@ class URLTest(TestCase):
                 "expect_code": 302,
             },
             {
-                "user": self.fellow_a,
+                "user": self.claimed_a,
                 "expect_code": 302,
             },
             {
-                "user": self.fellow_b,
+                "user": self.claimed_b,
                 "expect_code": 302,
             },
             {
@@ -217,11 +217,11 @@ class URLTest(TestCase):
                 "expect_code": 302,
             },
             {
-                "user": self.fellow_a,
+                "user": self.claimed_a,
                 "expect_code": 200,
             },
             {
-                "user": self.fellow_b,
+                "user": self.claimed_b,
                 "expect_code": 404,
             },
             {
@@ -240,11 +240,11 @@ class URLTest(TestCase):
                 "expect_code": 302,
             },
             {
-                "user": self.fellow_a,
+                "user": self.claimed_a,
                 "expect_code": 200,
             },
             {
-                "user": self.fellow_b,
+                "user": self.claimed_b,
                 "expect_code": 200,
             },
             {
@@ -263,11 +263,11 @@ class URLTest(TestCase):
                 "expect_code": 302,
             },
             {
-                "user": self.fellow_a,
+                "user": self.claimed_a,
                 "expect_code": 302,
             },
             {
-                "user": self.fellow_b,
+                "user": self.claimed_b,
                 "expect_code": 302,
             },
             {
@@ -286,11 +286,11 @@ class URLTest(TestCase):
                 "expect_code": 302,
             },
             {
-                "user": self.fellow_a,
+                "user": self.claimed_a,
                 "expect_code": 200,
             },
             {
-                "user": self.fellow_b,
+                "user": self.claimed_b,
                 "expect_code": 404,
             },
             {
@@ -307,11 +307,11 @@ class URLTest(TestCase):
                 "expect_code": 302,
             },
             {
-                "user": self.fellow_a,
+                "user": self.claimed_a,
                 "expect_code": 200,
             },
             {
-                "user": self.fellow_b,
+                "user": self.claimed_b,
                 "expect_code": 200,
             },
             {
@@ -330,11 +330,11 @@ class URLTest(TestCase):
                 "expect_code": 302,
             },
             {
-                "user": self.fellow_a,
+                "user": self.claimed_a,
                 "expect_code": 200,
             },
             {
-                "user": self.fellow_b,
+                "user": self.claimed_b,
                 "expect_code": 200,
             },
             {
@@ -353,11 +353,11 @@ class URLTest(TestCase):
                 "expect_code": 200,
             },
             {
-                "user": self.fellow_a,
+                "user": self.claimed_a,
                 "expect_code": 200,
             },
             {
-                "user": self.fellow_b,
+                "user": self.claimed_b,
                 "expect_code": 200,
             },
             {
@@ -377,11 +377,11 @@ class URLTest(TestCase):
                 "expect_code": 200,
             },
             {
-                "user": self.fellow_a,
+                "user": self.claimed_a,
                 "expect_code": 200,
             },
             {
-                "user": self.fellow_b,
+                "user": self.claimed_b,
                 "expect_code": 200,
             },
             {

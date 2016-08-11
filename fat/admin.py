@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Fellow, Fund, Expense, Blog
+from .models import Claimed, Fund, Expense, Blog
 
-class FellowAdmin(admin.ModelAdmin):
+class ClaimedAdmin(admin.ModelAdmin):
     list_display = [
         'surname',
         'forenames',
@@ -29,12 +29,12 @@ class FellowAdmin(admin.ModelAdmin):
 
 class FundAdmin(admin.ModelAdmin):
     list_display = [
-        'fellow',
+        'claimed',
         'name',
     ]
     search_fields = [
-        'fellow__surname',
-        'fellow__forenames',
+        'claimed__surname',
+        'claimed__forenames',
         'name',
         'location',
     ]
@@ -80,13 +80,13 @@ class AmountListFilter(admin.SimpleListFilter):
 class ExpenseAdmin(admin.ModelAdmin):
     list_display = [
         'fund',
-        'get_fellow',
+        'get_claimed',
         'get_start_date',
         'status',
     ]
     search_fields = [
-        'fund__fellow__surname',
-        'fund__fellow__forenames',
+        'fund__claimed__surname',
+        'fund__claimed__forenames',
         'fund__name',
     ]
     list_filter = [
@@ -94,11 +94,11 @@ class ExpenseAdmin(admin.ModelAdmin):
         AmountListFilter,
     ]
 
-    def get_fellow(self, obj):
-        return obj.fund.fellow
+    def get_claimed(self, obj):
+        return obj.fund.claimed
 
-    get_fellow.short_description = 'fellow'
-    get_fellow.admin_order_field = 'fund__fellow'
+    get_claimed.short_description = 'claimed'
+    get_claimed.admin_order_field = 'fund__claimed'
 
     def get_start_date(self, obj):
         return obj.fund.start_date
@@ -112,7 +112,7 @@ class BlogAdmin(admin.ModelAdmin):
 
 
 PUBLIC_MODELS = (
-        (Fellow, FellowAdmin),
+        (Claimed, ClaimedAdmin),
         (Fund, FundAdmin),
         (Expense, ExpenseAdmin),
         (Blog, BlogAdmin),

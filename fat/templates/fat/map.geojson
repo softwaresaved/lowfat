@@ -1,20 +1,20 @@
 {
   "features": [
-  {% for fellow in fellows %}
+  {% for claimed in claimeds %}
     {
       "type": "Feature",
       "properties": {
         "marker-color": "#ebf722",
         "marker-size": "medium",
         "marker-symbol": "star",
-        "Name": "{{ fellow.fullname }}",
-        "Inauguration": "{{ fellow.application_year }}"
+        "Name": "{{ claimed.fullname }}",
+        "Inauguration": "{{ claimed.application_year }}"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          {{ fellow.home_lon }},
-          {{ fellow.home_lat }}
+          {{ claimed.home_lon }},
+          {{ claimed.home_lat }}
         ]
       }
     },

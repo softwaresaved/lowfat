@@ -1,11 +1,11 @@
 {% extends "fat/base.html" %}
 
 {% block content %}
-<h1>Software Sustainability Institute Fellowship Program</h1>
+<h1>Software Sustainability Institute Claimedship Program</h1>
 <p>If you need us to process something please use one of the links bellow:</p>
 <ul>
     {% if user.is_superuser %}
-    <li><a href="{% url 'fellow' %}">Create fellow profile</a></li>
+    <li><a href="{% url 'claimed' %}">Create claimed profile</a></li>
     {% endif %}
     <li><a href="{% url 'fund' %}">Request funding support</a></li>
     <li><a href="{% url 'blog' %}">Submit a blog post</a></li>
@@ -48,12 +48,12 @@
       <td>{{ fund.added }}</td>
       <td>
         <a href="{% url 'fund_review' fund.id %}">{{ fund.name }}</a>
-        from <a href="{% url 'fellow_detail' fund.fellow.id %}">{{ fund.fellow.fullname }}</a>
+        from <a href="{% url 'claimed_detail' fund.claimed.id %}">{{ fund.claimed.fullname }}</a>
       </td>
       <td>
         {{ fund.get_status_display }}
         {% if fund.status == 'F' %}
-        - contact <a href="fellows-management@software.ac.uk">fellows-management@software.ac.uk</a>
+        - contact <a href="claimeds-management@software.ac.uk">claimeds-management@software.ac.uk</a>
         if need
         {% endif %}
       </td>
@@ -91,7 +91,7 @@
       <td>{{ expense.added }}</td>
       <td>
         <a href="{% url 'expense_review' expense.id %}">{{ expense.claim }}</a>
-        from <a href="{% url 'fellow_detail' expense.fund.fellow.id %}">{{ expense.fund.fellow.fullname }}</a>
+        from <a href="{% url 'claimed_detail' expense.fund.claimed.id %}">{{ expense.fund.claimed.fullname }}</a>
         for <a href="{% url 'fund_detail' expense.fund.id %}">{{ expense.fund.name }}</a>
       </td>
       <td>

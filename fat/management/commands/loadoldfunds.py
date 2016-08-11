@@ -6,7 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.management.base import BaseCommand, CommandError
 
-from fat.models import Fellow, Fund, Expense
+from fat.models import Claimed, Fund, Expense
 
 CSV_TO_IMPORT = 'old_funds.csv'
 
@@ -15,14 +15,14 @@ def conv_date(new_date):
     return "{}-{}-{}".format(year, month, day)
 
 class Command(BaseCommand):
-    help = "Import CSV (old_funds.csv) with funds from fellows to the database."
+    help = "Import CSV (old_funds.csv) with funds from claimeds to the database."
 
     # TODO Make use of args and options.
     def handle(self, *args, **options):
         data =  pd.read_csv(CSV_TO_IMPORT)
         for idx, line in data.iterrows():
             try:
-                this_fellow = Fellow.objects.get(forenames=line["Forename(s)"], surname=line["Surname"], selected=True)
+                this_claimed = Claimed.objects.get(forenames=line["Forename(s)"], surname=line["Surname"], selected=True)
                 if line['Fund type'] == 'Attending a conference/workshop':
                     fund_category = 'A'
                 elif line['Fund type'] == ' Organising a workshop (e.g. Software Carpentry)':
@@ -32,7 +32,7 @@ class Command(BaseCommand):
                 else:
                     fund_category = 'O'
                 funds_dict = {
-                        "fellow": this_fellow,
+                        "claimed": this_claimed,
                         "category": fund_category,
                         "name": line["Fund name"],
                         "url": line["Fund website"],

@@ -6,12 +6,12 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
 from django.core.management.base import BaseCommand, CommandError
 
-from fat.models import Fellow
+from fat.models import Claimed
 
 CSV_TO_IMPORT = 'old_applications.csv'
 
 class Command(BaseCommand):
-    help = "Import CSV (old_applications.csv) with applications to fellowship to the database."
+    help = "Import CSV (old_applications.csv) with applications to claimedship to the database."
 
     # TODO Make use of args and options.
     def handle(self, *args, **options):
@@ -49,7 +49,7 @@ class Command(BaseCommand):
                     "home_lat": 51,
                     "work_description": line["Work area"],
                     "funding": "{}, {}".format(line["Primary funder"],line["Additional funder"]),
-                    "fellowship_grant": 3000 if is_fellow else 0,
+                    "claimedship_grant": 3000 if is_fellow else 0,
                 }
 
                 if photo:
@@ -57,7 +57,7 @@ class Command(BaseCommand):
                         "photo": photo,
                         })
 
-                applicant = Fellow(**applicants_dict)
+                applicant = Claimed(**applicants_dict)
                 applicant.save()
 
             except BaseException as e:

@@ -24,7 +24,7 @@ def new_fund_notification(fund):
             'You can check the information of your fund at {}.'.format(
                 reverse_full("fund_detail", args=[fund.id])),
             DEFAULT_FROM_EMAIL,
-            [fund.fellow.email],
+            [fund.claimed.email],
             fail_silently=False
             )
 
@@ -41,7 +41,7 @@ def new_expense_notification(expense):
             'You can check the information of your expense claim at {}.'.format(
                 reverse_full("expense_claim", args=[expense.id])),
             DEFAULT_FROM_EMAIL,
-            [expense.fund.fellow.email],
+            [expense.fund.claimed.email],
             fail_silently=False
             )
 
@@ -58,6 +58,6 @@ def new_blog_notification(blog):
             'You can check the information of your fund at {}.'.format(
                 reverse_full("fund_detail", args=[blog.id])),
             DEFAULT_FROM_EMAIL,
-            [blog.fund.fellow.email],
+            [blog.fund.claimed.email],
             fail_silently=False
             )

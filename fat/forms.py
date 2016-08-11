@@ -6,9 +6,9 @@ from crispy_forms.bootstrap import PrependedText
 
 from .models import *
 
-class FellowForm(ModelForm):
+class ClaimedForm(ModelForm):
     def __init__(self, *args, **kwargs):
-        super(FellowForm, self).__init__(*args, **kwargs)
+        super(ClaimedForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper(self)
         self.helper.layout = Layout(
@@ -45,7 +45,7 @@ class FellowForm(ModelForm):
             )
 
     class Meta:
-        model = Fellow
+        model = Claimed
         fields = [
             'forenames',
             'surname',
@@ -82,8 +82,8 @@ class FundForm(ModelForm):
         self.helper.layout = Layout(
             Fieldset(
                 '',
-                HTML('<p>To apply for expenses for eligible events, please fill in this form at least one month before the start date of the event you wish to attend or organise.</p><h2>Fellow details</h2>'),
-                'fellow',
+                HTML('<p>To apply for expenses for eligible events, please fill in this form at least one month before the start date of the event you wish to attend or organise.</p><h2>Claimed details</h2>'),
+                'claimed',
                 HTML('<h2>Fund details</h2>'),
                 'category',
                 'name',
@@ -92,7 +92,7 @@ class FundForm(ModelForm):
                 'city',
                 'start_date',
                 'end_date',
-                HTML('<h2>Costs</h2><p>Please provide an estimate of your costs below. All values should be entered in GBP. Note that the cost entered here must be within 20% of the expenses you submit. See the terms and conditions for details (http://www.software.ac.uk/fellowship-terms-and-conditions-2016)</p><p>Please fill in all cost sections that are relevant to your event type.</p><p>Total costs should reflect the sum of all the costs and be the total estimate of costs for this event.</p>'),
+                HTML('<h2>Costs</h2><p>Please provide an estimate of your costs below. All values should be entered in GBP. Note that the cost entered here must be within 20% of the expenses you submit. See the terms and conditions for details (http://www.software.ac.uk/claimedship-terms-and-conditions-2016)</p><p>Please fill in all cost sections that are relevant to your event type.</p><p>Total costs should reflect the sum of all the costs and be the total estimate of costs for this event.</p>'),
                 PrependedText('budget_request_travel', '£'),
                 PrependedText('budget_request_attendance_fees', '£'),
                 PrependedText('budget_request_subsistence_cost', '£'),
@@ -126,7 +126,7 @@ class FundForm(ModelForm):
                 ]
 
         labels = {
-                'fellow': 'Fellow',
+                'claimed': 'Claimed',
                 'url': "Fund's homepage url",
                 'name': "Fund's name",
                 }

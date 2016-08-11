@@ -165,4 +165,4 @@ ADMINS = [
     ]
 
 # Subject-line prefix for email messages sent
-EMAIL_SUBJECT_PREFIX = "Software Sustaibability Institute's Fellowship Administration Tool"
+EMAIL_SUBJECT_PREFIX = "Software Sustaibability Institute's Claimedship Administration Tool"

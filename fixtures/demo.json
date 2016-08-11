@@ -165,27 +165,27 @@
     "model": "auth.permission",
     "pk": 19,
     "fields": {
-        "name": "Can add fellow",
+        "name": "Can add claimed",
         "content_type": 7,
-        "codename": "add_fellow"
+        "codename": "add_claimed"
     }
 },
 {
     "model": "auth.permission",
     "pk": 20,
     "fields": {
-        "name": "Can change fellow",
+        "name": "Can change claimed",
         "content_type": 7,
-        "codename": "change_fellow"
+        "codename": "change_claimed"
     }
 },
 {
     "model": "auth.permission",
     "pk": 21,
     "fields": {
-        "name": "Can delete fellow",
+        "name": "Can delete claimed",
         "content_type": 7,
-        "codename": "delete_fellow"
+        "codename": "delete_claimed"
     }
 },
 {
@@ -378,7 +378,7 @@
     }
 },
 {
-    "model": "fat.fellow",
+    "model": "fat.claimed",
     "pk": 1,
     "fields": {
         "user": 6,
@@ -407,7 +407,7 @@
         "facebook": "CaptainAmerica",
         "application_year": 2016,
         "selected": true,
-        "fellowship_grant": "3000.00",
+        "claimedship_grant": "3000.00",
         "notes_from_admin": "",
         "mentor": null,
         "added": "2016-07-07T14:59:46.412",
@@ -415,7 +415,7 @@
     }
 },
 {
-    "model": "fat.fellow",
+    "model": "fat.claimed",
     "pk": 2,
     "fields": {
         "user": 5,
@@ -444,7 +444,7 @@
         "facebook": "",
         "application_year": 2016,
         "selected": true,
-        "fellowship_grant": "3000.00",
+        "claimedship_grant": "3000.00",
         "notes_from_admin": "",
         "mentor": null,
         "added": "2016-07-07T14:59:46.412",
@@ -452,7 +452,7 @@
     }
 },
 {
-    "model": "fat.fellow",
+    "model": "fat.claimed",
     "pk": 3,
     "fields": {
         "user": 4,
@@ -481,7 +481,7 @@
         "facebook": "",
         "application_year": 2016,
         "selected": true,
-        "fellowship_grant": "3000.00",
+        "claimedship_grant": "3000.00",
         "notes_from_admin": "",
         "mentor": null,
         "added": "2016-07-07T14:59:46.412",
@@ -489,7 +489,7 @@
     }
 },
 {
-    "model": "fat.fellow",
+    "model": "fat.claimed",
     "pk": 4,
     "fields": {
         "user": 3,
@@ -518,7 +518,7 @@
         "facebook": "",
         "application_year": 2016,
         "selected": true,
-        "fellowship_grant": "3000.00",
+        "claimedship_grant": "3000.00",
         "notes_from_admin": "",
         "mentor": null,
         "added": "2016-07-07T14:59:46.412",
@@ -526,7 +526,7 @@
     }
 },
 {
-    "model": "fat.fellow",
+    "model": "fat.claimed",
     "pk": 5,
     "fields": {
         "user": 2,
@@ -555,7 +555,7 @@
         "facebook": "",
         "application_year": 2016,
         "selected": true,
-        "fellowship_grant": "3000.00",
+        "claimedship_grant": "3000.00",
         "notes_from_admin": "",
         "mentor": null,
         "added": "2016-07-07T14:59:46.412",
@@ -566,7 +566,7 @@
     "model": "fat.fund",
     "pk": 1,
     "fields": {
-        "fellow": 2,
+        "claimed": 2,
         "category": "O",
         "name": "9d680248 - Iron Man",
         "url": "9d680248.com",
@@ -600,7 +600,7 @@
     "model": "fat.fund",
     "pk": 2,
     "fields": {
-        "fellow": 5,
+        "claimed": 5,
         "category": "A",
         "name": "9d683330 - The Hulk",
         "url": "9d683330.com",
@@ -634,7 +634,7 @@
     "model": "fat.fund",
     "pk": 3,
     "fields": {
-        "fellow": 1,
+        "claimed": 1,
         "category": "O",
         "name": "9d681148 - Captain America",
         "url": "9d681148.com",
@@ -668,7 +668,7 @@
     "model": "fat.fund",
     "pk": 4,
     "fields": {
-        "fellow": 2,
+        "claimed": 2,
         "category": "O",
         "name": "9d680716 - Iron Man",
         "url": "9d680716.com",
@@ -702,7 +702,7 @@
     "model": "fat.fund",
     "pk": 5,
     "fields": {
-        "fellow": 3,
+        "claimed": 3,
         "category": "O",
         "name": "9d68144a - Green Arrow",
         "url": "9d68144a.com",
@@ -736,7 +736,7 @@
     "model": "fat.fund",
     "pk": 6,
     "fields": {
-        "fellow": 4,
+        "claimed": 4,
         "category": "O",
         "name": "9d6816de - Black Widow",
         "url": "9d6816de.com",
@@ -770,7 +770,7 @@
     "model": "fat.fund",
     "pk": 8,
     "fields": {
-        "fellow": 1,
+        "claimed": 1,
         "category": "A",
         "name": "9d6818e6 - Captain America",
         "url": "9d6818e6.com",
@@ -804,7 +804,7 @@
     "model": "fat.fund",
     "pk": 9,
     "fields": {
-        "fellow": 1,
+        "claimed": 1,
         "category": "A",
         "name": "9d681b66 - Captain America",
         "url": "9d681b66.com",
@@ -838,7 +838,7 @@
     "model": "fat.fund",
     "pk": 10,
     "fields": {
-        "fellow": 3,
+        "claimed": 3,
         "category": "A",
         "name": "9d681d8c - Green Arrow",
         "url": "9d681d8c.com",

@@ -21,7 +21,7 @@ from .mail import *
 
 def index(request):
     context = {
-            'fellows': Fellow.objects.exclude(selected=False).order_by('application_year').reverse(),
+            'claimeds': Claimed.objects.exclude(selected=False).order_by('application_year').reverse(),
             'funds': Fund.objects.filter(category="H", start_date__gte=django.utils.timezone.now(), can_be_advertise_before=True).order_by("start_date").reverse(),
             }
 
@@ -38,12 +38,12 @@ def dashboard(request):
 
     if request.user.is_authenticated():
         if not request.user.is_superuser and not request.user.is_staff:
-            fellow = Fellow.objects.get(user=request.user)
+            claimed = Claimed.objects.get(user=request.user)
 
             context.update({
-                'fellow': fellow,
-                'funds': Fund.objects.filter(fellow=fellow).reverse(),
-                'budget_available': fellow.fellowship_available(),
+                'claimed': claimed,
+                'funds': Fund.objects.filter(claimed=claimed).reverse(),
+                'budget_available': claimed.claimedship_available(),
                 })
         else:
             context.update({
@@ -55,62 +55,62 @@ def dashboard(request):
     return render(request, 'fat/dashboard.html', context)
 
 @login_required
-def fellow(request):
+def claimed(request):
     if not request.user.is_superuser and not request.user.is_staff:
-        instance = Fellow.objects.get(user=request.user)
+        instance = Claimed.objects.get(user=request.user)
     else:
         instance = None
 
-    formset = FellowForm(request.POST or None, request.FILES or None, instance=instance)
+    formset = ClaimedForm(request.POST or None, request.FILES or None, instance=instance)
 
     if formset.is_valid():
-        fellow = formset.save()
-        return HttpResponseRedirect(reverse('fellow_detail',
-                                            args=[fellow.id,]))
+        claimed = formset.save()
+        return HttpResponseRedirect(reverse('claimed_detail',
+                                            args=[claimed.id,]))
 
     # Show submission form.
     context = {
-            "title": "Create fellow",
+            "title": "Create claimed",
             "formset": formset,
             "submit_text": "Save",
             }
     return render(request, 'fat/form.html', context)
 
-def fellow_detail(request, fellow_id):
-    this_fellow = Fellow.objects.get(id=fellow_id)
+def claimed_detail(request, claimed_id):
+    this_claimed = Claimed.objects.get(id=claimed_id)
 
-    if not this_fellow.selected:
-        raise Http404("Fellow does not exist.")
+    if not this_claimed.selected:
+        raise Http404("Claimed does not exist.")
 
     context = {
-            'fellow': this_fellow,
-            'funds': Fund.objects.filter(fellow=this_fellow),
+            'claimed': this_claimed,
+            'funds': Fund.objects.filter(claimed=this_claimed),
             }
 
     if request.user.is_authenticated() and (request.user.is_superuser or
-            Fellow.objects.get(user=request.user) == this_fellow):
+            Claimed.objects.get(user=request.user) == this_claimed):
             context.update({
-                'expenses': Expense.objects.filter(fund__fellow=this_fellow),
+                'expenses': Expense.objects.filter(fund__claimed=this_claimed),
                 'show_finances': True,
                 })
 
-    return render(request, 'fat/fellow_detail.html', context)
+    return render(request, 'fat/claimed_detail.html', context)
 
 @login_required
 def my_profile(request):
     if not request.user.is_superuser and not request.user.is_staff:
-        fellow = Fellow.objects.get(user=request.user)
-        return fellow_detail(request, fellow.id)
+        claimed = Claimed.objects.get(user=request.user)
+        return claimed_detail(request, claimed.id)
 
-    raise Http404("Fellow does not exist.")
+    raise Http404("Claimed does not exist.")
 
 @login_required
 def fund(request):
     if request.POST:
         # Handle submission
         post = request.POST.copy()
-        fellow = Fellow.objects.get(id=post['fellow'])
-        post['fellow'] = fellow.id
+        claimed = Claimed.objects.get(id=post['claimed'])
+        post['claimed'] = claimed.id
         formset = FundForm(post)
 
         if formset.is_valid():
@@ -127,7 +127,7 @@ def fund(request):
 
     if not request.user.is_superuser:
         initial = {
-            "fellow": Fellow.objects.get(user=request.user),
+            "claimed": Claimed.objects.get(user=request.user),
         }
     else:
         initial = {}
@@ -135,7 +135,7 @@ def fund(request):
     formset = FundForm(initial=initial)
 
     if not request.user.is_superuser:
-        formset.fields["fellow"].queryset = Fellow.objects.filter(user=request.user)
+        formset.fields["claimed"].queryset = Claimed.objects.filter(user=request.user)
 
     # Show submission form.
     context = {
@@ -150,7 +150,7 @@ def fund_detail(request, fund_id):
     this_fund = Fund.objects.get(id=fund_id)
     
     if (request.user.is_superuser or
-            Fellow.objects.get(user=request.user) == this_fund.fellow):
+            Claimed.objects.get(user=request.user) == this_fund.claimed):
         budget_request = this_fund.budget_total()
 
         context = {
@@ -221,10 +221,10 @@ def expense(request):
 
     formset = ExpenseForm(initial=initial)
 
-    # Limit dropdown list to fellow
+    # Limit dropdown list to claimed
     if not request.user.is_superuser:
-        fellow = Fellow.objects.get(user=request.user)
-        formset.fields["fund"].queryset = Fund.objects.filter(fellow=fellow)
+        claimed = Claimed.objects.get(user=request.user)
+        formset.fields["fund"].queryset = Fund.objects.filter(claimed=claimed)
 
     # Show submission form.
     context = {
@@ -239,7 +239,7 @@ def expense_claim(request, expense_id):
     this_expense = Expense.objects.get(id=expense_id)
     
     if (request.user.is_superuser or
-            Fellow.objects.get(user=request.user) == this_expense.fund.fellow):
+            Claimed.objects.get(user=request.user) == this_expense.fund.claimed):
         context = {
             'expense': Expense.objects.get(id=expense_id),
         }
@@ -288,10 +288,10 @@ def blog(request):
         initial = {}
         formset = BlogForm(initial=initial)
 
-        # Limit dropdown list to fellow
+        # Limit dropdown list to claimed
     if not request.user.is_superuser:
-        fellow = Fellow.objects.get(user=request.user)
-        formset.fields["fund"].queryset = Fund.objects.filter(fellow=fellow)
+        claimed = Claimed.objects.get(user=request.user)
+        formset.fields["fund"].queryset = Fund.objects.filter(claimed=claimed)
 
     # Show submission form.
     context = {
@@ -342,12 +342,12 @@ def report(request):
     # XXX Pandas can't process Django QuerySet so we need to convert it into list.
     # XXX Pandas doesn't support DecimalField so we need to convert it into float.
 
-    # Number of fellows per year
-    fellows_per_year = Fellow.objects.all().values('application_year').annotate(total=Count('application_year'))
-    fellows_per_year_plot = Bar(list(fellows_per_year),
+    # Number of claimeds per year
+    claimeds_per_year = Claimed.objects.all().values('application_year').annotate(total=Count('application_year'))
+    claimeds_per_year_plot = Bar(list(claimeds_per_year),
                values='total',
                label='application_year',
-               title='Number of fellows')
+               title='Number of claimeds')
 
     # Fund requests
     fund_amount = Fund.objects.all().values('budget_approved')
@@ -355,7 +355,7 @@ def report(request):
                                   title='Amount request')
 
     bokeh_script, bokeh_plots = components({
-        'fellows_per_year': fellows_per_year_plot,
+        'claimeds_per_year': claimeds_per_year_plot,
         'fund_amount': fund_amount_hist,
         }, CDN)
 
@@ -370,7 +370,7 @@ def geojson(request):
     """Return the GeoJSON file."""
 
     context = {
-            'fellows': Fellow.objects.all(),
+            'claimeds': Claimed.objects.all(),
             'funds': Fund.objects.all(),
             }
 

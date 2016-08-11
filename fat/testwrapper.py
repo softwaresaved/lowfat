@@ -11,26 +11,26 @@ from django.test import Client
 from .models import *
 
 ADMIN_PASSWORD = '123456'
-FELLOW_A_PASSWORD = '123456'
-FELLOW_B_PASSWORD = '123456'
+CLAIMED_A_PASSWORD = '123456'
+CLAIMED_B_PASSWORD = '123456'
 
 def create_users():
     User.objects.create_superuser('admin',
                                   'admin@fake.fat.software.ac.uk',
                                   ADMIN_PASSWORD)
-    User.objects.create_user('fellow-a',
-                                  'a.fellow@fake.fat.software.ac.uk',
-                                  FELLOW_A_PASSWORD)
-    User.objects.create_user('fellow-b',
-                                  'b.fellow@fake.fat.software.ac.uk',
-                                  FELLOW_B_PASSWORD)
+    User.objects.create_user('claimed-a',
+                                  'a.claimed@fake.fat.software.ac.uk',
+                                  CLAIMED_A_PASSWORD)
+    User.objects.create_user('claimed-b',
+                                  'b.claimed@fake.fat.software.ac.uk',
+                                  CLAIMED_B_PASSWORD)
 
 
-def create_fellow():
+def create_claimed():
     create_users()
 
     data = {
-        "user": User.objects.get(username="fellow-b"),
+        "user": User.objects.get(username="claimed-b"),
         "forenames": "B",
         "surname": "B",
         "email": "b.b@fake.fat.software.ac.uk",
@@ -51,11 +51,11 @@ def create_fellow():
             "photo": SimpleUploadedFile('b_b.jpg', fake_file.read()),
         })
 
-    fellow = Fellow(**data)
-    fellow.save()
+    claimed = Claimed(**data)
+    claimed.save()
 
     data = {
-        "user": User.objects.get(username="fellow-a"),
+        "user": User.objects.get(username="claimed-a"),
         "forenames": "A",
         "surname": "A",
         "email": "a.a@fake.fat.software.ac.uk",
@@ -76,16 +76,16 @@ def create_fellow():
             "photo": SimpleUploadedFile('a_a.jpg', fake_file.read()),
         })
 
-    fellow = Fellow(**data)
-    fellow.save()
-    return fellow.id
+    claimed = Claimed(**data)
+    claimed.save()
+    return claimed.id
 
 def create_fund():
-    fellow_id = create_fellow()
-    fellow = Fellow.objects.get(id=fellow_id)
+    claimed_id = create_claimed()
+    claimed = Claimed.objects.get(id=claimed_id)
     
     data = {
-        "fellow": fellow,
+        "claimed": claimed,
         "category": "A",
         "name": "Fake",
         "url": "http://fake.com",
@@ -105,10 +105,10 @@ def create_fund():
 
     fund = Fund(**data)
     fund.save()
-    return fellow_id, fund.id
+    return claimed_id, fund.id
 
 def create_all():
-    fellow_id, fund_id = create_fund()
+    claimed_id, fund_id = create_fund()
     fund = Fund.objects.get(id=fund_id)
 
     data = {
@@ -132,4 +132,4 @@ def create_all():
     blog = Blog(**data)
     blog.save()
 
-    return fellow_id, fund_id, expense.id, blog.id
+    return claimed_id, fund_id, expense.id, blog.id

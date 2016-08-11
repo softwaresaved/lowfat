@@ -60,9 +60,9 @@ EXPENSE_STATUS = (
         )
 
 FUNDS_FROM = (
-    ('C', 'Continuing (fellowship)'),
+    ('C', 'Continuing (claimedship)'),
     ('I', 'Core (Software Sustainability Institute)'),
-    ('F', 'Grant (inauguration fellowship)'),
+    ('F', 'Grant (inauguration claimedship)'),
     )
 
 GRANTS = (
@@ -81,15 +81,15 @@ BLOG_POST_STATUS = (
         )
 
 
-class Fellow(models.Model):
-    """Describe a fellow."""
+class Claimed(models.Model):
+    """Describe a claimed."""
 
     class Meta:
         app_label = 'fat'
 
     # Authentication
     #
-    # We use this to only allow fellow to access their own data.
+    # We use this to only allow claimed to access their own data.
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
             null=True,
             blank=True)
@@ -165,7 +165,7 @@ class Fellow(models.Model):
                 blank=False,
                 default=date.today().year)
     selected = models.BooleanField(default=False)
-    fellowship_grant = models.DecimalField(max_digits=MAX_DIGITS,
+    claimedship_grant = models.DecimalField(max_digits=MAX_DIGITS,
                                            decimal_places=2,
                                            null=False,
                                            blank=False,
@@ -174,7 +174,7 @@ class Fellow(models.Model):
             null=True,
             blank=True)
 
-    # Mentors need to be another fellow
+    # Mentors need to be another claimed
     mentor = models.ForeignKey('self',
             blank=True,
             null=True)
@@ -189,34 +189,34 @@ class Fellow(models.Model):
     def fullname(self):
         return "{} {}".format(self.forenames, self.surname)
 
-    def fellowship_available(self):
-        """Return the remain fellowship grant."""
-        return self.fellowship_grant - self.fellowship_spent() - self.fellowship_remaining()
+    def claimedship_available(self):
+        """Return the remain claimedship grant."""
+        return self.claimedship_grant - self.claimedship_spent() - self.claimedship_remaining()
 
-    def fellowship_committed(self):
-        """Return the ammount committed from the fellowship grant."""
-        this_fellow_funds = Fund.objects.filter(fellow=self, status__in=['A', 'F'])
-        return sum([fund.budget_approved for fund in this_fellow_funds])
+    def claimedship_committed(self):
+        """Return the ammount committed from the claimedship grant."""
+        this_claimed_funds = Fund.objects.filter(claimed=self, status__in=['A', 'F'])
+        return sum([fund.budget_approved for fund in this_claimed_funds])
 
-    def fellowship_spent(self):
-        """Return the ammount alread spent from the fellowship grant."""
-        this_fellow_expenses = Expense.objects.filter(fund__fellow=self, status__in=['A', 'F']).exclude(funds_from__in=["C", "I"])
-        return sum([expense.amount_claimed for expense in this_fellow_expenses])
+    def claimedship_spent(self):
+        """Return the ammount alread spent from the claimedship grant."""
+        this_claimed_expenses = Expense.objects.filter(fund__claimed=self, status__in=['A', 'F']).exclude(funds_from__in=["C", "I"])
+        return sum([expense.amount_claimed for expense in this_claimed_expenses])
 
-    def fellowship_remaining(self):
+    def claimedship_remaining(self):
         """Return the ammount remaining to claim from the total committed."""
-        this_fellow_funds = Fund.objects.filter(fellow=self, status__in=['U', 'P', 'A'])
-        return self.fellowship_committed() - self.fellowship_spent()
+        this_claimed_funds = Fund.objects.filter(claimed=self, status__in=['U', 'P', 'A'])
+        return self.claimedship_committed() - self.claimedship_spent()
 
 
 
 class Fund(models.Model):
-    """Describe a fund from one fellow."""
+    """Describe a fund from one claimed."""
     class Meta:
         app_label = 'fat'
 
-    # TODO Make fellow more generic to include staffs.
-    fellow = models.ForeignKey('Fellow')
+    # TODO Make claimed more generic to include staffs.
+    claimed = models.ForeignKey('Claimed')
     category = models.CharField(choices=FUND_CATEGORY,
             max_length=1,
             default="O")
@@ -334,7 +334,7 @@ class Expense(models.Model):
             default=0.00)
     recipient = models.TextField(
         blank=True,
-        help_text="Keep empty if the recipient is the fellow."
+        help_text="Keep empty if the recipient is the claimed."
     )
     final = models.BooleanField(
         default=False,

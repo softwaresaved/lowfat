@@ -2,9 +2,9 @@
 {% load staticfiles %}
 
 {% block content %}
-<h1>Fellow Detail
-  {% if user == fellow.user %}
-  <a class="btn btn-default" href="{% url 'fellow' %}" role="button">Edit</a>
+<h1>Claimed Detail
+  {% if user == claimed.user %}
+  <a class="btn btn-default" href="{% url 'claimed' %}" role="button">Edit</a>
   {% endif %}
 </h1>
 {% include 'fat/photo.html' %}
@@ -12,15 +12,15 @@
     <tbody>
         <tr>
             <th>Name</th>
-            <td>{{ fellow.fullname }}</td>
+            <td>{{ claimed.fullname }}</td>
         </tr>
         <tr>
             <th>Affiliation</th>
-            <td>{{ fellow.affiliation }}</td>
+            <td>{{ claimed.affiliation }}</td>
         </tr>
         <tr>
             <th>Research area code</th>
-            <td>{{ fellow.get_research_area_code_display }}</td>
+            <td>{{ claimed.get_research_area_code_display }}</td>
         </tr>
     </tbody>
 </table>
