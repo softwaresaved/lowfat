@@ -129,19 +129,20 @@ class Claimed(models.Model):
     # JACS code for research_area.
     # https://www.hesa.ac.uk/jacs/
     research_area = models.TextField(
+        blank=True,
         help_text="Please describe your research"
     )
     research_area_code = models.CharField(choices=JACS_LEVEL_2,
                                           max_length=4,
                                           default="Y000")
     affiliation = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=False)
+            blank=True)
     funding = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=False)
+            blank=True)
     funding_notes = models.TextField(
             null=True,
             blank=True)
-    work_description = models.TextField(blank=False)
+    work_description = models.TextField(blank=True)
 
     # Social media
     website = models.URLField(max_length=MAX_CHAR_LENGTH,
