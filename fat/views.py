@@ -139,7 +139,7 @@ def fund(request):
 
     # Show submission form.
     context = {
-            "title": "Submit fund",
+            "title": "Request fund",
             "formset": formset,
             "submit_text": "Submit",
             }
