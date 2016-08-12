@@ -467,3 +467,4 @@ class SentMail(models.Model):
     # Internal
     sender = models.OneToOneField(settings.AUTH_USER_MODEL)
     receiver = models.ForeignKey('Claimed')
+    fund = models.ForeignKey('Fund')
