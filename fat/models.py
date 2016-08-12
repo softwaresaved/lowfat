@@ -352,14 +352,23 @@ class Expense(models.Model):
             decimal_places=2,
             blank=False,
             default=0.00)
-    recipient = models.TextField(
-        blank=True,
-        help_text="Keep empty if the recipient is the claimed."
-    )
     final = models.BooleanField(
         default=False,
         help_text="This is your last expense claim for the fund"
     )
+    # Recipient
+    recipient_fullname = models.TextField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
+    recipient_email = models.EmailField(
+            blank=True)
+    recipient_affiliation = models.CharField(max_length=MAX_CHAR_LENGTH,
+            blank=True)
+    recipient_group = models.CharField(max_length=MAX_CHAR_LENGTH,
+            blank=True)
+    recipient_connection = models.CharField(max_length=MAX_CHAR_LENGTH,
+            blank=True)
 
     # Admin fields
     status = models.CharField(choices=EXPENSE_STATUS,
