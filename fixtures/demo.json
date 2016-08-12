@@ -870,8 +870,9 @@
 },
 {
     "model": "fat.expense",
-    "pk": "3979af36-5a05-4ef7-ba57-e67cb8a9d454",
+    "pk": 1,
     "fields": {
+        "relative_number": 1,
         "fund": 8,
         "claim": "expenses/ec7.pdf",
         "amount_claimed": "500.00",
@@ -891,8 +892,9 @@
 },
 {
     "model": "fat.expense",
-    "pk": "7d8d67af-d8aa-465c-a6ab-31ed9217bf5d",
+    "pk": 2,
     "fields": {
+        "relative_number": 1,
         "fund": 2,
         "claim": "expenses/ec3.pdf",
         "amount_claimed": "20000.00",
@@ -912,8 +914,9 @@
 },
 {
     "model": "fat.expense",
-    "pk": "a18fc323-844e-49da-8d1c-38768713e9f7",
+    "pk": 3,
     "fields": {
+        "relative_number": 1,
         "fund": 3,
         "claim": "expenses/ec4.pdf",
         "amount_claimed": "400.00",
@@ -933,8 +936,9 @@
 },
 {
     "model": "fat.expense",
-    "pk": "aafa331a-0467-44a5-a067-726bed8efce2",
+    "pk": 4,
     "fields": {
+        "relative_number": 1,
         "fund": 1,
         "claim": "expenses/ec1.pdf",
         "amount_claimed": "1000.00",
@@ -954,8 +958,9 @@
 },
 {
     "model": "fat.expense",
-    "pk": "b2486ce7-c392-427d-b32e-9d58698f8687",
+    "pk": 5,
     "fields": {
+        "relative_number": 1,
         "fund": 5,
         "claim": "expenses/ec6.pdf",
         "amount_claimed": "2500.00",
@@ -975,8 +980,9 @@
 },
 {
     "model": "fat.expense",
-    "pk": "b7cb4d08-3bdc-452d-92e4-6bab1cd2f925",
+    "pk": 6,
     "fields": {
+        "relative_number": 2,
         "fund": 1,
         "claim": "expenses/ec2.pdf",
         "amount_claimed": "500.00",
@@ -996,8 +1002,9 @@
 },
 {
     "model": "fat.expense",
-    "pk": "da29f63f-de4a-407a-b24c-f7702ab34c4a",
+    "pk": 7,
     "fields": {
+        "relative_number": 1,
         "fund": 6,
         "claim": "expenses/ec8.pdf",
         "amount_claimed": "500.00",
@@ -1017,8 +1024,9 @@
 },
 {
     "model": "fat.expense",
-    "pk": "eabbab9b-47fd-4359-b3b4-b39ee5913613",
+    "pk": 8,
     "fields": {
+        "relative_number": 1,
         "fund": 4,
         "claim": "expenses/ec5.pdf",
         "amount_claimed": "1000.00",
