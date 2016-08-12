@@ -72,7 +72,7 @@ def claimed(request):
     context = {
             "title": "Create claimed" if instance is None else "Edit claimed",
             "formset": formset,
-            "submit_text": "Save",
+            "submit_text": "Save" if instance is None else "Update",
             }
     return render(request, 'fat/form.html', context)
 
@@ -141,7 +141,6 @@ def fund(request):
     context = {
             "title": "Request fund",
             "formset": formset,
-            "submit_text": "Submit",
             }
     return render(request, 'fat/form.html', context)
 
@@ -181,7 +180,6 @@ def fund_review(request, fund_id):
     context = {
             'fund': this_fund,
             'formset': formset,
-            'submit_text': 'Update',
             }
 
     return render(request, 'fat/fund_review.html', context)
@@ -229,7 +227,6 @@ def expense(request):
     context = {
             "title": "Submit expenses",
             "formset": formset,
-            "submit_text": "Submit",
             }
     return render(request, 'fat/form.html', context)
 
@@ -271,7 +268,6 @@ def expense_review(request, expense_id):
     context = {
             'expense': this_expense,
             'formset': formset,
-            'submit_text': 'Update',
             }
 
     return render(request, 'fat/expense_review.html', context)
@@ -308,7 +304,6 @@ def blog(request):
     context = {
             "title": "Submit blog",
             "formset": formset,
-            "submit_text": "Submit",
             }
     return render(request, 'fat/form.html', context)
 
@@ -342,7 +337,6 @@ def blog_review(request, blog_id):
     context = {
             'blog': this_blog,
             'formset': formset,
-            'submit_text': 'Update',
             }
 
     return render(request, 'fat/blog_review.html', context)

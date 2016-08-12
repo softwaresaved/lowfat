@@ -1,4 +1,5 @@
 {% extends "fat/base.html" %}
+{% load crispy_forms_tags %}
 {% load markdown %}
 
 {% block content %}
@@ -75,13 +76,7 @@
   </div>
   <div class="col-md-6">
 <h2>Review</h2>
-<form method="post" action="">
-    {% csrf_token %}
-    <table>
-    {{ formset.as_table }}
-    </table>
-    <input type="submit" value="{{ submit_text }}" />
-</form>
+{% crispy formset %}
   </div>
 </div>
 {% endblock %}

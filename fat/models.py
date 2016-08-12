@@ -455,3 +455,15 @@ class Blog(models.Model):
 
     def __str__(self):
         return "{}".format(self.draft_url)
+
+class SentMail(models.Model):
+    """Emails sent with custom text."""
+
+    class Meta:
+        app_label = 'fat'
+
+    justification = models.TextField()
+
+    # Internal
+    sender = models.OneToOneField(settings.AUTH_USER_MODEL)
+    receiver = models.ForeignKey('Claimed')

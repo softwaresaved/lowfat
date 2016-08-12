@@ -1,4 +1,4 @@
-from django.forms import ModelForm, SelectDateWidget
+from django.forms import ModelForm, SelectDateWidget, CharField
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML
@@ -7,6 +7,35 @@ from crispy_forms.bootstrap import PrependedText
 from .models import *
 
 class ClaimedForm(ModelForm):
+    class Meta:
+        model = Claimed
+        fields = [
+            'forenames',
+            'surname',
+            'email',
+            'phone',
+            'gender',
+            'home_country',
+            'home_city',
+            'photo',
+            'research_area',
+            'research_area_code',
+            'affiliation',
+            'funding',
+            'funding_notes',
+            'work_description',
+            'website',
+            'website_feed',
+            'orcid',
+            'github',
+            'gitlab',
+            'twitter',
+            'facebook',
+            ]
+
+
+    required_css_class = 'form-field-required'
+
     def __init__(self, *args, **kwargs):
         super(ClaimedForm, self).__init__(*args, **kwargs)
 
@@ -44,37 +73,34 @@ class ClaimedForm(ModelForm):
             )
             )
 
+
+class FundForm(ModelForm):
     class Meta:
-        model = Claimed
-        fields = [
-            'forenames',
-            'surname',
-            'email',
-            'phone',
-            'gender',
-            'home_country',
-            'home_city',
-            'photo',
-            'research_area',
-            'research_area_code',
-            'affiliation',
-            'funding',
-            'funding_notes',
-            'work_description',
-            'website',
-            'website_feed',
-            'orcid',
-            'github',
-            'gitlab',
-            'twitter',
-            'facebook',
-            ]
+        model = Fund
+        exclude = [
+                "status",
+                "ad_status",
+                "budget_approved",
+                "required_blog_posts",
+                "notes_from_admin",
+                "added",
+                "updated",
+                ]
+
+        labels = {
+                'claimed': 'Claimed',
+                'url': "Funder's homepage url",
+                'name': "Funder's name",
+                }
+
+        widgets = {
+            'start_date': SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day")),
+            'end_date': SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day")),
+        }
 
 
     required_css_class = 'form-field-required'
 
-
-class FundForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(FundForm, self).__init__(*args, **kwargs)
 
@@ -118,34 +144,6 @@ class FundForm(ModelForm):
         self.fields['category'].initial = ''
 
 
-
-    class Meta:
-        model = Fund
-        exclude = [
-                "status",
-                "ad_status",
-                "budget_approved",
-                "required_blog_posts",
-                "notes_from_admin",
-                "added",
-                "updated",
-                ]
-
-        labels = {
-                'claimed': 'Claimed',
-                'url': "Funder's homepage url",
-                'name': "Funder's name",
-                }
-
-        widgets = {
-            'start_date': SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day")),
-            'end_date': SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day")),
-        }
-
-
-    required_css_class = 'form-field-required'
-
-
 class FundReviewForm(ModelForm):
     class Meta:
         model = Fund
@@ -162,32 +160,16 @@ class FundReviewForm(ModelForm):
         }
 
 
-
     required_css_class = 'form-field-required'
+
+    def __init__(self, *args, **kwargs):
+        super(FundReviewForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+        self.helper.add_input(Submit('submit', 'Submit'))
 
 
 class ExpenseForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(ExpenseForm, self).__init__(*args, **kwargs)
-
-        self.helper = FormHelper(self)
-        self.helper.layout = Layout(
-            Fieldset(
-                '',
-                HTML("</p>Terms and conditions apply.</p>"),  # FIXME Add link
-                'fund',
-                'claim',
-                PrependedText('amount_claimed', '£'),
-                'final',
-                HTML("<h2>Recipient</h2><p>Only fill this part if you are claiming this expense on behalf of someone.</p>"),
-                'recipient_fullname',
-                'recipient_email',
-                'recipient_affiliation',
-                'recipient_group',
-                'recipient_connection'
-                )
-            )
-
     class Meta:
         model = Expense
         fields = [
@@ -215,26 +197,32 @@ class ExpenseForm(ModelForm):
 
     required_css_class = 'form-field-required'
 
-
-class ExpenseReviewForm(ModelForm):
     def __init__(self, *args, **kwargs):
-        super(ExpenseReviewForm, self).__init__(*args, **kwargs)
+        super(ExpenseForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper(self)
         self.helper.layout = Layout(
             Fieldset(
                 '',
-                'status',
-                'received_date',
-                'asked_for_authorization_date',
-                'send_to_finance_date',
-                PrependedText('amount_authorized_for_payment', '£'),
-                'funds_from',
-                'grant_used',
-                'notes_from_admin',
+                HTML("</p>Terms and conditions apply.</p>"),  # FIXME Add link
+                'fund',
+                'claim',
+                PrependedText('amount_claimed', '£'),
+                'final',
+                HTML("<h2>Recipient</h2><p>Only fill this part if you are claiming this expense on behalf of someone.</p>"),
+                'recipient_fullname',
+                'recipient_email',
+                'recipient_affiliation',
+                'recipient_group',
+                'recipient_connection',
+                ButtonHolder(
+                    Submit('submit', 'Add')
+                )
                 )
             )
 
+
+class ExpenseReviewForm(ModelForm):
     class Meta:
         model = Expense
         fields = [
@@ -257,8 +245,35 @@ class ExpenseReviewForm(ModelForm):
 
     required_css_class = 'form-field-required'
 
+    def __init__(self, *args, **kwargs):
+        super(ExpenseReviewForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                'status',
+                'received_date',
+                'asked_for_authorization_date',
+                'send_to_finance_date',
+                PrependedText('amount_authorized_for_payment', '£'),
+                'funds_from',
+                'grant_used',
+                'notes_from_admin',
+                ButtonHolder(
+                    Submit('submit', 'Update')
+                )
+                )
+            )
+
 
 class BlogForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(BlogForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+        self.helper.add_input(Submit('submit', 'Submit'))
+
     class Meta:
         model = Blog
         fields = [
@@ -282,3 +297,9 @@ class BlogReviewForm(ModelForm):
 
 
     required_css_class = 'form-field-required'
+
+    def __init__(self, *args, **kwargs):
+        super(BlogReviewForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+        self.helper.add_input(Submit('submit', 'Update'))
