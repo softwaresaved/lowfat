@@ -337,10 +337,11 @@ class Expense(models.Model):
     class Meta:
         app_label = 'fat'
 
-    # Hash for id to avoid leak of information
-    id = models.UUIDField(primary_key=True,
-            default=uuid.uuid4,
-            editable=False)
+    # Internal
+    relative_number = models.IntegerField(
+                null=False,
+                blank=False
+        )
 
     # Form
     fund = models.ForeignKey('Fund')
@@ -393,6 +394,11 @@ class Expense(models.Model):
     
     def __str__(self):
         return self.claim.name
+
+    def save(self, *args, **kwargs):
+        previous_number = Expense.objects.filter(fund=self.fund).count()
+        self.relative_number = previous_number + 1
+        super(Expense, self).save(*args, **kwargs)
 
 
 class Blog(models.Model):
