@@ -456,7 +456,7 @@ class Blog(models.Model):
     def __str__(self):
         return "{}".format(self.draft_url)
 
-class SentMail(models.Model):
+class GeneralSentMail(models.Model):
     """Emails sent with custom text."""
 
     class Meta:
@@ -465,6 +465,17 @@ class SentMail(models.Model):
     justification = models.TextField()
 
     # Internal
-    sender = models.OneToOneField(settings.AUTH_USER_MODEL)
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL)
     receiver = models.ForeignKey('Claimed')
+
+
+class FundSentMail(GeneralSentMail):
     fund = models.ForeignKey('Fund')
+
+
+class ExpenseSentMail(GeneralSentMail):
+    expense = models.ForeignKey('Expense')
+
+
+class BlogSentMail(GeneralSentMail):
+    blog = models.ForeignKey('Blog')

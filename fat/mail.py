@@ -61,3 +61,12 @@ def new_blog_notification(blog):
             [blog.fund.claimed.email],
             fail_silently=False
             )
+
+def blog_review_notification(mail):
+    # Email to user
+    send_mail('Update on your blog post',
+              mail.justification,
+              mail.sender.email,
+              [mail.receiver.email],
+              fail_silently=False
+            )

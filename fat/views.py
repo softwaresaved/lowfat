@@ -325,6 +325,14 @@ def blog_review(request, blog_id):
 
         if formset.is_valid():
             blog = formset.save()
+            mail = BlogSentMail(**{
+                "justification": formset.cleaned_data['email'],
+                "sender": request.user,
+                "receiver": blog.fund.claimed,
+                "blog": blog,
+                })
+            mail.save()
+            blog_review_notification(mail)
             return HttpResponseRedirect(reverse('blog_detail',
                 args=[blog.id,]))
 
@@ -336,6 +344,7 @@ def blog_review(request, blog_id):
 
     context = {
             'blog': this_blog,
+            'emails': BlogSentMail.objects.filter(blog=this_blog),
             'formset': formset,
             }
 

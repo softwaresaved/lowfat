@@ -1,4 +1,4 @@
-from django.forms import ModelForm, SelectDateWidget, CharField
+from django.forms import ModelForm, SelectDateWidget, CharField, Textarea
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML
@@ -297,6 +297,7 @@ class BlogReviewForm(ModelForm):
 
 
     required_css_class = 'form-field-required'
+    email = CharField(widget=Textarea, required=False)
 
     def __init__(self, *args, **kwargs):
         super(BlogReviewForm, self).__init__(*args, **kwargs)

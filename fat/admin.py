@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Claimed, Fund, Expense, Blog
+from .models import *
 
 class ClaimedAdmin(admin.ModelAdmin):
     list_display = [
@@ -110,12 +110,26 @@ class ExpenseAdmin(admin.ModelAdmin):
 class BlogAdmin(admin.ModelAdmin):
     pass
 
+class FundSentMailAdmin(admin.ModelAdmin):
+    pass
+
+
+class ExpenseSentMailAdmin(admin.ModelAdmin):
+    pass
+
+
+class BlogSentMailAdmin(admin.ModelAdmin):
+    pass
+
 
 PUBLIC_MODELS = (
         (Claimed, ClaimedAdmin),
         (Fund, FundAdmin),
         (Expense, ExpenseAdmin),
         (Blog, BlogAdmin),
+        (FundSentMail, FundSentMailAdmin),
+        (ExpenseSentMail, ExpenseSentMailAdmin),
+        (BlogSentMail, BlogSentMailAdmin),
         )
 
 
