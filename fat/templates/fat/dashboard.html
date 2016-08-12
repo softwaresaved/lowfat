@@ -6,6 +6,7 @@
 <ul>
     {% if user.is_superuser %}
     <li><a href="{% url 'claimed' %}">Create claimed profile</a></li>
+    <li><a href="{% url 'admin:fat_claimed_changelist' %}">Upgrade claimed profile to fellow</a></li>
     {% endif %}
     <li><a href="{% url 'fund' %}">Request funding support</a></li>
     <li><a href="{% url 'blog' %}">Submit a blog post</a></li>
