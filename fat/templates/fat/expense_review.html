@@ -37,7 +37,7 @@
         <tr>
             <th>Recipient</th>
             <td>
-              {% if expense.recipient %}
+              {% if expense.recipient_fullname %}
               {{ expense.fund.extra_sponsored }}
               {% else %}
               {{ expense.fund.claimed.fullname }}

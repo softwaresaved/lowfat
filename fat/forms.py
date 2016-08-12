@@ -178,8 +178,13 @@ class ExpenseForm(ModelForm):
                 'fund',
                 'claim',
                 PrependedText('amount_claimed', '£'),
-                'recipient',
                 'final',
+                HTML("<h2>Recipient</h2><p>Only fill this part if you are claiming this expense on behalf of someone.</p>"),
+                'recipient_fullname',
+                'recipient_email',
+                'recipient_affiliation',
+                'recipient_group',
+                'recipient_connection'
                 )
             )
 
@@ -189,13 +194,22 @@ class ExpenseForm(ModelForm):
             'fund',
             'claim',
             'amount_claimed',
-            'recipient',
             'final',
+            'recipient_fullname',
+            'recipient_email',
+            'recipient_affiliation',
+            'recipient_group',
+            'recipient_connection',
                 ]
 
         labels = {
             'fund': 'Fund request',
             'claim': 'PDF copy of receipt',
+            'recipient_fullname': "Full name",
+            'recipient_email': "E-mail",
+            'recipient_affiliation': "Affiliation",
+            'recipient_group': "Group",
+            'recipient_connection': "Connection",
         }
 
 
