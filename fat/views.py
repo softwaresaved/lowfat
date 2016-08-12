@@ -157,7 +157,6 @@ def fund_detail(request, fund_id):
             'fund': this_fund,
             'expenses': Expense.objects.filter(fund=this_fund),
             'blogs': Blog.objects.filter(fund=this_fund),
-            'budget_summary': True,
         }
 
         return render(request, 'fat/fund_detail.html', context)

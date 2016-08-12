@@ -52,7 +52,7 @@
   {% endif %}
     </tbody>
 </table>
-{% if budget_summary %}
+{% if fund.status in 'AF' or expenses or blogs %}
 <h2>Budget Summary</h2>
 <table class="table table-bordered">
     <tbody>
@@ -102,7 +102,6 @@
     </tbody>
 </table>
 {% include 'fat/expenses.html' %}
-{% endif %}
 <h2>Blogs</h2>
 <p><strong>This fund requires {{ fund.required_blog_posts }} blog posts.</strong>
   <a href="{% url 'blog' %}?fund_id={{fund.id}}">Submit new blog.</a></p>
@@ -136,4 +135,5 @@
     {% endfor %}
   </tbody>
 </table>
+{% endif %}
 {% endblock %}
