@@ -209,8 +209,56 @@ class URLTest(TestCase):
 
         self.run_requests(url, queries)
 
+    def test_expense_review_relative(self):
+        this_expense = Expense.objects.get(id=self.expense_id)
+        url = '/fund/{}/expense/{}/review'.format(self.fund_id, this_expense.relative_number)
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 302,
+            },
+            {
+                "user": self.claimed_a,
+                "expect_code": 302,
+            },
+            {
+                "user": self.claimed_b,
+                "expect_code": 302,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
+
+        self.run_requests(url, queries)
+
     def test_expense_details(self):
         url = '/expense/{}/'.format(self.expense_id)
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 302,
+            },
+            {
+                "user": self.claimed_a,
+                "expect_code": 200,
+            },
+            {
+                "user": self.claimed_b,
+                "expect_code": 404,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
+
+        self.run_requests(url, queries)
+
+    def test_expense_details_relative(self):
+        this_expense = Expense.objects.get(id=self.expense_id)
+        url = '/fund/{}/expense/{}/'.format(self.fund_id, this_expense.relative_number)
         queries = [
             {
                 "user": self.public,
