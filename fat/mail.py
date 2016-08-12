@@ -39,7 +39,7 @@ def new_expense_notification(expense):
     # Email to user
     send_mail('Your new expense claim was received',
             'You can check the information of your expense claim at {}.'.format(
-                reverse_full("expense_claim", args=[expense.id])),
+                reverse_full("expense_detail", args=[expense.id])),
             DEFAULT_FROM_EMAIL,
             [expense.fund.claimed.email],
             fail_silently=False

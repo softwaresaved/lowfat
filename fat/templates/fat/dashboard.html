@@ -90,7 +90,7 @@
     <tr>
       <td>{{ expense.added }}</td>
       <td>
-        <a href="{% url 'expense_review' expense.id %}">{{ expense.claim }}</a>
+        <a href="{% url 'expense_review_relative' expense.fund.id expense.relative_number %}">#{{ expense.relative_number }}</a>
         from <a href="{% url 'claimed_detail' expense.fund.claimed.id %}">{{ expense.fund.claimed.fullname }}</a>
         for <a href="{% url 'fund_detail' expense.fund.id %}">{{ expense.fund.name }}</a>
       </td>

@@ -209,7 +209,7 @@ class URLTest(TestCase):
 
         self.run_requests(url, queries)
 
-    def test_expense_claims(self):
+    def test_expense_details(self):
         url = '/expense/{}/'.format(self.expense_id)
         queries = [
             {
