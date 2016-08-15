@@ -23,20 +23,21 @@ class Command(BaseCommand):
         for idx, line in data.iterrows():
             try:
                 this_claimed = Claimed.objects.get(forenames=line["Forename(s)"], surname=line["Surname"], selected=True)
-                if line['Fund type'] == 'Attending a conference/workshop':
+                if line['Event type'] == 'Attending a conference/workshop':
                     fund_category = 'A'
-                elif line['Fund type'] == ' Organising a workshop (e.g. Software Carpentry)':
+                elif line['Event type'] == ' Organising a workshop (e.g. Software Carpentry)':
                     fund_category = 'H'
-                elif line['Fund type'] == 'Policy related fund':
+                elif line['Event type'] == 'Policy related fund':
                     fund_category = 'P'
                 else:
                     fund_category = 'O'
                 funds_dict = {
                         "claimed": this_claimed,
                         "category": fund_category,
-                        "name": line["Fund name"],
-                        "url": line["Fund website"],
-                        "location": line["Fund location"],
+                        "name": line["Event name"],
+                        "url": line["Event website"],
+                        "country": line["Event Country"] if len(line["Event Country"]) == 2 else 'GB',
+                        "city": line["Event City"],
                         "start_date": conv_date(line["Start date"]),
                         "end_date": conv_date(line["End date"]) if line["End date"] else conv_date(line["Start date"]),
                         "budget_request_travel": line["Travel costs"] if pd.notnull(line["Travel costs"]) else 0,
@@ -46,7 +47,7 @@ class Command(BaseCommand):
                         "budget_request_catering": line["Catering"] if pd.notnull(line["Catering"]) else 0,
                         "budget_request_others": line["Other costs"] if pd.notnull(line["Other costs"]) else 0,
                         "budget_approved": line["Estimate"] if pd.notnull(line["Estimate"]) else 0,
-                        "justification": line["How is the fund relevant to the work of the Software Sustainability Institute?"],
+                        "justification": line["How is the event relevant to the work of the Software Sustainability Institute?"],
                         "notes_from_admin": "{}\n{}\n{}".format(
                             line["Notes A"] if pd.notnull(line["Notes A"]) else "",
                             line["Notes B"] if pd.notnull(line["Notes B"]) else "",
@@ -76,7 +77,7 @@ The document that you are looking for doesn't exist because
 
 Sorry for the inconvenience.""") as fake_file:
                         expense_dict.update({
-                            "claim": SimpleUploadedFile('missing-proof.pdf', fake_file.read()),
+                            "claim": SimpleUploadedFile('missing-proof.txt', fake_file.read()),
                         })
 
                     expense = Expense(**expense_dict)
