@@ -34,7 +34,7 @@ class Command(BaseCommand):
                     jacs = "Y000"
 
                 applicants_dict = {
-                    "application_year": line["Inauguration year"],
+                    "application_year": line["Inauguration year"] - 1,
                     "selected": is_fellow,
                     "forenames": line["Forename(s)"],
                     "surname": line["Surname"],
