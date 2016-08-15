@@ -1,14 +1,14 @@
 {% extends "fat/base.html" %}
 
 {% block content %}
-<h1>Software Sustainability Institute Claimedship Programme</h1>
-<h2>Claimeds</h2>
+<h1>Software Sustainability Institute Fellowship Programme</h1>
+<h2>Fellows</h2>
 <div class="container">
 <ul class="list-group row">
 {% for claimed in claimeds %}
 <li class="list-group-item col-xs-3">
   <div class="ribbon">
-    <span>{{ claimed.application_year }}</span>
+    <span>{{ claimed.application_year | add:"1" }}</span>
   </div>
   <a href="{% url 'claimed_detail' claimed.id %}">
     {% include 'fat/photo.html' %}
@@ -43,8 +43,8 @@
 <ul>
 </div>
 
-<h2>Funds</h2>
-<p>The following funds will happen in the short future and have the support of at least one of the Institute claimeds.</p>
+<h2>Events</h2>
+<p>The following events will happen in the short future and have the support of at least one of the Institute fellows.</p>
 {% include 'fat/funds.html' %}
 <p>Check <a href="{% url 'fund_past' %}">previous funds</a> also organized by Institute claimeds.</p>
 {% endblock %}
