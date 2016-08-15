@@ -1,5 +1,7 @@
 django
 django-countries
+django-crispy-forms
 django-settings-export
 markdown
 pandas
+bokeh
