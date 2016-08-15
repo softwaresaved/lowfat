@@ -270,6 +270,114 @@
     }
 },
 {
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+        "name": "Can add blog sent mail",
+        "content_type": 11,
+        "codename": "add_blogsentmail"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+        "name": "Can change blog sent mail",
+        "content_type": 11,
+        "codename": "change_blogsentmail"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+        "name": "Can delete blog sent mail",
+        "content_type": 11,
+        "codename": "delete_blogsentmail"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+        "name": "Can add expense",
+        "content_type": 12,
+        "codename": "add_expense"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+        "name": "Can change expense",
+        "content_type": 12,
+        "codename": "change_expense"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+        "name": "Can delete expense",
+        "content_type": 12,
+        "codename": "delete_expense"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+        "name": "Can add fund sent mail",
+        "content_type": 13,
+        "codename": "add_fundsentmail"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+        "name": "Can change fund sent mail",
+        "content_type": 13,
+        "codename": "change_fundsentmail"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+        "name": "Can delete fund sent mail",
+        "content_type": 13,
+        "codename": "delete_fundsentmail"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+        "name": "Can add expense sent mail",
+        "content_type": 14,
+        "codename": "add_expensesentmail"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 41,
+    "fields": {
+        "name": "Can change expense sent mail",
+        "content_type": 14,
+        "codename": "change_expensesentmail"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 42,
+    "fields": {
+        "name": "Can delete expense sent mail",
+        "content_type": 14,
+        "codename": "delete_expensesentmail"
+    }
+},
+{
     "model": "auth.user",
     "pk": 2,
     "fields": {
@@ -877,6 +985,11 @@
         "claim": "expenses/ec7.pdf",
         "amount_claimed": "500.00",
         "final": false,
+        "recipient_fullname": "",
+        "recipient_email": "",
+        "recipient_affiliation": "",
+        "recipient_group": "",
+        "recipient_connection": "",
         "status": "F",
         "received_date": "2016-07-17",
         "asked_for_authorization_date": "2016-07-17",
@@ -898,6 +1011,11 @@
         "claim": "expenses/ec3.pdf",
         "amount_claimed": "20000.00",
         "final": false,
+        "recipient_fullname": "",
+        "recipient_email": "",
+        "recipient_affiliation": "",
+        "recipient_group": "",
+        "recipient_connection": "",
         "status": "F",
         "received_date": "2016-07-17",
         "asked_for_authorization_date": "2016-07-17",
@@ -919,6 +1037,11 @@
         "claim": "expenses/ec4.pdf",
         "amount_claimed": "400.00",
         "final": false,
+        "recipient_fullname": "",
+        "recipient_email": "",
+        "recipient_affiliation": "",
+        "recipient_group": "",
+        "recipient_connection": "",
         "status": "F",
         "received_date": "2016-07-17",
         "asked_for_authorization_date": "2016-07-17",
@@ -940,6 +1063,11 @@
         "claim": "expenses/ec1.pdf",
         "amount_claimed": "1000.00",
         "final": false,
+        "recipient_fullname": "",
+        "recipient_email": "",
+        "recipient_affiliation": "",
+        "recipient_group": "",
+        "recipient_connection": "",
         "status": "P",
         "received_date": "2016-07-17",
         "asked_for_authorization_date": null,
@@ -961,6 +1089,11 @@
         "claim": "expenses/ec6.pdf",
         "amount_claimed": "2500.00",
         "final": false,
+        "recipient_fullname": "",
+        "recipient_email": "",
+        "recipient_affiliation": "",
+        "recipient_group": "",
+        "recipient_connection": "",
         "status": "F",
         "received_date": "2016-07-17",
         "asked_for_authorization_date": "2016-07-17",
@@ -982,6 +1115,11 @@
         "claim": "expenses/ec2.pdf",
         "amount_claimed": "500.00",
         "final": false,
+        "recipient_fullname": "",
+        "recipient_email": "",
+        "recipient_affiliation": "",
+        "recipient_group": "",
+        "recipient_connection": "",
         "status": "F",
         "received_date": "2016-07-17",
         "asked_for_authorization_date": "2016-07-17",
@@ -1003,6 +1141,11 @@
         "claim": "expenses/ec8.pdf",
         "amount_claimed": "500.00",
         "final": false,
+        "recipient_fullname": "",
+        "recipient_email": "",
+        "recipient_affiliation": "",
+        "recipient_group": "",
+        "recipient_connection": "",
         "status": "A",
         "received_date": "2016-07-17",
         "asked_for_authorization_date": "2016-07-17",
@@ -1024,6 +1167,11 @@
         "claim": "expenses/ec5.pdf",
         "amount_claimed": "1000.00",
         "final": false,
+        "recipient_fullname": "",
+        "recipient_email": "",
+        "recipient_affiliation": "",
+        "recipient_group": "",
+        "recipient_connection": "",
         "status": "F",
         "received_date": "2016-07-17",
         "asked_for_authorization_date": "2016-07-17",
