@@ -45,28 +45,55 @@ span.asteriskField::before {
    transform: rotate(45deg);
    width: 100px; display: block;
    background: #79A70A;
-   background: linear-gradient(#9BC90D 0%, #79A70A 100%);
+   /*background: linear-gradient(#9BC90D 0%, #79A70A 100%);*/
    box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
    position: absolute;
    top: 19px; right: -21px;
+}
+.ribbon.fellows-2018 span {
+    background: #89c53f;
+}
+.ribbon.fellows-2017 span {
+    background: #cd1f44;
+}
+.ribbon.fellows-2016 span {
+    background: #1691b2;
+}
+.ribbon.fellows-2015 span {
+    background: #e68325;
+}
+.ribbon.fellows-2014 span {
+    background: #592d8c;
+}
+.ribbon.fellows-2013 span {
+    background: #e65a25;
+}
+.ribbon.fellows-2012 span {
+    background: #14a85c;
+}
+.ribbon.fellows-2011 span {
+    background: #8488a7;
+}
+.ribbon.fellows-2010 span {
+    background: #92a282;
 }
 .ribbon span::before {
    content: '';
    position: absolute;
    left: 0px; top: 100%;
    z-index: -1;
-   border-left: 3px solid #79A70A;
+   border-left: 3px solid #000000;
    border-right: 3px solid transparent;
    border-bottom: 3px solid transparent;
-   border-top: 3px solid #79A70A;
+   border-top: 3px solid #000000;
 }
 .ribbon span::after {
    content: '';
    position: absolute;
    right: 0%; top: 100%;
    z-index: -1;
-   border-right: 3px solid #79A70A;
+   border-right: 3px solid #00000;
    border-left: 3px solid transparent;
    border-bottom: 3px solid transparent;
-   border-top: 3px solid #79A70A;
+   border-top: 3px solid #000000;
 }

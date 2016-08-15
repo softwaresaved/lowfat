@@ -7,7 +7,7 @@
 <ul class="list-group row">
 {% for claimed in claimeds %}
 <li class="list-group-item col-xs-3">
-  <div class="ribbon">
+  <div class="ribbon fellows-{{ claimed.application_year | add:"1" }}">
     <span>{{ claimed.application_year | add:"1" }}</span>
   </div>
   <a href="{% url 'claimed_detail' claimed.id %}">
