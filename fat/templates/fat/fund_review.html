@@ -73,6 +73,25 @@
         </tr>
     </tbody>
 </table>
+<h2>Communication</h2>
+<table class="table table-bordered">
+    <tbody>
+{% for email in emails %}
+        <tr>
+            <th>From</th>
+            <td>{{ email.sender }}</td>
+        </tr>
+        <tr>
+            <th>To</th>
+            <td>{{ email.receiver }}</td>
+        </tr>
+        <tr>
+            <th>Message</th>
+            <td>{{ email.justification }}</td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
   </div>
   <div class="col-md-6">
 <h2>Review</h2>

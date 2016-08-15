@@ -172,6 +172,14 @@ def fund_review(request, fund_id):
 
         if formset.is_valid():
             fund = formset.save()
+            mail = FundSentMail(**{
+                "justification": formset.cleaned_data['email'],
+                "sender": request.user,
+                "receiver": fund.claimed,
+                "fund": fund,
+                })
+            mail.save()
+            fund_review_notification(mail)
             return HttpResponseRedirect(reverse('fund_detail',
                 args=[fund.id,]))
 
@@ -180,6 +188,7 @@ def fund_review(request, fund_id):
     context = {
             'fund': this_fund,
             'formset': formset,
+            'emails': FundSentMail.objects.filter(fund=this_fund),
             }
 
     return render(request, 'fat/fund_review.html', context)
@@ -260,6 +269,14 @@ def expense_review(request, expense_id):
 
         if formset.is_valid():
             expense = formset.save()
+            mail = ExpenseSentMail(**{
+                "justification": formset.cleaned_data['email'],
+                "sender": request.user,
+                "receiver": expense.fund.claimed,
+                "expense": expense,
+                })
+            mail.save()
+            expense_review_notification(mail)
             return HttpResponseRedirect(reverse('expense_detail',
                 args=[expense.id,]))
 
@@ -268,6 +285,7 @@ def expense_review(request, expense_id):
     context = {
             'expense': this_expense,
             'formset': formset,
+            'emails': ExpenseSentMail.objects.filter(expense=this_expense),
             }
 
     return render(request, 'fat/expense_review.html', context)

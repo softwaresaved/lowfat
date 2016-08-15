@@ -161,6 +161,7 @@ class FundReviewForm(ModelForm):
 
 
     required_css_class = 'form-field-required'
+    email = CharField(widget=Textarea, required=False)
 
     def __init__(self, *args, **kwargs):
         super(FundReviewForm, self).__init__(*args, **kwargs)
@@ -244,6 +245,7 @@ class ExpenseReviewForm(ModelForm):
 
 
     required_css_class = 'form-field-required'
+    email = CharField(widget=Textarea, required=False)
 
     def __init__(self, *args, **kwargs):
         super(ExpenseReviewForm, self).__init__(*args, **kwargs)
