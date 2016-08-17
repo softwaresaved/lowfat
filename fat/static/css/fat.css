@@ -3,6 +3,15 @@
     height: 18px;  /* same of font-size */
 }
 
+div.fellow {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+a.icon:hover {
+    text-decoration: none;
+}
+
 .passport-photo {
     width: 120px;
     height: 120px;

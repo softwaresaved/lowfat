@@ -4,9 +4,11 @@
 <h1>Software Sustainability Institute Fellowship Programme</h1>
 <h2>Fellows</h2>
 <div class="container">
-<ul class="list-group row">
 {% for claimed in claimeds %}
-<li class="list-group-item col-xs-3">
+{% if forloop.counter0|divisibleby:"3" %}
+<div class="row">
+{% endif %}
+<div class="fellow col-md-4">
   <div class="ribbon fellows-{{ claimed.application_year | add:"1" }}">
     <span>{{ claimed.application_year | add:"1" }}</span>
   </div>
@@ -17,45 +19,51 @@
   </a>
   <br>
   {% if claimed.website %}
-  <a href="{{ claimed.website }}">
+  <a class="icon" href="{{ claimed.website }}">
     <i class="fa fa-cloud" aria-hidden="true"></i>
   </a>
   {% endif %}
   {% if claimed.website_feed %}
-  <a href="{{ claimed.website_feed }}">
+  <a class="icon" href="{{ claimed.website_feed }}">
     <i class="fa fa-rss" aria-hidden="true"></i>
   </a>
   {% endif %}
   {% if claimed.orcid %}
-  <a href="http://orcid.org/{{ claimed.orcid }}">
+  <a class="icon" href="http://orcid.org/{{ claimed.orcid }}">
     <i class="ai ai-orcid" aria-hidden="true"></i>
   </a>
   {% endif %}
   {% if claimed.github %}
-  <a href="http://github.com/{{ claimed.github }}">
+  <a class="icon" href="http://github.com/{{ claimed.github }}">
     <i class="fa fa-github" aria-hidden="true"></i>
   </a>
   {% endif %}
   {% if claimed.gitlab %}
-  <a href="https://gitlab.com/{{ claimed.gitlab }}">
+  <a class="icon" href="https://gitlab.com/{{ claimed.gitlab }}">
     <i class="fa fa-gitlab" aria-hidden="true"></i>
   </a>
   {% endif %}
   {% if claimed.twitter %}
-  <a href="https://twitter.com/{{ claimed.twitter }}">
+  <a class="icon" href="https://twitter.com/{{ claimed.twitter }}">
     <i class="fa fa-twitter" aria-hidden="true"></i>
   </a>
   {% endif %}
   {% if claimed.facebook %}
-  <a href="https://facebook.com/{{ claimed.facebook }}">
+  <a class="icon" href="https://facebook.com/{{ claimed.facebook }}">
     <i class="fa fa-facebook" aria-hidden="true"></i>
   </a>
   {% endif %}
+  <a class="icon">
+    <i class="fa fa-fw">&nbsp;</i>
+  </a>
     {% if show_grant_available %}
     <br>
     £{{ claimed.claimedship_available }}
     {% endif %}
-</li>
+</div>
+{% if forloop.counter|divisibleby:"3" %}
+</div>
+{% endif %}
 {% endfor %}
 <ul>
 </div>
