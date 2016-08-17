@@ -89,6 +89,7 @@ class FundForm(ModelForm):
 
         labels = {
                 'claimed': 'Claimed',
+                'category_other': 'Specify the category if used "Other"',
                 'url': "Funder's homepage url",
                 'name': "Funder's name",
                 }
@@ -112,6 +113,7 @@ class FundForm(ModelForm):
                 'claimed',
                 HTML('<h2>Fund details</h2>'),
                 'category',
+                'category_other',
                 'name',
                 'url',
                 'country',
