@@ -6,6 +6,7 @@ STATIC_FOLDER=fat/static/
 TMP_FOLDER=/tmp/
 BOOTSTRAP_ZIP=/tmp/bootstrap.zip
 FONT_AWESOME_ZIP=/tmp/fontawesome.zip
+ACADEMICONS_ZIP=/tmp/academicons.zip
 
 # Bootstrap
 curl \
@@ -24,6 +25,18 @@ curl \
 unzip \
     $FONT_AWESOME_ZIP \
     -d $TMP_FOLDER
+
+# Academicons
+#
+# Supplement for Font Awesome
+curl \
+    -L \
+    -o $ACADEMICONS_ZIP \
+    https://github.com/jpswalsh/academicons/archive/v1.7.0.zip
+unzip \
+    $ACADEMICONS_ZIP \
+    -d $TMP_FOLDER
+
 
 # Copy files
 for folder in css fonts js
