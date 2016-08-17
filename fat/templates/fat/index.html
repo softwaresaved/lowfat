@@ -17,22 +17,39 @@
   </a>
   <br>
   {% if claimed.website %}
-  <a href="{{ claimed.website }}"<span class="svg-icon dribble"></span></a>
+  <a href="{{ claimed.website }}">
+    <i class="fa fa-cloud" aria-hidden="true"></i>
+  </a>
+  {% endif %}
+  {% if claimed.website_feed %}
+  <a href="{{ claimed.website_feed }}">
+    <i class="fa fa-rss" aria-hidden="true"></i>
+  </a>
   {% endif %}
   {% if claimed.orcid %}
-  <a href="http://orcid.org/{{ claimed.orcid }}"<span class="svg-icon orcid"></span></a>
+  <a href="http://orcid.org/{{ claimed.orcid }}">
+    <i class="fa fa-orcid" aria-hidden="true"></i>
+  </a>
   {% endif %}
   {% if claimed.github %}
-  <a href="http://github.com/{{ claimed.github }}"<span class="svg-icon github"></span></a>
+  <a href="http://github.com/{{ claimed.github }}">
+    <i class="fa fa-github" aria-hidden="true"></i>
+  </a>
   {% endif %}
   {% if claimed.gitlab %}
-  <a href="https://gitlab.com/{{ claimed.gitlab }}"<span class="svg-icon gitlab"></span></a>
+  <a href="https://gitlab.com/{{ claimed.gitlab }}">
+    <i class="fa fa-gitlab" aria-hidden="true"></i>
+  </a>
   {% endif %}
   {% if claimed.twitter %}
-  <a href="https://twitter.com/{{ claimed.twitter }}"<span class="svg-icon twitter"></span></a>
+  <a href="https://twitter.com/{{ claimed.twitter }}">
+    <i class="fa fa-twitter" aria-hidden="true"></i>
+  </a>
   {% endif %}
   {% if claimed.facebook %}
-  <a href="https://facebook.com/{{ claimed.facebook }}"<span class="svg-icon facebook"></span></a>
+  <a href="https://facebook.com/{{ claimed.facebook }}">
+    <i class="fa fa-facebook" aria-hidden="true"></i>
+  </a>
   {% endif %}
     {% if show_grant_available %}
     <br>
