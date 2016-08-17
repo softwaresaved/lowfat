@@ -5,10 +5,10 @@
 <h2>Fellows</h2>
 <div class="container">
 {% for claimed in claimeds %}
-{% if forloop.counter0|divisibleby:"3" %}
+{% if forloop.counter0|divisibleby:"6" %}
 <div class="row">
 {% endif %}
-<div class="fellow col-md-4">
+<div class="fellow col-md-2">
   <div class="ribbon fellows-{{ claimed.application_year | add:"1" }}">
     <span>{{ claimed.application_year | add:"1" }}</span>
   </div>
@@ -61,7 +61,7 @@
     £{{ claimed.claimedship_available }}
     {% endif %}
 </div>
-{% if forloop.counter|divisibleby:"3" %}
+{% if forloop.counter|divisibleby:"6" %}
 </div>
 {% endif %}
 {% endfor %}
