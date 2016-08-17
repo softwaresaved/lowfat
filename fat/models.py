@@ -83,7 +83,7 @@ BLOG_POST_STATUS = (
 
 def fix_url(url):
     """Prepend 'http://' to URL."""
-    if url is not None and (not url and not re.match("https?://", url)):
+    if url is not None and url and not re.match("https?://", url):
         return "http://{}".format(url)
 
     return url
