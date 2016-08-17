@@ -234,6 +234,10 @@ class Fund(models.Model):
     category = models.CharField(choices=FUND_CATEGORY,
             max_length=1,
             default="O")
+    category_other = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
     name = models.CharField(max_length=MAX_CHAR_LENGTH)
     url = models.CharField(max_length=MAX_CHAR_LENGTH)
     country = CountryField(default='GB')  # Default for United Kingdom
