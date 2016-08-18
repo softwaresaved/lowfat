@@ -298,7 +298,7 @@ def expense_review_relative(request, fund_id, expense_relative_number):
 
 @login_required
 def blog(request):
-    formset = BlogForm(request.POST or None)
+    formset = BlogForm(request.POST or None, user=request.user)
 
     if formset.is_valid():
         blog = formset.save()
