@@ -101,6 +101,7 @@ class FundForm(ModelForm):
 
 
     required_css_class = 'form-field-required'
+    total_budget = CharField(required=False)
 
     def __init__(self, *args, **kwargs):
         super(FundForm, self).__init__(*args, **kwargs)
@@ -121,12 +122,13 @@ class FundForm(ModelForm):
                 'start_date',
                 'end_date',
                 HTML('<h2>Costs</h2><p>Please provide an estimate of your costs below. All values should be entered in GBP. Note that the cost entered here must be within 20% of the expenses you submit. See the terms and conditions for details (http://www.software.ac.uk/claimedship-terms-and-conditions-2016)</p><p>Please fill in all cost sections that are relevant to your event type.</p><p>Total costs should reflect the sum of all the costs and be the total estimate of costs for this event.</p>'),
-                PrependedText('budget_request_travel', '£'),
-                PrependedText('budget_request_attendance_fees', '£'),
-                PrependedText('budget_request_subsistence_cost', '£'),
-                PrependedText('budget_request_venue_hire', '£'),
-                PrependedText('budget_request_catering', '£'),
-                PrependedText('budget_request_others', '£'),
+                PrependedText('budget_request_travel', '£', onkeyup="update_budget()"),
+                PrependedText('budget_request_attendance_fees', '£', onkeyup="update_budget()"),
+                PrependedText('budget_request_subsistence_cost', '£', onkeyup="update_budget()"),
+                PrependedText('budget_request_venue_hire', '£', onkeyup="update_budget()"),
+                PrependedText('budget_request_catering', '£', onkeyup="update_budget()"),
+                PrependedText('budget_request_others', '£', onkeyup="update_budget()"),
+                PrependedText('total_budget', '£', disabled=True, value=0.0),
                 HTML('<h2>Justification for attending or organising the event</h2><p>When filling in the questions below please consider the following points:<p></p>For attending conferences/workshops: will the conference focus on a significant field, will you meet significant researchers, will there be a focus on research software?</p><p>For organising workshops: how will the event help your domain, how will the event help the Institute, how will the event help you.</p><p>For policy related work: how might participation or organisation help the policy goals of the Institute, such as improving software and improved research (this can include people and tools perspectives).</p><p>For other: please state reasons - note it maybe good to discuss matter with the Institute Community Lead before filling the form to make sure the rationale is aligned to the Institute and to your own objectives.</p>'),
                 'justification',
                 'additional_info',
