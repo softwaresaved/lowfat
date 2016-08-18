@@ -12,7 +12,8 @@ class ClaimedAdmin(admin.ModelAdmin):
         'surname',
         'forenames',
         'email',
-        'home_location',
+        'home_country',
+        'home_city',
         'research_area',
         'research_area_code',
         'affiliation',
@@ -36,7 +37,8 @@ class FundAdmin(admin.ModelAdmin):
         'claimed__surname',
         'claimed__forenames',
         'name',
-        'location',
+        'country',
+        'city',
     ]
     list_filter = [
         'category',
