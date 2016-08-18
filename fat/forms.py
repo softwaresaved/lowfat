@@ -284,7 +284,7 @@ class BlogForm(ModelForm):
 
     required_css_class = 'form-field-required'
 
-    def __init__(self, user=None, *args, **kwargs):
+    def __init__(self, *args, user=None, **kwargs):
         super(BlogForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper(self)
