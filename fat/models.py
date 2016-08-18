@@ -88,6 +88,13 @@ def fix_url(url):
 
     return url
 
+def slug_generator(forenames, lastname):
+    """Generate slug for Claimed"""
+    return "{}-{}".format(
+        forenames.lower().replace(" ", "-"),
+        lastname.lower().replace(" ", "-")
+        )
+
 class Claimed(models.Model):
     """Describe a claimed."""
 
@@ -168,6 +175,7 @@ class Claimed(models.Model):
             blank=True)
 
     # Admin fields
+    slug = models.CharField(max_length=MAX_CHAR_LENGTH)
     application_year = models.IntegerField(
                 null=False,
                 blank=False,
@@ -192,6 +200,7 @@ class Claimed(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
+        self.slug = slug_generator(self.forenames, self.lastname)
         self.website = fix_url(self.website)
         self.website_feed = fix_url(self.website)
 
