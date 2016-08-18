@@ -224,6 +224,7 @@ class ExpenseForm(ModelForm):
                 )
             )
 
+        self.fields['fund'].queryset = Fund.objects.filter(status__in=['U', 'P', 'A'])
 
 class ExpenseReviewForm(ModelForm):
     class Meta:
@@ -272,12 +273,6 @@ class ExpenseReviewForm(ModelForm):
 
 
 class BlogForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(BlogForm, self).__init__(*args, **kwargs)
-
-        self.helper = FormHelper(self)
-        self.helper.add_input(Submit('submit', 'Submit'))
-
     class Meta:
         model = Blog
         fields = [
@@ -288,6 +283,15 @@ class BlogForm(ModelForm):
 
 
     required_css_class = 'form-field-required'
+
+    def __init__(self, user=None, *args, **kwargs):
+        super(BlogForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+        self.helper.add_input(Submit('submit', 'Submit'))
+
+        if user:
+            self.fields['fund'].queryset = Fund.objects.filter(status__in=['U', 'P', 'A'])
 
 
 class BlogReviewForm(ModelForm):
