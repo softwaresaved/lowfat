@@ -27,7 +27,7 @@ class Command(BaseCommand):
                     fund_category = 'A'
                 elif line['Event type'] == ' Organising a workshop (e.g. Software Carpentry)':
                     fund_category = 'H'
-                elif line['Event type'] == 'Policy related fund':
+                elif line['Event type'] == 'Policy related event':
                     fund_category = 'P'
                 else:
                     fund_category = 'O'
