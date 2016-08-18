@@ -1083,6 +1083,7 @@ class BlogFormTest(TestCase):
     def test_null_fund(self):
         data = {
         "draft_url": "http://software.ac.uk",
+        "final": True,
             }
 
         form = BlogForm(data)
@@ -1092,6 +1093,7 @@ class BlogFormTest(TestCase):
         data = {
         "fund": "",
         "draft_url": "http://software.ac.uk",
+        "final": True,
             }
 
         form = BlogForm(data)
@@ -1100,6 +1102,7 @@ class BlogFormTest(TestCase):
     def test_null_draft_url(self):
         data = {
         "fund": self.fund_id,
+        "final": True,
             }
 
         form = BlogForm(data)
@@ -1109,15 +1112,26 @@ class BlogFormTest(TestCase):
         data = {
         "fund": self.fund_id,
         "draft_url": "",
+        "final": True,
             }
 
         form = BlogForm(data)
         self.assertFalse(form.is_valid())
 
+    def test_null_final(self):
+        data = {
+        "fund": self.fund_id,
+        "draft_url": "http://software.ac.uk",
+            }
+
+        form = BlogForm(data)
+        self.assertTrue(form.is_valid())
+
     def test_full_expected(self):
         data = {
         "fund": self.fund_id,
         "draft_url": "http://software.ac.uk",
+        "final": True,
             }
 
         form = BlogForm(data)
