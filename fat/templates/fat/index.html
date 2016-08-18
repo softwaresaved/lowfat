@@ -12,7 +12,7 @@
   <div class="ribbon fellows-{{ claimed.application_year | add:"1" }}">
     <span>{{ claimed.application_year | add:"1" }}</span>
   </div>
-  <a href="{% url 'claimed_detail' claimed.id %}">
+  <a href="{% url 'fellow_detail' claimed.id %}">
     {% include 'fat/photo.html' %}
     <br>
     {{ claimed.fullname }}
