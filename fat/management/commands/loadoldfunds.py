@@ -35,7 +35,7 @@ class Command(BaseCommand):
                         "claimed": this_claimed,
                         "category": fund_category,
                         "name": line["Event name"],
-                        "url": line["Event website"],
+                        "url": line["Event website"] if pd.notnull(line["Event website"]) else "",
                         "country": line["Event Country"] if len(line["Event Country"]) == 2 else 'GB',
                         "city": line["Event City"],
                         "start_date": conv_date(line["Start date"]),
