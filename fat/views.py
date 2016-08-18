@@ -77,6 +77,7 @@ def claimed(request):
     return render(request, 'fat/form.html', context)
 
 def claimed_detail(request, claimed_id):
+    """Details about claimed."""
     this_claimed = Claimed.objects.get(id=claimed_id)
 
     if not this_claimed.selected:
@@ -95,6 +96,18 @@ def claimed_detail(request, claimed_id):
                 })
 
     return render(request, 'fat/claimed_detail.html', context)
+
+def claimed_slug_resolution(request, claimed_slug):
+    """Resolve claimed slug and return the details."""
+    try:
+        claimed = Claimed.objects.get(slug=claimed_slug, selected=True)
+    except:
+        claimed = None
+
+    if claimed:
+        return claimed_detail(request, claimed.id)
+
+    raise Http404("Claimed does not exist.")
 
 @login_required
 def my_profile(request):
