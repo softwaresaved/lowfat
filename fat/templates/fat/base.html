@@ -42,9 +42,11 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
+                        {% if not user.is_superuser %}
                         <li>
                             <a href="{% url 'my_profile' %}" />My profile</a>
                         </li>
+                        {% endif %}
                         <li>
                             <a href="{% url 'dashboard' %}" />Dashboard</a>
                         </li>
