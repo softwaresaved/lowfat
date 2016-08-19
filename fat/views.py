@@ -333,7 +333,7 @@ def blog(request):
 
     # Show submission form.
     context = {
-            "title": "Submit blog",
+            "title": "Submit blog post",
             "formset": formset,
             }
     return render(request, 'fat/form.html', context)

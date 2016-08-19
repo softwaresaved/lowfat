@@ -194,7 +194,7 @@ class ExpenseForm(ModelForm):
             'fund': 'Open approved funding request',
             'claim': 'PDF copy of claim and receipt(s)',
             'justification_for_extra': "If the claim is greater than 20% of the amount requested please provide justification",
-            'final': "Is this the final blog post you would like to associate with this funding request?",
+            'final': "Is this the final expense claim you would like to associate with this funding request?",
             'recipient_fullname': "Full name",
             'recipient_email': "E-mail",
             'recipient_affiliation': "Affiliation",
@@ -287,6 +287,11 @@ class BlogForm(ModelForm):
             'draft_url',
             'final',
                 ]
+        labels = {
+            'fund': 'Open approved funding request',
+            'draft_url': 'URL of blog post draft',
+            'final': "Is this the final blog post you would like to associate with this funding request?",
+            }
 
 
     required_css_class = 'form-field-required'
@@ -295,7 +300,17 @@ class BlogForm(ModelForm):
         super(BlogForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper(self)
-        self.helper.add_input(Submit('submit', 'Submit'))
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                'fund',
+                'draft_url',
+                'final',
+                ButtonHolder(
+                    Submit('submit', '{{ title }}')
+                )
+                )
+            )
 
         if user:
             self.fields['fund'].queryset = Fund.objects.filter(status__in=['U', 'P', 'A'])
