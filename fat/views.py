@@ -247,7 +247,7 @@ def expense(request):
 
     # Show submission form.
     context = {
-            "title": "Submit expenses",
+            "title": "Submit expense claim",
             "formset": formset,
             }
     return render(request, 'fat/form.html', context)

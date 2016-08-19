@@ -181,6 +181,7 @@ class ExpenseForm(ModelForm):
             'fund',
             'claim',
             'amount_claimed',
+            'justification_for_extra',
             'final',
             'recipient_fullname',
             'recipient_email',
@@ -190,13 +191,15 @@ class ExpenseForm(ModelForm):
                 ]
 
         labels = {
-            'fund': 'Fund request',
-            'claim': 'PDF copy of receipt',
+            'fund': 'Open approved funding request',
+            'claim': 'PDF copy of claim and receipt(s)',
+            'justification_for_extra': "If the claim is greater than 20% of the amount requested please provide justification",
+            'final': "Is this the final blog post you would like to associate with this funding request?",
             'recipient_fullname': "Full name",
             'recipient_email': "E-mail",
             'recipient_affiliation': "Affiliation",
             'recipient_group': "Group",
-            'recipient_connection': "Connection",
+            'recipient_connection': "Reason for claim on their behalf",
         }
 
 
@@ -209,10 +212,12 @@ class ExpenseForm(ModelForm):
         self.helper.layout = Layout(
             Fieldset(
                 '',
-                HTML("</p>Terms and conditions apply.</p>"),  # FIXME Add link
+                HTML("</p><a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'>Terms and conditions apply.</a></p>"),
                 'fund',
                 'claim',
+                HTML("</p>Please follow the guidelines at <a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'#how-to-apply-for-and-claim-expenses>Fellowship Programme's terms and conditions.</a></p>"),
                 PrependedText('amount_claimed', '£'),
+                'justification_for_extra',
                 'final',
                 HTML("<h2>Recipient</h2><p>Only fill this part if you are claiming this expense on behalf of someone.</p>"),
                 'recipient_fullname',
@@ -221,7 +226,7 @@ class ExpenseForm(ModelForm):
                 'recipient_group',
                 'recipient_connection',
                 ButtonHolder(
-                    Submit('submit', 'Add')
+                    Submit('submit', '{{ title }}')
                 )
                 )
             )
