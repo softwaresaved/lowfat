@@ -370,7 +370,7 @@ class Expense(models.Model):
         help_text="This is your last expense claim for the fund"
     )
     # Recipient
-    recipient_fullname = models.TextField(
+    recipient_fullname = models.CharField(
         max_length=MAX_CHAR_LENGTH,
         blank=True
     )
