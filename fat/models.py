@@ -284,7 +284,7 @@ class Fund(models.Model):
     additional_info = models.TextField(blank=True)
     extra_sponsored = models.TextField(blank=True)
     can_be_advertise_before = models.BooleanField(default=False)
-    can_be_advertise_after = models.BooleanField(default=False)
+    can_be_advertise_after = models.BooleanField(default=True)
 
     # Admin fields
     ad_status = models.CharField(choices=AD_STATUS,
