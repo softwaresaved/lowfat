@@ -370,8 +370,7 @@ class Expense(models.Model):
         blank=True
     )
     final = models.BooleanField(
-        default=False,
-        help_text="This is your last expense claim for the fund"
+        default=False
     )
     # Recipient
     recipient_fullname = models.CharField(
@@ -436,8 +435,7 @@ class Blog(models.Model):
     fund = models.ForeignKey('Fund')
     draft_url = models.CharField(max_length=MAX_CHAR_LENGTH)
     final = models.BooleanField(
-        default=False,
-        help_text="This is your last blog post about the fund"
+        default=False
     )
 
     # Admin fields
