@@ -411,6 +411,7 @@ def report(request):
 
     return render(request, 'fat/report.html', context)
 
+@staff_member_required
 def geojson(request):
     """Return the GeoJSON file."""
 
