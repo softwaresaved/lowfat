@@ -88,11 +88,17 @@ class FundForm(ModelForm):
                 ]
 
         labels = {
-                'claimed': 'Claimed',
-                'category_other': 'Specify the category if used "Other"',
-                'url': "Funder's homepage url",
-                'name': "Funder's name",
-                }
+            'claimed': 'Requestor name',
+            'category_other': 'Specify the category if used "Other"',
+            'name': 'Event name',
+            'url': 'Event webpage link',
+            'country': 'Country in which event is taking place',
+            'city': 'City in which the event is taking place',
+            'start_date': 'Start date of event',
+            'end_date': 'End date of event',
+            'can_be_advertise_before': "Can we promote your involvement in this event before it takes place?",
+            'can_be_advertise_after': "Can we promote your involvement in this event after it takes place?"
+        }
 
         widgets = {
             'start_date': SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day")),
@@ -110,9 +116,9 @@ class FundForm(ModelForm):
         self.helper.layout = Layout(
             Fieldset(
                 '',
-                HTML('<p>To apply for expenses for eligible events, please fill in this form at least one month before the start date of the event you wish to attend or organise.</p><h2>Claimed details</h2>'),
+                HTML('<p>To apply for expenses for eligible events, please fill in this form at least one month before the start date of the event you wish to attend or organise.</p><h2>Requestor details</h2>'),
                 'claimed',
-                HTML('<h2>Fund details</h2>'),
+                HTML('<h2>Funding request details</h2>'),
                 'category',
                 'category_other',
                 'name',
@@ -121,7 +127,7 @@ class FundForm(ModelForm):
                 'city',
                 'start_date',
                 'end_date',
-                HTML('<h2>Costs</h2><p>Please provide an estimate of your costs below. All values should be entered in GBP. Note that the cost entered here must be within 20% of the expenses you submit. See the terms and conditions for details (http://www.software.ac.uk/claimedship-terms-and-conditions-2016)</p><p>Please fill in all cost sections that are relevant to your event type.</p><p>Total costs should reflect the sum of all the costs and be the total estimate of costs for this event.</p>'),
+                HTML('<h2>Costs</h2><p>Please provide an estimate of your costs below. All values should be entered in GBP. Note that the cost entered here must be within 20% of the expenses you submit. See the terms and conditions for details (http://www.software.ac.uk/claimedship-terms-and-conditions-2016)</p><p>Please fill in all cost sections that are relevant to your event type.</p><p>The Total costs line reflect the sum of all the costs and is thus the total estimate of costs for this event.</p>'),
                 PrependedText('budget_request_travel', '£', onkeyup="update_budget()"),
                 PrependedText('budget_request_attendance_fees', '£', onkeyup="update_budget()"),
                 PrependedText('budget_request_subsistence_cost', '£', onkeyup="update_budget()"),
@@ -132,13 +138,13 @@ class FundForm(ModelForm):
                 HTML('<h2>Justification for attending or organising the event</h2><p>When filling in the questions below please consider the following points:<p></p>For attending conferences/workshops: will the conference focus on a significant field, will you meet significant researchers, will there be a focus on research software?</p><p>For organising workshops: how will the event help your domain, how will the event help the Institute, how will the event help you.</p><p>For policy related work: how might participation or organisation help the policy goals of the Institute, such as improving software and improved research (this can include people and tools perspectives).</p><p>For other: please state reasons - note it maybe good to discuss matter with the Institute Community Lead before filling the form to make sure the rationale is aligned to the Institute and to your own objectives.</p>'),
                 'justification',
                 'additional_info',
-                HTML('<h2>Sponsored</h2><p>Please list who is going to be sponsored.</p>'),
+                HTML('<h2>Sponsorship</h2><p>If you are sponsoring others to take part in this event from your Fellowship funds please give their names and email addresses below, if you do not know their names at this stage please state whether there is sponsorship of others needed in this request. In either case please provide some justification.</p>'),
                 'extra_sponsored',
-                HTML('<h2>Permissions</h2>'),
+                HTML('<h2>Publicity</h2>'),
                 'can_be_advertise_before',
                 'can_be_advertise_after',
                 ButtonHolder(
-                    Submit('submit', 'Add')
+                    Submit('submit', '{{ title }}')
                 )
             )
             )
