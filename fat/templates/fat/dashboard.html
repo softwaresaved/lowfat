@@ -3,20 +3,30 @@
 {% block content %}
 <h1>Software Sustainability Institute Fellowship Program</h1>
 <p>If you need us to process something please use one of the links bellow:</p>
-<ul>
-    {% if user.is_superuser %}
-    <li><a href="{% url 'claimed' %}">Create claimed profile</a></li>
-    <li><a href="{% url 'admin:fat_claimed_changelist' %}">Upgrade
-    claimed profile to fellow</a></li>
-    <li><a href="{% url 'report' %}">View report</a> <strong>(Work in progress)</strong></li>
-    {% endif %}
-    <li><a href="{% url 'fund' %}">Request funding support</a></li>
-    <li><a href="{% url 'blog' %}">Submit a blog post</a></li>
-    <li><a href="{% url 'expense' %}">Claim expense</a></li>
-    {% if user.is_superuser %}
-
-    {% endif %}
-</ul>
+{% if user.is_superuser %}
+<div class="row">
+  <div class="col-md-4">
+  <a class="btn btn-default btn-block" href="{% url 'claimed' %}">Create claimed profile</a>
+  </div>
+  <div class="col-md-4">
+    <a class="btn btn-default btn-block" href="{% url 'admin:fat_claimed_changelist' %}">Upgrade claimed profile to fellow</a>
+  </div>
+  <div class="col-md-4">
+    <a class="btn btn-default btn-block" href="{% url 'report' %}">View report <strong>(Work in progress)</strong></a>
+  </div>
+</div>
+{% endif %}
+<div class="row">
+  <div class="col-md-4">
+    <a class="btn btn-default btn-block" href="{% url 'fund' %}">Request funding support</a>
+  </div>
+  <div class="col-md-4">
+    <a class="btn btn-default btn-block" href="{% url 'blog' %}">Submit a blog post</a>
+  </div>
+  <div class="col-md-4">
+    <a class="btn btn-default btn-block" href="{% url 'expense' %}">Claim expense</a>
+  </div>
+</div>
 {% if user.is_superuser %}
 <p>You can edit the information on the database <a href="{% url 'admin:index' %}">here</a>.</p>
 {% else %}
