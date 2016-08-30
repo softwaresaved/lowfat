@@ -54,6 +54,15 @@ def dashboard(request):
 
     return render(request, 'fat/dashboard.html', context)
 
+@staff_member_required
+def promote(request):
+    context = {
+        "claimeds": Claimed.objects.filter(),
+    }
+
+    return render(request, 'fat/promote.html', context)
+
+
 @login_required
 def claimed(request):
     if not request.user.is_superuser and not request.user.is_staff:
@@ -75,6 +84,15 @@ def claimed(request):
             "submit_text": "Save" if instance is None else "Update",
             }
     return render(request, 'fat/form.html', context)
+
+@staff_member_required
+def claimed_promote(request, claimed_id):
+    claimed = Claimed.objects.get(id=claimed_id)
+    claimed.slected = True
+    claimed.save()
+
+    return HttpResponseRedirect(reverse('claimed_detail',
+                                        args=[claimed.id,]))
 
 def claimed_detail(request, claimed_id):
     """Details about claimed."""
