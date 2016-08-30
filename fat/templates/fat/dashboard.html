@@ -6,29 +6,29 @@
 {% if user.is_superuser %}
 <div class="row">
   <div class="col-md-4">
-  <a class="btn btn-default btn-block" href="{% url 'claimed' %}">Create claimed profile</a>
+  <a class="btn btn-default btn-block" href="{% url 'claimed' %}">Create claim profile</a>
   </div>
   <div class="col-md-4">
-    <a class="btn btn-default btn-block" href="{% url 'admin:fat_claimed_changelist' %}">Upgrade claimed profile to fellow</a>
+    <a class="btn btn-default btn-block" href="{% url 'admin:fat_claimed_changelist' %}">Upgrade claim profile to fellow claim profile</a>
   </div>
   <div class="col-md-4">
-    <a class="btn btn-default btn-block" href="{% url 'report' %}">View report <strong>(Work in progress)</strong></a>
+    <a class="btn btn-default btn-block" href="{% url 'report' %}">View summary report of events <strong>(Work in progress)</strong></a>
   </div>
 </div>
 {% endif %}
 <div class="row">
   <div class="col-md-4">
-    <a class="btn btn-default btn-block" href="{% url 'fund' %}">Request funding support</a>
+    <a class="btn btn-default btn-block" href="{% url 'fund' %}">Make an funding request</a>
+  </div>
+  <div class="col-md-4">
+    <a class="btn btn-default btn-block" href="{% url 'expense' %}">Submit expense claim</a>
   </div>
   <div class="col-md-4">
     <a class="btn btn-default btn-block" href="{% url 'blog' %}">Submit a blog post</a>
   </div>
-  <div class="col-md-4">
-    <a class="btn btn-default btn-block" href="{% url 'expense' %}">Claim expense</a>
-  </div>
 </div>
 {% if user.is_superuser %}
-<p>You can edit the information on the database <a href="{% url 'admin:index' %}">here</a>.</p>
+<p><a href="{% url 'admin:index' %}">Click here</a> to edit the information in the database here (e.g. needed if the dates of an event change).</p>
 {% else %}
 <p>If you need any help please email <a href="">us</a>.</p>
 {% endif %}
@@ -37,7 +37,7 @@
 <p>Your pending tasks are:</p>
 <h2>
   Funds
-  <a class="btn btn-default" href="{% url 'blog' %}">New fund</a>
+  <a class="btn btn-default" href="{% url 'blog' %}">Make an funding request</a>
 </h2>
 {% if funds %}
 <table class="table table-bordered">
@@ -80,7 +80,7 @@
 {% endif %}
 <h2>
   Expenses
- <a class="btn btn-default" href="{% url 'expense' %}">New expense</a>
+ <a class="btn btn-default" href="{% url 'expense' %}">Submit expense claim</a>
 </h2>
 {% if expenses %}
 <table class="table table-bordered">
@@ -119,8 +119,8 @@
 </table>
 {% endif %}
 <h2>
-  Blogs
-  <a class="btn btn-default" href="{% url 'blog' %}">New blog</a>
+  Blog Posts
+  <a class="btn btn-default" href="{% url 'blog' %}">Submit a blog post</a>
 </h2>
 {% if blogs %}
 <table class="table table-bordered">
