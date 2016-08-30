@@ -12,6 +12,9 @@
   {% if user == claimed.user %}
   <a class="btn btn-default" href="{% url 'claimed' %}" role="button">Edit</a>
   {% endif %}
+  {% if user.is_superuser %}
+  <a class="btn btn-default" href="{% url 'admin:fat_claimed_change' claimed.id %}" role="button">Edit</a>
+  {% endif %}
 </h1>
 <div class="row">
 <div class="fellow col-md-2">
