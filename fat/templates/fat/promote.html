@@ -1,0 +1,34 @@
+{% extends "fat/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<h1>
+  Promote Claimed
+</h1>
+<table class="table table-bordered">
+  <tbody>
+        <tr>
+            <th>Status</th>
+            <th>Name</th>
+            <th>Application Year</th>
+            <th>Actions</th>
+        </tr>
+    {% for claimed in claimeds %}
+        <tr>
+          <td>
+            {% if claimed.selected %}
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                {% endif %}
+            </td>
+            <td>{{ claimed.fullname }}</td>
+            <td>{{ claimed.application_year }}</td>
+            <td>
+              <a href="{% url 'fellow_promote'  claimed.id %}">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+              </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
