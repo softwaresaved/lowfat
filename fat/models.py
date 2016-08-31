@@ -24,7 +24,7 @@ GENDERS = (
 FUND_CATEGORY = (
         ('A', 'Attending a conference/workshop'),
         ('H', 'Organising a conference/workshop (e.g. Software Carpentry)'),
-        ('P', 'Policy related conference/workshop'),
+        ('P', 'Policy related event'),
         ('O', 'Other'),
         )
 
