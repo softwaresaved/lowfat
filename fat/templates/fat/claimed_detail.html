@@ -10,7 +10,7 @@
   {% endif %}
   Detail
   {% if user == claimed.user %}
-  <a class="btn btn-default" href="{% url 'claimed' %}" role="button">Edit</a>
+  <a class="btn btn-default" href="{% url 'fellow' %}?full=true" role="button">Edit</a>
   {% endif %}
   {% if user.is_superuser %}
   <a class="btn btn-default" href="{% url 'admin:fat_claimed_change' claimed.id %}" role="button">Edit</a>

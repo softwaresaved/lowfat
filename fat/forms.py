@@ -17,6 +17,64 @@ class ClaimedForm(ModelForm):
             'gender',
             'home_country',
             'home_city',
+            'affiliation',
+            'work_description',
+            'website',
+            'website_feed',
+            'orcid',
+            'github',
+            'gitlab',
+            'twitter',
+            'facebook',
+            ]
+
+
+    required_css_class = 'form-field-required'
+
+    def __init__(self, *args, **kwargs):
+        super(ClaimedForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                HTML('<h2>Personal details</h2>'),
+                'forenames',
+                'surname',
+                'email',
+                'phone',
+                'gender',
+                'home_country',
+                'home_city',
+                HTML('<h2>Professional details</h2>'),
+                'affiliation',
+                'work_description',
+                HTML('<h2>Social Networks</h2>'),
+                'website',
+                'website_feed',
+                'orcid',
+                'github',
+                'gitlab',
+                'twitter',
+                'facebook',
+                ButtonHolder(
+                    Submit('submit', 'Add')
+                )
+            )
+            )
+
+
+class FellowForm(ModelForm):
+    class Meta:
+        model = Claimed
+        fields = [
+            'forenames',
+            'surname',
+            'email',
+            'phone',
+            'gender',
+            'home_country',
+            'home_city',
             'photo',
             'research_area',
             'research_area_code',
@@ -37,7 +95,7 @@ class ClaimedForm(ModelForm):
     required_css_class = 'form-field-required'
 
     def __init__(self, *args, **kwargs):
-        super(ClaimedForm, self).__init__(*args, **kwargs)
+        super(FellowForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper(self)
         self.helper.layout = Layout(

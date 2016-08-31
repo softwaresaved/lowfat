@@ -67,10 +67,17 @@ def promote(request):
 def claimed(request):
     if not request.user.is_superuser and not request.user.is_staff:
         instance = Claimed.objects.get(user=request.user)
+        title_begin = "Edit"
     else:
         instance = None
+        title_begin = "Create"
 
-    formset = ClaimedForm(request.POST or None, request.FILES or None, instance=instance)
+    if "full" in request.GET:
+        formset = FellowForm(request.POST or None, request.FILES or None, instance=instance)
+        title_end = "fellow"
+    else:
+        formset = ClaimedForm(request.POST or None, request.FILES or None, instance=instance)
+        title_end = "claimed"
 
     if formset.is_valid():
         claimed = formset.save()
@@ -79,7 +86,7 @@ def claimed(request):
 
     # Show submission form.
     context = {
-            "title": "Create claimed" if instance is None else "Edit claimed",
+            "title": "{} {}".format(title_begin, title_end),
             "formset": formset,
             "submit_text": "Save" if instance is None else "Update",
             }

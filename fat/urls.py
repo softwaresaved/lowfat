@@ -22,26 +22,26 @@ from . import views
 from . import settings
 
 claimed_patterns = [
-    url(r'^(?P<claimed_id>[0-9]+)/promote/$', views.claimed_promote, name="claimed_promote"),
-    url(r'^(?P<claimed_id>[0-9]+)/$', views.claimed_detail, name="claimed_detail"),
-    url(r'^(?P<claimed_slug>.+)/$', views.claimed_slug_resolution, name="claimed_slug"),
-    url(r'^$', views.claimed, name="claimed"),
+    url(r'^(?P<claimed_id>[0-9]+)/promote/', views.claimed_promote, name="claimed_promote"),
+    url(r'^(?P<claimed_id>[0-9]+)/', views.claimed_detail, name="claimed_detail"),
+    url(r'^(?P<claimed_slug>.+)/', views.claimed_slug_resolution, name="claimed_slug"),
+    url(r'^', views.claimed, name="claimed"),
 ]
 
 fellow_patterns = [
-    url(r'^(?P<claimed_id>[0-9]+)/promote/$', views.claimed_promote, name="fellow_promote"),
-    url(r'^(?P<claimed_id>[0-9]+)/$', views.claimed_detail, name="fellow_detail"),
-    url(r'^(?P<claimed_slug>.+)/$', views.claimed_slug_resolution, name="fellow_slug"),
-    url(r'^$', views.claimed, name="fellow"),
+    url(r'^(?P<claimed_id>[0-9]+)/promote/', views.claimed_promote, name="fellow_promote"),
+    url(r'^(?P<claimed_id>[0-9]+)/', views.claimed_detail, name="fellow_detail"),
+    url(r'^(?P<claimed_slug>.+)/', views.claimed_slug_resolution, name="fellow_slug"),
+    url(r'^', views.claimed, name="fellow"),
 ]
 
 fund_patterns = [
-    url(r'^(?P<fund_id>[0-9]+)/expense/(?P<expense_relative_number>[0-9\-]+)/review$', views.expense_review_relative, name="expense_review_relative"),
-    url(r'^(?P<fund_id>[0-9]+)/expense/(?P<expense_relative_number>[0-9\-]+)/$', views.expense_detail_relative, name="expense_detail_relative"),
-    url(r'^(?P<fund_id>[0-9]+)/review$', views.fund_review, name="fund_review"),
-    url(r'^(?P<fund_id>[0-9]+)/$', views.fund_detail, name="fund_detail"),
-    url(r'^previous/$', views.fund_past, name="fund_past"),
-    url(r'^$', views.fund, name="fund"),
+    url(r'^(?P<fund_id>[0-9]+)/expense/(?P<expense_relative_number>[0-9\-]+)/review', views.expense_review_relative, name="expense_review_relative"),
+    url(r'^(?P<fund_id>[0-9]+)/expense/(?P<expense_relative_number>[0-9\-]+)/', views.expense_detail_relative, name="expense_detail_relative"),
+    url(r'^(?P<fund_id>[0-9]+)/review', views.fund_review, name="fund_review"),
+    url(r'^(?P<fund_id>[0-9]+)/', views.fund_detail, name="fund_detail"),
+    url(r'^previous/', views.fund_past, name="fund_past"),
+    url(r'^', views.fund, name="fund"),
 ]
 
 urlpatterns = [
