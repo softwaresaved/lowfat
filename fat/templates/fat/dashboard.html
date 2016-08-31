@@ -40,7 +40,7 @@
   <a class="btn btn-default" href="{% url 'blog' %}">Make an funding request</a>
 </h2>
 {% if funds %}
-<table class="table table-bordered">
+<table class="table table-bordered sortable">
   <tbody>
     <tr>
       <th>
@@ -83,7 +83,7 @@
  <a class="btn btn-default" href="{% url 'expense' %}">Submit expense claim</a>
 </h2>
 {% if expenses %}
-<table class="table table-bordered">
+<table class="table table-bordered sortable">
   <tbody>
     <tr>
       <th>
@@ -123,7 +123,7 @@
   <a class="btn btn-default" href="{% url 'blog' %}">Submit a blog post</a>
 </h2>
 {% if blogs %}
-<table class="table table-bordered">
+<table class="table table-bordered sortable">
   <tbody>
     <tr>
       <th>
@@ -163,7 +163,7 @@
   Funds
   <a class="btn btn-default" href="{% url 'fund' %}">New fund</a>
 </h2>
-<table class="table table-bordered">
+<table class="table table-bordered sortable">
   <tbody>
     <tr>
       <th>

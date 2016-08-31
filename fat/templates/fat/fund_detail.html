@@ -15,7 +15,7 @@
   {% endif %}
 </h1>
 <h2>General Details</h1>
-<table class="table table-bordered">
+<table class="table table-bordered sortable">
     <tbody>
         <tr>
             <th>Name</th>
@@ -54,7 +54,7 @@
 </table>
 {% if fund.status in 'AF' or expenses or blogs %}
 <h2>Budget Summary</h2>
-<table class="table table-bordered">
+<table class="table table-bordered sortable">
     <tbody>
         <tr>
             <th><strong>Total</strong> budget request</th>
@@ -73,7 +73,7 @@
     </tbody>
 </table>
 <h2>Budget Details</h2>
-<table class="table table-bordered">
+<table class="table table-bordered sortable">
     <tbody>
         <tr>
             <th>Travel expenses</th>
@@ -105,7 +105,7 @@
 <h2>Blogs</h2>
 <p><strong>This fund requires {{ fund.required_blog_posts }} blog posts.</strong>
   <a href="{% url 'blog' %}?fund_id={{fund.id}}">Submit new blog.</a></p>
-<table class="table table-bordered">
+<table class="table table-bordered sortable">
   <tbody>
     <tr>
       <th>

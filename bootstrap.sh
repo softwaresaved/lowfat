@@ -14,6 +14,7 @@ curl \
     -o $BOOTSTRAP_ZIP \
     https://github.com/twbs/bootstrap/releases/download/v3.3.6/bootstrap-3.3.6-dist.zip
 unzip \
+    -u \
     $BOOTSTRAP_ZIP \
     -d $TMP_FOLDER
 
@@ -23,6 +24,7 @@ curl \
     -o $FONT_AWESOME_ZIP \
     https://github.com/FortAwesome/Font-Awesome/archive/v4.6.3.zip
 unzip \
+    -u \
     $FONT_AWESOME_ZIP \
     -d $TMP_FOLDER
 
@@ -34,9 +36,16 @@ curl \
     -o $ACADEMICONS_ZIP \
     https://github.com/jpswalsh/academicons/archive/v1.7.0.zip
 unzip \
+    -u \
     $ACADEMICONS_ZIP \
     -d $TMP_FOLDER
 
+# Sorttable
+mkdir -p $TMP_FOLDER/sorttable/js
+curl \
+    -L \
+    -o $TMP_FOLDER/sorttable/js/sorttable.js \
+    http://www.kryogenix.org/code/browser/sorttable/sorttable.js
 
 # Copy files
 for folder in css fonts js

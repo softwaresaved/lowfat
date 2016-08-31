@@ -121,9 +121,11 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = False
+
+DATE_FORMAT = "Y-m-d"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
