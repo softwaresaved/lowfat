@@ -177,7 +177,7 @@ def fund(request):
 
     # Show submission form.
     context = {
-            "title": "Request fund",
+            "title": "Make an funding request",
             "formset": formset,
             }
     return render(request, 'fat/form.html', context)
