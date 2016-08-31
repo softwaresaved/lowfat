@@ -88,7 +88,7 @@ class FundForm(ModelForm):
                 ]
 
         labels = {
-            'claimed': 'Requestor name',
+            'claimed': 'Requester name',
             'category_other': 'Specify the category if used "Other"',
             'name': 'Event name',
             'url': 'Event webpage link',
@@ -116,7 +116,7 @@ class FundForm(ModelForm):
         self.helper.layout = Layout(
             Fieldset(
                 '',
-                HTML('<p>To apply for expenses for eligible events, please fill in this form at least one month before the start date of the event you wish to attend or organise.</p><h2>Requestor details</h2>'),
+                HTML('<p>To apply for expenses for eligible events, please fill in this form at least one month before the start date of the event you wish to attend or organise.</p><h2>Requester details</h2>'),
                 'claimed',
                 HTML('<h2>Funding request details</h2>'),
                 'category',
