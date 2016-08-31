@@ -9,7 +9,7 @@
 <table class="table table-bordered">
     <tbody>
         <tr>
-            <th>Claimed Name</th>
+            <th>Requestor name</th>
             <td>
               <a href="{% url 'claimed_detail' blog.fund.claimed.id %}">
               {{ blog.fund.claimed.fullname }}
@@ -17,7 +17,7 @@
             </td>
         </tr>
         <tr>
-            <th>Fund Name</th>
+            <th>Funding request name</th>
             <td>
               <a href="{% url 'fund_detail' blog.fund.id %}">
                 {{ blog.fund.name }}
