@@ -3,13 +3,15 @@
 
 {% block content %}
 <h1>Funding request
+  <span
   {% if fund.status in 'AF' %}
-  <span class="label label-success">{{ fund.get_status_display }}</span>
+  class="label label-success"
   {% elif fund.status in 'R' %}
-  <span class="label label-danger">{{ fund.get_status_display }}</span>
+  class="label label-danger"
   {% else %}
-  <span class="label label-warning">{{ fund.get_status_display }}</span>
+  class="label label-warning"
   {% endif %}
+  >{{ fund.get_status_display }}</span>
   {% if user.is_superuser %}
   <a class="btn btn-default" href="{% url 'fund_review' fund.id %}" role="button">Review</a>
   {% endif %}

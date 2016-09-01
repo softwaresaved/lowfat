@@ -2,6 +2,15 @@
 
 {% block content %}
 <h1>Blog Detail
+  <span
+     {% if blog.status in 'LP' %}
+     class="label label-success"
+     {% elif blog.status in 'UR' %}
+     class="label label-danger"
+     {% else %}
+     class="label label-warning"
+     {% endif %}
+  >{{ blog.get_status_display }}</span>
   {% if user.is_superuser %}
   <a class="btn btn-default" href="{% url 'blog_review' blog.id %}" role="button">Review</a>
   {% endif %}
