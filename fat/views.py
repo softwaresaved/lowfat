@@ -105,7 +105,7 @@ def claimed_detail(request, claimed_id):
     """Details about claimed."""
     this_claimed = Claimed.objects.get(id=claimed_id)
 
-    if not this_claimed.selected:
+    if not request.user.is_superuser and not request.user.is_staff and not this_claimed.selected:
         raise Http404("Claimed does not exist.")
 
     context = {
