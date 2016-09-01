@@ -45,6 +45,7 @@ fund_patterns = [
 ]
 
 urlpatterns = [
+    url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^sign-in/', auth_views.login,
         {'template_name': 'fat/sign_in.html'},
         name="sign_in"),
