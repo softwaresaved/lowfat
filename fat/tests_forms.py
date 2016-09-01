@@ -8,7 +8,7 @@ from .testwrapper import *
 from .models import *
 from .forms import *
 
-class ClaimedFormTest(TestCase):
+class FellowFormTest(TestCase):
     def test_blank_name(self):
         data = {
         "forenames": "",
@@ -30,7 +30,7 @@ class ClaimedFormTest(TestCase):
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
 
-        form = ClaimedForm(data, file_data)
+        form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_email(self):
@@ -54,7 +54,7 @@ class ClaimedFormTest(TestCase):
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
 
-        form = ClaimedForm(data, file_data)
+        form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_phone(self):
@@ -78,7 +78,7 @@ class ClaimedFormTest(TestCase):
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
 
-        form = ClaimedForm(data, file_data)
+        form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_country(self):
@@ -102,7 +102,7 @@ class ClaimedFormTest(TestCase):
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
 
-        form = ClaimedForm(data, file_data)
+        form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_city(self):
@@ -126,7 +126,7 @@ class ClaimedFormTest(TestCase):
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
 
-        form = ClaimedForm(data, file_data)
+        form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_research_area(self):
@@ -150,7 +150,7 @@ class ClaimedFormTest(TestCase):
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
 
-        form = ClaimedForm(data, file_data)
+        form = FellowForm(data, file_data)
         self.assertTrue(form.is_valid())
 
     def test_blank_research_area_code(self):
@@ -174,7 +174,7 @@ class ClaimedFormTest(TestCase):
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
 
-        form = ClaimedForm(data, file_data)
+        form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_affiliation(self):
@@ -197,7 +197,7 @@ class ClaimedFormTest(TestCase):
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
 
-        form = ClaimedForm(data, file_data)
+        form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
 
@@ -221,7 +221,7 @@ class ClaimedFormTest(TestCase):
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
 
-        form = ClaimedForm(data, file_data)
+        form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_description(self):
@@ -244,7 +244,7 @@ class ClaimedFormTest(TestCase):
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
 
-        form = ClaimedForm(data, file_data)
+        form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_null_photo(self):
@@ -262,7 +262,7 @@ class ClaimedFormTest(TestCase):
         "work_description": "Work",
             }
 
-        form = ClaimedForm(data, {})
+        form = FellowForm(data, {})
         self.assertFalse(form.is_valid())
 
     def test_minimal_expected(self):
@@ -286,7 +286,7 @@ class ClaimedFormTest(TestCase):
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
 
-        form = ClaimedForm(data, file_data)
+        form = FellowForm(data, file_data)
         self.assertTrue(form.is_valid())
 
     def test_expected(self):
@@ -317,7 +317,7 @@ class ClaimedFormTest(TestCase):
                 "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
             }
 
-        form = ClaimedForm(data, file_data)
+        form = FellowForm(data, file_data)
         self.assertTrue(form.is_valid())
 
 class FundFormTest(TestCase):
