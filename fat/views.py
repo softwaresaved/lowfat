@@ -37,13 +37,16 @@ def dashboard(request):
     context = {}
 
     if not request.user.is_superuser and not request.user.is_staff:
-        claimed = Claimed.objects.get(user=request.user)
+        try:
+            claimed = Claimed.objects.get(user=request.user)
 
-        context.update({
-            'claimed': claimed,
-            'funds': Fund.objects.filter(claimed=claimed).reverse(),
-            'budget_available': claimed.claimedship_available(),
-        })
+            context.update({
+                'claimed': claimed,
+                'funds': Fund.objects.filter(claimed=claimed).reverse(),
+                'budget_available': claimed.claimedship_available(),
+            })
+        except:
+            raise Http404("Contact info@software.ac.uk to have your profile approved.")
     else:
         if "funding_requests" in request.GET:
             funding_requests_status = request.GET["funding_requests"]
@@ -127,12 +130,15 @@ def claimed_detail(request, claimed_id):
             'funds': Fund.objects.filter(claimed=this_claimed),
             }
 
-    if request.user.is_authenticated() and (request.user.is_superuser or
-            Claimed.objects.get(user=request.user) == this_claimed):
+    try:
+        if request.user.is_authenticated() and (request.user.is_superuser or
+                                                Claimed.objects.get(user=request.user) == this_claimed):
             context.update({
                 'expenses': Expense.objects.filter(fund__claimed=this_claimed),
                 'show_finances': True,
-                })
+            })
+    except:
+        pass  # It can fail at Calimed.objects.get(user=request.user)
 
     return render(request, 'fat/claimed_detail.html', context)
 
