@@ -1,6 +1,13 @@
-<h2>Expenses</h2>
-<p><a href="{% url 'expense' %}?fund_id={{fund.id}}">Submit new
-    expense.</a></p>
+<h2>
+  Expenses
+  {% if fund %}
+  {% if fund.status not in "RF" %}
+ <a class="btn btn-default" href="{% url 'expense' %}{% if fund %}?fund_id={{fund.id}}{% endif %}">Submit expense claim</a>
+ {% endif %}
+ {% else %}
+ <a class="btn btn-default" href="{% url 'expense' %}}">Submit expense claim</a>
+ {% endif %}
+</h2>
 <table class="table table-bordered sortable">
   <tbody>
     <tr>

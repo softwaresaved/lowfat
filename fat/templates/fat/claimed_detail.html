@@ -48,6 +48,9 @@
 {% include 'fat/finances.html' %}
 {% include 'fat/expenses.html' %}
 {% endif %}
-<h2>Events</h2>
+<h2>
+  Funding requests
+  <a class="btn btn-default" href="{% url 'fund' %}?claimed_id={{claimed.id}}">Make an funding request</a>
+</h2>
 {% include 'fat/funds.html' %}
 {% endblock %}
