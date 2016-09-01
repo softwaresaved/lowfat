@@ -150,6 +150,13 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/upload/'
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'upload')
 
+# Authentication system
+# https://docs.djangoproject.com/en/1.9/topics/auth/default/
+
+LOGIN_URL = '/login/'  # The URL where requests are redirected for login, especially when using the login_required() decorator.
+LOGIN_REDIRECT_URL = '/dashboard/'
+
+
 # Email
 
 # Email backend for development (print on console)
