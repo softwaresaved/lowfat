@@ -36,21 +36,35 @@ def index(request):
 def dashboard(request):
     context = {}
 
-    if request.user.is_authenticated():
-        if not request.user.is_superuser and not request.user.is_staff:
-            claimed = Claimed.objects.get(user=request.user)
+    if not request.user.is_superuser and not request.user.is_staff:
+        claimed = Claimed.objects.get(user=request.user)
 
-            context.update({
-                'claimed': claimed,
-                'funds': Fund.objects.filter(claimed=claimed).reverse(),
-                'budget_available': claimed.claimedship_available(),
-                })
+        context.update({
+            'claimed': claimed,
+            'funds': Fund.objects.filter(claimed=claimed).reverse(),
+            'budget_available': claimed.claimedship_available(),
+        })
+    else:
+        if "funding_requests" in request.GET:
+            funding_requests_status = request.GET["funding_requests"]
         else:
-            context.update({
-                'funds': Fund.objects.filter(status__in=['U', 'P']).reverse(),
-                'expenses': Expense.objects.filter(status__in=['W', 'S', 'P']).reverse(),
-                'blogs': Blog.objects.filter(status__in=['U', 'R']).reverse(),
-                })
+            funding_requests_status = "UP"
+
+        if "expenses" in request.GET:
+            expenses_status = request.GET["expenses"]
+        else:
+            expenses_status = "WSC"
+
+        if "blogs" in request.GET:
+            blogs_status = request.GET["blogs"]
+        else:
+            blogs_status = "UR"
+
+        context.update({
+            'funds': Fund.objects.filter(status__in=funding_requests_status).reverse(),
+            'expenses': Expense.objects.filter(status__in=expenses_status).reverse(),
+            'blogs': Blog.objects.filter(status__in=blogs_status).reverse(),
+        })
 
     return render(request, 'fat/dashboard.html', context)
 

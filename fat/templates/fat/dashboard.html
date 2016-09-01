@@ -39,6 +39,23 @@
   Funding requests
   <a class="btn btn-default" href="{% url 'fund' %}">Make an funding request</a>
 </h2>
+<ul class="nav nav-tabs">
+  <li role="presentation" {% if request.GET.funding_requests == 'UPARF' %}class="active"{% endif %}>
+    <a href="?funding_requests=UPARF">All</a>
+  </li>
+  <li role="presentation" {% if "funding_requests" not in request.GET or request.GET.funding_requests == 'UP' %}class="active"{% endif %}>
+    <a href="?funding_requests=UP">Pending</a>
+  </li>
+  <li role="presentation" {% if request.GET.funding_requests == 'A' %}class="active"{% endif %}>
+    <a href="?funding_requests=A">Approved</a>
+  </li>
+  <li role="presentation" {% if request.GET.funding_requests == 'R' %}class="active"{% endif %}>
+    <a href="?funding_requests=R">Reproved</a>
+  </li>
+  <li role="presentation" {% if request.GET.funding_requests == 'F' %}class="active"{% endif %}>
+    <a href="?funding_requests=F">Archived</a>
+  </li>
+</ul>
 {% if funds %}
 <table class="table table-bordered sortable">
   <tbody>
@@ -82,6 +99,13 @@
   Expenses
  <a class="btn btn-default" href="{% url 'expense' %}">Submit expense claim</a>
 </h2>
+<ul class="nav nav-tabs">
+  <li role="presentation" {% if request.GET.expenses == 'WSCPAF' %}class="active"{% endif %}>
+    <a href="?expenses=WSCPAF">All</a>
+  </li>
+  <li role="presentation" {% if "expenses" not in request.GET or request.GET.expenses == 'WSC' %}class="active"{% endif %}><a href="?expenses=WSC">Pending</a></li>
+  <li role="presentation" {% if request.GET.expenses == 'A' %}class="active"{% endif %}><a href="?expenses=A">Approved</a></li>
+</ul>
 {% if expenses %}
 <table class="table table-bordered sortable">
   <tbody>
@@ -122,6 +146,17 @@
   Blog Posts
   <a class="btn btn-default" href="{% url 'blog' %}">Submit a blog post</a>
 </h2>
+<ul class="nav nav-tabs">
+  <li role="presentation" {% if request.GET.blogs == 'URLPDO' %}class="active"{% endif %}>
+    <a href="?blogs=URLPDO">All</a>
+  </li>
+  <li role="presentation" {% if "blogs" not in request.GET or request.GET.blogs == 'UR' %}class="active"{% endif %}>
+    <a href="?blogs=UR">Pending</a>
+  </li>
+  <li role="presentation" {% if request.GET.blogs == 'P' %}class="active"{% endif %}>
+    <a href="?blogs=P">Approved</a>
+  </li>
+</ul>
 {% if blogs %}
 <table class="table table-bordered sortable">
   <tbody>
