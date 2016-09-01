@@ -128,7 +128,11 @@
        {% endif %}
        >
       <td>
+        {% if user.is_superuser %}
+        <a href="{% url 'blog_review' blog.id %}">{{ blog.draft_url }}</a>
+        {% else %}
         <a href="{{ blog.draft_url }}">{{ blog.draft_url }}</a>
+        {% endif %}
       </td>
       <td>
         {{ blog.get_status_display }}
@@ -137,5 +141,6 @@
     {% endfor %}
   </tbody>
 </table>
+{% include "fat/communication.html" %}
 {% endif %}
 {% endblock %}

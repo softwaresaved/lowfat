@@ -214,6 +214,7 @@ def fund_detail(request, fund_id):
             'fund': this_fund,
             'expenses': Expense.objects.filter(fund=this_fund),
             'blogs': Blog.objects.filter(fund=this_fund),
+            'emails': FundSentMail.objects.filter(fund=this_fund),
         }
 
         return render(request, 'fat/fund_detail.html', context)
@@ -305,6 +306,7 @@ def expense_detail(request, expense_id):
             Claimed.objects.get(user=request.user) == this_expense.fund.claimed):
         context = {
             'expense': Expense.objects.get(id=expense_id),
+            'emails': ExpenseSentMail.objects.filter(expense=this_expense),
         }
 
         return render(request, 'fat/expense_detail.html', context)
@@ -385,11 +387,18 @@ def blog(request):
 
 @login_required
 def blog_detail(request, blog_id):
-    context = {
+    this_blog = Blog.objects.get(id=blog_id)
+
+    if (request.user.is_superuser or
+            Claimed.objects.get(user=request.user) == this_blog.fund.claimed):
+        context = {
             'blog': Blog.objects.get(id=blog_id),
+            'emails': BlogSentMail.objects.filter(blog=this_blog),
             }
 
-    return render(request, 'fat/blog_detail.html', context)
+        return render(request, 'fat/blog_detail.html', context)
+
+    raise Http404("Blog post does not exist.")
 
 @staff_member_required
 def blog_review(request, blog_id):

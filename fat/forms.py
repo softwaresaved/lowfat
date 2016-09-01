@@ -336,6 +336,7 @@ class ExpenseReviewForm(ModelForm):
                 'funds_from',
                 'grant_used',
                 'notes_from_admin',
+                'email',
                 ButtonHolder(
                     Submit('submit', 'Update')
                 )
