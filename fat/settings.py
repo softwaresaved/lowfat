@@ -150,12 +150,6 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/upload/'
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'upload')
 
-# Authentication system
-# https://docs.djangoproject.com/en/1.9/topics/auth/default/
-
-LOGIN_URL = '/sign-in/'
-
-
 # Email
 
 # Email backend for development (print on console)
