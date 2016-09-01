@@ -46,10 +46,10 @@ fund_patterns = [
 
 urlpatterns = [
     url('', include('social.apps.django_app.urls', namespace='social')),
-    url(r'^sign-in/', auth_views.login,
+    url(r'^login/', auth_views.login,
         {'template_name': 'fat/sign_in.html'},
         name="sign_in"),
-    url(r'^sign-out/', auth_views.logout,
+    url(r'^disconnect/', auth_views.logout,
         {'next_page': '/'},
         name="sign_out"),
     url(r'^claimed/', include(claimed_patterns)),
