@@ -11,8 +11,10 @@
   <td>
     {% if user.is_superuser or claimed and user == claimed.user %}
     <a href="{% url "fund_detail" fund.id %}">{{fund.name}}</a> <a href="{{fund.url}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-    {% else %}
+    {% elif fund.url %}
     <a href="{{fund.url}}">{{fund.name}}</a>
+    {% else %}
+    {{fund.name}}
     {% endif %}
   </td>
     <td>{{fund.start_date}}</td>
