@@ -398,15 +398,15 @@ class URLTest(TestCase):
         queries = [
             {
                 "user": self.public,
-                "expect_code": 200,
+                "expect_code": 302,
             },
             {
                 "user": self.claimed_a,
-                "expect_code": 200,
+                "expect_code": 302,
             },
             {
                 "user": self.claimed_b,
-                "expect_code": 200,
+                "expect_code": 302,
             },
             {
                 "user": self.admin,
