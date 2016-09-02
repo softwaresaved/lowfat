@@ -1,5 +1,6 @@
 *.sqlite3
+*.csv
+fixtures/
 static
-data
 upload
 __pycache__
