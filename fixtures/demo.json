@@ -378,6 +378,114 @@
     }
 },
 {
+    "model": "auth.permission",
+    "pk": 43,
+    "fields": {
+        "name": "Can add claimed",
+        "content_type": 15,
+        "codename": "add_claimed"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 44,
+    "fields": {
+        "name": "Can change claimed",
+        "content_type": 15,
+        "codename": "change_claimed"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 45,
+    "fields": {
+        "name": "Can delete claimed",
+        "content_type": 15,
+        "codename": "delete_claimed"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 46,
+    "fields": {
+        "name": "Can add fund sent mail",
+        "content_type": 16,
+        "codename": "add_fundsentmail"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 47,
+    "fields": {
+        "name": "Can change fund sent mail",
+        "content_type": 16,
+        "codename": "change_fundsentmail"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 48,
+    "fields": {
+        "name": "Can delete fund sent mail",
+        "content_type": 16,
+        "codename": "delete_fundsentmail"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 49,
+    "fields": {
+        "name": "Can add expense sent mail",
+        "content_type": 17,
+        "codename": "add_expensesentmail"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 50,
+    "fields": {
+        "name": "Can change expense sent mail",
+        "content_type": 17,
+        "codename": "change_expensesentmail"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 51,
+    "fields": {
+        "name": "Can delete expense sent mail",
+        "content_type": 17,
+        "codename": "delete_expensesentmail"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 52,
+    "fields": {
+        "name": "Can add blog sent mail",
+        "content_type": 18,
+        "codename": "add_blogsentmail"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 53,
+    "fields": {
+        "name": "Can change blog sent mail",
+        "content_type": 18,
+        "codename": "change_blogsentmail"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 54,
+    "fields": {
+        "name": "Can delete blog sent mail",
+        "content_type": 18,
+        "codename": "delete_blogsentmail"
+    }
+},
+{
     "model": "auth.user",
     "pk": 2,
     "fields": {
@@ -1103,7 +1211,7 @@
         "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "400.00",
         "funds_from": "F",
-        "grant_used": "SS2",
+        "grant_used": "SSI1",
         "notes_from_admin": "",
         "added": "2016-07-13T15:03:57.771",
         "updated": "2016-07-17T13:59:25.548"
@@ -1130,7 +1238,7 @@
         "send_to_finance_date": null,
         "amount_authorized_for_payment": "0.00",
         "funds_from": "C",
-        "grant_used": "SS2",
+        "grant_used": "SSI1",
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
         "updated": "2016-07-17T14:03:11.682"
@@ -1184,7 +1292,7 @@
         "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "500.00",
         "funds_from": "F",
-        "grant_used": "SS2",
+        "grant_used": "SSI1",
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
         "updated": "2016-07-17T14:02:48.682"
