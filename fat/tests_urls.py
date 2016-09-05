@@ -48,7 +48,7 @@ class URLTest(TestCase):
             )
 
     def test_sign_in(self):
-        url = '/sign-in/'
+        url = '/login/'
 
         queries = [
             {
@@ -66,6 +66,54 @@ class URLTest(TestCase):
             {
                 "user": self.admin,
                 "expect_code": 200,
+            },
+            ]
+
+        self.run_requests(url, queries)
+
+    def test_sign_in_with_github(self):
+        url = '/login/github/'
+
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 302,
+            },
+            {
+                "user": self.claimed_a,
+                "expect_code": 302,
+            },
+            {
+                "user": self.claimed_b,
+                "expect_code": 302,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 302,
+            },
+            ]
+
+        self.run_requests(url, queries)
+
+    def test_disconnect(self):
+        url = '/disconnect/'
+
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 302,
+            },
+            {
+                "user": self.claimed_a,
+                "expect_code": 302,
+            },
+            {
+                "user": self.claimed_b,
+                "expect_code": 302,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 302,
             },
             ]
 
