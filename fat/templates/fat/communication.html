@@ -1,7 +1,8 @@
 <h2>Communication</h2>
-<table class="table table-bordered sortable">
-    <tbody>
 {% for email in emails %}
+<article>
+<table class="table table-bordered">
+    <tbody>
         <tr>
             <th>From</th>
             <td>{{ email.sender }}</td>
@@ -14,6 +15,7 @@
             <th>Message</th>
             <td>{{ email.justification }}</td>
         </tr>
-{% endfor %}
     </tbody>
 </table>
+</article>
+{% endfor %}
