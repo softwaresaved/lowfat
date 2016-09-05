@@ -421,8 +421,9 @@ class Expense(models.Model):
         return self.claim.name
 
     def save(self, *args, **kwargs):
-        previous_number = Expense.objects.filter(fund=self.fund).count()
-        self.relative_number = previous_number + 1
+        if seld.pk is None:
+            previous_number = Expense.objects.filter(fund=self.fund).count()
+            self.relative_number = previous_number + 1
         super(Expense, self).save(*args, **kwargs)
 
 
