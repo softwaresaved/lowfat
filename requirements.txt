@@ -1,5 +1,6 @@
 bokeh
 django
+django-backup
 django-countries
 django-crispy-forms
 django-settings-export
