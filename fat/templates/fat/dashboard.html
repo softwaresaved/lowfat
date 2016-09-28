@@ -30,7 +30,7 @@
 {% if user.is_superuser %}
 <p><a href="{% url 'admin:index' %}">Click here</a> to edit the information in the database here (e.g. needed if the dates of an event change).</p>
 {% else %}
-<p>If you need any help please email <a href="">us</a>.</p>
+<p>If you need any help please email <a href="mailto:{{ settings.FELLOWS_MANAGEMENT_EMAIL }}">us</a>.</p>
 {% endif %}
 {% if user.is_authenticated %}
 {% if user.is_superuser %}

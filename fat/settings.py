@@ -15,9 +15,12 @@ import os
 URL_SRC = "https://github.com/softwaresaved/fat"
 VERSION = "0.4.1"
 
+FELLOWS_MANAGEMENT_EMAIL = "fellows-management@software.ac.uk"
+
 SETTINGS_EXPORT = [
         'URL_SRC',
         'VERSION',
+        'FELLOWS_MANAGEMENT_EMAIL',
 ]
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
