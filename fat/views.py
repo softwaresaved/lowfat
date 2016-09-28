@@ -379,7 +379,10 @@ def blog(request):
         # Limit dropdown list to claimed
     if not request.user.is_superuser:
         claimed = Claimed.objects.get(user=request.user)
-        formset.fields["fund"].queryset = Fund.objects.filter(claimed=claimed)
+        formset.fields["fund"].queryset = Fund.objects.filter(
+            claimed=claimed,
+            status__in=['A']
+        )
 
     # Show submission form.
     context = {

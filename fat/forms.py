@@ -379,7 +379,7 @@ class BlogForm(ModelForm):
             )
 
         if user:
-            self.fields['fund'].queryset = Fund.objects.filter(status__in=['U', 'P', 'A'])
+            self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
 
 
 class BlogReviewForm(ModelForm):
