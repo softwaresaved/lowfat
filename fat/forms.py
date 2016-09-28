@@ -295,7 +295,7 @@ class ExpenseForm(ModelForm):
                 )
             )
 
-        self.fields['fund'].queryset = Fund.objects.filter(status__in=['U', 'P', 'A'])
+        self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
 
 class ExpenseReviewForm(ModelForm):
     class Meta:
