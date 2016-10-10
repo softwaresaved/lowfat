@@ -87,6 +87,7 @@ def create_fund():
     data = {
         "claimed": claimed,
         "category": "A",
+        "status": "A",
         "name": "Fake",
         "url": "http://fake.com",
         "country": "GB",
