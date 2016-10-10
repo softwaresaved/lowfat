@@ -179,7 +179,8 @@ def fund(request):
             fund.budget_approved = fund.budget_total()
             fund.save()
 
-            new_fund_notification(fund)
+            # FIXME Enable this in the future.
+            # new_fund_notification(fund)
             return HttpResponseRedirect(reverse('fund_detail',
                 args=[fund.id,]))
 
@@ -238,7 +239,8 @@ def fund_review(request, fund_id):
                 "fund": fund,
                 })
             mail.save()
-            fund_review_notification(mail)
+            # FIXME Enable this in the future.
+            # fund_review_notification(mail)
             return HttpResponseRedirect(reverse('fund_detail',
                 args=[fund.id,]))
 
@@ -271,7 +273,8 @@ def expense(request):
 
     if formset.is_valid():
         expense = formset.save()
-        new_expense_notification(expense)
+        # FIXME Enable this in the future.
+        # new_expense_notification(expense)
         return HttpResponseRedirect(reverse('expense_detail',
                                             args=[expense.id,]))
 
@@ -339,7 +342,8 @@ def expense_review(request, expense_id):
                 "expense": expense,
                 })
             mail.save()
-            expense_review_notification(mail)
+            # FIXME Enable this in the future.
+            # expense_review_notification(mail)
             return HttpResponseRedirect(reverse('expense_detail',
                 args=[expense.id,]))
 
@@ -365,7 +369,8 @@ def blog(request):
 
     if formset.is_valid():
         blog = formset.save()
-        new_blog_notification(blog)
+        # FIXME Enable this in the future.
+        # new_blog_notification(blog)
         return HttpResponseRedirect(reverse('blog_detail',
                                             args=[blog.id,]))
 
@@ -423,7 +428,8 @@ def blog_review(request, blog_id):
                 "blog": blog,
                 })
             mail.save()
-            blog_review_notification(mail)
+            # FIXME Enable this in the future.
+            # blog_review_notification(mail)
             return HttpResponseRedirect(reverse('blog_detail',
                 args=[blog.id,]))
 
