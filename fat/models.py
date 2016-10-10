@@ -181,6 +181,8 @@ class Claimed(models.Model):
                 blank=False,
                 default=date.today().year)
     selected = models.BooleanField(default=False)
+    software_carpentry_instructor = models.BooleanField(default=False)
+    data_carpentry_instructor = models.BooleanField(default=False)
     claimedship_grant = models.DecimalField(max_digits=MAX_DIGITS,
                                            decimal_places=2,
                                            null=False,
