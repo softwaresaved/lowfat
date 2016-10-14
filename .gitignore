@@ -1,6 +1,7 @@
 *.sqlite3
 *.csv
 fixtures/
+backups/
 static
 upload
 __pycache__
