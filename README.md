@@ -42,6 +42,15 @@ $ python3 manage.py createsuperuser
 $ python3 manage.py runserver
 ~~~
 
+## Backup
+
+We use [django-dbbackup](http://django-dbbackup.readthedocs.io/)
+for backup of the data. To create a new backup, run
+
+~~~
+$ python3 manage.py dbbackup && python3 manage.py mediabackup
+~~~
+
 ## Testing
 
 If you want to test, follow the instructions:
@@ -61,6 +70,10 @@ $ git push origin master
 ## Development
 
 ### File System
+
+- `backups`
+
+  Store the backups created by django-dbbackup.
 
 - `bootstrap.sh`
 
