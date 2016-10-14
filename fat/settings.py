@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_countries',
     'crispy_forms',
     'social.apps.django_app.default',
+    'dbbackup',
     'fat',
 ]
 
@@ -182,3 +183,9 @@ ADMINS = [
 
 # Subject-line prefix for email messages sent
 EMAIL_SUBJECT_PREFIX = "Software Sustaibability Institute's Claimedship Administration Tool"
+
+# Backup
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {
+        'location': os.path.join(BASE_DIR, 'backups'),
+        }
