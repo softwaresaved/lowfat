@@ -3,6 +3,7 @@ django
 django-backup
 django-countries
 django-crispy-forms
+django-dbbackup
 django-settings-export
 markdown
 pandas
