@@ -52,6 +52,7 @@ urlpatterns = [
     url(r'^disconnect/', auth_views.logout,
         {'next_page': '/'},
         name="sign_out"),
+    url(r'^pages/', include('django.contrib.flatpages.urls')),
     url(r'^claimed/', include(claimed_patterns)),
     url(r'^fellow/', include(fellow_patterns)),
     url(r'^request/', include(fund_patterns)),
