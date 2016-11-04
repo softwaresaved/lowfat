@@ -21,11 +21,14 @@ $ sudo python3 -m pip install -r requirements.txt
 **Only run the following commands after you clone this repository
 or when you pull new commits.**
 
-Need to get CSS files and create local database.
+Need to get CSS files,
+create local database, and
+load "static" pages.
 
 ~~~
 $ ./bootstrap.sh
 $ python3 manage.py migrate
+$ python3 manage.py loaddata fixtures/flatpages.json
 ~~~
 
 ## Super User
