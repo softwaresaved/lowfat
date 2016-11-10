@@ -269,7 +269,14 @@ def fund_past(request):
 
 @login_required
 def expense(request):
-    formset = ExpenseForm(request.POST or None, request.FILES or None)
+    # Setup Fund if provided
+    fund_id = request.GET.get("fund_id")
+    if fund_id:
+        initial = {"fund": Fund.objects.get(id=fund_id)}
+    else:
+        initial = {}
+
+    formset = ExpenseForm(request.POST or None, request.FILES or None, initial=initial)
 
     if formset.is_valid():
         expense = formset.save()
@@ -277,17 +284,6 @@ def expense(request):
         # new_expense_notification(expense)
         return HttpResponseRedirect(reverse('expense_detail',
                                             args=[expense.id,]))
-
-    # Store GET parameters
-    fund_id = request.GET.get("fund_id")
-
-    # Setup Fund if provided
-    if fund_id:
-        initial = {"fund": Fund.objects.get(id=fund_id)}
-    else:
-        initial = {}
-
-    formset = ExpenseForm(initial=initial)
 
     # Limit dropdown list to claimed
     if not request.user.is_superuser:

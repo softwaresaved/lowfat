@@ -7,4 +7,5 @@ django-dbbackup
 django-settings-export
 markdown
 pandas
+pypdf2
 python-social-auth

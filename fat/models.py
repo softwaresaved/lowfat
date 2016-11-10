@@ -8,6 +8,7 @@ from django.db import models
 
 from django_countries.fields import CountryField
 
+from .validator import pdf
 from .jacs import JACS_LEVEL_2
 
 MAX_CHAR_LENGTH = 120
@@ -361,7 +362,8 @@ class Expense(models.Model):
     # Form
     fund = models.ForeignKey('Fund')
     claim = models.FileField(
-            upload_to='expenses/'  # File will be uploaded to MEDIA_ROOT/expenses
+            upload_to='expenses/',  # File will be uploaded to MEDIA_ROOT/expenses
+            validators=[pdf]
         )
     amount_claimed = models.DecimalField(max_digits=MAX_DIGITS,
             decimal_places=2,
