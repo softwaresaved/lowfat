@@ -1,12 +1,21 @@
 from django.forms import ModelForm, SelectDateWidget, CharField, Textarea
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML
+from crispy_forms.layout import Layout, Field, Fieldset, ButtonHolder, Submit, HTML
 from crispy_forms.bootstrap import PrependedText
 
 from .models import *
 
-class ClaimedForm(ModelForm):
+class GarlicForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(GarlicForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.attrs = {
+            'data_persist': "garlic",
+        }
+
+
+class ClaimedForm(GarlicForm):
     class Meta:
         model = Claimed
         fields = [
@@ -34,7 +43,6 @@ class ClaimedForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ClaimedForm, self).__init__(*args, **kwargs)
 
-        self.helper = FormHelper(self)
         self.helper.layout = Layout(
             Fieldset(
                 '',
@@ -64,7 +72,7 @@ class ClaimedForm(ModelForm):
             )
 
 
-class FellowForm(ModelForm):
+class FellowForm(GarlicForm):
     class Meta:
         model = Claimed
         fields = [
@@ -97,7 +105,6 @@ class FellowForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(FellowForm, self).__init__(*args, **kwargs)
 
-        self.helper = FormHelper(self)
         self.helper.layout = Layout(
             Fieldset(
                 '',
@@ -132,7 +139,7 @@ class FellowForm(ModelForm):
             )
 
 
-class FundForm(ModelForm):
+class FundForm(GarlicForm):
     class Meta:
         model = Fund
         exclude = [
@@ -170,7 +177,6 @@ class FundForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(FundForm, self).__init__(*args, **kwargs)
 
-        self.helper = FormHelper(self)
         self.helper.layout = Layout(
             Fieldset(
                 '',
@@ -212,7 +218,7 @@ class FundForm(ModelForm):
         self.fields['category'].initial = ''
 
 
-class FundReviewForm(ModelForm):
+class FundReviewForm(GarlicForm):
     class Meta:
         model = Fund
         fields = [
@@ -234,11 +240,10 @@ class FundReviewForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(FundReviewForm, self).__init__(*args, **kwargs)
 
-        self.helper = FormHelper(self)
         self.helper.add_input(Submit('submit', 'Submit'))
 
 
-class ExpenseForm(ModelForm):
+class ExpenseForm(GarlicForm):
     class Meta:
         model = Expense
         fields = [
@@ -272,7 +277,6 @@ class ExpenseForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ExpenseForm, self).__init__(*args, **kwargs)
 
-        self.helper = FormHelper(self)
         self.helper.layout = Layout(
             Fieldset(
                 '',
@@ -298,7 +302,7 @@ class ExpenseForm(ModelForm):
 
         self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
 
-class ExpenseReviewForm(ModelForm):
+class ExpenseReviewForm(GarlicForm):
     class Meta:
         model = Expense
         fields = [
@@ -325,7 +329,6 @@ class ExpenseReviewForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ExpenseReviewForm, self).__init__(*args, **kwargs)
 
-        self.helper = FormHelper(self)
         self.helper.layout = Layout(
             Fieldset(
                 '',
@@ -345,7 +348,7 @@ class ExpenseReviewForm(ModelForm):
             )
 
 
-class BlogForm(ModelForm):
+class BlogForm(GarlicForm):
     class Meta:
         model = Blog
         fields = [
@@ -365,7 +368,6 @@ class BlogForm(ModelForm):
     def __init__(self, *args, user=None, **kwargs):
         super(BlogForm, self).__init__(*args, **kwargs)
 
-        self.helper = FormHelper(self)
         self.helper.layout = Layout(
             Fieldset(
                 '',
@@ -382,7 +384,7 @@ class BlogForm(ModelForm):
             self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
 
 
-class BlogReviewForm(ModelForm):
+class BlogReviewForm(GarlicForm):
     class Meta:
         model = Blog
         exclude = [
@@ -398,5 +400,4 @@ class BlogReviewForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(BlogReviewForm, self).__init__(*args, **kwargs)
 
-        self.helper = FormHelper(self)
         self.helper.add_input(Submit('submit', 'Update'))

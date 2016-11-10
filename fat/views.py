@@ -200,6 +200,7 @@ def fund(request):
     context = {
             "title": "Make an funding request",
             "formset": formset,
+            "js_files": ["js/request.js"],
             }
     return render(request, 'fat/form.html', context)
 
