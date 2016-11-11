@@ -1,12 +1,21 @@
 from django.forms import ModelForm, SelectDateWidget, CharField, Textarea
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML
+from crispy_forms.layout import Layout, Field, Fieldset, ButtonHolder, Submit, HTML
 from crispy_forms.bootstrap import PrependedText
 
 from .models import *
 
-class ClaimedForm(ModelForm):
+class GarlicForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(GarlicForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.attrs = {
+            'data_persist': "garlic",
+        }
+
+
+class ClaimedForm(GarlicForm):
     class Meta:
         model = Claimed
         fields = [
@@ -34,7 +43,6 @@ class ClaimedForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ClaimedForm, self).__init__(*args, **kwargs)
 
-        self.helper = FormHelper(self)
         self.helper.layout = Layout(
             Fieldset(
                 '',
@@ -64,7 +72,7 @@ class ClaimedForm(ModelForm):
             )
 
 
-class FellowForm(ModelForm):
+class FellowForm(GarlicForm):
     class Meta:
         model = Claimed
         fields = [
@@ -97,7 +105,6 @@ class FellowForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(FellowForm, self).__init__(*args, **kwargs)
 
-        self.helper = FormHelper(self)
         self.helper.layout = Layout(
             Fieldset(
                 '',
@@ -132,7 +139,7 @@ class FellowForm(ModelForm):
             )
 
 
-class FundForm(ModelForm):
+class FundForm(GarlicForm):
     class Meta:
         model = Fund
         exclude = [
@@ -170,7 +177,6 @@ class FundForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(FundForm, self).__init__(*args, **kwargs)
 
-        self.helper = FormHelper(self)
         self.helper.layout = Layout(
             Fieldset(
                 '',
@@ -193,7 +199,7 @@ class FundForm(ModelForm):
                 PrependedText('budget_request_catering', '£', onkeyup="update_budget()"),
                 PrependedText('budget_request_others', '£', onkeyup="update_budget()"),
                 PrependedText('total_budget', '£', disabled=True, value=0.0),
-                HTML('<h2>Justification for attending or organising the event</h2><p class="bg-danger">Please write your justification in a local file and later copy and past it here to avoid losing your work.</o><p class="bg-info">We support Markdown.</p><p>When filling in the questions below please consider the following points:<p></p>For attending conferences/workshops: will the conference focus on a significant field, will you meet significant researchers, will there be a focus on research software?</p><p>For organising workshops: how will the event help your domain, how will the event help the Institute, how will the event help you.</p><p>For policy related work: how might participation or organisation help the policy goals of the Institute, such as improving software and improved research (this can include people and tools perspectives).</p><p>For other: please state reasons - note it maybe good to discuss matter with the Institute Community Lead before filling the form to make sure the rationale is aligned to the Institute and to your own objectives.</p>'),
+                HTML('<h2>Justification for attending or organising the event</h2><p>When filling in the questions below please consider the following points:</p><ul><li>For attending conferences/workshops: will the conference focus on a significant field, will you meet significant researchers, will there be a focus on research software?</li><li>For organising workshops: how will the event help your domain, how will the event help the Institute, how will the event help you.</li><li>For policy related work: how might participation or organisation help the policy goals of the Institute, such as improving software and improved research (this can include people and tools perspectives).</li><li>For other: please state reasons - note it maybe good to discuss matter with the Institute Community Lead before filling the form to make sure the rationale is aligned to the Institute and to your own objectives.</li></ul>'),
                 'justification',
                 'additional_info',
                 HTML('<h2>Sponsorship</h2><p>If you are sponsoring others to take part in this event from your Fellowship funds please give their names and email addresses below, if you do not know their names at this stage please state whether there is sponsorship of others needed in this request. In either case please provide some justification.</p>'),
@@ -212,7 +218,7 @@ class FundForm(ModelForm):
         self.fields['category'].initial = ''
 
 
-class FundReviewForm(ModelForm):
+class FundReviewForm(GarlicForm):
     class Meta:
         model = Fund
         fields = [
@@ -234,11 +240,10 @@ class FundReviewForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(FundReviewForm, self).__init__(*args, **kwargs)
 
-        self.helper = FormHelper(self)
         self.helper.add_input(Submit('submit', 'Submit'))
 
 
-class ExpenseForm(ModelForm):
+class ExpenseForm(GarlicForm):
     class Meta:
         model = Expense
         fields = [
@@ -272,7 +277,6 @@ class ExpenseForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ExpenseForm, self).__init__(*args, **kwargs)
 
-        self.helper = FormHelper(self)
         self.helper.layout = Layout(
             Fieldset(
                 '',
@@ -298,7 +302,7 @@ class ExpenseForm(ModelForm):
 
         self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
 
-class ExpenseReviewForm(ModelForm):
+class ExpenseReviewForm(GarlicForm):
     class Meta:
         model = Expense
         fields = [
@@ -325,7 +329,6 @@ class ExpenseReviewForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ExpenseReviewForm, self).__init__(*args, **kwargs)
 
-        self.helper = FormHelper(self)
         self.helper.layout = Layout(
             Fieldset(
                 '',
@@ -345,7 +348,7 @@ class ExpenseReviewForm(ModelForm):
             )
 
 
-class BlogForm(ModelForm):
+class BlogForm(GarlicForm):
     class Meta:
         model = Blog
         fields = [
@@ -365,7 +368,6 @@ class BlogForm(ModelForm):
     def __init__(self, *args, user=None, **kwargs):
         super(BlogForm, self).__init__(*args, **kwargs)
 
-        self.helper = FormHelper(self)
         self.helper.layout = Layout(
             Fieldset(
                 '',
@@ -382,7 +384,7 @@ class BlogForm(ModelForm):
             self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
 
 
-class BlogReviewForm(ModelForm):
+class BlogReviewForm(GarlicForm):
     class Meta:
         model = Blog
         exclude = [
@@ -398,5 +400,4 @@ class BlogReviewForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(BlogReviewForm, self).__init__(*args, **kwargs)
 
-        self.helper = FormHelper(self)
         self.helper.add_input(Submit('submit', 'Update'))

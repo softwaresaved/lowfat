@@ -7,6 +7,7 @@ TMP_FOLDER=/tmp/
 BOOTSTRAP_ZIP=/tmp/bootstrap.zip
 FONT_AWESOME_ZIP=/tmp/fontawesome.zip
 ACADEMICONS_ZIP=/tmp/academicons.zip
+GARLIC_ZIP=/tmp/garlic.zip
 
 # Bootstrap
 curl \
@@ -46,6 +47,18 @@ curl \
     -L \
     -o $TMP_FOLDER/sorttable/js/sorttable.js \
     http://www.kryogenix.org/code/browser/sorttable/sorttable.js
+
+# Garlic.js
+mkdir -p $TMP_FOLDER/garlic/js
+curl \
+    -L \
+    -o $GARLIC_ZIP \
+    https://github.com/guillaumepotier/Garlic.js/archive/1.2.4.zip
+unzip \
+    -p \
+    $GARLIC_ZIP \
+    Garlic.js-1.2.4/dist/garlic.min.js \
+    > $TMP_FOLDER/garlic/js/garlic.min.js
 
 # Copy files
 for folder in css fonts js

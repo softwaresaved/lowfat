@@ -25,6 +25,9 @@
 
         {% block extra_css %}{% endblock %}
         {% block extra_js %}{% endblock %}
+        {% for js in js_files %}
+        <script src="{% static js %}"></script>
+        {% endfor %}
     </head>
 
     <body>
@@ -82,6 +85,7 @@
             <a href="http://python.org/">Python 3</a>,
             <a href="http://djangoproject.com/">Django</a>,
             <a href="http://getbootstrap.com/">Bootstrap</a>,
+            <a href="http://garlicjs.org/">Garlic.js</a>,
             <a href="http://fontawesome.io/">Font Awesome</a>, and
             <a href="http://jpswalsh.github.io/academicons/">Academicons</a>.
             Running version {{ settings.VERSION }}
@@ -95,6 +99,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+        {% block extra_js_body %}{% endblock %}
     </body>
 </html>
 

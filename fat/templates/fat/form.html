@@ -1,28 +1,14 @@
 {% extends "fat/base.html" %}
+{% load staticfiles %}
 {% load crispy_forms_tags %}
 
-{% block extra_js %}
-<script>
-update_budget = function() {
-var newBudget = 0
-var budgetFields = ["id_budget_request_travel",
-    "id_budget_request_attendance_fees",
-    "id_budget_request_subsistence_cost",
-    "id_budget_request_venue_hire",
-    "id_budget_request_catering",
-    "id_budget_request_others"];
-
-for (var budget_id of budgetFields) {
-    newBudget += Number(document.getElementById(budget_id).value);
-}
-
-document.getElementById("id_total_budget").value = newBudget;
-}
-</script>
+{% block extra_js_body %}
+<script src="{% static 'js/garlic.min.js' %}"></script>
 {% endblock %}
 
 {% block content %}
 <h1>{{ title }}</h1>
-<p>Fields marked with <span class="asteriskField">*</span> are required.</p>
-{% crispy formset %}
+<p class="text-warning">Fields marked with <span class="asteriskField">*</span> are required.</p>
+<p class="text-info">We support Markdown on multi-line fields.</p>
+{% crispy formset formset.helper %}
 {% endblock %}
