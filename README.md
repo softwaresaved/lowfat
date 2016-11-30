@@ -1,4 +1,4 @@
-# Software Sustaibability Institute's Fellowship Administration Tool
+# Software Sustainability Institute's Fellowship Administration Tool
 
 Software Sustainability Institute internal tool to administrate the Fellowship
 programme.
