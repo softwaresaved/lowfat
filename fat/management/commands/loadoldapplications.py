@@ -27,6 +27,8 @@ class Command(BaseCommand):
                     photo_name, photo_info = urllib.request.urlretrieve(line["Photo"])
                     photo = File(open(photo_name, "rb"))
                     photo.name = line["Photo"].split("/")[-1]
+                else:
+                    photo = None
 
                 if pd.notnull(line["Research classification"]):
                     jacs = "{}00".format(line["Research classification"][0:2])
