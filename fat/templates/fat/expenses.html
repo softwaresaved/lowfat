@@ -36,11 +36,13 @@
        >
       <td>
         {% if expense.claim %}
-        {% if user.is_superuser %}
-        <a href="{% url 'expense_review_relative' expense.fund.id expense.relative_number %}">#{{ expense.relative_number }}</a>
+        <a
+          {% if user.is_superuser %}
+          href="{% url 'expense_review_relative' expense.fund.id expense.relative_number %}"
           {% else %}
-        <a href="{% url 'expense_detail_relative' expense.fund.id expense.relative_number %}">#{{ expense.relative_number }}</a>
+          <a href="{% url 'expense_detail_relative' expense.fund.id expense.relative_number %}"
         {% endif %}
+        >{{ expense.fund.name }} #{{ expense.relative_number }}</a>
         {% else %}
         Missing claim of expense
         {% endif %}
