@@ -22,16 +22,19 @@ class Command(BaseCommand):
         data =  pd.read_csv(CSV_TO_IMPORT)
         for idx, line in data.iterrows():
             try:
-                this_claimed = Claimed.objects.get(forenames=line["Forename(s)"], surname=line["Surname"], selected=True)
-                if line['Event type'] == 'Attending a conference/workshop':
-                    fund_category = 'A'
-                elif line['Event type'] == ' Organising a workshop (e.g. Software Carpentry)':
-                    fund_category = 'H'
-                elif line['Event type'] == 'Policy related event':
-                    fund_category = 'P'
-                else:
-                    fund_category = 'O'
-                funds_dict = {
+                if pd.notnull(line["Forename(s)"]):  # Looking for missing information.
+                    this_claimed = Claimed.objects.get(forenames=line["Forename(s)"], surname=line["Surname"], selected=True)
+
+                    if line['Event type'] == 'Attending a conference/workshop':
+                        fund_category = 'A'
+                    elif line['Event type'] == ' Organising a workshop (e.g. Software Carpentry)':
+                        fund_category = 'H'
+                    elif line['Event type'] == 'Policy related event':
+                        fund_category = 'P'
+                    else:
+                        fund_category = 'O'
+
+                    funds_dict = {
                         "claimed": this_claimed,
                         "category": fund_category,
                         "name": line["Event name"],
@@ -52,21 +55,29 @@ class Command(BaseCommand):
                             line["Notes A"] if pd.notnull(line["Notes A"]) else "",
                             line["Notes B"] if pd.notnull(line["Notes B"]) else "",
                             line["Notes C"] if pd.notnull(line["Notes C"]) else "")
-                }
-                fund = Fund(**funds_dict)
-                fund.save()
-                if pd.notnull(line['Approved']) and line['Approved'] != 'N/A':
-                    fund.ad_status = 'V'
-                    fund.status = 'A'
+                    }
+                    fund = Fund(**funds_dict)
                     fund.save()
+
+                    if pd.notnull(line['Approved']) and line['Approved'] != 'N/A':
+                        fund.ad_status = 'V'
+                        fund.status = 'A'
+                        fund.save()
+
                 if pd.notnull(line["Revised estimate"]):
                     expense_dict = {
                         "fund": fund,
                         "amount_claimed": line["Revised estimate"] if pd.notnull(line["Revised estimate"]) else 0,
                         "received_date": '0001-01-01',
                     }
+                else:
+                    expense_dict = {
+                        "fund": fund,
+                        "amount_claimed": line["Submitted"] if pd.notnull(line["Submitted"]) else 0,
+                        "received_date": '0001-01-01',
+                    }
 
-                    with io.BytesIO(b"""# Missing document
+                with io.BytesIO(b"""# Missing document
 
 The document that you are looking for doesn't exist because
 
@@ -76,9 +87,9 @@ The document that you are looking for doesn't exist because
 4. it is stored on our Google Drive account.
 
 Sorry for the inconvenience.""") as fake_file:
-                        expense_dict.update({
-                            "claim": SimpleUploadedFile('missing-proof.txt', fake_file.read()),
-                        })
+                    expense_dict.update({
+                        "claim": SimpleUploadedFile('missing-proof.txt', fake_file.read()),
+                    })
 
                     expense = Expense(**expense_dict)
                     expense.save()
