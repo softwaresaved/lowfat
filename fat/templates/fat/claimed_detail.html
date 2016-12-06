@@ -50,7 +50,9 @@
 {% endif %}
 <h2>
   Funding requests
+  {% if user == claimed.user %}
   <a class="btn btn-default" href="{% url 'fund' %}?claimed_id={{claimed.id}}">Make an funding request</a>
+  {% endif %}
 </h2>
 {% include 'fat/funds.html' %}
 {% endblock %}
