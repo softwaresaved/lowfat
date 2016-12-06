@@ -65,17 +65,15 @@ class Command(BaseCommand):
                         fund.save()
 
                 if pd.notnull(line["Revised estimate"]):
-                    expense_dict = {
-                        "fund": fund,
-                        "amount_claimed": line["Revised estimate"] if pd.notnull(line["Revised estimate"]) else 0,
-                        "received_date": '0001-01-01',
-                    }
+                    amount_claimed = line["Revised estimate"] if pd.notnull(line["Revised estimate"]) else 0
                 else:
-                    expense_dict = {
-                        "fund": fund,
-                        "amount_claimed": line["Submitted"] if pd.notnull(line["Submitted"]) else 0,
-                        "received_date": '0001-01-01',
-                    }
+                    amount_claimed = line["Submitted"] if pd.notnull(line["Submitted"]) else 0
+
+                expense_dict = {
+                    "fund": fund,
+                    "amount_claimed": amount_claimed,
+                    "received_date": '0001-01-01',
+                }
 
                 with io.BytesIO(b"""# Missing document
 
