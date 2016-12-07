@@ -876,10 +876,10 @@
     "model": "auth.user",
     "pk": 8,
     "fields": {
-        "password": "pbkdf2_sha256$30000$FiCo1y3Hwru3$2Gl86pHxYqMc2GNpTuk8WbCdLp5CA6WWQnq5ijD9sd4=",
-        "last_login": "2016-09-01T12:33:55.105",
+        "password": "pbkdf2_sha256$30000$AdiounftvFQ6$HMsq84pr0B3aCxYpFT5ma2TbPeK8fPS0zs6kxAh+gIs=",
+        "last_login": "2016-12-07T14:40:40",
         "is_superuser": true,
-        "username": "info@software.ac.uk",
+        "username": "admin",
         "first_name": "",
         "last_name": "",
         "email": "",
