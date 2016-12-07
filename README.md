@@ -62,6 +62,17 @@ If you want to test, follow the instructions:
 $ python3 manage.py loaddata fixtures/demo.json
 ~~~
 
+You can log in with the follow users
+
+| Username | Password    |
+| -------- | ----------- |
+| admin    | 123admin456 |
+| arrow    | arrarrarr   |
+| captain  | capcapcap   |
+| hulk     | hulhulhul   |
+| iron     | iroiroiro   |
+| widow    | widwidwid   |
+
 To export your changes on the database, run
 
 ~~~
