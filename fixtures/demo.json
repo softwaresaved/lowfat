@@ -1723,7 +1723,7 @@
         "reviewer": 8,
         "notes_from_admin": "",
         "published_url": "http://software.ac.uk",
-        "tweet_url": "http://twitter.com",
+        "tweet_url": "",
         "added": "2016-09-05T11:02:44.988",
         "updated": "2016-09-05T11:02:44.988"
     }
@@ -1755,7 +1755,7 @@
         "reviewer": 8,
         "notes_from_admin": "",
         "published_url": "http://software.ac.uk",
-        "tweet_url": "http://twitter.com",
+        "tweet_url": "",
         "added": "2016-09-05T11:03:58.132",
         "updated": "2016-09-05T12:48:27.231"
     }
@@ -1790,6 +1790,22 @@
         "tweet_url": "",
         "added": "2016-09-05T11:05:11.123",
         "updated": "2016-09-05T11:05:11.123"
+    }
+},
+{
+    "model": "fat.blog",
+    "pk": 8,
+    "fields": {
+        "fund": 3,
+        "draft_url": "http://software.ac.uk",
+        "final": true,
+        "status": "P",
+        "reviewer": 8,
+        "notes_from_admin": "",
+        "published_url": "http://software.ac.uk",
+        "tweet_url": "http://twitter.com",
+        "added": "2016-12-07T14:54:00.483",
+        "updated": "2016-12-07T14:54:00.483"
     }
 },
 {
