@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
     'django_countries',
     'crispy_forms',
     'social.apps.django_app.default',
@@ -189,3 +191,7 @@ DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DBBACKUP_STORAGE_OPTIONS = {
         'location': os.path.join(BASE_DIR, 'backups'),
         }
+
+# Flatpages
+
+SITE_ID = 1
