@@ -338,6 +338,11 @@ class Fund(models.Model):
         this_fund_expenses = Expense.objects.filter(fund=self)
         return sum([expense.amount_claimed for expense in this_fund_expenses])
 
+    def expenses_claimed_left(self):
+        """Return the total ammount left to claimed."""
+        this_fund_expenses = Expense.objects.filter(fund=self)
+        return self.budget_total() - sum([expense.amount_claimed for expense in this_fund_expenses])
+
     def expenses_authorized_for_payment(self):
         """Return the total ammount of expenses authorized_for_payment."""
         this_fund_expenses = Expense.objects.filter(fund=self)

@@ -286,6 +286,7 @@ class ExpenseForm(GarlicForm):
                 'claim',
                 HTML("</p>Please follow the guidelines at <a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'#how-to-apply-for-and-claim-expenses>Fellowship Programme's terms and conditions.</a></p>"),
                 PrependedText('amount_claimed', '£'),
+                HTML("{% if fund %}<p class='text-warning'>Note that you only have <strong>£{{ fund.expenses_claimed_left }}</strong> left.</p>{% endif %}"),
                 'justification_for_extra',
                 'final',
                 HTML("<h2>Recipient</h2><p>Only fill this part if you are claiming this expense on behalf of someone.</p>"),

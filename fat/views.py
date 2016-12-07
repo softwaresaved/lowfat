@@ -289,8 +289,10 @@ def expense(request):
     # Setup Fund if provided
     fund_id = request.GET.get("fund_id")
     if fund_id:
-        initial = {"fund": Fund.objects.get(id=fund_id)}
+        fund = Fund.objects.get(id=fund_id)
+        initial = {"fund": fund}
     else:
+        fund = None
         initial = {}
 
     formset = ExpenseForm(request.POST or None, request.FILES or None, initial=initial)
@@ -313,6 +315,7 @@ def expense(request):
     # Show submission form.
     context = {
             "title": "Submit expense claim",
+            "fund": fund,
             "formset": formset,
             }
     return render(request, 'fat/form.html', context)
