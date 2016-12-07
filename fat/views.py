@@ -125,17 +125,31 @@ def claimed_detail(request, claimed_id):
     if not request.user.is_superuser and not request.user.is_staff and not this_claimed.selected:
         raise Http404("Claimed does not exist.")
 
+    funds = Fund.objects.filter(claimed=this_claimed, can_be_advertise_after=True)
     context = {
             'claimed': this_claimed,
-            'funds': Fund.objects.filter(claimed=this_claimed),
+            'funds': [(fund, Blog.objects.filter(
+                fund=fund,
+                status="P")) for fund in funds],
             }
 
     try:
         if request.user.is_authenticated() and (request.user.is_superuser or
                                                 Claimed.objects.get(user=request.user) == this_claimed):
+            funds = Fund.objects.filter(claimed=this_claimed)
             context.update({
+                'funds': [(fund, Blog.objects.filter(
+                    fund=fund,
+                    status="P")) for fund in funds],
                 'expenses': Expense.objects.filter(fund__claimed=this_claimed),
                 'show_finances': True,
+            })
+        else:
+            funds = Fund.objects.filter(claimed=this_claimed, can_be_advertise_after=True)
+            context.update({
+                'funds': [(fund, Blog.objects.filter(
+                    fund=fund,
+                    status="P")) for fund in funds],
             })
     except:
         pass  # It can fail at Calimed.objects.get(user=request.user)

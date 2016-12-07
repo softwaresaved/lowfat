@@ -6,7 +6,7 @@
             <th>Start date</th>
             <th>End data</th>
         </tr>
-{% for fund in funds %}
+{% for fund, blog in funds %}
 <tr>
   <td>
     {% if user.is_superuser or claimed and user == claimed.user %}
@@ -15,6 +15,21 @@
     <a href="{{fund.url}}">{{fund.name}}</a>
     {% else %}
     {{fund.name}}
+    {% endif %}
+    {% if blog %}
+    (
+    {% for post in blog %}
+    <a href="{{post.published_url}}">Blog post</a>
+    {% if post.tweet_url %}
+    <a class="icon" href="{{post.tweet_url}}">
+    <i class="fa fa-twitter" aria-hidden="true"></i>
+    </a>
+    {% endif %}
+    {% if not forloop.last %}
+    ,
+    {% endif %}
+    {% endfor %}
+    )
     {% endif %}
   </td>
     <td>{{fund.start_date}}</td>
