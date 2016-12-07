@@ -20,10 +20,17 @@
     {% endif %}
     {% if blog %}
     (
-    <a href="{{blog.published_url}}">Blog post</a>
-    <a class="icon" href="{{blog.tweet_url}}">
+    {% for post in blog %}
+    <a href="{{post.published_url}}">Blog post</a>
+    {% if post.tweet_url %}
+    <a class="icon" href="{{post.tweet_url}}">
     <i class="fa fa-twitter" aria-hidden="true"></i>
     </a>
+    {% endif %}
+    {% if not forloop.last %}
+    ,
+    {% endif %}
+    {% endfor %}
     )
     {% endif %}
   </td>
