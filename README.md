@@ -110,6 +110,20 @@ $ git push origin master
 
   Where user upload files are stored.
 
+### GitHub OAuth
+
+For authentication with GitHub work you need to visit
+https://github.com/settings/applications/new and fill it.
+
+![Register a new OAuth application screenshot](img/github-oauth.jpg)
+
+As answer you can use:
+
+- Application name: **FAT**
+- Homepage URL: **http://fat.your.domain**
+- Application description: **Fellows Administration Tool**
+- Authorization callback URL: **http://fat.your.domain/complete/github/**
+
 ### Unit Test
 
 To run the unit test collection:
