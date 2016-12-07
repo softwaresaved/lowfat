@@ -2,5 +2,38 @@
 
 {% block content %}
 <h1>Previous events</h1>
-{% include "fat/funds.html" %}
+{% if funds %}
+<table class="table table-bordered sortable">
+    <tbody>
+        <tr>
+            <th>Name</th>
+            <th>Start date</th>
+            <th>End data</th>
+        </tr>
+{% for fund, blog in funds %}
+<tr>
+  <td>
+    {% if fund.url %}
+    <a href="{{fund.url}}">{{fund.name}}</a>
+    {% else %}
+    {{fund.name}}
+    {% endif %}
+    {% if blog %}
+    (
+    <a href="{{blog.published_url}}">Blog post</a>
+    <a class="icon" href="{{blog.tweet_url}}">
+    <i class="fa fa-twitter" aria-hidden="true"></i>
+    </a>
+    )
+    {% endif %}
+  </td>
+    <td>{{fund.start_date}}</td>
+    <td>{{fund.end_date}}</td>
+</tr>
+{% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p><strong>No events.</strong></p>
+{% endif %}
 {% endblock %}

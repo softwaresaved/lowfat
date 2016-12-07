@@ -263,7 +263,9 @@ def fund_past(request):
             ).order_by("start_date").reverse()
 
     context = {
-            'funds': funds,
+            'funds': [(fund, Blog.objects.filter(
+                fund=fund,
+                status="P")) for fund in funds],
             }
 
     return render(request, 'fat/fund_past.html', context)
