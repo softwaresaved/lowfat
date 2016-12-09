@@ -1,4 +1,4 @@
-from django.forms import ModelForm, SelectDateWidget, CharField, Textarea
+from django.forms import Form, ModelForm, SelectDateWidget, CharField, Textarea, FileField
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Fieldset, ButtonHolder, Submit, HTML
@@ -241,6 +241,55 @@ class FundReviewForm(GarlicForm):
         super(FundReviewForm, self).__init__(*args, **kwargs)
 
         self.helper.add_input(Submit('submit', 'Submit'))
+
+
+class FundImportForm(Form):
+    required_css_class = 'form-field-required'
+    csv = FileField()
+
+    def __init__(self, *args, **kwargs):
+        super(Form, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.attrs = {
+            'data_persist': "garlic",
+        }
+
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                HTML("""Your CSV <strong>must</strong> have the following columns:
+<ul>
+<li>Forename(s)</li>
+<li>Surname</li>
+<li>Event type</li>
+<li>Event name</li>
+<li>Event website</li>
+<li>Event Country</li>
+<li>Event City</li>
+<li>Start date</li>
+<li>End date</li>
+<li>Travel costs</li>
+<li>Conference/Workshop attendance fees</li>
+<li>Subsistence costs</li>
+<li>Venue hire</li>
+<li>Catering</li>
+<li>Travel and subsistence cost for those being paid to attend your organised event</li>
+<li>Other costs</li>
+<li>How is the event relevant to the work of the Software Sustainability Institute?</li>
+<li>Any other information relevant to this application?</li>
+<li>Estimate</li>
+<li>Submitted</li>
+<li>Revised estimate</li>
+<li>Approved</li>
+</ul>
+<p class="text-danger">You will not have access to debug information!</p>"""),
+                'csv',
+                ButtonHolder(
+                    Submit('submit', '{{ title }}')
+                )
+            )
+            )
 
 
 class ExpenseForm(GarlicForm):

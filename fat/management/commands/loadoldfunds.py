@@ -8,8 +8,6 @@ from django.core.management.base import BaseCommand, CommandError
 
 from fat.models import Claimed, Fund, Expense
 
-CSV_TO_IMPORT = 'old_funds.csv'
-
 def conv_date(new_date):
     day, month, year = new_date.split('/')
     return "{}-{}-{}".format(year, month, day)
@@ -17,9 +15,16 @@ def conv_date(new_date):
 class Command(BaseCommand):
     help = "Import CSV (old_funds.csv) with funds from claimeds to the database."
 
-    # TODO Make use of args and options.
+    def add_arguments(self, parser):
+        parser.add_argument('csv')
+
     def handle(self, *args, **options):
-        data =  pd.read_csv(CSV_TO_IMPORT)
+        if 'csv' in options:
+            csv_to_import = options['csv']
+        else:
+            csv_to_import = 'old_funds.csv'
+
+        data =  pd.read_csv(csv_to_import)
         for idx, line in data.iterrows():
             try:
                 if pd.notnull(line["Forename(s)"]):  # Looking for missing information.

@@ -41,6 +41,7 @@ fund_patterns = [
     url(r'^(?P<fund_id>[0-9]+)/review', views.fund_review, name="fund_review"),
     url(r'^(?P<fund_id>[0-9]+)/', views.fund_detail, name="fund_detail"),
     url(r'^previous/', views.fund_past, name="fund_past"),
+    url(r'^import/', views.fund_import, name="fund_import"),
     url(r'^', views.fund, name="fund"),
 ]
 

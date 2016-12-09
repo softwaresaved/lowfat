@@ -15,6 +15,7 @@ from bokeh.charts import Bar, Histogram
 from bokeh.embed import components
 from bokeh.resources import CDN
 
+from .management.commands import loadoldfunds as loadoldfunds
 from .models import *
 from .forms import *
 from .mail import *
@@ -283,6 +284,28 @@ def fund_past(request):
             }
 
     return render(request, 'fat/fund_past.html', context)
+
+@staff_member_required
+def fund_import(request):
+    if request.POST:
+        # Handle submission
+        formset = FundImportForm(request.POST or None, request.FILES or None)
+
+        if formset.is_valid():
+            importer = loadoldfunds.Command()
+            importer.handle({'csv': request.FILES['csv']})
+
+            return HttpResponseRedirect(reverse('dashboard'))
+
+    formset = FundImportForm()
+
+    # Show submission form.
+    context = {
+            "title": "Import CSV",
+            "formset": formset,
+            "js_files": ["js/request.js"],
+            }
+    return render(request, 'fat/form.html', context)
 
 @login_required
 def expense(request):

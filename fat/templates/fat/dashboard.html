@@ -29,6 +29,8 @@
 </div>
 {% if user.is_superuser %}
 <p><a href="{% url 'admin:index' %}">Click here</a> to edit the information in the database here (e.g. needed if the dates of an event change).</p>
+<p><a href="{% url 'fund_import' %}">Click here</a> to import funding requests
+  from a CSV file. <spanp class="text-danger">This is an experimental feature. You will not have access to debug information!</span></p>
 {% else %}
 <p>If you need any help please email <a href="mailto:{{ settings.FELLOWS_MANAGEMENT_EMAIL }}">us</a>.</p>
 {% endif %}
