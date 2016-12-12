@@ -1342,7 +1342,7 @@
 },
 {
     "model": "fat.fund",
-    "pk": 8,
+    "pk": 7,
     "fields": {
         "claimed": 1,
         "category": "A",
@@ -1377,7 +1377,7 @@
 },
 {
     "model": "fat.fund",
-    "pk": 9,
+    "pk": 8,
     "fields": {
         "claimed": 1,
         "category": "A",
@@ -1412,7 +1412,7 @@
 },
 {
     "model": "fat.fund",
-    "pk": 10,
+    "pk": 9,
     "fields": {
         "claimed": 3,
         "category": "A",
@@ -1447,7 +1447,7 @@
 },
 {
     "model": "fat.fund",
-    "pk": 11,
+    "pk": 10,
     "fields": {
         "claimed": 4,
         "category": "H",
