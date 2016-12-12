@@ -992,9 +992,11 @@ class ExpenseFormTest(TestCase):
         "fund": self.fund_id,
             }
 
-        with io.BytesIO(b'000') as fake_file:
+        with io.BytesIO(b"""%PDF-1.0
+1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj 2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1>>endobj 3 0 obj<</Type/Page/MediaBox[0 0 3 3]>>endobj
+trailer<</Size 4/Root 1 0 R>>""") as fake_file:
             file_data = {
-                "proof": SimpleUploadedFile('proof.png', fake_file.read()),
+                "proof": SimpleUploadedFile('proof.pdf', fake_file.read()),
             }
 
         form = ExpenseForm(data, file_data)

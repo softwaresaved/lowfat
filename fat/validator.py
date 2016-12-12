@@ -1,4 +1,4 @@
-"""o
+"""
 Validator functions
 """
 from django.core.exceptions import ValidationError
