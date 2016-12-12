@@ -13,9 +13,17 @@ order: 1
 
   File to download CSS files.
 
+- `CITATION`
+
+  Instructions of how to cite this work.
+
 - `db.sqlite3`
 
   Local database.
+
+- `docs`
+
+  Documentation folder.
 
 - `fat/`
 
@@ -25,13 +33,17 @@ order: 1
 
   Data used when testing.
 
-- `manage.py
+- `LICENSE`
+
+  Copy of BSD 3-Clause License.
+
+- `manage.py`
 
   Django command line script.
 
 - `README.md`
 
-  Root of documentation.
+  Name and link to documentation.
 
 - `requirements.txt`
 
