@@ -965,9 +965,9 @@ class ExpenseFormTest(TestCase):
         "amount_claimed": 100.00,
             }
 
-        with io.BytesIO(b'000') as fake_file:
+        with open("upload/expenses/ec1.pdf", "rb") as fake_file:
             file_data = {
-                "proof": SimpleUploadedFile('proof.png', fake_file.read()),
+                "claim": SimpleUploadedFile('claim.pdf', fake_file.read()),
             }
 
         form = ExpenseForm(data, file_data)
@@ -979,9 +979,9 @@ class ExpenseFormTest(TestCase):
         "amount_claimed": 100.00,
             }
 
-        with io.BytesIO(b'000') as fake_file:
+        with open("upload/expenses/ec1.pdf", "rb") as fake_file:
             file_data = {
-                "proof": SimpleUploadedFile('proof.png', fake_file.read()),
+                "claim": SimpleUploadedFile('claim.pdf', fake_file.read()),
             }
 
         form = ExpenseForm(data, file_data)
@@ -992,17 +992,15 @@ class ExpenseFormTest(TestCase):
         "fund": self.fund_id,
             }
 
-        with io.BytesIO(b"""%PDF-1.0
-1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj 2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1>>endobj 3 0 obj<</Type/Page/MediaBox[0 0 3 3]>>endobj
-trailer<</Size 4/Root 1 0 R>>""") as fake_file:
+        with open("upload/expenses/ec1.pdf", "rb") as fake_file:
             file_data = {
-                "proof": SimpleUploadedFile('proof.pdf', fake_file.read()),
+                "claim": SimpleUploadedFile('claim.pdf', fake_file.read()),
             }
 
         form = ExpenseForm(data, file_data)
         self.assertFalse(form.is_valid())
 
-    def test_null_proof(self):
+    def test_null_claim(self):
         data = {
         "fund": self.fund_id,
         "amount_claimed": 100.00,
@@ -1017,9 +1015,9 @@ trailer<</Size 4/Root 1 0 R>>""") as fake_file:
         "amount_claimed": 100.00,
             }
 
-        with io.BytesIO(b'000') as fake_file:
+        with open("upload/expenses/ec1.pdf", "rb") as fake_file:
             file_data = {
-                "claim": SimpleUploadedFile('claim.png', fake_file.read()),
+                "claim": SimpleUploadedFile('claim.pdf', fake_file.read()),
             }
 
         form = ExpenseForm(data, file_data)
