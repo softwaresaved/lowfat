@@ -14,7 +14,7 @@
 
 ## **Do you intend to add a new feature or change an existing one?**
 
-* Create a [new issue](https://github.com/softwaresaved/fat/new) suggesting your change.
+* Create a [new issue](https://github.com/softwaresaved/fat/new) suggesting your change. **On your issue, please include a reproducible case that we can actually run.**
 
 * After you have collected some positive feedback about the change you should start writing code and when your code is ready submit a pull request.
 
