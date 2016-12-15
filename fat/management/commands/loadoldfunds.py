@@ -103,5 +103,10 @@ Sorry for the inconvenience.""") as fake_file:
                         expense.save()
                         fund.status = 'F'
                         fund.save()
+
+                if pd.notnull(line['Finished']) and line['Finished'] == True:
+                    fund.status = 'F'
+                    fund.save()
+
             except BaseException as e:
                 print("Error: {}\n\t{}".format(e, line))
