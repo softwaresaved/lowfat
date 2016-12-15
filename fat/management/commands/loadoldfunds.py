@@ -96,6 +96,9 @@ Sorry for the inconvenience.""") as fake_file:
                         expense.status = 'A'
                         expense.amount_authorized_for_payment = line["Revised estimate"]
                         expense.save()
+                        if pd.notnull(line['Finished']) and line['Finished'] == True:
+                            expense.status = 'F'
+                            expense.save()
                         fund.status = 'F'
                         fund.save()
 
