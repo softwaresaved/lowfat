@@ -8,4 +8,5 @@ django-settings-export
 markdown
 pandas
 pypdf2
+python-gnupg
 python-social-auth

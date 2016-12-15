@@ -191,6 +191,8 @@ DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DBBACKUP_STORAGE_OPTIONS = {
         'location': os.path.join(BASE_DIR, 'backups'),
         }
+DBBACKUP_GPG_ALWAYS_TRUST = True
+DBBACKUP_GPG_RECIPIENT = ""  # XXX This variable need to be filled for --encrypt or --decrypt work properly.
 
 # Flatpages
 
