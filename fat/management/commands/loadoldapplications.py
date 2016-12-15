@@ -8,14 +8,19 @@ from django.core.management.base import BaseCommand, CommandError
 
 from fat.models import Claimed
 
-CSV_TO_IMPORT = 'old_applications.csv'
-
 class Command(BaseCommand):
     help = "Import CSV (old_applications.csv) with applications to claimedship to the database."
 
-    # TODO Make use of args and options.
+    def add_arguments(self, parser):
+        parser.add_argument('csv')
+
     def handle(self, *args, **options):
-        data =  pd.read_csv(CSV_TO_IMPORT)
+        if 'csv' in options:
+            csv_to_import = options['csv']
+        else:
+            csv_to_import = 'old_applications.csv'
+
+        data =  pd.read_csv(csv_to_import)
         for idx, line in data.iterrows():
             try:
                 if line['Selected']=='Yes':
