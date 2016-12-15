@@ -41,6 +41,7 @@ FUND_STATUS = (
         ('A', 'Approved'),  # Fund was approved. Funds are reserved.
         ('R', 'Reproved'),  # Fund was declided.
         ('F', 'Archived'),  # Approved funds with all claims and blog posts were processed. No funds are reserved.
+        ('C', 'Canceled'),  # When the fellow decided to cancel their request.
         )
 
 FUND_STATUS_LONG_DESCRIPTION = {
@@ -48,7 +49,8 @@ FUND_STATUS_LONG_DESCRIPTION = {
     'P': "One of your staffs is reviewing your request. You should have our reply soon.",
     'A': "Your fund request was approved.",
     'R': "Your fund request was declided.",
-    'F': "We archived your fund request since all the expense claims were processed."
+    'F': "We archived your fund request since all the expense claims were processed.",
+    'C': "You decided to cancel this request for any reason.",
     }
 
 
