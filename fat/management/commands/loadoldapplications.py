@@ -12,15 +12,10 @@ class Command(BaseCommand):
     help = "Import CSV (old_applications.csv) with applications to claimedship to the database."
 
     def add_arguments(self, parser):
-        parser.add_argument('csv')
+        parser.add_argument('csv', nargs='?', default='old_applications.csv')
 
     def handle(self, *args, **options):
-        if 'csv' in options:
-            csv_to_import = options['csv']
-        else:
-            csv_to_import = 'old_applications.csv'
-
-        data =  pd.read_csv(csv_to_import)
+        data =  pd.read_csv(options['csv'])
         for idx, line in data.iterrows():
             try:
                 if line['Selected']=='Yes':
