@@ -129,7 +129,7 @@ def claimed_detail(request, claimed_id):
     funds = Fund.objects.filter(
         claimed=this_claimed,
         can_be_advertise_after=True,
-        status__in=["A"]
+        status__in=["A", "F"]
     )
     context = {
             'claimed': this_claimed,
@@ -278,7 +278,7 @@ def fund_past(request):
     funds = Fund.objects.filter(
             start_date__lt=django.utils.timezone.now(),
             category="H",
-            status_in=["A"],
+            status__in=["A", "F"],
             can_be_advertise_after=True,
             ).order_by("start_date").reverse()
 
