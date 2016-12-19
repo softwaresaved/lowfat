@@ -126,7 +126,11 @@ def claimed_detail(request, claimed_id):
     if not request.user.is_superuser and not request.user.is_staff and not this_claimed.selected:
         raise Http404("Claimed does not exist.")
 
-    funds = Fund.objects.filter(claimed=this_claimed, can_be_advertise_after=True)
+    funds = Fund.objects.filter(
+        claimed=this_claimed,
+        can_be_advertise_after=True,
+        status__in=["A", "F"]
+    )
     context = {
             'claimed': this_claimed,
             'funds': [(fund, Blog.objects.filter(
@@ -274,6 +278,7 @@ def fund_past(request):
     funds = Fund.objects.filter(
             start_date__lt=django.utils.timezone.now(),
             category="H",
+            status__in=["A", "F"],
             can_be_advertise_after=True,
             ).order_by("start_date").reverse()
 
