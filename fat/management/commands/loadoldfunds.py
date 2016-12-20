@@ -2,9 +2,8 @@ import io
 
 import pandas as pd
 
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 
 from fat.models import Claimed, Fund, Expense
 
@@ -18,9 +17,10 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('csv', nargs='?', default='old_funds.csv')
 
+    # pylint: disable=too-many-branches
     def handle(self, *args, **options):
-        data =  pd.read_csv(options['csv'])
-        for idx, line in data.iterrows():
+        data = pd.read_csv(options['csv'])
+        for index, line in data.iterrows():  # pylint: disable=no-member,unused-variable
             try:
                 if pd.notnull(line["Forename(s)"]):  # Looking for missing information.
                     this_claimed = Claimed.objects.get(forenames=line["Forename(s)"], surname=line["Surname"], selected=True)
@@ -101,15 +101,15 @@ Sorry for the inconvenience.""") as fake_file:
                         expense.status = 'A'
                         expense.amount_authorized_for_payment = line["Revised estimate"]
                         expense.save()
-                        if pd.notnull(line['Finished']) and line['Finished'] == True:
+                        if pd.notnull(line['Finished']) and line['Finished'] is True:
                             expense.status = 'F'
                             expense.save()
                         fund.status = 'F'
                         fund.save()
 
-                if pd.notnull(line['Finished']) and line['Finished'] == True:
+                if pd.notnull(line['Finished']) and line['Finished'] is True:
                     fund.status = 'F'
                     fund.save()
 
-            except BaseException as e:
-                print("Error: {}\n\t{}".format(e, line))
+            except BaseException as exception:
+                print("Error: {}\n\t{}".format(exception, line))

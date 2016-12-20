@@ -1,11 +1,7 @@
-from datetime import date
-
 import django.utils
 from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User, Group
-from django.core.files.uploadedfile import SimpleUploadedFile
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db.models import Count
 from django.http import HttpResponseRedirect, Http404
@@ -22,14 +18,16 @@ from .mail import *
 
 def index(request):
     context = {
-            'claimeds': Claimed.objects.exclude(selected=False).order_by('application_year').reverse(),
-            'funds': Fund.objects.filter(category="H", start_date__gte=django.utils.timezone.now(), can_be_advertise_before=True).order_by("start_date").reverse(),
-            }
+        'claimeds': Claimed.objects.exclude(selected=False).order_by('application_year').reverse(),
+        'funds': Fund.objects.filter(category="H", start_date__gte=django.utils.timezone.now(), can_be_advertise_before=True).order_by("start_date").reverse(),
+    }
 
     if request.user.is_authenticated() and request.user.is_superuser:
-        context.update({
-            'show_grant_available': True,
-            })
+        context.update(
+            {
+                'show_grant_available': True,
+            }
+        )
 
     return render(request, 'fat/index.html', context)
 
@@ -41,11 +39,13 @@ def dashboard(request):
         try:
             claimed = Claimed.objects.get(user=request.user)
 
-            context.update({
-                'claimed': claimed,
-                'funds': Fund.objects.filter(claimed=claimed).reverse(),
-                'budget_available': claimed.claimedship_available(),
-            })
+            context.update(
+                {
+                    'claimed': claimed,
+                    'funds': Fund.objects.filter(claimed=claimed).reverse(),
+                    'budget_available': claimed.claimedship_available(),
+                }
+            )
         except:
             raise Http404("Contact info@software.ac.uk to have your profile approved.")
     else:
@@ -64,11 +64,13 @@ def dashboard(request):
         else:
             blogs_status = "UR"
 
-        context.update({
-            'funds': Fund.objects.filter(status__in=funding_requests_status).reverse(),
-            'expenses': Expense.objects.filter(status__in=expenses_status).reverse(),
-            'blogs': Blog.objects.filter(status__in=blogs_status).reverse(),
-        })
+        context.update(
+            {
+                'funds': Fund.objects.filter(status__in=funding_requests_status).reverse(),
+                'expenses': Expense.objects.filter(status__in=expenses_status).reverse(),
+                'blogs': Blog.objects.filter(status__in=blogs_status).reverse(),
+            }
+        )
 
     return render(request, 'fat/dashboard.html', context)
 
@@ -82,7 +84,7 @@ def promote(request):
 
 
 @login_required
-def claimed(request):
+def claimed_form(request):
     if not request.user.is_superuser and not request.user.is_staff:
         instance = Claimed.objects.get(user=request.user)
         title_begin = "Edit"
@@ -90,6 +92,7 @@ def claimed(request):
         instance = None
         title_begin = "Create"
 
+    # pylint: disable=redefined-variable-type
     if "full" in request.GET:
         formset = FellowForm(request.POST or None, request.FILES or None, instance=instance)
         title_end = "fellow"
@@ -104,20 +107,22 @@ def claimed(request):
 
     # Show submission form.
     context = {
-            "title": "{} {}".format(title_begin, title_end),
-            "formset": formset,
-            "submit_text": "Save" if instance is None else "Update",
-            }
+        "title": "{} {}".format(title_begin, title_end),
+        "formset": formset,
+        "submit_text": "Save" if instance is None else "Update",
+    }
     return render(request, 'fat/form.html', context)
 
+# pylint: disable=unused-argument
 @staff_member_required
 def claimed_promote(request, claimed_id):
     claimed = Claimed.objects.get(id=claimed_id)
     claimed.slected = True
     claimed.save()
 
-    return HttpResponseRedirect(reverse('claimed_detail',
-                                        args=[claimed.id,]))
+    return HttpResponseRedirect(
+        reverse('claimed_detail', args=[claimed.id,])
+    )
 
 def claimed_detail(request, claimed_id):
     """Details about claimed."""
@@ -132,31 +137,38 @@ def claimed_detail(request, claimed_id):
         status__in=["A", "F"]
     )
     context = {
-            'claimed': this_claimed,
-            'funds': [(fund, Blog.objects.filter(
-                fund=fund,
-                status="P")) for fund in funds],
-            }
+        'claimed': this_claimed,
+        'funds': [(fund, Blog.objects.filter(
+            fund=fund,
+            status="P"
+        )) for fund in funds],
+    }
 
     try:
         if request.user.is_authenticated() and (request.user.is_superuser or
                                                 Claimed.objects.get(user=request.user) == this_claimed):
             funds = Fund.objects.filter(claimed=this_claimed)
-            context.update({
-                'funds': [(fund, Blog.objects.filter(
-                    fund=fund,
-                    status="P")) for fund in funds],
-                'expenses': Expense.objects.filter(fund__claimed=this_claimed),
-                'show_finances': True,
-            })
+            context.update(
+                {
+                    'funds': [(fund, Blog.objects.filter(
+                        fund=fund,
+                        status="P"
+                    )) for fund in funds],
+                    'expenses': Expense.objects.filter(fund__claimed=this_claimed),
+                    'show_finances': True,
+                }
+            )
         else:
             funds = Fund.objects.filter(claimed=this_claimed, can_be_advertise_after=True)
-            context.update({
-                'funds': [(fund, Blog.objects.filter(
-                    fund=fund,
-                    status="P")) for fund in funds],
-            })
-    except:
+            context.update(
+                {
+                    'funds': [(fund, Blog.objects.filter(
+                        fund=fund,
+                        status="P"
+                    )) for fund in funds],
+                }
+            )
+    except:  # pylint: disable=bare-except
         pass  # It can fail at Calimed.objects.get(user=request.user)
 
     return render(request, 'fat/claimed_detail.html', context)
@@ -165,7 +177,7 @@ def claimed_slug_resolution(request, claimed_slug):
     """Resolve claimed slug and return the details."""
     try:
         claimed = Claimed.objects.get(slug=claimed_slug, selected=True)
-    except:
+    except:  # pylint: disable=bare-except
         claimed = None
 
     if claimed:
@@ -182,7 +194,7 @@ def my_profile(request):
     raise Http404("Claimed does not exist.")
 
 @login_required
-def fund(request):
+def fund_form(request):
     if request.POST:
         # Handle submission
         post = request.POST.copy()
@@ -200,8 +212,9 @@ def fund(request):
 
             # FIXME Enable this in the future.
             # new_fund_notification(fund)
-            return HttpResponseRedirect(reverse('fund_detail',
-                args=[fund.id,]))
+            return HttpResponseRedirect(
+                reverse('fund_detail', args=[fund.id,])
+            )
 
     if not request.user.is_superuser:
         initial = {
@@ -217,19 +230,18 @@ def fund(request):
 
     # Show submission form.
     context = {
-            "title": "Make an funding request",
-            "formset": formset,
-            "js_files": ["js/request.js"],
-            }
+        "title": "Make an funding request",
+        "formset": formset,
+        "js_files": ["js/request.js"],
+    }
     return render(request, 'fat/form.html', context)
 
 @login_required
 def fund_detail(request, fund_id):
     this_fund = Fund.objects.get(id=fund_id)
-    
+
     if (request.user.is_superuser or
             Claimed.objects.get(user=request.user) == this_fund.claimed):
-        budget_request = this_fund.budget_total()
 
         context = {
             'fund': this_fund,
@@ -252,41 +264,45 @@ def fund_review(request, fund_id):
 
         if formset.is_valid():
             fund = formset.save()
-            mail = FundSentMail(**{
-                "justification": formset.cleaned_data['email'],
-                "sender": request.user,
-                "receiver": fund.claimed,
-                "fund": fund,
-                })
+            mail = FundSentMail(
+                **{
+                    "justification": formset.cleaned_data['email'],
+                    "sender": request.user,
+                    "receiver": fund.claimed,
+                    "fund": fund,
+                }
+            )
             mail.save()
             # FIXME Enable this in the future.
             # fund_review_notification(mail)
-            return HttpResponseRedirect(reverse('fund_detail',
-                args=[fund.id,]))
+            return HttpResponseRedirect(
+                reverse('fund_detail', args=[fund.id,])
+            )
 
     formset = FundReviewForm(None, instance=this_fund)
 
     context = {
-            'fund': this_fund,
-            'formset': formset,
-            'emails': FundSentMail.objects.filter(fund=this_fund),
-            }
+        'fund': this_fund,
+        'formset': formset,
+        'emails': FundSentMail.objects.filter(fund=this_fund),
+    }
 
     return render(request, 'fat/fund_review.html', context)
 
 def fund_past(request):
     funds = Fund.objects.filter(
-            start_date__lt=django.utils.timezone.now(),
-            category="H",
-            status__in=["A", "F"],
-            can_be_advertise_after=True,
-            ).order_by("start_date").reverse()
+        start_date__lt=django.utils.timezone.now(),
+        category="H",
+        status__in=["A", "F"],
+        can_be_advertise_after=True,
+    ).order_by("start_date").reverse()
 
     context = {
-            'funds': [(fund, Blog.objects.filter(
-                fund=fund,
-                status="P")) for fund in funds],
-            }
+        'funds': [(fund, Blog.objects.filter(
+            fund=fund,
+            status="P"
+        )) for fund in funds],
+    }
 
     return render(request, 'fat/fund_past.html', context)
 
@@ -306,14 +322,14 @@ def fund_import(request):
 
     # Show submission form.
     context = {
-            "title": "Import CSV",
-            "formset": formset,
-            "js_files": ["js/request.js"],
-            }
+        "title": "Import CSV",
+        "formset": formset,
+        "js_files": ["js/request.js"],
+    }
     return render(request, 'fat/form.html', context)
 
 @login_required
-def expense(request):
+def expense_form(request):
     # Setup Fund if provided
     fund_id = request.GET.get("fund_id")
     if fund_id:
@@ -329,8 +345,9 @@ def expense(request):
         expense = formset.save()
         # FIXME Enable this in the future.
         # new_expense_notification(expense)
-        return HttpResponseRedirect(reverse('expense_detail',
-                                            args=[expense.id,]))
+        return HttpResponseRedirect(
+            reverse('expense_detail', args=[expense.id,])
+        )
 
     # Limit dropdown list to claimed
     if not request.user.is_superuser:
@@ -342,16 +359,16 @@ def expense(request):
 
     # Show submission form.
     context = {
-            "title": "Submit expense claim",
-            "fund": fund,
-            "formset": formset,
-            }
+        "title": "Submit expense claim",
+        "fund": fund,
+        "formset": formset,
+    }
     return render(request, 'fat/form.html', context)
 
 @login_required
 def expense_detail(request, expense_id):
     this_expense = Expense.objects.get(id=expense_id)
-    
+
     if (request.user.is_superuser or
             Claimed.objects.get(user=request.user) == this_expense.fund.claimed):
         context = {
@@ -379,25 +396,28 @@ def expense_review(request, expense_id):
 
         if formset.is_valid():
             expense = formset.save()
-            mail = ExpenseSentMail(**{
-                "justification": formset.cleaned_data['email'],
-                "sender": request.user,
-                "receiver": expense.fund.claimed,
-                "expense": expense,
-                })
+            mail = ExpenseSentMail(
+                **{
+                    "justification": formset.cleaned_data['email'],
+                    "sender": request.user,
+                    "receiver": expense.fund.claimed,
+                    "expense": expense,
+                }
+            )
             mail.save()
             # FIXME Enable this in the future.
             # expense_review_notification(mail)
-            return HttpResponseRedirect(reverse('expense_detail',
-                args=[expense.id,]))
+            return HttpResponseRedirect(
+                reverse('expense_detail', args=[expense.id,])
+            )
 
     formset = ExpenseReviewForm(None, instance=this_expense)
 
     context = {
-            'expense': this_expense,
-            'formset': formset,
-            'emails': ExpenseSentMail.objects.filter(expense=this_expense),
-            }
+        'expense': this_expense,
+        'formset': formset,
+        'emails': ExpenseSentMail.objects.filter(expense=this_expense),
+    }
 
     return render(request, 'fat/expense_review.html', context)
 
@@ -408,15 +428,16 @@ def expense_review_relative(request, fund_id, expense_relative_number):
     return expense_review(request, this_expense.id)
 
 @login_required
-def blog(request):
+def blog_form(request):
     formset = BlogForm(request.POST or None, user=request.user)
 
     if formset.is_valid():
         blog = formset.save()
         # FIXME Enable this in the future.
         # new_blog_notification(blog)
-        return HttpResponseRedirect(reverse('blog_detail',
-                                            args=[blog.id,]))
+        return HttpResponseRedirect(
+            reverse('blog_detail', args=[blog.id,])
+        )
 
     fund_id = request.GET.get("fund_id")
     if fund_id:
@@ -435,9 +456,9 @@ def blog(request):
 
     # Show submission form.
     context = {
-            "title": "Submit blog post",
-            "formset": formset,
-            }
+        "title": "Submit blog post",
+        "formset": formset,
+    }
     return render(request, 'fat/form.html', context)
 
 @login_required
@@ -449,7 +470,7 @@ def blog_detail(request, blog_id):
         context = {
             'blog': Blog.objects.get(id=blog_id),
             'emails': BlogSentMail.objects.filter(blog=this_blog),
-            }
+        }
 
         return render(request, 'fat/blog_detail.html', context)
 
@@ -465,17 +486,20 @@ def blog_review(request, blog_id):
 
         if formset.is_valid():
             blog = formset.save()
-            mail = BlogSentMail(**{
-                "justification": formset.cleaned_data['email'],
-                "sender": request.user,
-                "receiver": blog.fund.claimed,
-                "blog": blog,
-                })
+            mail = BlogSentMail(
+                **{
+                    "justification": formset.cleaned_data['email'],
+                    "sender": request.user,
+                    "receiver": blog.fund.claimed,
+                    "blog": blog,
+                }
+            )
             mail.save()
             # FIXME Enable this in the future.
             # blog_review_notification(mail)
-            return HttpResponseRedirect(reverse('blog_detail',
-                args=[blog.id,]))
+            return HttpResponseRedirect(
+                reverse('blog_detail', args=[blog.id,])
+            )
 
     formset = BlogReviewForm(None, instance=this_blog)
 
@@ -484,10 +508,10 @@ def blog_review(request, blog_id):
         formset.fields["reviewer"].queryset = User.objects.filter(is_staff=True)
 
     context = {
-            'blog': this_blog,
-            'emails': BlogSentMail.objects.filter(blog=this_blog),
-            'formset': formset,
-            }
+        'blog': this_blog,
+        'emails': BlogSentMail.objects.filter(blog=this_blog),
+        'formset': formset,
+    }
 
     return render(request, 'fat/blog_review.html', context)
 
@@ -499,24 +523,31 @@ def report(request):
 
     # Number of claimeds per year
     claimeds_per_year = Claimed.objects.all().values('application_year').annotate(total=Count('application_year'))
-    claimeds_per_year_plot = Bar(list(claimeds_per_year),
-               values='total',
-               label='application_year',
-               title='Number of claimeds')
+    claimeds_per_year_plot = Bar(
+        list(claimeds_per_year),
+        values='total',
+        label='application_year',
+        title='Number of claimeds'
+    )
 
     # Fund requests
     fund_amount = Fund.objects.all().values('budget_approved')
-    fund_amount_hist = Histogram([float(amount['budget_approved']) for amount in list(fund_amount)],
-                                  title='Amount request')
+    fund_amount_hist = Histogram(
+        [float(amount['budget_approved']) for amount in list(fund_amount)],
+        title='Amount request'
+    )
 
-    bokeh_script, bokeh_plots = components({
-        'claimeds_per_year': claimeds_per_year_plot,
-        'fund_amount': fund_amount_hist,
-        }, CDN)
+    bokeh_script, bokeh_plots = components(
+        {
+            'claimeds_per_year': claimeds_per_year_plot,
+            'fund_amount': fund_amount_hist,
+        },
+        CDN
+    )
 
     context = {
         'bokeh_script': bokeh_script,
-        }
+    }
     context.update(bokeh_plots)
 
     return render(request, 'fat/report.html', context)
@@ -526,8 +557,8 @@ def geojson(request):
     """Return the GeoJSON file."""
 
     context = {
-            'claimeds': Claimed.objects.all(),
-            'funds': Fund.objects.all(),
-            }
+        'claimeds': Claimed.objects.all(),
+        'funds': Fund.objects.all(),
+    }
 
     return render(request, 'fat/map.geojson', context)
