@@ -45,7 +45,7 @@ FUND_PATTERNS = [
     url(r'^', views.fund_form, name="fund"),
 ]
 
-urlpatterns = [
+urlpatterns = [  # pylint: disable=invalid-name
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^login/', auth_views.login,
         {'template_name': 'fat/sign_in.html'},
