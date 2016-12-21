@@ -59,7 +59,7 @@ class Command(BaseCommand):
                     fund = Fund(**funds_dict)
                     fund.save()
 
-                if pd.isnotnull(line["Submitted"]):
+                if pd.notnull(line["Submitted"]):
                     fund.ad_status = 'V'
                     fund.status = "F"
                     fund.save()
@@ -82,7 +82,7 @@ class Command(BaseCommand):
 
                     expense = Expense(**expense_dict)
                     expense.save()
-                    if pd.isnotnull(line["Submitted"]):
+                    if pd.notnull(line["Submitted"]):
                         expense.funds_from = line["Type"] if pd.notnull(line["Type"]) else 'C'
                         expense.status = 'F'
                         expense.amount_authorized_for_payment = line["Revised estimate"]
