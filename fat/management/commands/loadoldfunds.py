@@ -59,15 +59,10 @@ class Command(BaseCommand):
                     fund = Fund(**funds_dict)
                     fund.save()
 
-                    if pd.notnull(line['Approved']) and line['Approved'] != 'N/A':
-                        fund.ad_status = 'V'
-                        fund.status = 'A'
-                        fund.save()
-
-                if pd.isnull(line["Submitted"]) or line["Submitted"] == 0:
-                    fund.status = "C"
+                if pd.isnotnull(line["Submitted"]):
+                    fund.ad_status = 'V'
+                    fund.status = "F"
                     fund.save()
-                    continue
 
                 if pd.notnull(line["Revised estimate"]):
                     amount_claimed = line["Revised estimate"] if pd.notnull(line["Revised estimate"]) else 0
@@ -80,36 +75,21 @@ class Command(BaseCommand):
                     "received_date": '0001-01-01',
                 }
 
-                with io.BytesIO(b"""# Missing document
-
-The document that you are looking for doesn't exist because
-
-1. it wasnr't send to us,
-2. it is stored only as paper copy in our archives,
-3. it is stored on our SVN server, or
-4. it is stored on our Google Drive account.
-
-Sorry for the inconvenience.""") as fake_file:
+                with open("upload/expenses/missing-document-template.pdf", "rb") as fake_file:
                     expense_dict.update({
-                        "claim": SimpleUploadedFile('missing-proof.txt', fake_file.read()),
+                        "claim": SimpleUploadedFile('missing-proof-for-{}.txt'.format(index), fake_file.read()),
                     })
 
                     expense = Expense(**expense_dict)
                     expense.save()
-                    if line['Claim'] in ['Yes', 'SVN', 'Partial', 'Hard copy', 'Ask accounts for copy of invoice'] and pd.notnull(line['Authorised']):
+                    if pd.isnotnull(line["Submitted"]):
                         expense.funds_from = line["Type"] if pd.notnull(line["Type"]) else 'C'
-                        expense.status = 'A'
+                        expense.status = 'F'
                         expense.amount_authorized_for_payment = line["Revised estimate"]
                         expense.save()
-                        if pd.notnull(line['Finished']) and line['Finished'] is True:
-                            expense.status = 'F'
-                            expense.save()
+
                         fund.status = 'F'
                         fund.save()
-
-                if pd.notnull(line['Finished']) and line['Finished'] is True:
-                    fund.status = 'F'
-                    fund.save()
 
             except BaseException as exception:
                 print("Error: {}\n\t{}".format(exception, line))
