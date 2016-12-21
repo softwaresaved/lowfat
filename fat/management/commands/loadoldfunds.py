@@ -63,6 +63,8 @@ class Command(BaseCommand):
                     fund.ad_status = 'V'
                     fund.status = "F"
                     fund.save()
+                else:
+                    continue
 
                 if pd.notnull(line["Revised estimate"]):
                     amount_claimed = line["Revised estimate"] if pd.notnull(line["Revised estimate"]) else 0
