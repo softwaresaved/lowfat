@@ -1031,19 +1031,42 @@ class ExpenseReviewFormTest(TestCase):
         for fund in ['C', 'I', 'F']:
             data = {
                 "status": "S",
+                "received_date": "2016-01-01",
                 "asked_for_authorization_date": "2016-01-01",
+                "send_to_finance_date": "2016-01-01",
                 "amount_authorized_for_payment": 100.00,
                 "funds_from": fund,
+                "grant_used": "SSI1",
             }
 
             form = ExpenseReviewForm(data)
             self.assertTrue(form.is_valid())
 
+    def test_grant_used(self):
+        for grant in ['SSI1', 'SSI2', 'SSI3']:
+            data = {
+                "status": "S",
+                "received_date": "2016-01-01",
+                "asked_for_authorization_date": "2016-01-01",
+                "send_to_finance_date": "2016-01-01",
+                "amount_authorized_for_payment": 100.00,
+                "funds_from": "F",
+                "grant_used": grant,
+            }
+
+            form = ExpenseReviewForm(data)
+            self.assertTrue(form.is_valid())
 
     def test_expense_status(self):
-        for status in ('W', 'S', 'P', 'A', 'F'):
+        for status in ('W', 'S', 'C', 'P', 'A', 'F'):
             data = {
                 "status": status,
+                "received_date": "2016-01-01",
+                "asked_for_authorization_date": "2016-01-01",
+                "send_to_finance_date": "2016-01-01",
+                "amount_authorized_for_payment": 100.00,
+                "funds_from": "F",
+                "grant_used": "SSI1",
             }
 
             form = ExpenseReviewForm(data)
@@ -1053,10 +1076,12 @@ class ExpenseReviewFormTest(TestCase):
     def test_minimal_expected(self):
         data = {
             "status": "S",
+            "received_date": "2016-01-01",
             "asked_for_authorization_date": "2016-01-01",
             "send_to_finance_date": "2016-01-01",
             "amount_authorized_for_payment": 100.00,
             "funds_from": "F",
+            "grant_used": "SSI1",
         }
 
         form = ExpenseReviewForm(data)
@@ -1064,11 +1089,13 @@ class ExpenseReviewFormTest(TestCase):
 
     def test_full_expected(self):
         data = {
-            "status": "V",
+            "status": "S",
+            "received_date": "2016-01-01",
             "asked_for_authorization_date": "2016-01-01",
             "send_to_finance_date": "2016-01-01",
             "amount_authorized_for_payment": 100.00,
             "funds_from": "F",
+            "grant_used": "SSI1",
             "notes_from_admin": ":-)",
         }
 
@@ -1144,15 +1171,17 @@ class BlogReviewFormTest(TestCase):
     def test_blog_status(self):
         for status in ('U', 'R', 'L', 'P', 'D', 'O'):
             data = {
+                "draft_url":  "http://software.ac.uk",
                 "status": status,
+                "published_url": "http://software.ac.uk",
             }
 
             form = BlogReviewForm(data)
             self.assertTrue(form.is_valid())
 
-
     def test_minimal_expected(self):
         data = {
+            "draft_url":  "http://software.ac.uk",
             "status": "P",
             "published_url": "http://software.ac.uk",
         }
@@ -1162,6 +1191,7 @@ class BlogReviewFormTest(TestCase):
 
     def test_full_expected(self):
         data = {
+            "draft_url":  "http://software.ac.uk",
             "status": "P",
             "published_url": "http://software.ac.uk",
             "notes_from_admin": ":-)",
