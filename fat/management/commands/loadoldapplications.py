@@ -5,10 +5,10 @@ import pandas as pd
 from django.core.files import File
 from django.core.management.base import BaseCommand
 
-from fat.models import Claimed
+from fat.models import Claimant
 
 class Command(BaseCommand):
-    help = "Import CSV (old_applications.csv) with applications to claimedship to the database."
+    help = "Import CSV (old_applications.csv) with applications to claimantship to the database."
 
     def add_arguments(self, parser):
         parser.add_argument('csv', nargs='?', default='old_applications.csv')
@@ -46,7 +46,7 @@ class Command(BaseCommand):
                     "home_city": "SSI",
                     "work_description": line["Work area"],
                     "funding": "{}, {}".format(line["Primary funder"], line["Additional funder"]),
-                    "claimedship_grant": 3000 if is_fellow else 0,
+                    "claimantship_grant": 3000 if is_fellow else 0,
                 }
 
                 if photo:
@@ -54,7 +54,7 @@ class Command(BaseCommand):
                         "photo": photo,
                         })
 
-                applicant = Claimed(**applicants_dict)
+                applicant = Claimant(**applicants_dict)
                 applicant.save()
 
             except BaseException as exception:

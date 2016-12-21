@@ -165,27 +165,27 @@
     "model": "auth.permission",
     "pk": 19,
     "fields": {
-        "name": "Can add claimed",
+        "name": "Can add claimant",
         "content_type": 7,
-        "codename": "add_claimed"
+        "codename": "add_claimant"
     }
 },
 {
     "model": "auth.permission",
     "pk": 20,
     "fields": {
-        "name": "Can change claimed",
+        "name": "Can change claimant",
         "content_type": 7,
-        "codename": "change_claimed"
+        "codename": "change_claimant"
     }
 },
 {
     "model": "auth.permission",
     "pk": 21,
     "fields": {
-        "name": "Can delete claimed",
+        "name": "Can delete claimant",
         "content_type": 7,
-        "codename": "delete_claimed"
+        "codename": "delete_claimant"
     }
 },
 {
@@ -381,27 +381,27 @@
     "model": "auth.permission",
     "pk": 43,
     "fields": {
-        "name": "Can add claimed",
+        "name": "Can add claimant",
         "content_type": 15,
-        "codename": "add_claimed"
+        "codename": "add_claimant"
     }
 },
 {
     "model": "auth.permission",
     "pk": 44,
     "fields": {
-        "name": "Can change claimed",
+        "name": "Can change claimant",
         "content_type": 15,
-        "codename": "change_claimed"
+        "codename": "change_claimant"
     }
 },
 {
     "model": "auth.permission",
     "pk": 45,
     "fields": {
-        "name": "Can delete claimed",
+        "name": "Can delete claimant",
         "content_type": 15,
-        "codename": "delete_claimed"
+        "codename": "delete_claimant"
     }
 },
 {
@@ -705,27 +705,27 @@
     "model": "auth.permission",
     "pk": 79,
     "fields": {
-        "name": "Can add claimed",
+        "name": "Can add claimant",
         "content_type": 16,
-        "codename": "add_claimed"
+        "codename": "add_claimant"
     }
 },
 {
     "model": "auth.permission",
     "pk": 80,
     "fields": {
-        "name": "Can change claimed",
+        "name": "Can change claimant",
         "content_type": 16,
-        "codename": "change_claimed"
+        "codename": "change_claimant"
     }
 },
 {
     "model": "auth.permission",
     "pk": 81,
     "fields": {
-        "name": "Can delete claimed",
+        "name": "Can delete claimant",
         "content_type": 16,
-        "codename": "delete_claimed"
+        "codename": "delete_claimant"
     }
 },
 {
@@ -891,7 +891,7 @@
     }
 },
 {
-    "model": "fat.claimed",
+    "model": "fat.claimant",
     "pk": 1,
     "fields": {
         "user": 6,
@@ -923,7 +923,7 @@
         "selected": true,
         "software_carpentry_instructor": false,
         "data_carpentry_instructor": false,
-        "claimedship_grant": "3000.00",
+        "claimantship_grant": "3000.00",
         "notes_from_admin": "",
         "mentor": null,
         "added": "2016-07-07T14:59:46.412",
@@ -931,7 +931,7 @@
     }
 },
 {
-    "model": "fat.claimed",
+    "model": "fat.claimant",
     "pk": 2,
     "fields": {
         "user": 5,
@@ -963,7 +963,7 @@
         "selected": true,
         "software_carpentry_instructor": false,
         "data_carpentry_instructor": false,
-        "claimedship_grant": "3000.00",
+        "claimantship_grant": "3000.00",
         "notes_from_admin": "",
         "mentor": null,
         "added": "2016-07-07T14:59:46.412",
@@ -971,7 +971,7 @@
     }
 },
 {
-    "model": "fat.claimed",
+    "model": "fat.claimant",
     "pk": 3,
     "fields": {
         "user": 4,
@@ -1003,7 +1003,7 @@
         "selected": true,
         "software_carpentry_instructor": false,
         "data_carpentry_instructor": false,
-        "claimedship_grant": "3000.00",
+        "claimantship_grant": "3000.00",
         "notes_from_admin": "",
         "mentor": null,
         "added": "2016-07-07T14:59:46.412",
@@ -1011,7 +1011,7 @@
     }
 },
 {
-    "model": "fat.claimed",
+    "model": "fat.claimant",
     "pk": 4,
     "fields": {
         "user": 3,
@@ -1043,7 +1043,7 @@
         "selected": true,
         "software_carpentry_instructor": false,
         "data_carpentry_instructor": false,
-        "claimedship_grant": "3000.00",
+        "claimantship_grant": "3000.00",
         "notes_from_admin": "",
         "mentor": 1,
         "added": "2016-07-07T14:59:46.412",
@@ -1051,7 +1051,7 @@
     }
 },
 {
-    "model": "fat.claimed",
+    "model": "fat.claimant",
     "pk": 5,
     "fields": {
         "user": 2,
@@ -1083,7 +1083,7 @@
         "selected": true,
         "software_carpentry_instructor": false,
         "data_carpentry_instructor": false,
-        "claimedship_grant": "3000.00",
+        "claimantship_grant": "3000.00",
         "notes_from_admin": "",
         "mentor": 2,
         "added": "2016-07-07T14:59:46.412",
@@ -1091,7 +1091,7 @@
     }
 },
 {
-    "model": "fat.claimed",
+    "model": "fat.claimant",
     "pk": 6,
     "fields": {
         "user": null,
@@ -1123,7 +1123,7 @@
         "selected": false,
         "software_carpentry_instructor": false,
         "data_carpentry_instructor": false,
-        "claimedship_grant": "0.00",
+        "claimantship_grant": "0.00",
         "notes_from_admin": null,
         "mentor": null,
         "added": "2016-09-01T12:39:56.259",
@@ -1134,7 +1134,7 @@
     "model": "fat.fund",
     "pk": 1,
     "fields": {
-        "claimed": 2,
+        "claimant": 2,
         "category": "O",
         "category_other": "",
         "name": "9d680248 - Iron Man",
@@ -1169,7 +1169,7 @@
     "model": "fat.fund",
     "pk": 2,
     "fields": {
-        "claimed": 5,
+        "claimant": 5,
         "category": "H",
         "category_other": "",
         "name": "9d683330 - The Hulk",
@@ -1204,7 +1204,7 @@
     "model": "fat.fund",
     "pk": 3,
     "fields": {
-        "claimed": 1,
+        "claimant": 1,
         "category": "H",
         "category_other": "",
         "name": "9d681148 - Captain America",
@@ -1239,7 +1239,7 @@
     "model": "fat.fund",
     "pk": 4,
     "fields": {
-        "claimed": 2,
+        "claimant": 2,
         "category": "H",
         "category_other": "",
         "name": "9d680716 - Iron Man",
@@ -1274,7 +1274,7 @@
     "model": "fat.fund",
     "pk": 5,
     "fields": {
-        "claimed": 3,
+        "claimant": 3,
         "category": "O",
         "category_other": "",
         "name": "9d68144a - Green Arrow",
@@ -1309,7 +1309,7 @@
     "model": "fat.fund",
     "pk": 6,
     "fields": {
-        "claimed": 4,
+        "claimant": 4,
         "category": "O",
         "category_other": "",
         "name": "9d6816de - Black Widow",
@@ -1344,7 +1344,7 @@
     "model": "fat.fund",
     "pk": 7,
     "fields": {
-        "claimed": 1,
+        "claimant": 1,
         "category": "A",
         "category_other": "",
         "name": "9d6818e6 - Captain America",
@@ -1379,7 +1379,7 @@
     "model": "fat.fund",
     "pk": 8,
     "fields": {
-        "claimed": 1,
+        "claimant": 1,
         "category": "A",
         "category_other": "",
         "name": "9d681b66 - Captain America",
@@ -1414,7 +1414,7 @@
     "model": "fat.fund",
     "pk": 9,
     "fields": {
-        "claimed": 3,
+        "claimant": 3,
         "category": "A",
         "category_other": "",
         "name": "9d681d8c - Green Arrow",
@@ -1449,7 +1449,7 @@
     "model": "fat.fund",
     "pk": 10,
     "fields": {
-        "claimed": 4,
+        "claimant": 4,
         "category": "H",
         "category_other": "",
         "name": "9d6816aa - Black Widow",
@@ -1487,7 +1487,7 @@
         "relative_number": 1,
         "fund": 8,
         "claim": "expenses/ec7.pdf",
-        "amount_claimed": "500.00",
+        "amount_claimant": "500.00",
         "justification_for_extra": "",
         "final": false,
         "recipient_fullname": "",
@@ -1514,7 +1514,7 @@
         "relative_number": 1,
         "fund": 2,
         "claim": "expenses/ec3.pdf",
-        "amount_claimed": "20000.00",
+        "amount_claimant": "20000.00",
         "justification_for_extra": "",
         "final": false,
         "recipient_fullname": "",
@@ -1541,7 +1541,7 @@
         "relative_number": 1,
         "fund": 3,
         "claim": "expenses/ec4.pdf",
-        "amount_claimed": "400.00",
+        "amount_claimant": "400.00",
         "justification_for_extra": "",
         "final": false,
         "recipient_fullname": "",
@@ -1568,7 +1568,7 @@
         "relative_number": 1,
         "fund": 1,
         "claim": "expenses/ec1.pdf",
-        "amount_claimed": "1000.00",
+        "amount_claimant": "1000.00",
         "justification_for_extra": "",
         "final": false,
         "recipient_fullname": "",
@@ -1595,7 +1595,7 @@
         "relative_number": 1,
         "fund": 5,
         "claim": "expenses/ec6.pdf",
-        "amount_claimed": "2500.00",
+        "amount_claimant": "2500.00",
         "justification_for_extra": "",
         "final": false,
         "recipient_fullname": "",
@@ -1622,7 +1622,7 @@
         "relative_number": 2,
         "fund": 1,
         "claim": "expenses/ec2.pdf",
-        "amount_claimed": "500.00",
+        "amount_claimant": "500.00",
         "justification_for_extra": "",
         "final": false,
         "recipient_fullname": "",
@@ -1649,7 +1649,7 @@
         "relative_number": 1,
         "fund": 6,
         "claim": "expenses/ec8.pdf",
-        "amount_claimed": "500.00",
+        "amount_claimant": "500.00",
         "justification_for_extra": "",
         "final": false,
         "recipient_fullname": "",
@@ -1676,7 +1676,7 @@
         "relative_number": 1,
         "fund": 4,
         "claim": "expenses/ec5.pdf",
-        "amount_claimed": "1000.00",
+        "amount_claimant": "1000.00",
         "justification_for_extra": "",
         "final": false,
         "recipient_fullname": "",

@@ -3,17 +3,17 @@
 
 {% block content %}
 <h1>
-  {% if claimed.selected %}
+  {% if claimant.selected %}
   Fellow
   {% else %}
-  Claimed
+  Claimant
   {% endif %}
   Detail
-  {% if user == claimed.user %}
+  {% if user == claimant.user %}
   <a class="btn btn-default" href="{% url 'fellow' %}?full=true" role="button">Edit</a>
   {% endif %}
   {% if user.is_superuser %}
-  <a class="btn btn-default" href="{% url 'admin:fat_claimed_change' claimed.id %}" role="button">Edit</a>
+  <a class="btn btn-default" href="{% url 'admin:fat_claimant_change' claimant.id %}" role="button">Edit</a>
   {% endif %}
 </h1>
 <div class="row">
@@ -25,20 +25,20 @@
     <tbody>
         <tr>
             <th>Name</th>
-            <td>{{ claimed.fullname }}</td>
+            <td>{{ claimant.fullname }}</td>
         </tr>
         <tr>
             <th>Affiliation</th>
-            <td>{{ claimed.affiliation }}</td>
+            <td>{{ claimant.affiliation }}</td>
         </tr>
         <tr>
             <th>Research area code</th>
-            <td>{{ claimed.get_research_area_code_display }}</td>
+            <td>{{ claimant.get_research_area_code_display }}</td>
         </tr>
-        {% if claimed.selected %}
+        {% if claimant.selected %}
         <tr>
             <th>Fellowship Inauguration Year</th>
-            <td>{{ claimed.application_year|add:"1" }}</td>
+            <td>{{ claimant.application_year|add:"1" }}</td>
         </tr>
         {% endif %}
     </tbody>
@@ -50,8 +50,8 @@
 {% endif %}
 <h2>
   Funding requests
-  {% if user == claimed.user or user.is_superuser %}
-  <a class="btn btn-default" href="{% url 'fund' %}?claimed_id={{claimed.id}}">Make an funding request</a>
+  {% if user == claimant.user or user.is_superuser %}
+  <a class="btn btn-default" href="{% url 'fund' %}?claimant_id={{claimant.id}}">Make an funding request</a>
   {% endif %}
 </h2>
 {% include 'fat/funds.html' %}

@@ -9,7 +9,7 @@
 {% for fund, blog in funds %}
 <tr>
   <td>
-    {% if user.is_superuser or claimed and user == claimed.user %}
+    {% if user.is_superuser or claimant and user == claimant.user %}
     <a href="{% url "fund_detail" fund.id %}">{{fund.name}}</a> <a href="{{fund.url}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
     {% elif fund.url %}
     <a href="{{fund.url}}">{{fund.name}}</a>

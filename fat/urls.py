@@ -22,17 +22,17 @@ from . import views
 from . import settings
 
 CLAIMED_PATTERNS = [
-    url(r'^(?P<claimed_id>[0-9]+)/promote/', views.claimed_promote, name="claimed_promote"),
-    url(r'^(?P<claimed_id>[0-9]+)/', views.claimed_detail, name="claimed_detail"),
-    url(r'^(?P<claimed_slug>.+)/', views.claimed_slug_resolution, name="claimed_slug"),
-    url(r'^', views.claimed_form, name="claimed"),
+    url(r'^(?P<claimant_id>[0-9]+)/promote/', views.claimant_promote, name="claimant_promote"),
+    url(r'^(?P<claimant_id>[0-9]+)/', views.claimant_detail, name="claimant_detail"),
+    url(r'^(?P<claimant_slug>.+)/', views.claimant_slug_resolution, name="claimant_slug"),
+    url(r'^', views.claimant_form, name="claimant"),
 ]
 
 FELLOW_PATTERNS = [
-    url(r'^(?P<claimed_id>[0-9]+)/promote/', views.claimed_promote, name="fellow_promote"),
-    url(r'^(?P<claimed_id>[0-9]+)/', views.claimed_detail, name="fellow_detail"),
-    url(r'^(?P<claimed_slug>.+)/', views.claimed_slug_resolution, name="fellow_slug"),
-    url(r'^', views.claimed_form, name="fellow"),
+    url(r'^(?P<claimant_id>[0-9]+)/promote/', views.claimant_promote, name="fellow_promote"),
+    url(r'^(?P<claimant_id>[0-9]+)/', views.claimant_detail, name="fellow_detail"),
+    url(r'^(?P<claimant_slug>.+)/', views.claimant_slug_resolution, name="fellow_slug"),
+    url(r'^', views.claimant_form, name="fellow"),
 ]
 
 FUND_PATTERNS = [
@@ -54,7 +54,7 @@ urlpatterns = [  # pylint: disable=invalid-name
         {'next_page': '/'},
         name="sign_out"),
     url(r'^pages/', include('django.contrib.flatpages.urls')),
-    url(r'^claimed/', include(CLAIMED_PATTERNS)),
+    url(r'^claimant/', include(CLAIMED_PATTERNS)),
     url(r'^fellow/', include(FELLOW_PATTERNS)),
     url(r'^request/', include(FUND_PATTERNS)),
     url(r'^fund/', include(FUND_PATTERNS, "fat", "fund_")),

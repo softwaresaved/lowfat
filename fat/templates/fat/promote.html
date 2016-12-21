@@ -3,7 +3,7 @@
 
 {% block content %}
 <h1>
-  Promote Claimed
+  Promote Claimant
 </h1>
 <table class="table table-bordered sortable">
   <tbody>
@@ -13,17 +13,17 @@
             <th>Application Year</th>
             <th>Actions</th>
         </tr>
-    {% for claimed in claimeds %}
+    {% for claimant in claimants %}
         <tr>
           <td>
-            {% if claimed.selected %}
+            {% if claimant.selected %}
                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                 {% endif %}
             </td>
-            <td>{{ claimed.fullname }}</td>
-            <td>{{ claimed.application_year }}</td>
+            <td>{{ claimant.fullname }}</td>
+            <td>{{ claimant.application_year }}</td>
             <td>
-              <a href="{% url 'fellow_promote'  claimed.id %}">
+              <a href="{% url 'fellow_promote'  claimant.id %}">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
               </a>
             </td>

@@ -4,52 +4,52 @@
 <h1>Software Sustainability Institute Fellowship Programme</h1>
 <h2>Fellows</h2>
 <div class="container">
-{% for claimed in claimeds %}
+{% for claimant in claimants %}
 {% if forloop.counter0|divisibleby:"6" %}
 <div class="row">
 {% endif %}
 <div class="fellow col-md-2">
-  <div class="ribbon fellows-{{ claimed.application_year | add:"1" }}">
-    <span>{{ claimed.application_year | add:"1" }}</span>
+  <div class="ribbon fellows-{{ claimant.application_year | add:"1" }}">
+    <span>{{ claimant.application_year | add:"1" }}</span>
   </div>
-  <a href="{% url 'fellow_slug' claimed.slug %}">
+  <a href="{% url 'fellow_slug' claimant.slug %}">
     {% include 'fat/photo.html' %}
     <br>
-    {{ claimed.fullname }}
+    {{ claimant.fullname }}
   </a>
   <br>
-  {% if claimed.website %}
-  <a class="icon" href="{{ claimed.website }}">
+  {% if claimant.website %}
+  <a class="icon" href="{{ claimant.website }}">
     <i class="fa fa-cloud" aria-hidden="true"></i>
   </a>
   {% endif %}
-  {% if claimed.website_feed %}
-  <a class="icon" href="{{ claimed.website_feed }}">
+  {% if claimant.website_feed %}
+  <a class="icon" href="{{ claimant.website_feed }}">
     <i class="fa fa-rss" aria-hidden="true"></i>
   </a>
   {% endif %}
-  {% if claimed.orcid %}
-  <a class="icon" href="http://orcid.org/{{ claimed.orcid }}">
+  {% if claimant.orcid %}
+  <a class="icon" href="http://orcid.org/{{ claimant.orcid }}">
     <i class="ai ai-orcid" aria-hidden="true"></i>
   </a>
   {% endif %}
-  {% if claimed.github %}
-  <a class="icon" href="http://github.com/{{ claimed.github }}">
+  {% if claimant.github %}
+  <a class="icon" href="http://github.com/{{ claimant.github }}">
     <i class="fa fa-github" aria-hidden="true"></i>
   </a>
   {% endif %}
-  {% if claimed.gitlab %}
-  <a class="icon" href="https://gitlab.com/{{ claimed.gitlab }}">
+  {% if claimant.gitlab %}
+  <a class="icon" href="https://gitlab.com/{{ claimant.gitlab }}">
     <i class="fa fa-gitlab" aria-hidden="true"></i>
   </a>
   {% endif %}
-  {% if claimed.twitter %}
-  <a class="icon" href="https://twitter.com/{{ claimed.twitter }}">
+  {% if claimant.twitter %}
+  <a class="icon" href="https://twitter.com/{{ claimant.twitter }}">
     <i class="fa fa-twitter" aria-hidden="true"></i>
   </a>
   {% endif %}
-  {% if claimed.facebook %}
-  <a class="icon" href="https://facebook.com/{{ claimed.facebook }}">
+  {% if claimant.facebook %}
+  <a class="icon" href="https://facebook.com/{{ claimant.facebook }}">
     <i class="fa fa-facebook" aria-hidden="true"></i>
   </a>
   {% endif %}
@@ -58,7 +58,7 @@
   </a>
     {% if show_grant_available %}
     <br>
-    £{{ claimed.claimedship_available }}
+    £{{ claimant.claimantship_available }}
     {% endif %}
 </div>
 {% if forloop.counter|divisibleby:"6" %}

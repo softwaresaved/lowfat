@@ -6,7 +6,7 @@
 {% if user.is_superuser %}
 <div class="row">
   <div class="col-md-4">
-  <a class="btn btn-default btn-block" href="{% url 'claimed' %}">Create claim profile</a>
+  <a class="btn btn-default btn-block" href="{% url 'claimant' %}">Create claim profile</a>
   </div>
   <div class="col-md-4">
     <a class="btn btn-default btn-block" href="{% url 'promote' %}">Upgrade claim profile to fellow claim profile</a>
@@ -80,12 +80,12 @@
       <td>{{ fund.added }}</td>
       <td>
         <a href="{% url 'fund_review' fund.id %}">{{ fund.name }}</a>
-        from <a href="{% url 'claimed_detail' fund.claimed.id %}">{{ fund.claimed.fullname }}</a>
+        from <a href="{% url 'claimant_detail' fund.claimant.id %}">{{ fund.claimant.fullname }}</a>
       </td>
       <td>
         {{ fund.get_status_display }}
         {% if fund.status == 'F' %}
-        - contact <a href="claimeds-management@software.ac.uk">claimeds-management@software.ac.uk</a>
+        - contact <a href="claimants-management@software.ac.uk">claimants-management@software.ac.uk</a>
         if need
         {% endif %}
       </td>
@@ -130,7 +130,7 @@
       <td>{{ expense.added }}</td>
       <td>
         <a href="{% url 'expense_review_relative' expense.fund.id expense.relative_number %}">#{{ expense.relative_number }}</a>
-        from <a href="{% url 'claimed_detail' expense.fund.claimed.id %}">{{ expense.fund.claimed.fullname }}</a>
+        from <a href="{% url 'claimant_detail' expense.fund.claimant.id %}">{{ expense.fund.claimant.fullname }}</a>
         for <a href="{% url 'fund_detail' expense.fund.id %}">{{ expense.fund.name }}</a>
       </td>
       <td>

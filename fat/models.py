@@ -63,9 +63,9 @@ EXPENSE_STATUS = (
 )
 
 FUNDS_FROM = (
-    ('C', 'Continuing (claimedship)'),
+    ('C', 'Continuing (claimantship)'),
     ('I', 'Core (Software Sustainability Institute)'),
-    ('F', 'Grant (inauguration claimedship)'),
+    ('F', 'Grant (inauguration claimantship)'),
 )
 
 GRANTS = (
@@ -91,21 +91,21 @@ def fix_url(url):
     return url
 
 def slug_generator(forenames, surname):
-    """Generate slug for Claimed"""
+    """Generate slug for Claimant"""
     return "{}-{}".format(
         forenames.lower().replace(" ", "-"),
         surname.lower().replace(" ", "-")
     )
 
-class Claimed(models.Model):
-    """Describe a claimed."""
+class Claimant(models.Model):
+    """Describe a claimant."""
 
     class Meta:
         app_label = 'fat'
 
     # Authentication
     #
-    # We use this to only allow claimed to access their own data.
+    # We use this to only allow claimant to access their own data.
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         null=True,
@@ -222,7 +222,7 @@ class Claimed(models.Model):
     selected = models.BooleanField(default=False)
     software_carpentry_instructor = models.BooleanField(default=False)
     data_carpentry_instructor = models.BooleanField(default=False)
-    claimedship_grant = models.DecimalField(
+    claimantship_grant = models.DecimalField(
         max_digits=MAX_DIGITS,
         decimal_places=2,
         null=False,
@@ -234,7 +234,7 @@ class Claimed(models.Model):
         blank=True
     )
 
-    # Mentors need to be another claimed
+    # Mentors need to be another claimant
     mentor = models.ForeignKey(
         'self',
         blank=True,
@@ -250,7 +250,7 @@ class Claimed(models.Model):
         self.website = fix_url(self.website)
         self.website_feed = fix_url(self.website)
 
-        super(Claimed, self).save(*args, **kwargs)
+        super(Claimant, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.fullname()
@@ -258,38 +258,38 @@ class Claimed(models.Model):
     def fullname(self):
         return "{} {}".format(self.forenames, self.surname)
 
-    def claimedship_available(self):
-        """Return the remain claimedship grant."""
-        return self.claimedship_grant - self.claimedship_spent() - self.claimedship_remaining()
+    def claimantship_available(self):
+        """Return the remain claimantship grant."""
+        return self.claimantship_grant - self.claimantship_spent() - self.claimantship_remaining()
 
-    def claimedship_committed(self):
-        """Return the ammount committed from the claimedship grant."""
-        this_claimed_funds = Fund.objects.filter(
-            claimed=self,
+    def claimantship_committed(self):
+        """Return the ammount committed from the claimantship grant."""
+        this_claimant_funds = Fund.objects.filter(
+            claimant=self,
             status__in=['A', 'F']
         )
-        return sum([fund.budget_approved for fund in this_claimed_funds])
+        return sum([fund.budget_approved for fund in this_claimant_funds])
 
-    def claimedship_spent(self):
-        """Return the ammount alread spent from the claimedship grant."""
-        this_claimed_expenses = Expense.objects.filter(
-            fund__claimed=self,
+    def claimantship_spent(self):
+        """Return the ammount alread spent from the claimantship grant."""
+        this_claimant_expenses = Expense.objects.filter(
+            fund__claimant=self,
             status__in=['A', 'F']
         ).exclude(funds_from__in=["C", "I"])
-        return sum([expense.amount_claimed for expense in this_claimed_expenses])
+        return sum([expense.amount_claimant for expense in this_claimant_expenses])
 
-    def claimedship_remaining(self):
+    def claimantship_remaining(self):
         """Return the ammount remaining to claim from the total committed."""
-        return self.claimedship_committed() - self.claimedship_spent()
+        return self.claimantship_committed() - self.claimantship_spent()
 
 
 class Fund(models.Model):
-    """Describe a fund from one claimed."""
+    """Describe a fund from one claimant."""
     class Meta:
         app_label = 'fat'
 
-    # TODO Make claimed more generic to include staffs.
-    claimed = models.ForeignKey('Claimed')
+    # TODO Make claimant more generic to include staffs.
+    claimant = models.ForeignKey('Claimant')
     category = models.CharField(
         choices=FUND_CATEGORY,
         max_length=1,
@@ -406,15 +406,15 @@ class Fund(models.Model):
             ]
         )
 
-    def expenses_claimed(self):
-        """Return the total ammount of expenses claimed."""
+    def expenses_claimant(self):
+        """Return the total ammount of expenses claimant."""
         this_fund_expenses = Expense.objects.filter(fund=self)
-        return sum([expense.amount_claimed for expense in this_fund_expenses])
+        return sum([expense.amount_claimant for expense in this_fund_expenses])
 
-    def expenses_claimed_left(self):
-        """Return the total ammount left to claimed."""
+    def expenses_claimant_left(self):
+        """Return the total ammount left to claimant."""
         this_fund_expenses = Expense.objects.filter(fund=self)
-        return self.budget_total() - sum([expense.amount_claimed for expense in this_fund_expenses])
+        return self.budget_total() - sum([expense.amount_claimant for expense in this_fund_expenses])
 
     def expenses_authorized_for_payment(self):
         """Return the total ammount of expenses authorized_for_payment."""
@@ -443,7 +443,7 @@ class Expense(models.Model):
         upload_to='expenses/',  # File will be uploaded to MEDIA_ROOT/expenses
         validators=[pdf]
     )
-    amount_claimed = models.DecimalField(
+    amount_claimant = models.DecimalField(
         max_digits=MAX_DIGITS,
         decimal_places=2,
         blank=False,
@@ -591,7 +591,7 @@ class GeneralSentMail(models.Model):
 
     # Internal
     sender = models.ForeignKey(settings.AUTH_USER_MODEL)
-    receiver = models.ForeignKey('Claimed')
+    receiver = models.ForeignKey('Claimant')
 
 
 class FundSentMail(GeneralSentMail):

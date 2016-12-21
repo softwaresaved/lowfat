@@ -18,7 +18,7 @@ from .mail import *
 
 def index(request):
     context = {
-        'claimeds': Claimed.objects.exclude(selected=False).order_by('application_year').reverse(),
+        'claimants': Claimant.objects.exclude(selected=False).order_by('application_year').reverse(),
         'funds': Fund.objects.filter(category="H", start_date__gte=django.utils.timezone.now(), can_be_advertise_before=True).order_by("start_date").reverse(),
     }
 
@@ -37,13 +37,13 @@ def dashboard(request):
 
     if not request.user.is_superuser and not request.user.is_staff:
         try:
-            claimed = Claimed.objects.get(user=request.user)
+            claimant = Claimant.objects.get(user=request.user)
 
             context.update(
                 {
-                    'claimed': claimed,
-                    'funds': Fund.objects.filter(claimed=claimed).reverse(),
-                    'budget_available': claimed.claimedship_available(),
+                    'claimant': claimant,
+                    'funds': Fund.objects.filter(claimant=claimant).reverse(),
+                    'budget_available': claimant.claimantship_available(),
                 }
             )
         except:
@@ -77,16 +77,16 @@ def dashboard(request):
 @staff_member_required
 def promote(request):
     context = {
-        "claimeds": Claimed.objects.filter(),
+        "claimants": Claimant.objects.filter(),
     }
 
     return render(request, 'fat/promote.html', context)
 
 
 @login_required
-def claimed_form(request):
+def claimant_form(request):
     if not request.user.is_superuser and not request.user.is_staff:
-        instance = Claimed.objects.get(user=request.user)
+        instance = Claimant.objects.get(user=request.user)
         title_begin = "Edit"
     else:
         instance = None
@@ -97,13 +97,13 @@ def claimed_form(request):
         formset = FellowForm(request.POST or None, request.FILES or None, instance=instance)
         title_end = "fellow"
     else:
-        formset = ClaimedForm(request.POST or None, request.FILES or None, instance=instance)
-        title_end = "claimed"
+        formset = ClaimantForm(request.POST or None, request.FILES or None, instance=instance)
+        title_end = "claimant"
 
     if formset.is_valid():
-        claimed = formset.save()
-        return HttpResponseRedirect(reverse('claimed_detail',
-                                            args=[claimed.id,]))
+        claimant = formset.save()
+        return HttpResponseRedirect(reverse('claimant_detail',
+                                            args=[claimant.id,]))
 
     # Show submission form.
     context = {
@@ -115,29 +115,29 @@ def claimed_form(request):
 
 # pylint: disable=unused-argument
 @staff_member_required
-def claimed_promote(request, claimed_id):
-    claimed = Claimed.objects.get(id=claimed_id)
-    claimed.slected = True
-    claimed.save()
+def claimant_promote(request, claimant_id):
+    claimant = Claimant.objects.get(id=claimant_id)
+    claimant.slected = True
+    claimant.save()
 
     return HttpResponseRedirect(
-        reverse('claimed_detail', args=[claimed.id,])
+        reverse('claimant_detail', args=[claimant.id,])
     )
 
-def claimed_detail(request, claimed_id):
-    """Details about claimed."""
-    this_claimed = Claimed.objects.get(id=claimed_id)
+def claimant_detail(request, claimant_id):
+    """Details about claimant."""
+    this_claimant = Claimant.objects.get(id=claimant_id)
 
-    if not request.user.is_superuser and not request.user.is_staff and not this_claimed.selected:
-        raise Http404("Claimed does not exist.")
+    if not request.user.is_superuser and not request.user.is_staff and not this_claimant.selected:
+        raise Http404("Claimant does not exist.")
 
     funds = Fund.objects.filter(
-        claimed=this_claimed,
+        claimant=this_claimant,
         can_be_advertise_after=True,
         status__in=["A", "F"]
     )
     context = {
-        'claimed': this_claimed,
+        'claimant': this_claimant,
         'funds': [(fund, Blog.objects.filter(
             fund=fund,
             status="P"
@@ -146,20 +146,20 @@ def claimed_detail(request, claimed_id):
 
     try:
         if request.user.is_authenticated() and (request.user.is_superuser or
-                                                Claimed.objects.get(user=request.user) == this_claimed):
-            funds = Fund.objects.filter(claimed=this_claimed)
+                                                Claimant.objects.get(user=request.user) == this_claimant):
+            funds = Fund.objects.filter(claimant=this_claimant)
             context.update(
                 {
                     'funds': [(fund, Blog.objects.filter(
                         fund=fund,
                         status="P"
                     )) for fund in funds],
-                    'expenses': Expense.objects.filter(fund__claimed=this_claimed),
+                    'expenses': Expense.objects.filter(fund__claimant=this_claimant),
                     'show_finances': True,
                 }
             )
         else:
-            funds = Fund.objects.filter(claimed=this_claimed, can_be_advertise_after=True)
+            funds = Fund.objects.filter(claimant=this_claimant, can_be_advertise_after=True)
             context.update(
                 {
                     'funds': [(fund, Blog.objects.filter(
@@ -171,35 +171,35 @@ def claimed_detail(request, claimed_id):
     except:  # pylint: disable=bare-except
         pass  # It can fail at Calimed.objects.get(user=request.user)
 
-    return render(request, 'fat/claimed_detail.html', context)
+    return render(request, 'fat/claimant_detail.html', context)
 
-def claimed_slug_resolution(request, claimed_slug):
-    """Resolve claimed slug and return the details."""
+def claimant_slug_resolution(request, claimant_slug):
+    """Resolve claimant slug and return the details."""
     try:
-        claimed = Claimed.objects.get(slug=claimed_slug, selected=True)
+        claimant = Claimant.objects.get(slug=claimant_slug, selected=True)
     except:  # pylint: disable=bare-except
-        claimed = None
+        claimant = None
 
-    if claimed:
-        return claimed_detail(request, claimed.id)
+    if claimant:
+        return claimant_detail(request, claimant.id)
 
-    raise Http404("Claimed does not exist.")
+    raise Http404("Claimant does not exist.")
 
 @login_required
 def my_profile(request):
     if not request.user.is_superuser and not request.user.is_staff:
-        claimed = Claimed.objects.get(user=request.user)
-        return claimed_detail(request, claimed.id)
+        claimant = Claimant.objects.get(user=request.user)
+        return claimant_detail(request, claimant.id)
 
-    raise Http404("Claimed does not exist.")
+    raise Http404("Claimant does not exist.")
 
 @login_required
 def fund_form(request):
     if request.POST:
         # Handle submission
         post = request.POST.copy()
-        claimed = Claimed.objects.get(id=post['claimed'])
-        post['claimed'] = claimed.id
+        claimant = Claimant.objects.get(id=post['claimant'])
+        post['claimant'] = claimant.id
         formset = FundForm(post)
 
         if formset.is_valid():
@@ -218,7 +218,7 @@ def fund_form(request):
 
     if not request.user.is_superuser:
         initial = {
-            "claimed": Claimed.objects.get(user=request.user),
+            "claimant": Claimant.objects.get(user=request.user),
         }
     else:
         initial = {}
@@ -226,7 +226,7 @@ def fund_form(request):
     formset = FundForm(initial=initial)
 
     if not request.user.is_superuser:
-        formset.fields["claimed"].queryset = Claimed.objects.filter(user=request.user)
+        formset.fields["claimant"].queryset = Claimant.objects.filter(user=request.user)
 
     # Show submission form.
     context = {
@@ -241,7 +241,7 @@ def fund_detail(request, fund_id):
     this_fund = Fund.objects.get(id=fund_id)
 
     if (request.user.is_superuser or
-            Claimed.objects.get(user=request.user) == this_fund.claimed):
+            Claimant.objects.get(user=request.user) == this_fund.claimant):
 
         context = {
             'fund': this_fund,
@@ -268,7 +268,7 @@ def fund_review(request, fund_id):
                 **{
                     "justification": formset.cleaned_data['email'],
                     "sender": request.user,
-                    "receiver": fund.claimed,
+                    "receiver": fund.claimant,
                     "fund": fund,
                 }
             )
@@ -349,11 +349,11 @@ def expense_form(request):
             reverse('expense_detail', args=[expense.id,])
         )
 
-    # Limit dropdown list to claimed
+    # Limit dropdown list to claimant
     if not request.user.is_superuser:
-        claimed = Claimed.objects.get(user=request.user)
+        claimant = Claimant.objects.get(user=request.user)
         formset.fields["fund"].queryset = Fund.objects.filter(
-            claimed=claimed,
+            claimant=claimant,
             status__in=['A']
         )
 
@@ -370,7 +370,7 @@ def expense_detail(request, expense_id):
     this_expense = Expense.objects.get(id=expense_id)
 
     if (request.user.is_superuser or
-            Claimed.objects.get(user=request.user) == this_expense.fund.claimed):
+            Claimant.objects.get(user=request.user) == this_expense.fund.claimant):
         context = {
             'expense': Expense.objects.get(id=expense_id),
             'emails': ExpenseSentMail.objects.filter(expense=this_expense),
@@ -400,7 +400,7 @@ def expense_review(request, expense_id):
                 **{
                     "justification": formset.cleaned_data['email'],
                     "sender": request.user,
-                    "receiver": expense.fund.claimed,
+                    "receiver": expense.fund.claimant,
                     "expense": expense,
                 }
             )
@@ -446,11 +446,11 @@ def blog_form(request):
         initial = {}
         formset = BlogForm(initial=initial)
 
-        # Limit dropdown list to claimed
+        # Limit dropdown list to claimant
     if not request.user.is_superuser:
-        claimed = Claimed.objects.get(user=request.user)
+        claimant = Claimant.objects.get(user=request.user)
         formset.fields["fund"].queryset = Fund.objects.filter(
-            claimed=claimed,
+            claimant=claimant,
             status__in=['A']
         )
 
@@ -466,7 +466,7 @@ def blog_detail(request, blog_id):
     this_blog = Blog.objects.get(id=blog_id)
 
     if (request.user.is_superuser or
-            Claimed.objects.get(user=request.user) == this_blog.fund.claimed):
+            Claimant.objects.get(user=request.user) == this_blog.fund.claimant):
         context = {
             'blog': Blog.objects.get(id=blog_id),
             'emails': BlogSentMail.objects.filter(blog=this_blog),
@@ -490,7 +490,7 @@ def blog_review(request, blog_id):
                 **{
                     "justification": formset.cleaned_data['email'],
                     "sender": request.user,
-                    "receiver": blog.fund.claimed,
+                    "receiver": blog.fund.claimant,
                     "blog": blog,
                 }
             )
@@ -521,13 +521,13 @@ def report(request):
     # XXX Pandas can't process Django QuerySet so we need to convert it into list.
     # XXX Pandas doesn't support DecimalField so we need to convert it into float.
 
-    # Number of claimeds per year
-    claimeds_per_year = Claimed.objects.all().values('application_year').annotate(total=Count('application_year'))
-    claimeds_per_year_plot = Bar(
-        list(claimeds_per_year),
+    # Number of claimants per year
+    claimants_per_year = Claimant.objects.all().values('application_year').annotate(total=Count('application_year'))
+    claimants_per_year_plot = Bar(
+        list(claimants_per_year),
         values='total',
         label='application_year',
-        title='Number of claimeds'
+        title='Number of claimants'
     )
 
     # Fund requests
@@ -539,7 +539,7 @@ def report(request):
 
     bokeh_script, bokeh_plots = components(
         {
-            'claimeds_per_year': claimeds_per_year_plot,
+            'claimants_per_year': claimants_per_year_plot,
             'fund_amount': fund_amount_hist,
         },
         CDN
@@ -557,7 +557,7 @@ def geojson(request):
     """Return the GeoJSON file."""
 
     context = {
-        'claimeds': Claimed.objects.all(),
+        'claimants': Claimant.objects.all(),
         'funds': Fund.objects.all(),
     }
 

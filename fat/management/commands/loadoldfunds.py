@@ -3,14 +3,14 @@ import pandas as pd
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.management.base import BaseCommand
 
-from fat.models import Claimed, Fund, Expense
+from fat.models import Claimant, Fund, Expense
 
 def conv_date(new_date):
     day, month, year = new_date.split('/')
     return "{}-{}-{}".format(year, month, day)
 
 class Command(BaseCommand):
-    help = "Import CSV (old_funds.csv) with funds from claimeds to the database."
+    help = "Import CSV (old_funds.csv) with funds from claimants to the database."
 
     def add_arguments(self, parser):
         parser.add_argument('csv', nargs='?', default='old_funds.csv')
@@ -21,7 +21,7 @@ class Command(BaseCommand):
         for index, line in data.iterrows():  # pylint: disable=no-member,unused-variable
             try:
                 if pd.notnull(line["Forename(s)"]):  # Looking for missing information.
-                    this_claimed = Claimed.objects.get(forenames=line["Forename(s)"], surname=line["Surname"], selected=True)
+                    this_claimant = Claimant.objects.get(forenames=line["Forename(s)"], surname=line["Surname"], selected=True)
 
                     if line['Event type'] == 'Attending a conference/workshop':
                         fund_category = 'A'
@@ -33,7 +33,7 @@ class Command(BaseCommand):
                         fund_category = 'O'
 
                     funds_dict = {
-                        "claimed": this_claimed,
+                        "claimant": this_claimant,
                         "category": fund_category,
                         "name": line["Event name"],
                         "url": line["Event website"] if pd.notnull(line["Event website"]) else "",
@@ -65,13 +65,13 @@ class Command(BaseCommand):
                     continue
 
                 if pd.notnull(line["Revised estimate"]):
-                    amount_claimed = line["Revised estimate"] if pd.notnull(line["Revised estimate"]) else 0
+                    amount_claimant = line["Revised estimate"] if pd.notnull(line["Revised estimate"]) else 0
                 else:
-                    amount_claimed = line["Submitted"] if pd.notnull(line["Submitted"]) else 0
+                    amount_claimant = line["Submitted"] if pd.notnull(line["Submitted"]) else 0
 
                 expense_dict = {
                     "fund": fund,
-                    "amount_claimed": amount_claimed,
+                    "amount_claimant": amount_claimant,
                     "received_date": '0001-01-01',
                 }
 

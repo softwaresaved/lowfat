@@ -28,7 +28,7 @@ def new_fund_notification(fund):
             reverse_full("fund_detail", args=[fund.id])
         ),
         DEFAULT_FROM_EMAIL,
-        [fund.claimed.email],
+        [fund.claimant.email],
         fail_silently=False
     )
 
@@ -49,7 +49,7 @@ def new_expense_notification(expense):
             reverse_full("expense_detail", args=[expense.id])
         ),
         DEFAULT_FROM_EMAIL,
-        [expense.fund.claimed.email],
+        [expense.fund.claimant.email],
         fail_silently=False
     )
 
@@ -70,7 +70,7 @@ def new_blog_notification(blog):
             reverse_full("fund_detail", args=[blog.id])
         ),
         DEFAULT_FROM_EMAIL,
-        [blog.fund.claimed.email],
+        [blog.fund.claimant.email],
         fail_silently=False
     )
 

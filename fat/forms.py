@@ -15,9 +15,9 @@ class GarlicForm(ModelForm):
         }
 
 
-class ClaimedForm(GarlicForm):
+class ClaimantForm(GarlicForm):
     class Meta:
-        model = Claimed
+        model = Claimant
         fields = [
             'forenames',
             'surname',
@@ -41,7 +41,7 @@ class ClaimedForm(GarlicForm):
     required_css_class = 'form-field-required'
 
     def __init__(self, *args, **kwargs):
-        super(ClaimedForm, self).__init__(*args, **kwargs)
+        super(ClaimantForm, self).__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -74,7 +74,7 @@ class ClaimedForm(GarlicForm):
 
 class FellowForm(GarlicForm):
     class Meta:
-        model = Claimed
+        model = Claimant
         fields = [
             'forenames',
             'surname',
@@ -153,7 +153,7 @@ class FundForm(GarlicForm):
         ]
 
         labels = {
-            'claimed': 'Requester name',
+            'claimant': 'Requester name',
             'category_other': 'Specify the category if used "Other"',
             'name': 'Event name',
             'url': 'Event webpage link',
@@ -181,7 +181,7 @@ class FundForm(GarlicForm):
             Fieldset(
                 '',
                 HTML('<p>To apply for expenses for eligible events, please fill in this form at least one month before the start date of the event you wish to attend or organise.</p><h2>Requester details</h2>'),
-                'claimed',
+                'claimant',
                 HTML('<h2>Funding request details</h2>'),
                 'category',
                 'category_other',
@@ -298,7 +298,7 @@ class ExpenseForm(GarlicForm):
         fields = [
             'fund',
             'claim',
-            'amount_claimed',
+            'amount_claimant',
             'justification_for_extra',
             'final',
             'recipient_fullname',
@@ -334,8 +334,8 @@ class ExpenseForm(GarlicForm):
                 HTML("</p>If your funding request isn't on the drop down menu above please email <a href='mailto:{{ settings.FELLOWS_MANAGEMENT_EMAIL }}'>us</a>."),
                 'claim',
                 HTML("</p>Please follow the guidelines at <a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'#how-to-apply-for-and-claim-expenses>Fellowship Programme's terms and conditions.</a></p>"),
-                PrependedText('amount_claimed', '£'),
-                HTML("{% if fund %}<p class='text-warning'>Note that you only have <strong>£{{ fund.expenses_claimed_left }}</strong> left.</p>{% endif %}"),
+                PrependedText('amount_claimant', '£'),
+                HTML("{% if fund %}<p class='text-warning'>Note that you only have <strong>£{{ fund.expenses_claimant_left }}</strong> left.</p>{% endif %}"),
                 'justification_for_extra',
                 'final',
                 HTML("<h2>Recipient</h2><p>Only fill this part if you are claiming this expense on behalf of someone.</p>"),

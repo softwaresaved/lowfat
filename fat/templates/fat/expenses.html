@@ -18,7 +18,7 @@
         Status
       </th>
       <th>
-        Amount claimed
+        Amount claimant
       </th>
       <th>
         Amount authorized for payment
@@ -50,12 +50,12 @@
       <td>
         {{ expense.get_status_display }}
         {% if fund.status == 'F' %}
-        - contact <a href="claimeds-management@software.ac.uk">claimeds-management@software.ac.uk</a>
+        - contact <a href="claimants-management@software.ac.uk">claimants-management@software.ac.uk</a>
         if need
         {% endif %}
       </td>
       <td>
-        {{ expense.amount_claimed }}
+        {{ expense.amount_claimant }}
       </td>
       <td>
         {{ expense.amount_authorized_for_payment }}
@@ -71,7 +71,7 @@
         -
       </td>
       <th>
-        {{ fund.expenses_claimed }}
+        {{ fund.expenses_claimant }}
       </th>
       <th>
         {{ fund.expenses_authorized_for_payment }}

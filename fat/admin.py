@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import *
 
-class ClaimedAdmin(admin.ModelAdmin):
+class ClaimantAdmin(admin.ModelAdmin):
     list_display = [
         'surname',
         'forenames',
@@ -30,12 +30,12 @@ class ClaimedAdmin(admin.ModelAdmin):
 
 class FundAdmin(admin.ModelAdmin):
     list_display = [
-        'claimed',
+        'claimant',
         'name',
     ]
     search_fields = [
-        'claimed__surname',
-        'claimed__forenames',
+        'claimant__surname',
+        'claimant__forenames',
         'name',
         'country',
         'city',
@@ -52,7 +52,7 @@ class AmountListFilter(admin.SimpleListFilter):
     title = 'amount'
 
     # Parameter for the filter that will be used in the URL query.
-    parameter_name = 'amount_claimed'
+    parameter_name = 'amount_claimant'
 
     def lookups(self, request, model_admin):
         """
@@ -74,21 +74,21 @@ class AmountListFilter(admin.SimpleListFilter):
         `self.value()`.
         """
         if self.value() == '0':
-            return queryset.filter(amount_claimed__lte=0)
+            return queryset.filter(amount_claimant__lte=0)
         if self.value() == '1':
-            return queryset.filter(amount_claimed__gt=0)
+            return queryset.filter(amount_claimant__gt=0)
 
 
 class ExpenseAdmin(admin.ModelAdmin):
     list_display = [
         'fund',
-        'get_claimed',
+        'get_claimant',
         'get_start_date',
         'status',
     ]
     search_fields = [
-        'fund__claimed__surname',
-        'fund__claimed__forenames',
+        'fund__claimant__surname',
+        'fund__claimant__forenames',
         'fund__name',
     ]
     list_filter = [
@@ -96,11 +96,11 @@ class ExpenseAdmin(admin.ModelAdmin):
         AmountListFilter,
     ]
 
-    def get_claimed(self, obj):  # pylint: disable=no-self-use
-        return obj.fund.claimed
+    def get_claimant(self, obj):  # pylint: disable=no-self-use
+        return obj.fund.claimant
 
-    get_claimed.short_description = 'claimed'
-    get_claimed.admin_order_field = 'fund__claimed'
+    get_claimant.short_description = 'claimant'
+    get_claimant.admin_order_field = 'fund__claimant'
 
     def get_start_date(self, obj):  # pylint: disable=no-self-use
         return obj.fund.start_date
@@ -125,7 +125,7 @@ class BlogSentMailAdmin(admin.ModelAdmin):
 
 
 PUBLIC_MODELS = (
-    (Claimed, ClaimedAdmin),
+    (Claimant, ClaimantAdmin),
     (Fund, FundAdmin),
     (Expense, ExpenseAdmin),
     (Blog, BlogAdmin),

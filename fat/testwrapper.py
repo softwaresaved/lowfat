@@ -19,22 +19,22 @@ def create_users():
         ADMIN_PASSWORD
     )
     User.objects.create_user(
-        'claimed-a',
-        'a.claimed@fake.fat.software.ac.uk',
+        'claimant-a',
+        'a.claimant@fake.fat.software.ac.uk',
         CLAIMED_A_PASSWORD
     )
     User.objects.create_user(
-        'claimed-b',
-        'b.claimed@fake.fat.software.ac.uk',
+        'claimant-b',
+        'b.claimant@fake.fat.software.ac.uk',
         CLAIMED_B_PASSWORD
     )
 
 
-def create_claimed():
+def create_claimant():
     create_users()
 
     data = {
-        "user": User.objects.get(username="claimed-b"),
+        "user": User.objects.get(username="claimant-b"),
         "forenames": "B",
         "surname": "B",
         "email": "b.b@fake.fat.software.ac.uk",
@@ -55,11 +55,11 @@ def create_claimed():
             "photo": SimpleUploadedFile('b_b.jpg', fake_file.read()),
         })
 
-    claimed = Claimed(**data)
-    claimed.save()
+    claimant = Claimant(**data)
+    claimant.save()
 
     data = {
-        "user": User.objects.get(username="claimed-a"),
+        "user": User.objects.get(username="claimant-a"),
         "forenames": "A",
         "surname": "A",
         "email": "a.a@fake.fat.software.ac.uk",
@@ -80,16 +80,16 @@ def create_claimed():
             "photo": SimpleUploadedFile('a_a.jpg', fake_file.read()),
         })
 
-    claimed = Claimed(**data)
-    claimed.save()
-    return claimed.id
+    claimant = Claimant(**data)
+    claimant.save()
+    return claimant.id
 
 def create_fund():
-    claimed_id = create_claimed()
-    claimed = Claimed.objects.get(id=claimed_id)
+    claimant_id = create_claimant()
+    claimant = Claimant.objects.get(id=claimant_id)
 
     data = {
-        "claimed": claimed,
+        "claimant": claimant,
         "category": "A",
         "status": "A",
         "name": "Fake",
@@ -110,15 +110,15 @@ def create_fund():
 
     fund = Fund(**data)
     fund.save()
-    return claimed_id, fund.id
+    return claimant_id, fund.id
 
 def create_all():
-    claimed_id, fund_id = create_fund()
+    claimant_id, fund_id = create_fund()
     fund = Fund.objects.get(id=fund_id)
 
     data = {
         "fund": fund,
-        "amount_claimed": "100.00",
+        "amount_claimant": "100.00",
         }
 
     with io.BytesIO(b'000') as fake_file:
@@ -137,4 +137,4 @@ def create_all():
     blog = Blog(**data)
     blog.save()
 
-    return claimed_id, fund_id, expense.id, blog.id
+    return claimant_id, fund_id, expense.id, blog.id

@@ -14,7 +14,7 @@
     <tbody>
         <tr>
             <th>Requester name</th>
-            <td>{{ expense.fund.claimed.fullname }}</td>
+            <td>{{ expense.fund.claimant.fullname }}</td>
         </tr>
         <tr>
             <th>Funding request name</th>
@@ -40,7 +40,7 @@
               {% if expense.recipient_fullname %}
               {{ expense.fund.extra_sponsored }}
               {% else %}
-              {{ expense.fund.claimed.fullname }}
+              {{ expense.fund.claimant.fullname }}
               {% endif %}
             </td>
         </tr>

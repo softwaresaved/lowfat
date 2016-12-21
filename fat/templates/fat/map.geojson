@@ -1,20 +1,20 @@
 {
   "features": [
-  {% for claimed in claimeds %}
+  {% for claimant in claimants %}
     {
       "type": "Feature",
       "properties": {
         "marker-color": "#ebf722",
         "marker-size": "medium",
         "marker-symbol": "star",
-        "Name": "{{ claimed.fullname }}",
-        "Inauguration": "{{ claimed.application_year }}"
+        "Name": "{{ claimant.fullname }}",
+        "Inauguration": "{{ claimant.application_year }}"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          {{ claimed.home_lon }},
-          {{ claimed.home_lat }}
+          {{ claimant.home_lon }},
+          {{ claimant.home_lat }}
         ]
       }
     },

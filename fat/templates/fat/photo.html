@@ -1,5 +1,5 @@
-{% if claimed.photo %}
-<img src="{{claimed.photo.url}}" alt="Photo of {{ claimed.fullname }}" class="img-responsive img-circle passport-photo">
+{% if claimant.photo %}
+<img src="{{claimant.photo.url}}" alt="Photo of {{ claimant.fullname }}" class="img-responsive img-circle passport-photo">
 {% else %}
 <div class="passport-photo"'></div>
 {% endif %}
