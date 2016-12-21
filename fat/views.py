@@ -356,12 +356,14 @@ def expense_form(request):
         )
 
     # Limit dropdown list to claimant
-    if not request.user.is_superuser:
-        claimant = Claimant.objects.get(user=request.user)
+    if fund_id:
+        claimant = fund.claimant
     elif request.GET.get("claimant_id"):
         claimant = Claimant.objects.get(id=request.GET.get("claimant_id"))
+    elif request.user.is_superuser:
+        claimant = Claimant.objects.all()
     else:
-        claimant = None
+        claimant = Claimant.objects.get(user=request.user)
     formset.fields["fund"].queryset = Fund.objects.filter(
         claimant=claimant,
         status__in=['A']
@@ -439,7 +441,16 @@ def expense_review_relative(request, fund_id, expense_relative_number):
 
 @login_required
 def blog_form(request):
-    formset = BlogForm(request.POST or None, user=request.user)
+    # Setup Fund if provided
+    fund_id = request.GET.get("fund_id")
+    if fund_id:
+        fund = Fund.objects.get(id=fund_id)
+        initial = {"fund": fund}
+    else:
+        fund = None
+        initial = {}
+
+    formset = BlogForm(request.POST or None, request.FILES or None, initial=initial)
 
     if formset.is_valid():
         blog = formset.save()
@@ -449,14 +460,7 @@ def blog_form(request):
             reverse('blog_detail', args=[blog.id,])
         )
 
-    fund_id = request.GET.get("fund_id")
-    if fund_id:
-        initial = {"fund": Fund.objects.get(id=fund_id)}
-    else:
-        initial = {}
-        formset = BlogForm(initial=initial)
-
-        # Limit dropdown list to claimant
+    # Limit dropdown list to claimant
     if not request.user.is_superuser:
         claimant = Claimant.objects.get(user=request.user)
         formset.fields["fund"].queryset = Fund.objects.filter(
