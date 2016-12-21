@@ -13,7 +13,9 @@
         </tr>
         <tr>
             <th>URL</th>
+            {% if fund.url|length > 0 %}
             <td><a href="{{ fund.url }}">{{ fund.url }}</a></td>
+            {% endif %}
         </tr>
         <tr>
             <th>Start date</th>

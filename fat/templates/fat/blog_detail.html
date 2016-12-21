@@ -39,7 +39,7 @@
         </tr>
         <tr>
           <th>Published URL</th>
-          {% if blog.published_url %}
+          {% if blog.published_url|length > 0 %}
             <td><a href="{{ blog.published_url }}">{{ blog.published_url }}</a></td>
             {% else %}
           <td></td>
@@ -47,7 +47,7 @@
         </tr>
         <tr>
           <th>Tweet URL</th>
-          {% if blog.tweet_url %}
+          {% if blog.tweet_url|length > 0 %}
             <td><a href="{{ blog.tweet_url }}">{{ blog.tweet_url }}</a></td>
           {% else %}
           <td></td>
