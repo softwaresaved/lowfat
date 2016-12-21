@@ -52,7 +52,7 @@ class AmountListFilter(admin.SimpleListFilter):
     title = 'amount'
 
     # Parameter for the filter that will be used in the URL query.
-    parameter_name = 'amount_claimant'
+    parameter_name = 'amount_claimed'
 
     def lookups(self, request, model_admin):
         """
@@ -74,9 +74,9 @@ class AmountListFilter(admin.SimpleListFilter):
         `self.value()`.
         """
         if self.value() == '0':
-            return queryset.filter(amount_claimant__lte=0)
+            return queryset.filter(amount_claimed__lte=0)
         if self.value() == '1':
-            return queryset.filter(amount_claimant__gt=0)
+            return queryset.filter(amount_claimed__gt=0)
 
 
 class ExpenseAdmin(admin.ModelAdmin):

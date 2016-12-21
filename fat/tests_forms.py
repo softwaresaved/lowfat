@@ -962,7 +962,7 @@ class ExpenseFormTest(TestCase):
 
     def test_null_fund(self):
         data = {
-            "amount_claimant": 100.00,
+            "amount_claimed": 100.00,
         }
 
         with open("upload/expenses/ec1.pdf", "rb") as fake_file:
@@ -976,7 +976,7 @@ class ExpenseFormTest(TestCase):
     def test_blank_fund(self):
         data = {
             "fund": "",
-            "amount_claimant": 100.00,
+            "amount_claimed": 100.00,
         }
 
         with open("upload/expenses/ec1.pdf", "rb") as fake_file:
@@ -987,7 +987,7 @@ class ExpenseFormTest(TestCase):
         form = ExpenseForm(data, file_data)
         self.assertFalse(form.is_valid())
 
-    def test_null_amount_claimant(self):
+    def test_null_amount_claimed(self):
         data = {
             "fund": self.fund_id,
         }
@@ -1003,7 +1003,7 @@ class ExpenseFormTest(TestCase):
     def test_null_claim(self):
         data = {
             "fund": self.fund_id,
-            "amount_claimant": 100.00,
+            "amount_claimed": 100.00,
         }
 
         form = ExpenseForm(data)
@@ -1012,7 +1012,7 @@ class ExpenseFormTest(TestCase):
     def test_full_expected(self):
         data = {
             "fund": self.fund_id,
-            "amount_claimant": 100.00,
+            "amount_claimed": 100.00,
         }
 
         with open("upload/expenses/ec1.pdf", "rb") as fake_file:

@@ -118,7 +118,7 @@ def create_all():
 
     data = {
         "fund": fund,
-        "amount_claimant": "100.00",
+        "amount_claimed": "100.00",
         }
 
     with io.BytesIO(b'000') as fake_file:

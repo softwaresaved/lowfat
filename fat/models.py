@@ -276,7 +276,7 @@ class Claimant(models.Model):
             fund__claimant=self,
             status__in=['A', 'F']
         ).exclude(funds_from__in=["C", "I"])
-        return sum([expense.amount_claimant for expense in this_claimant_expenses])
+        return sum([expense.amount_claimed for expense in this_claimant_expenses])
 
     def claimantship_remaining(self):
         """Return the ammount remaining to claim from the total committed."""
@@ -406,15 +406,15 @@ class Fund(models.Model):
             ]
         )
 
-    def expenses_claimant(self):
+    def expenses_claimed(self):
         """Return the total ammount of expenses claimant."""
         this_fund_expenses = Expense.objects.filter(fund=self)
-        return sum([expense.amount_claimant for expense in this_fund_expenses])
+        return sum([expense.amount_claimed for expense in this_fund_expenses])
 
-    def expenses_claimant_left(self):
+    def expenses_claimed_left(self):
         """Return the total ammount left to claimant."""
         this_fund_expenses = Expense.objects.filter(fund=self)
-        return self.budget_total() - sum([expense.amount_claimant for expense in this_fund_expenses])
+        return self.budget_total() - sum([expense.amount_claimed for expense in this_fund_expenses])
 
     def expenses_authorized_for_payment(self):
         """Return the total ammount of expenses authorized_for_payment."""
@@ -443,7 +443,7 @@ class Expense(models.Model):
         upload_to='expenses/',  # File will be uploaded to MEDIA_ROOT/expenses
         validators=[pdf]
     )
-    amount_claimant = models.DecimalField(
+    amount_claimed = models.DecimalField(
         max_digits=MAX_DIGITS,
         decimal_places=2,
         blank=False,
