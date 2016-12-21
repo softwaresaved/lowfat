@@ -1,5 +1,3 @@
-import io
-
 import pandas as pd
 
 from django.core.files.uploadedfile import SimpleUploadedFile
