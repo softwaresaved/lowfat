@@ -220,6 +220,10 @@ def fund_form(request):
         initial = {
             "claimant": Claimant.objects.get(user=request.user),
         }
+    elif request.GET.get("claimant_id"):
+        initial = {
+            "claimant": Claimant.objects.get(id=request.GET.get("claimant_id")),
+        }
     else:
         initial = {}
 
@@ -227,6 +231,8 @@ def fund_form(request):
 
     if not request.user.is_superuser:
         formset.fields["claimant"].queryset = Claimant.objects.filter(user=request.user)
+    elif request.GET.get("claimant_id"):
+        formset.fields["claimant"].queryset = Claimant.objects.filter(id=request.GET.get("claimant_id"))
 
     # Show submission form.
     context = {
@@ -352,10 +358,14 @@ def expense_form(request):
     # Limit dropdown list to claimant
     if not request.user.is_superuser:
         claimant = Claimant.objects.get(user=request.user)
-        formset.fields["fund"].queryset = Fund.objects.filter(
-            claimant=claimant,
-            status__in=['A']
-        )
+    elif request.GET.get("claimant_id"):
+        claimant = Claimant.objects.get(id=request.GET.get("claimant_id"))
+    else:
+        claimant = None
+    formset.fields["fund"].queryset = Fund.objects.filter(
+        claimant=claimant,
+        status__in=['A']
+    )
 
     # Show submission form.
     context = {

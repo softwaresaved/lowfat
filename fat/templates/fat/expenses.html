@@ -5,7 +5,7 @@
  <a class="btn btn-default" href="{% url 'expense' %}{% if fund %}?fund_id={{fund.id}}{% endif %}">Submit expense claim</a>
  {% endif %}
  {% else %}
- <a class="btn btn-default" href="{% url 'expense' %}}">Submit expense claim</a>
+ <a class="btn btn-default" href="{% url 'expense' %}?claimant_id={{claimant.id}}">Submit expense claim</a>
  {% endif %}
 </h2>
 <table class="table table-bordered sortable">
