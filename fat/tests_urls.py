@@ -13,18 +13,24 @@ class URLTest(TestCase):
         self.public.name = 'public'
 
         self.claimant_a = Client()
-        self.claimant_a.login(username='claimant-a',
-                             password=CLAIMED_A_PASSWORD)
+        self.claimant_a.login(
+            username='claimant-a',
+            password=CLAIMED_A_PASSWORD
+        )
         self.claimant_a.name = 'claimant-a'
 
         self.claimant_b = Client()
-        self.claimant_b.login(username='claimant-b',
-                             password=CLAIMED_B_PASSWORD)
+        self.claimant_b.login(
+            username='claimant-b',
+            password=CLAIMED_B_PASSWORD
+        )
         self.claimant_b.name = 'claimant-b'
 
         self.admin = Client()
-        self.admin.login(username='admin',
-                         password=ADMIN_PASSWORD)
+        self.admin.login(
+            username='admin',
+            password=ADMIN_PASSWORD
+        )
         self.admin.name = 'admin'
 
     def run_requests(self, url, queries):
