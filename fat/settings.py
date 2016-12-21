@@ -18,9 +18,9 @@ VERSION = "0.5.0"
 FELLOWS_MANAGEMENT_EMAIL = "fellows-management@software.ac.uk"
 
 SETTINGS_EXPORT = [
-        'URL_SRC',
-        'VERSION',
-        'FELLOWS_MANAGEMENT_EMAIL',
+    'URL_SRC',
+    'VERSION',
+    'FELLOWS_MANAGEMENT_EMAIL',
 ]
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -154,7 +154,7 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#media-url
 
 MEDIA_URL = '/upload/'
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'upload')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
 
 # Authentication system
 # https://docs.djangoproject.com/en/1.9/topics/auth/default/
@@ -189,8 +189,8 @@ EMAIL_SUBJECT_PREFIX = "Software Sustaibability Institute's Fellowship Administr
 # Backup
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DBBACKUP_STORAGE_OPTIONS = {
-        'location': os.path.join(BASE_DIR, 'backups'),
-        }
+    'location': os.path.join(BASE_DIR, 'backups'),
+}
 DBBACKUP_GPG_ALWAYS_TRUST = True
 DBBACKUP_GPG_RECIPIENT = ""  # XXX This variable need to be filled for --encrypt or --decrypt work properly.
 

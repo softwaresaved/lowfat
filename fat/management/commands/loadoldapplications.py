@@ -2,9 +2,8 @@ import urllib.request
 
 import pandas as pd
 
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 
 from fat.models import Claimed
 
@@ -15,16 +14,13 @@ class Command(BaseCommand):
         parser.add_argument('csv', nargs='?', default='old_applications.csv')
 
     def handle(self, *args, **options):
-        data =  pd.read_csv(options['csv'])
-        for idx, line in data.iterrows():
+        data = pd.read_csv(options['csv'])
+        for index, line in data.iterrows():  # pylint: disable=no-member,unused-variable
             try:
-                if line['Selected']=='Yes':
-                    is_fellow=True
-                else:
-                    is_fellow=False
+                is_fellow = True if line['Selected'] is 'Yes' else False
 
                 if pd.notnull(line["Photo"]):
-                    photo_name, photo_info = urllib.request.urlretrieve(line["Photo"])
+                    photo_name, photo_info = urllib.request.urlretrieve(line["Photo"])  # pylint: disable=unused-variable
                     photo = File(open(photo_name, "rb"))
                     photo.name = line["Photo"].split("/")[-1]
                 else:
@@ -49,7 +45,7 @@ class Command(BaseCommand):
                     "home_country": "GB",
                     "home_city": "SSI",
                     "work_description": line["Work area"],
-                    "funding": "{}, {}".format(line["Primary funder"],line["Additional funder"]),
+                    "funding": "{}, {}".format(line["Primary funder"], line["Additional funder"]),
                     "claimedship_grant": 3000 if is_fellow else 0,
                 }
 
@@ -61,5 +57,5 @@ class Command(BaseCommand):
                 applicant = Claimed(**applicants_dict)
                 applicant.save()
 
-            except BaseException as e:
-                print("Error: {}\n\t{}".format(e, line))
+            except BaseException as exception:
+                print("Error: {}\n\t{}".format(exception, line))

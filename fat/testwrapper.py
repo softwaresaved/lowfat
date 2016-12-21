@@ -2,11 +2,9 @@
 Wrapper around tests
 """
 import io
-import unittest
 
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import Client
 
 from .models import *
 
@@ -15,15 +13,21 @@ CLAIMED_A_PASSWORD = '123456'
 CLAIMED_B_PASSWORD = '123456'
 
 def create_users():
-    User.objects.create_superuser('admin',
-                                  'admin@fake.fat.software.ac.uk',
-                                  ADMIN_PASSWORD)
-    User.objects.create_user('claimed-a',
-                                  'a.claimed@fake.fat.software.ac.uk',
-                                  CLAIMED_A_PASSWORD)
-    User.objects.create_user('claimed-b',
-                                  'b.claimed@fake.fat.software.ac.uk',
-                                  CLAIMED_B_PASSWORD)
+    User.objects.create_superuser(
+        'admin',
+        'admin@fake.fat.software.ac.uk',
+        ADMIN_PASSWORD
+    )
+    User.objects.create_user(
+        'claimed-a',
+        'a.claimed@fake.fat.software.ac.uk',
+        CLAIMED_A_PASSWORD
+    )
+    User.objects.create_user(
+        'claimed-b',
+        'b.claimed@fake.fat.software.ac.uk',
+        CLAIMED_B_PASSWORD
+    )
 
 
 def create_claimed():
@@ -83,7 +87,7 @@ def create_claimed():
 def create_fund():
     claimed_id = create_claimed()
     claimed = Claimed.objects.get(id=claimed_id)
-    
+
     data = {
         "claimed": claimed,
         "category": "A",

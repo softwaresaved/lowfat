@@ -1,7 +1,7 @@
 from django.forms import Form, ModelForm, SelectDateWidget, CharField, Textarea, FileField
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Fieldset, ButtonHolder, Submit, HTML
+from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML
 from crispy_forms.bootstrap import PrependedText
 
 from .models import *
@@ -143,14 +143,14 @@ class FundForm(GarlicForm):
     class Meta:
         model = Fund
         exclude = [
-                "status",
-                "ad_status",
-                "budget_approved",
-                "required_blog_posts",
-                "notes_from_admin",
-                "added",
-                "updated",
-                ]
+            "status",
+            "ad_status",
+            "budget_approved",
+            "required_blog_posts",
+            "notes_from_admin",
+            "added",
+            "updated",
+        ]
 
         labels = {
             'claimed': 'Requester name',
@@ -214,7 +214,7 @@ class FundForm(GarlicForm):
             )
 
         # Force user to select one category
-        self.fields['category'].widget.choices.insert(0, ('', '---------' ) )
+        self.fields['category'].widget.choices.insert(0, ('', '---------'))
         self.fields['category'].initial = ''
 
 
@@ -222,12 +222,12 @@ class FundReviewForm(GarlicForm):
     class Meta:
         model = Fund
         fields = [
-                "status",
-                #"ad_status",  # TODO uncomment in the future
-                "required_blog_posts",
-                "budget_approved",
-                "notes_from_admin",
-                ]
+            "status",
+            #"ad_status",  # TODO uncomment in the future
+            "required_blog_posts",
+            "budget_approved",
+            "notes_from_admin",
+        ]
 
         labels = {
             'budget_approved': 'Total budget approved',
@@ -248,7 +248,7 @@ class FundImportForm(Form):
     csv = FileField()
 
     def __init__(self, *args, **kwargs):
-        super(Form, self).__init__(*args, **kwargs)
+        super(FundImportForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper()
         self.helper.attrs = {
@@ -306,7 +306,7 @@ class ExpenseForm(GarlicForm):
             'recipient_affiliation',
             'recipient_group',
             'recipient_connection',
-                ]
+        ]
 
         labels = {
             'fund': 'Open approved funding request',
@@ -405,7 +405,7 @@ class BlogForm(GarlicForm):
             'fund',
             'draft_url',
             'final',
-                ]
+        ]
         labels = {
             'fund': 'Open approved funding request',
             'draft_url': 'URL of blog post draft',
@@ -438,10 +438,10 @@ class BlogReviewForm(GarlicForm):
     class Meta:
         model = Blog
         exclude = [
-                "fund",
-                "added",
-                "updated",
-                ]
+            "fund",
+            "added",
+            "updated",
+        ]
 
 
     required_css_class = 'form-field-required'

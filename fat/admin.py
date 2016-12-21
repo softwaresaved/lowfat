@@ -96,13 +96,13 @@ class ExpenseAdmin(admin.ModelAdmin):
         AmountListFilter,
     ]
 
-    def get_claimed(self, obj):
+    def get_claimed(self, obj):  # pylint: disable=no-self-use
         return obj.fund.claimed
 
     get_claimed.short_description = 'claimed'
     get_claimed.admin_order_field = 'fund__claimed'
 
-    def get_start_date(self, obj):
+    def get_start_date(self, obj):  # pylint: disable=no-self-use
         return obj.fund.start_date
 
     get_start_date.short_description = 'Start date'
@@ -125,14 +125,14 @@ class BlogSentMailAdmin(admin.ModelAdmin):
 
 
 PUBLIC_MODELS = (
-        (Claimed, ClaimedAdmin),
-        (Fund, FundAdmin),
-        (Expense, ExpenseAdmin),
-        (Blog, BlogAdmin),
-        (FundSentMail, FundSentMailAdmin),
-        (ExpenseSentMail, ExpenseSentMailAdmin),
-        (BlogSentMail, BlogSentMailAdmin),
-        )
+    (Claimed, ClaimedAdmin),
+    (Fund, FundAdmin),
+    (Expense, ExpenseAdmin),
+    (Blog, BlogAdmin),
+    (FundSentMail, FundSentMailAdmin),
+    (ExpenseSentMail, ExpenseSentMailAdmin),
+    (BlogSentMail, BlogSentMailAdmin),
+)
 
 
 for public_model in PUBLIC_MODELS:

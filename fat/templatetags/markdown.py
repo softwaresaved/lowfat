@@ -2,7 +2,7 @@ import markdown
 
 from django import template
 
-register = template.Library()
+register = template.Library()  # pylint: disable=invalid-name
 
 @register.filter(name="markdown")
 def markdown_filter(value):

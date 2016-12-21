@@ -1,6 +1,5 @@
 from datetime import date
 import re
-import uuid
 
 import django.utils
 from django.conf import settings
@@ -16,33 +15,33 @@ MAX_PHONE_LENGTH = 14
 MAX_DIGITS = 10
 
 GENDERS = (
-        ('M', 'Male'),
-        ('F', 'Female'),
-        ('O', 'Other'),
-        ('R', 'Rather not say'),
-        )
+    ('M', 'Male'),
+    ('F', 'Female'),
+    ('O', 'Other'),
+    ('R', 'Rather not say'),
+)
 
 FUND_CATEGORY = (
-        ('A', 'Attending a conference/workshop'),
-        ('H', 'Organising a conference/workshop (e.g. Software Carpentry)'),
-        ('P', 'Policy related event'),
-        ('O', 'Other'),
-        )
+    ('A', 'Attending a conference/workshop'),
+    ('H', 'Organising a conference/workshop (e.g. Software Carpentry)'),
+    ('P', 'Policy related event'),
+    ('O', 'Other'),
+)
 
 AD_STATUS = (
-        ('U', 'Unprocessed'),  # Initial status
-        ('V', 'Visible'),  # Fund is visible on map
-        ('H', 'Hide'),  # Fund is invisible on map
-        )
+    ('U', 'Unprocessed'),  # Initial status
+    ('V', 'Visible'),  # Fund is visible on map
+    ('H', 'Hide'),  # Fund is invisible on map
+)
 
 FUND_STATUS = (
-        ('U', 'Unprocessed'),  # Initial status
-        ('P', 'Processing'),  # When someone was assigned to review the request
-        ('A', 'Approved'),  # Fund was approved. Funds are reserved.
-        ('R', 'Reproved'),  # Fund was declided.
-        ('F', 'Archived'),  # Approved funds with all claims and blog posts were processed. No funds are reserved.
-        ('C', 'Canceled'),  # When the fellow decided to cancel their request.
-        )
+    ('U', 'Unprocessed'),  # Initial status
+    ('P', 'Processing'),  # When someone was assigned to review the request
+    ('A', 'Approved'),  # Fund was approved. Funds are reserved.
+    ('R', 'Reproved'),  # Fund was declided.
+    ('F', 'Archived'),  # Approved funds with all claims and blog posts were processed. No funds are reserved.
+    ('C', 'Canceled'),  # When the fellow decided to cancel their request.
+)
 
 FUND_STATUS_LONG_DESCRIPTION = {
     'U': "We didn't start to process your request yet.",
@@ -51,38 +50,38 @@ FUND_STATUS_LONG_DESCRIPTION = {
     'R': "Your fund request was declided.",
     'F': "We archived your fund request since all the expense claims were processed.",
     'C': "You decided to cancel this request for any reason.",
-    }
+}
 
 
 EXPENSE_STATUS = (
-        ('W', 'Not submitted yet'),
-        ('S', 'Submitted (awaiting processing)'),
-        ('C', 'Administrator checking'),
-        ('P', 'Authoriser checking'),
-        ('A', 'Approved (submitted to finance)'),
-        ('F', 'Finished'),
-        )
+    ('W', 'Not submitted yet'),
+    ('S', 'Submitted (awaiting processing)'),
+    ('C', 'Administrator checking'),
+    ('P', 'Authoriser checking'),
+    ('A', 'Approved (submitted to finance)'),
+    ('F', 'Finished'),
+)
 
 FUNDS_FROM = (
     ('C', 'Continuing (claimedship)'),
     ('I', 'Core (Software Sustainability Institute)'),
     ('F', 'Grant (inauguration claimedship)'),
-    )
+)
 
 GRANTS = (
     ('SSI1', 'Software Sustainability Institute - Phase 1'),
     ('SSI2', 'Software Sustainability Institute - Phase 2'),
     ('SSI3', 'Software Sustainability Institute - Phase 3'),
-    )
+)
 
 BLOG_POST_STATUS = (
-        ('U', 'Unprocessed'),
-        ('R', 'On Google Drive (for review)'),
-        ('L', 'On pipeline to be published'),
-        ('P', 'Published'),
-        ('D', 'Declined'),
-        ('O', 'Out of date'),
-        )
+    ('U', 'Unprocessed'),
+    ('R', 'On Google Drive (for review)'),
+    ('L', 'On pipeline to be published'),
+    ('P', 'Published'),
+    ('D', 'Declined'),
+    ('O', 'Out of date'),
+)
 
 def fix_url(url):
     """Prepend 'http://' to URL."""
@@ -96,7 +95,7 @@ def slug_generator(forenames, surname):
     return "{}-{}".format(
         forenames.lower().replace(" ", "-"),
         surname.lower().replace(" ", "-")
-        )
+    )
 
 class Claimed(models.Model):
     """Describe a claimed."""
@@ -107,40 +106,55 @@ class Claimed(models.Model):
     # Authentication
     #
     # We use this to only allow claimed to access their own data.
-    user = models.OneToOneField(settings.AUTH_USER_MODEL,
-            null=True,
-            blank=True)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True
+    )
 
     # Personal info (application details)
-    forenames = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=False)
-    surname = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=False)
-    email = models.EmailField(
-            blank=False)
-    phone = models.CharField(max_length=MAX_CHAR_LENGTH,
-                             blank=False,
-                             help_text="The number that we can contact you.",
+    forenames = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=False
     )
-    gender = models.CharField(choices=GENDERS,
-            max_length=1,
-            default="R")
+    surname = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=False
+    )
+    email = models.EmailField(
+        blank=False
+    )
+    phone = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=False,
+        help_text="The number that we can contact you."
+    )
+    gender = models.CharField(
+        choices=GENDERS,
+        max_length=1,
+        default="R"
+    )
     home_country = CountryField(
         blank=False,
-        default='GB')  # Default for United Kingdom
+        default='GB'  # Default for United Kingdom
+    )
     home_city = models.CharField(
         blank=False,
-        max_length=MAX_CHAR_LENGTH)
+        max_length=MAX_CHAR_LENGTH
+    )
     home_lon = models.FloatField(
-            null=True,
-            blank=True)
+        null=True,
+        blank=True
+    )
     home_lat = models.FloatField(
-            null=True,
-            blank=True)
+        null=True,
+        blank=True
+    )
     photo = models.FileField(
-            upload_to='photos/',  # File will be uploaded to MEDIA_ROOT/photos
-            null=True,
-            blank=True)  # This need to be a JPG.
+        upload_to='photos/',  # File will be uploaded to MEDIA_ROOT/photos
+        null=True,
+        blank=True  # This need to be a JPG.
+    )
 
     # Professional info
     # JACS code for research_area.
@@ -149,56 +163,83 @@ class Claimed(models.Model):
         blank=True,
         help_text="Please describe your research"
     )
-    research_area_code = models.CharField(choices=JACS_LEVEL_2,
-                                          max_length=4,
-                                          default="Y000")
-    affiliation = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=True)
-    funding = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=True)
+    research_area_code = models.CharField(
+        choices=JACS_LEVEL_2,
+        max_length=4,
+        default="Y000"
+    )
+    affiliation = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
+    funding = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
     funding_notes = models.TextField(
-            null=True,
-            blank=True)
+        null=True,
+        blank=True
+    )
     work_description = models.TextField(blank=True)
 
     # Social media
-    website = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=True)
-    website_feed = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=True)
-    orcid = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=True)
-    github = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=True)
-    gitlab = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=True)
-    twitter = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=True)
-    facebook = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=True)
+    website = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
+    website_feed = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
+    orcid = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
+    github = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
+    gitlab = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
+    twitter = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
+    facebook = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
 
     # Admin fields
     slug = models.CharField(max_length=MAX_CHAR_LENGTH)
     application_year = models.IntegerField(
-                null=False,
-                blank=False,
-                default=date.today().year)
+        null=False,
+        blank=False,
+        default=date.today().year
+    )
     selected = models.BooleanField(default=False)
     software_carpentry_instructor = models.BooleanField(default=False)
     data_carpentry_instructor = models.BooleanField(default=False)
-    claimedship_grant = models.DecimalField(max_digits=MAX_DIGITS,
-                                           decimal_places=2,
-                                           null=False,
-                                           blank=False,
-                                           default=0.00)
+    claimedship_grant = models.DecimalField(
+        max_digits=MAX_DIGITS,
+        decimal_places=2,
+        null=False,
+        blank=False,
+        default=0.00
+    )
     notes_from_admin = models.TextField(
-            null=True,
-            blank=True)
+        null=True,
+        blank=True
+    )
 
     # Mentors need to be another claimed
-    mentor = models.ForeignKey('self',
-            blank=True,
-            null=True)
+    mentor = models.ForeignKey(
+        'self',
+        blank=True,
+        null=True
+    )
 
     # Control
     added = models.DateTimeField(auto_now_add=True)
@@ -210,7 +251,7 @@ class Claimed(models.Model):
         self.website_feed = fix_url(self.website)
 
         super(Claimed, self).save(*args, **kwargs)
-    
+
     def __str__(self):
         return self.fullname()
 
@@ -223,19 +264,23 @@ class Claimed(models.Model):
 
     def claimedship_committed(self):
         """Return the ammount committed from the claimedship grant."""
-        this_claimed_funds = Fund.objects.filter(claimed=self, status__in=['A', 'F'])
+        this_claimed_funds = Fund.objects.filter(
+            claimed=self,
+            status__in=['A', 'F']
+        )
         return sum([fund.budget_approved for fund in this_claimed_funds])
 
     def claimedship_spent(self):
         """Return the ammount alread spent from the claimedship grant."""
-        this_claimed_expenses = Expense.objects.filter(fund__claimed=self, status__in=['A', 'F']).exclude(funds_from__in=["C", "I"])
+        this_claimed_expenses = Expense.objects.filter(
+            fund__claimed=self,
+            status__in=['A', 'F']
+        ).exclude(funds_from__in=["C", "I"])
         return sum([expense.amount_claimed for expense in this_claimed_expenses])
 
     def claimedship_remaining(self):
         """Return the ammount remaining to claim from the total committed."""
-        this_claimed_funds = Fund.objects.filter(claimed=self, status__in=['U', 'P', 'A'])
         return self.claimedship_committed() - self.claimedship_spent()
-
 
 
 class Fund(models.Model):
@@ -245,9 +290,11 @@ class Fund(models.Model):
 
     # TODO Make claimed more generic to include staffs.
     claimed = models.ForeignKey('Claimed')
-    category = models.CharField(choices=FUND_CATEGORY,
-            max_length=1,
-            default="O")
+    category = models.CharField(
+        choices=FUND_CATEGORY,
+        max_length=1,
+        default="O"
+    )
     category_other = models.CharField(
         max_length=MAX_CHAR_LENGTH,
         blank=True
@@ -257,34 +304,50 @@ class Fund(models.Model):
     country = CountryField(default='GB')  # Default for United Kingdom
     city = models.CharField(max_length=MAX_CHAR_LENGTH)
     lon = models.FloatField(
-            null=True,
-            blank=True)
+        null=True,
+        blank=True
+    )
     lat = models.FloatField(
-            null=True,
-            blank=True)
+        null=True,
+        blank=True
+    )
     start_date = models.DateField()
     end_date = models.DateField()
-    budget_request_travel = models.DecimalField(max_digits=MAX_DIGITS,
-            decimal_places=2,
-            default=0.00)
-    budget_request_attendance_fees = models.DecimalField(max_digits=MAX_DIGITS,
-            decimal_places=2,
-            default=0.00)
-    budget_request_subsistence_cost = models.DecimalField(max_digits=MAX_DIGITS,
-            decimal_places=2,
-            default=0.00)
-    budget_request_venue_hire = models.DecimalField(max_digits=MAX_DIGITS,
-            decimal_places=2,
-            default=0.00)
-    budget_request_catering = models.DecimalField(max_digits=MAX_DIGITS,
-            decimal_places=2,
-            default=0.00)
-    budget_request_others = models.DecimalField(max_digits=MAX_DIGITS,
-            decimal_places=2,
-            default=0.00)
-    budget_approved = models.DecimalField(max_digits=MAX_DIGITS,
-            decimal_places=2,
-            default=0.00)
+    budget_request_travel = models.DecimalField(
+        max_digits=MAX_DIGITS,
+        decimal_places=2,
+        default=0.00
+    )
+    budget_request_attendance_fees = models.DecimalField(
+        max_digits=MAX_DIGITS,
+        decimal_places=2,
+        default=0.00
+    )
+    budget_request_subsistence_cost = models.DecimalField(
+        max_digits=MAX_DIGITS,
+        decimal_places=2,
+        default=0.00
+    )
+    budget_request_venue_hire = models.DecimalField(
+        max_digits=MAX_DIGITS,
+        decimal_places=2,
+        default=0.00
+    )
+    budget_request_catering = models.DecimalField(
+        max_digits=MAX_DIGITS,
+        decimal_places=2,
+        default=0.00
+    )
+    budget_request_others = models.DecimalField(
+        max_digits=MAX_DIGITS,
+        decimal_places=2,
+        default=0.00
+    )
+    budget_approved = models.DecimalField(
+        max_digits=MAX_DIGITS,
+        decimal_places=2,
+        default=0.00
+    )
     justification = models.TextField()
     additional_info = models.TextField(blank=True)
     extra_sponsored = models.TextField(blank=True)
@@ -292,19 +355,25 @@ class Fund(models.Model):
     can_be_advertise_after = models.BooleanField(default=True)
 
     # Admin fields
-    ad_status = models.CharField(choices=AD_STATUS,
-            max_length=1,
-            default="U")
-    status = models.CharField(choices=FUND_STATUS,
-            max_length=1,
-            default="U")
+    ad_status = models.CharField(
+        choices=AD_STATUS,
+        max_length=1,
+        default="U"
+    )
+    status = models.CharField(
+        choices=FUND_STATUS,
+        max_length=1,
+        default="U"
+    )
     required_blog_posts = models.IntegerField(
-                null=False,
-                blank=False,
-                default=1)
+        null=False,
+        blank=False,
+        default=1
+    )
     notes_from_admin = models.TextField(
-            null=True,
-            blank=True)
+        null=True,
+        blank=True
+    )
 
     # Control
     added = models.DateTimeField(auto_now_add=True)
@@ -314,7 +383,7 @@ class Fund(models.Model):
         self.url = fix_url(self.url)
 
         super(Fund, self).save(*args, **kwargs)
-    
+
     def __str__(self):
         return "{}".format(self.name)
 
@@ -326,14 +395,16 @@ class Fund(models.Model):
 
     def budget_total(self):
         """Return the sum of all `budget_request`s."""
-        return sum([
+        return sum(
+            [
                 self.budget_request_travel,
                 self.budget_request_attendance_fees,
                 self.budget_request_subsistence_cost,
                 self.budget_request_venue_hire,
                 self.budget_request_catering,
                 self.budget_request_others,
-                ])
+            ]
+        )
 
     def expenses_claimed(self):
         """Return the total ammount of expenses claimed."""
@@ -362,20 +433,22 @@ class Expense(models.Model):
 
     # Internal
     relative_number = models.IntegerField(
-                null=False,
-                blank=False
-        )
+        null=False,
+        blank=False
+    )
 
     # Form
     fund = models.ForeignKey('Fund')
     claim = models.FileField(
-            upload_to='expenses/',  # File will be uploaded to MEDIA_ROOT/expenses
-            validators=[pdf]
-        )
-    amount_claimed = models.DecimalField(max_digits=MAX_DIGITS,
-            decimal_places=2,
-            blank=False,
-            default=0.00)
+        upload_to='expenses/',  # File will be uploaded to MEDIA_ROOT/expenses
+        validators=[pdf]
+    )
+    amount_claimed = models.DecimalField(
+        max_digits=MAX_DIGITS,
+        decimal_places=2,
+        blank=False,
+        default=0.00
+    )
     justification_for_extra = models.TextField(
         max_length=MAX_CHAR_LENGTH,
         blank=True
@@ -389,18 +462,27 @@ class Expense(models.Model):
         blank=True
     )
     recipient_email = models.EmailField(
-            blank=True)
-    recipient_affiliation = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=True)
-    recipient_group = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=True)
-    recipient_connection = models.CharField(max_length=MAX_CHAR_LENGTH,
-            blank=True)
+        blank=True
+    )
+    recipient_affiliation = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
+    recipient_group = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
+    recipient_connection = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
 
     # Admin fields
-    status = models.CharField(choices=EXPENSE_STATUS,
-            max_length=1,
-            default="P")
+    status = models.CharField(
+        choices=EXPENSE_STATUS,
+        max_length=1,
+        default="P"
+    )
     received_date = models.DateField(default=django.utils.timezone.now)
     asked_for_authorization_date = models.DateField(
         blank=True,
@@ -410,24 +492,31 @@ class Expense(models.Model):
         blank=True,
         null=True
     )
-    amount_authorized_for_payment = models.DecimalField(max_digits=MAX_DIGITS,
-                                 decimal_places=2,
-                                 blank=False,
-                                 default=0.00)
-    funds_from = models.CharField(choices=FUNDS_FROM,
-            max_length=1,
-            default="C")
-    grant_used = models.CharField(choices=GRANTS,
-            max_length=4,
-            default="SS2")
+    amount_authorized_for_payment = models.DecimalField(
+        max_digits=MAX_DIGITS,
+        decimal_places=2,
+        blank=False,
+        default=0.00
+    )
+    funds_from = models.CharField(
+        choices=FUNDS_FROM,
+        max_length=1,
+        default="C"
+    )
+    grant_used = models.CharField(
+        choices=GRANTS,
+        max_length=4,
+        default="SS2"
+    )
     notes_from_admin = models.TextField(
-            null=True,
-            blank=True)
+        null=True,
+        blank=True
+    )
 
     # Control
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    
+
     def __str__(self):
         return self.claim.name
 
@@ -451,21 +540,30 @@ class Blog(models.Model):
     )
 
     # Admin fields
-    status = models.CharField(choices=BLOG_POST_STATUS,
-            max_length=1,
-            default="U")
-    reviewer = models.ForeignKey(settings.AUTH_USER_MODEL,
-            null=True,
-            blank=True)
+    status = models.CharField(
+        choices=BLOG_POST_STATUS,
+        max_length=1,
+        default="U"
+    )
+    reviewer = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True
+    )
     notes_from_admin = models.TextField(
-            null=True,
-            blank=True)
-    published_url = models.CharField(max_length=MAX_CHAR_LENGTH,
-            null=True,
-            blank=True)
-    tweet_url = models.CharField(max_length=MAX_CHAR_LENGTH,
-            null=True,
-            blank=True)
+        null=True,
+        blank=True
+    )
+    published_url = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        null=True,
+        blank=True
+    )
+    tweet_url = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        null=True,
+        blank=True
+    )
 
     # Control
     added = models.DateTimeField(auto_now_add=True)

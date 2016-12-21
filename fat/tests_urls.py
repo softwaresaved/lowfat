@@ -1,7 +1,3 @@
-import io
-
-from django.contrib.auth.models import User
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase, Client
 
 from .testwrapper import *
@@ -18,12 +14,12 @@ class URLTest(TestCase):
 
         self.claimed_a = Client()
         self.claimed_a.login(username='claimed-a',
-                         password=CLAIMED_A_PASSWORD)
+                             password=CLAIMED_A_PASSWORD)
         self.claimed_a.name = 'claimed-a'
 
         self.claimed_b = Client()
         self.claimed_b.login(username='claimed-b',
-                         password=CLAIMED_B_PASSWORD)
+                             password=CLAIMED_B_PASSWORD)
         self.claimed_b.name = 'claimed-b'
 
         self.admin = Client()
@@ -42,9 +38,10 @@ class URLTest(TestCase):
         ]"""
         for query in queries:
             response = query["user"].get(url)
-            self.assertEqual(response.status_code,
-                             query["expect_code"],
-                             "when requested by {}".format(query["user"].name)
+            self.assertEqual(
+                response.status_code,
+                query["expect_code"],
+                "when requested by {}".format(query["user"].name)
             )
 
     def test_sign_in(self):
@@ -394,6 +391,8 @@ class URLTest(TestCase):
                 "expect_code": 200,
             },
             ]
+
+        self.run_requests(url, queries)
 
     def test_blog(self):
         url = '/blog/'
