@@ -7,6 +7,14 @@
       <th>
         Status
       </th>
+      {% if user.is_superuser or claimant and user == claimant.user %}
+      <th>
+        Submited date
+      </th>
+      <th>
+        Pulished date
+      </th>
+      {% endif %}
     </tr>
     {% for blog in blogs %}
     <tr
@@ -28,6 +36,18 @@
       <td>
         {{ blog.get_status_display }}
       </td>
+      {% if user.is_superuser or claimant and user == claimant.user %}
+      <td>
+        {{ blog.added|date:"SHORT_DATE_FORMAT" }}
+      </td>
+      <td>
+        {% if blog.published_url|length > 0 %}
+        {{ blog.updated|date:"SHORT_DATE_FORMAT" }}
+        {% else %}
+        <strong>Unpublished</strong>
+        {% endif %}
+      </td>
+      {% endif %}
     </tr>
     {% endfor %}
   </tbody>
