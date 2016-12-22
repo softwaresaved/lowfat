@@ -131,38 +131,40 @@ def claimant_detail(request, claimant_id):
     if not request.user.is_superuser and not request.user.is_staff and not this_claimant.selected:
         raise Http404("Claimant does not exist.")
 
-    funds = Fund.objects.filter(
-        claimant=this_claimant,
-        can_be_advertise_after=True,
-        status__in=["A", "F"]
-    )
     context = {
         'claimant': this_claimant,
-        'funds': [(fund, Blog.objects.filter(
-            fund=fund,
-            status="P"
-        )) for fund in funds],
         'blogs': Blog.objects.filter(
             fund__claimant=this_claimant,
         ),
     }
 
-    try:
-        if request.user.is_authenticated() and (request.user.is_superuser or
-                                                Claimant.objects.get(user=request.user) == this_claimant):
-            funds = Fund.objects.filter(claimant=this_claimant)
-            context.update(
-                {
-                    'funds': [(fund, Blog.objects.filter(
-                        fund=fund,
-                        status="P"
-                    )) for fund in funds],
-                    'expenses': Expense.objects.filter(fund__claimant=this_claimant),
-                    'show_finances': True,
-                }
-            )
-    except:  # pylint: disable=bare-except
-        pass  # It can fail at Calimed.objects.get(user=request.user)
+    if request.user.is_authenticated() and (request.user.is_superuser or
+                                            this_claimant.user == request.user):
+        funds = Fund.objects.filter(claimant=this_claimant)
+        context.update(
+            {
+                'funds': [(fund, Blog.objects.filter(
+                    fund=fund,
+                    status="P"
+                )) for fund in funds],
+                'expenses': Expense.objects.filter(fund__claimant=this_claimant),
+                'show_finances': True,
+            }
+        )
+    else:
+        funds = Fund.objects.filter(
+            claimant=this_claimant,
+            can_be_advertise_after=True,
+            status__in=["A", "F"]
+        )
+        context.update(
+            {
+                'funds': [(fund, Blog.objects.filter(
+                    fund=fund,
+                    status="P"
+                )) for fund in funds],
+            }
+        )
 
     return render(request, 'fat/claimant_detail.html', context)
 
