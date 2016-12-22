@@ -46,7 +46,7 @@ def dashboard(request):
                     'budget_available': claimant.claimantship_available(),
                 }
             )
-        except:
+        except:  # pylint: disable=bare-except
             return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/welcome/'}))
     else:
         if "funding_requests" in request.GET:
