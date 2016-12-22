@@ -47,7 +47,7 @@ def dashboard(request):
                 }
             )
         except:
-            raise Http404("Contact info@software.ac.uk to have your profile approved.")
+            return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/welcome/'}))
     else:
         if "funding_requests" in request.GET:
             funding_requests_status = request.GET["funding_requests"]
