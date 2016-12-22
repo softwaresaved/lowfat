@@ -38,11 +38,11 @@
         </tr>
         <tr>
             <th>Start date</th>
-            <td>{{ fund.start_date }}</td>
+            <td>{{ fund.start_date|date:"SHORT_DATE_FORMAT" }}</td>
         </tr>
         <tr>
             <th>End data</th>
-            <td>{{ fund.end_date }}</td>
+            <td>{{ fund.end_date|date:"SHORT_DATE_FORMAT" }}</td>
         </tr>
         {% if user.is_superuser %}
         <tr>

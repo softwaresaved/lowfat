@@ -38,8 +38,8 @@
     )
     {% endif %}
   </td>
-    <td>{{fund.start_date}}</td>
-    <td>{{fund.end_date}}</td>
+    <td>{{fund.start_date|date:"SHORT_DATE_FORMAT"}}</td>
+    <td>{{fund.end_date|date:"SHORT_DATE_FORMAT"}}</td>
 </tr>
 {% endfor %}
     </tbody>
