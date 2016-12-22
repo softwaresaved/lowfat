@@ -38,16 +38,20 @@ def dashboard(request):
     if not request.user.is_superuser and not request.user.is_staff:
         try:
             claimant = Claimant.objects.get(user=request.user)
-
-            context.update(
-                {
-                    'claimant': claimant,
-                    'funds': Fund.objects.filter(claimant=claimant).reverse(),
-                    'budget_available': claimant.claimantship_available(),
-                }
-            )
         except:  # pylint: disable=bare-except
             return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/welcome/'}))
+
+        funds = Fund.objects.filter(claimant=claimant).reverse()
+
+        context.update(
+            {
+                'claimant': claimant,
+                'budget_available': claimant.claimantship_available(),
+                'funds': pair_fund_with_blog(funds, "P"),
+                'expenses': Expense.objects.filter(fund__claimant=claimant).reverse(),
+                'blogs': Blog.objects.filter(fund__claimant=claimant).reverse(),
+            }
+        )
     else:
         if "funding_requests" in request.GET:
             funding_requests_status = request.GET["funding_requests"]
@@ -143,10 +147,7 @@ def claimant_detail(request, claimant_id):
         funds = Fund.objects.filter(claimant=this_claimant)
         context.update(
             {
-                'funds': [(fund, Blog.objects.filter(
-                    fund=fund,
-                    status="P"
-                )) for fund in funds],
+                'funds': pair_fund_with_blog(funds, "P"),
                 'expenses': Expense.objects.filter(fund__claimant=this_claimant),
                 'show_finances': True,
             }
@@ -159,10 +160,7 @@ def claimant_detail(request, claimant_id):
         )
         context.update(
             {
-                'funds': [(fund, Blog.objects.filter(
-                    fund=fund,
-                    status="P"
-                )) for fund in funds],
+                'funds': pair_fund_with_blog(funds, "P"),
             }
         )
 
