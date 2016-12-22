@@ -161,16 +161,6 @@ def claimant_detail(request, claimant_id):
                     'show_finances': True,
                 }
             )
-        else:
-            funds = Fund.objects.filter(claimant=this_claimant, can_be_advertise_after=True)
-            context.update(
-                {
-                    'funds': [(fund, Blog.objects.filter(
-                        fund=fund,
-                        status="P"
-                    )) for fund in funds],
-                }
-            )
     except:  # pylint: disable=bare-except
         pass  # It can fail at Calimed.objects.get(user=request.user)
 
