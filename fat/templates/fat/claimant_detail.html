@@ -55,4 +55,11 @@
   {% endif %}
 </h2>
 {% include 'fat/funds.html' %}
+{% if user == claimant.user or user.is_superuser %}
+<h2>
+  Blogs
+  <a class="btn btn-default" href="{% url 'blog' %}?claimant_id={{claimant.id}}">Submit a blog post</a>
+</h2>
+{% include 'fat/blogs.html' %}
+{% endif %}
 {% endblock %}

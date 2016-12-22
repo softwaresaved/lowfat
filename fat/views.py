@@ -142,6 +142,9 @@ def claimant_detail(request, claimant_id):
             fund=fund,
             status="P"
         )) for fund in funds],
+        'blogs': Blog.objects.filter(
+            fund__claimant=this_claimant,
+        ),
     }
 
     try:
@@ -463,6 +466,12 @@ def blog_form(request):
     # Limit dropdown list to claimant
     if not request.user.is_superuser:
         claimant = Claimant.objects.get(user=request.user)
+        formset.fields["fund"].queryset = Fund.objects.filter(
+            claimant=claimant,
+            status__in=['A']
+        )
+    elif request.GET.get("claimant_id"):
+        claimant = Claimant.objects.get(id=request.GET.get("claimant_id"))
         formset.fields["fund"].queryset = Fund.objects.filter(
             claimant=claimant,
             status__in=['A']
