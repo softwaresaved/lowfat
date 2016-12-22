@@ -28,10 +28,10 @@
     <tr
        {% if expense.status in 'WS' %}
        class="danger"
-       {% elif expense.status in 'P' %}
+       {% elif expense.status in 'CP' %}
        class="warning"
        {% elif expense.status in 'AF' %}
-       class="sucess"
+       class="success"
        {% endif %}
        >
       <td>
