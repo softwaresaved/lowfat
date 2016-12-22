@@ -7,9 +7,25 @@
             <th>End date</th>
         </tr>
 {% for fund, blog in funds %}
-<tr>
+<tr
+  {% if user.is_superuser or claimant and user == claimant.user %}
+  {% if fund.status in 'URC' %}
+  class="danger"
+  {% elif fund.status in 'P' %}
+  class="warning"
+  {% elif fund.status in 'AF' %}
+  class="success"
+  {% endif %}
+  {% endif %}
+  >
   <td>
-    {% if user.is_superuser or claimant and user == claimant.user %}
+    {% if user.is_superuser %}
+    <a href="{% url "fund_review" fund.id %}">{{fund.name}}</a>
+    {% if fund.url|length > 0 %}
+    <a href="{{fund.url}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+    {% endif %}
+    </a>
+    {% elif claimant and user == claimant.user %}
     <a href="{% url "fund_detail" fund.id %}">{{fund.name}}</a>
     {% if fund.url|length > 0 %}
     <a href="{{fund.url}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
