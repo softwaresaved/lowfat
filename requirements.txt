@@ -11,4 +11,4 @@ pylint
 pylint-django
 pypdf2
 python-gnupg
-python-social-auth
+social-auth-app-django
