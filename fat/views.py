@@ -3,7 +3,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
 
@@ -77,6 +77,47 @@ def dashboard(request):
         )
 
     return render(request, 'fat/dashboard.html', context)
+
+@staff_member_required
+def search(request):
+    search_text = request.POST.get("search")
+    context = {
+        "search": search_text,
+        "fellows": Claimant.objects.filter(
+            (Q(forenames__contains=search_text) |
+             Q(surname__contains=search_text) |
+             Q(email__contains=search_text) |
+             Q(research_area__contains=search_text) |
+             Q(affiliation__contains=search_text) |
+             Q(work_description__contains=search_text) |
+             Q(website__contains=search_text) |
+             Q(github__contains=search_text) |
+             Q(twitter__contains=search_text)) &
+            Q(selected=True)
+        ),
+        "claimants": Claimant.objects.filter(
+            (Q(forenames__contains=search_text) |
+             Q(surname__contains=search_text) |
+             Q(email__contains=search_text) |
+             Q(research_area__contains=search_text) |
+             Q(affiliation__contains=search_text) |
+             Q(work_description__contains=search_text) |
+             Q(website__contains=search_text) |
+             Q(github__contains=search_text) |
+             Q(twitter__contains=search_text) ) &
+            Q(selected=False)
+        ),
+        "funds": Fund.objects.filter(
+            Q(claimant__forenames__contains=search_text) |
+            Q(claimant__surname__contains=search_text) |
+            Q(name__contains=search_text) |
+            Q(url__contains=search_text) |
+            Q(justification__contains=search_text) |
+            Q(additional_info__contains=search_text)
+        ),
+    }
+
+    return render(request, 'fat/search.html', context)
 
 @staff_member_required
 def promote(request):
