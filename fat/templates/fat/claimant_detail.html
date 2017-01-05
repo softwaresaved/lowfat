@@ -46,7 +46,6 @@
 </div>
 {% if show_finances %}
 {% include 'fat/finances.html' %}
-{% include 'fat/expenses.html' %}
 {% endif %}
 <h2>
   Funding requests
@@ -56,6 +55,7 @@
 </h2>
 {% include 'fat/funds.html' %}
 {% if user == claimant.user or user.is_superuser %}
+{% include 'fat/expenses.html' %}
 <h2>
   Blogs
   <a class="btn btn-default" href="{% url 'blog' %}?claimant_id={{claimant.id}}">Submit a blog post</a>

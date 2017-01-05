@@ -197,39 +197,18 @@
 {% else %}
 {% include 'fat/finances.html' %}
 <h2>
-  Funding Requests
-  <a class="btn btn-default" href="{% url 'fund' %}">New funding request</a>
+  Funding requests
+  {% if user == claimant.user or user.is_superuser %}
+  <a class="btn btn-default" href="{% url 'fund' %}?claimant_id={{claimant.id}}">Make an funding request</a>
+  {% endif %}
 </h2>
-<table class="table table-bordered sortable">
-  <tbody>
-    <tr>
-      <th>
-        Fund
-      </th>
-      <th>
-        Status
-      </th>
-    </tr>
-    {% for fund in funds %}
-    <tr
-       {% if fund.status in 'U' %}
-       class="danger"
-       {% elif fund.status in 'P' %}
-       class="warning"
-       {% elif fund.status in 'AR' %}
-       class="success"
-       {% endif %}
-       >
-      <td>
-        <a href="{% url 'fund_detail' fund.id %}">{{ fund.name }}</a>
-      </td>
-      <td>
-        {{ fund.get_status_display }}
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+{% include 'fat/funds.html' %}
+{% include 'fat/expenses.html' %}
+<h2>
+  Blogs
+  <a class="btn btn-default" href="{% url 'blog' %}?claimant_id={{claimant.id}}">Submit a blog post</a>
+</h2>
+{% include 'fat/blogs.html' %}
 {% endif %}
 {% endif %}
 {% endblock %}

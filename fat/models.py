@@ -97,6 +97,17 @@ def slug_generator(forenames, surname):
         surname.lower().replace(" ", "-")
     )
 
+def pair_fund_with_blog(funds, status=None):
+    """Create list of tuples where first element is fund and second is list of blog related with it."""
+    args = {}
+    if status:
+        args["status"] = status
+
+    return [(fund, Blog.objects.filter(
+        fund=fund,
+        **args
+    )) for fund in funds]
+
 class Claimant(models.Model):
     """Describe a claimant."""
 

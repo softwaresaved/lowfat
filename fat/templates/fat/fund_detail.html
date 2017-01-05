@@ -111,40 +111,7 @@
   <a class="btn btn-default" href="{% url 'blog' %}?fund_id={{fund.id}}">Submit a blog post</a>
 </h2>
 <p><strong>This fund requires {{ fund.required_blog_posts }} blog posts.</strong></p>
-<table class="table table-bordered sortable">
-  <tbody>
-    <tr>
-      <th>
-        Blog
-      </th>
-      <th>
-        Status
-      </th>
-    </tr>
-    {% for blog in blogs %}
-    <tr
-       {% if blog.status in 'U' %}
-       class="danger"
-       {% elif blog.status in 'R' %}
-       class="warning"
-       {% elif blog.status in 'LPDO' %}
-       class="success"
-       {% endif %}
-       >
-      <td>
-        {% if user.is_superuser %}
-        <a href="{% url 'blog_review' blog.id %}">{{ blog.draft_url }}</a>
-        {% else %}
-        <a href="{{ blog.draft_url }}">{{ blog.draft_url }}</a>
-        {% endif %}
-      </td>
-      <td>
-        {{ blog.get_status_display }}
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+{% include 'fat/blogs.html' %}
 {% include "fat/communication.html" %}
 {% endif %}
 {% endblock %}
