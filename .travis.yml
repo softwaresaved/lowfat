@@ -11,4 +11,5 @@ install: "pip install -r requirements.txt"
 
 script:
   - "python manage.py test"
+  - "python manage.py migrate && python manage.py loaddata fixtures/demo.json"
   - "python -m pylint fat"
