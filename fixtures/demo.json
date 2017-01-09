@@ -108,6 +108,14 @@
     }
 },
 {
+    "model": "sites.site",
+    "pk": 1,
+    "fields": {
+        "domain": "example.com",
+        "name": "example.com"
+    }
+},
+{
     "model": "fat.claimant",
     "pk": 1,
     "fields": {
