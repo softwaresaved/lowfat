@@ -58,10 +58,10 @@
                         {% if user.is_authenticated %}
                         {% if user.is_superuser %}
                         <li>
-                          <form action="{% url 'search' %}" method="post">
+                          <form class="form-inline" action="{% url 'search' %}" method="post">
                             {% csrf_token %}
-                            <input type="text" name="search" value={{ search }}>
-                            <input type="submit" value="Search" />
+                            <input class="form-control" type="text" name="search" value={{ search }}>
+                            <input class="btn btn-default" type="submit" value="Search" />
                         </form>
                         </li>
                         {% endif %}
