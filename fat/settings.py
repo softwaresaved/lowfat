@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     'django_countries',
     'crispy_forms',
-    'social.apps.django_app.default',
+    'social_django',
     'dbbackup',
     'fat',
 ]
@@ -81,8 +81,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django_settings_export.settings_export',
-                'social.apps.django_app.context_processors.backends',
-                'social.apps.django_app.context_processors.login_redirect',
+                'social_django.context_processors.backends',
             ],
         },
     },
@@ -121,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    'social.backends.github.GithubOAuth2',
+    'social_core.backends.github.GithubOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
