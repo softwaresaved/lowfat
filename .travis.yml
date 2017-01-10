@@ -8,7 +8,6 @@ python:
   - "nightly" # currently points to 3.7-dev
 
 env:
-  - DJANGO_VERSION=1.8 # Unsupported after April 2018
   - DJANGO_VERSION=1.9 # Unsupported after April 2017
   - DJANGO_VERSION=1.10 # Unsupported after December 2017
 
