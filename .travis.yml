@@ -7,7 +7,14 @@ python:
   - "3.6-dev" # 3.6 development branch
   - "nightly" # currently points to 3.7-dev
 
-install: "pip install -r requirements.txt"
+env:
+  - DJANGO_VERSION=1.8 # Unsupported after April 2018
+  - DJANGO_VERSION=1.9 # Unsupported after April 2017
+  - DJANGO_VERSION=1.10 # Unsupported after December 2017
+
+install:
+  - pip install django==$DJANGO_VERSION
+  - pip install -r requirements.txt
 
 script:
   - "python manage.py test"
