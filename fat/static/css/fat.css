@@ -3,6 +3,13 @@
     height: 18px;  /* same of font-size */
 }
 
+@media (min-width: 768px) {
+    .navbar-nav > li > form {  /* From Bootstrap */
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
+
 div.fellow {
     padding-bottom: 10px;
     padding-top: 10px;

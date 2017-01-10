@@ -56,6 +56,15 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
+                        {% if user.is_superuser %}
+                        <li>
+                          <form class="form-inline" action="{% url 'search' %}" method="post">
+                            {% csrf_token %}
+                            <input class="form-control" type="text" name="search" value={{ search }}>
+                            <input class="btn btn-default" type="submit" value="Search" />
+                        </form>
+                        </li>
+                        {% endif %}
                         {% if not user.is_superuser %}
                         <li>
                             <a href="{% url 'my_profile' %}" />My profile</a>

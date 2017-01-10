@@ -1,0 +1,47 @@
+{% extends "fat/base.html" %}
+
+{% block content %}
+<h1>Search result for "{{ search }}"</h1>
+<h2>Fellows</h2>
+{% if fellows %}
+<ul>
+{% for fellow in fellows %}
+  <li>
+    <a href="{% url 'fellow_slug' fellow.slug %}">
+      {{ fellow.fullname }}
+    </a>
+  </li>
+{% endfor %}  
+</ul>
+{% else %}
+No fellow found.
+{% endif %}
+<h2>Funding request</h2>
+{% if funds %}
+<ul>
+{% for fund in funds %}
+  <li>
+    <a href="{% url 'fund_detail' fund.id %}">
+      {{ fund.name }}
+    </a>
+  </li>
+{% endfor %}  
+</ul>
+{% else %}
+No funding request found.
+{% endif %}
+<h2>Claimant</h2>
+{% if claimants %}
+<ul>
+{% for claimant in claimants %}
+  <li>
+    <a href="{% url 'fellow_slug' claimant.slug %}">
+      {{ claimant.fullname }}
+    </a>
+  </li>
+{% endfor %}  
+</ul>
+{% else %}
+No claimant found.
+{% endif %}
+{% endblock %}
