@@ -104,7 +104,7 @@ def search(request):
              Q(work_description__contains=search_text) |
              Q(website__contains=search_text) |
              Q(github__contains=search_text) |
-             Q(twitter__contains=search_text) ) &
+             Q(twitter__contains=search_text)) &
             Q(selected=False)
         ),
         "funds": Fund.objects.filter(
