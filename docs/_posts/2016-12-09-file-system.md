@@ -25,7 +25,7 @@ order: 2
 
   Documentation folder.
 
-- `fat/`
+- `lowfat/`
 
   Django application root.
 

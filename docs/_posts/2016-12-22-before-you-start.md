@@ -21,5 +21,5 @@ FAT is licensed under the BSD 3-Clause License and by submiting any pull request
 We use [Pylint](https://www.pylint.org/) to check for [PEP8](https://www.python.org/dev/peps/pep-0008/). You can run Pylint with
 
 ~~~
-$ python3 -m pylint fat
+$ python3 -m pylint lowfat
 ~~~
