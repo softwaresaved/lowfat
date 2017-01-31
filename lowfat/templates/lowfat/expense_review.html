@@ -1,0 +1,72 @@
+{% extends "lowfat/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h1>Expense Review</h1>
+<object class="expense-review-pdf" data="{{ expense.claim.url }}" type="application/pdf">
+  <p>You will need to download the <a href="{{ expense.claim.url }}">PDF file.</a></p>
+</object>
+
+<div class="row">
+  <div class="col-md-6">
+    <h2>Fund</h2>
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th>Requester name</th>
+            <td>{{ expense.fund.claimant.fullname }}</td>
+        </tr>
+        <tr>
+            <th>Funding request name</th>
+            <td>{{ expense.fund.name }}</td>
+        </tr>
+        <tr>
+            <th>Budget approved</th>
+            <td>
+              {% if expense.fund.status in 'AF' %}
+              £{{ expense.fund.budget_approved }}
+              {% else %}
+              £0.00
+              {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>Extra sponsored</th>
+            <td>{{ expense.fund.extra_sponsored }}</td>
+        </tr>
+        <tr>
+            <th>Recipient</th>
+            <td>
+              {% if expense.recipient_fullname %}
+              {{ expense.fund.extra_sponsored }}
+              {% else %}
+              {{ expense.fund.claimant.fullname }}
+              {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>Final claim</th>
+            <td>{{ expense.final }}</td>
+        </tr>
+        <tr>
+            <th>Blog posts</th>
+            <td>{{ expense.fund.total_of_blog_posts }} / {{ expense.fund.required_blog_posts }}</td>
+        </tr>
+    </tbody>
+</table>
+  {% include "lowfat/communication.html" %}
+  </div>
+  <div class="col-md-6">
+<h2>Expenses</h2>
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th>Received date</th>
+            <td>{{ expense.received_date|date:"SHORT_DATE_FORMAT" }}</td>
+        </tr>
+    </tbody>
+</table>
+{% crispy formset %}
+  </div>
+</div>
+{% endblock %}

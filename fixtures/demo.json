@@ -108,7 +108,7 @@
     }
 },
 {
-    "model": "fat.claimant",
+    "model": "lowfat.claimant",
     "pk": 1,
     "fields": {
         "user": 6,
@@ -148,7 +148,7 @@
     }
 },
 {
-    "model": "fat.claimant",
+    "model": "lowfat.claimant",
     "pk": 2,
     "fields": {
         "user": 5,
@@ -188,7 +188,7 @@
     }
 },
 {
-    "model": "fat.claimant",
+    "model": "lowfat.claimant",
     "pk": 3,
     "fields": {
         "user": 4,
@@ -228,7 +228,7 @@
     }
 },
 {
-    "model": "fat.claimant",
+    "model": "lowfat.claimant",
     "pk": 4,
     "fields": {
         "user": 3,
@@ -268,7 +268,7 @@
     }
 },
 {
-    "model": "fat.claimant",
+    "model": "lowfat.claimant",
     "pk": 5,
     "fields": {
         "user": 2,
@@ -308,7 +308,7 @@
     }
 },
 {
-    "model": "fat.claimant",
+    "model": "lowfat.claimant",
     "pk": 6,
     "fields": {
         "user": null,
@@ -348,7 +348,7 @@
     }
 },
 {
-    "model": "fat.fund",
+    "model": "lowfat.fund",
     "pk": 1,
     "fields": {
         "claimant": 2,
@@ -383,7 +383,7 @@
     }
 },
 {
-    "model": "fat.fund",
+    "model": "lowfat.fund",
     "pk": 2,
     "fields": {
         "claimant": 5,
@@ -418,7 +418,7 @@
     }
 },
 {
-    "model": "fat.fund",
+    "model": "lowfat.fund",
     "pk": 3,
     "fields": {
         "claimant": 1,
@@ -453,7 +453,7 @@
     }
 },
 {
-    "model": "fat.fund",
+    "model": "lowfat.fund",
     "pk": 4,
     "fields": {
         "claimant": 2,
@@ -488,7 +488,7 @@
     }
 },
 {
-    "model": "fat.fund",
+    "model": "lowfat.fund",
     "pk": 5,
     "fields": {
         "claimant": 3,
@@ -523,7 +523,7 @@
     }
 },
 {
-    "model": "fat.fund",
+    "model": "lowfat.fund",
     "pk": 6,
     "fields": {
         "claimant": 4,
@@ -558,7 +558,7 @@
     }
 },
 {
-    "model": "fat.fund",
+    "model": "lowfat.fund",
     "pk": 7,
     "fields": {
         "claimant": 1,
@@ -593,7 +593,7 @@
     }
 },
 {
-    "model": "fat.fund",
+    "model": "lowfat.fund",
     "pk": 8,
     "fields": {
         "claimant": 1,
@@ -628,7 +628,7 @@
     }
 },
 {
-    "model": "fat.fund",
+    "model": "lowfat.fund",
     "pk": 9,
     "fields": {
         "claimant": 3,
@@ -663,7 +663,7 @@
     }
 },
 {
-    "model": "fat.fund",
+    "model": "lowfat.fund",
     "pk": 10,
     "fields": {
         "claimant": 4,
@@ -698,7 +698,7 @@
     }
 },
 {
-    "model": "fat.expense",
+    "model": "lowfat.expense",
     "pk": 1,
     "fields": {
         "relative_number": 1,
@@ -725,7 +725,7 @@
     }
 },
 {
-    "model": "fat.expense",
+    "model": "lowfat.expense",
     "pk": 2,
     "fields": {
         "relative_number": 1,
@@ -752,7 +752,7 @@
     }
 },
 {
-    "model": "fat.expense",
+    "model": "lowfat.expense",
     "pk": 3,
     "fields": {
         "relative_number": 1,
@@ -779,7 +779,7 @@
     }
 },
 {
-    "model": "fat.expense",
+    "model": "lowfat.expense",
     "pk": 4,
     "fields": {
         "relative_number": 1,
@@ -806,7 +806,7 @@
     }
 },
 {
-    "model": "fat.expense",
+    "model": "lowfat.expense",
     "pk": 5,
     "fields": {
         "relative_number": 1,
@@ -833,7 +833,7 @@
     }
 },
 {
-    "model": "fat.expense",
+    "model": "lowfat.expense",
     "pk": 6,
     "fields": {
         "relative_number": 2,
@@ -860,7 +860,7 @@
     }
 },
 {
-    "model": "fat.expense",
+    "model": "lowfat.expense",
     "pk": 7,
     "fields": {
         "relative_number": 1,
@@ -887,7 +887,7 @@
     }
 },
 {
-    "model": "fat.expense",
+    "model": "lowfat.expense",
     "pk": 8,
     "fields": {
         "relative_number": 1,
@@ -914,7 +914,7 @@
     }
 },
 {
-    "model": "fat.blog",
+    "model": "lowfat.blog",
     "pk": 1,
     "fields": {
         "fund": 1,
@@ -930,7 +930,7 @@
     }
 },
 {
-    "model": "fat.blog",
+    "model": "lowfat.blog",
     "pk": 2,
     "fields": {
         "fund": 3,
@@ -946,7 +946,7 @@
     }
 },
 {
-    "model": "fat.blog",
+    "model": "lowfat.blog",
     "pk": 3,
     "fields": {
         "fund": 4,
@@ -962,7 +962,7 @@
     }
 },
 {
-    "model": "fat.blog",
+    "model": "lowfat.blog",
     "pk": 4,
     "fields": {
         "fund": 8,
@@ -978,7 +978,7 @@
     }
 },
 {
-    "model": "fat.blog",
+    "model": "lowfat.blog",
     "pk": 6,
     "fields": {
         "fund": 2,
@@ -994,7 +994,7 @@
     }
 },
 {
-    "model": "fat.blog",
+    "model": "lowfat.blog",
     "pk": 7,
     "fields": {
         "fund": 6,
@@ -1010,7 +1010,7 @@
     }
 },
 {
-    "model": "fat.blog",
+    "model": "lowfat.blog",
     "pk": 8,
     "fields": {
         "fund": 3,
@@ -1026,7 +1026,7 @@
     }
 },
 {
-    "model": "fat.generalsentmail",
+    "model": "lowfat.generalsentmail",
     "pk": 1,
     "fields": {
         "justification": "Good luck!",
@@ -1035,7 +1035,7 @@
     }
 },
 {
-    "model": "fat.generalsentmail",
+    "model": "lowfat.generalsentmail",
     "pk": 2,
     "fields": {
         "justification": "Good luck!",
@@ -1044,7 +1044,7 @@
     }
 },
 {
-    "model": "fat.generalsentmail",
+    "model": "lowfat.generalsentmail",
     "pk": 3,
     "fields": {
         "justification": "The budget looks wrong.",
@@ -1053,7 +1053,7 @@
     }
 },
 {
-    "model": "fat.generalsentmail",
+    "model": "lowfat.generalsentmail",
     "pk": 4,
     "fields": {
         "justification": "Great blog.",
@@ -1062,7 +1062,7 @@
     }
 },
 {
-    "model": "fat.generalsentmail",
+    "model": "lowfat.generalsentmail",
     "pk": 5,
     "fields": {
         "justification": "Great blog.",
@@ -1071,7 +1071,7 @@
     }
 },
 {
-    "model": "fat.generalsentmail",
+    "model": "lowfat.generalsentmail",
     "pk": 6,
     "fields": {
         "justification": "Looks good!",
@@ -1080,7 +1080,7 @@
     }
 },
 {
-    "model": "fat.generalsentmail",
+    "model": "lowfat.generalsentmail",
     "pk": 7,
     "fields": {
         "justification": "Looks good!",
@@ -1089,49 +1089,49 @@
     }
 },
 {
-    "model": "fat.fundsentmail",
+    "model": "lowfat.fundsentmail",
     "pk": 1,
     "fields": {
         "fund": 3
     }
 },
 {
-    "model": "fat.fundsentmail",
+    "model": "lowfat.fundsentmail",
     "pk": 2,
     "fields": {
         "fund": 8
     }
 },
 {
-    "model": "fat.fundsentmail",
+    "model": "lowfat.fundsentmail",
     "pk": 3,
     "fields": {
         "fund": 9
     }
 },
 {
-    "model": "fat.expensesentmail",
+    "model": "lowfat.expensesentmail",
     "pk": 6,
     "fields": {
         "expense": 1
     }
 },
 {
-    "model": "fat.expensesentmail",
+    "model": "lowfat.expensesentmail",
     "pk": 7,
     "fields": {
         "expense": 3
     }
 },
 {
-    "model": "fat.blogsentmail",
+    "model": "lowfat.blogsentmail",
     "pk": 4,
     "fields": {
         "blog": 2
     }
 },
 {
-    "model": "fat.blogsentmail",
+    "model": "lowfat.blogsentmail",
     "pk": 5,
     "fields": {
         "blog": 4

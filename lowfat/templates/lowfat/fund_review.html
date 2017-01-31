@@ -1,0 +1,85 @@
+{% extends "lowfat/base.html" %}
+{% load crispy_forms_tags %}
+{% load markdown %}
+
+{% block content %}
+<h1>Fund Review</h1>
+<h2>General Details</h1>
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th>Name</th>
+            <td>{{ fund.name }}</td>
+        </tr>
+        <tr>
+            <th>URL</th>
+            {% if fund.url|length > 0 %}
+            <td><a href="{{ fund.url }}">{{ fund.url }}</a></td>
+            {% endif %}
+        </tr>
+        <tr>
+            <th>Start date</th>
+            <td>{{ fund.start_date|date:"SHORT_DATE_FORMAT" }}</td>
+        </tr>
+        <tr>
+            <th>End data</th>
+            <td>{{ fund.end_date|date:"SHORT_DATE_FORMAT" }}</td>
+        </tr>
+        <tr>
+          <th>Justication</th>
+          <td>{{ fund.justification | markdown | safe }}</td>
+        </tr>
+        <tr>
+          <th>Additional information</th>
+          <td>{{ fund.additional_info | markdown | safe }}</td>
+        </tr>
+    </tbody>
+</table>
+<div class="row">
+  <div class="col-md-6">
+<h2>Budget Summary</h2>
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th><strong>Total</strong> budget request</th>
+            <td>£{{ fund.budget_total }}</td>
+        </tr>
+    </tbody>
+</table>
+<h2>Budget Details</h2>
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th>Travel expenses</th>
+            <td>£{{ fund.budget_request_travel }}</td>
+        </tr>
+        <tr>
+            <th>Attendance fees</th>
+            <td>£{{ fund.budget_request_attendance_fees }}</td>
+        </tr>
+        <tr>
+            <th>Subsistence cost</th>
+            <td>£{{ fund.budget_request_subsistence_cost }}</td>
+        </tr>
+        <tr>
+            <th>Venue hire</th>
+            <td>£{{ fund.budget_request_venue_hire }}</td>
+        </tr>
+        <tr>
+            <th>Catering</th>
+            <td>£{{ fund.budget_request_catering }}</td>
+        </tr>
+        <tr>
+            <th>Others</th>
+            <td>£{{ fund.budget_request_others }}</td>
+        </tr>
+    </tbody>
+</table>
+{% include "lowfat/communication.html" %}
+  </div>
+  <div class="col-md-6">
+<h2>Review</h2>
+{% crispy formset %}
+  </div>
+</div>
+{% endblock %}

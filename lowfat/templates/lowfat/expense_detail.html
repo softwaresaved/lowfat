@@ -1,0 +1,46 @@
+{% extends "lowfat/base.html" %}
+
+{% block content %}
+<h1>Expense Detail
+  <span
+  {% if expense.status in 'AF' %}
+  class="label label-success"
+  {% elif expense.status in 'UP' %}
+  class="label label-danger"
+  {% else %}
+  class="label label-warning"
+  {% endif %}
+  >{{ expense.get_status_display }}</span>
+  {% if user.is_superuser %}
+  <a class="btn btn-default" href="{% url 'expense_review' expense.id %}" role="button">Review</a>
+  {% endif %}
+</h1>
+<object class="expense-review-pdf" data="{{ expense.claim.url }}" type="application/pdf">
+  <p>You will need to download the <a href="{{ expense.claim.url }}">PDF file.</a></p>
+</object>
+<table class="table table-bordered sortable">
+    <tbody>
+        <tr>
+            <th>Requester name</th>
+            <td>{{ expense.fund.claimant.fullname }}</td>
+        </tr>
+        <tr>
+            <th>Funding request name</th>
+            <td>{{ expense.fund.name }}</td>
+        </tr>
+        <tr>
+            <th>Amount Claimant</th>
+            <td>{{ expense.amount_claimed }}</td>
+        </tr>
+        <tr>
+            <th>Amount authorized for payment</th>
+            <td>{{ expense.amount_authorized_for_payment }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ expense.get_status_display }}</td>
+        </tr>
+    </tbody>
+</table>
+{% include "lowfat/communication.html" %}
+{% endblock %}
