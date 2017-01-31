@@ -13,7 +13,7 @@ class FellowFormTest(TestCase):
         data = {
             "forenames": "",
             "surname": "",
-            "email": "c.a@fake.fat.software.ac.uk",
+            "email": "c.a@fake.lowfat.software.ac.uk",
             "phone": "+441111111111",
             "gender": "M",
             "home_country": "GB",
@@ -61,7 +61,7 @@ class FellowFormTest(TestCase):
         data = {
             "forenames": "C",
             "surname": "A",
-            "email": "c.a@fake.fat.software.ac.uk",
+            "email": "c.a@fake.lowfat.software.ac.uk",
             "phone": "",
             "gender": "M",
             "home_country": "GB",
@@ -85,7 +85,7 @@ class FellowFormTest(TestCase):
         data = {
             "forenames": "C",
             "surname": "A",
-            "email": "c.a@fake.fat.software.ac.uk",
+            "email": "c.a@fake.lowfat.software.ac.uk",
             "phone": "+441111111111",
             "gender": "M",
             "home_country": "",
@@ -109,7 +109,7 @@ class FellowFormTest(TestCase):
         data = {
             "forenames": "C",
             "surname": "A",
-            "email": "c.a@fake.fat.software.ac.uk",
+            "email": "c.a@fake.lowfat.software.ac.uk",
             "phone": "+441111111111",
             "gender": "M",
             "home_country": "GB",
@@ -133,7 +133,7 @@ class FellowFormTest(TestCase):
         data = {
             "forenames": "C",
             "surname": "A",
-            "email": "c.a@fake.fat.software.ac.uk",
+            "email": "c.a@fake.lowfat.software.ac.uk",
             "phone": "+441111111111",
             "gender": "M",
             "home_country": "GB",
@@ -157,7 +157,7 @@ class FellowFormTest(TestCase):
         data = {
             "forenames": "C",
             "surname": "A",
-            "email": "c.a@fake.fat.software.ac.uk",
+            "email": "c.a@fake.lowfat.software.ac.uk",
             "phone": "+441111111111",
             "gender": "M",
             "home_country": "GB",
@@ -181,7 +181,7 @@ class FellowFormTest(TestCase):
         data = {
             "forenames": "C",
             "surname": "A",
-            "email": "c.a@fake.fat.software.ac.uk",
+            "email": "c.a@fake.lowfat.software.ac.uk",
             "phone": "+441111111111",
             "gender": "M",
             "home_country": "GB",
@@ -205,7 +205,7 @@ class FellowFormTest(TestCase):
         data = {
             "forenames": "C",
             "surname": "A",
-            "email": "c.a@fake.fat.software.ac.uk",
+            "email": "c.a@fake.lowfat.software.ac.uk",
             "phone": "+441111111111",
             "gender": "M",
             "home_country": "GB",
@@ -228,7 +228,7 @@ class FellowFormTest(TestCase):
         data = {
             "forenames": "C",
             "surname": "A",
-            "email": "c.a@fake.fat.software.ac.uk",
+            "email": "c.a@fake.lowfat.software.ac.uk",
             "phone": "+441111111111",
             "gender": "M",
             "home_country": "GB",
@@ -251,7 +251,7 @@ class FellowFormTest(TestCase):
         data = {
             "forenames": "C",
             "surname": "A",
-            "email": "c.a@fake.fat.software.ac.uk",
+            "email": "c.a@fake.lowfat.software.ac.uk",
             "phone": "+441111111111",
             "gender": "M",
             "home_country": "GB",
@@ -269,7 +269,7 @@ class FellowFormTest(TestCase):
         data = {
             "forenames": "C",
             "surname": "A",
-            "email": "c.a@fake.fat.software.ac.uk",
+            "email": "c.a@fake.lowfat.software.ac.uk",
             "phone": "+441111111111",
             "gender": "M",
             "home_country": "GB",
@@ -293,7 +293,7 @@ class FellowFormTest(TestCase):
         data = {
             "forenames": "C",
             "surname": "A",
-            "email": "c.a@fake.fat.software.ac.uk",
+            "email": "c.a@fake.lowfat.software.ac.uk",
             "phone": "+441111111111",
             "gender": "M",
             "home_country": "GB",

@@ -1,4 +1,4 @@
-{% extends "fat/base.html" %}
+{% extends "lowfat/base.html" %}
 
 {% block content %}
 <h1>Software Sustainability Institute Fellowship Program</h1>
@@ -195,20 +195,20 @@
 </table>
 {% endif %}
 {% else %}
-{% include 'fat/finances.html' %}
+{% include 'lowfat/finances.html' %}
 <h2>
   Funding requests
   {% if user == claimant.user or user.is_superuser %}
   <a class="btn btn-default" href="{% url 'fund' %}?claimant_id={{claimant.id}}">Make an funding request</a>
   {% endif %}
 </h2>
-{% include 'fat/funds.html' %}
-{% include 'fat/expenses.html' %}
+{% include 'lowfat/funds.html' %}
+{% include 'lowfat/expenses.html' %}
 <h2>
   Blogs
   <a class="btn btn-default" href="{% url 'blog' %}?claimant_id={{claimant.id}}">Submit a blog post</a>
 </h2>
-{% include 'fat/blogs.html' %}
+{% include 'lowfat/blogs.html' %}
 {% endif %}
 {% endif %}
 {% endblock %}

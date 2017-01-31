@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('fat', '0065_auto_20160811_1052'),
+        ('lowfat', '0065_auto_20160811_1052'),
     ]
 
     operations = [
@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
                 ('notes_from_admin', models.TextField(blank=True, null=True)),
                 ('added', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
-                ('mentor', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='fat.Claimed')),
+                ('mentor', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='lowfat.Claimed')),
                 ('user', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
@@ -81,7 +81,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='fund',
             name='claimed',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='fat.Claimed'),
+            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='lowfat.Claimed'),
             preserve_default=False,
         ),
     ]

@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('fat', '0071_auto_20160812_1643'),
+        ('lowfat', '0071_auto_20160812_1643'),
     ]
 
     operations = [
@@ -37,26 +37,26 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='BlogSentMail',
             fields=[
-                ('generalsentmail_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='fat.GeneralSentMail')),
-                ('blog', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='fat.Blog')),
+                ('generalsentmail_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='lowfat.GeneralSentMail')),
+                ('blog', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='lowfat.Blog')),
             ],
-            bases=('fat.generalsentmail',),
+            bases=('lowfat.generalsentmail',),
         ),
         migrations.CreateModel(
             name='ExpenseSentMail',
             fields=[
-                ('generalsentmail_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='fat.GeneralSentMail')),
-                ('expense', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='fat.Expense')),
+                ('generalsentmail_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='lowfat.GeneralSentMail')),
+                ('expense', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='lowfat.Expense')),
             ],
-            bases=('fat.generalsentmail',),
+            bases=('lowfat.generalsentmail',),
         ),
         migrations.CreateModel(
             name='FundSentMail',
             fields=[
-                ('generalsentmail_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='fat.GeneralSentMail')),
-                ('fund', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='fat.Fund')),
+                ('generalsentmail_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='lowfat.GeneralSentMail')),
+                ('fund', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='lowfat.Fund')),
             ],
-            bases=('fat.generalsentmail',),
+            bases=('lowfat.generalsentmail',),
         ),
         migrations.DeleteModel(
             name='SentMail',
@@ -64,7 +64,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='generalsentmail',
             name='receiver',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='fat.Claimed'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='lowfat.Claimed'),
         ),
         migrations.AddField(
             model_name='generalsentmail',

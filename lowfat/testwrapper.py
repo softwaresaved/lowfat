@@ -15,17 +15,17 @@ CLAIMED_B_PASSWORD = '123456'
 def create_users():
     User.objects.create_superuser(
         'admin',
-        'admin@fake.fat.software.ac.uk',
+        'admin@fake.lowfat.software.ac.uk',
         ADMIN_PASSWORD
     )
     User.objects.create_user(
         'claimant-a',
-        'a.claimant@fake.fat.software.ac.uk',
+        'a.claimant@fake.lowfat.software.ac.uk',
         CLAIMED_A_PASSWORD
     )
     User.objects.create_user(
         'claimant-b',
-        'b.claimant@fake.fat.software.ac.uk',
+        'b.claimant@fake.lowfat.software.ac.uk',
         CLAIMED_B_PASSWORD
     )
 
@@ -37,7 +37,7 @@ def create_claimant():
         "user": User.objects.get(username="claimant-b"),
         "forenames": "B",
         "surname": "B",
-        "email": "b.b@fake.fat.software.ac.uk",
+        "email": "b.b@fake.lowfat.software.ac.uk",
         "phone": "+441111111111",
         "gender": "M",
         "home_country": "GB",
@@ -62,7 +62,7 @@ def create_claimant():
         "user": User.objects.get(username="claimant-a"),
         "forenames": "A",
         "surname": "A",
-        "email": "a.a@fake.fat.software.ac.uk",
+        "email": "a.a@fake.lowfat.software.ac.uk",
         "phone": "+441111111111",
         "gender": "M",
         "home_country": "GB",

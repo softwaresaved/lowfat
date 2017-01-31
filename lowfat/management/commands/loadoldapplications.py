@@ -5,7 +5,7 @@ import pandas as pd
 from django.core.files import File
 from django.core.management.base import BaseCommand
 
-from fat.models import Claimant
+from lowfat.models import Claimant
 
 class Command(BaseCommand):
     help = "Import CSV (old_applications.csv) with applications to claimantship to the database."

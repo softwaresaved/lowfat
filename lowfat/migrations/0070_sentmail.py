@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('fat', '0069_auto_20160812_1437'),
+        ('lowfat', '0069_auto_20160812_1437'),
     ]
 
     operations = [
@@ -20,8 +20,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('justification', models.TextField()),
-                ('fund', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='fat.Fund')),
-                ('receiver', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='fat.Claimed')),
+                ('fund', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='lowfat.Fund')),
+                ('receiver', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='lowfat.Claimed')),
                 ('sender', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

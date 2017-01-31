@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fat', '0077_expense_justification_for_extra'),
+        ('lowfat', '0077_expense_justification_for_extra'),
     ]
 
     operations = [

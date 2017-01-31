@@ -29,7 +29,7 @@ def index(request):
             }
         )
 
-    return render(request, 'fat/index.html', context)
+    return render(request, 'lowfat/index.html', context)
 
 @login_required
 def dashboard(request):
@@ -76,7 +76,7 @@ def dashboard(request):
             }
         )
 
-    return render(request, 'fat/dashboard.html', context)
+    return render(request, 'lowfat/dashboard.html', context)
 
 @staff_member_required
 def search(request):
@@ -117,7 +117,7 @@ def search(request):
         ),
     }
 
-    return render(request, 'fat/search.html', context)
+    return render(request, 'lowfat/search.html', context)
 
 @staff_member_required
 def promote(request):
@@ -125,7 +125,7 @@ def promote(request):
         "claimants": Claimant.objects.filter(),
     }
 
-    return render(request, 'fat/promote.html', context)
+    return render(request, 'lowfat/promote.html', context)
 
 
 @login_required
@@ -156,7 +156,7 @@ def claimant_form(request):
         "formset": formset,
         "submit_text": "Save" if instance is None else "Update",
     }
-    return render(request, 'fat/form.html', context)
+    return render(request, 'lowfat/form.html', context)
 
 # pylint: disable=unused-argument
 @staff_member_required
@@ -205,7 +205,7 @@ def claimant_detail(request, claimant_id):
             }
         )
 
-    return render(request, 'fat/claimant_detail.html', context)
+    return render(request, 'lowfat/claimant_detail.html', context)
 
 def claimant_slug_resolution(request, claimant_slug):
     """Resolve claimant slug and return the details."""
@@ -274,7 +274,7 @@ def fund_form(request):
         "formset": formset,
         "js_files": ["js/request.js"],
     }
-    return render(request, 'fat/form.html', context)
+    return render(request, 'lowfat/form.html', context)
 
 @login_required
 def fund_detail(request, fund_id):
@@ -290,7 +290,7 @@ def fund_detail(request, fund_id):
             'emails': FundSentMail.objects.filter(fund=this_fund),
         }
 
-        return render(request, 'fat/fund_detail.html', context)
+        return render(request, 'lowfat/fund_detail.html', context)
 
     raise Http404("Fund does not exist.")
 
@@ -327,7 +327,7 @@ def fund_review(request, fund_id):
         'emails': FundSentMail.objects.filter(fund=this_fund),
     }
 
-    return render(request, 'fat/fund_review.html', context)
+    return render(request, 'lowfat/fund_review.html', context)
 
 def fund_past(request):
     funds = Fund.objects.filter(
@@ -344,7 +344,7 @@ def fund_past(request):
         )) for fund in funds],
     }
 
-    return render(request, 'fat/fund_past.html', context)
+    return render(request, 'lowfat/fund_past.html', context)
 
 @staff_member_required
 def fund_import(request):
@@ -366,7 +366,7 @@ def fund_import(request):
         "formset": formset,
         "js_files": ["js/request.js"],
     }
-    return render(request, 'fat/form.html', context)
+    return render(request, 'lowfat/form.html', context)
 
 @login_required
 def expense_form(request):
@@ -409,7 +409,7 @@ def expense_form(request):
         "fund": fund,
         "formset": formset,
     }
-    return render(request, 'fat/form.html', context)
+    return render(request, 'lowfat/form.html', context)
 
 @login_required
 def expense_detail(request, expense_id):
@@ -422,7 +422,7 @@ def expense_detail(request, expense_id):
             'emails': ExpenseSentMail.objects.filter(expense=this_expense),
         }
 
-        return render(request, 'fat/expense_detail.html', context)
+        return render(request, 'lowfat/expense_detail.html', context)
 
     raise Http404("Expense claim does not exist.")
 
@@ -465,7 +465,7 @@ def expense_review(request, expense_id):
         'emails': ExpenseSentMail.objects.filter(expense=this_expense),
     }
 
-    return render(request, 'fat/expense_review.html', context)
+    return render(request, 'lowfat/expense_review.html', context)
 
 @staff_member_required
 def expense_review_relative(request, fund_id, expense_relative_number):
@@ -513,7 +513,7 @@ def blog_form(request):
         "title": "Submit blog post",
         "formset": formset,
     }
-    return render(request, 'fat/form.html', context)
+    return render(request, 'lowfat/form.html', context)
 
 @login_required
 def blog_detail(request, blog_id):
@@ -526,7 +526,7 @@ def blog_detail(request, blog_id):
             'emails': BlogSentMail.objects.filter(blog=this_blog),
         }
 
-        return render(request, 'fat/blog_detail.html', context)
+        return render(request, 'lowfat/blog_detail.html', context)
 
     raise Http404("Blog post does not exist.")
 
@@ -567,7 +567,7 @@ def blog_review(request, blog_id):
         'formset': formset,
     }
 
-    return render(request, 'fat/blog_review.html', context)
+    return render(request, 'lowfat/blog_review.html', context)
 
 @staff_member_required
 def report(request):
@@ -604,7 +604,7 @@ def report(request):
     }
     context.update(bokeh_plots)
 
-    return render(request, 'fat/report.html', context)
+    return render(request, 'lowfat/report.html', context)
 
 @staff_member_required
 def geojson(request):
@@ -615,4 +615,4 @@ def geojson(request):
         'funds': Fund.objects.all(),
     }
 
-    return render(request, 'fat/map.geojson', context)
+    return render(request, 'lowfat/map.geojson', context)

@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('fat', '0056_auto_20160808_0929'),
+        ('lowfat', '0056_auto_20160808_0929'),
     ]
 
     operations = [

@@ -1,4 +1,4 @@
-"""fat URL Configuration
+"""lowfat URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.9/topics/http/urls/
@@ -48,7 +48,7 @@ FUND_PATTERNS = [
 urlpatterns = [  # pylint: disable=invalid-name
     url('', include('social_django.urls', namespace='social')),
     url(r'^login/', auth_views.login,
-        {'template_name': 'fat/sign_in.html'},
+        {'template_name': 'lowfat/sign_in.html'},
         name="sign_in"),
     url(r'^disconnect/', auth_views.logout,
         {'next_page': '/'},
@@ -57,7 +57,7 @@ urlpatterns = [  # pylint: disable=invalid-name
     url(r'^claimant/', include(CLAIMED_PATTERNS)),
     url(r'^fellow/', include(FELLOW_PATTERNS)),
     url(r'^request/', include(FUND_PATTERNS)),
-    url(r'^fund/', include(FUND_PATTERNS, "fat", "fund_")),
+    url(r'^fund/', include(FUND_PATTERNS, "lowfat", "fund_")),
     url(r'^expense/(?P<expense_id>[0-9\-]+)/review', views.expense_review, name="expense_review"),
     url(r'^expense/(?P<expense_id>[0-9\-]+)/', views.expense_detail, name="expense_detail"),
     url(r'^expense/', views.expense_form, name="expense"),

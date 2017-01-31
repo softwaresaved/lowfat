@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fat', '0042_auto_20160720_1033'),
+        ('lowfat', '0042_auto_20160720_1033'),
     ]
 
     operations = [

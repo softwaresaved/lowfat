@@ -1,4 +1,4 @@
-{% extends "fat/base.html" %}
+{% extends "lowfat/base.html" %}
 {% load markdown %}
 
 {% block content %}
@@ -105,13 +105,13 @@
         </tr>
     </tbody>
 </table>
-{% include 'fat/expenses.html' %}
+{% include 'lowfat/expenses.html' %}
 <h2>
   Blogs
   <a class="btn btn-default" href="{% url 'blog' %}?fund_id={{fund.id}}">Submit a blog post</a>
 </h2>
 <p><strong>This fund requires {{ fund.required_blog_posts }} blog posts.</strong></p>
-{% include 'fat/blogs.html' %}
-{% include "fat/communication.html" %}
+{% include 'lowfat/blogs.html' %}
+{% include "lowfat/communication.html" %}
 {% endif %}
 {% endblock %}

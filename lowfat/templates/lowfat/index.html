@@ -1,4 +1,4 @@
-{% extends "fat/base.html" %}
+{% extends "lowfat/base.html" %}
 
 {% block content %}
 <h1>Software Sustainability Institute Fellowship Programme</h1>
@@ -13,7 +13,7 @@
     <span>{{ claimant.application_year | add:"1" }}</span>
   </div>
   <a href="{% url 'fellow_slug' claimant.slug %}">
-    {% include 'fat/photo.html' %}
+    {% include 'lowfat/photo.html' %}
     <br>
     {{ claimant.fullname }}
   </a>
@@ -70,6 +70,6 @@
 
 <h2>Events</h2>
 <p>The following events will happen in the short future and have the support of at least one of the Institute fellows.</p>
-{% include 'fat/funds.html' %}
+{% include 'lowfat/funds.html' %}
 <p>Check <a href="{% url 'fund_past' %}">previous events</a> also organized by Institute fellows.</p>
 {% endblock %}

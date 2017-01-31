@@ -3,7 +3,7 @@ import pandas as pd
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.management.base import BaseCommand
 
-from fat.models import Claimant, Fund, Expense
+from lowfat.models import Claimant, Fund, Expense
 
 def conv_date(new_date):
     day, month, year = new_date.split('/')

@@ -36,6 +36,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='event',
             name='fellow',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='fat.Fellow'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='lowfat.Fellow'),
         ),
     ]

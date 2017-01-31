@@ -9,7 +9,7 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fat', '0036_auto_20160715_1029'),
+        ('lowfat', '0036_auto_20160715_1029'),
     ]
 
     operations = [

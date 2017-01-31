@@ -9,7 +9,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fat', '0028_auto_20160713_1301'),
+        ('lowfat', '0028_auto_20160713_1301'),
     ]
 
     operations = [
@@ -81,7 +81,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='event',
             name='fellow',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='fat.Fellow'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='lowfat.Fellow'),
         ),
         migrations.AlterField(
             model_name='event',

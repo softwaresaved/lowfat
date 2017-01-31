@@ -112,7 +112,7 @@ class Claimant(models.Model):
     """Describe a claimant."""
 
     class Meta:
-        app_label = 'fat'
+        app_label = 'lowfat'
 
     # Authentication
     #
@@ -297,7 +297,7 @@ class Claimant(models.Model):
 class Fund(models.Model):
     """Describe a fund from one claimant."""
     class Meta:
-        app_label = 'fat'
+        app_label = 'lowfat'
 
     # TODO Make claimant more generic to include staffs.
     claimant = models.ForeignKey('Claimant')
@@ -440,7 +440,7 @@ class Fund(models.Model):
 class Expense(models.Model):
     """This describe one expense for one fund."""
     class Meta:
-        app_label = 'fat'
+        app_label = 'lowfat'
 
     # Internal
     relative_number = models.IntegerField(
@@ -541,7 +541,7 @@ class Expense(models.Model):
 class Blog(models.Model):
     """Provide the link to the blog post about the fund."""
     class Meta:
-        app_label = 'fat'
+        app_label = 'lowfat'
 
     # Form
     fund = models.ForeignKey('Fund')
@@ -596,7 +596,7 @@ class GeneralSentMail(models.Model):
     """Emails sent with custom text."""
 
     class Meta:
-        app_label = 'fat'
+        app_label = 'lowfat'
 
     justification = models.TextField()
 

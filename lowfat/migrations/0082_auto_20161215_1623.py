@@ -3,20 +3,20 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import fat.validator
+import lowfat.validator
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fat', '0081_auto_20161010_1616'),
+        ('lowfat', '0081_auto_20161010_1616'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='expense',
             name='claim',
-            field=models.FileField(upload_to='expenses/', validators=[fat.validator.pdf]),
+            field=models.FileField(upload_to='expenses/', validators=[lowfat.validator.pdf]),
         ),
         migrations.AlterField(
             model_name='fund',

@@ -10,7 +10,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fat', '0070_sentmail'),
+        ('lowfat', '0070_sentmail'),
     ]
 
     operations = [

@@ -9,7 +9,7 @@ import django_countries.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fat', '0053_auto_20160804_1447'),
+        ('lowfat', '0053_auto_20160804_1447'),
     ]
 
     operations = [
