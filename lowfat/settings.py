@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 import os
 
 URL_SRC = "https://github.com/softwaresaved/lowfat"
-VERSION = "0.6.1"
+VERSION = "0.7.0"
 
 FELLOWS_MANAGEMENT_EMAIL = "fellows-management@software.ac.uk"
 
