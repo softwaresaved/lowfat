@@ -2,7 +2,7 @@
 #
 # Configure the CSS.
 
-STATIC_FOLDER=fat/static/
+STATIC_FOLDER=lowfat/static/
 TMP_FOLDER=/tmp/
 BOOTSTRAP_ZIP=/tmp/bootstrap.zip
 FONT_AWESOME_ZIP=/tmp/fontawesome.zip
