@@ -50,7 +50,7 @@
 <h2>
   Funding requests
   {% if user == claimant.user or user.is_superuser %}
-  <a class="btn btn-default" href="{% url 'fund' %}?claimant_id={{claimant.id}}">Make an funding request</a>
+  <a class="btn btn-default" href="{% url 'fund' %}?claimant_id={{claimant.id}}">Make a funding request</a>
   {% endif %}
 </h2>
 {% include 'lowfat/funds.html' %}
