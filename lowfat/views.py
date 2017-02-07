@@ -250,16 +250,15 @@ def fund_form(request):
                 reverse('fund_detail', args=[fund.id,])
             )
 
+    initial = {
+            "start_date": django.utils.timezone.now(),
+            "end_date": django.utils.timezone.now(),
+    }
+
     if not request.user.is_superuser:
-        initial = {
-            "claimant": Claimant.objects.get(user=request.user),
-        }
+        initial["claimant"] = Claimant.objects.get(user=request.user)
     elif request.GET.get("claimant_id"):
-        initial = {
-            "claimant": Claimant.objects.get(id=request.GET.get("claimant_id")),
-        }
-    else:
-        initial = {}
+        initial["claimant"] = Claimant.objects.get(id=request.GET.get("claimant_id"))
 
     formset = FundForm(initial=initial)
 
