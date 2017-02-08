@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.forms import Form, ModelForm, SelectDateWidget, CharField, Textarea, FileField
 
 from crispy_forms.helper import FormHelper
@@ -5,6 +7,9 @@ from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML
 from crispy_forms.bootstrap import PrependedText
 
 from .models import *
+
+today_year = datetime.now().year
+SELECT_DATE_WIDGE_YEARS = [today_year + delta for delta in range(-3, 4)]
 
 class GarlicForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -166,8 +171,14 @@ class FundForm(GarlicForm):
         }
 
         widgets = {
-            'start_date': SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day")),
-            'end_date': SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day")),
+            'start_date': SelectDateWidget(
+                years=SELECT_DATE_WIDGE_YEARS,
+                empty_label=("Choose Year", "Choose Month", "Choose Day")
+            ),
+            'end_date': SelectDateWidget(
+                years=SELECT_DATE_WIDGE_YEARS,
+                empty_label=("Choose Year", "Choose Month", "Choose Day")
+            ),
         }
 
 
@@ -367,9 +378,18 @@ class ExpenseReviewForm(GarlicForm):
             ]
 
         widgets = {
-            'received_date': SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day")),
-            'asked_for_authorization_date': SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day")),
-            'send_to_finance_date': SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day")),
+            'received_date': SelectDateWidget(
+                years=SELECT_DATE_WIDGE_YEARS,
+                empty_label=("Choose Year", "Choose Month", "Choose Day")
+            ),
+            'asked_for_authorization_date': SelectDateWidget(
+                years=SELECT_DATE_WIDGE_YEARS,
+                empty_label=("Choose Year", "Choose Month", "Choose Day")
+            ),
+            'send_to_finance_date': SelectDateWidget(
+                years=SELECT_DATE_WIDGE_YEARS,
+                empty_label=("Choose Year", "Choose Month", "Choose Day")
+            ),
         }
 
 
