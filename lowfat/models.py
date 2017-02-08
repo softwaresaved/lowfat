@@ -512,7 +512,7 @@ class Expense(models.Model):
     funds_from = models.CharField(
         choices=FUNDS_FROM,
         max_length=1,
-        default="C"
+        default="G"
     )
     grant_used = models.CharField(
         choices=GRANTS,
