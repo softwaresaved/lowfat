@@ -251,8 +251,8 @@ def fund_form(request):
             )
 
     initial = {
-            "start_date": django.utils.timezone.now(),
-            "end_date": django.utils.timezone.now(),
+        "start_date": django.utils.timezone.now(),
+        "end_date": django.utils.timezone.now(),
     }
 
     if not request.user.is_superuser:
