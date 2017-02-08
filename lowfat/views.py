@@ -269,7 +269,7 @@ def fund_form(request):
 
     # Show submission form.
     context = {
-        "title": "Make an funding request",
+        "title": "Make a funding request",
         "formset": formset,
         "js_files": ["js/request.js"],
     }

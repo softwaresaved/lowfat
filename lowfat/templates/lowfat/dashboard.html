@@ -18,7 +18,7 @@
 {% endif %}
 <div class="row">
   <div class="col-md-4">
-    <a class="btn btn-default btn-block" href="{% url 'fund' %}">Make an funding request</a>
+    <a class="btn btn-default btn-block" href="{% url 'fund' %}">Make a funding request</a>
   </div>
   <div class="col-md-4">
     <a class="btn btn-default btn-block" href="{% url 'expense' %}">Submit expense claim</a>
@@ -39,7 +39,7 @@
 <p>Your pending tasks are:</p>
 <h2>
   Funding requests
-  <a class="btn btn-default" href="{% url 'fund' %}">Make an funding request</a>
+  <a class="btn btn-default" href="{% url 'fund' %}">Make a funding request</a>
 </h2>
 <ul class="nav nav-tabs">
   <li role="presentation" {% if request.GET.funding_requests == 'UPARF' %}class="active"{% endif %}>
@@ -199,7 +199,7 @@
 <h2>
   Funding requests
   {% if user == claimant.user or user.is_superuser %}
-  <a class="btn btn-default" href="{% url 'fund' %}?claimant_id={{claimant.id}}">Make an funding request</a>
+  <a class="btn btn-default" href="{% url 'fund' %}?claimant_id={{claimant.id}}">Make a funding request</a>
   {% endif %}
 </h2>
 {% include 'lowfat/funds.html' %}
