@@ -8,8 +8,8 @@ from crispy_forms.bootstrap import PrependedText
 
 from .models import *
 
-today_year = datetime.now().year
-SELECT_DATE_WIDGE_YEARS = [today_year + delta for delta in range(-3, 4)]
+TODAY_YEAR = datetime.now().year
+SELECT_DATE_WIDGE_YEARS = [TODAY_YEAR + delta for delta in range(-3, 4)]
 
 class GarlicForm(ModelForm):
     def __init__(self, *args, **kwargs):
