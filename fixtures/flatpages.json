@@ -28,5 +28,140 @@
             1
         ]
     }
+},
+{
+    "model": "flatpages.flatpage",
+    "pk": 3,
+    "fields": {
+        "url": "/email/template/fund/admin/",
+        "title": "New fund request",
+        "content": "Please review {link}.",
+        "enable_comments": false,
+        "template_name": "",
+        "registration_required": false,
+        "sites": [
+            1
+        ]
+    }
+},
+{
+    "model": "flatpages.flatpage",
+    "pk": 4,
+    "fields": {
+        "url": "/email/template/blog/admin/",
+        "title": "We have a new blog draft from fellows",
+        "content": "Hi,\r\n\r\nCould you please review {link}?\r\n\r\nThanks,\r\n\r\nSoftware Sustainability Institute",
+        "enable_comments": false,
+        "template_name": "",
+        "registration_required": false,
+        "sites": [
+            1
+        ]
+    }
+},
+{
+    "model": "flatpages.flatpage",
+    "pk": 5,
+    "fields": {
+        "url": "/email/template/blog/claimant/",
+        "title": "We received your blog post draft",
+        "content": "Hi,\r\n\r\nyour blog post draft was successfully received by us. \r\nYou can check the status of your blog post draft at\r\n{link}.\r\n\r\nSomeone from our team will contact you back soon.\r\n\r\nThanks,\r\n\r\nSoftware Sustainability Institute",
+        "enable_comments": false,
+        "template_name": "",
+        "registration_required": false,
+        "sites": [
+            1
+        ]
+    }
+},
+{
+    "model": "flatpages.flatpage",
+    "pk": 6,
+    "fields": {
+        "url": "/email/template/fund/claimant/",
+        "title": "Your fund request was received",
+        "content": "You can check the information of your fund at {link}.",
+        "enable_comments": false,
+        "template_name": "",
+        "registration_required": false,
+        "sites": [
+            1
+        ]
+    }
+},
+{
+    "model": "flatpages.flatpage",
+    "pk": 7,
+    "fields": {
+        "url": "/email/template/expense/admin/",
+        "title": "New expense submited",
+        "content": "Please process {link}.",
+        "enable_comments": false,
+        "template_name": "",
+        "registration_required": false,
+        "sites": [
+            1
+        ]
+    }
+},
+{
+    "model": "flatpages.flatpage",
+    "pk": 8,
+    "fields": {
+        "url": "/email/template/expense/claimant/",
+        "title": "Your new expense claim was received",
+        "content": "You can check the information of your expense claim at {link}.",
+        "enable_comments": false,
+        "template_name": "",
+        "registration_required": false,
+        "sites": [
+            1
+        ]
+    }
+},
+{
+    "model": "flatpages.flatpage",
+    "pk": 9,
+    "fields": {
+        "url": "/email/template/blog/claimant/new/",
+        "title": "New message about your blog post draft",
+        "content": "Message\r\n\r\n{new_message}",
+        "enable_comments": false,
+        "template_name": "",
+        "registration_required": false,
+        "sites": [
+            1
+        ]
+    }
+},
+{
+    "model": "flatpages.flatpage",
+    "pk": 10,
+    "fields": {
+        "url": "/email/template/expense/claimant/new/",
+        "title": "New message about your expense",
+        "content": "Message\r\n\r\n{new_message}",
+        "enable_comments": false,
+        "template_name": "",
+        "registration_required": false,
+        "sites": [
+            1
+        ]
+    }
+},
+{
+    "model": "flatpages.flatpage",
+    "pk": 11,
+    "fields": {
+        "url": "/email/template/fund/claimant/new/",
+        "title": "New message about your funding request",
+        "content": "Message:\r\n\r\n{new_message}",
+        "enable_comments": false,
+        "template_name": "",
+        "registration_required": false,
+        "sites": [
+            1
+        ]
+    }
 }
 ]

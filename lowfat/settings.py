@@ -165,6 +165,10 @@ LOGIN_REDIRECT_URL = '/dashboard/'
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_IGNORE_ADMIN_VERSION_CHECK = True
 CONSTANCE_CONFIG = {
+    "DOMAIN": (
+        "http://fellows.software.ac.uk",
+        "Used when write emails",
+        ),
     "FELLOWS_MANAGEMENT_EMAIL": (
         "fellows-management@software.ac.uk",
         "Contact address to community staffs",
@@ -193,7 +197,7 @@ ADMINS = [
     ]
 
 # Subject-line prefix for email messages sent
-EMAIL_SUBJECT_PREFIX = "Software Sustaibability Institute's Fellowship Administration Tool"
+EMAIL_SUBJECT_PREFIX = ""
 
 # Backup
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
