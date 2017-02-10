@@ -266,6 +266,8 @@ def fund_form(request):
         formset.fields["claimant"].queryset = Claimant.objects.filter(user=request.user)
     elif request.GET.get("claimant_id"):
         formset.fields["claimant"].queryset = Claimant.objects.filter(id=request.GET.get("claimant_id"))
+    else:
+        formset.fields["claimant"].queryset = Claimant.objects.all().order_by("forenames")
 
     # Show submission form.
     context = {
