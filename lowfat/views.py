@@ -1,4 +1,5 @@
 import django.utils
+from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -147,6 +148,7 @@ def claimant_form(request):
 
     if formset.is_valid():
         claimant = formset.save()
+        messages.success(request, 'Profile saved on our database.')
         return HttpResponseRedirect(reverse('claimant_detail',
                                             args=[claimant.id,]))
 
@@ -243,6 +245,7 @@ def fund_form(request):
             # The reason for this is to save staffs to copy and paste the approved amount.
             fund.budget_approved = fund.budget_total()
             fund.save()
+            messages.success(request, 'Funding request saved on our database.')
 
             # FIXME Enable this in the future.
             # new_fund_notification(fund)
@@ -384,6 +387,7 @@ def expense_form(request):
 
     if formset.is_valid():
         expense = formset.save()
+        messages.success(request, 'Expense saved on our database.')
         # FIXME Enable this in the future.
         # new_expense_notification(expense)
         return HttpResponseRedirect(
@@ -489,6 +493,7 @@ def blog_form(request):
 
     if formset.is_valid():
         blog = formset.save()
+        messages.success(request, 'Blog draft saved on our database.')
         # FIXME Enable this in the future.
         # new_blog_notification(blog)
         return HttpResponseRedirect(
