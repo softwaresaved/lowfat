@@ -46,6 +46,7 @@ class FundAdmin(admin.ModelAdmin):
         'status',
     ]
 
+
 class AmountListFilter(admin.SimpleListFilter):
     # Human-readable title which will be displayed in the
     # right admin sidebar just above the filter options.
