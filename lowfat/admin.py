@@ -46,6 +46,7 @@ class FundAdmin(admin.ModelAdmin):
         'status',
     ]
 
+
 class AmountListFilter(admin.SimpleListFilter):
     # Human-readable title which will be displayed in the
     # right admin sidebar just above the filter options.
@@ -94,6 +95,9 @@ class ExpenseAdmin(admin.ModelAdmin):
     list_filter = [
         'status',
         AmountListFilter,
+    ]
+    exclude = [
+        "relative_number",
     ]
 
     def get_claimant(self, obj):  # pylint: disable=no-self-use
