@@ -264,7 +264,11 @@ class Claimant(models.Model):
         super(Claimant, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.fullname()
+        return "{} ({}{})".format(
+            self.fullname(),
+            self.application_year,
+            " ✓" if self.selected else ""
+        )
 
     def fullname(self):
         return "{} {}".format(self.forenames, self.surname)
