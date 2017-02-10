@@ -166,6 +166,12 @@ class FundForm(GarlicForm):
             'city': 'City in which the event is taking place',
             'start_date': 'Start date of event',
             'end_date': 'End date of event',
+            'budget_request_travel': "Travel costs",
+            'budget_request_attendance_fees': "Attendance fees (e.g. workshop / event registration costs)",
+            'budget_request_subsistence_cost': "Subsistence costs (e.g. accommodation and meals)",
+            'budget_request_venue_hire': "Venue hire",
+            'budget_request_catering': "Catering",
+            'budget_request_others': "Other costs",
             'can_be_advertise_before': "Can we promote your involvement in this event before it takes place?",
             'can_be_advertise_after': "Can we promote your involvement in this event after it takes place?"
         }
