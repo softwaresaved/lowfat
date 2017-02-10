@@ -96,6 +96,9 @@ class ExpenseAdmin(admin.ModelAdmin):
         'status',
         AmountListFilter,
     ]
+    exclude = [
+        "relative_number",
+    ]
 
     def get_claimant(self, obj):  # pylint: disable=no-self-use
         return obj.fund.claimant
