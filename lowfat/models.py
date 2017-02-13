@@ -402,6 +402,11 @@ class Fund(models.Model):
         blank=False,
         default=1
     )
+    grant_default = models.CharField(
+        choices=GRANTS,
+        max_length=4,
+        default="SS2"
+    )
     notes_from_admin = models.TextField(
         null=True,
         blank=True
