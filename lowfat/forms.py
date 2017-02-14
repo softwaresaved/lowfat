@@ -329,7 +329,7 @@ class ExpenseForm(GarlicForm):
             'fund': 'Open approved funding request',
             'claim': 'PDF copy of claim and receipt(s)',
             'justification_for_extra': "If the claim is greater than 20% of the amount requested please provide justification",
-            'final': "Is this the final expense claim you would like to associate with this funding request?",
+            'final': "Is this the final expense claim associated with this funding request?",
             'recipient_fullname': "Full name",
             'recipient_email': "E-mail",
             'recipient_affiliation': "Affiliation",
@@ -435,7 +435,7 @@ class BlogForm(GarlicForm):
         labels = {
             'fund': 'Open approved funding request',
             'draft_url': 'URL of blog post draft',
-            'final': "Is this the final blog post you would like to associate with this funding request?",
+            'final': "Is this the final blog post draft associated with this funding request?",
             }
 
 
