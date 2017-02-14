@@ -10,5 +10,6 @@
 <h1>{{ title }}</h1>
 <p class="text-warning">Fields marked with <span class="asteriskField">*</span> are required.</p>
 <p class="text-info">We support Markdown on multi-line fields.</p>
+<p>If you need any help please email <a href="mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}">us</a>.</p>
 {% crispy formset formset.helper %}
 {% endblock %}
