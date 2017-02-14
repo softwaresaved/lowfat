@@ -23,7 +23,8 @@ codeurl: 'https://github.com/softwaresaved/lowfat/'
 # Default categories (in order) to appear in the navigation
 sections: [
     ['doc', 'Documentation'],
-    ['tut', 'Tutorial'],
+    ['claimant', 'Tutorial for Claimants'],
+    ['staff', 'Tutorial for Staffs'],
     ['ref', 'Reference'],
     ['dev', 'Developers'],
     ['post', 'Posts']
