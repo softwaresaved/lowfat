@@ -1,12 +1,15 @@
 # Site title and subtitle. This is used in _includes/header.html
-title: 'FAT'
-subtitle: 'Fellowship Administration Tool'
+title: 'LowFAT'
+subtitle: 'Low effort Fellowship Administration Tool'
 
 # if you wish to integrate disqus on pages set your shortname here
 disqus_shortname: ''
 
 # if you use google analytics, add your tracking id here
 google_analytics_id: ''
+
+# Default instance
+demo_site: 'https://fellows.software.ac.uk'
 
 # Enable/show navigation. There are there options:
 #   0 - always hide

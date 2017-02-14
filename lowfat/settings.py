@@ -15,12 +15,9 @@ import os
 URL_SRC = "https://github.com/softwaresaved/lowfat"
 VERSION = "0.7.1"
 
-FELLOWS_MANAGEMENT_EMAIL = "fellows-management@software.ac.uk"
-
 SETTINGS_EXPORT = [
     'URL_SRC',
     'VERSION',
-    'FELLOWS_MANAGEMENT_EMAIL',
 ]
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -53,6 +50,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'social_django',
     'dbbackup',
+    'constance',
+    'constance.backends.database',
     'lowfat',
 ]
 
@@ -82,6 +81,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django_settings_export.settings_export',
                 'social_django.context_processors.backends',
+                'constance.context_processors.config',
             ],
         },
     },
@@ -160,6 +160,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
 
 LOGIN_URL = '/login/'  # The URL where requests are redirected for login, especially when using the login_required() decorator.
 LOGIN_REDIRECT_URL = '/dashboard/'
+
+# Constance
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+CONSTANCE_IGNORE_ADMIN_VERSION_CHECK = True
+CONSTANCE_CONFIG = {
+    "FELLOWS_MANAGEMENT_EMAIL": (
+        "fellows-management@software.ac.uk",
+        "Contact address to community staffs",
+        )
+}
 
 
 # Email
