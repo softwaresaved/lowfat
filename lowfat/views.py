@@ -411,7 +411,6 @@ def expense_form(request):
     # Show submission form.
     context = {
         "title": "Submit expense claim",
-        "fund": fund,
         "formset": formset,
     }
     return render(request, 'lowfat/form.html', context)
