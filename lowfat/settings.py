@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'dbbackup',
     'constance',
     'constance.backends.database',
+    'django_extensions',
     'lowfat',
 ]
 

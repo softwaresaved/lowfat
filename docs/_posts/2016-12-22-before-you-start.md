@@ -3,6 +3,7 @@ layout: page
 title: "Before You Start"
 category: dev
 date: 2016-12-22 11:32:24
+order: 1
 ---
 
 **First off, thanks for taking the time to contribute!**

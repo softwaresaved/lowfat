@@ -13,3 +13,7 @@ pylint-django
 pypdf2
 python-gnupg
 social-auth-app-django
+# Visualise the relationships of Django models
+django-extensions
+pyparsing
+pydot
