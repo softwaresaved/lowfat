@@ -163,6 +163,7 @@ LOGIN_REDIRECT_URL = '/dashboard/'
 
 # Constance
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+CONSTANCE_IGNORE_ADMIN_VERSION_CHECK = True
 CONSTANCE_CONFIG = {
     "FELLOWS_MANAGEMENT_EMAIL": (
         "fellows-management@software.ac.uk",
