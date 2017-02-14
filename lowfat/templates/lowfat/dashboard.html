@@ -32,7 +32,7 @@
 <p><a href="{% url 'fund_import' %}">Click here</a> to import funding requests
   from a CSV file. <spanp class="text-danger">This is an experimental feature. You will not have access to debug information!</span></p>
 {% else %}
-<p>If you need any help please email <a href="mailto:{{ settings.FELLOWS_MANAGEMENT_EMAIL }}">us</a>.</p>
+<p>If you need any help please email <a href="mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}">us</a>.</p>
 {% endif %}
 {% if user.is_authenticated %}
 {% if user.is_superuser %}
