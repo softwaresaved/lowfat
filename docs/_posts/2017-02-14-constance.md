@@ -7,7 +7,7 @@ order: 3
 ---
 
 Administrators can change some settings on run time
-using {{demo_site}}/admin/constance/config/.
+using {{site.demo_site}}/admin/constance/config/.
 
 ![]({{site.baseurl}}/img/constance.png){: .img-responsive}
 
