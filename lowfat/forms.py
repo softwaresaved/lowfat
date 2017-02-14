@@ -448,6 +448,7 @@ class BlogForm(GarlicForm):
             Fieldset(
                 '',
                 'fund',
+                HTML("<p>We prefer to receive links to <a href='https://www.google.co.uk/docs/about/'>Google Docs</a>, <a href='https://products.office.com/en-gb/office-365-home'>Microsoft Office 365 document</a> or any other online live collaborative document platform you like to use. Posts published somewhere already, e.g. your personal blog, are welcome as well.</p>"),
                 'draft_url',
                 'final',
                 ButtonHolder(
