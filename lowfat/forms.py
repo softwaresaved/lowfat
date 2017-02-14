@@ -348,7 +348,7 @@ class ExpenseForm(GarlicForm):
                 '',
                 HTML("</p><a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'>Terms and conditions apply.</a></p>"),
                 'fund',
-                HTML("</p>If your funding request isn't on the drop down menu above please email <a href='mailto:{{ settings.FELLOWS_MANAGEMENT_EMAIL }}'>us</a>."),
+                HTML("</p>If your funding request isn't on the drop down menu above please email <a href='mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}'>us</a>."),
                 'claim',
                 HTML("</p>Please follow the guidelines at <a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'#how-to-apply-for-and-claim-expenses>Fellowship Programme's terms and conditions.</a></p>"),
                 PrependedText('amount_claimed', '£'),
