@@ -435,7 +435,7 @@ class BlogForm(GarlicForm):
         labels = {
             'fund': 'Open approved funding request',
             'draft_url': 'URL of blog post draft',
-            'final': "Is this the final blog post you would like to associate with this funding request?",
+            'final': "Is this the final blog post draft associated with this funding request?",
             }
 
 
