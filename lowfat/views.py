@@ -516,7 +516,7 @@ def blog_form(request):
 
     # Show submission form.
     context = {
-        "title": "Submit blog post",
+        "title": "Submit blog post draft",
         "formset": formset,
     }
     return render(request, 'lowfat/form.html', context)
