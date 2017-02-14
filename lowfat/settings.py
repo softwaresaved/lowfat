@@ -15,12 +15,9 @@ import os
 URL_SRC = "https://github.com/softwaresaved/lowfat"
 VERSION = "0.7.1"
 
-FELLOWS_MANAGEMENT_EMAIL = "fellows-management@software.ac.uk"
-
 SETTINGS_EXPORT = [
     'URL_SRC',
     'VERSION',
-    'FELLOWS_MANAGEMENT_EMAIL',
 ]
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -165,6 +162,12 @@ LOGIN_REDIRECT_URL = '/dashboard/'
 
 # Constance
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+CONSTANCE_CONFIG = {
+    "FELLOWS_MANAGEMENT_EMAIL": (
+        "fellows-management@software.ac.uk",
+        "Contact address to community staffs",
+        )
+}
 
 
 # Email
