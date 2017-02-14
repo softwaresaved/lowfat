@@ -1,6 +1,8 @@
 from datetime import date
 import re
 
+from constance import config
+
 import django.utils
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -418,6 +420,9 @@ class Fund(models.Model):
     history = HistoricalRecords()
 
     def save(self, *args, **kwargs):
+        if not self.pk:
+            self.grant_default = config.GRANTS_DEFAULT
+
         self.url = fix_url(self.url)
 
         super(Fund, self).save(*args, **kwargs)
@@ -569,6 +574,9 @@ class Expense(models.Model):
         if self.pk is None:
             previous_number = Expense.objects.filter(fund=self.fund).count()
             self.relative_number = previous_number + 1
+
+            self.funds_from = config.FUNDS_FROM_DEFAULT
+            self.grant_used = self.fund.grant_default
         super(Expense, self).save(*args, **kwargs)
 
     def link(self):
