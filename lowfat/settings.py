@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'social_django',
     'dbbackup',
+    'constance',
+    'constance.backends.database',
     'lowfat',
 ]
 
@@ -160,6 +162,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
 
 LOGIN_URL = '/login/'  # The URL where requests are redirected for login, especially when using the login_required() decorator.
 LOGIN_REDIRECT_URL = '/dashboard/'
+
+# Constance
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 
 # Email
