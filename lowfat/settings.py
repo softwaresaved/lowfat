@@ -81,6 +81,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django_settings_export.settings_export',
                 'social_django.context_processors.backends',
+                'constance.context_processors.config',
             ],
         },
     },
