@@ -50,17 +50,17 @@
     </tbody>
 </table>
 </div>
-{% if show_finances %}
+{% if user.is_superuser %}
 {% include 'lowfat/finances.html' %}
 {% endif %}
 <h2>
   Funding requests
-  {% if user == claimant.user or user.is_superuser %}
+  {% if user.is_superuser %}
   <a class="btn btn-default" href="{% url 'fund' %}?claimant_id={{claimant.id}}">Make a funding request</a>
   {% endif %}
 </h2>
 {% include 'lowfat/funds.html' %}
-{% if user == claimant.user or user.is_superuser %}
+{% if user.is_superuser %}
 {% include 'lowfat/expenses.html' %}
 <h2>
   Blogs
