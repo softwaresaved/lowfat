@@ -444,7 +444,7 @@ def expense_review(request, expense_id):
             expense = formset.save()
             expense_review_notification(
                 formset.cleaned_data['email'],
-                mail,
+                request.user,
                 old_expense,
                 expense
             )
