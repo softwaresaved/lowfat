@@ -161,20 +161,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
 LOGIN_URL = '/login/'  # The URL where requests are redirected for login, especially when using the login_required() decorator.
 LOGIN_REDIRECT_URL = '/dashboard/'
 
-# Constance
-CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
-CONSTANCE_IGNORE_ADMIN_VERSION_CHECK = True
-CONSTANCE_CONFIG = {
-    "DOMAIN": (
-        "http://fellows.software.ac.uk",
-        "Used when write emails",
-        ),
-    "FELLOWS_MANAGEMENT_EMAIL": (
-        "fellows-management@software.ac.uk",
-        "Contact address to community staffs",
-        )
-}
-
 
 # Email
 
@@ -199,6 +185,7 @@ ADMINS = [
 # Subject-line prefix for email messages sent
 EMAIL_SUBJECT_PREFIX = ""
 
+
 # Backup
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DBBACKUP_STORAGE_OPTIONS = {
@@ -206,6 +193,31 @@ DBBACKUP_STORAGE_OPTIONS = {
 }
 DBBACKUP_GPG_ALWAYS_TRUST = True
 DBBACKUP_GPG_RECIPIENT = ""  # XXX This variable need to be filled for --encrypt or --decrypt work properly.
+
+
+# Run time variables
+# Powered by Constance
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+CONSTANCE_IGNORE_ADMIN_VERSION_CHECK = True
+CONSTANCE_CONFIG = {
+    "DOMAIN": (
+        "http://fellows.software.ac.uk",
+        "Used when write emails",
+        ),
+    "STAFF_EMAIL_NOTIFICATION": (
+        False,
+        "Notification to staffs by email",
+        ),
+    "CLAIMANT_EMAIL_NOTIFICATION": (
+        False,
+        "Notification to claimant by email",
+        ),
+    "FELLOWS_MANAGEMENT_EMAIL": (
+        "fellows-management@software.ac.uk",
+        "Contact address to fellows management staffs",
+        ),
+}
+
 
 # Flatpages
 
