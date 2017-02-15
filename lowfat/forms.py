@@ -326,7 +326,7 @@ class ExpenseForm(GarlicForm):
         ]
 
         labels = {
-            'fund': 'Open approved funding request',
+            'fund': 'Choose approved funding request',
             'claim': 'PDF copy of claim and receipt(s)',
             'justification_for_extra': "If the claim is greater than 20% of the amount requested please provide justification",
             'final': "Is this the final expense claim associated with this funding request?",
@@ -334,7 +334,7 @@ class ExpenseForm(GarlicForm):
             'recipient_email': "E-mail",
             'recipient_affiliation': "Affiliation",
             'recipient_group': "Group",
-            'recipient_connection': "Reason for claim on their behalf",
+            'recipient_connection': "Reason for submit the recipient claim",
         }
 
 
@@ -346,11 +346,10 @@ class ExpenseForm(GarlicForm):
         self.helper.layout = Layout(
             Fieldset(
                 '',
-                HTML("</p><a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'>Terms and conditions apply.</a></p>"),
                 'fund',
                 HTML("</p>If your funding request isn't on the drop down menu above please email <a href='mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}'>us</a>."),
+                HTML("</p><a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'>Fellowship Programme's terms and conditions.</a> applies to your request. Please follow the guidelines at <a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}#how-to-apply-for-and-claim-expenses'>How to apply for, and claim, expenses</a> section of <a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'>Fellowship Programme's terms and conditions.</a></p>"),
                 'claim',
-                HTML("</p>Please follow the guidelines at <a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'#how-to-apply-for-and-claim-expenses>Fellowship Programme's terms and conditions.</a></p>"),
                 PrependedText('amount_claimed', '£'),
                 HTML("{% if fund %}<p class='text-warning'>Note that you only have <strong>£{{ fund.expenses_claimed_left }}</strong> left.</p>{% endif %}"),
                 'justification_for_extra',
@@ -360,6 +359,7 @@ class ExpenseForm(GarlicForm):
                 'recipient_email',
                 'recipient_affiliation',
                 'recipient_group',
+                HTML("<p>You need to provide a reason for submit the recipient claim. An common reasons is \"because the recipient was of of the speakers on that workshop\".</p>"),
                 'recipient_connection',
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
