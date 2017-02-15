@@ -11,9 +11,14 @@ update_budget = function() {
                         "id_budget_request_others"];
 
     for (var budget_id of budgetFields) {
+        var item = document.getElementById(budget_id);
+        item.value = parseFloat(item.value).toFixed(2);
         newBudget += Number(document.getElementById(budget_id).value);
     }
 
-
-    document.getElementById("id_total_budget").value = newBudget;
+    document.getElementById("id_total_budget").value = newBudget.toFixed(2);
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+   update_budget()
+}, false);

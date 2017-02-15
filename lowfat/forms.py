@@ -209,13 +209,54 @@ class FundForm(GarlicForm):
                 'start_date',
                 'end_date',
                 HTML('<h2>Costs</h2><p>Please provide an estimate of your costs below. All values should be entered in GBP. Note that the cost entered here must be within 20% of the expenses you submit. See the terms and conditions for details (<a href="http://www.software.ac.uk/fellowship-terms-and-conditions-{% now "Y" %}">http://www.software.ac.uk/fellowship-terms-and-conditions-{% now "Y" %}</a>)</p><p>Please fill in all cost sections that are relevant to your event type.</p>'),
-                PrependedText('budget_request_travel', '£', onkeyup="update_budget()"),
-                PrependedText('budget_request_attendance_fees', '£', onkeyup="update_budget()"),
-                PrependedText('budget_request_subsistence_cost', '£', onkeyup="update_budget()"),
-                PrependedText('budget_request_venue_hire', '£', onkeyup="update_budget()"),
-                PrependedText('budget_request_catering', '£', onkeyup="update_budget()"),
-                PrependedText('budget_request_others', '£', onkeyup="update_budget()"),
-                PrependedText('total_budget', '£', disabled=True, value=0.0),
+                PrependedText(
+                    'budget_request_travel',
+                    '£',
+                    onblur="update_budget()",
+                    min=0.00,
+                    step=0.01
+                ),
+                PrependedText(
+                    'budget_request_attendance_fees',
+                    '£',
+                    onblur="update_budget()",
+                    min=0.00,
+                    step=0.01
+                ),
+                PrependedText(
+                    'budget_request_subsistence_cost',
+                    '£',
+                    onblur="update_budget()",
+                    min=0.00,
+                    step=0.01
+                ),
+                PrependedText(
+                    'budget_request_venue_hire',
+                    '£',
+                    onblur="update_budget()",
+                    min=0.00,
+                    step=0.01
+                ),
+                PrependedText(
+                    'budget_request_catering',
+                    '£',
+                    onblur="update_budget()",
+                    min=0.00,
+                    step=0.01
+                ),
+                PrependedText(
+                    'budget_request_others',
+                    '£',
+                    onblur="update_budget()",
+                    min=0.00,
+                    step=0.01
+                ),
+                PrependedText(
+                    'total_budget',
+                    '£',
+                    disabled=True,
+                    value=0.00
+                ),
                 HTML('<h2>Justification for attending or organising the event</h2><p>When filling in the questions below please consider the following points:</p><ul><li>For attending conferences/workshops: will the conference focus on a significant field, will you meet significant researchers, will there be a focus on research software?</li><li>For organising workshops: how will the event help your domain, how will the event help the Institute, how will the event help you.</li><li>For policy related work: how might participation or organisation help the policy goals of the Institute, such as improving software and improved research (this can include people and tools perspectives).</li><li>For other: please state reasons - note it maybe good to discuss matter with the Institute Community Lead before filling the form to make sure the rationale is aligned to the Institute and to your own objectives.</li></ul>'),
                 'justification',
                 'additional_info',
@@ -256,6 +297,23 @@ class FundReviewForm(GarlicForm):
 
     def __init__(self, *args, **kwargs):
         super(FundReviewForm, self).__init__(*args, **kwargs)
+
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                "status",
+                "required_blog_posts",
+                PrependedText(
+                    "budget_approved",
+                    '£',
+                    min=0.00,
+                    step=0.01,
+                    onblur="this.value = parseFloat(this.value).toFixed(2);"
+                ),
+                "notes_from_admin",
+                "email"
+            )
+        )
 
         self.helper.add_input(Submit('submit', 'Submit'))
 
@@ -350,7 +408,13 @@ class ExpenseForm(GarlicForm):
                 HTML("</p>If your funding request isn't on the drop down menu above please email <a href='mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}'>us</a>."),
                 HTML("</p><a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'>Fellowship Programme's terms and conditions.</a> applies to your request. Please follow the guidelines at <a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}#how-to-apply-for-and-claim-expenses'>How to apply for, and claim, expenses</a> section of <a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'>Fellowship Programme's terms and conditions.</a></p>"),
                 'claim',
-                PrependedText('amount_claimed', '£'),
+                PrependedText(
+                    'amount_claimed',
+                    '£',
+                    min=0.00,
+                    step=0.01,
+                    onblur="this.value = parseFloat(this.value).toFixed(2);"
+                ),
                 HTML("{% if fund %}<p class='text-warning'>Note that you only have <strong>£{{ fund.expenses_claimed_left }}</strong> left.</p>{% endif %}"),
                 'justification_for_extra',
                 'final',
@@ -412,7 +476,13 @@ class ExpenseReviewForm(GarlicForm):
                 'received_date',
                 'asked_for_authorization_date',
                 'send_to_finance_date',
-                PrependedText('amount_authorized_for_payment', '£'),
+                PrependedText(
+                    'amount_authorized_for_payment',
+                    '£',
+                    min=0.00,
+                    step=0.01,
+                    onblur="this.value = parseFloat(this.value).toFixed(2);"
+                ),
                 'funds_from',
                 'grant_used',
                 'notes_from_admin',
