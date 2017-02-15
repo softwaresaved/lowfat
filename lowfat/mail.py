@@ -17,23 +17,25 @@ def reverse_full(*args, **kargs):
     )
 
 def new_notification(admin_url, admin_context, user_url, user_email, user_context):
-    # Email to admin
-    flatemail = FlatPage.objects.get(url=admin_url)
-    mail_admins(
-        flatemail.title,
-        flatemail.content.format(**admin_context),
-        fail_silently=False,
-    )
+    if config.STAFF_EMAIL_NOTIFICATION:
+        # Email to admin
+        flatemail = FlatPage.objects.get(url=admin_url)
+        mail_admins(
+            flatemail.title,
+            flatemail.content.format(**admin_context),
+            fail_silently=False,
+        )
 
-    # Email to claimant
-    flatemail = FlatPage.objects.get(url=user_url)
-    send_mail(
-        flatemail.title,
-        flatemail.content.format(**user_context),
-        DEFAULT_FROM_EMAIL,
-        [user_email],
-        fail_silently=False
-    )
+    if config.CLAIMANT_EMAIL_NOTIFICATION:
+        # Email to claimant
+        flatemail = FlatPage.objects.get(url=user_url)
+        send_mail(
+            flatemail.title,
+            flatemail.content.format(**user_context),
+            DEFAULT_FROM_EMAIL,
+            [user_email],
+            fail_silently=False
+        )
 
 def new_fund_notification(fund):
     admin_url = "/email/template/fund/admin/"
@@ -78,17 +80,18 @@ def new_blog_notification(blog):
     new_notification(admin_url, admin_context, user_url, user_email, user_context)
 
 def review_notification(mail, url):
-    # Email to user
-    flatemail = FlatPage.objects.get(url=url)
-    send_mail(
-        flatemail.title,
-        flatemail.content.format(
-            new_message=mail.justification
-        ),
-        mail.sender.email,
-        [mail.receiver.email],
-        fail_silently=False
-    )
+    if config.CLAIMANT_EMAIL_NOTIFICATION:
+        # Email to claimant
+        flatemail = FlatPage.objects.get(url=url)
+        send_mail(
+            flatemail.title,
+            flatemail.content.format(
+                new_message=mail.justification
+            ),
+            mail.sender.email,
+            [mail.receiver.email],
+            fail_silently=False
+        )
 
 def fund_review_notification(mail):
     review_notification(mail, "/email/template/fund/claimant/new/")
