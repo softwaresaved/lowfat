@@ -85,8 +85,13 @@ BLOG_POST_STATUS = (
 
 def fix_url(url):
     """Prepend 'http://' to URL."""
-    if url is not None and url and not re.match("https?://", url):
-        return "http://{}".format(url)
+    if url is not None and url:
+        url = url.split()[0]  # If the URL uses white space it should be encoded as %20%
+        url = url.split(",")[0]  # If the URL uses comma it should be encoded as %2C.
+        if re.match("https?://", url):
+            return url
+        else:
+            return "http://{}".format(url)
 
     return url
 
