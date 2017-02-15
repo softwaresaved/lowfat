@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from collections import OrderedDict
+
 
 URL_SRC = "https://github.com/softwaresaved/lowfat"
 VERSION = "0.7.1"
@@ -199,24 +201,28 @@ DBBACKUP_GPG_RECIPIENT = ""  # XXX This variable need to be filled for --encrypt
 # Powered by Constance
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_IGNORE_ADMIN_VERSION_CHECK = True
-CONSTANCE_CONFIG = {
-    "DOMAIN": (
+CONSTANCE_CONFIG = OrderedDict([
+    ("DOMAIN", (
         "http://fellows.software.ac.uk",
         "Used when write emails",
-        ),
-    "STAFF_EMAIL_NOTIFICATION": (
+        )
+     ),
+    ("STAFF_EMAIL_NOTIFICATION", (
         False,
         "Notification to staffs by email",
-        ),
-    "CLAIMANT_EMAIL_NOTIFICATION": (
+        )
+     ),
+    ("CLAIMANT_EMAIL_NOTIFICATION", (
         False,
         "Notification to claimant by email",
-        ),
-    "FELLOWS_MANAGEMENT_EMAIL": (
+        )
+     ),
+    ("FELLOWS_MANAGEMENT_EMAIL", (
         "fellows-management@software.ac.uk",
         "Contact address to fellows management staffs",
-        ),
-}
+        )
+     ),
+])
 
 
 # Flatpages
