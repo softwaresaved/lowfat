@@ -395,7 +395,8 @@ class ExpenseForm(GarlicForm):
                     'amount_claimed',
                     '£',
                     min=0.00,
-                    step=0.01
+                    step=0.01,
+                    onblur="this.value = parseFloat(this.value).toFixed(2);"
                 ),
                 HTML("{% if fund %}<p class='text-warning'>Note that you only have <strong>£{{ fund.expenses_claimed_left }}</strong> left.</p>{% endif %}"),
                 'justification_for_extra',
@@ -462,7 +463,8 @@ class ExpenseReviewForm(GarlicForm):
                     'amount_authorized_for_payment',
                     '£',
                     min=0.00,
-                    step=0.01
+                    step=0.01,
+                    onblur="this.value = parseFloat(this.value).toFixed(2);"
                 ),
                 'funds_from',
                 'grant_used',
