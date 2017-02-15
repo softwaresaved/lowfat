@@ -4,12 +4,17 @@
 {% block content %}
 {% include "lowfat/success.html" %}
 <h1>
+  {% if user == claimant.user %}
+  My Profile
+  {% else %}
   {% if claimant.selected %}
   Fellow
   {% else %}
   Claimant
   {% endif %}
   Detail
+  {% endif %}
+
   {% if user == claimant.user %}
   <a class="btn btn-default" href="{% url 'fellow' %}?full=true" role="button">Edit</a>
   {% endif %}
@@ -45,17 +50,17 @@
     </tbody>
 </table>
 </div>
-{% if show_finances %}
+{% if user.is_superuser %}
 {% include 'lowfat/finances.html' %}
 {% endif %}
 <h2>
   Funding requests
-  {% if user == claimant.user or user.is_superuser %}
+  {% if user.is_superuser %}
   <a class="btn btn-default" href="{% url 'fund' %}?claimant_id={{claimant.id}}">Make a funding request</a>
   {% endif %}
 </h2>
 {% include 'lowfat/funds.html' %}
-{% if user == claimant.user or user.is_superuser %}
+{% if user.is_superuser %}
 {% include 'lowfat/expenses.html' %}
 <h2>
   Blogs

@@ -185,8 +185,7 @@ def claimant_detail(request, claimant_id):
         ),
     }
 
-    if request.user.is_authenticated() and (request.user.is_superuser or
-                                            this_claimant.user == request.user):
+    if request.user.is_authenticated() and request.user.is_superuser:
         funds = Fund.objects.filter(claimant=this_claimant)
         context.update(
             {

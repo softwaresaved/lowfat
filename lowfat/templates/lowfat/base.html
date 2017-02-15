@@ -67,11 +67,11 @@
                         {% endif %}
                         {% if not user.is_superuser %}
                         <li>
-                            <a href="{% url 'my_profile' %}" />My profile</a>
+                            <a href="{% url 'my_profile' %}" />My Profile</a>
                         </li>
                         {% endif %}
                         <li>
-                            <a href="{% url 'dashboard' %}" />Dashboard</a>
+                            <a href="{% url 'dashboard' %}" />My Dashboard</a>
                         </li>
                         {% endif %}
                         {% if user.is_authenticated %}
