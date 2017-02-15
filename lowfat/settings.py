@@ -205,23 +205,19 @@ CONSTANCE_CONFIG = OrderedDict([
     ("DOMAIN", (
         "http://fellows.software.ac.uk",
         "Used when write emails",
-        )
-     ),
+    )),
     ("STAFF_EMAIL_NOTIFICATION", (
         False,
         "Notification to staffs by email",
-        )
-     ),
+    )),
     ("CLAIMANT_EMAIL_NOTIFICATION", (
         False,
         "Notification to claimant by email",
-        )
-     ),
+    )),
     ("FELLOWS_MANAGEMENT_EMAIL", (
         "fellows-management@software.ac.uk",
         "Contact address to fellows management staffs",
-        )
-     ),
+    )),
 ])
 
 
