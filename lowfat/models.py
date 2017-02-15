@@ -85,8 +85,13 @@ BLOG_POST_STATUS = (
 
 def fix_url(url):
     """Prepend 'http://' to URL."""
-    if url is not None and url and not re.match("https?://", url):
-        return "http://{}".format(url)
+    if url is not None and url:
+        url = url.split()[0]  # If the URL uses white space it should be encoded as %20%
+        url = url.split(",")[0]  # If the URL uses comma it should be encoded as %2C.
+        if re.match("https?://", url):
+            return url
+        else:
+            return "http://{}".format(url)
 
     return url
 
@@ -315,7 +320,10 @@ class Fund(models.Model):
         blank=True
     )
     name = models.CharField(max_length=MAX_CHAR_LENGTH)
-    url = models.CharField(max_length=MAX_CHAR_LENGTH)
+    url = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True,  # See https://github.com/softwaresaved/lowfat/issues/192
+    )
     country = CountryField(default='GB')  # Default for United Kingdom
     city = models.CharField(max_length=MAX_CHAR_LENGTH)
     lon = models.FloatField(
