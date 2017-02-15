@@ -315,7 +315,10 @@ class Fund(models.Model):
         blank=True
     )
     name = models.CharField(max_length=MAX_CHAR_LENGTH)
-    url = models.CharField(max_length=MAX_CHAR_LENGTH)
+    url = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True,  # See https://github.com/softwaresaved/lowfat/issues/192
+    )
     country = CountryField(default='GB')  # Default for United Kingdom
     city = models.CharField(max_length=MAX_CHAR_LENGTH)
     lon = models.FloatField(
