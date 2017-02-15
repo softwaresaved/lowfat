@@ -212,42 +212,42 @@ class FundForm(GarlicForm):
                 PrependedText(
                     'budget_request_travel',
                     '£',
-                    onkeyup="update_budget()",
+                    onblur="update_budget()",
                     min=0.00,
                     step=0.01
                 ),
                 PrependedText(
                     'budget_request_attendance_fees',
                     '£',
-                    onkeyup="update_budget()",
+                    onblur="update_budget()",
                     min=0.00,
                     step=0.01
                 ),
                 PrependedText(
                     'budget_request_subsistence_cost',
                     '£',
-                    onkeyup="update_budget()",
+                    onblur="update_budget()",
                     min=0.00,
                     step=0.01
                 ),
                 PrependedText(
                     'budget_request_venue_hire',
                     '£',
-                    onkeyup="update_budget()",
+                    onblur="update_budget()",
                     min=0.00,
                     step=0.01
                 ),
                 PrependedText(
                     'budget_request_catering',
                     '£',
-                    onkeyup="update_budget()",
+                    onblur="update_budget()",
                     min=0.00,
                     step=0.01
                 ),
                 PrependedText(
                     'budget_request_others',
                     '£',
-                    onkeyup="update_budget()",
+                    onblur="update_budget()",
                     min=0.00,
                     step=0.01
                 ),
