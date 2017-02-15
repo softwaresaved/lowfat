@@ -240,7 +240,7 @@ def fund_form(request):
         if formset.is_valid():
             fund = formset.save()
             messages.success(request, 'Funding request saved on our database.')
-            #new_fund_notification(fund)
+            new_fund_notification(fund)
 
             # Default value for budget_approved is budget_total.
             # The reason for this is to save staffs to copy and paste the approved amount.
@@ -315,7 +315,7 @@ def fund_review(request, fund_id):
                 }
             )
             mail.save()
-            #fund_review_notification(mail)
+            fund_review_notification(mail)
             return HttpResponseRedirect(
                 reverse('fund_detail', args=[fund.id,])
             )
@@ -385,7 +385,7 @@ def expense_form(request):
     if formset.is_valid():
         expense = formset.save()
         messages.success(request, 'Expense saved on our database.')
-        #new_expense_notification(expense)
+        new_expense_notification(expense)
         return HttpResponseRedirect(
             reverse('expense_detail', args=[expense.id,])
         )
@@ -451,7 +451,7 @@ def expense_review(request, expense_id):
                 }
             )
             mail.save()
-            #expense_review_notification(mail)
+            expense_review_notification(mail)
             return HttpResponseRedirect(
                 reverse('expense_detail', args=[expense.id,])
             )
@@ -488,7 +488,7 @@ def blog_form(request):
     if formset.is_valid():
         blog = formset.save()
         messages.success(request, 'Blog draft saved on our database.')
-        #new_blog_notification(blog)
+        new_blog_notification(blog)
         return HttpResponseRedirect(
             reverse('blog_detail', args=[blog.id,])
         )
@@ -548,7 +548,7 @@ def blog_review(request, blog_id):
                 }
             )
             mail.save()
-            #blog_review_notification(mail)
+            blog_review_notification(mail)
             return HttpResponseRedirect(
                 reverse('blog_detail', args=[blog.id,])
             )
