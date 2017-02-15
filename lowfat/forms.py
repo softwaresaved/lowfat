@@ -298,6 +298,23 @@ class FundReviewForm(GarlicForm):
     def __init__(self, *args, **kwargs):
         super(FundReviewForm, self).__init__(*args, **kwargs)
 
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                "status",
+                "required_blog_posts",
+                PrependedText(
+                    "budget_approved",
+                    '£',
+                    min=0.00,
+                    step=0.01,
+                    onblur="this.value = parseFloat(this.value).toFixed(2);"
+                ),
+                "notes_from_admin",
+                "email"
+            )
+        )
+
         self.helper.add_input(Submit('submit', 'Submit'))
 
 
