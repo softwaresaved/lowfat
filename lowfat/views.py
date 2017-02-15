@@ -1,3 +1,5 @@
+import copy
+
 import django.utils
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
@@ -302,20 +304,17 @@ def fund_review(request, fund_id):
 
     if request.POST:
         # Handle submission
+        old_fund = copy.deepcopy(this_fund)
         formset = FundReviewForm(request.POST, instance=this_fund)
 
         if formset.is_valid():
             fund = formset.save()
-            mail = FundSentMail(
-                **{
-                    "justification": formset.cleaned_data['email'],
-                    "sender": request.user,
-                    "receiver": fund.claimant,
-                    "fund": fund,
-                }
+            fund_review_notification(
+                formset.cleaned_data['email'],
+                request.user,
+                old_fund,
+                fund
             )
-            mail.save()
-            fund_review_notification(mail)
             return HttpResponseRedirect(
                 reverse('fund_detail', args=[fund.id,])
             )
@@ -438,20 +437,17 @@ def expense_review(request, expense_id):
 
     if request.POST:
         # Handle submission
+        old_expense = copy.deepcopy(this_expense)
         formset = ExpenseReviewForm(request.POST, instance=this_expense)
 
         if formset.is_valid():
             expense = formset.save()
-            mail = ExpenseSentMail(
-                **{
-                    "justification": formset.cleaned_data['email'],
-                    "sender": request.user,
-                    "receiver": expense.fund.claimant,
-                    "expense": expense,
-                }
+            expense_review_notification(
+                formset.cleaned_data['email'],
+                request.user,
+                old_expense,
+                expense
             )
-            mail.save()
-            expense_review_notification(mail)
             return HttpResponseRedirect(
                 reverse('expense_detail', args=[expense.id,])
             )
@@ -535,20 +531,17 @@ def blog_review(request, blog_id):
 
     if request.POST:
         # Handle submission
+        old_blog = copy.deepcopy(this_blog)
         formset = BlogReviewForm(request.POST, instance=this_blog)
 
         if formset.is_valid():
             blog = formset.save()
-            mail = BlogSentMail(
-                **{
-                    "justification": formset.cleaned_data['email'],
-                    "sender": request.user,
-                    "receiver": blog.fund.claimant,
-                    "blog": blog,
-                }
+            blog_review_notification(
+                formset.cleaned_data['email'],
+                request.user,
+                old_blog,
+                blog
             )
-            mail.save()
-            blog_review_notification(mail)
             return HttpResponseRedirect(
                 reverse('blog_detail', args=[blog.id,])
             )
