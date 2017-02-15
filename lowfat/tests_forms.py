@@ -429,7 +429,7 @@ class FundFormTest(TestCase):
         }
 
         form = FundForm(data)
-        self.assertFalse(form.is_valid())
+        self.assertTrue(form.is_valid())
 
     def test_blank_url(self):
         data = {
@@ -451,7 +451,7 @@ class FundFormTest(TestCase):
         }
 
         form = FundForm(data)
-        self.assertFalse(form.is_valid())
+        self.assertTrue(form.is_valid())
 
     def test_not_http_url(self):
         data = {
