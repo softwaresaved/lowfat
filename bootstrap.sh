@@ -19,6 +19,13 @@ unzip \
     $BOOTSTRAP_ZIP \
     -d $TMP_FOLDER
 
+# jQuery
+mkdir -p $TMP_FOLDER/jquery/js
+curl \
+    -L \
+    -o $TMP_FOLDER/jquery/js/jquery.min.js \
+    https://code.jquery.com/jquery-3.1.1.min.js
+
 # Font Awesome
 curl \
     -L \

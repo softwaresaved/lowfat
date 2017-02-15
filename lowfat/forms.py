@@ -6,6 +6,8 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML
 from crispy_forms.bootstrap import PrependedText
 
+from bootstrap3_datetime.widgets import DateTimePicker
+
 from .models import *
 
 TODAY_YEAR = datetime.now().year
@@ -177,13 +179,17 @@ class FundForm(GarlicForm):
         }
 
         widgets = {
-            'start_date': SelectDateWidget(
-                years=SELECT_DATE_WIDGE_YEARS,
-                empty_label=("Choose Year", "Choose Month", "Choose Day")
+            'start_date': DateTimePicker(
+                options={
+                    "format": "YYYY-MM-DD",
+                    "pickTime": False
+                }
             ),
-            'end_date': SelectDateWidget(
-                years=SELECT_DATE_WIDGE_YEARS,
-                empty_label=("Choose Year", "Choose Month", "Choose Day")
+            'end_date': DateTimePicker(
+                options={
+                    "format": "YYYY-MM-DD",
+                    "pickTime": False
+                }
             ),
         }
 
@@ -384,17 +390,23 @@ class ExpenseReviewForm(GarlicForm):
             ]
 
         widgets = {
-            'received_date': SelectDateWidget(
-                years=SELECT_DATE_WIDGE_YEARS,
-                empty_label=("Choose Year", "Choose Month", "Choose Day")
+            'received_date': DateTimePicker(
+                options={
+                    "format": "YYYY-MM-DD",
+                    "pickTime": False
+                }
             ),
-            'asked_for_authorization_date': SelectDateWidget(
-                years=SELECT_DATE_WIDGE_YEARS,
-                empty_label=("Choose Year", "Choose Month", "Choose Day")
+            'asked_for_authorization_date': DateTimePicker(
+                options={
+                    "format": "YYYY-MM-DD",
+                    "pickTime": False
+                }
             ),
-            'send_to_finance_date': SelectDateWidget(
-                years=SELECT_DATE_WIDGE_YEARS,
-                empty_label=("Choose Year", "Choose Month", "Choose Day")
+            'send_to_finance_date': DateTimePicker(
+                options={
+                    "format": "YYYY-MM-DD",
+                    "pickTime": False
+                }
             ),
         }
 
