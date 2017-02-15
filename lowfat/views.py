@@ -378,7 +378,9 @@ def expense_form(request):
         initial = {"fund": fund}
     else:
         fund = None
-        initial = {}
+        initial = {
+            "amount_claimed": "0.00",  # Workaround for https://github.com/softwaresaved/lowfat/issues/191
+        }
 
     formset = ExpenseForm(request.POST or None, request.FILES or None, initial=initial)
 
