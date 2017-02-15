@@ -35,7 +35,7 @@
     "fields": {
         "url": "/email/template/fund/admin/",
         "title": "New fund request",
-        "content": "Please review {link}.",
+        "content": "Please review {{link}}.\r\n\r\n{{fund}}",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -50,7 +50,7 @@
     "fields": {
         "url": "/email/template/blog/admin/",
         "title": "We have a new blog draft from fellows",
-        "content": "Hi,\r\n\r\nCould you please review {link}?\r\n\r\nThanks,\r\n\r\nSoftware Sustainability Institute",
+        "content": "Hi,\r\n\r\nCould you please review {{link}}?\r\n\r\n{{blog}}\r\n\r\nThanks,\r\n\r\nSoftware Sustainability Institute",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -65,7 +65,7 @@
     "fields": {
         "url": "/email/template/blog/claimant/",
         "title": "We received your blog post draft",
-        "content": "Hi,\r\n\r\nyour blog post draft was successfully received by us. \r\nYou can check the status of your blog post draft at\r\n{link}.\r\n\r\nSomeone from our team will contact you back soon.\r\n\r\nThanks,\r\n\r\nSoftware Sustainability Institute",
+        "content": "Hi,\r\n\r\nyour blog post draft was successfully received by us. \r\nYou can check the status of your blog post draft at\r\n{{link}}.\r\n\r\n{{blog}}\r\n\r\nSomeone from our team will contact you back soon.\r\n\r\nThanks,\r\n\r\nSoftware Sustainability Institute",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -80,7 +80,7 @@
     "fields": {
         "url": "/email/template/fund/claimant/",
         "title": "Your fund request was received",
-        "content": "You can check the information of your fund at {link}.",
+        "content": "You can check the information of your fund at {{link}}.\r\n\r\n{{fund}}",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -95,7 +95,7 @@
     "fields": {
         "url": "/email/template/expense/admin/",
         "title": "New expense submited",
-        "content": "Please process {link}.",
+        "content": "Please process {{link}}.\r\n\r\n{{expense}}",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -110,7 +110,7 @@
     "fields": {
         "url": "/email/template/expense/claimant/",
         "title": "Your new expense claim was received",
-        "content": "You can check the information of your expense claim at {link}.",
+        "content": "You can check the information of your expense claim at {{link}}.\r\n\r\n{{expense}}",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -125,7 +125,7 @@
     "fields": {
         "url": "/email/template/blog/claimant/new/",
         "title": "New message about your blog post draft",
-        "content": "Message\r\n\r\n{new_message}",
+        "content": "{% if new_message %}\r\nMessage\r\n\r\n{{new_message}}\r\n{% endif %}\r\n\r\n{% if old.draft_url != new.draft_url %}\r\nDraft url was {{old.draft_url}} and now is {{new.draft_url}}.\r\n{% endif %}\r\n\r\n{% if old.status != new.status %}\r\nDraft url was {{old.status}} and now is {{new.status}}.\r\n{% endif %}\r\n\r\n{% if old.reviewer != new.reviewer %}\r\nDraft url was {{old.reviewer}} and now is {{new.reviewer}}.\r\n{% endif %}\r\n\r\n{% if old.published_url != new.published_url %}\r\nDraft url was {{old.published_url}} and now is {{new.published_url}}.\r\n{% endif %}\r\n\r\n{% if old.tweet_url != new.tweet_url %}\r\nDraft url was {{old.tweet_url}} and now is {{new.tweet_url}}.\r\n{% endif %}",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
