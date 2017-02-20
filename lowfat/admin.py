@@ -1,7 +1,11 @@
 from django.contrib import admin
+
+from simple_history.admin import SimpleHistoryAdmin
+
 from .models import *
 
-class ClaimantAdmin(admin.ModelAdmin):
+@admin.register(Claimant)
+class ClaimantAdmin(SimpleHistoryAdmin):
     list_display = [
         'surname',
         'forenames',
@@ -28,7 +32,8 @@ class ClaimantAdmin(admin.ModelAdmin):
     ]
 
 
-class FundAdmin(admin.ModelAdmin):
+@admin.register(Fund)
+class FundAdmin(SimpleHistoryAdmin):
     list_display = [
         'claimant',
         'name',
@@ -80,7 +85,8 @@ class AmountListFilter(admin.SimpleListFilter):
             return queryset.filter(amount_claimed__gt=0)
 
 
-class ExpenseAdmin(admin.ModelAdmin):
+@admin.register(Expense)
+class ExpenseAdmin(SimpleHistoryAdmin):
     list_display = [
         'fund',
         'get_claimant',
@@ -113,31 +119,21 @@ class ExpenseAdmin(admin.ModelAdmin):
     get_start_date.admin_order_field = 'fund__start_date'
 
 
-class BlogAdmin(admin.ModelAdmin):
-    pass
-
-class FundSentMailAdmin(admin.ModelAdmin):
-    pass
-
-
-class ExpenseSentMailAdmin(admin.ModelAdmin):
+@admin.register(Blog)
+class BlogAdmin(SimpleHistoryAdmin):
     pass
 
 
-class BlogSentMailAdmin(admin.ModelAdmin):
+@admin.register(FundSentMail)
+class FundSentMailAdmin(SimpleHistoryAdmin):
     pass
 
 
-PUBLIC_MODELS = (
-    (Claimant, ClaimantAdmin),
-    (Fund, FundAdmin),
-    (Expense, ExpenseAdmin),
-    (Blog, BlogAdmin),
-    (FundSentMail, FundSentMailAdmin),
-    (ExpenseSentMail, ExpenseSentMailAdmin),
-    (BlogSentMail, BlogSentMailAdmin),
-)
+@admin.register(ExpenseSentMail)
+class ExpenseSentMailAdmin(SimpleHistoryAdmin):
+    pass
 
 
-for public_model in PUBLIC_MODELS:
-    admin.site.register(*public_model)
+@admin.register(BlogSentMail)
+class BlogSentMailAdmin(SimpleHistoryAdmin):
+    pass
