@@ -70,6 +70,7 @@ urlpatterns = [  # pylint: disable=invalid-name
     url(r'^geojson/', views.geojson, name="geojson"),
     url(r'^report/', views.report, name="report"),
     url(r'^search/', views.search, name="search"),
+    url(r'^recent-actions/', views.recent_actions, name="recent_actions"),
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name="index"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
