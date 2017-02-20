@@ -5,6 +5,8 @@ import django.utils
 from django.conf import settings
 from django.db import models
 
+from simple_history.models import HistoricalRecords
+
 from django_countries.fields import CountryField
 
 from .validator import pdf
@@ -260,6 +262,7 @@ class Claimant(models.Model):
     # Control
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    history = HistoricalRecords()
 
     def save(self, *args, **kwargs):
         self.slug = slug_generator(self.forenames, self.surname)
@@ -401,6 +404,7 @@ class Fund(models.Model):
     # Control
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    history = HistoricalRecords()
 
     def save(self, *args, **kwargs):
         self.url = fix_url(self.url)
@@ -539,6 +543,7 @@ class Expense(models.Model):
     # Control
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.claim.name
@@ -591,6 +596,7 @@ class Blog(models.Model):
     # Control
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    history = HistoricalRecords()
 
     def save(self, *args, **kwargs):
         self.draft_url = fix_url(self.draft_url)
@@ -615,6 +621,7 @@ class GeneralSentMail(models.Model):
     # Internal
     sender = models.ForeignKey(settings.AUTH_USER_MODEL)
     receiver = models.ForeignKey('Claimant')
+    history = HistoricalRecords()
 
 
 class FundSentMail(GeneralSentMail):
