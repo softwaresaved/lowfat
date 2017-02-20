@@ -22,25 +22,23 @@
         {{action.get_history_type_display}}
       </td>
       <td>
-        {{action}}
+        <a href="{{action.history_object.link_review}}">{{action.history_object}}</a>
       </td>
     </tr>
     {% endfor %}
   </body>
 </table>
-<div class="pagination">
-    <span class="step-links">
-        {% if actions.has_previous %}
-            <a href="?page={{ actions.previous_page_number }}">previous</a>
-        {% endif %}
-
-        <span class="current">
-            Page {{ actions.number }} of {{ actions.paginator.num_pages }}.
-        </span>
-
-        {% if actions.has_next %}
-            <a href="?page={{ actions.next_page_number }}">next</a>
-        {% endif %}
+<nav aria-label="Page navigation">
+  <ul class="pager">
+    <li class="previous {% if not actions.has_previous %}disabled{% endif %}">
+      <a href="{% if actions.has_previous %}?page={{ actions.previous_page_number }}{% endif %}"><span aria-hidden="true">&larr;</span> Previous</a>
+    </li>
+    <span class="current">
+      Page {{ actions.number }} of {{ actions.paginator.num_pages }}
     </span>
-</div>
+    <li class="next {% if not actions.has_next %}disabled{% endif %}">
+      <a href="{% if actions.has_next %}?page={{ actions.next_page_number }}{% endif %}">Newer <span aria-hidden="true">&rarr;</span></a>
+    </li>
+  </ul>
+</nav>
 {% endblock %}
