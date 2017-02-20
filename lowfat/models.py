@@ -3,6 +3,7 @@ import re
 
 import django.utils
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.db import models
 
 from simple_history.models import HistoricalRecords
@@ -305,6 +306,11 @@ class Claimant(models.Model):
         """Return the ammount remaining to claim from the total committed."""
         return self.claimantship_committed() - self.claimantship_spent()
 
+    def link(self):
+        if self.selected:
+            return reverse("claimant_detail", self.slug)
+        else:
+            return reverse("fellow_detail", self.slug)
 
 class Fund(models.Model):
     """Describe a fund from one claimant."""
@@ -452,6 +458,12 @@ class Fund(models.Model):
         """Return number of blog posts."""
         return Blog.objects.filter(fund=self).count()
 
+    def link(self):
+        return reverse("fund_detail", args=[self.id])
+
+    def link_review(self):
+        return reverse("fund_review", args=[self.id])
+
 
 class Expense(models.Model):
     """This describe one expense for one fund."""
@@ -554,6 +566,12 @@ class Expense(models.Model):
             self.relative_number = previous_number + 1
         super(Expense, self).save(*args, **kwargs)
 
+    def link(self):
+        return reverse("expense_detail", args=[self.id])
+
+    def link_review(self):
+        return reverse("expense_review", args=[self.id])
+
 
 class Blog(models.Model):
     """Provide the link to the blog post about the fund."""
@@ -609,6 +627,12 @@ class Blog(models.Model):
 
     def __str__(self):
         return "{}".format(self.draft_url)
+
+    def link(self):
+        return reverse("blog_detail", args=[self.id])
+
+    def link_review(self):
+        return reverse("blog_review", args=[self.id])
 
 class GeneralSentMail(models.Model):
     """Emails sent with custom text."""
