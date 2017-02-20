@@ -242,7 +242,8 @@ def fund_form(request):
         if formset.is_valid():
             fund = formset.save()
             messages.success(request, 'Funding request saved on our database.')
-            new_fund_notification(fund)
+            if formset.fields["send_email_field"]:
+                new_fund_notification(fund)
 
             # Default value for budget_approved is budget_total.
             # The reason for this is to save staffs to copy and paste the approved amount.
@@ -263,7 +264,10 @@ def fund_form(request):
     elif request.GET.get("claimant_id"):
         initial["claimant"] = Claimant.objects.get(id=request.GET.get("claimant_id"))
 
-    formset = FundForm(initial=initial)
+    formset = FundForm(
+        initial=initial,
+        send_email=True if request.user.is_superuser else False
+    )
 
     if not request.user.is_superuser:
         formset.fields["claimant"].queryset = Claimant.objects.filter(user=request.user)
@@ -305,21 +309,29 @@ def fund_review(request, fund_id):
     if request.POST:
         # Handle submission
         old_fund = copy.deepcopy(this_fund)
-        formset = FundReviewForm(request.POST, instance=this_fund)
+        formset = FundReviewForm(
+            request.POST,
+            instance=this_fund
+        )
 
         if formset.is_valid():
             fund = formset.save()
-            fund_review_notification(
-                formset.cleaned_data['email'],
-                request.user,
-                old_fund,
-                fund
-            )
+            if formset.fields["send_email_field"]:
+                fund_review_notification(
+                    formset.cleaned_data['email'],
+                    request.user,
+                    old_fund,
+                    fund
+                )
             return HttpResponseRedirect(
                 reverse('fund_detail', args=[fund.id,])
             )
 
-    formset = FundReviewForm(None, instance=this_fund)
+    formset = FundReviewForm(
+        None,
+        instance=this_fund,
+        send_email=True if request.user.is_superuser else False
+    )
 
     context = {
         'fund': this_fund,
@@ -350,7 +362,10 @@ def fund_past(request):
 def fund_import(request):
     if request.POST:
         # Handle submission
-        formset = FundImportForm(request.POST or None, request.FILES or None)
+        formset = FundImportForm(
+            request.POST or None,
+            request.FILES or None
+        )
 
         if formset.is_valid():
             importer = loadoldfunds.Command()
@@ -381,12 +396,18 @@ def expense_form(request):
             "amount_claimed": "0.00",  # Workaround for https://github.com/softwaresaved/lowfat/issues/191
         }
 
-    formset = ExpenseForm(request.POST or None, request.FILES or None, initial=initial)
+    formset = ExpenseForm(
+        request.POST or None,
+        request.FILES or None,
+        initial=initial,
+        send_email=True if request.user.is_superuser else False
+    )
 
     if formset.is_valid():
         expense = formset.save()
         messages.success(request, 'Expense saved on our database.')
-        new_expense_notification(expense)
+        if formset.fields["send_email_field"]:
+            new_expense_notification(expense)
         return HttpResponseRedirect(
             reverse('expense_detail', args=[expense.id,])
         )
@@ -444,17 +465,22 @@ def expense_review(request, expense_id):
 
         if formset.is_valid():
             expense = formset.save()
-            expense_review_notification(
-                formset.cleaned_data['email'],
-                request.user,
-                old_expense,
-                expense
-            )
+            if formset.fields["send_email_field"]:
+                expense_review_notification(
+                    formset.cleaned_data['email'],
+                    request.user,
+                    old_expense,
+                    expense
+                )
             return HttpResponseRedirect(
                 reverse('expense_detail', args=[expense.id,])
             )
 
-    formset = ExpenseReviewForm(None, instance=this_expense)
+    formset = ExpenseReviewForm(
+        None,
+        instance=this_expense,
+        send_email=True if request.user.is_superuser else False
+    )
 
     context = {
         'expense': this_expense,
@@ -481,12 +507,18 @@ def blog_form(request):
         fund = None
         initial = {}
 
-    formset = BlogForm(request.POST or None, request.FILES or None, initial=initial)
+    formset = BlogForm(
+        request.POST or None,
+        request.FILES or None,
+        initial=initial,
+        send_email=True if request.user.is_superuser else False
+    )
 
     if formset.is_valid():
         blog = formset.save()
         messages.success(request, 'Blog draft saved on our database.')
-        new_blog_notification(blog)
+        if formset.fields["send_email_field"]:
+            new_blog_notification(blog)
         return HttpResponseRedirect(
             reverse('blog_detail', args=[blog.id,])
         )
@@ -538,17 +570,22 @@ def blog_review(request, blog_id):
 
         if formset.is_valid():
             blog = formset.save()
-            blog_review_notification(
-                formset.cleaned_data['email'],
-                request.user,
-                old_blog,
-                blog
-            )
+            if formset.fields["send_email_field"]:
+                blog_review_notification(
+                    formset.cleaned_data['email'],
+                    request.user,
+                    old_blog,
+                    blog
+                )
             return HttpResponseRedirect(
                 reverse('blog_detail', args=[blog.id,])
             )
 
-    formset = BlogReviewForm(None, instance=this_blog)
+    formset = BlogReviewForm(
+        None,
+        instance=this_blog,
+        send_email=True if request.user.is_superuser else False
+    )
 
     # Limit dropdown list to staffs
     if not this_blog.reviewer:

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from django.forms import Form, ModelForm, SelectDateWidget, CharField, Textarea, FileField
+from django.forms import Form, ModelForm, SelectDateWidget, CharField, BooleanField, Textarea, CheckboxInput, FileField
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML
@@ -12,7 +12,18 @@ TODAY_YEAR = datetime.now().year
 SELECT_DATE_WIDGE_YEARS = [TODAY_YEAR + delta for delta in range(-3, 4)]
 
 class GarlicForm(ModelForm):
+    send_email_field = BooleanField(
+        widget=CheckboxInput,
+        required=False,
+        initial=True,
+        label="Send email notification for this submission?"
+    )
+
     def __init__(self, *args, **kwargs):
+        # Add staff option to not send email notification
+        self.send_email = kwargs.pop("send_email", False)
+
+        # Set up Garlic attribute to persistent data
         super(GarlicForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.attrs = {
@@ -265,6 +276,7 @@ class FundForm(GarlicForm):
                 HTML('<h2>Publicity</h2>'),
                 'can_be_advertise_before',
                 'can_be_advertise_after',
+                'send_email_field' if self.send_email else '',
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
                 )
@@ -311,7 +323,8 @@ class FundReviewForm(GarlicForm):
                     onblur="this.value = parseFloat(this.value).toFixed(2);"
                 ),
                 "notes_from_admin",
-                "email"
+                "email",
+                'send_email_field' if self.send_email else '',
             )
         )
 
@@ -360,6 +373,7 @@ class FundImportForm(Form):
 </ul>
 <p class="text-danger">You will not have access to debug information!</p>"""),
                 'csv',
+                'send_email_field' if self.send_email else '',
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
                 )
@@ -425,6 +439,7 @@ class ExpenseForm(GarlicForm):
                 'recipient_group',
                 HTML("<p>You need to provide a reason for submit the recipient claim. An common reasons is \"because the recipient was of of the speakers on that workshop\".</p>"),
                 'recipient_connection',
+                'send_email_field' if self.send_email else '',
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
                 )
@@ -487,6 +502,7 @@ class ExpenseReviewForm(GarlicForm):
                 'grant_used',
                 'notes_from_admin',
                 'email',
+                'send_email_field' if self.send_email else '',
                 ButtonHolder(
                     Submit('submit', 'Update')
                 )
@@ -511,6 +527,7 @@ class BlogForm(GarlicForm):
 
     required_css_class = 'form-field-required'
 
+
     def __init__(self, *args, user=None, **kwargs):
         super(BlogForm, self).__init__(*args, **kwargs)
 
@@ -521,6 +538,7 @@ class BlogForm(GarlicForm):
                 HTML("<p>We prefer to receive links to <a href='https://www.google.co.uk/docs/about/'>Google Docs</a>, <a href='https://products.office.com/en-gb/office-365-home'>Microsoft Office 365 document</a> or any other online live collaborative document platform you like to use. Posts published somewhere already, e.g. your personal blog, are welcome as well.</p>"),
                 'draft_url',
                 'final',
+                'send_email_field' if self.send_email else '',
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
                 )
@@ -547,4 +565,20 @@ class BlogReviewForm(GarlicForm):
     def __init__(self, *args, **kwargs):
         super(BlogReviewForm, self).__init__(*args, **kwargs)
 
-        self.helper.add_input(Submit('submit', 'Update'))
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                'draft_url',
+                'final',
+                'status',
+                'reviewer',
+                'notes_from_admin',
+                'published_url',
+                'tweet_url',
+                'email',
+                'send_email_field',
+                ButtonHolder(
+                    Submit('submit', 'Update')
+                )
+                )
+            )
