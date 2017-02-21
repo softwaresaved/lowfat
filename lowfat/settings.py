@@ -145,7 +145,8 @@ USE_L10N = False
 
 USE_TZ = False
 
-DATE_FORMAT = "Y-m-d"
+DATE_FORMAT = "l, d F Y"  # British English style
+DATETIME_FORMAT = "l, d F Y"  # British English style
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
