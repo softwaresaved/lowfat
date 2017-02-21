@@ -129,6 +129,19 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',  # default pipeline
+    'social_core.pipeline.social_auth.social_uid',  # default pipeline
+    'social_core.pipeline.social_auth.auth_allowed',  # default pipeline
+    'social_core.pipeline.social_auth.social_user',  # default pipeline
+    'social_core.pipeline.user.get_username',  # default pipeline
+    'social_core.pipeline.user.create_user',  # default pipeline
+    'social_core.pipeline.social_auth.associate_user',  # default pipeline
+    'social_core.pipeline.social_auth.load_extra_data',  # default pipeline
+    'social_core.pipeline.user.user_details',  # default pipeline
+    'lowfat.auth.wire_profile',
+)
+
 SOCIAL_AUTH_GITHUB_KEY = ''
 SOCIAL_AUTH_GITHUB_SECRET = ''
 
