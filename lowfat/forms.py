@@ -276,7 +276,7 @@ class FundForm(GarlicForm):
                 HTML('<h2>Publicity</h2>'),
                 'can_be_advertise_before',
                 'can_be_advertise_after',
-                'send_email_field' if self.send_email else '',
+                'send_email_field' if self.send_email else None,
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
                 )
@@ -324,7 +324,7 @@ class FundReviewForm(GarlicForm):
                 ),
                 "notes_from_admin",
                 "email",
-                'send_email_field' if self.send_email else '',
+                'send_email_field' if self.send_email else None,
             )
         )
 
@@ -373,7 +373,7 @@ class FundImportForm(Form):
 </ul>
 <p class="text-danger">You will not have access to debug information!</p>"""),
                 'csv',
-                'send_email_field' if self.send_email else '',
+                'send_email_field' if self.send_email else None,
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
                 )
@@ -439,7 +439,7 @@ class ExpenseForm(GarlicForm):
                 'recipient_group',
                 HTML("<p>You need to provide a reason for submit the recipient claim. An common reasons is \"because the recipient was of of the speakers on that workshop\".</p>"),
                 'recipient_connection',
-                'send_email_field' if self.send_email else '',
+                'send_email_field' if self.send_email else None,
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
                 )
@@ -502,7 +502,7 @@ class ExpenseReviewForm(GarlicForm):
                 'grant_used',
                 'notes_from_admin',
                 'email',
-                'send_email_field' if self.send_email else '',
+                'send_email_field' if self.send_email else None,
                 ButtonHolder(
                     Submit('submit', 'Update')
                 )
@@ -538,7 +538,7 @@ class BlogForm(GarlicForm):
                 HTML("<p>We prefer to receive links to <a href='https://www.google.co.uk/docs/about/'>Google Docs</a>, <a href='https://products.office.com/en-gb/office-365-home'>Microsoft Office 365 document</a> or any other online live collaborative document platform you like to use. Posts published somewhere already, e.g. your personal blog, are welcome as well.</p>"),
                 'draft_url',
                 'final',
-                'send_email_field' if self.send_email else '',
+                'send_email_field' if self.send_email else None,
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
                 )
@@ -576,7 +576,7 @@ class BlogReviewForm(GarlicForm):
                 'published_url',
                 'tweet_url',
                 'email',
-                'send_email_field',
+                'send_email_field' if self.send_email else None,
                 ButtonHolder(
                     Submit('submit', 'Update')
                 )
