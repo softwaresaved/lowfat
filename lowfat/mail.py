@@ -122,46 +122,49 @@ def review_notification(mail, old, new, url):
         )
 
 def fund_review_notification(message, sender, old, new):
-    mail = FundSentMail(
-        **{
-            "justification": message,
-            "sender": sender,
-            "receiver": new.claimant,
-            "fund": new,
-        }
-    )
+    if new.status in ('A', 'R'):
+        mail = FundSentMail(
+            **{
+                "justification": message,
+                "sender": sender,
+                "receiver": new.claimant,
+                "fund": new,
+            }
+        )
 
-    review_notification(mail, old, new, "/email/template/fund/claimant/change/")
+        review_notification(mail, old, new, "/email/template/fund/claimant/change/")
 
-    if message:
-        mail.save()
+        if message:
+            mail.save()
 
 def expense_review_notification(message, sender, old, new):
-    mail = ExpenseSentMail(
-        **{
-            "justification": message,
-            "sender": sender,
-            "receiver": new.fund.claimant,
-            "expense": new,
-        }
+    if new.status in ('A'):
+        mail = ExpenseSentMail(
+            **{
+                "justification": message,
+                "sender": sender,
+                "receiver": new.fund.claimant,
+                "expense": new,
+            }
     )
 
-    review_notification(mail, old, new, "/email/template/expense/claimant/change/")
+        review_notification(mail, old, new, "/email/template/expense/claimant/change/")
 
-    if message:
-        mail.save()
+        if message:
+            mail.save()
 
 def blog_review_notification(message, sender, old, new):
-    mail = BlogSentMail(
-        **{
-            "justification": message,
-            "sender": sender,
-            "receiver": new.fund.claimant,
-            "blog": new,
-        }
-    )
+    if new.status in ('P'):
+        mail = BlogSentMail(
+            **{
+                "justification": message,
+                "sender": sender,
+                "receiver": new.fund.claimant,
+                "blog": new,
+            }
+        )
 
-    review_notification(mail, old, new, "/email/template/blog/claimant/change/")
+        review_notification(mail, old, new, "/email/template/blog/claimant/change/")
 
-    if message:
-        mail.save()
+        if message:
+            mail.save()
