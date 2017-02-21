@@ -60,8 +60,12 @@
                         <li>
                           <form class="form-inline" action="{% url 'search' %}" method="post">
                             {% csrf_token %}
-                            <input class="form-control" type="text" name="search" value={{ search }}>
-                            <input class="btn btn-default" type="submit" value="Search" />
+                            <div class="input-group">
+                              <input class="form-control" type="text" name="search" value={{ search }}>
+                              <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Search</button>
+                              </span>
+                            </div>
                         </form>
                         </li>
                         {% endif %}
