@@ -4,21 +4,21 @@ Send email for some views.
 from constance import config
 from django.contrib.flatpages.models import FlatPage
 from django.core.mail import send_mail, mail_admins
-from django.core.urlresolvers import reverse
 from django.template import Context, Template
 
 from .models import *
 from .settings import DEFAULT_FROM_EMAIL
 
-def reverse_full(*args, **kargs):
-    """Return the full address using Django reverse."""
-    # FIXME Avoid hard code the domain.
-    return '{}{}'.format(
-        config.DOMAIN,
-        reverse(*args, **kargs)
-    )
-
 def new_notification(admin_url, admin_context, user_url, user_email, user_context):
+    admin_context.update({
+        "DOMAIN": config.DOMAIN,
+        "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
+    })
+    user_context.update({
+        "DOMAIN": config.DOMAIN,
+        "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
+    })
+
     if config.STAFF_EMAIL_NOTIFICATION:
         # Email to admin
         flatemail = FlatPage.objects.get(url=admin_url)
@@ -47,13 +47,11 @@ def new_fund_notification(fund):
     admin_url = "/email/template/fund/admin/"
     admin_context = {
         "fund": fund,
-        "link": reverse_full("fund_review", args=[fund.id]),
     }
 
     user_url = "/email/template/fund/claimant/"
     user_context = {
         "fund": fund,
-        "link": reverse_full("fund_detail", args=[fund.id]),
     }
     user_email = fund.claimant.email
 
@@ -63,13 +61,11 @@ def new_expense_notification(expense):
     admin_url = "/email/template/expense/admin/"
     admin_context = {
         "expense": expense,
-        "link": reverse_full("expense_review", args=[expense.id]),
     }
 
     user_url = "/email/template/expense/claimant/"
     user_context = {
         "expense": expense,
-        "link": reverse_full("expense_detail", args=[expense.id]),
     }
     user_email = expense.fund.claimant.email
 
@@ -79,13 +75,11 @@ def new_blog_notification(blog):
     admin_url = "/email/template/blog/admin/"
     admin_context = {
         "blog": blog,
-        "link": reverse_full("blog_review", args=[blog.id]),
     }
 
     user_url = "/email/template/blog/claimant/"
     user_context = {
         "blog": blog,
-        "link": reverse_full("blog_detail", args=[blog.id]),
     }
     user_email = blog.fund.claimant.email
 
@@ -100,6 +94,8 @@ def review_notification(mail, old, new, url):
             "old": old,
             "new": new,
             "new_message": mail.justification,
+            "DOMAIN": config.DOMAIN,
+            "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
         })
         send_mail(
             flatemail.title,
