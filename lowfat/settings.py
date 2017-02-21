@@ -209,6 +209,14 @@ CONSTANCE_CONFIG = OrderedDict([
         "http://fellows.software.ac.uk",
         "Used when write emails",
     )),
+    ("FELLOWS_MANAGEMENT_EMAIL", (
+        "fellows-management@software.ac.uk",
+        "Contact address to fellows management staffs",
+    )),
+    ("STAFFS_EMAIL", (
+        "['Software Sustainability Institute <fellows-management@software.ac.uk>']",
+        "Contact address of staffs, e.g. ['John <john@example.com>', 'Mary <mary@example.com>']",
+    )),
     ("STAFF_EMAIL_NOTIFICATION", (
         False,
         "Notification to staffs by email",
@@ -217,10 +225,7 @@ CONSTANCE_CONFIG = OrderedDict([
         False,
         "Notification to claimant by email",
     )),
-    ("FELLOWS_MANAGEMENT_EMAIL", (
-        "fellows-management@software.ac.uk",
-        "Contact address to fellows management staffs",
-    )),
+
 ])
 
 
