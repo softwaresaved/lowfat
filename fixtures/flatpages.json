@@ -35,7 +35,7 @@
     "fields": {
         "url": "/email/template/fund/admin/",
         "title": "We have a new funding request pending your review",
-        "content": "Hi,\r\n\r\nWe received a new funding request from\r\n{{fund.claimant.fullname}} for\r\n{{fund.name}}.\r\n\r\nPlease visit {{link}} to review it.\r\n\r\n---\r\nLowFAT",
+        "content": "Hi,\r\n\r\nWe received a new funding request from\r\n{{fund.claimant.fullname}} for\r\n{{fund.name}}.\r\n\r\nPlease visit {{DOMAIN}}{{fund.link_review}} to review it.\r\n\r\n---\r\nLowFAT",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -50,7 +50,7 @@
     "fields": {
         "url": "/email/template/blog/admin/",
         "title": "We have a new blog post draft pending your review",
-        "content": "Hi,\r\n\r\nWe received a blog post draft,\r\n{{blog.draft_url}},\r\nfrom {{blog.fund.claimant.fullname}} for\r\n{{blog.fund.name}}.\r\n\r\nPlease visit {{link}} to review it.\r\n\r\n---\r\nLowFAT",
+        "content": "Hi,\r\n\r\nWe received a blog post draft,\r\n{{blog.draft_url}},\r\nfrom {{blog.fund.claimant.fullname}} for\r\n{{blog.fund.name}}.\r\n\r\nPlease visit {{DOMAIN}}{{blog.link_review}} to review it.\r\n\r\n---\r\nLowFAT",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -65,7 +65,7 @@
     "fields": {
         "url": "/email/template/blog/claimant/",
         "title": "We received your blog post draft",
-        "content": "Hi {{blog.fund.claimant.fullname}},\r\n\r\nyour blog post draft was successfully received by us. \r\nYou can check the status of your blog post draft at\r\n{{link}}.\r\n\r\nSomeone from our team will contact you back soon.\r\n\r\nThanks,\r\n\r\nSoftware Sustainability Institute",
+        "content": "Dear {{blog.fund.claimant.fullname}},\r\n\r\nThank you for your blog post draft about {{blog.fund.name}}.\r\nWe will review it and get in touch with you\r\nbefore publication on our website.\r\nYou can check the status of your blog post draft\r\nat {{DOMAIN}}{{blog.link}}.\r\n\r\nThanks,\r\n\r\nSoftware Sustainability Institute",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -80,7 +80,7 @@
     "fields": {
         "url": "/email/template/fund/claimant/",
         "title": "We received your funding request",
-        "content": "Hi {{fund.claimant.fullname}},\r\n\r\nyour funding request for {{fund.name}}\r\nwas successfully received by us. \r\nYou can check the status of your funding request at\r\n{{link}}.\r\n\r\nSomeone from our team will contact you back soon.\r\n\r\nThanks,\r\n\r\nSoftware Sustainability Institute",
+        "content": "Dear {{fund.claimant.fullname}},\r\n\r\nWe have received your funding request for {{fund.name}},\r\nthank you.\r\nWe will evaluate it and reply to you shortly.\r\nYou can check the status of your funding request\r\na {{DOMAIN}}{{fund.link}}.\r\n\r\nThanks,\r\n\r\nSoftware Sustainability Institute",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -95,7 +95,7 @@
     "fields": {
         "url": "/email/template/expense/admin/",
         "title": "We have a new expense claim pending your review",
-        "content": "Hi,\r\n\r\nWe received a new expense claim from\r\n{{expense.fund.claimant.fullname}} for\r\n{{expense.fund.name}}\r\non the value of \u00a3{{expense.amount_claimed}}.\r\n\r\nPlease visit {{link}} to review it.\r\n\r\n---\r\nLowFAT",
+        "content": "Hi,\r\n\r\nWe received a new expense claim from\r\n{{expense.fund.claimant.fullname}} for\r\n{{expense.fund.name}}\r\non the value of \u00a3{{expense.amount_claimed}}.\r\n\r\nPlease visit {{DOMAIN}}{{expense.link_review}} to review it.\r\n\r\n---\r\nLowFAT",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -110,7 +110,7 @@
     "fields": {
         "url": "/email/template/expense/claimant/",
         "title": "We received your expense claim",
-        "content": "Hi {{expense.fund.claimant.fullname}},\r\n\r\nyour expense claim for {{expense.fund.name}}\r\non the value of \u00a3{{expense.amount_claimed}}\r\nwas successfully received by us. \r\nYou can check the status of your expense claim at\r\n{{link}}.\r\n\r\nSomeone from our team will contact you back soon.\r\n\r\nThanks,\r\n\r\nSoftware Sustainability Institute",
+        "content": "Dear {{expense.fund.claimant.fullname}},\r\n\r\nWe have received you expenses claim of \u00a3{{expense.amount_claimed}}\r\nfor {{expense.fund.name}}.\r\nWe will process it as soon as possible\r\nand we will contact you if needed.\r\nYou can check the status of your expense claim\r\nat {{DOMAIN}}{{expense.link}}.\r\n\r\nThanks,\r\n\r\nSoftware Sustainability Institute",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -123,7 +123,7 @@
     "model": "flatpages.flatpage",
     "pk": 9,
     "fields": {
-        "url": "/email/template/blog/claimant/new/",
+        "url": "/email/template/blog/claimant/change/",
         "title": "New message about your blog post draft",
         "content": "{% if new_message %}\r\nMessage\r\n\r\n{{new_message}}\r\n{% endif %}\r\n\r\n{% if old.draft_url != new.draft_url %}\r\nDraft url was {{old.draft_url}} and now is {{new.draft_url}}.\r\n{% endif %}\r\n\r\n{% if old.status != new.status %}\r\nDraft url was {{old.status}} and now is {{new.status}}.\r\n{% endif %}\r\n\r\n{% if old.reviewer != new.reviewer %}\r\nDraft url was {{old.reviewer}} and now is {{new.reviewer}}.\r\n{% endif %}\r\n\r\n{% if old.published_url != new.published_url %}\r\nDraft url was {{old.published_url}} and now is {{new.published_url}}.\r\n{% endif %}\r\n\r\n{% if old.tweet_url != new.tweet_url %}\r\nDraft url was {{old.tweet_url}} and now is {{new.tweet_url}}.\r\n{% endif %}",
         "enable_comments": false,
@@ -138,7 +138,7 @@
     "model": "flatpages.flatpage",
     "pk": 10,
     "fields": {
-        "url": "/email/template/expense/claimant/new/",
+        "url": "/email/template/expense/claimant/change/",
         "title": "New message about your expense",
         "content": "Message\r\n\r\n{new_message}",
         "enable_comments": false,
@@ -153,7 +153,7 @@
     "model": "flatpages.flatpage",
     "pk": 11,
     "fields": {
-        "url": "/email/template/fund/claimant/new/",
+        "url": "/email/template/fund/claimant/change/",
         "title": "Your funding request was reviewed",
         "content": "Hi {{new.claimant.fullname}},\r\n\r\nwe have some updates about\r\nyour funding request for {{new.name}}.\r\n\r\n{% if new_message %}\r\n{{new_message}}\r\n{% endif %}\r\n\r\n{% if new.status != old.status %}\r\nStatus is now {{new.get_status_display}}.\r\n{% endif %}\r\n\r\n{% if new.budget_approved != old.budget_approved %}\r\nThe budget approved for this request is now \u00a3{{new.budget_approved}}.\r\n{% endif %}\r\n\r\nThanks,\r\n\r\nSoftware Sustainability Institute",
         "enable_comments": false,
