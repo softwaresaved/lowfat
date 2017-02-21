@@ -125,7 +125,7 @@
     "fields": {
         "url": "/email/template/blog/claimant/change/",
         "title": "New message about your blog post draft",
-        "content": "{% if new_message %}\r\nMessage\r\n\r\n{{new_message}}\r\n{% endif %}\r\n\r\n{% if old.draft_url != new.draft_url %}\r\nDraft url was {{old.draft_url}} and now is {{new.draft_url}}.\r\n{% endif %}\r\n\r\n{% if old.status != new.status %}\r\nDraft url was {{old.status}} and now is {{new.status}}.\r\n{% endif %}\r\n\r\n{% if old.reviewer != new.reviewer %}\r\nDraft url was {{old.reviewer}} and now is {{new.reviewer}}.\r\n{% endif %}\r\n\r\n{% if old.published_url != new.published_url %}\r\nDraft url was {{old.published_url}} and now is {{new.published_url}}.\r\n{% endif %}\r\n\r\n{% if old.tweet_url != new.tweet_url %}\r\nDraft url was {{old.tweet_url}} and now is {{new.tweet_url}}.\r\n{% endif %}",
+        "content": "Dear {{new.fund.claimant.fullname}},\r\n\r\nYour blog post draft for {{new.fund.name}} has been published\r\nat {{new.published_url}}.\r\nAnd we mentioned it on Twitter,\r\n{{new.tweet_url}}.\r\n\r\nBest wishes,\r\nThe Software Sustainability Institute",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -139,8 +139,8 @@
     "pk": 10,
     "fields": {
         "url": "/email/template/expense/claimant/change/",
-        "title": "New message about your expense",
-        "content": "Message\r\n\r\n{new_message}",
+        "title": "New message about your expense claim request",
+        "content": "Dear  {{new.claimant.fullname}},\r\n\r\nYour expense claim for {{new.fund.name}}\r\nhas been {{new.get_status_display}}.\r\n\r\nYou can check the details of your expense claim\r\nat {{DOMAIN}}{{new.link}}.\r\n\r\n\r\nBest wishes,\r\nThe Software Sustainability Institute",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -154,8 +154,8 @@
     "pk": 11,
     "fields": {
         "url": "/email/template/fund/claimant/change/",
-        "title": "Your funding request was reviewed",
-        "content": "Hi {{new.claimant.fullname}},\r\n\r\nwe have some updates about\r\nyour funding request for {{new.name}}.\r\n\r\n{% if new_message %}\r\n{{new_message}}\r\n{% endif %}\r\n\r\n{% if new.status != old.status %}\r\nStatus is now {{new.get_status_display}}.\r\n{% endif %}\r\n\r\n{% if new.budget_approved != old.budget_approved %}\r\nThe budget approved for this request is now \u00a3{{new.budget_approved}}.\r\n{% endif %}\r\n\r\nThanks,\r\n\r\nSoftware Sustainability Institute",
+        "title": "Message about your funding request",
+        "content": "Dear {{new.claimant.fullname}},\r\n\r\nYour funding request for {{new.name}} has been {{new.get_status_display}}.\r\n\r\nYou can check the details of your funding request\r\nat {{DOMAIN}}{{new.link}}.\r\n\r\nBest wishes,\r\nThe Software Sustainability Institute",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
