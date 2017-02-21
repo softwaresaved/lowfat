@@ -15,7 +15,7 @@ from collections import OrderedDict
 
 
 URL_SRC = "https://github.com/softwaresaved/lowfat"
-VERSION = "0.8.1"
+VERSION = "0.9.0"
 
 SETTINGS_EXPORT = [
     'URL_SRC',
