@@ -3,7 +3,10 @@ import re
 
 import django.utils
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.db import models
+
+from simple_history.models import HistoricalRecords
 
 from django_countries.fields import CountryField
 
@@ -260,6 +263,7 @@ class Claimant(models.Model):
     # Control
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    history = HistoricalRecords()
 
     def save(self, *args, **kwargs):
         self.slug = slug_generator(self.forenames, self.surname)
@@ -302,6 +306,11 @@ class Claimant(models.Model):
         """Return the ammount remaining to claim from the total committed."""
         return self.claimantship_committed() - self.claimantship_spent()
 
+    def link(self):
+        if self.selected:
+            return reverse("claimant_detail", self.slug)
+        else:
+            return reverse("fellow_detail", self.slug)
 
 class Fund(models.Model):
     """Describe a fund from one claimant."""
@@ -401,6 +410,7 @@ class Fund(models.Model):
     # Control
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    history = HistoricalRecords()
 
     def save(self, *args, **kwargs):
         self.url = fix_url(self.url)
@@ -447,6 +457,12 @@ class Fund(models.Model):
     def total_of_blog_posts(self):
         """Return number of blog posts."""
         return Blog.objects.filter(fund=self).count()
+
+    def link(self):
+        return reverse("fund_detail", args=[self.id])
+
+    def link_review(self):
+        return reverse("fund_review", args=[self.id])
 
 
 class Expense(models.Model):
@@ -539,6 +555,7 @@ class Expense(models.Model):
     # Control
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.claim.name
@@ -548,6 +565,12 @@ class Expense(models.Model):
             previous_number = Expense.objects.filter(fund=self.fund).count()
             self.relative_number = previous_number + 1
         super(Expense, self).save(*args, **kwargs)
+
+    def link(self):
+        return reverse("expense_detail", args=[self.id])
+
+    def link_review(self):
+        return reverse("expense_review", args=[self.id])
 
 
 class Blog(models.Model):
@@ -591,6 +614,7 @@ class Blog(models.Model):
     # Control
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    history = HistoricalRecords()
 
     def save(self, *args, **kwargs):
         self.draft_url = fix_url(self.draft_url)
@@ -604,6 +628,12 @@ class Blog(models.Model):
     def __str__(self):
         return "{}".format(self.draft_url)
 
+    def link(self):
+        return reverse("blog_detail", args=[self.id])
+
+    def link_review(self):
+        return reverse("blog_review", args=[self.id])
+
 class GeneralSentMail(models.Model):
     """Emails sent with custom text."""
 
@@ -615,6 +645,7 @@ class GeneralSentMail(models.Model):
     # Internal
     sender = models.ForeignKey(settings.AUTH_USER_MODEL)
     receiver = models.ForeignKey('Claimant')
+    history = HistoricalRecords()
 
 
 class FundSentMail(GeneralSentMail):

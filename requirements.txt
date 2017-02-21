@@ -6,6 +6,7 @@ django-countries
 django-crispy-forms
 django-dbbackup
 django-settings-export
+django-simple-history
 markdown
 pandas
 pylint
