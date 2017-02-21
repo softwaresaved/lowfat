@@ -604,10 +604,10 @@ def blog_review(request, blog_id):
 def recent_actions(request):
     """Recent actions view."""
     action_list = []
-    action_list.extend([(claimant.history_date, claimant) for claimant in Claimant.history.all()])
-    action_list.extend([(fund.history_date, fund) for fund in Fund.history.all()])
-    action_list.extend([(expense.history_date, expense) for expense in Expense.history.all()])
-    action_list.extend([(blog.history_date, blog) for blog in Blog.history.all()])
+    action_list.extend([(claimant.history_date, claimant) for claimant in Claimant.history.all()])  # pylint: disable=E1101
+    action_list.extend([(fund.history_date, fund) for fund in Fund.history.all()])  # pylint: disable=E1101
+    action_list.extend([(expense.history_date, expense) for expense in Expense.history.all()])  # pylint: disable=E1101
+    action_list.extend([(blog.history_date, blog) for blog in Blog.history.all()])  # pylint: disable=E1101
 
     action_list.sort(key=lambda x: x[0], reverse=True)
     paginator = Paginator([action[1] for action in action_list], 10)
