@@ -1,6 +1,8 @@
 """
 Send email for some views.
 """
+import ast
+
 from constance import config
 from django.contrib.flatpages.models import FlatPage
 from django.core.mail import send_mail
@@ -11,15 +13,14 @@ from .settings import DEFAULT_FROM_EMAIL
 
 def mail_admins(subject, message, fail_silently=False, connection=None, html_message=None):
     """Overwrite of Django mail_admins()"""
-    print(config.STAFFS_EMAIL)
-    admins = eval(config.STAFFS_EMAIL)  # XXX This is unsecure
+    admins = ast.literal_eval(config.STAFFS_EMAIL)  # XXX This is unsecure
 
     send_mail(
         subject,
         message,
         DEFAULT_FROM_EMAIL,
         admins,
-        fail_silently=False,
+        fail_silently=fail_silently,
         connection=connection,
         html_message=html_message
     )
