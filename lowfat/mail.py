@@ -138,7 +138,7 @@ def fund_review_notification(message, sender, old, new):
             mail.save()
 
 def expense_review_notification(message, sender, old, new):
-    if new.status in ('A'):
+    if new.status == 'A':
         mail = ExpenseSentMail(
             **{
                 "justification": message,
@@ -146,7 +146,7 @@ def expense_review_notification(message, sender, old, new):
                 "receiver": new.fund.claimant,
                 "expense": new,
             }
-    )
+        )
 
         review_notification(mail, old, new, "/email/template/expense/claimant/change/")
 
@@ -154,7 +154,7 @@ def expense_review_notification(message, sender, old, new):
             mail.save()
 
 def blog_review_notification(message, sender, old, new):
-    if new.status in ('P'):
+    if new.status == 'P':
         mail = BlogSentMail(
             **{
                 "justification": message,

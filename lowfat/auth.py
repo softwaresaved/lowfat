@@ -6,7 +6,8 @@ at http://python-social-auth.readthedocs.io/en/latest/pipeline.html
 """
 from .models import Claimant
 
-def wire_profile(backend, user, response, details, *args, **kwargs):
+def wire_profile(backend, user, response, details, *args, **kwargs):  #pylint: disable=unused-argument
+
     """Wire GitHub profile with Fellow profile.
 
     :param backend: Backend from Python Social Auth. Must be <social_core.backends.github.GithubOAuth2 object at 0x7f9a97b1a198>
