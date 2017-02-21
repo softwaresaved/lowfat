@@ -3,11 +3,26 @@ Send email for some views.
 """
 from constance import config
 from django.contrib.flatpages.models import FlatPage
-from django.core.mail import send_mail, mail_admins
+from django.core.mail import send_mail
 from django.template import Context, Template
 
 from .models import *
 from .settings import DEFAULT_FROM_EMAIL
+
+def mail_admins(subject, message, fail_silently=False, connection=None, html_message=None):
+    """Overwrite of Django mail_admins()"""
+    print(config.STAFFS_EMAIL)
+    admins = eval(config.STAFFS_EMAIL)  # XXX This is unsecure
+
+    send_mail(
+        subject,
+        message,
+        DEFAULT_FROM_EMAIL,
+        admins,
+        fail_silently=False,
+        connection=connection,
+        html_message=html_message
+    )
 
 def new_notification(admin_url, admin_context, user_url, user_email, user_context):
     admin_context.update({
