@@ -119,7 +119,7 @@ def fund_review_notification(message, sender, old, new):
         }
     )
 
-    review_notification(mail, old, new, "/email/template/fund/claimant/new/")
+    review_notification(mail, old, new, "/email/template/fund/claimant/change/")
 
     if message:
         mail.save()
@@ -134,7 +134,7 @@ def expense_review_notification(message, sender, old, new):
         }
     )
 
-    review_notification(mail, old, new, "/email/template/expense/claimant/new/")
+    review_notification(mail, old, new, "/email/template/expense/claimant/change/")
 
     if message:
         mail.save()
@@ -149,7 +149,7 @@ def blog_review_notification(message, sender, old, new):
         }
     )
 
-    review_notification(mail, old, new, "/email/template/blog/claimant/new/")
+    review_notification(mail, old, new, "/email/template/blog/claimant/change/")
 
     if message:
         mail.save()
