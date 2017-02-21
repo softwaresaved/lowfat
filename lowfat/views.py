@@ -415,15 +415,15 @@ def expense_form(request):
 
     # Limit dropdown list to claimant
     if fund_id:
-        claimant = fund.claimant
+        claimant = Claimant.objects.filter(id=fund.claimant.id)
     elif request.GET.get("claimant_id"):
-        claimant = Claimant.objects.get(id=request.GET.get("claimant_id"))
+        claimant = Claimant.objects.filter(id=request.GET.get("claimant_id"))
     elif request.user.is_superuser:
         claimant = Claimant.objects.all()
     else:
-        claimant = Claimant.objects.get(user=request.user)
+        claimant = Claimant.objects.filter(user=request.user)
     formset.fields["fund"].queryset = Fund.objects.filter(
-        claimant=claimant,
+        claimant__in=claimant,
         status__in=['A']
     )
 
