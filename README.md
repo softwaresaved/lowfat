@@ -1,4 +1,4 @@
-# Software Sustainability Institute's Low effort Fellowship Administration Tool
+# Software Sustainability Institute's low effort Fellowship Administration Tool
 
 [![Build Status](https://travis-ci.org/softwaresaved/lowfat.svg?branch=master)](https://travis-ci.org/softwaresaved/lowfat)
 
