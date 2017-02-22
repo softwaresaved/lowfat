@@ -109,7 +109,7 @@ def review_notification(mail, old, new, url):
         context = Context({
             "old": old,
             "new": new,
-            "new_message": mail.justification,
+            "notes": mail.justification,
             "DOMAIN": config.DOMAIN,
             "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
         })
