@@ -20,6 +20,7 @@ from .models import *
 from .forms import *
 from .mail import *
 
+
 def index(request):
     context = {
         'claimants': Claimant.objects.exclude(selected=False).order_by('application_year').reverse(),

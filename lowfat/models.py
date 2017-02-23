@@ -1,5 +1,6 @@
 from datetime import date
 import re
+import hashlib
 
 from constance import config
 
@@ -15,7 +16,10 @@ from django_countries.fields import CountryField
 from .validator import pdf
 from .jacs import JACS_LEVEL_2
 
+INVOICE_HASH = hashlib.md5()
+
 MAX_CHAR_LENGTH = 120
+MAX_INVOICE_REFERENCE_LENGTH = 14  # e.g. SSIF-xxxx-xxxx
 MAX_PHONE_LENGTH = 14
 MAX_DIGITS = 10
 
@@ -494,6 +498,11 @@ class Expense(models.Model):
         null=False,
         blank=False
     )
+    invoice_reference = models.TextField(
+        max_length=MAX_INVOICE_REFERENCE_LENGTH,
+        null=True,
+        blank=True
+    )
 
     # Form
     fund = models.ForeignKey('Fund')
@@ -510,6 +519,9 @@ class Expense(models.Model):
     justification_for_extra = models.TextField(
         max_length=MAX_CHAR_LENGTH,
         blank=True
+    )
+    invoice = models.BooleanField(
+        default=False
     )
     final = models.BooleanField(
         default=False
@@ -589,6 +601,18 @@ class Expense(models.Model):
             else:
                 self.funds_from = config.FUNDS_FROM_DEFAULT
             self.grant_used = self.fund.grant_default  # pylint: disable=no-member
+
+            if self.invoice:
+                INVOICE_HASH.update(bytes("{} - {} #{}".format(
+                    self.fund.claimant.fullname,  # pylint: disable=no-member
+                    self.fund.name,
+                    self.relative_number
+                ), 'utf-8'))
+                self.invoice_reference = "SSIF-{}-{}".format(
+                    INVOICE_HASH.hexdigest()[0:5],
+                    INVOICE_HASH.hexdigest()[5:9]
+                )
+
         super(Expense, self).save(*args, **kwargs)
 
     def link(self):
