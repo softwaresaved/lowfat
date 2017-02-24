@@ -3,7 +3,8 @@
 {% block content %}
 
 {% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
+<p>Your username and password didn't match. Please try again.
+<a href="{% url 'password_reset' %}">Or reset your password.</a></p>
 {% endif %}
 
 {% if next %}
@@ -32,4 +33,8 @@ please login with an account that has access.</p>
     <input type="hidden" name="next" value="{% url 'dashboard' %}" />
 </form>
 
+<p>
+  Don't remember your password,
+  <a href="{% url 'password_reset' %}">you can reset it here.</a>
+</p>
 {% endblock %}
