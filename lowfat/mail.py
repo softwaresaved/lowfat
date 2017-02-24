@@ -4,12 +4,14 @@ Send email for some views.
 import ast
 
 from constance import config
+
 from django.contrib.flatpages.models import FlatPage
+from django.contrib.sites.models import Site
 from django.core.mail import send_mail
 from django.template import Context, Template
 
 from .models import *
-from .settings import DEFAULT_FROM_EMAIL
+from .settings import DEFAULT_FROM_EMAIL, SITE_ID
 
 def mail_admins(subject, message, fail_silently=False, connection=None, html_message=None):
     """Overwrite of Django mail_admins()"""
@@ -27,11 +29,13 @@ def mail_admins(subject, message, fail_silently=False, connection=None, html_mes
 
 def new_notification(admin_url, admin_context, user_url, user_email, user_context):
     admin_context.update({
-        "DOMAIN": config.DOMAIN,
+        "protocol": "https",
+        "site": Site.objects.get(id=SITE_ID),
         "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
     })
     user_context.update({
-        "DOMAIN": config.DOMAIN,
+        "protocol": "https",
+        "site": Site.objects.get(id=SITE_ID),
         "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
     })
 
@@ -110,7 +114,8 @@ def review_notification(mail, old, new, url):
             "old": old,
             "new": new,
             "notes": mail.justification,
-            "DOMAIN": config.DOMAIN,
+            "protocol": "https",
+            "site": Site.objects.get(id=SITE_ID),
             "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
         })
         send_mail(
