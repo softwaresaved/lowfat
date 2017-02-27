@@ -38,11 +38,11 @@
       </td>
       {% if user.is_superuser or claimant and user == claimant.user %}
       <td>
-        {{ blog.added|date:"SHORT_DATE_FORMAT" }}
+        {{ blog.added }}
       </td>
       <td>
         {% if blog.published_url|length > 0 %}
-        {{ blog.updated|date:"SHORT_DATE_FORMAT" }}
+        {{ blog.updated }}
         {% else %}
         <strong>Unpublished</strong>
         {% endif %}
