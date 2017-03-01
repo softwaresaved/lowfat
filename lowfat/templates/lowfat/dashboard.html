@@ -80,7 +80,7 @@
     <tr>
       <td>{{ fund.added }}</td>
       <td>
-        <a href="{% url 'fund_review' fund.id %}">{{ fund.name }}</a>
+        <a title="Review" href="{% url 'fund_review' fund.id %}">{{ fund.name }}</a>
         from <a href="{% url 'claimant_detail' fund.claimant.id %}">{{ fund.claimant.fullname }}</a>
       </td>
       <td>
@@ -133,7 +133,7 @@
     <tr>
       <td>{{ expense.added }}</td>
       <td>
-        <a href="{% url 'expense_review_relative' expense.fund.id expense.relative_number %}">#{{ expense.relative_number }}</a>
+        <a title="Review" href="{% url 'expense_review_relative' expense.fund.id expense.relative_number %}">#{{ expense.relative_number }}</a>
         from <a href="{% url 'claimant_detail' expense.fund.claimant.id %}">{{ expense.fund.claimant.fullname }}</a>
         for <a href="{% url 'fund_detail' expense.fund.id %}">{{ expense.fund.name }}</a>
       </td>
@@ -187,7 +187,7 @@
     <tr>
       <td>{{ blog.added }}</td>
       <td>
-        <a href="{% url 'blog_review' blog.id %}">{{ blog.draft_url }}</a> from
+        <a title="Review" href="{% url 'blog_review' blog.id %}">{{ blog.draft_url }}</a> from
         <a href="{% url 'fund_detail' blog.fund.id %}">{{ blog.fund.name }}</a>
       </td>
       <td>
