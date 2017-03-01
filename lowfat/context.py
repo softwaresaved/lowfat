@@ -3,7 +3,7 @@ from django.utils import timezone
 
 from constance import config
 
-def maintenance(request):
+def maintenance(request):  # pylint: disable=unused-argument
     """Return true if default maintancance time."""
     now = timezone.now()
 
