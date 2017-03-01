@@ -645,6 +645,7 @@ class GeneralSentMail(models.Model):
     # Internal
     sender = models.ForeignKey(settings.AUTH_USER_MODEL)
     receiver = models.ForeignKey('Claimant')
+    date = models.DateField(default=django.utils.timezone.now)
     history = HistoricalRecords()
 
 
