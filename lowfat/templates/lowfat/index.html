@@ -18,6 +18,11 @@
     {{ claimant.fullname }}
   </a>
   <br>
+  {% if user.is_superuser %}
+  <a class="icon" href="mailto:{{ claimant.email }}">
+    <i class="fa fa-envelope" aria-hidden="true"></i>
+  </a>
+  {% endif %}
   {% if claimant.website %}
   <a class="icon" href="{{ claimant.website }}">
     <i class="fa fa-cloud" aria-hidden="true"></i>
