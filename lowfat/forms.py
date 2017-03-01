@@ -16,7 +16,7 @@ class GarlicForm(ModelForm):
         widget=CheckboxInput,
         required=False,
         initial=True,
-        label="Send email notification for this submission?"
+        label="Send email notification for this update to claimant?"
     )
 
     def __init__(self, *args, **kwargs):
