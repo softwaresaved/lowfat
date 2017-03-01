@@ -478,8 +478,9 @@ def expense_review(request, expense_id):
             )
 
     initial = {}
-    # Preserve grant_used of approved events
+    # Preserve funds_from and grant_used of approved events
     if this_expense.status in ('W', 'S', 'C'):
+        initial["funds_from"] = config.FUNDS_FROM_DEFAULT
         initial["grant_used"] = config.GRANTS_DEFAULT
 
     formset = ExpenseReviewForm(
