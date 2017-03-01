@@ -7,7 +7,7 @@
         "title": "Welcome",
         "content": "<p>Please email us at <a href=\"mailto:fellows-management@software.ac.uk\">fellows-management@software.ac.uk</a> to have your account confirmed.</p>",
         "enable_comments": false,
-        "template_name": "fat/base.html",
+        "template_name": "lowfat/base.html",
         "registration_required": false,
         "sites": [
             1
@@ -22,7 +22,7 @@
         "title": "Guidelines on reimbursement of expenses",
         "content": "<p>Expenses supported by the Software Sustainability Institute, including those incurred by\r\nFellows, are subject to the Expenses Policy of the University of Edinburgh. This is a\r\nsummary of the main points indicated in the Policy. For reference, we are attaching this\r\nPolicy at the end of this summary. When in doubt please see the write to\r\n<a href=\"mailto:fellows-management@software.ac.uk\u200b\">fellows-management@software.ac.uk\u200b</a>.</p>\r\n<ul>\r\n<li><strong>Make sure you obtain original, itemised receipts / VAT receipts for all items you\r\nare claiming reimbursement. Credit/Debit card receipts are not sufficient.</strong>\r\n<ul>\r\n<li>In certain situations it is not feasible to obtain receipts for small items. In\r\nthese cases, unvouched items under \u00a35 will be accepted for reimbursement.\r\nPlease put the actual cost of the item on the form, not \u201c\u00a35\u201d.</li>\r\n</ul>\r\n<li>Use the form provided for claiming expenses incurred on behalf of the Software\r\nSustainability Institute.</li>\r\n<ul>\r\n<li>On the claim form, state your Home Address (not your Work Address).</li>\r\n<li>Make sure you have filled out your bank details correctly and clearly.</li>\r\n<li>List each item so it matches a receipt (do not sum receipts into e.g. \u201cMeals\u201d).</li>\r\n</ul>\r\n<li>Once your claim is fully completed, please add every relevant receipts and:</li>\r\n<ul>\r\n<li>Scan it (form+receipts) and send the digital copy it to\r\nfellows-management@software.ac.uk\u200b ;</li>\r\n<li>Send the paper originals (form+receipts) to\r\n<pre>\r\nGiacomo Peru\r\nEPCC\r\nUniversity of Edinburgh\r\nJames Clerk Maxwell Building\r\nPeter Guthrie Tait Road\r\nEdinburgh\r\nEH9 3FD</pre>\r\n</ul>\r\n<li>It is important that the scan you send by email be identical to the paper originals you\r\nsend by post. Payments will not be released until we receive the paper originals, but\r\nthe scanned copy will speed our processes up.</li>\r\n<li>We cannot reimburse expenses for events which have not yet taken place. Please\r\nemail us if this is an issue for larger value items such as flights and accommodation\r\nas we may be able to book these for you.</li>\r\n<li>Only reasonable expenses actually incurred in pursuit of University business, and\r\nproperly supported by receipts, will be reimbursed. Certain items of expenditure are\r\nsubject to specified limits and conditions, as set out in the University\u2019s policy on\r\nreimbursements of expenses. This includes:\r\n<ul>\r\n<li>Travel should normally be by the cheapest means of transport. Normally this\r\nwill mean standard class rail travel, economy class air travel and public\r\ntransport.</li>\r\n<li>Expenditure on lunch or dinner should not normally exceed \u00a340.</li>\r\n<li>Alcohol will not be reimbursed.</li>\r\n</ul>\r\n</ul>",
         "enable_comments": false,
-        "template_name": "fat/base.html",
+        "template_name": "lowfat/base.html",
         "registration_required": true,
         "sites": [
             1
