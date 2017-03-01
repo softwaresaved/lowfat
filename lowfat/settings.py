@@ -236,7 +236,14 @@ CONSTANCE_CONFIG = OrderedDict([
         False,
         "Notification to claimant by email",
     )),
-
+    ("MAINTENANCE_DAY", (
+        4,
+        "Day when maintenance normaly take place",
+    )),
+    ("MAINTENANCE_HOUR", (
+        9,
+        "Hour when maintenance normaly take placece",
+    )),
 ])
 
 
