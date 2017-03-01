@@ -519,7 +519,8 @@ def blog_form(request):
         blog = formset.save()
         messages.success(request, 'Blog draft saved on our database.')
         if formset.fields["send_email_field"]:
-            new_blog_notification(blog)
+            if blog.fund:
+                new_blog_notification(blog)
         return HttpResponseRedirect(
             reverse('blog_detail', args=[blog.id,])
         )

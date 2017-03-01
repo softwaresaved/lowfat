@@ -592,7 +592,16 @@ class Blog(models.Model):
         app_label = 'lowfat'
 
     # Form
-    fund = models.ForeignKey('Fund')
+    fund = models.ForeignKey(
+        'Fund',
+        null=True,
+        blank=True
+    )
+    author = models.ForeignKey(
+        'Claimant',
+        null=True,
+        blank=True
+    )
     draft_url = models.CharField(max_length=MAX_CHAR_LENGTH)
     final = models.BooleanField(
         default=False
