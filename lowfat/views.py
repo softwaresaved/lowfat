@@ -477,8 +477,14 @@ def expense_review(request, expense_id):
                 reverse('expense_detail', args=[expense.id,])
             )
 
+    initial = {}
+    # Preserve grant_used of approved events
+    if this_expense.status in ('W', 'S', 'C'):
+        initial["grant_used"] = config.GRANTS_DEFAULT
+
     formset = ExpenseReviewForm(
         None,
+        initial=initial,
         instance=this_expense,
         send_email=True if request.user.is_superuser else False
     )
