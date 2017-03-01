@@ -106,8 +106,9 @@ def new_blog_notification(blog):
     new_notification(admin_url, admin_context, user_url, user_email, user_context)
 
 def review_notification(mail, old, new, url):
+    """Compose the message and send the email."""
     if config.CLAIMANT_EMAIL_NOTIFICATION:
-        # Email to claimant
+        # Generate message
         flatemail = FlatPage.objects.get(url=url)
         template = Template(flatemail.content)
         context = Context({
@@ -118,9 +119,12 @@ def review_notification(mail, old, new, url):
             "site": Site.objects.get(id=SITE_ID),
             "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
         })
+        mail.justification = template.render(context)
+
+        # Email to claimant
         send_mail(
             flatemail.title,
-            template.render(context),
+            mail.justification,
             mail.sender.email,
             [mail.receiver.email],
             fail_silently=False
