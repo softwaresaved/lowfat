@@ -87,6 +87,7 @@ TEMPLATES = [
                 'django_settings_export.settings_export',
                 'social_django.context_processors.backends',
                 'constance.context_processors.config',
+                'lowfat.context.maintenance',
             ],
         },
     },
@@ -243,7 +244,14 @@ CONSTANCE_CONFIG = OrderedDict([
         False,
         "Notification to claimant by email",
     )),
-
+    ("MAINTENANCE_DAY", (
+        4,
+        "Day when maintenance normaly take place",
+    )),
+    ("MAINTENANCE_HOUR", (
+        9,
+        "Hour when maintenance normaly take placece",
+    )),
 ])
 
 
