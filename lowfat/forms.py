@@ -11,6 +11,7 @@ from django.forms import (
     Select,
     Textarea,
 )
+
 from datetimewidget.widgets import DateWidget
 
 from crispy_forms.helper import FormHelper
@@ -202,6 +203,9 @@ class FundForm(GarlicForm):
         }
 
         widgets = {
+            'claimant': Select(attrs={"class": "select-single-item"}),
+            'category': Select(attrs={"class": "select-single-item"}),
+            'country': Select(attrs={"class": "select-single-item"}),
             'start_date': DateWidget(
                 usel10n=True,
                 bootstrap_version=3
@@ -432,6 +436,10 @@ class ExpenseForm(GarlicForm):
             'recipient_connection': "Reason for submit the recipient claim",
         }
 
+        widgets = {
+            'fund': Select(attrs={"class": "select-single-item"}),
+        }
+
 
     required_css_class = 'form-field-required'
 
@@ -548,6 +556,10 @@ class BlogForm(GarlicForm):
             'final': "Is this the final blog post draft associated with this funding request?",
             }
 
+        widgets = {
+            'fund': Select(attrs={"class": "select-single-item"}),
+        }
+
 
     required_css_class = 'form-field-required'
 
@@ -557,7 +569,7 @@ class BlogForm(GarlicForm):
     except:  # pylint: disable=bare-except
         author_choices = []
     author = ChoiceField(
-        widget=Select,
+        widget=Select(attrs={"class": "select-single-item"}),
         required=False,
         choices=author_choices,
         label='Main author of draft'
