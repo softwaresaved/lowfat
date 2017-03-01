@@ -103,6 +103,7 @@
             </div><!-- /.container-fluid -->
         </nav>
         <div class="container">
+          {% include "lowfat/maintenance.html" %}
           {% if flatpage %}
           <h1>{{ flatpage.title }}</h1>
           {{ flatpage.content }}
