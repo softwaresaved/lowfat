@@ -1,5 +1,5 @@
 import copy
-from hashlib import blake2b  # pylint: disable=no-name-in-module
+from hashlib import blake2b
 
 import django.utils
 from django.contrib import messages
