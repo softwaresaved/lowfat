@@ -37,12 +37,6 @@
             <th>Amount authorized for payment</th>
             <td>{{ expense.amount_authorized_for_payment }}</td>
         </tr>
-        {% if expense.invoice %}
-        <tr>
-          <th>Invoice reference</th>
-          <td>{{ expense.invoice_reference }}</td>
-        </tr>
-        {% endif %}
         <tr>
             <th>Status</th>
             <td>{{ expense.get_status_display }}</td>

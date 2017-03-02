@@ -14,7 +14,6 @@ from .validator import pdf
 from .jacs import JACS_LEVEL_2
 
 MAX_CHAR_LENGTH = 120
-MAX_INVOICE_REFERENCE_LENGTH = 8  # e.g. SSIFxxxx
 MAX_PHONE_LENGTH = 14
 MAX_DIGITS = 10
 
@@ -476,11 +475,6 @@ class Expense(models.Model):
         null=False,
         blank=False
     )
-    invoice_reference = models.TextField(
-        max_length=MAX_INVOICE_REFERENCE_LENGTH,
-        null=True,
-        blank=True
-    )
 
     # Form
     fund = models.ForeignKey('Fund')
@@ -497,9 +491,6 @@ class Expense(models.Model):
     justification_for_extra = models.TextField(
         max_length=MAX_CHAR_LENGTH,
         blank=True
-    )
-    invoice = models.BooleanField(
-        default=False
     )
     final = models.BooleanField(
         default=False

@@ -1,5 +1,4 @@
 import copy
-from hashlib import blake2b
 
 import django.utils
 from django.contrib import messages
@@ -20,8 +19,6 @@ from .management.commands import loadoldfunds as loadoldfunds
 from .models import *
 from .forms import *
 from .mail import *
-
-INVOICE_HASH = blake2b(digest_size=2)  # to produce len(h.digest()) == 4
 
 def index(request):
     context = {
@@ -409,15 +406,6 @@ def expense_form(request):
 
     if formset.is_valid():
         expense = formset.save()
-        if expense.invoice:
-            INVOICE_HASH.update(bytes("{} - {} #{}".format(
-                expense.fund.claimant.fullname,
-                expense.fund.name,
-                expense.relative_number
-            ), 'utf-8'))
-            expense.invoice_reference = "SSIF{}".format(
-                INVOICE_HASH.hexdigest())
-            expense.save()
         messages.success(request, 'Expense saved on our database.')
         if formset.fields["send_email_field"]:
             new_expense_notification(expense)
