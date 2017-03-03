@@ -47,25 +47,70 @@
             <td>{{ claimant.application_year|add:"1" }}</td>
         </tr>
         {% endif %}
-    </tbody>
+        {% if user.is_superuser %}
+        <tr>
+          <th>Email</th>
+          <td>
+            <a class="icon" href="mailto:{{ claimant.email }}">{{ claimant.email }}</a>
+          </td>
+        </tr>
+        {% endif %}
+        {% if claimant.website %}
+        <tr>
+          <th>Website</th>
+          <td>
+            <a class="icon" href="{{ claimant.website }}">{{ claimant.website }}</a>
+          </td>
+        </tr>
+        {% endif %}
+        {% if claimant.website_feed %}
+        <tr>
+          <th>RSS/Atom Feed</th>
+          <td>
+            <a class="icon" href="{{ claimant.website_feed }}">{{ claimant.website_feed }}</a>
+          </td>
+        </tr>
+        {% endif %}
+        {% if claimant.orcid %}
+        <tr>
+          <th>ORCID</th>
+          <td>
+            <a class="icon" href="http://orcid.org/{{ claimant.orcid }}">{{ claimant.orcid }}</a>
+          </td>
+        </tr>
+        {% endif %}
+        {% if claimant.github %}
+        <tr>
+          <th>GitHub</th>
+          <td>
+            <a class="icon" href="http://github.com/{{ claimant.github }}">{{ claimant.github }}</a>
+          </td>
+        </tr>
+        {% endif %}
+        {% if claimant.gitlab %}
+        <tr>
+          <th>GitLab</th>
+          <td>
+            <a class="icon" href="https://gitlab.com/{{ claimant.gitlab }}">{{ claimant.gitlab }}</a>
+          </td>
+        </tr>
+        {% endif %}
+        {% if claimant.twitter %}
+        <tr>
+          <th>Twitter</th>
+          <td>
+            <a class="icon" href="https://twitter.com/{{ claimant.twitter }}">{{ claimant.twitter }}</a>
+          </td>
+        </tr>
+        {% endif %}
+        {% if claimant.facebook %}
+        <tr>
+          <th>Facebook</th>
+          <td>
+            <a class="icon" href="https://facebook.com/{{ claimant.facebook }}">{{ claimant.facebook }}</a>
+          </td>
+        </tr>
+{% endif %}
 </table>
 </div>
-{% if user.is_superuser %}
-{% include 'lowfat/finances.html' %}
-{% endif %}
-<h2>
-  Funding requests
-  {% if user.is_superuser %}
-  <a class="btn btn-default" href="{% url 'fund' %}?claimant_id={{claimant.id}}">Make a funding request</a>
-  {% endif %}
-</h2>
-{% include 'lowfat/funds.html' %}
-{% if user.is_superuser %}
-{% include 'lowfat/expenses.html' %}
-<h2>
-  Blogs
-  <a class="btn btn-default" href="{% url 'blog' %}?claimant_id={{claimant.id}}">Submit a blog post</a>
-</h2>
-{% include 'lowfat/blogs.html' %}
-{% endif %}
 {% endblock %}
