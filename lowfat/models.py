@@ -293,6 +293,8 @@ class Claimant(models.Model):
         this_claimant_funds = Fund.objects.filter(
             claimant=self,
             status__in=['A', 'F']
+        ).exclude(
+            mandatory=True
         )
         return sum([fund.budget_approved for fund in this_claimant_funds])
 
@@ -301,7 +303,10 @@ class Claimant(models.Model):
         this_claimant_expenses = Expense.objects.filter(
             fund__claimant=self,
             status__in=['A', 'F']
-        ).exclude(funds_from__in=["C", "I"])
+        ).exclude(
+            funds_from__in=["C", "I"],
+            fund__mandatory=True
+        )
         return sum([expense.amount_claimed for expense in this_claimant_expenses])
 
     def claimantship_remaining(self):
