@@ -576,7 +576,10 @@ class Expense(models.Model):
             previous_number = Expense.objects.filter(fund=self.fund).count()
             self.relative_number = previous_number + 1
 
-            self.funds_from = config.FUNDS_FROM_DEFAULT
+            if self.fund.mandatory:  # pylint: disable=no-member
+                self.funds_from = 'I'  # Use of Core fund
+            else:
+                self.funds_from = config.FUNDS_FROM_DEFAULT
             self.grant_used = self.fund.grant_default  # pylint: disable=no-member
         super(Expense, self).save(*args, **kwargs)
 
