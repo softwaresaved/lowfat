@@ -505,7 +505,7 @@ class ExpenseReviewForm(GarlicForm):
                 'grant_used',
                 'notes_from_admin',
                 'email',
-                'send_email_field' if self.send_email else None,
+                'send_email_field' if self.is_staff else None,
                 ButtonHolder(
                     Submit('submit', 'Update')
                 )

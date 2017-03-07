@@ -517,6 +517,14 @@ def blog_form(request):
 
     if formset.is_valid():
         blog = formset.save()
+
+        # Handle blog post not related with a funding request
+        if blog.fund:
+            blog.author = blog.fund.claimant
+        elif not blog.author:
+            blog.author = Claimant.objects.get(user=request.user)
+        blog.save()
+
         messages.success(request, 'Blog draft saved on our database.')
         if formset.fields["send_email_field"]:
             if blog.fund:
@@ -551,7 +559,8 @@ def blog_detail(request, blog_id):
     this_blog = Blog.objects.get(id=blog_id)
 
     if (request.user.is_superuser or
-            Claimant.objects.get(user=request.user) == this_blog.fund.claimant):
+            Claimant.objects.get(user=request.user) == this_blog.author):
+
         context = {
             'blog': Blog.objects.get(id=blog_id),
             'emails': BlogSentMail.objects.filter(blog=this_blog),
