@@ -330,6 +330,7 @@ class Fund(models.Model):
         max_length=MAX_CHAR_LENGTH,
         blank=True
     )
+    mandatory = models.BooleanField(default=False)
     name = models.CharField(max_length=MAX_CHAR_LENGTH)
     url = models.CharField(
         max_length=MAX_CHAR_LENGTH,
