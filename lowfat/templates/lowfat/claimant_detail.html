@@ -113,4 +113,26 @@
 {% endif %}
 </table>
 </div>
+</div>
+{% if user.is_superuser %}
+<div class="row bg-info">
+<div class="fellow col-md-12">
+<h1>Staff view</h1>
+{% include 'lowfat/finances.html' %}
+<h2>
+  Funding requests
+  {% if user.is_superuser %}
+  <a class="btn btn-default" href="{% url 'fund' %}?claimant_id={{claimant.id}}">Make a funding request</a>
+  {% endif %}
+</h2>
+{% include 'lowfat/funds.html' %}
+{% include 'lowfat/expenses.html' %}
+<h2>
+  Blogs
+  <a class="btn btn-default" href="{% url 'blog' %}?claimant_id={{claimant.id}}">Submit a blog post</a>
+</h2>
+{% include 'lowfat/blogs.html' %}
+</div>
+</div>
+{% endif %}
 {% endblock %}
