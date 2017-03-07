@@ -267,7 +267,7 @@ def fund_form(request):
 
     formset = FundForm(
         initial=initial,
-        send_email=True if request.user.is_superuser else False
+        is_staff=True if request.user.is_superuser else False
     )
 
     if not request.user.is_superuser:
@@ -331,7 +331,7 @@ def fund_review(request, fund_id):
     formset = FundReviewForm(
         None,
         instance=this_fund,
-        send_email=True if request.user.is_superuser else False
+        is_staff=True if request.user.is_superuser else False
     )
 
     context = {
@@ -401,7 +401,7 @@ def expense_form(request):
         request.POST or None,
         request.FILES or None,
         initial=initial,
-        send_email=True if request.user.is_superuser else False
+        is_staff=True if request.user.is_superuser else False
     )
 
     if formset.is_valid():
@@ -480,7 +480,7 @@ def expense_review(request, expense_id):
     formset = ExpenseReviewForm(
         None,
         instance=this_expense,
-        send_email=True if request.user.is_superuser else False
+        is_staff=True if request.user.is_superuser else False
     )
 
     context = {
@@ -512,7 +512,7 @@ def blog_form(request):
         request.POST or None,
         request.FILES or None,
         initial=initial,
-        send_email=True if request.user.is_superuser else False
+        is_staff=True if request.user.is_superuser else False
     )
 
     if formset.is_valid():
@@ -586,7 +586,7 @@ def blog_review(request, blog_id):
     formset = BlogReviewForm(
         None,
         instance=this_blog,
-        send_email=True if request.user.is_superuser else False
+        is_staff=True if request.user.is_superuser else False
     )
 
     # Limit dropdown list to staffs

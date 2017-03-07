@@ -21,7 +21,7 @@ class GarlicForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         # Add staff option to not send email notification
-        self.send_email = kwargs.pop("send_email", False)
+        self.is_staff = kwargs.pop("is_staff", False)
 
         # Set up Garlic attribute to persistent data
         super(GarlicForm, self).__init__(*args, **kwargs)
@@ -277,7 +277,7 @@ class FundForm(GarlicForm):
                 HTML('<h2>Publicity</h2>'),
                 'can_be_advertise_before',
                 'can_be_advertise_after',
-                'send_email_field' if self.send_email else None,
+                'send_email_field' if self.is_staff else None,
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
                 )
@@ -327,7 +327,7 @@ class FundReviewForm(GarlicForm):
                 ),
                 "notes_from_admin",
                 "email",
-                'send_email_field' if self.send_email else None,
+                'send_email_field' if self.is_staff else None,
             )
         )
 
@@ -376,7 +376,7 @@ class FundImportForm(Form):
 </ul>
 <p class="text-danger">You will not have access to debug information!</p>"""),
                 'csv',
-                'send_email_field' if self.send_email else None,
+                'send_email_field' if self.is_staff else None,
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
                 )
@@ -442,7 +442,7 @@ class ExpenseForm(GarlicForm):
                 'recipient_group',
                 HTML("<p>You need to provide a reason for submit the recipient claim. An common reasons is \"because the recipient was of of the speakers on that workshop\".</p>"),
                 'recipient_connection',
-                'send_email_field' if self.send_email else None,
+                'send_email_field' if self.is_staff else None,
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
                 )
@@ -518,11 +518,13 @@ class BlogForm(GarlicForm):
         model = Blog
         fields = [
             'fund',
+            'author',
             'draft_url',
             'final',
         ]
         labels = {
             'fund': 'Open approved funding request',
+            'author': 'Main author of draft',
             'draft_url': 'URL of blog post draft',
             'final': "Is this the final blog post draft associated with this funding request?",
             }
@@ -539,9 +541,10 @@ class BlogForm(GarlicForm):
                 '',
                 'fund',
                 HTML("<p>We prefer to receive links to <a href='https://www.google.co.uk/docs/about/'>Google Docs</a>, <a href='https://products.office.com/en-gb/office-365-home'>Microsoft Office 365 document</a> or any other online live collaborative document platform you like to use. Posts published somewhere already, e.g. your personal blog, are welcome as well.</p>"),
+                'author' if self.is_staff else None,
                 'draft_url',
                 'final',
-                'send_email_field' if self.send_email else None,
+                'send_email_field' if self.is_staff else None,
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
                 )
@@ -579,7 +582,7 @@ class BlogReviewForm(GarlicForm):
                 'published_url',
                 'tweet_url',
                 'email',
-                'send_email_field' if self.send_email else None,
+                'send_email_field' if self.is_staff else None,
                 ButtonHolder(
                     Submit('submit', 'Update')
                 )
