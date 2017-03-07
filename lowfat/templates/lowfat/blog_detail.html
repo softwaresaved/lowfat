@@ -21,11 +21,11 @@
         <tr>
             <th>Requester name</th>
             <td>
-              <a href="{% url 'claimant_detail' blog.fund.claimant.id %}">
-              {{ blog.fund.claimant.fullname }}
-              </a>
+              <a href="{% url 'claimant_detail' blog.author.id %}">
+                {{ blog.author.fullname }}
             </td>
         </tr>
+        {% if blog.fund %}
         <tr>
             <th>Funding request name</th>
             <td>
@@ -34,6 +34,7 @@
               </a>
             </td>
         </tr>
+        {% endif %}
         <tr>
             <th>Draft URL</th>
             <td><a href="{{ blog.draft_url }}">{{ blog.draft_url }}</a></td>
