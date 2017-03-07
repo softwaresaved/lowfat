@@ -1,7 +1,5 @@
 import copy
 
-from constance import config
-
 import django.utils
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required

@@ -576,7 +576,7 @@ class Expense(models.Model):
             self.relative_number = previous_number + 1
 
             self.funds_from = config.FUNDS_FROM_DEFAULT
-            self.grant_used = self.fund.grant_default
+            self.grant_used = self.fund.grant_default  # pylint: disable=no-member
         super(Expense, self).save(*args, **kwargs)
 
     def link(self):
