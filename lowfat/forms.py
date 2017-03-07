@@ -536,6 +536,9 @@ class BlogForm(GarlicForm):
     def __init__(self, *args, user=None, **kwargs):
         super(BlogForm, self).__init__(*args, **kwargs)
 
+        if not self.is_staff:
+            self._meta.fields.pop(self._meta.fields.index("author"))
+
         self.helper.layout = Layout(
             Fieldset(
                 '',
