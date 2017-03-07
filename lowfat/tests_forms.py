@@ -867,6 +867,7 @@ class FundReviewFormTest(TestCase):
     def test_null_status(self):
         data = {
             "ad_status": "V",
+            "grant_default": "SSI1",
             "required_blog_posts": 1,
             "budget_approved": 100.00,
             "notes_from_admin": ":-)",
@@ -876,6 +877,19 @@ class FundReviewFormTest(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_blank_status(self):
+        data = {
+            "status": "",
+            "ad_status": "V",
+            "grant_default": "SSI1",
+            "required_blog_posts": 1,
+            "budget_approved": 100.00,
+            "notes_from_admin": ":-)",
+        }
+
+        form = FundReviewForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_blank_grant_default(self):
         data = {
             "status": "",
             "ad_status": "V",
@@ -892,6 +906,7 @@ class FundReviewFormTest(TestCase):
     #    data = {
     #        "status": "A",
     #        "required_blog_posts": 1,
+    #        "grant_default": "SSI1",
     #        "budget_approved": 100.00,
     #        "notes_from_admin": ":-)",
     #    }
@@ -903,6 +918,7 @@ class FundReviewFormTest(TestCase):
     #    data = {
     #        "status": "A",
     #        "ad_status": "",
+    #        "grant_default": "SSI1",
     #        "required_blog_posts": 1,
     #        "budget_approved": 100.00,
     #        "notes_from_admin": ":-)",
@@ -915,6 +931,7 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "A",
             "ad_status": "V",
+            "grant_default": "SSI1",
             "budget_approved": 100.00,
         }
 
@@ -925,6 +942,7 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "A",
             "ad_status": "V",
+            "grant_default": "SSI1",
             "required_blog_posts": 1,
             "notes_from_admin": ":-)",
         }
@@ -936,6 +954,7 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "A",
             "ad_status": "V",
+            "grant_default": "SSI1",
             "required_blog_posts": 1,
             "budget_approved": 100.00,
         }
@@ -947,6 +966,7 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "A",
             "ad_status": "V",
+            "grant_default": "SSI1",
             "required_blog_posts": 1,
             "budget_approved": 100.00,
             "notes_from_admin": ":-)",
