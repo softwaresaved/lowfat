@@ -131,6 +131,7 @@ def create_all():
 
     data = {
         "fund": fund,
+        "author": fund.claimant,
         "draft_url": "http://software.ac.uk",
         }
 

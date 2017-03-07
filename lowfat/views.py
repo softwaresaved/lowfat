@@ -267,7 +267,7 @@ def fund_form(request):
 
     formset = FundForm(
         initial=initial,
-        send_email=True if request.user.is_superuser else False
+        is_staff=True if request.user.is_superuser else False
     )
 
     if not request.user.is_superuser:
@@ -331,7 +331,7 @@ def fund_review(request, fund_id):
     formset = FundReviewForm(
         None,
         instance=this_fund,
-        send_email=True if request.user.is_superuser else False
+        is_staff=True if request.user.is_superuser else False
     )
 
     context = {
@@ -401,7 +401,7 @@ def expense_form(request):
         request.POST or None,
         request.FILES or None,
         initial=initial,
-        send_email=True if request.user.is_superuser else False
+        is_staff=True if request.user.is_superuser else False
     )
 
     if formset.is_valid():
@@ -480,7 +480,7 @@ def expense_review(request, expense_id):
     formset = ExpenseReviewForm(
         None,
         instance=this_expense,
-        send_email=True if request.user.is_superuser else False
+        is_staff=True if request.user.is_superuser else False
     )
 
     context = {
@@ -512,14 +512,23 @@ def blog_form(request):
         request.POST or None,
         request.FILES or None,
         initial=initial,
-        send_email=True if request.user.is_superuser else False
+        is_staff=True if request.user.is_superuser else False
     )
 
     if formset.is_valid():
         blog = formset.save()
+
+        # Handle blog post not related with a funding request
+        if blog.fund:
+            blog.author = blog.fund.claimant
+        elif not blog.author:
+            blog.author = Claimant.objects.get(user=request.user)
+        blog.save()
+
         messages.success(request, 'Blog draft saved on our database.')
         if formset.fields["send_email_field"]:
-            new_blog_notification(blog)
+            if blog.fund:
+                new_blog_notification(blog)
         return HttpResponseRedirect(
             reverse('blog_detail', args=[blog.id,])
         )
@@ -550,7 +559,8 @@ def blog_detail(request, blog_id):
     this_blog = Blog.objects.get(id=blog_id)
 
     if (request.user.is_superuser or
-            Claimant.objects.get(user=request.user) == this_blog.fund.claimant):
+            Claimant.objects.get(user=request.user) == this_blog.author):
+
         context = {
             'blog': Blog.objects.get(id=blog_id),
             'emails': BlogSentMail.objects.filter(blog=this_blog),
@@ -585,7 +595,7 @@ def blog_review(request, blog_id):
     formset = BlogReviewForm(
         None,
         instance=this_blog,
-        send_email=True if request.user.is_superuser else False
+        is_staff=True if request.user.is_superuser else False
     )
 
     # Limit dropdown list to staffs

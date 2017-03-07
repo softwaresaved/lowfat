@@ -187,8 +187,11 @@
     <tr>
       <td>{{ blog.added }}</td>
       <td>
-        <a title="Review" href="{% url 'blog_review' blog.id %}">{{ blog.draft_url }}</a> from
-        <a href="{% url 'fund_detail' blog.fund.id %}">{{ blog.fund.name }}</a>
+        <a title="Review" href="{% url 'blog_review' blog.id %}">{{ blog.draft_url }}</a>
+        by <a href="{% url 'claimant_detail' blog.author.id %}">{{ blog.author.fullname }}</a>
+        {% if blog.fund %}
+        for <a href="{% url 'fund_detail' blog.fund.id %}">{{ blog.fund.name }}</a>
+        {% endif %}
       </td>
       <td>
         {{ blog.get_status_display }}

@@ -1127,25 +1127,6 @@ class BlogFormTest(TestCase):
     def setUp(self):
         self.claimant_id, self.fund_id = create_fund()
 
-    def test_null_fund(self):
-        data = {
-            "draft_url": "http://software.ac.uk",
-            "final": True,
-        }
-
-        form = BlogForm(data)
-        self.assertFalse(form.is_valid())
-
-    def test_blank_fund(self):
-        data = {
-            "fund": "",
-            "draft_url": "http://software.ac.uk",
-            "final": True,
-        }
-
-        form = BlogForm(data)
-        self.assertFalse(form.is_valid())
-
     def test_null_draft_url(self):
         data = {
             "fund": self.fund_id,
