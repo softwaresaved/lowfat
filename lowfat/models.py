@@ -286,17 +286,25 @@ class Claimant(models.Model):
 
     def claimantship_available(self):
         """Return the remain claimantship grant."""
-        return self.claimantship_grant - self.claimantship_spent() - self.claimantship_remaining()
+        return self.claimantship_grant - self.claimantship_committed() - self.claimantship_spent()
 
     def claimantship_committed(self):
         """Return the ammount committed from the claimantship grant."""
         this_claimant_funds = Fund.objects.filter(
             claimant=self,
-            status__in=['A', 'F']
+            status__in=['A']
         ).exclude(
             mandatory=True
         )
-        return sum([fund.budget_approved for fund in this_claimant_funds])
+
+        spent_from_committed = 0
+        for fund in this_claimant_funds:
+            spent_from_committed += sum([expense.amount_claimed for expense in Expense.objects.filter(
+                fund=fund,
+                status__in=['A', 'F']
+                )])
+
+        return sum([fund.budget_approved for fund in this_claimant_funds]) - spent_from_committed
 
     def claimantship_spent(self):
         """Return the ammount alread spent from the claimantship grant."""
@@ -304,14 +312,9 @@ class Claimant(models.Model):
             fund__claimant=self,
             status__in=['A', 'F']
         ).exclude(
-            funds_from__in=["C", "I"],
             fund__mandatory=True
         )
         return sum([expense.amount_claimed for expense in this_claimant_expenses])
-
-    def claimantship_remaining(self):
-        """Return the ammount remaining to claim from the total committed."""
-        return self.claimantship_committed() - self.claimantship_spent()
 
     def link(self):
         if self.selected:
