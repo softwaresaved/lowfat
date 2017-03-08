@@ -525,13 +525,6 @@ class ExpenseReviewForm(GarlicForm):
 
 
 class BlogForm(GarlicForm):
-    author = ChoiceField(
-        widget=Select,
-        required=False,
-        choices=[(this_claimant.id, this_claimant) for this_claimant in Claimant.objects.all()],
-        label='Main author of draft'
-    )
-
     class Meta:
         model = Blog
         fields = [
@@ -547,6 +540,18 @@ class BlogForm(GarlicForm):
 
 
     required_css_class = 'form-field-required'
+
+    # workaround for "no such table: lowfat_claimant"
+    try:
+        author_choices = [(this_claimant.id, this_claimant) for this_claimant in Claimant.objects.all()]
+    except:
+        author_choices = []
+    author = ChoiceField(
+        widget=Select,
+        required=False,
+        choices=author_choices,
+        label='Main author of draft'
+    )
 
 
     def __init__(self, *args, user=None, **kwargs):
@@ -569,6 +574,11 @@ class BlogForm(GarlicForm):
 
         if user:
             self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
+
+        if self.is_staff:
+            # Force staff to select one author
+            self.fields['author'].widget.choices.insert(0, ('', '---------'))
+            self.fields['author'].initial = ''
 
 
 class BlogReviewForm(GarlicForm):
