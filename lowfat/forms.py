@@ -1,6 +1,17 @@
 from datetime import datetime
 
-from django.forms import Form, ModelForm, SelectDateWidget, CharField, BooleanField, Textarea, CheckboxInput, FileField
+from django.forms import (
+    BooleanField,
+    CharField,
+    CheckboxInput,
+    ChoiceField,
+    FileField,
+    Form,
+    ModelForm,
+    Select,
+    SelectDateWidget,
+    Textarea,
+)
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML
@@ -51,7 +62,7 @@ class ClaimantForm(GarlicForm):
             'gitlab',
             'twitter',
             'facebook',
-            ]
+        ]
 
 
     required_css_class = 'form-field-required'
@@ -85,7 +96,7 @@ class ClaimantForm(GarlicForm):
                     Submit('submit', 'Add')
                 )
             )
-            )
+        )
 
 
 class FellowForm(GarlicForm):
@@ -113,7 +124,7 @@ class FellowForm(GarlicForm):
             'gitlab',
             'twitter',
             'facebook',
-            ]
+        ]
 
 
     required_css_class = 'form-field-required'
@@ -152,7 +163,7 @@ class FellowForm(GarlicForm):
                     Submit('submit', 'Add')
                 )
             )
-            )
+        )
 
 
 class FundForm(GarlicForm):
@@ -282,7 +293,7 @@ class FundForm(GarlicForm):
                     Submit('submit', '{{ title }}')
                 )
             )
-            )
+        )
 
         # Force user to select one category
         self.fields['category'].widget.choices.insert(0, ('', '---------'))
@@ -381,7 +392,7 @@ class FundImportForm(Form):
                     Submit('submit', '{{ title }}')
                 )
             )
-            )
+        )
 
 
 class ExpenseForm(GarlicForm):
@@ -446,8 +457,8 @@ class ExpenseForm(GarlicForm):
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
                 )
-                )
             )
+        )
 
         self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
 
@@ -463,7 +474,7 @@ class ExpenseReviewForm(GarlicForm):
             'funds_from',
             'grant_used',
             'notes_from_admin',
-            ]
+        ]
 
         widgets = {
             'received_date': SelectDateWidget(
@@ -509,22 +520,27 @@ class ExpenseReviewForm(GarlicForm):
                 ButtonHolder(
                     Submit('submit', 'Update')
                 )
-                )
             )
+        )
 
 
 class BlogForm(GarlicForm):
+    author = ChoiceField(
+        widget=Select,
+        required=False,
+        choices=[(this_claimant.id, this_claimant) for this_claimant in Claimant.objects.all()],
+        label='Main author of draft'
+    )
+
     class Meta:
         model = Blog
         fields = [
             'fund',
-            'author',
             'draft_url',
             'final',
         ]
         labels = {
             'fund': 'Open approved funding request',
-            'author': 'Main author of draft',
             'draft_url': 'URL of blog post draft',
             'final': "Is this the final blog post draft associated with this funding request?",
             }
@@ -535,9 +551,6 @@ class BlogForm(GarlicForm):
 
     def __init__(self, *args, user=None, **kwargs):
         super(BlogForm, self).__init__(*args, **kwargs)
-
-        if not self.is_staff:
-            self._meta.fields.pop(self._meta.fields.index("author"))
 
         self.helper.layout = Layout(
             Fieldset(
