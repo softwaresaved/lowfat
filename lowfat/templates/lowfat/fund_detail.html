@@ -63,13 +63,13 @@
     <tbody>
         <tr>
             <th><strong>Total</strong> budget request</th>
-            <td>£{{ fund.budget_total }}</td>
+            <td>£{{ fund.budget_total|floatformat:2 }}</td>
         </tr>
         <tr>
             <th><strong>Total</strong> budget approve</th>
             <td>
               {% if fund.status in 'AF' %}
-              £{{ fund.budget_approved }}
+              £{{ fund.budget_approved|floatformat:2 }}
               {% else %}
               £0.00
               {% endif %}
@@ -82,27 +82,27 @@
     <tbody>
         <tr>
             <th>Travel expenses</th>
-            <td>£{{ fund.budget_request_travel }}</td>
+            <td>£{{ fund.budget_request_travel|floatformat:2 }}</td>
         </tr>
         <tr>
             <th>Attendance fees</th>
-            <td>£{{ fund.budget_request_attendance_fees }}</td>
+            <td>£{{ fund.budget_request_attendance_fees|floatformat:2 }}</td>
         </tr>
         <tr>
             <th>Subsistence cost</th>
-            <td>£{{ fund.budget_request_subsistence_cost }}</td>
+            <td>£{{ fund.budget_request_subsistence_cost|floatformat:2 }}</td>
         </tr>
         <tr>
             <th>Venue hire</th>
-            <td>£{{ fund.budget_request_venue_hire }}</td>
+            <td>£{{ fund.budget_request_venue_hire|floatformat:2 }}</td>
         </tr>
         <tr>
             <th>Catering</th>
-            <td>£{{ fund.budget_request_catering }}</td>
+            <td>£{{ fund.budget_request_catering|floatformat:2 }}</td>
         </tr>
         <tr>
             <th>Others</th>
-            <td>£{{ fund.budget_request_others }}</td>
+            <td>£{{ fund.budget_request_others|floatformat:2 }}</td>
         </tr>
     </tbody>
 </table>

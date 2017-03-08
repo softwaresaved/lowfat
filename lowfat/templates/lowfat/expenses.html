@@ -55,10 +55,10 @@
         {% endif %}
       </td>
       <td>
-        {{ expense.amount_claimed }}
+        £{{ expense.amount_claimed|floatformat:2 }}
       </td>
       <td>
-        {{ expense.amount_authorized_for_payment }}
+        £{{ expense.amount_authorized_for_payment|floatformat:2 }}
       </td>
     </tr>
     {% endfor %}

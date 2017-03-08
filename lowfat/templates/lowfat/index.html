@@ -63,7 +63,7 @@
   </a>
     {% if show_grant_available %}
     <br>
-    £{{ claimant.claimantship_available }}
+    £{{ claimant.claimantship_available|floatformat:2 }}
     {% endif %}
 </div>
 {% if forloop.counter|divisibleby:"6" %}

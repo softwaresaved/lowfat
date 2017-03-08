@@ -2,23 +2,24 @@
 <table class="table table-bordered">
   <tbody>
   <tr>
-    <th>Grant</th>
-    <td>£{{ claimant.claimantship_grant }}</td>
+    <th>Grant <span title="Initial fellowship grant" class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+</th>
+    <td>£{{ claimant.claimantship_grant|floatformat:2 }}</td>
   </tr>
   <tr>
-    <th>Available</th>
-    <td>£{{ claimant.claimantship_available }}</td>
+    <th>Available <span title="Fellowship grant not committed or spent" class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></th>
+    <td>£{{ claimant.claimantship_available|floatformat:2 }}</td>
   </tr>
   <tr>
-    <th>Committed</th>
-    <td>£{{ claimant.claimantship_committed }}</td>
+    <th>Committed <span title="Sum of approved funding requests' budget" class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></th>
+    <td>£{{ claimant.claimantship_committed|floatformat:2 }}</td>
   </tr>
   <tr>
-    <th>Spent</th>
-    <td>£{{ claimant.claimantship_spent }}</td>
+    <th>Spent <span title="Sum of all approved expenses claim" class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></th>
+    <td>£{{ claimant.claimantship_spent|floatformat:2 }}</td>
   <tr>
-    <th>Remaining to claim</th>
-    <td>£{{ claimant.claimantship_remaining }}</td>
+    <th>Remaining to claim <span title="Committed minus Spent" class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></th>
+    <td>£{{ claimant.claimantship_remaining|floatformat:2 }}</td>
   </tr>
   <tr>
   </tbody>
