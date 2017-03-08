@@ -183,7 +183,7 @@ class FundForm(GarlicForm):
         labels = {
             'claimant': 'Requester name',
             'category_other': 'Specify the category if used "Other"',
-            'mandatory': 'Is this a mandatory event as part of your fellowship?',
+            'mandatory': 'Is this related with Fellows face to face selection meeting, Fellows inaugural meeting or Collaborations Workshop?',
             'name': 'Event name',
             'url': 'Event webpage link',
             'country': 'Country in which event is taking place',
