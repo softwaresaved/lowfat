@@ -551,6 +551,7 @@ def blog_form(request):
     context = {
         "title": "Submit blog post draft",
         "formset": formset,
+        "js_files": ["js/blog.js"],
     }
     return render(request, 'lowfat/form.html', context)
 
