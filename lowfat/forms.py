@@ -546,7 +546,7 @@ class BlogForm(GarlicForm):
     # workaround for "no such table: lowfat_claimant"
     try:
         author_choices = [(this_claimant.id, this_claimant) for this_claimant in Claimant.objects.all()]
-    except:
+    except:  # pylint: disable=bare-except
         author_choices = []
     author = ChoiceField(
         widget=Select,
