@@ -293,6 +293,8 @@ class Claimant(models.Model):
         this_claimant_funds = Fund.objects.filter(
             claimant=self,
             status__in=['A', 'F']
+        ).exclude(
+            mandatory=True
         )
         return sum([fund.budget_approved for fund in this_claimant_funds])
 
@@ -301,7 +303,10 @@ class Claimant(models.Model):
         this_claimant_expenses = Expense.objects.filter(
             fund__claimant=self,
             status__in=['A', 'F']
-        ).exclude(funds_from__in=["C", "I"])
+        ).exclude(
+            funds_from__in=["C", "I"],
+            fund__mandatory=True
+        )
         return sum([expense.amount_claimed for expense in this_claimant_expenses])
 
     def claimantship_remaining(self):
@@ -330,6 +335,7 @@ class Fund(models.Model):
         max_length=MAX_CHAR_LENGTH,
         blank=True
     )
+    mandatory = models.BooleanField(default=False)
     name = models.CharField(max_length=MAX_CHAR_LENGTH)
     url = models.CharField(
         max_length=MAX_CHAR_LENGTH,
@@ -575,7 +581,10 @@ class Expense(models.Model):
             previous_number = Expense.objects.filter(fund=self.fund).count()
             self.relative_number = previous_number + 1
 
-            self.funds_from = config.FUNDS_FROM_DEFAULT
+            if self.fund.mandatory:  # pylint: disable=no-member
+                self.funds_from = 'I'  # Use of Core fund
+            else:
+                self.funds_from = config.FUNDS_FROM_DEFAULT
             self.grant_used = self.fund.grant_default  # pylint: disable=no-member
         super(Expense, self).save(*args, **kwargs)
 
