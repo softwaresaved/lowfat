@@ -420,7 +420,7 @@ class Fund(models.Model):
     grant_default = models.CharField(
         choices=GRANTS,
         max_length=4,
-        default="SS2"
+        default="SSI2"
     )
     notes_from_admin = models.TextField(
         null=True,
@@ -576,7 +576,7 @@ class Expense(models.Model):
     grant_used = models.CharField(
         choices=GRANTS,
         max_length=4,
-        default="SS2"
+        default="SSI2"
     )
     notes_from_admin = models.TextField(
         null=True,
