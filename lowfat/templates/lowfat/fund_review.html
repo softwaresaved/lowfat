@@ -9,11 +9,16 @@
     <tbody>
         <tr>
             <th>Requester</th>
-            <td>{{ fund.claimant.fullname }}</td>
+            <td>
+              <a href="{% url 'claimant_detail' fund.claimant.id %}">{{ fund.claimant.fullname }}</a>
+              <a class="icon" href="mailto:{{ expense.fund.claimant.email }}">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+              </a>
+            </td>
         </tr>
         <tr>
             <th>Name</th>
-            <td>{{ fund.name }}</td>
+            <td><a href="{% url 'fund_detail' fund.id %}">{{ fund.name }}</a></td>
         </tr>
         <tr>
             <th>URL</th>

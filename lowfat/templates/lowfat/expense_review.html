@@ -14,11 +14,16 @@
     <tbody>
         <tr>
             <th>Requester name</th>
-            <td>{{ expense.fund.claimant.fullname }}</td>
+            <td>
+              <a href="{% url 'claimant_detail' expense.fund.claimant.id %}">{{ expense.fund.claimant.fullname }}</a>
+              <a class="icon" href="mailto:{{ expense.fund.claimant.email }}">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+              </a>
+            </td>
         </tr>
         <tr>
             <th>Funding request name</th>
-            <td>{{ expense.fund.name }}</td>
+            <td><a href="{% url 'fund_detail' expense.fund.id %}">{{ expense.fund.name }}</a></td>
         </tr>
         <tr>
             <th>Budget approved</th>
