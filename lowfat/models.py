@@ -417,6 +417,11 @@ class Fund(models.Model):
         blank=False,
         default=1
     )
+    funds_from_default = models.CharField(
+        choices=FUNDS_FROM,
+        max_length=1,
+        default="G"
+    )
     grant_default = models.CharField(
         choices=GRANTS,
         max_length=4,
