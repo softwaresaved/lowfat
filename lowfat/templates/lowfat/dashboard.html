@@ -94,6 +94,7 @@
         <a title="View" href="{% url 'fund_detail' fund.id %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
         <a  title="Review" href="{% url 'fund_review' fund.id %}"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
         <a  title="Edit" href="{% url 'admin:lowfat_fund_change' fund.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+        <a class="icon" href="mailto:{{ fund.claimant.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>
         <a  title="Remove" href="{% url 'admin:lowfat_fund_delete' fund.id %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
       </td>
     </tr>
@@ -144,6 +145,7 @@
         <a title="View" href="{% url 'expense_detail' expense.id %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
         <a  title="Review" href="{% url 'expense_review' expense.id %}"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
         <a  title="Edit" href="{% url 'admin:lowfat_expense_change' expense.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+        <a class="icon" href="mailto:{{ expense.fund.claimant.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>
         <a  title="Remove" href="{% url 'admin:lowfat_expense_delete' expense.id %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
       </td>
     </tr>
@@ -200,6 +202,7 @@
         <a title="View" href="{% url 'blog_detail' blog.id %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
         <a  title="Review" href="{% url 'blog_review' blog.id %}"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
         <a  title="Edit" href="{% url 'admin:lowfat_blog_change' blog.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+        <a class="icon" href="mailto:{{ blog.author.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>
         <a  title="Remove" href="{% url 'admin:lowfat_blog_delete' blog.id %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
       </td>
     </tr>
