@@ -50,7 +50,7 @@
     "fields": {
         "url": "/email/template/blog/admin/",
         "title": "We have a new blog post draft pending your review",
-        "content": "Hi,\r\n\r\nWe received a blog post draft for\r\n\r\n{{blog.fund.name}}.\r\n\r\nPlease visit {{ protocol }}://{{ site.domain }}{{blog.link_review}} to review it.\r\n\r\n---\r\nLowFAT",
+        "content": "Hi,\r\n\r\nWe received a blog post draft.\r\n\r\nPlease visit {{ protocol }}://{{ site.domain }}{{blog.link_review}} to review it.\r\n\r\n---\r\nLowFAT",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -65,7 +65,7 @@
     "fields": {
         "url": "/email/template/blog/claimant/",
         "title": "We received your blog post draft",
-        "content": "Dear {{blog.fund.claimant.fullname}},\r\n\r\nThank you for your blog post draft about {{blog.fund.name}}.\r\n\r\nWe will review it and get in touch with you before publication on our website.\r\n\r\nYou can check the status of your blog post draft at {{ protocol }}://{{ site.domain }}{{blog.link}}.\r\n\r\nBest wishes,\r\nFellows Management ({{FELLOWS_MANAGEMENT_EMAIL}})\r\nSoftware Sustainability Institute",
+        "content": "Dear {{blog.fund.author.fullname}},\r\n\r\nThank you for your blog post draft.\r\n\r\nWe will review it and get in touch with you before publication on our website.\r\n\r\nYou can check the status of your blog post draft at {{ protocol }}://{{ site.domain }}{{blog.link}}.\r\n\r\nBest wishes,\r\nFellows Management ({{FELLOWS_MANAGEMENT_EMAIL}})\r\nSoftware Sustainability Institute",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -125,7 +125,7 @@
     "fields": {
         "url": "/email/template/blog/claimant/change/",
         "title": "New message about your blog post draft",
-        "content": "Dear {{new.fund.claimant.fullname}},\r\n\r\nYour blog post draft for {{new.fund.name}} has been published at {{new.published_url}}.\r\n\r\nAnd we mentioned it on Twitter, {{new.tweet_url}}.\r\n{% if notes %}\r\nNotes:\r\n---\r\n{{notes}}\r\n---\r\n{% endif %}\r\nBest wishes,\r\nFellows Management ({{FELLOWS_MANAGEMENT_EMAIL}})\r\nSoftware Sustainability Institute",
+        "content": "Dear {{new.fund.author.fullname}},\r\n\r\nYour blog post has been published at {{new.published_url}}.\r\n\r\nAnd we mentioned it on Twitter, {{new.tweet_url}}.\r\n{% if notes %}\r\nNotes:\r\n---\r\n{{notes}}\r\n---\r\n{% endif %}\r\nBest wishes,\r\nFellows Management ({{FELLOWS_MANAGEMENT_EMAIL}})\r\nSoftware Sustainability Institute",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
