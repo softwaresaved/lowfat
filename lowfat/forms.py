@@ -174,6 +174,7 @@ class FundForm(GarlicForm):
             "ad_status",
             "budget_approved",
             "required_blog_posts",
+            "funds_from_default",
             "grant_default",
             "notes_from_admin",
             "added",
@@ -308,6 +309,7 @@ class FundReviewForm(GarlicForm):
         fields = [
             "status",
             #"ad_status",  # TODO uncomment in the future
+            "funds_from_default",
             "grant_default",
             "required_blog_posts",
             "budget_approved",
@@ -315,6 +317,8 @@ class FundReviewForm(GarlicForm):
         ]
 
         labels = {
+            "funds_from_default": "Default \"Funds from\"",
+            "grant_default": "Default \"Grant used\"",
             'budget_approved': 'Total budget approved',
         }
 
@@ -329,8 +333,9 @@ class FundReviewForm(GarlicForm):
             Fieldset(
                 '',
                 "status",
-                "required_blog_posts",
+                "funds_from_default",
                 "grant_default",
+                "required_blog_posts",
                 PrependedText(
                     "budget_approved",
                     '£',

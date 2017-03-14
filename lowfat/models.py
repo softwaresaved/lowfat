@@ -417,10 +417,15 @@ class Fund(models.Model):
         blank=False,
         default=1
     )
+    funds_from_default = models.CharField(
+        choices=FUNDS_FROM,
+        max_length=1,
+        default="F"
+    )
     grant_default = models.CharField(
         choices=GRANTS,
         max_length=4,
-        default="SS2"
+        default="SSI2"
     )
     notes_from_admin = models.TextField(
         null=True,
@@ -571,12 +576,12 @@ class Expense(models.Model):
     funds_from = models.CharField(
         choices=FUNDS_FROM,
         max_length=1,
-        default="G"
+        default="F"
     )
     grant_used = models.CharField(
         choices=GRANTS,
         max_length=4,
-        default="SS2"
+        default="SSI2"
     )
     notes_from_admin = models.TextField(
         null=True,
@@ -599,7 +604,7 @@ class Expense(models.Model):
             if self.fund.mandatory:  # pylint: disable=no-member
                 self.funds_from = 'I'  # Use of Core fund
             else:
-                self.funds_from = config.FUNDS_FROM_DEFAULT
+                self.funds_from = self.fund.funds_from_default
             self.grant_used = self.fund.grant_default  # pylint: disable=no-member
 
             if self.invoice:

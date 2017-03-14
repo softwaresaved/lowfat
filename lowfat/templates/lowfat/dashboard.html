@@ -110,8 +110,8 @@
   <li role="presentation" {% if request.GET.expenses == 'WSCPAF' %}class="active"{% endif %}>
     <a href="?expenses=WSCPAF">All</a>
   </li>
-  <li role="presentation" {% if "expenses" not in request.GET or request.GET.expenses == 'WSC' %}class="active"{% endif %}><a href="?expenses=WSC">Pending</a></li>
-  <li role="presentation" {% if request.GET.expenses == 'PAF' %}class="active"{% endif %}><a href="?expenses=PAF">Approved</a></li>
+  <li role="presentation" {% if "expenses" not in request.GET or request.GET.expenses == 'WSCP' %}class="active"{% endif %}><a href="?expenses=WSCP">Pending</a></li>
+  <li role="presentation" {% if request.GET.expenses == 'AF' %}class="active"{% endif %}><a href="?expenses=AF">Approved</a></li>
 </ul>
 {% if expenses %}
 <table class="table table-bordered sortable">
