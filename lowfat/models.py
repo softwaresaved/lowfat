@@ -604,7 +604,7 @@ class Expense(models.Model):
             if self.fund.mandatory:  # pylint: disable=no-member
                 self.funds_from = 'I'  # Use of Core fund
             else:
-                self.funds_from = config.FUNDS_FROM_DEFAULT
+                self.funds_from = self.fund.funds_from_default
             self.grant_used = self.fund.grant_default  # pylint: disable=no-member
 
             if self.invoice:
