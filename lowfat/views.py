@@ -522,7 +522,7 @@ def blog_form(request):
         # Handle blog post not related with a funding request
         if blog.fund:
             blog.author = blog.fund.claimant
-        elif not blog.author:
+        elif not blog.author and not request.user.is_superuser:
             blog.author = Claimant.objects.get(user=request.user)
         blog.save()
 
