@@ -23,8 +23,8 @@ from .mail import *
 
 def index(request):
     context = {
-        'claimants': Claimant.objects.exclude(selected=False).order_by('application_year').reverse(),
-        'funds': Fund.objects.filter(category="H", start_date__gte=django.utils.timezone.now(), can_be_advertise_before=True).order_by("start_date").reverse(),
+        'claimants': Claimant.objects.exclude(selected=False),
+        'funds': Fund.objects.filter(category="H", start_date__gte=django.utils.timezone.now(), can_be_advertise_before=True),
     }
 
     if request.user.is_authenticated() and request.user.is_superuser:
@@ -46,15 +46,15 @@ def dashboard(request):
         except:  # pylint: disable=bare-except
             return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/welcome/'}))
 
-        funds = Fund.objects.filter(claimant=claimant).reverse()
+        funds = Fund.objects.filter(claimant=claimant)
 
         context.update(
             {
                 'claimant': claimant,
                 'budget_available': claimant.claimantship_available(),
                 'funds': pair_fund_with_blog(funds, "P"),
-                'expenses': Expense.objects.filter(fund__claimant=claimant).reverse(),
-                'blogs': Blog.objects.filter(fund__claimant=claimant).reverse(),
+                'expenses': Expense.objects.filter(fund__claimant=claimant),
+                'blogs': Blog.objects.filter(fund__claimant=claimant),
             }
         )
     else:
@@ -75,9 +75,9 @@ def dashboard(request):
 
         context.update(
             {
-                'funds': Fund.objects.filter(status__in=funding_requests_status).reverse(),
-                'expenses': Expense.objects.filter(status__in=expenses_status).reverse(),
-                'blogs': Blog.objects.filter(status__in=blogs_status).reverse(),
+                'funds': Fund.objects.filter(status__in=funding_requests_status),
+                'expenses': Expense.objects.filter(status__in=expenses_status),
+                'blogs': Blog.objects.filter(status__in=blogs_status),
             }
         )
 
@@ -276,7 +276,7 @@ def fund_form(request):
     elif request.GET.get("claimant_id"):
         formset.fields["claimant"].queryset = Claimant.objects.filter(id=request.GET.get("claimant_id"))
     else:
-        formset.fields["claimant"].queryset = Claimant.objects.all().order_by("forenames")
+        formset.fields["claimant"].queryset = Claimant.objects.all()
 
     # Show submission form.
     context = {
@@ -349,7 +349,7 @@ def fund_past(request):
         category="H",
         status__in=["A", "F"],
         can_be_advertise_after=True,
-    ).order_by("start_date").reverse()
+    )
 
     context = {
         'funds': [(fund, Blog.objects.filter(

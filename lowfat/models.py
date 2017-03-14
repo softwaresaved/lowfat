@@ -127,6 +127,12 @@ class Claimant(models.Model):
 
     class Meta:
         app_label = 'lowfat'
+        ordering = [
+            "-selected",
+            "-application_year",
+            "forenames",
+            "surname",
+        ]
 
     # Authentication
     #
@@ -330,6 +336,11 @@ class Fund(models.Model):
     """Describe a fund from one claimant."""
     class Meta:
         app_label = 'lowfat'
+        ordering = [
+            "-start_date",
+            "-end_date",
+            "name",
+        ]
 
     # TODO Make claimant more generic to include staffs.
     claimant = models.ForeignKey('Claimant')
@@ -497,6 +508,10 @@ class Expense(models.Model):
     """This describe one expense for one fund."""
     class Meta:
         app_label = 'lowfat'
+        ordering = [
+            "-received_date",
+            "relative_number",
+        ]
 
     # Internal
     relative_number = models.IntegerField(
@@ -631,6 +646,9 @@ class Blog(models.Model):
     """Provide the link to the blog post about the fund."""
     class Meta:
         app_label = 'lowfat'
+        ordering = [
+            "-added",
+        ]
 
     # Form
     fund = models.ForeignKey(
@@ -699,9 +717,11 @@ class Blog(models.Model):
 
 class GeneralSentMail(models.Model):
     """Emails sent with custom text."""
-
     class Meta:
         app_label = 'lowfat'
+        ordering = [
+            "date",
+        ]
 
     justification = models.TextField()
 
