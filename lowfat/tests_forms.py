@@ -966,6 +966,7 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "A",
             "ad_status": "V",
+            "funds_from_default": "F",
             "grant_default": "SSI1",
             "required_blog_posts": 1,
             "budget_approved": 100.00,
