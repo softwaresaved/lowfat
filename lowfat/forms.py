@@ -174,6 +174,7 @@ class FundForm(GarlicForm):
             "ad_status",
             "budget_approved",
             "required_blog_posts",
+            "funds_from_default",
             "grant_default",
             "notes_from_admin",
             "added",
