@@ -13,7 +13,8 @@
   {% endif %}
   >{{ expense.get_status_display }}</span>
   {% if user.is_superuser %}
-  <a class="btn btn-default" href="{% url 'expense_review' expense.id %}" role="button">Review</a>
+  <a class="btn btn-default" href="{% url 'expense_review' expense.id %}" role="button"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Review</a>
+  <a class="btn btn-default" href="{% url 'admin:lowfat_expense_change' expense.id %}" role="button"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
   {% endif %}
 </h1>
 <object class="expense-review-pdf" data="{{ expense.claim.url }}" type="application/pdf">
