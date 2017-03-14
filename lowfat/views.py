@@ -66,7 +66,7 @@ def dashboard(request):
         if "expenses" in request.GET:
             expenses_status = request.GET["expenses"]
         else:
-            expenses_status = "WSC"
+            expenses_status = "WSCP"
 
         if "blogs" in request.GET:
             blogs_status = request.GET["blogs"]
