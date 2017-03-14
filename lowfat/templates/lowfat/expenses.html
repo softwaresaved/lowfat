@@ -23,6 +23,11 @@
       <th>
         Amount authorized for payment
       </th>
+      {% if user.is_superuser %}
+      <th>
+        Actions
+      </th>
+      {% endif %}
     </tr>
     {% for expense in expenses %}
     <tr
@@ -60,6 +65,15 @@
       <td>
         £{{ expense.amount_authorized_for_payment|floatformat:2 }}
       </td>
+      {% if user.is_superuser %}
+      <td>
+        <a title="View" href="{% url 'expense_detail' expense.id %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+        <a  title="Review" href="{% url 'expense_review' expense.id %}"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
+        <a  title="Edit" href="{% url 'admin:lowfat_expense_change' expense.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+        <a class="icon" href="mailto:{{ expense.fund.claimant.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+        <a  title="Remove" href="{% url 'admin:lowfat_expense_delete' expense.id %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+      </td>
+      {% endif %}
     </tr>
     {% endfor %}
     {% if fund %}
@@ -76,6 +90,7 @@
       <th>
         {{ fund.expenses_authorized_for_payment }}
       </th>
+
     </tr>
    {% endif %}
   </tbody>

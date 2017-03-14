@@ -5,6 +5,11 @@
             <th>Name</th>
             <th>Start date</th>
             <th>End date</th>
+            {% if user.is_superuser %}
+            <th>
+              Actions
+            </th>
+            {% endif %}
         </tr>
 {% for fund, blog in funds %}
 <tr
@@ -54,8 +59,17 @@
     )
     {% endif %}
   </td>
-    <td>{{fund.start_date}}</td>
-    <td>{{fund.end_date}}</td>
+  <td>{{fund.start_date}}</td>
+  <td>{{fund.end_date}}</td>
+  {% if user.is_superuser %}
+  <td>
+    <a title="View" href="{% url 'fund_detail' fund.id %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+    <a  title="Review" href="{% url 'fund_review' fund.id %}"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
+    <a  title="Edit" href="{% url 'admin:lowfat_fund_change' fund.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+    <a class="icon" href="mailto:{{ fund.claimant.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+    <a  title="Remove" href="{% url 'admin:lowfat_fund_delete' fund.id %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+  </td>
+  {% endif %}
 </tr>
 {% endfor %}
     </tbody>
