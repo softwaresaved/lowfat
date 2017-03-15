@@ -4,6 +4,7 @@ django-backup
 django-constance[database]
 django-countries
 django-crispy-forms
+django-datetime-widget
 django-dbbackup
 django-settings-export
 django-simple-history
