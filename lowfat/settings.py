@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'constance',
     'constance.backends.database',
     'django_extensions',
+    'datetimewidget',
     'simple_history',
     'lowfat',
 ]
@@ -64,6 +65,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',

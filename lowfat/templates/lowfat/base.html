@@ -1,141 +1,146 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Software Sustainability Institute - lowFAT -
-          {% if flatpage %}
-          {{ flatpage.title }}
-          {% else %}
-          {{ title }}
-        {% endif %}</title>
-        <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/vnd.microsoft.icon" />
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Software Sustainability Institute - lowFAT -
+      {% if flatpage %}
+      {{ flatpage.title }}
+      {% else %}
+      {{ title }}
+      {% endif %}</title>
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/vnd.microsoft.icon" />
 
+    <!-- Begin CSS block -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sticky-footer-navbar.css' %}" />
 
-        <!-- Bootstrap -->
-        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
-        <link rel="stylesheet" type="text/css" href="{% static 'css/sticky-footer-navbar.css' %}" />
+    <!-- Social Media -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/academicons.css' %}"/>
 
-        <!-- Social Media -->
-        <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}"/>
-        <link rel="stylesheet" type="text/css" href="{% static 'css/academicons.css' %}"/>
+    <!-- Custom -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/lowfat.css' %}" />
 
-        <!-- Sorttable -->
-        <script src="{% static 'js/sorttable.js' %}"></script>
+    {% block extra_css %}{% endblock %}
+    <!-- End CSS block -->
 
-        <!-- Custom -->
-        <link rel="stylesheet" type="text/css" href="{% static 'css/lowfat.css' %}" />
+    <!-- Begin Javascript block -->
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-        {% block extra_css %}{% endblock %}
-        {% block extra_js %}{% endblock %}
-        {% for js in js_files %}
-        <script src="{% static js %}"></script>
-        {% endfor %}
-    </head>
+    <!-- Bootstrap -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
-    <body>
-        <nav class="navbar navbar-default navbar-fixed-top""navbar navbar-default">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="https://software.ac.uk">
-                      <img class="logo img-responsive" src="{% static 'img/logo.png' %}">
-                    </a>
-                    <a class="navbar-brand" href="{% url 'index' %}">lowFAT</a>
+    <!-- Sorttable -->
+    <script src="{% static 'js/sorttable.js' %}"></script>
+
+    {% block extra_js %}{% endblock %}
+
+    {% for js in js_files %}
+    <script src="{% static js %}"></script>
+    {% endfor %}
+    <!-- End Javascript block -->
+
+    {{ form.media }}
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top""navbar navbar-default">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="https://software.ac.uk">
+            <img class="logo img-responsive" src="{% static 'img/logo.png' %}">
+          </a>
+          <a class="navbar-brand" href="{% url 'index' %}">lowFAT</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+            <li>
+              <form class="form-inline" action="{% url 'search' %}" method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                  <input class="form-control" type="text" name="search" value={{ search }}>
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Search</button>
+                  </span>
                 </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        {% if user.is_authenticated %}
-                        {% if user.is_superuser %}
-                        <li>
-                          <form class="form-inline" action="{% url 'search' %}" method="post">
-                            {% csrf_token %}
-                            <div class="input-group">
-                              <input class="form-control" type="text" name="search" value={{ search }}>
-                              <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">Search</button>
-                              </span>
-                            </div>
-                        </form>
-                        </li>
-                        {% endif %}
-                        {% if not user.is_superuser %}
-                        <li>
-                            <a href="{% url 'my_profile' %}" />My Profile</a>
-                        </li>
-                        {% endif %}
-                        <li>
-                            <a href="{% url 'dashboard' %}" />My Dashboard</a>
-                        </li>
-                        <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span class="caret"></span></a>
-                          <ul class="dropdown-menu">
-                            <li><a href="{% url 'fund' %}">Make a funding request</a></li>
-                            <li><a href="{% url 'expense' %}">Submit expense claim</a></li>
-                            <li><a href="{% url 'blog' %}">Submit a blog post</a></li>
-                          </ul>
-                        </li>
-                        {% endif %}
-                        {% if user.is_authenticated %}
-                        <li>
-                          <a href="{% url 'sign_out' %}" />Sign out</a>
-                        </li>
-                        {% else %}
-                        <li>
-                          <a href="{% url 'sign_in' %}" />Sign in</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'social:begin' 'github' %}" />Sign in with GitHub</a>
-                        </li>
-                       {% endif %}
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
-        <div class="container">
-          {% include "lowfat/maintenance.html" %}
-          {% if flatpage %}
-          <h1>{{ flatpage.title }}</h1>
-          {{ flatpage.content }}
-          {% else %}
-          {% block content %}{% endblock %}
-          {% endif %}
-        </div>
-        <footer class="footer">
-        <div class="container">
-          <p class="text-muted">Powered with
-            <a href="http://python.org/">Python 3</a>,
-            <a href="http://djangoproject.com/">Django</a>,
-            <a href="http://getbootstrap.com/">Bootstrap</a>,
-            <a href="http://garlicjs.org/">Garlic.js</a>,
-            <a href="http://fontawesome.io/">Font Awesome</a>, and
-            <a href="http://jpswalsh.github.io/academicons/">Academicons</a>.
-            Running version {{ settings.VERSION }}
-            from <a href="{{ settings.URL_SRC }}">{{ settings.URL_SRC }}</a>.
-            <br>
-            If you need any help please email
-            <a href="mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}">us</a>.
-          </p>
-        </div>
-        </footer>
-
-
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="{% static 'js/bootstrap.min.js' %}"></script>
-
-        {% block extra_js_body %}{% endblock %}
-    </body>
+              </form>
+            </li>
+            {% endif %}
+            {% if not user.is_superuser %}
+            <li>
+              <a href="{% url 'my_profile' %}" />My Profile</a>
+</li>
+{% endif %}
+<li>
+  <a href="{% url 'dashboard' %}" />My Dashboard</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span class="caret"></span></a>
+  <ul class="dropdown-menu">
+    <li><a href="{% url 'fund' %}">Make a funding request</a></li>
+    <li><a href="{% url 'expense' %}">Submit expense claim</a></li>
+    <li><a href="{% url 'blog' %}">Submit a blog post</a></li>
+  </ul>
+</li>
+{% endif %}
+{% if user.is_authenticated %}
+<li>
+  <a href="{% url 'sign_out' %}" />Sign out</a>
+</li>
+{% else %}
+<li>
+  <a href="{% url 'sign_in' %}" />Sign in</a>
+</li>
+<li>
+  <a href="{% url 'social:begin' 'github' %}" />Sign in with GitHub</a>
+</li>
+{% endif %}
+</ul>
+</div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
+</nav>
+<div class="container">
+  {% include "lowfat/maintenance.html" %}
+  {% if flatpage %}
+  <h1>{{ flatpage.title }}</h1>
+  {{ flatpage.content }}
+  {% else %}
+  {% block content %}{% endblock %}
+  {% endif %}
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="text-muted">Powered with
+      <a href="http://python.org/">Python 3</a>,
+      <a href="http://djangoproject.com/">Django</a>,
+      <a href="http://getbootstrap.com/">Bootstrap</a>,
+      <a href="http://garlicjs.org/">Garlic.js</a>,
+      <a href="http://fontawesome.io/">Font Awesome</a>, and
+      <a href="http://jpswalsh.github.io/academicons/">Academicons</a>.
+      Running version {{ settings.VERSION }}
+      from <a href="{{ settings.URL_SRC }}">{{ settings.URL_SRC }}</a>.
+      <br>
+      If you need any help please email
+      <a href="mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}">us</a>.
+    </p>
+  </div>
+</footer>
+{% block extra_js_body %}{% endblock %}
+</body>
 </html>
 
