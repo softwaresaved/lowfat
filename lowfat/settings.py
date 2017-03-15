@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'constance',
     'constance.backends.database',
     'django_extensions',
+    'datetimewidget',
     'simple_history',
     'lowfat',
 ]
