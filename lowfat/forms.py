@@ -9,9 +9,9 @@ from django.forms import (
     Form,
     ModelForm,
     Select,
-    SelectDateWidget,
     Textarea,
 )
+from datetimewidget.widgets import DateWidget
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML
@@ -202,13 +202,13 @@ class FundForm(GarlicForm):
         }
 
         widgets = {
-            'start_date': SelectDateWidget(
-                years=SELECT_DATE_WIDGE_YEARS,
-                empty_label=("Choose Year", "Choose Month", "Choose Day")
+            'start_date': DateWidget(
+                usel10n=True,
+                bootstrap_version=3
             ),
-            'end_date': SelectDateWidget(
-                years=SELECT_DATE_WIDGE_YEARS,
-                empty_label=("Choose Year", "Choose Month", "Choose Day")
+            'end_date': DateWidget(
+                usel10n=True,
+                bootstrap_version=3
             ),
         }
 
@@ -487,17 +487,17 @@ class ExpenseReviewForm(GarlicForm):
         ]
 
         widgets = {
-            'received_date': SelectDateWidget(
-                years=SELECT_DATE_WIDGE_YEARS,
-                empty_label=("Choose Year", "Choose Month", "Choose Day")
+            'received_date': DateWidget(
+                usel10n=True,
+                bootstrap_version=3
             ),
-            'asked_for_authorization_date': SelectDateWidget(
-                years=SELECT_DATE_WIDGE_YEARS,
-                empty_label=("Choose Year", "Choose Month", "Choose Day")
+            'asked_for_authorization_date': DateWidget(
+                usel10n=True,
+                bootstrap_version=3
             ),
-            'send_to_finance_date': SelectDateWidget(
-                years=SELECT_DATE_WIDGE_YEARS,
-                empty_label=("Choose Year", "Choose Month", "Choose Day")
+            'send_to_finance_date': DateWidget(
+                usel10n=True,
+                bootstrap_version=3
             ),
         }
 
