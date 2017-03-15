@@ -3,13 +3,16 @@
   <div class="col-md-12">
     {% for message in messages %}
     {% if message.tags == "success" %}
-    <p class="bg-success">
+    <div class="alert alert-success" role="alert">
       <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+    {% elif message.tags == "error" %}
+    <div class="alert alert-danger" role="alert">
+      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
     {% else %}
-    <p class="bg-info">
+    <div class="alert alert-info" role="alert">
     {% endif %}
     {{ message }}
-    </p>
+    </div>
     {% endfor %}
   </div>
 </div>

@@ -520,10 +520,18 @@ def blog_form(request):
         blog = formset.save()
 
         # Handle blog post not related with a funding request
-        if blog.fund:
+        if formset.cleaned_data["author"]:  # Because blog.author is None!
+            blog.author = Claimant.objects.get(id=formset.cleaned_data["author"])
+        elif blog.fund:
             blog.author = blog.fund.claimant
         elif not blog.author and not request.user.is_superuser:
             blog.author = Claimant.objects.get(user=request.user)
+        else:
+            blog.delete()  # XXX Quick way to solve the issue
+            messages.error(request, 'Blog post not saved. Please provide a author.')
+            return HttpResponseRedirect(
+                reverse('blog')
+            )
         blog.save()
 
         messages.success(request, 'Blog draft saved on our database.')
