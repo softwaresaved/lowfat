@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     'django_countries',
     'crispy_forms',
+    'bootstrap3_datetime',
     'social_django',
     'dbbackup',
     'constance',

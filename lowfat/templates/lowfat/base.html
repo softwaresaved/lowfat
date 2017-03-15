@@ -22,11 +22,17 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}"/>
         <link rel="stylesheet" type="text/css" href="{% static 'css/academicons.css' %}"/>
 
+        <!-- jQuery -->
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+
         <!-- Sorttable -->
         <script src="{% static 'js/sorttable.js' %}"></script>
 
         <!-- Custom -->
         <link rel="stylesheet" type="text/css" href="{% static 'css/lowfat.css' %}" />
+
+        <!-- Required by django-bootstrap3-datetimepicker -->
+        {{ form.media }}
 
         {% block extra_css %}{% endblock %}
         {% block extra_js %}{% endblock %}

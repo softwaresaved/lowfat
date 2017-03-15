@@ -1,6 +1,7 @@
 bokeh
 django
 django-backup
+django-bootstrap3-datetimepicker
 django-constance[database]
 django-countries
 django-crispy-forms
