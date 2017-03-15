@@ -596,6 +596,7 @@ class BlogReviewForm(GarlicForm):
         model = Blog
         exclude = [
             "fund",
+            "author",
             "added",
             "updated",
         ]
