@@ -168,7 +168,7 @@ def blog_review_notification(message, sender, old, new):
             **{
                 "justification": message,
                 "sender": sender,
-                "receiver": new.fund.claimant,
+                "receiver": new.author,
                 "blog": new,
             }
         )
