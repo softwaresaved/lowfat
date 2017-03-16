@@ -423,7 +423,7 @@ class ExpenseForm(GarlicForm):
             'fund': 'Choose approved funding request',
             'claim': 'PDF copy of claim and receipt(s)',
             'justification_for_extra': "If the claim is greater than 20% of the amount requested please provide justification",
-            'invoice': "Do you need to claim this expense over a invoice?",
+            'invoice': "Do you need to claim this expense via an invoice from your institution or company?",
             'final': "Is this the final expense claim associated with this funding request?",
             'recipient_fullname': "Full name",
             'recipient_email': "E-mail",
