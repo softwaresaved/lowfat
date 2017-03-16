@@ -518,7 +518,7 @@ class Expense(models.Model):
         null=False,
         blank=False
     )
-    invoice_reference = models.TextField(
+    invoice_reference = models.CharField(
         max_length=MAX_INVOICE_REFERENCE_LENGTH,
         null=True,
         blank=True
