@@ -537,7 +537,6 @@ class Expense(models.Model):
         default=0.00
     )
     justification_for_extra = models.TextField(
-        max_length=MAX_CHAR_LENGTH,
         blank=True
     )
     invoice = models.BooleanField(
