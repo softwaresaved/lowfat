@@ -129,6 +129,8 @@ def review_notification(mail, old, new, url):
             [mail.receiver.email],
             fail_silently=False
         )
+        # Every email is archived in the database
+        mail.save()
 
 def fund_review_notification(message, sender, old, new):
     if new.status in ('A', 'R'):
@@ -143,9 +145,6 @@ def fund_review_notification(message, sender, old, new):
 
         review_notification(mail, old, new, "/email/template/fund/claimant/change/")
 
-        if message:
-            mail.save()
-
 def expense_review_notification(message, sender, old, new):
     if new.status == 'A':
         mail = ExpenseSentMail(
@@ -159,9 +158,6 @@ def expense_review_notification(message, sender, old, new):
 
         review_notification(mail, old, new, "/email/template/expense/claimant/change/")
 
-        if message:
-            mail.save()
-
 def blog_review_notification(message, sender, old, new):
     if new.status == 'P':
         mail = BlogSentMail(
@@ -174,6 +170,3 @@ def blog_review_notification(message, sender, old, new):
         )
 
         review_notification(mail, old, new, "/email/template/blog/claimant/change/")
-
-        if message:
-            mail.save()
