@@ -244,7 +244,7 @@ def fund_form(request):
         if formset.is_valid():
             fund = formset.save()
             messages.success(request, 'Funding request saved on our database.')
-            if formset.fields["send_email_field"]:
+            if formset.cleaned_data["send_email_field"]:
                 new_fund_notification(fund)
 
             # Default value for budget_approved is budget_total.
@@ -318,7 +318,7 @@ def fund_review(request, fund_id):
 
         if formset.is_valid():
             fund = formset.save()
-            if formset.fields["send_email_field"]:
+            if formset.cleaned_data["send_email_field"]:
                 fund_review_notification(
                     formset.cleaned_data['email'],
                     request.user,
@@ -408,7 +408,7 @@ def expense_form(request):
     if formset.is_valid():
         expense = formset.save()
         messages.success(request, 'Expense saved on our database.')
-        if formset.fields["send_email_field"]:
+        if formset.cleaned_data["send_email_field"]:
             new_expense_notification(expense)
         return HttpResponseRedirect(
             reverse('expense_detail', args=[expense.id,])
@@ -467,7 +467,7 @@ def expense_review(request, expense_id):
 
         if formset.is_valid():
             expense = formset.save()
-            if formset.fields["send_email_field"]:
+            if formset.cleaned_data["send_email_field"]:
                 expense_review_notification(
                     formset.cleaned_data['email'],
                     request.user,
@@ -535,7 +535,7 @@ def blog_form(request):
         blog.save()
 
         messages.success(request, 'Blog draft saved on our database.')
-        if formset.fields["send_email_field"]:
+        if formset.cleaned_data["send_email_field"]:
             if blog.fund:
                 new_blog_notification(blog)
         return HttpResponseRedirect(
@@ -591,7 +591,7 @@ def blog_review(request, blog_id):
 
         if formset.is_valid():
             blog = formset.save()
-            if formset.fields["send_email_field"]:
+            if formset.cleaned_data["send_email_field"]:
                 blog_review_notification(
                     formset.cleaned_data['email'],
                     request.user,
