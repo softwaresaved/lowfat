@@ -54,7 +54,7 @@ def dashboard(request):
                 'budget_available': claimant.claimantship_available(),
                 'funds': pair_fund_with_blog(funds, "P"),
                 'expenses': Expense.objects.filter(fund__claimant=claimant),
-                'blogs': Blog.objects.filter(fund__claimant=claimant),
+                'blogs': Blog.objects.filter(author=claimant),
             }
         )
     else:
@@ -185,7 +185,7 @@ def claimant_detail(request, claimant_id):
     context = {
         'claimant': this_claimant,
         'blogs': Blog.objects.filter(
-            fund__claimant=this_claimant,
+            author=this_claimant,
         ),
     }
 

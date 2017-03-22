@@ -960,6 +960,111 @@
     }
 },
 {
+    "model": "lowfat.historicalblog",
+    "pk": 1,
+    "fields": {
+        "id": 9,
+        "draft_url": "http://software.ac.uk",
+        "final": false,
+        "status": "U",
+        "notes_from_admin": null,
+        "published_url": null,
+        "tweet_url": null,
+        "added": "2017-03-22T09:54:52.506",
+        "updated": "2017-03-22T09:54:52.506",
+        "fund": null,
+        "author": null,
+        "reviewer": null,
+        "history_date": "2017-03-22T09:54:52.516",
+        "history_user": 3,
+        "history_type": "+"
+    }
+},
+{
+    "model": "lowfat.historicalblog",
+    "pk": 2,
+    "fields": {
+        "id": 9,
+        "draft_url": "http://software.ac.uk",
+        "final": false,
+        "status": "U",
+        "notes_from_admin": null,
+        "published_url": null,
+        "tweet_url": null,
+        "added": "2017-03-22T09:54:52.506",
+        "updated": "2017-03-22T09:54:52.530",
+        "fund": null,
+        "author": 4,
+        "reviewer": null,
+        "history_date": "2017-03-22T09:54:52.540",
+        "history_user": 3,
+        "history_type": "~"
+    }
+},
+{
+    "model": "lowfat.historicalblog",
+    "pk": 3,
+    "fields": {
+        "id": 10,
+        "draft_url": "http://software.ac.uk",
+        "final": false,
+        "status": "U",
+        "notes_from_admin": null,
+        "published_url": null,
+        "tweet_url": null,
+        "added": "2017-03-22T09:55:35.756",
+        "updated": "2017-03-22T09:55:35.756",
+        "fund": null,
+        "author": null,
+        "reviewer": null,
+        "history_date": "2017-03-22T09:55:35.768",
+        "history_user": 5,
+        "history_type": "+"
+    }
+},
+{
+    "model": "lowfat.historicalblog",
+    "pk": 4,
+    "fields": {
+        "id": 10,
+        "draft_url": "http://software.ac.uk",
+        "final": false,
+        "status": "U",
+        "notes_from_admin": null,
+        "published_url": null,
+        "tweet_url": null,
+        "added": "2017-03-22T09:55:35.756",
+        "updated": "2017-03-22T09:55:35.785",
+        "fund": null,
+        "author": 2,
+        "reviewer": null,
+        "history_date": "2017-03-22T09:55:35.798",
+        "history_user": 5,
+        "history_type": "~"
+    }
+},
+{
+    "model": "lowfat.historicalblog",
+    "pk": 5,
+    "fields": {
+        "id": 10,
+        "draft_url": "http://software.ac.uk",
+        "final": false,
+        "status": "P",
+        "notes_from_admin": "",
+        "published_url": "http://software.ac.uk",
+        "tweet_url": "http://twitter.com",
+        "added": "2017-03-22T09:55:35.756",
+        "updated": "2017-03-22T09:56:19.622",
+        "fund": null,
+        "author": 2,
+        "reviewer": 1,
+        "history_date": "2017-03-22T09:56:19.632",
+        "history_user": 1,
+        "history_type": "~"
+    }
+},
+{
     "model": "lowfat.blog",
     "pk": 1,
     "fields": {
@@ -1076,6 +1181,40 @@
         "tweet_url": "http://twitter.com",
         "added": "2016-12-07T14:54:00.483",
         "updated": "2016-12-07T14:54:00.483"
+    }
+},
+{
+    "model": "lowfat.blog",
+    "pk": 9,
+    "fields": {
+        "fund": null,
+        "author": 4,
+        "draft_url": "http://software.ac.uk",
+        "final": false,
+        "status": "U",
+        "reviewer": null,
+        "notes_from_admin": null,
+        "published_url": null,
+        "tweet_url": null,
+        "added": "2017-03-22T09:54:52.506",
+        "updated": "2017-03-22T09:54:52.530"
+    }
+},
+{
+    "model": "lowfat.blog",
+    "pk": 10,
+    "fields": {
+        "fund": null,
+        "author": 2,
+        "draft_url": "http://software.ac.uk",
+        "final": false,
+        "status": "P",
+        "reviewer": 1,
+        "notes_from_admin": "",
+        "published_url": "http://software.ac.uk",
+        "tweet_url": "http://twitter.com",
+        "added": "2017-03-22T09:55:35.756",
+        "updated": "2017-03-22T09:56:19.622"
     }
 },
 {
