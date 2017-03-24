@@ -9,6 +9,7 @@ FONT_AWESOME_ZIP=${TMP_FOLDER}/fontawesome.zip
 ACADEMICONS_ZIP=${TMP_FOLDER}/academicons.zip
 GARLIC_ZIP=${TMP_FOLDER}/garlic.zip
 DATETIME_WIDGET_ZIP=${TMP_FOLDER}/datetimewidget.zip
+SELECTIZE_ZIP=${TMP_FOLDER}/selectize.zip
 
 # Bootstrap
 curl \
@@ -82,6 +83,26 @@ unzip \
     $DATETIME_WIDGET_ZIP \
     -d $TMP_FOLDER
 mv $TMP_FOLDER/django-datetime-widget-master/datetimewidget/static $TMP_FOLDER/datetimewidget/
+
+# Selectize
+mkdir -p $TMP_FOLDER/selectize/{css,js}
+curl \
+    --silent \
+    -L \
+    -o $SELECTIZE_ZIP \
+    https://github.com/selectize/selectize.js/archive/v0.12.4.zip
+unzip \
+    -q \
+    -p \
+    $SELECTIZE_ZIP \
+    selectize.js-0.12.4/dist/css/selectize.bootstrap3.css \
+    > $TMP_FOLDER/selectize/css/selectize.bootstrap3.css
+unzip \
+    -q \
+    -p \
+    $SELECTIZE_ZIP \
+    selectize.js-0.12.4/dist/js/standalone/selectize.min.js \
+    > $TMP_FOLDER/selectize/js/selectize.min.js
 
 # Copy files
 for folder in css fonts js

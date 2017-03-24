@@ -2,8 +2,22 @@
 {% load staticfiles %}
 {% load crispy_forms_tags %}
 
+{% block extra_css %}
+<!-- Selectize -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/selectize.bootstrap3.css' %}" />
+{% endblock %}
+
 {% block extra_js_body %}
 <script src="{% static 'js/garlic.min.js' %}"></script>
+<script src="{% static 'js/selectize.min.js' %}"></script>
+<script>
+$(document).ready(function() {
+$(".select-single-item").selectize({
+create: true,
+sortField: 'text'
+});
+});
+</script>
 {% endblock %}
 
 {% block content %}
