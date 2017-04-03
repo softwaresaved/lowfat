@@ -5,7 +5,7 @@
     "fields": {
         "url": "/welcome/",
         "title": "Welcome",
-        "content": "<p>Please email us at <a href=\"mailto:fellows-management@software.ac.uk\">fellows-management@software.ac.uk</a> to have your account confirmed.</p>",
+        "content": "<p>Please email us at <a href=\"mailto:{{FELLOWS_MANAGEMENT_EMAIL}}\">{{FELLOWS_MANAGEMENT_EMAIL}}</a> to have your account confirmed. <strong>Include your GitHub username in your email.</strong></p>",
         "enable_comments": false,
         "template_name": "lowfat/base.html",
         "registration_required": false,
@@ -35,7 +35,7 @@
     "fields": {
         "url": "/email/template/fund/admin/",
         "title": "We have a new funding request pending your review",
-        "content": "Hi,\r\n\r\nWe received a new funding request for\r\n\r\n{{fund.name}}.\r\n\r\nPlease visit {{ protocol }}://{{ site.domain }}{{fund.link_review}} to review it.\r\n\r\n---\r\nLowFAT",
+        "content": "Hi,\r\n\r\nWe received a new funding request from {{ fund.claimant.fullname }} for\r\n\r\n{{ fund.name }}.\r\n\r\nPlease visit {{ protocol }}://{{ site.domain }}{{ fund.link_review }} to review it.\r\n\r\n---\r\nLowFAT",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -50,7 +50,7 @@
     "fields": {
         "url": "/email/template/blog/admin/",
         "title": "We have a new blog post draft pending your review",
-        "content": "Hi,\r\n\r\nWe received a blog post draft.\r\n\r\nPlease visit {{ protocol }}://{{ site.domain }}{{blog.link_review}} to review it.\r\n\r\n---\r\nLowFAT",
+        "content": "Hi,\r\n\r\nWe received a blog post draft from {{ blog.author.fullname }}.\r\n\r\nPlease visit {{ protocol }}://{{ site.domain }}{{ blog.link_review }} to review it.\r\n\r\n---\r\nLowFAT",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -65,7 +65,7 @@
     "fields": {
         "url": "/email/template/blog/claimant/",
         "title": "We received your blog post draft",
-        "content": "Dear {{blog.author.fullname}},\r\n\r\nThank you for your blog post draft.\r\n\r\nWe will review it and get in touch with you before publication on our website.\r\n\r\nYou can check the status of your blog post draft at {{ protocol }}://{{ site.domain }}{{blog.link}}.\r\n\r\nBest wishes,\r\nFellows Management ({{FELLOWS_MANAGEMENT_EMAIL}})\r\nSoftware Sustainability Institute",
+        "content": "Dear {{ blog.author.fullname }},\r\n\r\nThank you for your blog post draft.\r\n\r\nWe will review it and get in touch with you before publication on our website.\r\n\r\nYou can check the status of your blog post draft at {{ protocol }}://{{ site.domain }}{{ blog.link }}.\r\n\r\nBest wishes,\r\nFellows Management ({{ FELLOWS_MANAGEMENT_EMAIL }})\r\nSoftware Sustainability Institute",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -80,7 +80,7 @@
     "fields": {
         "url": "/email/template/fund/claimant/",
         "title": "We received your funding request",
-        "content": "Dear {{fund.claimant.fullname}},\r\n\r\nWe have received your funding request for {{fund.name}}.\r\n\r\nThe Fellows Management team will evaluate it and reply to you in the next few days.\r\n\r\nYou can check the status of your funding request at {{ protocol }}://{{ site.domain }}{{fund.link}}.\r\n\r\nIf you do not hear from us in 3 days then please email us a reminder to {{FELLOWS_MANAGEMENT_EMAIL}}.\r\n\r\nBest wishes,\r\nFellows Management ({{FELLOWS_MANAGEMENT_EMAIL}})\r\nSoftware Sustainability Institute",
+        "content": "Dear {{ fund.claimant.fullname }},\r\n\r\nWe have received your funding request for {{ fund.name }}.\r\n\r\nThe Fellows Management team will evaluate it and reply to you in the next few days.\r\n\r\nYou can check the status of your funding request at {{ protocol }}://{{ site.domain }}{{ fund.link }}.\r\n\r\nIf you do not hear from us in 3 days then please email us a reminder to {{ FELLOWS_MANAGEMENT_EMAIL }}.\r\n\r\nBest wishes,\r\nFellows Management ({{ FELLOWS_MANAGEMENT_EMAIL }})\r\nSoftware Sustainability Institute",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -95,7 +95,7 @@
     "fields": {
         "url": "/email/template/expense/admin/",
         "title": "We have a new expense claim pending your review",
-        "content": "Hi,\r\n\r\nWe received a new expense claim for\r\n\r\n{{expense.fund.name}}.\r\n\r\nPlease visit {{ protocol }}://{{ site.domain }}{{expense.link_review}} to review it.\r\n\r\n---\r\nLowFAT",
+        "content": "Hi,\r\n\r\nWe received a new expense claim from {{ expense.fund.claimant.fullname }} for\r\n\r\n{{ expense.fund.name }}.\r\n\r\nPlease visit {{ protocol }}://{{ site.domain }}{{ expense.link_review }} to review it.\r\n\r\n---\r\nLowFAT",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -110,7 +110,7 @@
     "fields": {
         "url": "/email/template/expense/claimant/",
         "title": "We received your expense claim",
-        "content": "Dear {{expense.fund.claimant.fullname}},\r\n\r\nWe have received your expenses claim of \u00a3{{expense.amount_claimed}} for {{expense.fund.name}}.\r\n\r\nWe will process it as soon as possible and we will contact you if needed.\r\n\r\nYou can check the status of your expense claim at {{ protocol }}://{{ site.domain }}{{expense.link}}.\r\n\r\nBest wishes,\r\nFellows Management ({{FELLOWS_MANAGEMENT_EMAIL}})\r\nSoftware Sustainability Institute",
+        "content": "Dear {{ expense.fund.claimant.fullname }},\r\n\r\nWe have received your expenses claim of \u00a3{{ expense.amount_claimed }} for {{ expense.fund.name }}.\r\n\r\nWe will process it as soon as possible and we will contact you if needed.\r\n\r\nYou can check the status of your expense claim at {{ protocol }}://{{ site.domain }}{{ expense.link }}.\r\n\r\nBest wishes,\r\nFellows Management ({{ FELLOWS_MANAGEMENT_EMAIL }})\r\nSoftware Sustainability Institute",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -125,7 +125,7 @@
     "fields": {
         "url": "/email/template/blog/claimant/change/",
         "title": "New message about your blog post draft",
-        "content": "Dear {{new.author.fullname}},\r\n\r\nYour blog post has been published at {{new.published_url}}.\r\n\r\nAnd we mentioned it on Twitter, {{new.tweet_url}}.\r\n{% if notes %}\r\nNotes:\r\n---\r\n{{notes}}\r\n---\r\n{% endif %}\r\nBest wishes,\r\nFellows Management ({{FELLOWS_MANAGEMENT_EMAIL}})\r\nSoftware Sustainability Institute",
+        "content": "Dear {{ new.author.fullname }},\r\n\r\nYour blog post has been published at {{ new.published_url }}.\r\n\r\nAnd we mentioned it on Twitter, {{ new.tweet_url }}.\r\n{% if notes %}\r\nNotes:\r\n---\r\n{{ notes }}\r\n---\r\n{% endif %}\r\nBest wishes,\r\nFellows Management ({{ FELLOWS_MANAGEMENT_EMAIL }})\r\nSoftware Sustainability Institute",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -140,7 +140,7 @@
     "fields": {
         "url": "/email/template/expense/claimant/change/",
         "title": "New message about your expense claim request",
-        "content": "Dear  {{new.fund.claimant.fullname}},\r\n\r\nYour expense claim for {{new.fund.name}} has been {{new.get_status_display}}.\r\n\r\nYou can check the details of your expense claim at {{ protocol }}://{{ site.domain }}{{new.link}}.\r\n{% if notes %}\r\nNotes:\r\n---\r\n{{notes}}\r\n---\r\n{% endif %}\r\nBest wishes,\r\nFellows Management ({{FELLOWS_MANAGEMENT_EMAIL}})\r\nSoftware Sustainability Institute",
+        "content": "Dear  {{ new.fund.claimant.fullname }},\r\n\r\nYour expense claim for {{ new.fund.name }} has been {{ new.get_status_display }}.\r\n\r\nYou can check the details of your expense claim at {{ protocol }}://{{ site.domain }}{{ new.link }}.\r\n{% if notes %}\r\nNotes:\r\n---\r\n{{ notes }}\r\n---\r\n{% endif %}\r\nBest wishes,\r\nFellows Management ({{ FELLOWS_MANAGEMENT_EMAIL }})\r\nSoftware Sustainability Institute",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -155,7 +155,7 @@
     "fields": {
         "url": "/email/template/fund/claimant/change/",
         "title": "Message about your funding request",
-        "content": "Dear {{new.claimant.fullname}},\r\n\r\nYour funding request for {{new.name}} has been {{new.get_status_display}}.\r\n\r\nYou can check the details of your funding request\r\nat {{ protocol }}://{{ site.domain }}{{new.link}}.\r\n{% if notes %}\r\nNotes:\r\n---\r\n{{notes}}\r\n---\r\n{% endif %}\r\nBest wishes,\r\nFellows Management ({{FELLOWS_MANAGEMENT_EMAIL}})\r\nSoftware Sustainability Institute",
+        "content": "Dear {{ new.claimant.fullname }},\r\n\r\nYour funding request for {{ new.name }} has been {{ new.get_status_display }}.\r\n\r\nYou can check the details of your funding request\r\nat {{ protocol }}://{{ site.domain }}{{ new.link }}.\r\n{% if notes %}\r\nNotes:\r\n---\r\n{{ notes }}\r\n---\r\n{% endif %}\r\nBest wishes,\r\nFellows Management ({{ FELLOWS_MANAGEMENT_EMAIL }})\r\nSoftware Sustainability Institute",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
