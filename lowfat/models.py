@@ -13,7 +13,7 @@ from simple_history.models import HistoricalRecords
 
 from django_countries.fields import CountryField
 
-from .validator import pdf
+from .validator import pdf, online_document
 from .jacs import JACS_LEVEL_2
 
 INVOICE_HASH = hashlib.md5()
@@ -660,7 +660,10 @@ class Blog(models.Model):
         null=True,
         blank=True
     )
-    draft_url = models.CharField(max_length=MAX_CHAR_LENGTH)
+    draft_url = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        validators=[online_document]
+    )
     final = models.BooleanField(
         default=False
     )
