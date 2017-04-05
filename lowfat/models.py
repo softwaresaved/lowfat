@@ -728,7 +728,10 @@ class GeneralSentMail(models.Model):
     justification = models.TextField()
 
     # Internal
-    sender = models.ForeignKey(settings.AUTH_USER_MODEL)
+    sender = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,  # For confirmation email
+    )
     receiver = models.ForeignKey('Claimant')
     date = models.DateField(default=django.utils.timezone.now)
     history = HistoricalRecords()
