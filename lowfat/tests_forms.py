@@ -1199,7 +1199,7 @@ class BlogFormTest(TestCase):
     def test_null_final(self):
         data = {
             "fund": self.fund_id,
-            "draft_url": "http://software.ac.uk",
+            "draft_url": "https://www.software.ac.uk/",
         }
 
         form = BlogForm(data)
@@ -1208,7 +1208,7 @@ class BlogFormTest(TestCase):
     def test_full_expected(self):
         data = {
             "fund": self.fund_id,
-            "draft_url": "http://software.ac.uk",
+            "draft_url": "https://www.software.ac.uk/",
             "final": True,
         }
 
@@ -1222,9 +1222,9 @@ class BlogReviewFormTest(TestCase):
     def test_blog_status(self):
         for status in ('U', 'R', 'L', 'P', 'D', 'O'):
             data = {
-                "draft_url":  "http://software.ac.uk",
+                "draft_url":  "https://www.software.ac.uk/",
                 "status": status,
-                "published_url": "http://software.ac.uk",
+                "published_url": "https://www.software.ac.uk/",
             }
 
             form = BlogReviewForm(data)
@@ -1232,9 +1232,9 @@ class BlogReviewFormTest(TestCase):
 
     def test_minimal_expected(self):
         data = {
-            "draft_url":  "http://software.ac.uk",
+            "draft_url":  "https://www.software.ac.uk/",
             "status": "P",
-            "published_url": "http://software.ac.uk",
+            "published_url": "https://www.software.ac.uk/",
         }
 
         form = BlogReviewForm(data)
@@ -1242,9 +1242,9 @@ class BlogReviewFormTest(TestCase):
 
     def test_full_expected(self):
         data = {
-            "draft_url":  "http://software.ac.uk",
+            "draft_url":  "https://www.software.ac.uk/",
             "status": "P",
-            "published_url": "http://software.ac.uk",
+            "published_url": "https://www.software.ac.uk/",
             "notes_from_admin": ":-)",
         }
 
