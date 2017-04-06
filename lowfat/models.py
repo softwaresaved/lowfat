@@ -328,9 +328,9 @@ class Claimant(models.Model):
 
     def link(self):
         if self.selected:
-            return reverse("fellow_slug", self.slug)
+            return reverse("fellow_slug", args=[self.slug])
         else:
-            return reverse("claimant_slug", self.slug)
+            return reverse("claimant_slug", args=[self.slug])
 
 class Fund(models.Model):
     """Describe a fund from one claimant."""
