@@ -103,7 +103,7 @@ def new_expense_notification(expense):
         **{
             "justification": "",
             "sender": None,
-            "receiver": expense.claimant,
+            "receiver": expense.fund.claimant,
             "expense": expense,
         }
     )
