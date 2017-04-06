@@ -8,6 +8,7 @@ django-datetime-widget
 django-dbbackup
 django-settings-export
 django-simple-history
+html2text
 markdown
 pandas
 pylint

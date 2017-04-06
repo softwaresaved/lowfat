@@ -1,23 +1,27 @@
 <h2>Communication</h2>
 {% for email in emails %}
 <table class="table table-bordered">
-    <tbody>
-        <tr>
-            <th>Date</th>
-            <td>{{ email.date }}</td>
-        </tr>
-        <tr>
-            <th>From</th>
-            <td>{{ email.sender }}</td>
-        </tr>
-        <tr>
-            <th>To</th>
-            <td>{{ email.receiver }}</td>
-        </tr>
-        <tr>
-            <th>Message</th>
-            <td><pre>{{ email.justification }}</pre></td>
-        </tr>
-    </tbody>
+  <tbody>
+    <tr>
+      <th>Date</th>
+      <td>{{ email.date }}</td>
+    </tr>
+    <tr>
+      <th>From</th>
+      {% if email.sender is None %}
+      <td>no-reply@{{ site }}</td>
+      {% else %}
+      <td>{{ email.sender }}</td>
+      {% endif %}
+    </tr>
+    <tr>
+      <th>To</th>
+      <td>{{ email.receiver }}</td>
+    </tr>
+    <tr>
+      <th>Message</th>
+      <td><pre>{{ email.justification }}</pre></td>
+    </tr>
+  </tbody>
 </table>
 {% endfor %}

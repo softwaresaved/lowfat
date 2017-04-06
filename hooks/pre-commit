@@ -1,0 +1,3 @@
+#!/bin/bash
+
+source activate lowfat && python manage.py test && pylint lowfat

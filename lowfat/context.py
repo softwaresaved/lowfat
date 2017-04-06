@@ -1,7 +1,14 @@
 """Context for template"""
+from django.contrib.sites.models import Site
 from django.utils import timezone
 
 from constance import config
+
+def site(request):  # pylint: disable=unused-argument
+    """Return the site."""
+    return {
+        'site': Site.objects.get_current()
+    }
 
 def maintenance(request):  # pylint: disable=unused-argument
     """Return true if default maintancance time."""

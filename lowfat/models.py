@@ -6,8 +6,8 @@ from constance import config
 
 import django.utils
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.db import models
+from django.urls import reverse
 
 from simple_history.models import HistoricalRecords
 
@@ -328,9 +328,9 @@ class Claimant(models.Model):
 
     def link(self):
         if self.selected:
-            return reverse("claimant_detail", self.slug)
+            return reverse("fellow_slug", args=[self.slug])
         else:
-            return reverse("fellow_detail", self.slug)
+            return reverse("claimant_slug", args=[self.slug])
 
 class Fund(models.Model):
     """Describe a fund from one claimant."""
@@ -728,7 +728,10 @@ class GeneralSentMail(models.Model):
     justification = models.TextField()
 
     # Internal
-    sender = models.ForeignKey(settings.AUTH_USER_MODEL)
+    sender = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,  # For confirmation email
+    )
     receiver = models.ForeignKey('Claimant')
     date = models.DateField(default=django.utils.timezone.now)
     history = HistoricalRecords()

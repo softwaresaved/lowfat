@@ -5,6 +5,8 @@ import ast
 
 from constance import config
 
+from html2text import html2text
+
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.sites.models import Site
 from django.core.mail import send_mail
@@ -27,83 +29,105 @@ def mail_admins(subject, message, fail_silently=False, connection=None, html_mes
         html_message=html_message
     )
 
-def new_notification(admin_url, admin_context, user_url, user_email, user_context):
-    admin_context.update({
-        "protocol": "https",
-        "site": Site.objects.get(id=SITE_ID),
-        "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
-    })
-    user_context.update({
-        "protocol": "https",
-        "site": Site.objects.get(id=SITE_ID),
-        "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
-    })
-
+def new_notification(admin_url, user_url, user_email, context, mail):
     if config.STAFF_EMAIL_NOTIFICATION:
         # Email to admin
+        context.update({
+            "protocol": "https",
+            "site": Site.objects.get(id=SITE_ID),
+            "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
+        })
+
         flatemail = FlatPage.objects.get(url=admin_url)
         template = Template(flatemail.content)
-        context = Context(admin_context)
+        jinja_context = Context(context)
+        html = template.render(jinja_context)
+        plain_text = html2text(html)
         mail_admins(
             flatemail.title,
-            template.render(context),
+            plain_text,
+            html_message=html,
             fail_silently=False
         )
 
     if config.CLAIMANT_EMAIL_NOTIFICATION:
         # Email to claimant
+        context.update({
+            "protocol": "https",
+            "site": Site.objects.get(id=SITE_ID),
+            "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
+        })
+
         flatemail = FlatPage.objects.get(url=user_url)
         template = Template(flatemail.content)
-        context = Context(user_context)
+        jinja_context = Context(context)
+        html = template.render(jinja_context)
+        plain_text = html2text(html)
         send_mail(
             flatemail.title,
-            template.render(context),
+            plain_text,
             DEFAULT_FROM_EMAIL,
             [user_email],
+            html_message=html,
             fail_silently=False
         )
+        mail.justification = plain_text
+        mail.save()
 
 def new_fund_notification(fund):
     admin_url = "/email/template/fund/admin/"
-    admin_context = {
-        "fund": fund,
-    }
-
     user_url = "/email/template/fund/claimant/"
+    user_email = fund.claimant.email
     user_context = {
         "fund": fund,
     }
-    user_email = fund.claimant.email
+    mail = FundSentMail(
+        **{
+            "justification": "",
+            "sender": None,
+            "receiver": fund.claimant,
+            "fund": fund,
+        }
+    )
 
-    new_notification(admin_url, admin_context, user_url, user_email, user_context)
+    new_notification(admin_url, user_url, user_email, user_context, mail)
 
 def new_expense_notification(expense):
     admin_url = "/email/template/expense/admin/"
-    admin_context = {
-        "expense": expense,
-    }
-
     user_url = "/email/template/expense/claimant/"
+    user_email = expense.fund.claimant.email
     user_context = {
         "expense": expense,
     }
-    user_email = expense.fund.claimant.email
+    mail = ExpenseSentMail(
+        **{
+            "justification": "",
+            "sender": None,
+            "receiver": expense.claimant,
+            "expense": expense,
+        }
+    )
 
-    new_notification(admin_url, admin_context, user_url, user_email, user_context)
+
+    new_notification(admin_url, user_url, user_email, user_context, mail)
 
 def new_blog_notification(blog):
     admin_url = "/email/template/blog/admin/"
-    admin_context = {
-        "blog": blog,
-    }
-
     user_url = "/email/template/blog/claimant/"
-    user_context = {
+    user_email = blog.fund.claimant.email
+    context = {
         "blog": blog,
     }
-    user_email = blog.fund.claimant.email
+    mail = BlogSentMail(
+        **{
+            "justification": "",
+            "sender": None,
+            "receiver": blog.author,
+            "blog": blog,
+        }
+    )
 
-    new_notification(admin_url, admin_context, user_url, user_email, user_context)
+    new_notification(admin_url, user_url, user_email, context, mail)
 
 def review_notification(mail, old, new, url):
     """Compose the message and send the email."""
@@ -119,14 +143,17 @@ def review_notification(mail, old, new, url):
             "site": Site.objects.get(id=SITE_ID),
             "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
         })
-        mail.justification = template.render(context)
+        html = template.render(context)
+        plain_text = html2text(html)
+        mail.justification = plain_text
 
         # Email to claimant
         send_mail(
             flatemail.title,
-            mail.justification,
+            plain_text,
             mail.sender.email,
             [mail.receiver.email],
+            html_message=html,
             fail_silently=False
         )
         # Every email is archived in the database
