@@ -6,8 +6,8 @@ from constance import config
 
 import django.utils
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.db import models
+from django.urls import reverse
 
 from simple_history.models import HistoricalRecords
 
