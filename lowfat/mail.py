@@ -90,7 +90,7 @@ def new_fund_notification(fund):
         }
     )
 
-    new_notification(admin_url, user_url, user_email, user_context, email)
+    new_notification(admin_url, user_url, user_email, user_context, mail)
 
 def new_expense_notification(expense):
     admin_url = "/email/template/expense/admin/"
@@ -109,7 +109,7 @@ def new_expense_notification(expense):
     )
 
 
-    new_notification(admin_url, user_url, user_email, user_context, email)
+    new_notification(admin_url, user_url, user_email, user_context, mail)
 
 def new_blog_notification(blog):
     admin_url = "/email/template/blog/admin/"
