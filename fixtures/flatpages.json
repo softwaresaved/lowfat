@@ -35,7 +35,7 @@
     "fields": {
         "url": "/email/template/fund/admin/",
         "title": "We have a new funding request pending your review",
-        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Hi,</p>\r\n<p>We received a new funding request from {{ fund.claimant.fullname }} for {{ fund.name }}.</p>\r\n<p>Please visit <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.link_review }}\">{{ protocol }}://{{ site.domain }}{{ fund.link_review }}</a> to review it.</p>\r\n<p>\r\n---\r\nLowFAT\r\n</p>\r\n</body>\r\n</html>",
+        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Hi,</p>\r\n<p>We received a new funding request from <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.claimant.link }}\">{{ fund.claimant.fullname }}</a> for <a href=\"{{ fund.url }}\">{{ fund.name }}</a>.</p>\r\n<p>Please visit <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.link_review }}\">{{ protocol }}://{{ site.domain }}{{ fund.link_review }}</a> to review it.</p>\r\n<p>\r\n---\r\nLowFAT\r\n</p>\r\n</body>\r\n</html>",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -50,7 +50,7 @@
     "fields": {
         "url": "/email/template/blog/admin/",
         "title": "We have a new blog post draft pending your review",
-        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Hi,</p>\r\n<p>We received a blog post draft from {{ blog.author.fullname }}.</p>\r\n<p>Please visit <a href=\"{{ protocol }}://{{ site.domain }}{{ blog.link_review }}\">{{ protocol }}://{{ site.domain }}{{ blog.link_review }}</a> to review it.</p>\r\n<p>\r\n---<br>\r\nLowFAT\r\n</p>\r\n</body>\r\n</html>",
+        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Hi,</p>\r\n<p>We received a blog post draft from <a href=\"{{ protocol }}://{{ site.domain }}{{ blog.author.link }}\">{{ blog.author.fullname }}</a>.</p>\r\n<p>Please visit <a href=\"{{ protocol }}://{{ site.domain }}{{ blog.link_review }}\">{{ protocol }}://{{ site.domain }}{{ blog.link_review }}</a> to review it.</p>\r\n<p>\r\n---<br>\r\nLowFAT\r\n</p>\r\n</body>\r\n</html>",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -95,7 +95,7 @@
     "fields": {
         "url": "/email/template/expense/admin/",
         "title": "We have a new expense claim pending your review",
-        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Hi,</p>\r\n<p>We received a new expense claim from {{ expense.fund.claimant.fullname }} for {{ expense.fund.name }}.</p>\r\n<p>Please visit <a href=\"{{ protocol }}://{{ site.domain }}{{ expense.link_review }}\">{{ protocol }}://{{ site.domain }}{{ expense.link_review }}</a> to review it.</p>\r\n<p>\r\n---<br>\r\nLowFAT\r\n</p>\r\n</body>\r\n</html>",
+        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Hi,</p>\r\n<p>We received a new expense claim from <a href=\"{{ protocol }}://{{ site.domain }}{{ expense.fund.claimant.link }}\">{{ expense.fund.claimant.fullname }}</a> for <a href=\"{{ expense.fund.url }}\">{{ expense.fund.name }}</a>.</p>\r\n<p>Please visit <a href=\"{{ protocol }}://{{ site.domain }}{{ expense.link_review }}\">{{ protocol }}://{{ site.domain }}{{ expense.link_review }}</a> to review it.</p>\r\n<p>\r\n---<br>\r\nLowFAT\r\n</p>\r\n</body>\r\n</html>",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
