@@ -238,7 +238,7 @@ class FundForm(GarlicForm):
                 'city',
                 'start_date',
                 'end_date',
-                HTML('<h2>Costs</h2><p>Please provide an estimate of your costs below. All values should be entered in GBP. Note that the cost entered here must be within 20% of the expenses you submit. See the terms and conditions for details (<a href="http://www.software.ac.uk/fellowship-terms-and-conditions-{% now "Y" %}">http://www.software.ac.uk/fellowship-terms-and-conditions-{% now "Y" %}</a>)</p><p>Please fill in all cost sections that are relevant to your event type.</p>'),
+                HTML('<h2>Costs</h2><p>Please provide an estimate of your costs below. All values should be entered in GBP. See the terms and conditions for details (<a href="http://www.software.ac.uk/fellowship-terms-and-conditions-{% now "Y" %}">http://www.software.ac.uk/fellowship-terms-and-conditions-{% now "Y" %}</a>)</p><p>Please fill in all cost sections that are relevant to your event type.</p>'),
                 PrependedText(
                     'budget_request_travel',
                     '£',
