@@ -24,7 +24,10 @@ from .mail import *
 def index(request):
     context = {
         'claimants': Claimant.objects.exclude(selected=False),
-        'funds': Fund.objects.filter(category="H", start_date__gte=django.utils.timezone.now(), can_be_advertise_before=True),
+        'funds': [(fund, Blog.objects.filter(
+            fund=fund,
+            status="P"
+        )) for fund in Fund.objects.filter(category="H", start_date__gte=django.utils.timezone.now(), can_be_advertise_before=True)],
     }
 
     if request.user.is_authenticated() and request.user.is_superuser:
