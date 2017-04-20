@@ -964,7 +964,7 @@
     "pk": 1,
     "fields": {
         "id": 9,
-        "draft_url": "http://software.ac.uk",
+        "draft_url": "https://www.software.ac.uk",
         "final": false,
         "status": "U",
         "notes_from_admin": null,
@@ -985,7 +985,7 @@
     "pk": 2,
     "fields": {
         "id": 9,
-        "draft_url": "http://software.ac.uk",
+        "draft_url": "https://www.software.ac.uk",
         "final": false,
         "status": "U",
         "notes_from_admin": null,
@@ -1006,7 +1006,7 @@
     "pk": 3,
     "fields": {
         "id": 10,
-        "draft_url": "http://software.ac.uk",
+        "draft_url": "https://www.software.ac.uk",
         "final": false,
         "status": "U",
         "notes_from_admin": null,
@@ -1027,7 +1027,7 @@
     "pk": 4,
     "fields": {
         "id": 10,
-        "draft_url": "http://software.ac.uk",
+        "draft_url": "https://www.software.ac.uk",
         "final": false,
         "status": "U",
         "notes_from_admin": null,
@@ -1048,11 +1048,11 @@
     "pk": 5,
     "fields": {
         "id": 10,
-        "draft_url": "http://software.ac.uk",
+        "draft_url": "https://www.software.ac.uk",
         "final": false,
         "status": "P",
         "notes_from_admin": "",
-        "published_url": "http://software.ac.uk",
+        "published_url": "https://www.software.ac.uk",
         "tweet_url": "http://twitter.com",
         "added": "2017-03-22T09:55:35.756",
         "updated": "2017-03-22T09:56:19.622",
@@ -1070,12 +1070,12 @@
     "fields": {
         "fund": 1,
         "author": 2,
-        "draft_url": "http://software.ac.uk",
+        "draft_url": "https://www.software.ac.uk",
         "final": true,
         "status": "P",
         "reviewer": 1,
         "notes_from_admin": "",
-        "published_url": "http://software.ac.uk",
+        "published_url": "https://www.software.ac.uk",
         "tweet_url": "http://twitter.com",
         "added": "2016-07-07T14:59:46.412",
         "updated": "2016-09-05T11:02:39.139"
@@ -1087,12 +1087,12 @@
     "fields": {
         "fund": 3,
         "author": 1,
-        "draft_url": "http://software.ac.uk",
+        "draft_url": "https://www.software.ac.uk",
         "final": true,
         "status": "P",
         "reviewer": 1,
         "notes_from_admin": "",
-        "published_url": "http://software.ac.uk",
+        "published_url": "https://www.software.ac.uk",
         "tweet_url": "",
         "added": "2016-09-05T11:02:44.988",
         "updated": "2016-09-05T11:02:44.988"
@@ -1104,12 +1104,12 @@
     "fields": {
         "fund": 4,
         "author": 2,
-        "draft_url": "http://software.ac.uk",
+        "draft_url": "https://www.software.ac.uk",
         "final": true,
         "status": "P",
         "reviewer": 1,
         "notes_from_admin": "",
-        "published_url": "http://software.ac.uk",
+        "published_url": "https://www.software.ac.uk",
         "tweet_url": "http://twitter.com",
         "added": "2016-09-05T11:03:24.939",
         "updated": "2016-09-05T11:03:24.939"
@@ -1121,12 +1121,12 @@
     "fields": {
         "fund": 8,
         "author": 1,
-        "draft_url": "http://software.ac.uk",
+        "draft_url": "https://www.software.ac.uk",
         "final": true,
         "status": "P",
         "reviewer": 1,
         "notes_from_admin": "",
-        "published_url": "http://software.ac.uk",
+        "published_url": "https://www.software.ac.uk",
         "tweet_url": "",
         "added": "2016-09-05T11:03:58.132",
         "updated": "2016-09-05T12:48:27.231"
@@ -1138,7 +1138,7 @@
     "fields": {
         "fund": 2,
         "author": 5,
-        "draft_url": "http://software.ac.uk",
+        "draft_url": "https://www.software.ac.uk",
         "final": true,
         "status": "R",
         "reviewer": 1,
@@ -1155,7 +1155,7 @@
     "fields": {
         "fund": 6,
         "author": 4,
-        "draft_url": "http://software.ac.uk",
+        "draft_url": "https://www.software.ac.uk",
         "final": true,
         "status": "R",
         "reviewer": 1,
@@ -1172,12 +1172,12 @@
     "fields": {
         "fund": 3,
         "author": 1,
-        "draft_url": "http://software.ac.uk",
+        "draft_url": "https://www.software.ac.uk",
         "final": true,
         "status": "P",
         "reviewer": 1,
         "notes_from_admin": "",
-        "published_url": "http://software.ac.uk",
+        "published_url": "https://www.software.ac.uk",
         "tweet_url": "http://twitter.com",
         "added": "2016-12-07T14:54:00.483",
         "updated": "2016-12-07T14:54:00.483"
@@ -1189,7 +1189,7 @@
     "fields": {
         "fund": null,
         "author": 4,
-        "draft_url": "http://software.ac.uk",
+        "draft_url": "https://www.software.ac.uk",
         "final": false,
         "status": "U",
         "reviewer": null,
@@ -1206,12 +1206,12 @@
     "fields": {
         "fund": null,
         "author": 2,
-        "draft_url": "http://software.ac.uk",
+        "draft_url": "https://www.software.ac.uk",
         "final": false,
         "status": "P",
         "reviewer": 1,
         "notes_from_admin": "",
-        "published_url": "http://software.ac.uk",
+        "published_url": "https://www.software.ac.uk",
         "tweet_url": "http://twitter.com",
         "added": "2017-03-22T09:55:35.756",
         "updated": "2017-03-22T09:56:19.622"
