@@ -61,7 +61,7 @@
   <a class="icon">
     <i class="fa fa-fw">&nbsp;</i>
   </a>
-    {% if show_grant_available %}
+    {% if user.is_superuser %}
     <br>
     £{{ claimant.claimantship_available|floatformat:2 }}
     {% endif %}

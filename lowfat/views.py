@@ -30,13 +30,6 @@ def index(request):
         )) for fund in Fund.objects.filter(category="H", start_date__gte=django.utils.timezone.now(), can_be_advertise_before=True)],
     }
 
-    if request.user.is_authenticated() and request.user.is_superuser:
-        context.update(
-            {
-                'show_grant_available': True,
-            }
-        )
-
     return render(request, 'lowfat/index.html', context)
 
 @login_required
