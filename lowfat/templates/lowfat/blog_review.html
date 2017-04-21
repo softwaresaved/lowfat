@@ -4,8 +4,10 @@
 {% block content %}
 <h1>
   Blog Review
-  {% if user.is_superuser %}
+  {% if user.is_staff %}
   <a class="btn btn-default" href="{% url 'blog_detail' blog.id %}" role="button"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View</a>
+  {% endif %}
+  {% if user.is_superuser %}
   <a class="btn btn-default" href="{% url 'admin:lowfat_blog_change' blog.id %}" role="button"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
   {% endif %}
 </h1>

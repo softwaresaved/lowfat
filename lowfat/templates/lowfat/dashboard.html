@@ -3,10 +3,10 @@
 {% block content %}
 <h1>Software Sustainability Institute Fellowship Programme</h1>
 <p>If you need us to process something please use one of the links below:</p>
-{% if user.is_superuser %}
+{% if user.is_superuser or user.is_staff %}
 <div class="row">
   <div class="col-md-4">
-  <a class="btn btn-default btn-block" href="{% url 'claimant' %}">Create claimant profile</a>
+    <a class="btn btn-default btn-block" href="{% url 'claimant' %}">Create claimant profile</a>
   </div>
   <div class="col-md-4">
     <a class="btn btn-default btn-block" href="{% url 'promote' %}">Upgrade claimant profile to fellow profile</a>
@@ -27,203 +27,21 @@
     <a class="btn btn-default btn-block" href="{% url 'blog' %}">Submit a blog post</a>
   </div>
 </div>
-{% if user.is_superuser %}
+{% if user.is_superuser or user.is_staff %}
 <p><a href="{% url 'recent_actions' %}">Click here</a> to view last changes on the database.</p>
-<p><a href="{% url 'admin:index' %}">Click here</a> to edit the information in the database here (e.g. needed if the dates of an event change).</p>
 <p><a href="{% url 'fund_import' %}">Click here</a> to import funding requests
   from a CSV file. <spanp class="text-danger">This is an experimental feature. You will not have access to debug information!</span></p>
 {% else %}
 <p>If you need any help please email <a href="mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}">us</a>.</p>
 {% endif %}
-{% if user.is_authenticated %}
 {% if user.is_superuser %}
-<h2>
-  Funding requests
-  <a class="btn btn-default" href="{% url 'fund' %}">Make a funding request</a>
-</h2>
-<ul class="nav nav-tabs">
-  <li role="presentation" {% if request.GET.funding_requests == 'UPARF' %}class="active"{% endif %}>
-    <a href="?funding_requests=UPARF">All</a>
-  </li>
-  <li role="presentation" {% if "funding_requests" not in request.GET or request.GET.funding_requests == 'UP' %}class="active"{% endif %}>
-    <a href="?funding_requests=UP">Pending</a>
-  </li>
-  <li role="presentation" {% if request.GET.funding_requests == 'A' %}class="active"{% endif %}>
-    <a href="?funding_requests=A">Approved</a>
-  </li>
-  <li role="presentation" {% if request.GET.funding_requests == 'R' %}class="active"{% endif %}>
-    <a href="?funding_requests=R">Reproved</a>
-  </li>
-  <li role="presentation" {% if request.GET.funding_requests == 'F' %}class="active"{% endif %}>
-    <a href="?funding_requests=F">Archived</a>
-  </li>
-</ul>
-{% if funds %}
-<table class="table table-bordered sortable">
-  <tbody>
-    <tr>
-      <th>
-        Date
-      </th>
-      <th>
-        Name
-      </th>
-      <th>
-        Status
-      </th>
-      <th>
-        Actions
-      </th>
-    </tr>
-    {% for fund in funds %}
-    <tr>
-      <td>{{ fund.added }}</td>
-      <td>
-        <a title="Review" href="{% url 'fund_review' fund.id %}">{{ fund.name }}</a>
-        from <a href="{% url 'claimant_detail' fund.claimant.id %}">{{ fund.claimant.fullname }}</a>
-      </td>
-      <td>
-        {{ fund.get_status_display }}
-        {% if fund.status == 'F' %}
-        - contact <a href="claimants-management@software.ac.uk">claimants-management@software.ac.uk</a>
-        if need
-        {% endif %}
-      </td>
-      <td>
-        <a title="View" href="{% url 'fund_detail' fund.id %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-        <a  title="Review" href="{% url 'fund_review' fund.id %}"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
-        <a  title="Edit" href="{% url 'admin:lowfat_fund_change' fund.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-        <a class="icon" href="mailto:{{ fund.claimant.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>
-        <a  title="Remove" href="{% url 'admin:lowfat_fund_delete' fund.id %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<p><a href="{% url 'admin:index' %}">Click here</a> to edit the information in the database here (e.g. needed if the dates of an event change).</p>
 {% endif %}
-<h2>
-  Expenses
- <a class="btn btn-default" href="{% url 'expense' %}">Submit expense claim</a>
-</h2>
-<ul class="nav nav-tabs">
-  <li role="presentation" {% if request.GET.expenses == 'WSCPAF' %}class="active"{% endif %}>
-    <a href="?expenses=WSCPAF">All</a>
-  </li>
-  <li role="presentation" {% if "expenses" not in request.GET or request.GET.expenses == 'WSCP' %}class="active"{% endif %}><a href="?expenses=WSCP">Pending</a></li>
-  <li role="presentation" {% if request.GET.expenses == 'AF' %}class="active"{% endif %}><a href="?expenses=AF">Approved</a></li>
-</ul>
-{% if expenses %}
-<table class="table table-bordered sortable">
-  <tbody>
-    <tr>
-      <th>
-        Date
-      </th>
-      <th>
-        Name
-      </th>
-      <th>
-        Status
-      </th>
-      <th>
-        Actions
-      </th>
-    </tr>
-    {% for expense in expenses %}
-    <tr>
-      <td>{{ expense.added }}</td>
-      <td>
-        <a title="Review" href="{% url 'expense_review_relative' expense.fund.id expense.relative_number %}">#{{ expense.relative_number }}</a>
-        from <a href="{% url 'claimant_detail' expense.fund.claimant.id %}">{{ expense.fund.claimant.fullname }}</a>
-        for <a href="{% url 'fund_detail' expense.fund.id %}">{{ expense.fund.name }}</a>
-      </td>
-      <td>
-        {{ expense.get_status_display }}
-      </td>
-      <td>
-        <a title="View" href="{% url 'expense_detail' expense.id %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-        <a  title="Review" href="{% url 'expense_review' expense.id %}"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
-        <a  title="Edit" href="{% url 'admin:lowfat_expense_change' expense.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-        <a class="icon" href="mailto:{{ expense.fund.claimant.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>
-        <a  title="Remove" href="{% url 'admin:lowfat_expense_delete' expense.id %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-{% endif %}
-<h2>
-  Blog Posts
-  <a class="btn btn-default" href="{% url 'blog' %}">Submit a blog post</a>
-</h2>
-<ul class="nav nav-tabs">
-  <li role="presentation" {% if request.GET.blogs == 'URLPDO' %}class="active"{% endif %}>
-    <a href="?blogs=URLPDO">All</a>
-  </li>
-  <li role="presentation" {% if "blogs" not in request.GET or request.GET.blogs == 'UR' %}class="active"{% endif %}>
-    <a href="?blogs=UR">Pending</a>
-  </li>
-  <li role="presentation" {% if request.GET.blogs == 'P' %}class="active"{% endif %}>
-    <a href="?blogs=P">Published</a>
-  </li>
-</ul>
-{% if blogs %}
-<table class="table table-bordered sortable">
-  <tbody>
-    <tr>
-      <th>
-        Date
-      </th>
-      <th>
-        Name
-      </th>
-      <th>
-        Status
-      </th>
-      <th>
-        Actions
-      </th>
-    </tr>
-    {% for blog in blogs %}
-    <tr>
-      <td>{{ blog.added }}</td>
-      <td>
-        <a title="Review" href="{% url 'blog_review' blog.id %}">{{ blog.draft_url }}</a>
-        by <a href="{% url 'claimant_detail' blog.author.id %}">{{ blog.author.fullname }}</a>
-        {% if blog.fund %}
-        for <a href="{% url 'fund_detail' blog.fund.id %}">{{ blog.fund.name }}</a>
-        {% endif %}
-      </td>
-      <td>
-        {{ blog.get_status_display }}
-      </td>
-      <td>
-        <a title="View" href="{% url 'blog_detail' blog.id %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-        <a  title="Review" href="{% url 'blog_review' blog.id %}"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
-        <a  title="Edit" href="{% url 'admin:lowfat_blog_change' blog.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-        <a class="icon" href="mailto:{{ blog.author.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>
-        <a  title="Remove" href="{% url 'admin:lowfat_blog_delete' blog.id %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-{% endif %}
-{% else %}
+{% if not user.is_staff and not user.is_superuser %}
 {% include 'lowfat/finances.html' %}
-<h2>
-  Funding requests
-  {% if user == claimant.user or user.is_superuser %}
-  <a class="btn btn-default" href="{% url 'fund' %}?claimant_id={{claimant.id}}">Make a funding request</a>
-  {% endif %}
-</h2>
+{% endif %}
+{% include 'lowfat/funds_header.html' %}
 {% include 'lowfat/funds.html' %}
 {% include 'lowfat/expenses.html' %}
-<h2>
-  Blogs
-  <a class="btn btn-default" href="{% url 'blog' %}?claimant_id={{claimant.id}}">Submit a blog post</a>
-</h2>
 {% include 'lowfat/blogs.html' %}
-{% endif %}
-{% endif %}
 {% endblock %}
