@@ -2,9 +2,12 @@ td > pre {
     white-space: pre-wrap;
 }
 
-.navbar-brand > img.logo {
-    width: 18px;  /* same of font-size */
-    height: 18px;  /* same of font-size */
+.navbar-logo {
+    float: left;
+}
+.navbar-logo > img.logo {
+    height: 50px;  /* same of navbar-header */
+    padding: 0px 10px 0px 0px;
 }
 
 @media (min-width: 768px) {
