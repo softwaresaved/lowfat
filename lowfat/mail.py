@@ -114,7 +114,7 @@ def new_expense_notification(expense):
 def new_blog_notification(blog):
     admin_url = "/email/template/blog/admin/"
     user_url = "/email/template/blog/claimant/"
-    user_email = blog.fund.claimant.email
+    user_email = blog.author.email
     context = {
         "blog": blog,
     }
