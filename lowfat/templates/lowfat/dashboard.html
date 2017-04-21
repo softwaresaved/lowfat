@@ -37,7 +37,6 @@
 {% endif %}
 {% if user.is_authenticated %}
 {% if user.is_superuser %}
-<p>Your pending tasks are:</p>
 <h2>
   Funding requests
   <a class="btn btn-default" href="{% url 'fund' %}">Make a funding request</a>
