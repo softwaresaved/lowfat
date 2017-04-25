@@ -302,9 +302,8 @@ class Claimant(models.Model):
         """Return the ammount committed from the claimantship grant."""
         this_claimant_funds = Fund.objects.filter(
             claimant=self,
-            status__in=['A']
-        ).exclude(
-            mandatory=True
+            status__in=['A'],
+            funds_from_default="F"
         )
 
         spent_from_committed = 0
@@ -320,10 +319,10 @@ class Claimant(models.Model):
         """Return the ammount alread spent from the claimantship grant."""
         this_claimant_expenses = Expense.objects.filter(
             fund__claimant=self,
-            status__in=['A', 'F']
-        ).exclude(
-            fund__mandatory=True
+            status__in=['A', 'F'],
+            funds_from="F"
         )
+
         return sum([expense.amount_claimed for expense in this_claimant_expenses])
 
     def link(self):
