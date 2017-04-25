@@ -124,10 +124,10 @@
     {% else %}
     <tr>
       <td
-        {% if user.is_authenticated %}
-        colspan="4"
-        {% elif user.is_staff or user.is_superuser %}
+        {% if user.is_staff or user.is_superuser %}
         colspan="6"
+        {% elif user.is_authenticated %}
+        colspan="4"
         {% else %}
         colspan="3"
         {% endif %}
