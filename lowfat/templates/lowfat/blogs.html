@@ -6,7 +6,7 @@
   <a class="btn btn-default" href="{% url 'blog' %}">Submit a blog post</a>
   {% endif %}
 </h2>
-{% if user.superuser or user.staff %}
+{% if user.is_staff %}
 <ul class="nav nav-tabs">
   <li role="presentation" {% if request.GET.blogs == 'URLPDO' %}class="active"{% endif %}>
     <a href="?blogs=URLPDO">All</a>
