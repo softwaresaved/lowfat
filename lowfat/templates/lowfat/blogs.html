@@ -1,21 +1,44 @@
+<h2>
+  Blog Posts
+  {% if claimant %}
+  <a class="btn btn-default" href="{% url 'blog' %}?claimant_id={{claimant.id}}">Submit a blog post</a>
+  {% else %}
+  <a class="btn btn-default" href="{% url 'blog' %}">Submit a blog post</a>
+  {% endif %}
+</h2>
+{% if user.is_staff %}
+<ul class="nav nav-tabs">
+  <li role="presentation" {% if request.GET.blogs == 'URLPDO' %}class="active"{% endif %}>
+    <a href="?blogs=URLPDO">All</a>
+  </li>
+  <li role="presentation" {% if "blogs" not in request.GET or request.GET.blogs == 'UR' %}class="active"{% endif %}>
+    <a href="?blogs=UR">Pending</a>
+  </li>
+  <li role="presentation" {% if request.GET.blogs == 'P' %}class="active"{% endif %}>
+    <a href="?blogs=P">Published</a>
+  </li>
+</ul>
+{% endif %}
 <table class="table table-bordered sortable">
   <tbody>
     <tr>
+      {% if user.is_superuser or user.is_staff or claimant and user == claimant.user %}
+      <th>
+        Submited date
+      </th>
+      {% endif %}
       <th>
         Blog
       </th>
       <th>
         Status
       </th>
-      {% if user.is_superuser or claimant and user == claimant.user %}
-      <th>
-        Submited date
-      </th>
+      {% if user.is_superuser or user.is_staff or claimant and user == claimant.user %}
       <th>
         Pulished date
       </th>
       {% endif %}
-      {% if user.is_superuser %}
+      {% if user.is_superuser or user.is_staff %}
       <th>
         Actions
       </th>
@@ -23,17 +46,27 @@
     </tr>
     {% for blog in blogs %}
     <tr
-       {% if blog.status in 'U' %}
-       class="danger"
-       {% elif blog.status in 'R' %}
-       class="warning"
-       {% elif blog.status in 'LPDO' %}
-       class="success"
-       {% endif %}
-       >
+      {% if blog.status in 'U' %}
+      class="danger"
+      {% elif blog.status in 'R' %}
+      class="warning"
+      {% elif blog.status in 'LPDO' %}
+      class="success"
+      {% endif %}
+      >
+      {% if user.is_superuser or user.is_staff or claimant and user == claimant.user %}
       <td>
-        {% if user.is_superuser %}
-        <a href="{% url 'blog_review' blog.id %}">{{ blog.draft_url }}</a>
+        {{ blog.added }}
+      </td>
+      {% endif %}
+      <td>
+        {% if user.is_superuser or user.is_staff %}
+        <a title="Review" href="{% url 'blog_review' blog.id %}">{{ blog.draft_url }}</a>
+        <a  href="{% url 'blog_review' blog.id %}">{{ blog.draft_url }}</a>
+        by <a href="{% url 'claimant_detail' blog.author.id %}">{{ blog.author.fullname }}</a>
+        {% if blog.fund %}
+        for <a href="{% url 'fund_detail' blog.fund.id %}">{{ blog.fund.name }}</a>
+        {% endif %}
         {% else %}
         <a href="{{ blog.draft_url }}">{{ blog.draft_url }}</a>
         {% endif %}
@@ -41,10 +74,7 @@
       <td>
         {{ blog.get_status_display }}
       </td>
-      {% if user.is_superuser or claimant and user == claimant.user %}
-      <td>
-        {{ blog.added }}
-      </td>
+      {% if user.is_superuser or user.is_staff or claimant and user == claimant.user %}
       <td>
         {% if blog.published_url|length > 0 %}
         {{ blog.updated }}
@@ -53,12 +83,14 @@
         {% endif %}
       </td>
       {% endif %}
-      {% if user.is_superuser %}
+      {% if user.is_staff %}
       <td>
+        <a class="icon" href="mailto:{{ blog.author.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>
         <a title="View" href="{% url 'blog_detail' blog.id %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
         <a  title="Review" href="{% url 'blog_review' blog.id %}"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
+        {% endif %}
+        {% if user.is_superuser %}
         <a  title="Edit" href="{% url 'admin:lowfat_blog_change' blog.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-        <a class="icon" href="mailto:{{ blog.author.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>
         <a  title="Remove" href="{% url 'admin:lowfat_blog_delete' blog.id %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
       </td>
       {% endif %}

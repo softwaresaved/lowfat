@@ -42,13 +42,11 @@ def dashboard(request):
         except:  # pylint: disable=bare-except
             return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/welcome/'}))
 
-        funds = Fund.objects.filter(claimant=claimant)
-
         context.update(
             {
                 'claimant': claimant,
                 'budget_available': claimant.claimantship_available(),
-                'funds': pair_fund_with_blog(funds, "P"),
+                'funds': pair_fund_with_blog(Fund.objects.filter(claimant=claimant), "P"),
                 'expenses': Expense.objects.filter(fund__claimant=claimant),
                 'blogs': Blog.objects.filter(author=claimant),
             }
@@ -71,7 +69,7 @@ def dashboard(request):
 
         context.update(
             {
-                'funds': Fund.objects.filter(status__in=funding_requests_status),
+                'funds': pair_fund_with_blog(Fund.objects.filter(status__in=funding_requests_status), "P"),
                 'expenses': Expense.objects.filter(status__in=expenses_status),
                 'blogs': Blog.objects.filter(status__in=blogs_status),
             }

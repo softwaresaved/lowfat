@@ -1,79 +1,140 @@
-{% if funds %}
-<table class="table table-bordered sortable">
-    <tbody>
-        <tr>
-            <th>Name</th>
-            <th>Start date</th>
-            <th>End date</th>
-            {% if user.is_superuser %}
-            <th>
-              Actions
-            </th>
-            {% endif %}
-        </tr>
-{% for fund, blog in funds %}
-<tr
-  {% if user.is_superuser or claimant and user == claimant.user %}
-  {% if fund.status in 'URC' %}
-  class="danger"
-  {% elif fund.status in 'P' %}
-  class="warning"
-  {% elif fund.status in 'AF' %}
-  class="success"
-  {% endif %}
-  {% endif %}
-  >
-  <td>
-    {% if user.is_superuser %}
-    <a href="{% url "fund_review" fund.id %}">{{fund.name}}</a>
-    {% if fund.url|length > 0 %}
-    <a href="{{fund.url}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-    {% endif %}
-    </a>
-    {% elif claimant and user == claimant.user %}
-    <a href="{% url "fund_detail" fund.id %}">{{fund.name}}</a>
-    {% if fund.url|length > 0 %}
-    <a href="{{fund.url}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-    {% endif %}
-    </a>
-    {% elif fund.url|length > 0 %}
-    <a href="{{fund.url}}">{{fund.name}}</a>
-    {% else %}
-    {{fund.name}}
-    {% endif %}
-    {% if blog %}
-    (
-    {% for post in blog %}
-    {% if post.published_url|length > 0 %}
-    <a href="{{post.published_url}}">Blog post</a>
-    {% endif %}
-    {% if post.tweet_url|length > 0 %}
-    <a class="icon" href="{{post.tweet_url}}">
-    <i class="fa fa-twitter" aria-hidden="true"></i>
-    </a>
-    {% endif %}
-    {% if not forloop.last %}
-    ,
-    {% endif %}
-    {% endfor %}
-    )
-    {% endif %}
-  </td>
-  <td>{{fund.start_date}}</td>
-  <td>{{fund.end_date}}</td>
-  {% if user.is_superuser %}
-  <td>
-    <a title="View" href="{% url 'fund_detail' fund.id %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-    <a  title="Review" href="{% url 'fund_review' fund.id %}"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
-    <a  title="Edit" href="{% url 'admin:lowfat_fund_change' fund.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-    <a class="icon" href="mailto:{{ fund.claimant.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>
-    <a  title="Remove" href="{% url 'admin:lowfat_fund_delete' fund.id %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-  </td>
-  {% endif %}
-</tr>
-{% endfor %}
-    </tbody>
-</table>
-{% else %}
-<p><strong>No events.</strong></p>
+{% if user.is_staff %}
+<ul class="nav nav-tabs">
+  <li role="presentation" {% if request.GET.funding_requests == 'UPARF' %}class="active"{% endif %}>
+    <a href="?funding_requests=UPARF">All</a>
+  </li>
+  <li role="presentation" {% if "funding_requests" not in request.GET or request.GET.funding_requests == 'UP' %}class="active"{% endif %}>
+    <a href="?funding_requests=UP">Pending</a>
+  </li>
+  <li role="presentation" {% if request.GET.funding_requests == 'A' %}class="active"{% endif %}>
+    <a href="?funding_requests=A">Approved</a>
+  </li>
+  <li role="presentation" {% if request.GET.funding_requests == 'R' %}class="active"{% endif %}>
+    <a href="?funding_requests=R">Reproved</a>
+  </li>
+  <li role="presentation" {% if request.GET.funding_requests == 'F' %}class="active"{% endif %}>
+    <a href="?funding_requests=F">Archived</a>
+  </li>
+</ul>
 {% endif %}
+<table class="table table-bordered sortable">
+  <tbody>
+    <tr>
+      {% if user.is_superuser or user.is_staff %}
+      <th>
+        Date
+      </th>
+      {% endif %}
+      <th>
+        Name
+      </th>
+      <th>
+        Start date
+      </th>
+      <th>
+        End date
+      </th>
+      {% if user.is_authenticated %}
+      <th>
+        Status
+      </th>
+      {% endif %}
+      {% if user.is_superuser or user.is_staff %}
+      <th>
+        Actions
+      </th>
+      {% endif %}
+    </tr>
+    {% if funds %}
+    {% for fund, blog in funds %}
+    <tr
+      {% if user.is_superuser or user.is_staff or claimant and user == claimant.user %}
+      {% if fund.status in 'URC' %}
+      class="danger"
+      {% elif fund.status in 'P' %}
+      class="warning"
+      {% elif fund.status in 'AF' %}
+      class="success"
+      {% endif %}
+      {% endif %}
+      >
+      {% if user.is_superuser or user.is_staff %}
+      <td>{{ fund.added }}</td>
+      {% endif %}
+      <td>
+        {% if user.is_superuser %}
+        <a title="Review" href="{% url "fund_review" fund.id %}">{{fund.name}}</a>
+        {% if fund.url|length > 0 %}
+        <a href="{{fund.url}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+          {% endif %}
+        </a>
+        {% elif claimant and user == claimant.user %}
+        <a href="{% url "fund_detail" fund.id %}">{{fund.name}}</a>
+        {% if fund.url|length > 0 %}
+        <a href="{{fund.url}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+          {% endif %}
+        </a>
+        {% elif fund.url|length > 0 %}
+        <a href="{{fund.url}}">{{fund.name}}</a>
+        {% else %}
+        {{fund.name}}
+        {% endif %}
+        {% if blog %}
+        (
+        {% for post in blog %}
+        {% if post.published_url|length > 0 %}
+        <a href="{{post.published_url}}">Blog post</a>
+        {% endif %}
+        {% if post.tweet_url|length > 0 %}
+        <a class="icon" href="{{post.tweet_url}}">
+          <i class="fa fa-twitter" aria-hidden="true"></i>
+        </a>
+        {% endif %}
+        {% if not forloop.last %}
+        ,
+        {% endif %}
+        {% endfor %}
+        )
+        {% endif %}
+      </td>
+      <td>{{fund.start_date}}</td>
+      <td>{{fund.end_date}}</td>
+      {% if user.is_authenticated %}
+      <td>
+        {{ fund.get_status_display }}
+        {% if fund.status == 'F' %}
+        - contact <a href="claimants-management@software.ac.uk">claimants-management@software.ac.uk</a>
+        if need
+        {% endif %}
+      </td>
+      {% endif %}
+      {% if user.is_superuser or user.is_staff %}
+      <td>
+        <a class="icon" href="mailto:{{ fund.claimant.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+        <a title="View" href="{% url 'fund_detail' fund.id %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+        <a  title="Review" href="{% url 'fund_review' fund.id %}"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
+        {% if user.is_superuser %}
+        <a  title="Edit" href="{% url 'admin:lowfat_fund_change' fund.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+        <a  title="Remove" href="{% url 'admin:lowfat_fund_delete' fund.id %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+        {% endif %}
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <tr>
+      <td
+        {% if user.is_staff or user.is_superuser %}
+        colspan="6"
+        {% elif user.is_authenticated %}
+        colspan="4"
+        {% else %}
+        colspan="3"
+        {% endif %}
+        >
+        <strong>No event.</strong>
+      </td>
+    </tr>
+    {% endif %}
+  </tbody>
+</table>

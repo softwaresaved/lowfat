@@ -46,7 +46,7 @@
             <td>{{ claimant.application_year|add:"1" }}</td>
         </tr>
         {% endif %}
-        {% if user.is_superuser %}
+        {% if user.is_superuser or user.is_staff or claimant and user == claimant.user %}
         <tr>
           <th>Email</th>
           <td>
@@ -118,20 +118,13 @@
 <div class="fellow col-md-12">
 <h1>Staff view</h1>
 {% include 'lowfat/finances.html' %}
-<h2>
-  Funding requests
-  {% if user.is_superuser %}
-  <a class="btn btn-default" href="{% url 'fund' %}?claimant_id={{claimant.id}}">Make a funding request</a>
-  {% endif %}
-</h2>
+{% include 'lowfat/funds_header.html' %}
 {% include 'lowfat/funds.html' %}
 {% include 'lowfat/expenses.html' %}
-<h2>
-  Blogs
-  <a class="btn btn-default" href="{% url 'blog' %}?claimant_id={{claimant.id}}">Submit a blog post</a>
-</h2>
 {% include 'lowfat/blogs.html' %}
 </div>
 </div>
+{% else %}
+{% include 'lowfat/fund_past.html' %}
 {% endif %}
 {% endblock %}

@@ -68,7 +68,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
             {% if user.is_authenticated %}
-            {% if user.is_superuser %}
+            {% if user.is_staff or user.is_superuser %}
             <li>
               <form class="form-inline" action="{% url 'search' %}" method="post">
                 {% csrf_token %}
@@ -80,69 +80,66 @@
                 </div>
               </form>
             </li>
-            {% endif %}
-            {% if not user.is_superuser %}
+            {% else %}
             <li>
-              <a href="{% url 'my_profile' %}" />My Profile</a>
-</li>
-{% endif %}
-<li>
-  <a href="{% url 'dashboard' %}" />My Dashboard</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span class="caret"></span></a>
-  <ul class="dropdown-menu">
-    <li><a href="{% url 'fund' %}">Make a funding request</a></li>
-    <li><a href="{% url 'expense' %}">Submit expense claim</a></li>
-    <li><a href="{% url 'blog' %}">Submit a blog post</a></li>
-  </ul>
-</li>
-{% endif %}
-{% if user.is_authenticated %}
-<li>
-  <a href="{% url 'sign_out' %}" />Sign out</a>
-</li>
-{% else %}
-<li>
-  <a href="{% url 'sign_in' %}" />Sign in</a>
-</li>
-<li>
-  <a href="{% url 'social:begin' 'github' %}" />Sign in with GitHub</a>
-</li>
-{% endif %}
-</ul>
-</div><!-- /.navbar-collapse -->
-</div><!-- /.container-fluid -->
-</nav>
-<div class="container">
-  {% include "lowfat/alert.html" %}
-  {% include "lowfat/maintenance.html" %}
-  {% if flatpage %}
-  <h1>{{ flatpage.title }}</h1>
-  {{ flatpage.content }}
-  {% else %}
-  {% block content %}{% endblock %}
-  {% endif %}
-</div>
-<footer class="footer">
-  <div class="container">
-    <p class="text-muted">Powered with
-      <a href="http://python.org/">Python 3</a>,
-      <a href="http://djangoproject.com/">Django</a>,
-      <a href="http://getbootstrap.com/">Bootstrap</a>,
-      <a href="http://garlicjs.org/">Garlic.js</a>,
-      <a href="https://selectize.github.io/selectize.js/">Selectize.js</a>,
-      <a href="http://fontawesome.io/">Font Awesome</a>, and
-      <a href="http://jpswalsh.github.io/academicons/">Academicons</a>.
-      Running version {{ settings.VERSION }}
-      from <a href="{{ settings.URL_SRC }}">{{ settings.URL_SRC }}</a>.
-      <br>
-      If you need any help please email
-      <a href="mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}">us</a>.
-    </p>
-  </div>
-</footer>
-{% block extra_js_body %}{% endblock %}
-</body>
+              <a href="{% url 'my_profile' %}">My Profile</a>
+            </li>
+            {% endif %}
+            <li>
+              <a href="{% url 'dashboard' %}">My Dashboard</a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'fund' %}">Make a funding request</a></li>
+                <li><a href="{% url 'expense' %}">Submit expense claim</a></li>
+                <li><a href="{% url 'blog' %}">Submit a blog post</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="{% url 'sign_out' %}">Sign out</a>
+            </li>
+            {% else %}
+            <li>
+              <a href="{% url 'sign_in' %}">Sign in</a>
+            </li>
+            <li>
+              <a href="{% url 'social:begin' 'github' %}">Sign in with GitHub</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    <div class="container">
+      {% include "lowfat/alert.html" %}
+      {% include "lowfat/maintenance.html" %}
+      {% if flatpage %}
+      <h1>{{ flatpage.title }}</h1>
+      {{ flatpage.content }}
+      {% else %}
+      {% block content %}{% endblock %}
+      {% endif %}
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Powered with
+          <a href="http://python.org/">Python 3</a>,
+          <a href="http://djangoproject.com/">Django</a>,
+          <a href="http://getbootstrap.com/">Bootstrap</a>,
+          <a href="http://garlicjs.org/">Garlic.js</a>,
+          <a href="https://selectize.github.io/selectize.js/">Selectize.js</a>,
+          <a href="http://fontawesome.io/">Font Awesome</a>, and
+          <a href="http://jpswalsh.github.io/academicons/">Academicons</a>.
+          Running version {{ settings.VERSION }}
+          from <a href="{{ settings.URL_SRC }}">{{ settings.URL_SRC }}</a>.
+          <br>
+          If you need any help please email
+          <a href="mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}">us</a>.
+        </p>
+      </div>
+    </footer>
+    {% block extra_js_body %}{% endblock %}
+  </body>
 </html>
 
