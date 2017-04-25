@@ -659,6 +659,11 @@ class Blog(models.Model):
         null=True,
         blank=True
     )
+    coauthor = models.ManyToManyField(
+        'Claimant',
+        blank=True,
+        related_name="author"
+    )
     draft_url = models.CharField(
         max_length=MAX_CHAR_LENGTH,
         validators=[online_document]

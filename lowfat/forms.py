@@ -9,6 +9,7 @@ from django.forms import (
     Form,
     ModelForm,
     Select,
+    SelectMultiple,
     Textarea,
 )
 
@@ -547,17 +548,20 @@ class BlogForm(GarlicForm):
         model = Blog
         fields = [
             'fund',
+            'coauthor',
             'draft_url',
             'final',
         ]
         labels = {
             'fund': 'Open approved funding request',
+            'coauthor': 'Co-author',
             'draft_url': 'URL of blog post draft',
             'final': "Is this the final blog post draft associated with this funding request?",
             }
 
         widgets = {
             'fund': Select(attrs={"class": "select-single-item"}),
+            'coauthor': SelectMultiple(attrs={"class": "select-many-item"}),
         }
 
 
@@ -585,6 +589,7 @@ class BlogForm(GarlicForm):
                 'fund',
                 HTML("<p>We prefer to receive links to <a href='https://www.google.co.uk/docs/about/'>Google Docs</a>, <a href='https://products.office.com/en-gb/office-365-home'>Microsoft Office 365 document</a> or any other online live collaborative document platform you like to use. Posts published somewhere already, e.g. your personal blog, are welcome as well.</p>"),
                 'author' if self.is_staff else None,
+                'coauthor',
                 'draft_url',
                 'final',
                 'send_email_field' if self.is_staff else None,
@@ -609,6 +614,7 @@ class BlogReviewForm(GarlicForm):
         exclude = [
             "fund",
             "author",
+            "coauthor",
             "added",
             "updated",
         ]

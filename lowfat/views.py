@@ -48,7 +48,7 @@ def dashboard(request):
                 'budget_available': claimant.claimantship_available(),
                 'funds': pair_fund_with_blog(Fund.objects.filter(claimant=claimant), "P"),
                 'expenses': Expense.objects.filter(fund__claimant=claimant),
-                'blogs': Blog.objects.filter(author=claimant),
+                'blogs': Blog.objects.filter(Q(author=claimant) | Q(coauthor=claimant)),
             }
         )
     else:
@@ -179,7 +179,7 @@ def claimant_detail(request, claimant_id):
     context = {
         'claimant': this_claimant,
         'blogs': Blog.objects.filter(
-            author=this_claimant,
+            Q(author=this_claimant) | Q(coauthor=this_claimant)
         ),
     }
 
@@ -530,8 +530,7 @@ def blog_form(request):
 
         messages.success(request, 'Blog draft saved on our database.')
         if formset.cleaned_data["send_email_field"]:
-            if blog.fund:
-                new_blog_notification(blog)
+            new_blog_notification(blog)
         return HttpResponseRedirect(
             reverse('blog_detail', args=[blog.id,])
         )
@@ -563,7 +562,8 @@ def blog_detail(request, blog_id):
     this_blog = Blog.objects.get(id=blog_id)
 
     if (request.user.is_superuser or
-            Claimant.objects.get(user=request.user) == this_blog.author):
+        Claimant.objects.get(user=request.user) == this_blog.author or
+        Claimant.objects.get(user=request.user) in this_blog.coauthor.all()):
 
         context = {
             'blog': Blog.objects.get(id=blog_id),
