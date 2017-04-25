@@ -530,8 +530,7 @@ def blog_form(request):
 
         messages.success(request, 'Blog draft saved on our database.')
         if formset.cleaned_data["send_email_field"]:
-            if blog.fund:
-                new_blog_notification(blog)
+            new_blog_notification(blog)
         return HttpResponseRedirect(
             reverse('blog_detail', args=[blog.id,])
         )

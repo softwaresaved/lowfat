@@ -67,7 +67,7 @@ def new_notification(admin_url, user_url, user_email, context, mail):
             flatemail.title,
             plain_text,
             DEFAULT_FROM_EMAIL,
-            [user_email],
+            user_email,
             html_message=html,
             fail_silently=False
         )
@@ -77,7 +77,7 @@ def new_notification(admin_url, user_url, user_email, context, mail):
 def new_fund_notification(fund):
     admin_url = "/email/template/fund/admin/"
     user_url = "/email/template/fund/claimant/"
-    user_email = fund.claimant.email
+    user_email = [fund.claimant.email]
     user_context = {
         "fund": fund,
     }
@@ -95,7 +95,7 @@ def new_fund_notification(fund):
 def new_expense_notification(expense):
     admin_url = "/email/template/expense/admin/"
     user_url = "/email/template/expense/claimant/"
-    user_email = expense.fund.claimant.email
+    user_email = [expense.fund.claimant.email]
     user_context = {
         "expense": expense,
     }
@@ -114,7 +114,9 @@ def new_expense_notification(expense):
 def new_blog_notification(blog):
     admin_url = "/email/template/blog/admin/"
     user_url = "/email/template/blog/claimant/"
-    user_email = blog.author.email
+    user_email = [blog.author.email]
+    if len(blog.coauthor.all()) > 0:
+        user_email.extend([author.email for author in blog.coauthor.all()])
     context = {
         "blog": blog,
     }
