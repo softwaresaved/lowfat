@@ -563,7 +563,8 @@ def blog_detail(request, blog_id):
     this_blog = Blog.objects.get(id=blog_id)
 
     if (request.user.is_superuser or
-            Claimant.objects.get(user=request.user) == this_blog.author):
+        Claimant.objects.get(user=request.user) == this_blog.author or
+        Claimant.objects.get(user=request.user) in this_blog.coauthor.all()):
 
         context = {
             'blog': Blog.objects.get(id=blog_id),
