@@ -614,6 +614,7 @@ class BlogReviewForm(GarlicForm):
         exclude = [
             "fund",
             "author",
+            "coauthor",
             "added",
             "updated",
         ]
