@@ -280,7 +280,7 @@ class Claimant(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slug_generator(self.forenames, self.surname)
         self.website = fix_url(self.website)
-        self.website_feed = fix_url(self.website)
+        self.website_feed = fix_url(self.website_feed)
 
         super(Claimant, self).save(*args, **kwargs)
 
