@@ -91,10 +91,8 @@
         {% if user.is_staff %}
         <a  title="Review" href="{% url 'blog_review' blog.id %}"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
         {% endif %}
-        {% if user.is_superuser %}
-        <a  title="Edit" href="{% url 'admin:lowfat_blog_change' blog.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-        {% endif %}
         {% if user.is_superuser or blog.status == "U" %}
+        <a  title="Edit" href="{% if user.is_superuser %}{% url 'admin:lowfat_blog_change' blog.id %}{% else %}{% url 'blog' %}?id={{ blog.id }}{% endif %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
         <a  title="Remove" href="{% if user.is_superuser %}{% url 'admin:lowfat_blog_delete' blog.id %}{% else %}{% url 'blog_delete' blog.id %}?next={{ request.path }}{% endif %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
         {% endif %}
       </td>
