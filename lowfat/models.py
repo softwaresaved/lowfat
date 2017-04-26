@@ -84,12 +84,13 @@ GRANTS = (
 )
 
 BLOG_POST_STATUS = (
-    ('U', 'Unprocessed'),
-    ('R', 'On Google Drive (for review)'),
-    ('L', 'On pipeline to be published'),
-    ('P', 'Published'),
-    ('D', 'Declined'),
-    ('O', 'Out of date'),
+    ('U', 'Waiting for triage'),  # This is the status after we receive the blog post draft.
+    ('R', 'Waiting to be reviewed'),  # Blog post is assigned to one staff to be reviewed.
+    ('G', 'Waiting to be proofread'),  # Blog post is assigned to be proofread by the community officer.
+    ('L', 'Waiting to be published'),  # Blog post will be publish by the community officer.
+    ('P', 'Published'),  # Blog post is published and have a URL at the website.
+    ('D', 'Declined'),  # Blog post submitted by mistake.
+    ('O', 'Out of date'),  # Blog post that wait too long to be publish for any reason.
 )
 
 def fix_url(url):
