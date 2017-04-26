@@ -717,6 +717,11 @@ class Blog(models.Model):
         null=True,
         blank=True
     )
+    title = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        null=True,
+        blank=True
+    )
     published_url = models.CharField(
         max_length=MAX_CHAR_LENGTH,
         null=True,
