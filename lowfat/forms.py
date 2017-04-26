@@ -551,12 +551,14 @@ class BlogForm(GarlicForm):
             'coauthor',
             'draft_url',
             'final',
+            'notes_from_author',
         ]
         labels = {
             'fund': 'Open approved funding request',
             'coauthor': 'Co-author',
             'draft_url': 'URL of blog post draft',
             'final': "Is this the final blog post draft associated with this funding request?",
+            'notes_from_author': "Notes"
             }
 
         widgets = {
@@ -592,6 +594,7 @@ class BlogForm(GarlicForm):
                 'coauthor',
                 'draft_url',
                 'final',
+                'notes_from_author',
                 'send_email_field' if self.is_staff else None,
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
@@ -615,6 +618,7 @@ class BlogReviewForm(GarlicForm):
             "fund",
             "author",
             "coauthor",
+            "notes_from_author",
             "added",
             "updated",
         ]
