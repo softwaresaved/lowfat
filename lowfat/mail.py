@@ -115,7 +115,7 @@ def new_blog_notification(blog):
     admin_url = "/email/template/blog/admin/"
     user_url = "/email/template/blog/claimant/"
     user_email = [blog.author.email]
-    if len(blog.coauthor.all()) > 0:
+    if blog.coauthor.all():
         user_email.extend([author.email for author in blog.coauthor.all()])
     context = {
         "blog": blog,
@@ -202,7 +202,7 @@ def blog_review_notification(message, sender, old, new):
     if new.status == 'P':
         user_email = [new.author.email]
         user_url = "/email/template/blog/claimant/change/"
-        if len(new.coauthor.all()) > 0:
+        if new.coauthor.all():
             user_email.extend([author.email for author in new.coauthor.all()])
         context = {
             "old": old,

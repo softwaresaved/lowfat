@@ -136,7 +136,6 @@ def claimant_form(request):
         instance = None
         title_begin = "Create"
 
-    # pylint: disable=redefined-variable-type
     if "full" in request.GET:
         formset = FellowForm(request.POST or None, request.FILES or None, instance=instance)
         title_end = "fellow"
@@ -499,7 +498,7 @@ def blog_form(request):
     if blog_id_to_edit:
         try:
             blog_to_edit = Blog.objects.get(id=blog_id_to_edit)
-        except:
+        except:  # pylint: disable=bare-except
             blog_to_edit = None
             messages.error(request, "The blog that you want to edit doesn't exist.")
     else:
@@ -574,8 +573,8 @@ def blog_detail(request, blog_id):
     this_blog = Blog.objects.get(id=blog_id)
 
     if (request.user.is_superuser or
-        Claimant.objects.get(user=request.user) == this_blog.author or
-        Claimant.objects.get(user=request.user) in this_blog.coauthor.all()):
+            Claimant.objects.get(user=request.user) == this_blog.author or
+            Claimant.objects.get(user=request.user) in this_blog.coauthor.all()):
 
         context = {
             'blog': Blog.objects.get(id=blog_id),
@@ -630,9 +629,9 @@ def blog_review(request, blog_id):
 def blog_delete(request, blog_id):
     this_blog = Blog.objects.get(id=blog_id)
     if "next" in request.GET:
-        next = request.GET["next"]
+        next_page = request.GET["next"]
     else:
-        next = "/"
+        next_page = "/"
 
     if Claimant.objects.get(user=request.user) == this_blog.author:
         this_blog.delete()
@@ -640,7 +639,7 @@ def blog_delete(request, blog_id):
     else:
         messages.error(request, 'Only the author can remove the blog.')
 
-    return HttpResponseRedirect(next)
+    return HttpResponseRedirect(next_page)
 
 @staff_member_required
 def recent_actions(request):
