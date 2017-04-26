@@ -614,6 +614,22 @@ def blog_review(request, blog_id):
 
     return render(request, 'lowfat/blog_review.html', context)
 
+@login_required
+def blog_delete(request, blog_id):
+    this_blog = Blog.objects.get(id=blog_id)
+    if "next" in request.GET:
+        next = request.GET["next"]
+    else:
+        next = "/"
+
+    if Claimant.objects.get(user=request.user) == this_blog.author:
+        this_blog.delete()
+        messages.success(request, 'Blog deleted with success.')
+    else:
+        messages.error(request, 'Only the author can remove the blog.')
+
+    return HttpResponseRedirect(next)
+
 @staff_member_required
 def recent_actions(request):
     """Recent actions view."""

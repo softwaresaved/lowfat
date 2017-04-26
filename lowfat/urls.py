@@ -78,6 +78,7 @@ urlpatterns = [  # pylint: disable=invalid-name
     url(r'^expense/(?P<expense_id>[0-9\-]+)/', views.expense_detail, name="expense_detail"),
     url(r'^expense/', views.expense_form, name="expense"),
     url(r'^blog/(?P<blog_id>[0-9]+)/review', views.blog_review, name="blog_review"),
+    url(r'^blog/(?P<blog_id>[0-9]+)/delete', views.blog_delete, name="blog_delete"),
     url(r'^blog/(?P<blog_id>[0-9]+)/', views.blog_detail, name="blog_detail"),
     url(r'^blog/', views.blog_form, name="blog"),
     url(r'^dashboard/', views.dashboard, name="dashboard"),

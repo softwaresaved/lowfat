@@ -38,7 +38,7 @@
         Pulished date
       </th>
       {% endif %}
-      {% if user.is_superuser or user.is_staff %}
+      {% if user.is_authenticated %}
       <th>
         Actions
       </th>
@@ -82,15 +82,21 @@
         {% endif %}
       </td>
       {% endif %}
-      {% if user.is_staff %}
+      {% if user.is_authenticated %}
       <td>
+        {% if user.is_staff %}
         <a class="icon" href="mailto:{{ blog.author.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+        {% endif %}
         <a title="View" href="{% url 'blog_detail' blog.id %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+        {% if user.is_staff %}
         <a  title="Review" href="{% url 'blog_review' blog.id %}"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
         {% endif %}
         {% if user.is_superuser %}
         <a  title="Edit" href="{% url 'admin:lowfat_blog_change' blog.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-        <a  title="Remove" href="{% url 'admin:lowfat_blog_delete' blog.id %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+        {% endif %}
+        {% if user.is_superuser or blog.status == "U" %}
+        <a  title="Remove" href="{% if user.is_superuser %}{% url 'admin:lowfat_blog_delete' blog.id %}{% else %}{% url 'blog_delete' blog.id %}?next={{ request.path }}{% endif %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+        {% endif %}
       </td>
       {% endif %}
     </tr>
