@@ -45,6 +45,10 @@
           <td><a href="{% url 'fund_detail' blog.fund.id %}">{{ blog.fund.name }}</a></td>
         </tr>
         {% endif %}
+        <tr>
+          <th>Notes from author</th>
+          <td>{{ blog.notes_from_author }}</td>
+        </tr>
       </tbody>
     </table>
     <h2>Communication</h2>

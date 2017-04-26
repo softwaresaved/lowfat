@@ -671,6 +671,10 @@ class Blog(models.Model):
     final = models.BooleanField(
         default=False
     )
+    notes_from_author = models.TextField(
+        null=True,
+        blank=True
+    )
 
     # Admin fields
     status = models.CharField(

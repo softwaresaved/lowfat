@@ -1209,6 +1209,7 @@ class BlogFormTest(TestCase):
         data = {
             "fund": self.fund_id,
             "draft_url": "https://www.software.ac.uk/",
+            "notes_from_author": "Notes",
             "final": True,
         }
 

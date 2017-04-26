@@ -53,6 +53,12 @@
     </tr>
     {% endif %}
     <tr>
+      <th>Notes</th>
+      <td>
+        {{ blog.notes_from_author }}
+      </td>
+    </tr>
+    <tr>
       <th>Draft URL</th>
       <td><a href="{{ blog.draft_url }}">{{ blog.draft_url }}</a></td>
     </tr>
