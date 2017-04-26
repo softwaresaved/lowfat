@@ -494,6 +494,16 @@ def expense_review_relative(request, fund_id, expense_relative_number):
 
 @login_required
 def blog_form(request):
+    # Setup Blog to edit if provide
+    blog_id_to_edit = request.GET.get("id")
+    if blog_id_to_edit:
+        try:
+            blog_to_edit = Blog.objects.get(id=blog_id_to_edit)
+        except:
+            blog_to_edit = None
+            messages.error(request, "The blog that you want to edit doesn't exist.")
+    else:
+        blog_to_edit = None
     # Setup Fund if provided
     fund_id = request.GET.get("fund_id")
     if fund_id:
@@ -506,6 +516,7 @@ def blog_form(request):
     formset = BlogForm(
         request.POST or None,
         request.FILES or None,
+        instance=blog_to_edit,
         initial=initial,
         is_staff=True if request.user.is_superuser else False
     )
@@ -514,18 +525,19 @@ def blog_form(request):
         blog = formset.save()
 
         # Handle blog post not related with a funding request
-        if formset.cleaned_data["author"]:  # Because blog.author is None!
-            blog.author = Claimant.objects.get(id=formset.cleaned_data["author"])
-        elif blog.fund:
-            blog.author = blog.fund.claimant
-        elif not blog.author and not request.user.is_superuser:
-            blog.author = Claimant.objects.get(user=request.user)
-        else:
-            blog.delete()  # XXX Quick way to solve the issue
-            messages.error(request, 'Blog post not saved. Please provide a author.')
-            return HttpResponseRedirect(
-                reverse('blog')
-            )
+        if not blog.author:
+            if formset.cleaned_data["author"]:  # Because blog.author is None!
+                blog.author = Claimant.objects.get(id=formset.cleaned_data["author"])
+            elif blog.fund:
+                blog.author = blog.fund.claimant
+            elif not request.user.is_superuser:
+                blog.author = Claimant.objects.get(user=request.user)
+            else:
+                blog.delete()  # XXX Quick way to solve the issue
+                messages.error(request, 'Blog post not saved. Please provide a author.')
+                return HttpResponseRedirect(
+                    reverse('blog')
+                )
         blog.save()
 
         messages.success(request, 'Blog draft saved on our database.')
@@ -613,6 +625,22 @@ def blog_review(request, blog_id):
     }
 
     return render(request, 'lowfat/blog_review.html', context)
+
+@login_required
+def blog_delete(request, blog_id):
+    this_blog = Blog.objects.get(id=blog_id)
+    if "next" in request.GET:
+        next = request.GET["next"]
+    else:
+        next = "/"
+
+    if Claimant.objects.get(user=request.user) == this_blog.author:
+        this_blog.delete()
+        messages.success(request, 'Blog deleted with success.')
+    else:
+        messages.error(request, 'Only the author can remove the blog.')
+
+    return HttpResponseRedirect(next)
 
 @staff_member_required
 def recent_actions(request):
