@@ -163,5 +163,20 @@
             1
         ]
     }
+},
+{
+    "model": "flatpages.flatpage",
+    "pk": 12,
+    "fields": {
+        "url": "/guide/google-docs/",
+        "title": "Google Docs",
+        "content": "<p class=\"bg-info\">Last time updated: 27 April, 2017.</p>\r\n<p>If you decide to use <a href=\"https://docs.google.com/\">Google Docs</a> to share your blog post draft with us, ensure that you send us the link that allow us to comment and edit your document. <strong>lowFAT will try to access the document that you are providing and if it can't access the document it will require you to change the link or the permissions at illustrate below.</strong></p>\r\n<img src=\"/static/img/google-docs-access.png\" class=\"img-responsive\">\r\n<ol>\r\n<lI>\r\n<p>Access the Google Docs that you want to send.</p>\r\n<img src=\"/static/img/google-docs-home.png\" class=\"img-responsive\">\r\n</li>\r\n<li>\r\n<p>At the top right corner, click on the \"Share\" button.</p>\r\n<img src=\"/static/img/google-docs-share.png\" class=\"img-responsive\">\r\n</li>\r\n<li>\r\n<p>Click on \"Get shareable link\".</p>\r\n<img src=\"/static/img/google-docs-view.png\" class=\"img-responsive\">\r\n</li>\r\n<li>\r\n<p>Change \"Anyone with the link can view\" to \"Anyone with the link can edit\".</p>\r\n<img src=\"/static/img/google-docs-edit.png\" class=\"img-responsive\">\r\n</li>\r\n<li>\r\n<p>Copy the link and paste it on the form that you will send to us.</p>\r\n</li>\r\n</ol>",
+        "enable_comments": false,
+        "template_name": "lowfat/base.html",
+        "registration_required": true,
+        "sites": [
+            1
+        ]
+    }
 }
 ]
