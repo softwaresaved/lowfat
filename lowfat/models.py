@@ -98,10 +98,8 @@ def fix_url(url):
     if url is not None and url:
         url = url.split()[0]  # If the URL uses white space it should be encoded as %20%
         url = url.split(",")[0]  # If the URL uses comma it should be encoded as %2C.
-        if re.match("https?://", url):
-            return url
-        else:
-            return "http://{}".format(url)
+        if not re.match("https?://", url):
+            url = "http://{}".format(url)
 
     return url
 
@@ -328,9 +326,10 @@ class Claimant(models.Model):
 
     def link(self):
         if self.selected:
-            return reverse("fellow_slug", args=[self.slug])
+            function_name = "fellow_slug"
         else:
-            return reverse("claimant_slug", args=[self.slug])
+            function_name = "claimant_slug"
+        return reverse(function_name, args=[self.slug])
 
 class Fund(models.Model):
     """Describe a fund from one claimant."""
