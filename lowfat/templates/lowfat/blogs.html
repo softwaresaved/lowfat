@@ -53,6 +53,7 @@
       </th>
       {% endif %}
     </tr>
+    {% if blogs %}
     {% for blog in blogs %}
     <tr
       {% if user.is_authenticated %}
@@ -80,6 +81,11 @@
         {% else %}
         {% if blog.title %}
         <a href="{{ blog.published_url }}">{{ blog.title }}</a>
+        {% if blog.tweet_url|length > 0 %}
+        <a class="icon" href="{{blog.tweet_url}}">
+          <i class="fa fa-twitter" aria-hidden="true"></i>
+        </a>
+        {% endif %}
         {% else %}
         <a href="{{ blog.draft_url }}">{{ blog.draft_url }}</a>
         {% endif %}
@@ -116,5 +122,20 @@
       {% endif %}
     </tr>
     {% endfor %}
+    {% else %}
+    <tr>
+      <td
+        {% if user.is_staff or user.is_superuser %}
+        colspan="5"
+        {% elif user.is_authenticated %}
+        colspan="5"
+        {% else %}
+        colspan="1"
+        {% endif %}
+        >
+        <strong>No event.</strong>
+      </td>
+    </tr>
+    {% endif %}
   </tbody>
 </table>
