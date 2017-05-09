@@ -1,11 +1,13 @@
 <h2>
   Blog Posts
+  {% if user.is_authenticated %}
   {% if claimant %}
   <a class="btn btn-default" href="{% url 'blog' %}?claimant_id={{claimant.id}}">Submit a blog post</a>
   {% elif fund %}
   <a class="btn btn-default" href="{% url 'blog' %}?fund_id={{fund.id}}">Submit a blog post</a>
   {% else %}
   <a class="btn btn-default" href="{% url 'blog' %}">Submit a blog post</a>
+  {% endif %}
   {% endif %}
 </h2>
 {% if fund %}
@@ -35,9 +37,11 @@
       <th>
         Blog
       </th>
+      {% if user.is_authenticated %}
       <th>
         Status
       </th>
+      {% endif %}
       {% if user.is_superuser or user.is_staff or claimant and user == claimant.user %}
       <th>
         Pulished date
@@ -51,12 +55,14 @@
     </tr>
     {% for blog in blogs %}
     <tr
+      {% if user.is_authenticated %}
       {% if blog.status in 'U' %}
       class="danger"
       {% elif blog.status in 'R' %}
       class="warning"
       {% elif blog.status in 'LPDO' %}
       class="success"
+      {% endif %}
       {% endif %}
       >
       {% if user.is_superuser or user.is_staff or claimant and user == claimant.user %}
@@ -75,9 +81,11 @@
         <a href="{{ blog.draft_url }}">{{ blog.draft_url }}</a>
         {% endif %}
       </td>
+      {% if user.is_authenticated %}
       <td>
         {{ blog.get_status_display }}
       </td>
+      {% endif %}
       {% if user.is_superuser or user.is_staff or claimant and user == claimant.user %}
       <td>
         {% if blog.published_url|length > 0 %}
