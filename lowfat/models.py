@@ -295,7 +295,16 @@ class Claimant(models.Model):
 
     def claimantship_available(self):
         """Return the remain claimantship grant."""
-        return self.claimantship_grant - self.claimantship_committed() - self.claimantship_spent()
+        deadline = date(
+            self.application_year + 2,
+            config.FELLOWSHIP_EXPENSES_END_MONTH,
+            config.FELLOWSHIP_EXPENSES_END_DAY
+        )
+        money_available = 0
+        if deadline > date.today():
+            money_available = self.claimantship_grant - self.claimantship_committed() - self.claimantship_spent()
+
+        return money_available
 
     def claimantship_committed(self):
         """Return the ammount committed from the claimantship grant."""
