@@ -7,7 +7,7 @@
     <td>£{{ claimant.claimantship_grant|floatformat:2 }}</td>
   </tr>
   <tr>
-    <th>Available <span title="Fellowship grant not committed or spent" class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></th>
+    <th>Available (until {{ claimant.inauguration_grant_expiration }}) <span title="Fellowship grant not committed or spent" class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></th>
     <td>£{{ claimant.claimantship_available|floatformat:2 }}</td>
   </tr>
   <tr>
