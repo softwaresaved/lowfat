@@ -249,6 +249,15 @@ class Claimant(models.Model):
         blank=False,
         default=date.today().year
     )
+    inauguration_grant_expiration = models.DateField(
+        null=False,
+        blank=False,
+        default=date(
+            date.today().year + 2,
+            config.FELLOWSHIP_EXPENSES_END_MONTH,
+            config.FELLOWSHIP_EXPENSES_END_DAY
+        )
+    )
     selected = models.BooleanField(default=False)
     software_carpentry_instructor = models.BooleanField(default=False)
     data_carpentry_instructor = models.BooleanField(default=False)
@@ -295,13 +304,8 @@ class Claimant(models.Model):
 
     def claimantship_available(self):
         """Return the remain claimantship grant."""
-        deadline = date(
-            self.application_year + 2,
-            config.FELLOWSHIP_EXPENSES_END_MONTH,
-            config.FELLOWSHIP_EXPENSES_END_DAY
-        )
         money_available = 0
-        if deadline > date.today():
+        if self.inauguration_grant_expiration > date.today():
             money_available = self.claimantship_grant - self.claimantship_committed() - self.claimantship_spent()
 
         return money_available
