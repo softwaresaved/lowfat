@@ -285,7 +285,7 @@ class Claimant(models.Model):
     updated = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
         self.slug = slug_generator(self.forenames, self.surname)
         self.website = fix_url(self.website)
         self.website_feed = fix_url(self.website_feed)
@@ -460,7 +460,7 @@ class Fund(models.Model):
     updated = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
         if not self.pk:
             self.grant_default = config.GRANTS_DEFAULT
 
@@ -622,7 +622,7 @@ class Expense(models.Model):
     def __str__(self):
         return self.claim.name
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
         if self.pk is None:
             previous_number = Expense.objects.filter(fund=self.fund).count()
             self.relative_number = previous_number + 1
@@ -720,7 +720,7 @@ class Blog(models.Model):
     updated = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
         self.draft_url = fix_url(self.draft_url)
         self.published_url = fix_url(self.published_url)
         self.tweet_url = fix_url(self.tweet_url)

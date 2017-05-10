@@ -6,8 +6,8 @@ import datetime
 from django.db import migrations, models
 
 
-def set_inaugural_grant_expiration(apps, schema_editor):
-    Claimant = apps.get_model("lowfat", "Claimant")
+def set_inaugural_grant_expiration(apps, schema_editor):  # pylint: disable=unused-argument
+    Claimant = apps.get_model("lowfat", "Claimant")  # pylint: disable=invalid-name
     for claimant in Claimant.objects.all():
         claimant.inauguration_grant_expiration = datetime.date(
             claimant.application_year + 2,
@@ -15,7 +15,7 @@ def set_inaugural_grant_expiration(apps, schema_editor):
             31
             )
         claimant.save()
-        
+
 class Migration(migrations.Migration):
 
     dependencies = [
