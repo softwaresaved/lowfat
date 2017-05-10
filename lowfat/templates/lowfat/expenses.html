@@ -23,9 +23,9 @@
 <table class="table table-bordered sortable">
   <tbody>
     <tr>
-      {% if user.is_superuser or user.is_staff %}
+      {% if user.is_authenticated %}
       <th>
-        Date
+        Submitted date
       </th>
       {% endif %}
       <th>
@@ -57,7 +57,7 @@
       class="success"
       {% endif %}
       >
-      {% if user.is_superuser or user.is_staff %}
+      {% if user.is_authenticated %}
       <td>
         {{ expense.added }}
       </td>
@@ -119,9 +119,9 @@
     {% endif %}
     {% else %}
     <tr
-      {% if user.is_authenticated %}
-      colspan="4"
-      {% elif user.is_staff or user.is_superuser %}
+      {% if user.is_staff or user.is_superuser %}
+      colspan="5"
+      {% elif user.is_authenticated %}
       colspan="6"
       {% else %}
       colspan="3"
