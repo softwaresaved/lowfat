@@ -252,10 +252,10 @@ class Claimant(models.Model):
     inauguration_grant_expiration = models.DateField(
         null=False,
         blank=False,
-        default=date(
+        default=date(  # This will be overwrite by save().
             date.today().year + 2,
-            config.FELLOWSHIP_EXPENSES_END_MONTH,
-            config.FELLOWSHIP_EXPENSES_END_DAY
+            3,
+            31
         )
     )
     selected = models.BooleanField(default=False)
@@ -286,6 +286,12 @@ class Claimant(models.Model):
     history = HistoricalRecords()
 
     def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
+        if not self.id:
+            self.inauguration_grant_expiration = date(
+                date.today().year + 2,
+                config.FELLOWSHIP_EXPENSES_END_MONTH,
+                config.FELLOWSHIP_EXPENSES_END_DAY
+            )
         self.slug = slug_generator(self.forenames, self.surname)
         self.website = fix_url(self.website)
         self.website_feed = fix_url(self.website_feed)
