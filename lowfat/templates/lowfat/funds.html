@@ -65,7 +65,7 @@
         {% if user.is_superuser %}
         <a title="Review" href="{% url "fund_review" fund.id %}">{{fund.name}}</a>
         {% if fund.url|length > 0 %}
-        <a href="{{fund.url}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+        <a title="View website" href="{{fund.url}}"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
           {% endif %}
         </a>
         {% elif claimant and user == claimant.user %}
