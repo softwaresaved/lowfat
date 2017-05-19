@@ -25,11 +25,11 @@ TODAY_YEAR = datetime.now().year
 SELECT_DATE_WIDGE_YEARS = [TODAY_YEAR + delta for delta in range(-3, 4)]
 
 class GarlicForm(ModelForm):
-    send_email_field = BooleanField(
+    not_send_email_field = BooleanField(
         widget=CheckboxInput,
         required=False,
-        initial=True,
-        label="Send email notification for this update to claimant?"
+        initial=False,
+        label="Suppress email notification for this update to claimant?"
     )
 
     def __init__(self, *args, **kwargs):
@@ -296,7 +296,7 @@ class FundForm(GarlicForm):
                 HTML('<h2>Publicity</h2>'),
                 'can_be_advertise_before',
                 'can_be_advertise_after',
-                'send_email_field' if self.is_staff else None,
+                'not_send_email_field' if self.is_staff else None,
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
                 )
@@ -350,7 +350,7 @@ class FundReviewForm(GarlicForm):
                 ),
                 "notes_from_admin",
                 "email",
-                'send_email_field' if self.is_staff else None,
+                'not_send_email_field' if self.is_staff else None,
             )
         )
 
@@ -399,7 +399,7 @@ class FundImportForm(Form):
 </ul>
 <p class="text-danger">You will not have access to debug information!</p>"""),
                 'csv',
-                'send_email_field' if self.is_staff else None,
+                'not_send_email_field' if self.is_staff else None,
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
                 )
@@ -472,7 +472,7 @@ class ExpenseForm(GarlicForm):
                 'recipient_group',
                 HTML("<p>You need to provide a reason for submit the recipient claim. An common reasons is \"because the recipient was of of the speakers on that workshop\".</p>"),
                 'recipient_connection',
-                'send_email_field' if self.is_staff else None,
+                'not_send_email_field' if self.is_staff else None,
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
                 )
@@ -535,7 +535,7 @@ class ExpenseReviewForm(GarlicForm):
                 'grant_used',
                 'notes_from_admin',
                 'email',
-                'send_email_field' if self.is_staff else None,
+                'not_send_email_field' if self.is_staff else None,
                 ButtonHolder(
                     Submit('submit', 'Update')
                 )
@@ -596,7 +596,7 @@ class BlogForm(GarlicForm):
                 HTML('<p>To apply for expenses for eligible events, please fill in this form at least one month before the start date of the event you wish to attend or organise.</p><h2>Requester details</h2>'),
                 'final',
                 'notes_from_author',
-                'send_email_field' if self.is_staff else None,
+                'not_send_email_field' if self.is_staff else None,
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
                 )
@@ -642,7 +642,7 @@ class BlogReviewForm(GarlicForm):
                 'published_url',
                 'tweet_url',
                 'email',
-                'send_email_field' if self.is_staff else None,
+                'not_send_email_field' if self.is_staff else None,
                 ButtonHolder(
                     Submit('submit', 'Update')
                 )
