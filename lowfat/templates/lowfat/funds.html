@@ -38,6 +38,9 @@
       <th>
         Status
       </th>
+      <th>
+        Approved date
+      </th>
       {% endif %}
       {% if user.is_superuser or user.is_staff %}
       <th>
@@ -107,6 +110,10 @@
         if need
         {% endif %}
       </td>
+      <td>
+        {% if fund.status in 'AF' %}
+        {{ fund.approved }}
+        {% endif %}
       {% endif %}
       {% if user.is_superuser or user.is_staff %}
       <td>

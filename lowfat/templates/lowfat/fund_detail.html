@@ -45,6 +45,14 @@
             <th>End data</th>
             <td>{{ fund.end_date }}</td>
         </tr>
+        <tr>
+            <th>Approved data</th>
+            <td>
+              {% if fund.status in 'AF' %}
+              {{ fund.approved }}
+              {% endif %}
+            </td>
+        </tr>
         {% if user.is_superuser %}
         <tr>
           <th>Justication</th>
