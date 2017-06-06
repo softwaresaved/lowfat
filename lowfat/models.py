@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime, date
 import re
 import hashlib
 
@@ -463,12 +463,19 @@ class Fund(models.Model):
 
     # Control
     added = models.DateTimeField(auto_now_add=True)
+    approved = models.DateTimeField(
+        null=True,
+        blank=True
+    )
     updated = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()
 
     def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
         if not self.pk:
             self.grant_default = config.GRANTS_DEFAULT
+
+        if self.status == "A":
+            self.approved = datetime.now()
 
         self.url = fix_url(self.url)
 

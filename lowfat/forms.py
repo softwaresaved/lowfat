@@ -180,6 +180,7 @@ class FundForm(GarlicForm):
             "grant_default",
             "notes_from_admin",
             "added",
+            "approved",
             "updated",
         ]
 
