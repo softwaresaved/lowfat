@@ -227,7 +227,6 @@ def claimant_detail(request, claimant_id):
         else:
             funds = Fund.objects.filter(
                 claimant=this_claimant,
-                can_be_advertise_after=True,
                 status__in=funding_requests_status
             )
             context.update(
@@ -238,6 +237,20 @@ def claimant_detail(request, claimant_id):
                     ).distinct(),
                 }
             )
+    else:
+        funds = Fund.objects.filter(
+            claimant=this_claimant,
+            can_be_advertise_after=True,
+            status__in="AF"
+        )
+        context.update(
+            {
+                'funds': pair_fund_with_blog(funds, "P"),
+                'blogs': Blog.objects.filter(
+                    Q(author=this_claimant, status="P") | Q(coauthor=this_claimant, status="P")
+                ).distinct(),
+            }
+        )
 
     return render(request, 'lowfat/claimant_detail.html', context)
 
