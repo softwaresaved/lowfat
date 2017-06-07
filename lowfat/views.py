@@ -191,6 +191,7 @@ def claimant_detail(request, claimant_id):
     """Details about claimant."""
     this_claimant = Claimant.objects.get(id=claimant_id)
 
+    # Avoid leak information from applicants
     if not request.user.is_superuser and not request.user.is_staff and not this_claimant.selected:
         raise Http404("Claimant does not exist.")
 
@@ -204,12 +205,9 @@ def claimant_detail(request, claimant_id):
         'expenses_status': expenses_status,
         'blogs_status': blogs_status,
         'claimant': this_claimant,
-        'blogs': Blog.objects.filter(
-            Q(author=this_claimant) | Q(coauthor=this_claimant)
-        ),
     }
 
-    if request.user.is_authenticated() and request.user.is_superuser:
+    if request.user.is_staff:
         funds = Fund.objects.filter(
             claimant=this_claimant,
             status__in=funding_requests_status
@@ -221,17 +219,23 @@ def claimant_detail(request, claimant_id):
                     fund__claimant=this_claimant,
                     status__in=expenses_status
                 ),
+                'blogs': Blog.objects.filter(
+                    Q(author=this_claimant, status__in=blogs_status) | Q(coauthor=this_claimant, status__in=blogs_status)
+                ).distinct(),
             }
         )
     else:
         funds = Fund.objects.filter(
             claimant=this_claimant,
             can_be_advertise_after=True,
-            status__in=["A", "F"]
+            status__in="AF"
         )
         context.update(
             {
                 'funds': pair_fund_with_blog(funds, "P"),
+                'blogs': Blog.objects.filter(
+                    Q(author=this_claimant, status="P") | Q(coauthor=this_claimant, status="P")
+                ).distinct(),
             }
         )
 

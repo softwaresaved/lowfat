@@ -1246,6 +1246,7 @@ class BlogReviewFormTest(TestCase):
             "draft_url":  "https://www.software.ac.uk/",
             "status": "P",
             "published_url": "https://www.software.ac.uk/",
+            "title": "Title",
             "notes_from_admin": ":-)",
         }
 

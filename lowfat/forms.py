@@ -641,6 +641,7 @@ class BlogReviewForm(GarlicForm):
                 'reviewer',
                 'notes_from_admin',
                 'published_url',
+                'title',
                 'tweet_url',
                 'email',
                 'not_send_email_field' if self.is_staff else None,
