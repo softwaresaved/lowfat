@@ -2,10 +2,15 @@
   Blog Posts
   {% if claimant %}
   <a class="btn btn-default" href="{% url 'blog' %}?claimant_id={{claimant.id}}">Submit a blog post</a>
+  {% elif fund %}
+  <a class="btn btn-default" href="{% url 'blog' %}?fund_id={{fund.id}}">Submit a blog post</a>
   {% else %}
   <a class="btn btn-default" href="{% url 'blog' %}">Submit a blog post</a>
   {% endif %}
 </h2>
+{% if fund %}
+<p><strong>This fund requires {{ fund.required_blog_posts }} blog posts.</strong></p>
+{% endif %}
 {% if user.is_staff %}
 <ul class="nav nav-tabs">
   <li role="presentation" {% if request.GET.blogs == 'URLPDO' %}class="active"{% endif %}>
