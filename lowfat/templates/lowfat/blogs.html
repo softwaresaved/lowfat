@@ -8,14 +8,14 @@
 </h2>
 {% if user.is_staff %}
 <ul class="nav nav-tabs">
-  <li role="presentation" {% if request.GET.blogs == 'URLPDO' %}class="active"{% endif %}>
-    <a href="?blogs=URLPDO">All</a>
+  <li role="presentation" {% if blogs_status == 'URLPDO' %}class="active"{% endif %}>
+    <a href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=URLPDO">All</a>
   </li>
-  <li role="presentation" {% if "blogs" not in request.GET or request.GET.blogs == 'UR' %}class="active"{% endif %}>
-    <a href="?blogs=UR">Pending</a>
+  <li role="presentation" {% if blogs_status == 'UR' %}class="active"{% endif %}>
+    <a href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=UR">Pending</a>
   </li>
-  <li role="presentation" {% if request.GET.blogs == 'P' %}class="active"{% endif %}>
-    <a href="?blogs=P">Published</a>
+  <li role="presentation" {% if blogs_status == 'P' %}class="active"{% endif %}>
+    <a href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=P">Published</a>
   </li>
 </ul>
 {% endif %}

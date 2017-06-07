@@ -1,19 +1,19 @@
 {% if user.is_staff %}
 <ul class="nav nav-tabs">
-  <li role="presentation" {% if request.GET.funding_requests == 'UPARF' %}class="active"{% endif %}>
-    <a href="?funding_requests=UPARF">All</a>
+  <li role="presentation" {% if funding_requests_status == 'UPARF' %}class="active"{% endif %}>
+    <a href="?funding_requests=UPARF&expenses={{ expenses_status }}&blogs={{ blogs_status }}">All</a>
   </li>
-  <li role="presentation" {% if "funding_requests" not in request.GET or request.GET.funding_requests == 'UP' %}class="active"{% endif %}>
-    <a href="?funding_requests=UP">Pending</a>
+  <li role="presentation" {% if funding_requests_status == 'UP' %}class="active"{% endif %}>
+    <a href="?funding_requests=UP&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Pending</a>
   </li>
-  <li role="presentation" {% if request.GET.funding_requests == 'A' %}class="active"{% endif %}>
-    <a href="?funding_requests=A">Approved</a>
+  <li role="presentation" {% if funding_requests_status == 'A' %}class="active"{% endif %}>
+    <a href="?funding_requests=A&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Approved</a>
   </li>
-  <li role="presentation" {% if request.GET.funding_requests == 'R' %}class="active"{% endif %}>
-    <a href="?funding_requests=R">Reproved</a>
+  <li role="presentation" {% if funding_requests_status == 'R' %}class="active"{% endif %}>
+    <a href="?funding_requests=R&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Reproved</a>
   </li>
-  <li role="presentation" {% if request.GET.funding_requests == 'F' %}class="active"{% endif %}>
-    <a href="?funding_requests=F">Archived</a>
+  <li role="presentation" {% if funding_requests_status == 'F' %}class="active"{% endif %}>
+    <a href="?funding_requests=F&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Archived</a>
   </li>
 </ul>
 {% endif %}
