@@ -482,7 +482,7 @@ class Fund(models.Model):
         super(Fund, self).save(*args, **kwargs)
 
     def __str__(self):
-        return "{}".format(self.name)
+        return "{} ({})".format(self.name, self.id)
 
     def status_help(self):
         """Provide long description for the status."""
