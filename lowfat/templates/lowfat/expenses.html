@@ -1,5 +1,6 @@
 <h2>
   Expenses
+  {% if user.is_staff or claimant and user == claimant.user %}
   {% if fund %}
   {% if fund.status not in "RF" %}
   <a class="btn btn-default" href="{% url 'expense' %}{% if fund %}?fund_id={{fund.id}}{% endif %}">Submit expense claim</a>
@@ -8,10 +9,10 @@
   {% endif %}
   {% else %}
   <a class="btn btn-default" href="{% url 'expense' %}">Submit expense claim</a>
+  {% endif %}
+  {% endif %}
 </h2>
-{% endif %}
-</h2>
-{% if user.is_superuser or user.is_staff %}
+{% if user.is_staff %}
 <ul class="nav nav-tabs">
   <li role="presentation" {% if expenses_status == 'WSCPAF' %}class="active"{% endif %}>
     <a href="?funding_requests={{ funding_requests_status }}&expenses=WSCPAF&blogs={{ blogs_status }}">All</a>
@@ -23,7 +24,7 @@
 <table class="table table-bordered sortable">
   <tbody>
     <tr>
-      {% if user.is_authenticated %}
+      {% if user.is_staff or claimant and user == claimant.user %}
       <th>
         Submitted date
       </th>
@@ -40,7 +41,7 @@
       <th>
         Amount authorized for payment
       </th>
-      {% if user.is_superuser or user.is_staff %}
+      {% if user.is_staff %}
       <th>
         Actions
       </th>
@@ -57,7 +58,7 @@
       class="success"
       {% endif %}
       >
-      {% if user.is_authenticated %}
+      {% if user.is_staff or claimant and user == claimant.user %}
       <td>
         {{ expense.added }}
       </td>
@@ -65,7 +66,7 @@
       <td>
         {% if expense.claim %}
         <a
-          {% if user.is_superuser %}
+          {% if user.is_staff %}
           href="{% url 'expense_review_relative' expense.fund.id expense.relative_number %}"
           {% else %}
           <a href="{% url 'expense_detail_relative' expense.fund.id expense.relative_number %}"
@@ -119,9 +120,9 @@
     {% endif %}
     {% else %}
     <tr
-      {% if user.is_staff or user.is_superuser %}
+      {% if user.is_staff %}
       colspan="5"
-      {% elif user.is_authenticated %}
+      {% elif claimant and user == claimant.user %}
       colspan="6"
       {% else %}
       colspan="3"

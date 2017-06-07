@@ -1,6 +1,6 @@
 <h2>
   Blog Posts
-  {% if user.is_authenticated %}
+  {% if user.is_staff or claimant and user == claimant.user %}
   {% if claimant %}
   <a class="btn btn-default" href="{% url 'blog' %}?claimant_id={{claimant.id}}">Submit a blog post</a>
   {% elif fund %}
@@ -29,7 +29,7 @@
 <table class="table table-bordered sortable">
   <tbody>
     <tr>
-      {% if user.is_superuser or user.is_staff or claimant and user == claimant.user %}
+      {% if user.is_staff or claimant and user == claimant.user %}
       <th>
         Submitted date
       </th>
@@ -37,17 +37,15 @@
       <th>
         Blog
       </th>
-      {% if user.is_authenticated %}
+      {% if user.is_staff or claimant and user == claimant.user %}
       <th>
         Status
       </th>
       {% endif %}
-      {% if user.is_superuser or user.is_staff or claimant and user == claimant.user %}
       <th>
-        Pulished date
+        Publish date
       </th>
-      {% endif %}
-      {% if user.is_authenticated %}
+      {% if user.is_staff or claimant and user == claimant.user %}
       <th>
         Actions
       </th>
@@ -56,7 +54,7 @@
     {% if blogs %}
     {% for blog in blogs %}
     <tr
-      {% if user.is_authenticated %}
+      {% if user.is_staff or claimant and user == claimant.user %}
       {% if blog.status in 'U' %}
       class="danger"
       {% elif blog.status in 'R' %}
@@ -66,13 +64,13 @@
       {% endif %}
       {% endif %}
       >
-      {% if user.is_superuser or user.is_staff or claimant and user == claimant.user %}
+      {% if user.is_staff or claimant and user == claimant.user %}
       <td>
         {{ blog.added }}
       </td>
       {% endif %}
       <td>
-        {% if user.is_superuser or user.is_staff %}
+        {% if user.is_staff %}
         <a title="Review" href="{% url 'blog_review' blog.id %}">{{ blog.draft_url }}</a>
         by <a href="{% url 'claimant_detail' blog.author.id %}">{{ blog.author.fullname }}</a>
         {% if blog.fund %}
@@ -91,12 +89,11 @@
         {% endif %}
         {% endif %}
       </td>
-      {% if user.is_authenticated %}
+      {% if user.is_staff or claimant and user == claimant.user %}
       <td>
         {{ blog.get_status_display }}
       </td>
       {% endif %}
-      {% if user.is_superuser or user.is_staff or claimant and user == claimant.user %}
       <td>
         {% if blog.published_url|length > 0 %}
         {{ blog.updated }}
@@ -104,8 +101,7 @@
         <strong>Unpublished</strong>
         {% endif %}
       </td>
-      {% endif %}
-      {% if user.is_authenticated %}
+      {% if user.is_staff or claimant and user == claimant.user %}
       <td>
         {% if user.is_staff %}
         <a class="icon" href="mailto:{{ blog.author.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>
@@ -125,12 +121,12 @@
     {% else %}
     <tr>
       <td
-        {% if user.is_staff or user.is_superuser %}
+        {% if user.is_staff %}
         colspan="5"
-        {% elif user.is_authenticated %}
+        {% elif claimant and user == claimant.user %}
         colspan="5"
         {% else %}
-        colspan="1"
+        colspan="2"
         {% endif %}
         >
         <strong>No event.</strong>
