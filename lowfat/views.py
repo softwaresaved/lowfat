@@ -42,36 +42,55 @@ def dashboard(request):
         except:  # pylint: disable=bare-except
             return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/welcome/'}))
 
+        # Setup query parameters
+        funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPARF"
+        expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCPAF"
+        blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URLPDO"
+
         context.update(
             {
+                'funding_requests_status': funding_requests_status,
+                'expenses_status': expenses_status,
+                'blogs_status': blogs_status,
                 'claimant': claimant,
                 'budget_available': claimant.claimantship_available(),
-                'funds': pair_fund_with_blog(Fund.objects.filter(claimant=claimant), "P"),
-                'expenses': Expense.objects.filter(fund__claimant=claimant),
-                'blogs': Blog.objects.filter(Q(author=claimant) | Q(coauthor=claimant)),
+                'funds': pair_fund_with_blog(
+                    Fund.objects.filter(
+                        claimant=claimant,
+                        status__in=funding_requests_status
+                    ),
+                    "P"
+                ),
+                'expenses': Expense.objects.filter(
+                    fund__claimant=claimant,
+                    status__in=expenses_status
+                ),
+                'blogs': Blog.objects.filter(Q(author=claimant, status__in=blogs_status) | Q(coauthor=claimant, status__in=blogs_status)),
             }
         )
     else:
-        if "funding_requests" in request.GET:
-            funding_requests_status = request.GET["funding_requests"]
-        else:
-            funding_requests_status = "UP"
-
-        if "expenses" in request.GET:
-            expenses_status = request.GET["expenses"]
-        else:
-            expenses_status = "WSCP"
-
-        if "blogs" in request.GET:
-            blogs_status = request.GET["blogs"]
-        else:
-            blogs_status = "UR"
+        # Setup query parameters
+        funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UP"
+        expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCP"
+        blogs_status = request.GET["blogs"] if "blogs" in request.GET else "UR"
 
         context.update(
             {
-                'funds': pair_fund_with_blog(Fund.objects.filter(status__in=funding_requests_status), "P"),
-                'expenses': Expense.objects.filter(status__in=expenses_status),
-                'blogs': Blog.objects.filter(status__in=blogs_status),
+                'funding_requests_status': funding_requests_status,
+                'expenses_status': expenses_status,
+                'blogs_status': blogs_status,
+                'funds': pair_fund_with_blog(
+                    Fund.objects.filter(
+                        status__in=funding_requests_status
+                    ),
+                    "P"
+                ),
+                'expenses': Expense.objects.filter(
+                    status__in=expenses_status
+                ),
+                'blogs': Blog.objects.filter(
+                    status__in=blogs_status
+                ),
             }
         )
 
@@ -175,7 +194,15 @@ def claimant_detail(request, claimant_id):
     if not request.user.is_superuser and not request.user.is_staff and not this_claimant.selected:
         raise Http404("Claimant does not exist.")
 
+    # Setup query parameters
+    funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPARF"
+    expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCPAF"
+    blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URLPDO"
+
     context = {
+        'funding_requests_status': funding_requests_status,
+        'expenses_status': expenses_status,
+        'blogs_status': blogs_status,
         'claimant': this_claimant,
         'blogs': Blog.objects.filter(
             Q(author=this_claimant) | Q(coauthor=this_claimant)
@@ -183,12 +210,17 @@ def claimant_detail(request, claimant_id):
     }
 
     if request.user.is_authenticated() and request.user.is_superuser:
-        funds = Fund.objects.filter(claimant=this_claimant)
+        funds = Fund.objects.filter(
+            claimant=this_claimant,
+            status__in=funding_requests_status
+        )
         context.update(
             {
                 'funds': pair_fund_with_blog(funds, "P"),
-                'expenses': Expense.objects.filter(fund__claimant=this_claimant),
-                'show_finances': True,
+                'expenses': Expense.objects.filter(
+                    fund__claimant=this_claimant,
+                    status__in=expenses_status
+                ),
             }
         )
     else:
@@ -286,10 +318,24 @@ def fund_detail(request, fund_id):
     if (request.user.is_superuser or
             Claimant.objects.get(user=request.user) == this_fund.claimant):
 
+        # Setup query parameters
+        funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPARF"
+        expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCPAF"
+        blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URLPDO"
+
         context = {
+            'funding_requests_status': funding_requests_status,
+            'expenses_status': expenses_status,
+            'blogs_status': blogs_status,
             'fund': this_fund,
-            'expenses': Expense.objects.filter(fund=this_fund),
-            'blogs': Blog.objects.filter(fund=this_fund),
+            'expenses': Expense.objects.filter(
+                fund=this_fund,
+                status__in=expenses_status
+            ),
+            'blogs': Blog.objects.filter(
+                fund=this_fund,
+                status__in=blogs_status
+            ),
             'emails': FundSentMail.objects.filter(fund=this_fund),
         }
 
