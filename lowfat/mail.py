@@ -29,7 +29,7 @@ def mail_admins(subject, message, fail_silently=False, connection=None, html_mes
         html_message=html_message
     )
 
-def new_notification(admin_url, user_url, user_email, context, mail):
+def new_notification(admin_url, email_url, user_email, context, mail):
     if config.STAFF_EMAIL_NOTIFICATION:
         # Email to admin
         context.update({
@@ -58,7 +58,7 @@ def new_notification(admin_url, user_url, user_email, context, mail):
             "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
         })
 
-        flatemail = FlatPage.objects.get(url=user_url)
+        flatemail = FlatPage.objects.get(url=email_url)
         template = Template(flatemail.content)
         jinja_context = Context(context)
         html = template.render(jinja_context)
@@ -76,7 +76,7 @@ def new_notification(admin_url, user_url, user_email, context, mail):
 
 def new_fund_notification(fund):
     admin_url = "/email/template/fund/admin/"
-    user_url = "/email/template/fund/claimant/"
+    email_url = "/email/template/fund/claimant/"
     user_email = [fund.claimant.email]
     user_context = {
         "fund": fund,
@@ -90,11 +90,11 @@ def new_fund_notification(fund):
         }
     )
 
-    new_notification(admin_url, user_url, user_email, user_context, mail)
+    new_notification(admin_url, email_url, user_email, user_context, mail)
 
 def new_expense_notification(expense):
     admin_url = "/email/template/expense/admin/"
-    user_url = "/email/template/expense/claimant/"
+    email_url = "/email/template/expense/claimant/"
     user_email = [expense.fund.claimant.email]
     user_context = {
         "expense": expense,
@@ -109,11 +109,11 @@ def new_expense_notification(expense):
     )
 
 
-    new_notification(admin_url, user_url, user_email, user_context, mail)
+    new_notification(admin_url, email_url, user_email, user_context, mail)
 
 def new_blog_notification(blog):
     admin_url = "/email/template/blog/admin/"
-    user_url = "/email/template/blog/claimant/"
+    email_url = "/email/template/blog/claimant/"
     user_email = [blog.author.email]
     if blog.coauthor.all():
         user_email.extend([author.email for author in blog.coauthor.all()])
@@ -129,13 +129,13 @@ def new_blog_notification(blog):
         }
     )
 
-    new_notification(admin_url, user_url, user_email, context, mail)
+    new_notification(admin_url, email_url, user_email, context, mail)
 
-def review_notification(user_url, user_email, context, mail):
+def review_notification(email_url, user_email, context, mail):
     """Compose the message and send the email."""
-    if config.CLAIMANT_EMAIL_NOTIFICATION:
+    if config.CLAIMANT_EMAIL_NOTIFICATION and email_url is not None:
         # Generate message
-        flatemail = FlatPage.objects.get(url=user_url)
+        flatemail = FlatPage.objects.get(url=email_url)
         template = Template(flatemail.content)
         context.update({
             "notes": mail.justification,
@@ -161,60 +161,76 @@ def review_notification(user_url, user_email, context, mail):
         mail.save()
 
 def fund_review_notification(message, sender, old, new):
-    if new.status in ('A', 'R'):
-        user_email = [new.claimant.email]
-        user_url = "/email/template/fund/claimant/change/"
-        context = {
-            "old": old,
-            "new": new,
-            }
-        mail = FundSentMail(
-            **{
-                "justification": message,
-                "sender": sender,
-                "receiver": new.claimant,
-                "fund": new,
-            }
-        )
+    user_email = [new.claimant.email]
+    context = {
+        "old": old,
+        "new": new,
+    }
+    mail = FundSentMail(
+        **{
+            "justification": message,
+            "sender": sender,
+            "receiver": new.claimant,
+            "fund": new,
+        }
+    )
 
-        review_notification(user_url, user_email, context, mail)
+    if new.status in ('A', 'R'):
+        email_url = "/email/template/fund/claimant/change/"
+    elif message:
+        email_url = "/email/template/default/"
+    else:
+        email_url = None
+
+    review_notification(email_url, user_email, context, mail)
 
 def expense_review_notification(message, sender, old, new):
-    if new.status == 'A':
-        user_email = [new.fund.claimant.email]
-        user_url = "/email/template/expense/claimant/change/"
-        context = {
-            "old": old,
-            "new": new,
-            }
-        mail = ExpenseSentMail(
-            **{
-                "justification": message,
-                "sender": sender,
-                "receiver": new.fund.claimant,
-                "expense": new,
-            }
-        )
+    user_email = [new.fund.claimant.email]
 
-        review_notification(user_url, user_email, context, mail)
+    context = {
+        "old": old,
+        "new": new,
+    }
+    mail = ExpenseSentMail(
+        **{
+            "justification": message,
+            "sender": sender,
+            "receiver": new.fund.claimant,
+            "expense": new,
+        }
+    )
+
+    if new.status == 'A':
+        email_url = "/email/template/expense/claimant/change/"
+    elif message:
+        email_url = "/email/template/default/"
+    else:
+        email_url = None
+
+    review_notification(email_url, user_email, context, mail)
 
 def blog_review_notification(message, sender, old, new):
-    if new.status == 'P':
-        user_email = [new.author.email]
-        user_url = "/email/template/blog/claimant/change/"
-        if new.coauthor.all():
-            user_email.extend([author.email for author in new.coauthor.all()])
-        context = {
-            "old": old,
-            "new": new,
-            }
-        mail = BlogSentMail(
-            **{
-                "justification": message,
-                "sender": sender,
-                "receiver": new.author,
-                "blog": new,
-            }
-        )
+    user_email = [new.author.email]
+    if new.coauthor.all():
+        user_email.extend([author.email for author in new.coauthor.all()])
+    context = {
+        "old": old,
+        "new": new,
+    }
+    mail = BlogSentMail(
+        **{
+            "justification": message,
+            "sender": sender,
+            "receiver": new.author,
+            "blog": new,
+        }
+    )
 
-        review_notification(user_url, user_email, context, mail)
+    if new.status == 'P':
+        email_url = "/email/template/blog/claimant/change/"
+    elif message:
+        email_url = "/email/template/default/"
+    else:
+        email_url = None
+
+    review_notification(email_url, user_email, context, mail)
