@@ -125,7 +125,7 @@
     "fields": {
         "url": "/email/template/blog/claimant/change/",
         "title": "New message about your blog post draft",
-        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Dear {{ new.author.fullname }}{% if new.coauthor.all|length > 0 %} et al.{% endif%},</p>\r\n{%if new.published_url %}<p>Your blog post has been published at <a href=\"{{ new.published_url }}\">{{ new.published_url }}</a>.</p>{% endif %}\r\n{%if new.tweet_url %}<p>And we mentioned it on Twitter, <a href=\"{{ new.tweet_url }}\">{{ new.tweet_url }}</a>.</p>{% endif %}\r\n{% if notes %}\r\n<p>Notes:</p>\r\n<blockquote>\r\n{{ notes }}\r\n</blockquote>\r\n{% endif %}\r\n<p>\r\nBest wishes,<br>\r\nFellows Management (<a href=\"{{ FELLOWS_MANAGEMENT_EMAIL }}\">{{ FELLOWS_MANAGEMENT_EMAIL }}</a>)<br>\r\nSoftware Sustainability Institute\r\n</p>\r\n</body>\r\n</html>",
+        "content": "{% load markdown %}\r\n<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Dear {{ new.author.fullname }}{% if new.coauthor.all|length > 0 %} et al.{% endif%},</p>\r\n{%if new.published_url %}<p>Your blog post has been published at <a href=\"{{ new.published_url }}\">{{ new.published_url }}</a>.</p>{% endif %}\r\n{%if new.tweet_url %}<p>And we mentioned it on Twitter, <a href=\"{{ new.tweet_url }}\">{{ new.tweet_url }}</a>.</p>{% endif %}\r\n{% if notes %}\r\n<p>Notes:</p>\r\n<blockquote>\r\n{{ notes | markdown | safe }}\r\n</blockquote>\r\n{% endif %}\r\n<p>\r\nBest wishes,<br>\r\nFellows Management (<a href=\"{{ FELLOWS_MANAGEMENT_EMAIL }}\">{{ FELLOWS_MANAGEMENT_EMAIL }}</a>)<br>\r\nSoftware Sustainability Institute\r\n</p>\r\n</body>\r\n</html>",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -140,7 +140,7 @@
     "fields": {
         "url": "/email/template/expense/claimant/change/",
         "title": "New message about your expense claim request",
-        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Dear  {{ new.fund.claimant.fullname }},</p>\r\n<p>Your expense claim for {{ new.fund.name }} has been {{ new.get_status_display }}.</p>\r\n<p>You can check the details of your expense claim at <a href=\"{{ protocol }}://{{ site.domain }}{{ new.link }}\">{{ protocol }}://{{ site.domain }}{{ new.link }}</a>.</p>\r\n{% if notes %}\r\n<p>Notes:</p>\r\n<blockquotes>\r\n{{ notes }}\r\n</blockquotes>\r\n{% endif %}\r\n<p>\r\nBest wishes,<br>\r\nFellows Management (<a href=\"mailto:{{ FELLOWS_MANAGEMENT_EMAIL }}\">{{ FELLOWS_MANAGEMENT_EMAIL }}</a>)<br>\r\nSoftware Sustainability Institute\r\n</p>\r\n</body>\r\n</html>",
+        "content": "{% load markdown %}\r\n<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Dear  {{ new.fund.claimant.fullname }},</p>\r\n<p>Your expense claim for {{ new.fund.name }} has been {{ new.get_status_display }}.</p>\r\n<p>You can check the details of your expense claim at <a href=\"{{ protocol }}://{{ site.domain }}{{ new.link }}\">{{ protocol }}://{{ site.domain }}{{ new.link }}</a>.</p>\r\n{% if notes %}\r\n<p>Notes:</p>\r\n<blockquotes>\r\n{{ notes | markdown | safe }}\r\n</blockquotes>\r\n{% endif %}\r\n<p>\r\nBest wishes,<br>\r\nFellows Management (<a href=\"mailto:{{ FELLOWS_MANAGEMENT_EMAIL }}\">{{ FELLOWS_MANAGEMENT_EMAIL }}</a>)<br>\r\nSoftware Sustainability Institute\r\n</p>\r\n</body>\r\n</html>",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -155,7 +155,7 @@
     "fields": {
         "url": "/email/template/fund/claimant/change/",
         "title": "Message about your funding request",
-        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Dear {{ new.claimant.fullname }},</p>\r\n<p>Your funding request for {{ new.name }} has been {{ new.get_status_display }}.</p>\r\n<p>You can check the details of your funding request at <a href=\"{{ protocol }}://{{ site.domain }}{{ new.link }}\">{{ protocol }}://{{ site.domain }}{{ new.link }}</a>.</p>\r\n{% if notes %}\r\n<p>Notes:</p>\r\n<blockquote>\r\n{{ notes }}\r\n</blockquote>\r\n{% endif %}\r\n<p>\r\nBest wishes,<br>\r\nFellows Management (<a href=\"{{ FELLOWS_MANAGEMENT_EMAIL }}\">{{ FELLOWS_MANAGEMENT_EMAIL }}</a>)<br>\r\nSoftware Sustainability Institute\r\n</p>\r\n</body>\r\n</html>",
+        "content": "{% load markdown %}\r\n<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Dear {{ new.claimant.fullname }},</p>\r\n<p>Your funding request for {{ new.name }} has been {{ new.get_status_display }}.</p>\r\n<p>You can check the details of your funding request at <a href=\"{{ protocol }}://{{ site.domain }}{{ new.link }}\">{{ protocol }}://{{ site.domain }}{{ new.link }}</a>.</p>\r\n{% if notes %}\r\n<p>Notes:</p>\r\n<blockquote>\r\n{{ notes | markdown | safe }}\r\n</blockquote>\r\n{% endif %}\r\n<p>\r\nBest wishes,<br>\r\nFellows Management (<a href=\"{{ FELLOWS_MANAGEMENT_EMAIL }}\">{{ FELLOWS_MANAGEMENT_EMAIL }}</a>)<br>\r\nSoftware Sustainability Institute\r\n</p>\r\n</body>\r\n</html>",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -174,6 +174,21 @@
         "enable_comments": false,
         "template_name": "lowfat/base.html",
         "registration_required": true,
+        "sites": [
+            1
+        ]
+    }
+},
+{
+    "model": "flatpages.flatpage",
+    "pk": 13,
+    "fields": {
+        "url": "/email/template/default/",
+        "title": "You have a new message in lowFAT",
+        "content": "{% load markdown %}\r\n<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>You can read the message on their context visiting <a href=\"{{ protocol }}://{{ site.domain }}{{ new.link }}\">{{ protocol }}://{{ site.domain }}{{ new.link }}</a>.</p>\r\n<p>--- Begin of new message ---</p>\r\n<blockquote>\r\n{{ notes | markdown | safe }}\r\n</blockquote>\r\n<p>--- End of new message ---</p>\r\n<p>\r\nBest wishes,<br>\r\nFellows Management (<a href=\"mailto:{{ FELLOWS_MANAGEMENT_EMAIL }}\">{{ FELLOWS_MANAGEMENT_EMAIL }}</a>)<br>\r\nSoftware Sustainability Institute\r\n</p>\r\n</body>\r\n</html>",
+        "enable_comments": false,
+        "template_name": "",
+        "registration_required": false,
         "sites": [
             1
         ]
