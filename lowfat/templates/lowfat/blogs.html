@@ -15,13 +15,13 @@
 {% endif %}
 {% if user.is_staff %}
 <ul class="nav nav-tabs">
-  <li role="presentation" {% if blogs_status == 'URLPDO' %}class="active"{% endif %}>
-    <a href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=URLPDO">All</a>
+  <li role="presentation" {% if blogs_status == 'URGLPDO' %}class="active"{% endif %}>
+    <a href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=URGLPDO">All</a>
   </li>
-  <li role="presentation" {% if blogs_status == 'UR' %}class="active"{% endif %}>
+  <li role="presentation" {% if blogs_status == 'URGL' %}class="active"{% endif %}>
     <a href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=UR">Pending</a>
   </li>
-  <li role="presentation" {% if blogs_status == 'P' %}class="active"{% endif %}>
+  <li role="presentation" {% if blogs_status == 'PDO' %}class="active"{% endif %}>
     <a href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=P">Published</a>
   </li>
 </ul>
@@ -55,12 +55,12 @@
     {% for blog in blogs %}
     <tr
       {% if user.is_staff or claimant and user == claimant.user %}
-      {% if blog.status in 'U' %}
-      class="danger"
-      {% elif blog.status in 'R' %}
-      class="warning"
-      {% elif blog.status in 'LPDO' %}
+      {% if blog.status in 'PDO' %}
       class="success"
+      {% elif blog.status in 'U' %}
+      class="danger"
+      {% else %}
+      class="warning"
       {% endif %}
       {% endif %}
       >

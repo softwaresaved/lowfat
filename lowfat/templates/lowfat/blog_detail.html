@@ -3,9 +3,9 @@
 {% block content %}
 <h1>Blog Detail
   <span
-     {% if blog.status in 'LP' %}
+     {% if blog.status in 'PDO' %}
      class="label label-success"
-     {% elif blog.status in 'UR' %}
+     {% elif blog.status in 'U' %}
      class="label label-danger"
      {% else %}
      class="label label-warning"
