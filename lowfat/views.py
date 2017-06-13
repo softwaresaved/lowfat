@@ -45,7 +45,7 @@ def dashboard(request):
         # Setup query parameters
         funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPARF"
         expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCPAF"
-        blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URLPDO"
+        blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URGLPDO"
 
         context.update(
             {
@@ -72,7 +72,7 @@ def dashboard(request):
         # Setup query parameters
         funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UP"
         expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCP"
-        blogs_status = request.GET["blogs"] if "blogs" in request.GET else "UR"
+        blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URGL"
 
         context.update(
             {
@@ -198,7 +198,7 @@ def claimant_detail(request, claimant_id):
     # Setup query parameters
     funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPARF"
     expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCPAF"
-    blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URLPDO"
+    blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URGLPDO"
 
     context = {
         'funding_requests_status': funding_requests_status,
@@ -325,7 +325,7 @@ def fund_detail(request, fund_id):
         # Setup query parameters
         funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPARF"
         expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCPAF"
-        blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URLPDO"
+        blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URGLPDO"
 
         context = {
             'funding_requests_status': funding_requests_status,
