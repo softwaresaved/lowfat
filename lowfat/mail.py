@@ -9,25 +9,25 @@ from html2text import html2text
 
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.sites.models import Site
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 from django.template import Context, Template
 
 from .models import *
 from .settings import DEFAULT_FROM_EMAIL, SITE_ID
 
-def mail_admins(subject, message, fail_silently=False, connection=None, html_message=None):
-    """Overwrite of Django mail_admins()"""
-    admins = ast.literal_eval(config.STAFFS_EMAIL)  # XXX This is unsecure
+STAFFS_EMAIL = ast.literal_eval(config.STAFFS_EMAIL)  # XXX This is unsecure
 
-    send_mail(
+def mail_staffs(subject, message, fail_silently=False, connection=None, html_message=None):
+    """Overwrite of Django mail_staffs()"""
+    msg = EmailMultiAlternatives(
         subject,
         message,
         DEFAULT_FROM_EMAIL,
-        admins,
-        fail_silently=fail_silently,
+        STAFFS_EMAIL,
         connection=connection,
-        html_message=html_message
     )
+    msg.attach_alternative(html_message, "text/html")
+    msg.send(fail_silently=fail_silently)
 
 def new_notification(admin_url, email_url, user_email, context, mail):
     if config.STAFF_EMAIL_NOTIFICATION:
@@ -43,7 +43,7 @@ def new_notification(admin_url, email_url, user_email, context, mail):
         jinja_context = Context(context)
         html = template.render(jinja_context)
         plain_text = html2text(html)
-        mail_admins(
+        mail_staffs(
             flatemail.title,
             plain_text,
             html_message=html,
@@ -63,14 +63,14 @@ def new_notification(admin_url, email_url, user_email, context, mail):
         jinja_context = Context(context)
         html = template.render(jinja_context)
         plain_text = html2text(html)
-        send_mail(
+        msg = EmailMultiAlternatives(
             flatemail.title,
             plain_text,
             DEFAULT_FROM_EMAIL,
-            user_email,
-            html_message=html,
-            fail_silently=False
+            user_email
         )
+        msg.attach_alternative(html, "text/html")
+        msg.send(fail_silently=False)
         mail.justification = plain_text
         mail.save()
 
@@ -131,7 +131,7 @@ def new_blog_notification(blog):
 
     new_notification(admin_url, email_url, user_email, context, mail)
 
-def review_notification(email_url, user_email, context, mail):
+def review_notification(email_url, user_email, context, mail, copy_to_staffs=False):
     """Compose the message and send the email."""
     if config.CLAIMANT_EMAIL_NOTIFICATION and email_url is not None:
         # Generate message
@@ -149,18 +149,19 @@ def review_notification(email_url, user_email, context, mail):
         mail.justification = plain_text
 
         # Email to claimant
-        send_mail(
+        msg = EmailMultiAlternatives(
             flatemail.title,
             plain_text,
             mail.sender.email,
             user_email,
-            html_message=html,
-            fail_silently=False
+            bcc=STAFFS_EMAIL if copy_to_staffs else None
         )
+        msg.attach_alternative(html, "text/html")
+        msg.send(fail_silently=False)
         # Every email is archived in the database
         mail.save()
 
-def fund_review_notification(message, sender, old, new):
+def fund_review_notification(message, sender, old, new, copy_to_staffs):
     user_email = [new.claimant.email]
     context = {
         "old": old,
@@ -182,9 +183,9 @@ def fund_review_notification(message, sender, old, new):
     else:
         email_url = None
 
-    review_notification(email_url, user_email, context, mail)
+    review_notification(email_url, user_email, context, mail, copy_to_staffs)
 
-def expense_review_notification(message, sender, old, new):
+def expense_review_notification(message, sender, old, new, copy_to_staffs):
     user_email = [new.fund.claimant.email]
 
     context = {
@@ -207,9 +208,9 @@ def expense_review_notification(message, sender, old, new):
     else:
         email_url = None
 
-    review_notification(email_url, user_email, context, mail)
+    review_notification(email_url, user_email, context, mail, copy_to_staffs)
 
-def blog_review_notification(message, sender, old, new):
+def blog_review_notification(message, sender, old, new, copy_to_staffs):
     user_email = [new.author.email]
     if new.coauthor.all():
         user_email.extend([author.email for author in new.coauthor.all()])
@@ -233,4 +234,4 @@ def blog_review_notification(message, sender, old, new):
     else:
         email_url = None
 
-    review_notification(email_url, user_email, context, mail)
+    review_notification(email_url, user_email, context, mail, copy_to_staffs)
