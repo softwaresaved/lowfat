@@ -31,6 +31,12 @@ class GarlicForm(ModelForm):
         initial=False,
         label="Suppress email notification for this update to claimant?"
     )
+    not_copy_email_field = BooleanField(
+        widget=CheckboxInput,
+        required=False,
+        initial=True,
+        label="Suppress copy of email to staff?"
+    )
 
     def __init__(self, *args, **kwargs):
         # Add staff option to not send email notification
@@ -352,6 +358,7 @@ class FundReviewForm(GarlicForm):
                 "notes_from_admin",
                 "email",
                 'not_send_email_field' if self.is_staff else None,
+                'not_copy_email_field' if self.is_staff else None,
             )
         )
 
@@ -537,6 +544,7 @@ class ExpenseReviewForm(GarlicForm):
                 'notes_from_admin',
                 'email',
                 'not_send_email_field' if self.is_staff else None,
+                'not_copy_email_field' if self.is_staff else None,
                 ButtonHolder(
                     Submit('submit', 'Update')
                 )
@@ -645,6 +653,7 @@ class BlogReviewForm(GarlicForm):
                 'tweet_url',
                 'email',
                 'not_send_email_field' if self.is_staff else None,
+                'not_copy_email_field' if self.is_staff else None,
                 ButtonHolder(
                     Submit('submit', 'Update')
                 )

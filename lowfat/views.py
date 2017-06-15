@@ -366,7 +366,8 @@ def fund_review(request, fund_id):
                     formset.cleaned_data['email'],
                     request.user,
                     old_fund,
-                    fund
+                    fund,
+                    not formset.cleaned_data['not_copy_email_field']
                 )
             return HttpResponseRedirect(
                 reverse('fund_detail', args=[fund.id,])
@@ -515,7 +516,8 @@ def expense_review(request, expense_id):
                     formset.cleaned_data['email'],
                     request.user,
                     old_expense,
-                    expense
+                    expense,
+                    not formset.cleaned_data['not_copy_email_field']
                 )
             return HttpResponseRedirect(
                 reverse('expense_detail', args=[expense.id,])
@@ -651,7 +653,8 @@ def blog_review(request, blog_id):
                     formset.cleaned_data['email'],
                     request.user,
                     old_blog,
-                    blog
+                    blog,
+                    not formset.cleaned_data['not_copy_email_field']
                 )
             return HttpResponseRedirect(
                 reverse('blog_detail', args=[blog.id,])
