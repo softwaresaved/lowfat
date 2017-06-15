@@ -148,6 +148,7 @@
         "user": 6,
         "mentor": null,
         "history_date": "2017-04-25T10:52:34.850",
+        "history_change_reason": null,
         "history_user": 1,
         "history_type": "~"
     }
@@ -193,6 +194,7 @@
         "user": null,
         "mentor": null,
         "history_date": "2017-04-25T10:53:10.602",
+        "history_change_reason": null,
         "history_user": 1,
         "history_type": "~"
     }
@@ -238,6 +240,7 @@
         "user": 5,
         "mentor": null,
         "history_date": "2017-04-25T10:53:23.627",
+        "history_change_reason": null,
         "history_user": 1,
         "history_type": "~"
     }
@@ -283,6 +286,7 @@
         "user": 4,
         "mentor": null,
         "history_date": "2017-04-25T10:53:35.643",
+        "history_change_reason": null,
         "history_user": 1,
         "history_type": "~"
     }
@@ -328,6 +332,7 @@
         "user": 2,
         "mentor": 2,
         "history_date": "2017-04-25T10:53:46.580",
+        "history_change_reason": null,
         "history_user": 1,
         "history_type": "~"
     }
@@ -373,6 +378,7 @@
         "user": 3,
         "mentor": 1,
         "history_date": "2017-04-25T10:54:02.788",
+        "history_change_reason": null,
         "history_user": 1,
         "history_type": "~"
     }
@@ -662,6 +668,7 @@
         "updated": "2017-04-21T15:27:12.349",
         "claimant": 1,
         "history_date": "2017-04-21T15:27:12.350",
+        "history_change_reason": null,
         "history_user": 1,
         "history_type": "~"
     }
@@ -705,6 +712,7 @@
         "updated": "2017-04-21T15:27:23.428",
         "claimant": 1,
         "history_date": "2017-04-21T15:27:23.428",
+        "history_change_reason": null,
         "history_user": 1,
         "history_type": "~"
     }
@@ -1350,6 +1358,7 @@
         "author": null,
         "reviewer": null,
         "history_date": "2017-03-22T09:54:52.516",
+        "history_change_reason": null,
         "history_user": 3,
         "history_type": "+"
     }
@@ -1373,6 +1382,7 @@
         "author": 4,
         "reviewer": null,
         "history_date": "2017-03-22T09:54:52.540",
+        "history_change_reason": null,
         "history_user": 3,
         "history_type": "~"
     }
@@ -1396,6 +1406,7 @@
         "author": null,
         "reviewer": null,
         "history_date": "2017-03-22T09:55:35.768",
+        "history_change_reason": null,
         "history_user": 5,
         "history_type": "+"
     }
@@ -1419,6 +1430,7 @@
         "author": 2,
         "reviewer": null,
         "history_date": "2017-03-22T09:55:35.798",
+        "history_change_reason": null,
         "history_user": 5,
         "history_type": "~"
     }
@@ -1442,6 +1454,7 @@
         "author": 2,
         "reviewer": 1,
         "history_date": "2017-03-22T09:56:19.632",
+        "history_change_reason": null,
         "history_user": 1,
         "history_type": "~"
     }
@@ -1465,6 +1478,7 @@
         "author": 2,
         "reviewer": 1,
         "history_date": "2017-04-21T15:24:57.646",
+        "history_change_reason": null,
         "history_user": 1,
         "history_type": "~"
     }
@@ -1488,6 +1502,7 @@
         "author": 2,
         "reviewer": 1,
         "history_date": "2017-04-21T15:25:07.534",
+        "history_change_reason": null,
         "history_user": 1,
         "history_type": "~"
     }
@@ -1511,6 +1526,7 @@
         "author": 2,
         "reviewer": 1,
         "history_date": "2017-04-21T15:49:32.842",
+        "history_change_reason": null,
         "history_user": 1,
         "history_type": "~"
     }
