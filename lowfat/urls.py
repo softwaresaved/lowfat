@@ -21,6 +21,11 @@ from django.conf.urls.static import static
 from . import views
 from . import settings
 
+admin.site.site_header = "lowFAT administration"
+admin.site.site_title = "lowFAT administration"
+admin.site.index_title = "lowFAT administration"
+admin.site.login_template = "lowfat/admin_login.html"
+
 CLAIMED_PATTERNS = [
     url(r'^(?P<claimant_id>[0-9]+)/promote/', views.claimant_promote, name="claimant_promote"),
     url(r'^(?P<claimant_id>[0-9]+)/', views.claimant_detail, name="claimant_detail"),
