@@ -7,6 +7,7 @@ django-countries
 django-crispy-forms
 django-datetime-widget
 django-dbbackup
+django-extensions
 django-settings-export
 django-simple-history
 html2text
@@ -18,6 +19,5 @@ pypdf2
 python-gnupg
 social-auth-app-django
 # Visualise the relationships of Django models
-django-extensions
 pyparsing
 pydot
