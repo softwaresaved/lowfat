@@ -602,7 +602,6 @@ class BlogForm(GarlicForm):
                 'coauthor',
                 HTML("<p>We prefer to receive links to <a href='https://www.google.co.uk/docs/about/'>Google Docs</a> (tips <a href='/pages/guide/google-docs/'>here</a>), <a href='https://products.office.com/en-gb/office-365-home'>Microsoft Office 365 document</a> or any other online live collaborative document platform you like to use. Posts published somewhere already, e.g. your personal blog, are welcome as well.</p>"),
                 'draft_url',
-                HTML('<p>To apply for expenses for eligible events, please fill in this form at least one month before the start date of the event you wish to attend or organise.</p><h2>Requester details</h2>'),
                 'final',
                 'notes_from_author',
                 'not_send_email_field' if self.is_staff else None,
