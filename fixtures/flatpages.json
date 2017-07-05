@@ -33,9 +33,9 @@
     "model": "flatpages.flatpage",
     "pk": 3,
     "fields": {
-        "url": "/email/template/fund/admin/",
-        "title": "We have a new funding request pending your review",
-        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Hi,</p>\r\n<p>We received a new funding request from <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.claimant.link }}\">{{ fund.claimant.fullname }}</a> for <a href=\"{{ fund.url }}\">{{ fund.name }}</a>.</p>\r\n<p>Please visit <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.link_review }}\">{{ protocol }}://{{ site.domain }}{{ fund.link_review }}</a> to review it.</p>\r\n<p>\r\n---\r\nLowFAT\r\n</p>\r\n</body>\r\n</html>",
+        "url": "/email/template/fund/admin/reminder/",
+        "title": "You have a funding request waiting your review",
+        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Hi,</p>\r\n<p>Please visit <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.link_review }}\">{{ protocol }}://{{ site.domain }}{{ fund.link_review }}</a> to review a new funding request from <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.claimant.link }}\">{{ fund.claimant.fullname }}</a> for <a href=\"{{ fund.url }}\">{{ fund.name }}</a>.</p>\r\n---\r\nLowFAT\r\n</p>\r\n</body>\r\n</html>",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,

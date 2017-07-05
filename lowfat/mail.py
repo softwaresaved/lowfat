@@ -233,3 +233,31 @@ def blog_review_notification(message, sender, old, new, copy_to_staffs):
         email_url = None
 
     review_notification(email_url, user_email, context, mail, copy_to_staffs)
+
+def new_staff_reminder(admin_url, context):
+    if config.STAFF_EMAIL_NOTIFICATION:
+        # Email to admin
+        context.update({
+            "protocol": "https",
+            "site": Site.objects.get(id=SITE_ID),
+            "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
+        })
+
+        flatemail = FlatPage.objects.get(url=admin_url)
+        template = Template(flatemail.content)
+        jinja_context = Context(context)
+        html = template.render(jinja_context)
+        plain_text = html2text(html)
+        mail_staffs(
+            flatemail.title,
+            plain_text,
+            html_message=html,
+            fail_silently=False
+        )
+
+def new_fund_staff_reminder_notification(fund):  # pylint: disable=invalid-name
+    admin_url = "/email/template/fund/admin/reminder/"
+    context = {
+        "fund": fund,
+    }
+    new_staff_reminder(admin_url, context)
