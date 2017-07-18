@@ -15,15 +15,13 @@ from django.template import Context, Template
 from .models import *
 from .settings import DEFAULT_FROM_EMAIL, SITE_ID
 
-STAFFS_EMAIL = ast.literal_eval(config.STAFFS_EMAIL)  # XXX This is unsecure
-
 def mail_staffs(subject, message, fail_silently=False, connection=None, html_message=None):
     """Overwrite of Django mail_staffs()"""
     msg = EmailMultiAlternatives(
         subject,
         message,
         DEFAULT_FROM_EMAIL,
-        STAFFS_EMAIL,
+        ast.literal_eval(config.STAFFS_EMAIL),
         connection=connection,
     )
     msg.attach_alternative(html_message, "text/html")
@@ -154,7 +152,7 @@ def review_notification(email_url, user_email, context, mail, copy_to_staffs=Fal
             plain_text,
             mail.sender.email,
             user_email,
-            bcc=STAFFS_EMAIL if copy_to_staffs else None
+            bcc=ast.literal_eval(config.STAFFS_EMAIL) if copy_to_staffs else None
         )
         msg.attach_alternative(html, "text/html")
         msg.send(fail_silently=False)
