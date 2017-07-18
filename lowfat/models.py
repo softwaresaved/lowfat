@@ -637,8 +637,11 @@ class Expense(models.Model):
 
     def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
         if self.pk is None:
-            previous_number = Expense.objects.filter(fund=self.fund).count()
-            self.relative_number = previous_number + 1
+            previous_expenses = Expense.objects.filter(fund=self.fund).order_by("-pk")
+            if previous_expenses:
+                self.relative_number = previous_expenses[0].relative_number + 1
+            else:
+                self.relative_number = 1
 
             if self.fund.mandatory:  # pylint: disable=no-member
                 self.funds_from = 'I'  # Use of Core fund
