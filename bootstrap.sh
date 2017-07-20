@@ -42,7 +42,7 @@ curl \
     --silent \
     -L \
     -o $ACADEMICONS_ZIP \
-    https://github.com/jpswalsh/academicons/archive/v1.7.0.zip
+    https://github.com/jpswalsh/academicons/archive/v1.8.0.zip
 unzip \
     -q \
     -u \
