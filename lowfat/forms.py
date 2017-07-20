@@ -460,7 +460,7 @@ class ExpenseForm(GarlicForm):
                 '',
                 'fund',
                 HTML("</p>If your funding request isn't on the drop down menu above please email <a href='mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}'>us</a>."),
-                HTML("</p><a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'>Fellowship Programme's terms and conditions.</a> applies to your request. Please follow the guidelines at <a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}#how-to-apply-for-and-claim-expenses'>How to apply for, and claim, expenses</a> section of <a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'>Fellowship Programme's terms and conditions.</a></p>"),
+                HTML("</p><a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'>Fellowship Programme's terms and conditions</a> applies to your request. Please follow the guidelines at <a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}#how-to-apply-for-and-claim-expenses'>How to apply for, and claim, expenses</a> section of <a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'>Fellowship Programme's terms and conditions.</a></p>"),
                 'claim',
                 PrependedText(
                     'amount_claimed',
