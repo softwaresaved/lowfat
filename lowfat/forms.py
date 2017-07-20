@@ -423,6 +423,7 @@ class ExpenseForm(GarlicForm):
             'claim',
             'amount_claimed',
             'justification_for_extra',
+            'advance_booking',
             'invoice',
             'final',
             'recipient_fullname',
@@ -436,6 +437,7 @@ class ExpenseForm(GarlicForm):
             'fund': 'Choose approved funding request',
             'claim': 'PDF copy of claim and receipt(s)',
             'justification_for_extra': "If the claim is greater by 20% than the amount requested please provide justification",
+            'advance_booking': "Do you need to claim this expense in advance?",
             'invoice': "Do you need to claim this expense via an invoice from your institution or company?",
             'final': "Is this the final expense claim associated with this funding request?",
             'recipient_fullname': "Full name",
@@ -458,9 +460,11 @@ class ExpenseForm(GarlicForm):
         self.helper.layout = Layout(
             Fieldset(
                 '',
+                HTML("</p><a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'>Fellowship Programme's terms and conditions</a> applies to your request. Please follow the guidelines at <a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}#how-to-apply-for-and-claim-expenses'>How to apply for, and claim, expenses</a> section of <a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'>Fellowship Programme's terms and conditions.</a></p>"),
                 'fund',
                 HTML("</p>If your funding request isn't on the drop down menu above please email <a href='mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}'>us</a>."),
-                HTML("</p><a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'>Fellowship Programme's terms and conditions</a> applies to your request. Please follow the guidelines at <a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}#how-to-apply-for-and-claim-expenses'>How to apply for, and claim, expenses</a> section of <a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'>Fellowship Programme's terms and conditions.</a></p>"),
+                'advance_booking',
+                HTML("</p>For advance booking, provide a quote instead of the claim and receipt(s)."),
                 'claim',
                 PrependedText(
                     'amount_claimed',
@@ -498,6 +502,7 @@ class ExpenseReviewForm(GarlicForm):
             'asked_for_authorization_date',
             'send_to_finance_date',
             'amount_authorized_for_payment',
+            'advance_book_confirmation',
             'funds_from',
             'grant_used',
             'notes_from_admin',
@@ -539,6 +544,7 @@ class ExpenseReviewForm(GarlicForm):
                     step=0.01,
                     onblur="this.value = parseFloat(this.value).toFixed(2);"
                 ),
+                'advance_book_confirmation' if (kwargs["instance"] and kwargs["instance"].advance_booking) else None,
                 'funds_from',
                 'grant_used',
                 'notes_from_admin',

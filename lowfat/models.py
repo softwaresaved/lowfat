@@ -555,6 +555,12 @@ class Expense(models.Model):
         upload_to='expenses/',  # File will be uploaded to MEDIA_ROOT/expenses
         validators=[pdf]
     )
+    advance_book_confirmation = models.FileField(
+        upload_to='expenses/',  # File will be uploaded to MEDIA_ROOT/expenses
+        validators=[pdf],
+        blank=True,
+        null=True
+    )
     amount_claimed = models.DecimalField(
         max_digits=MAX_DIGITS,
         decimal_places=2,
@@ -565,6 +571,9 @@ class Expense(models.Model):
         blank=True
     )
     invoice = models.BooleanField(
+        default=False
+    )
+    advance_booking = models.BooleanField(
         default=False
     )
     final = models.BooleanField(
