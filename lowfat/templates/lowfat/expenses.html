@@ -119,16 +119,18 @@
     </tr>
     {% endif %}
     {% else %}
-    <tr
-      {% if user.is_staff %}
-      colspan="5"
-      {% elif claimant and user == claimant.user %}
-      colspan="6"
-      {% else %}
-      colspan="3"
-      {% endif %}
-      >
-      <strong>No expense.</strong>
+    <tr>
+      <td
+        {% if user.is_staff %}
+        colspan="6"
+        {% elif claimant and user == claimant.user %}
+        colspan="6"
+        {% else %}
+        colspan="3"
+        {% endif %}
+        >
+        <strong>No expense.</strong>
+      </td>
     </tr>
     {% endif %}
   </tbody>
