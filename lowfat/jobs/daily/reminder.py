@@ -1,4 +1,6 @@
-from datetime import date, timedelta
+from datetime import datetime, timedelta
+
+from constance import config
 
 from django_extensions.management.jobs import DailyJob
 
@@ -9,11 +11,17 @@ class Job(DailyJob):
     help = "Reminder staffs to review one request."
 
     def execute(self):
-        today = date.today()
-        days_to_responde = timedelta(0, 0, 3)  # 72 horus
+        today = datetime.now()
         funds = Fund.objects.filter(
-            status__in="UP",
-            added__lte=today - days_to_responde
+            status="U",
         )
         for fund in funds:
-            new_fund_staff_reminder_notification(fund)
+            datetime_after_request = today - fund.added
+            days_before_notification = datetime_after_request.days % config.DAYS_TO_ANSWER_BACK
+            if days_before_notification == 0:
+                new_fund_staff_reminder_notification(fund)
+            else:
+                print("Skipping notification for {}. Notification in {} days.".format(
+                    fund,
+                    days_before_notification
+                    ))

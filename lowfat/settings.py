@@ -263,6 +263,10 @@ CONSTANCE_CONFIG = OrderedDict([
         3,
         "Month deadline that expenses must be submited.",
     )),
+    ("DAYS_TO_ANSWER_BACK", (
+        3,
+        "Days to answer back before receive a new email notification.",
+    )),
 ])
 
 
