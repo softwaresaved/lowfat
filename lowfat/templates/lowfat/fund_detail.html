@@ -13,8 +13,11 @@
   {% endif %}
   >{{ fund.get_status_display }}</span>
   {% if user.is_superuser %}
-  <a class="btn btn-default" href="{% url 'fund_review' fund.id %}" role="button"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Review</a>
-  <a class="btn btn-default" href="{% url 'admin:lowfat_fund_change' fund.id %}" role="button"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
+  <a title="Review" class="btn btn-default" href="{% url 'fund_review' fund.id %}" role="button"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Review</a>
+  <a title="Edit" class="btn btn-default" href="{% url 'fund_edit' fund.id %}"
+  role="button"><span class="glyphicon glyphicon-edit"
+  aria-hidden="true"></span> Edit</a>
+  <a title="Remove" class="btn btn-default" href="{% url 'fund_remove' fund.id %}" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>
   {% endif %}
 </h1>
 <h2>General Details</h1>

@@ -41,9 +41,13 @@ FELLOW_PATTERNS = [
 ]
 
 FUND_PATTERNS = [
-    url(r'^(?P<fund_id>[0-9]+)/expense/(?P<expense_relative_number>[0-9\-]+)/review', views.expense_review_relative, name="expense_review_relative"),
-    url(r'^(?P<fund_id>[0-9]+)/expense/(?P<expense_relative_number>[0-9\-]+)/', views.expense_detail_relative, name="expense_detail_relative"),
+    url(r'^(?P<fund_id>[0-9]+)/expense/(?P<expense_relative_number>[0-9\-]+)/?$', views.expense_detail_relative, name="expense_detail_relative"),
+    url(r'^(?P<fund_id>[0-9]+)/expense/(?P<expense_relative_number>[0-9\-]+)/review$', views.expense_review_relative, name="expense_review_relative"),
+    url(r'^(?P<fund_id>[0-9]+)/expense/(?P<expense_relative_number>[0-9\-]+)/edit$', views.expense_edit_relative, name="expense_edit_relative"),
+    url(r'^(?P<fund_id>[0-9]+)/expense/(?P<expense_relative_number>[0-9\-]+)/remove$', views.expense_remove_relative, name="expense_remove_relative"),
     url(r'^(?P<fund_id>[0-9]+)/review', views.fund_review, name="fund_review"),
+    url(r'^(?P<fund_id>[0-9]+)/edit', views.fund_edit, name="fund_edit"),
+    url(r'^(?P<fund_id>[0-9]+)/remove', views.fund_remove, name="fund_remove"),
     url(r'^(?P<fund_id>[0-9]+)/', views.fund_detail, name="fund_detail"),
     url(r'^previous/', views.fund_past, name="fund_past"),
     url(r'^import/', views.fund_import, name="fund_import"),
@@ -83,7 +87,8 @@ urlpatterns = [  # pylint: disable=invalid-name
     url(r'^expense/(?P<expense_id>[0-9\-]+)/', views.expense_detail, name="expense_detail"),
     url(r'^expense/', views.expense_form, name="expense"),
     url(r'^blog/(?P<blog_id>[0-9]+)/review', views.blog_review, name="blog_review"),
-    url(r'^blog/(?P<blog_id>[0-9]+)/delete', views.blog_delete, name="blog_delete"),
+    url(r'^blog/(?P<blog_id>[0-9]+)/edit', views.blog_edit, name="blog_edit"),
+    url(r'^blog/(?P<blog_id>[0-9]+)/remove', views.blog_remove, name="blog_remove"),
     url(r'^blog/(?P<blog_id>[0-9]+)/', views.blog_detail, name="blog_detail"),
     url(r'^blog/', views.blog_form, name="blog"),
     url(r'^dashboard/', views.dashboard, name="dashboard"),

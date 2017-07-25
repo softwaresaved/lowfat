@@ -37,9 +37,6 @@ baseurl: '/lowfat'
 # Dates are not included in permalinks
 permalink: none
 
-# Syntax highlighting
-highlighter: rouge
-
 # Since these are pages, it doesn't really matter
 future: true
 
@@ -48,14 +45,6 @@ exclude: ['bin', 'README.md']
 
 # Use the kramdown Markdown renderer
 markdown: kramdown
-redcarpet:
-    extensions: [
-        'no_intra_emphasis',
-        'fenced_code_blocks',
-        'autolink',
-        'strikethrough',
-        'superscript',
-        'with_toc_data',
-        'tables',
-        'hardwrap'
-    ]
+
+# Syntax highlighting
+highlighter: none
