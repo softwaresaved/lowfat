@@ -92,12 +92,12 @@
       {% if user.is_staff %}
       <td>
         <a class="icon" href="mailto:{{ expense.fund.claimant.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>
-        <a title="View" href="{% url 'expense_detail' expense.id %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-        <a  title="Review" href="{% url 'expense_review' expense.id %}"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
+        <a title="View" href="{% url 'expense_detail_relative' expense.fund.id expense.relative_number %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+        <a  title="Review" href="{% url 'expense_review_relative' expense.fund.id expense.relative_number %}"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
         {% endif %}
         {% if user.is_superuser %}
-        <a  title="Edit" href="{% url 'admin:lowfat_expense_change' expense.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-        <a  title="Remove" href="{% url 'admin:lowfat_expense_delete' expense.id %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+        <a  title="Edit" href="{% url 'expense_edit_relative' expense.fund.id expense.relative_number %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+        <a  title="Remove" href="{% url 'expense_remove_relative' expense.fund.id expense.relative_number %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
       </td>
       {% endif %}
     </tr>

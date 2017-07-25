@@ -543,6 +543,22 @@ def expense_review_relative(request, fund_id, expense_relative_number):
     this_expense = Expense.objects.get(fund=this_fund, relative_number=expense_relative_number)
     return expense_review(request, this_expense.id)
 
+@staff_member_required
+def expense_edit_relative(request, fund_id, expense_relative_number):
+    this_fund = Fund.objects.get(id=fund_id)
+    this_expense = Expense.objects.get(fund=this_fund, relative_number=expense_relative_number)
+    return HttpResponseRedirect(
+        reverse('admin:lowfat_expense_change', args=[this_expense.id,])
+    )
+
+@staff_member_required
+def expense_remove_relative(request, fund_id, expense_relative_number):
+    this_fund = Fund.objects.get(id=fund_id)
+    this_expense = Expense.objects.get(fund=this_fund, relative_number=expense_relative_number)
+    return HttpResponseRedirect(
+        reverse('admin:lowfat_expense_delete', args=[this_expense.id,])
+    )
+
 @login_required
 def blog_form(request):
     # Setup Blog to edit if provide
