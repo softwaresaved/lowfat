@@ -11,9 +11,9 @@ from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.shortcuts import render
 
-from bokeh.charts import Bar, Histogram
 from bokeh.embed import components
 from bokeh.resources import CDN
+from bkcharts import Bar, Histogram
 
 from .management.commands import loadoldfunds as loadoldfunds
 from .models import *
