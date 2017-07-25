@@ -6,8 +6,9 @@
 <h1>
   Funding Request Review
   {% if user.is_superuser %}
-  <a class="btn btn-default" href="{% url 'fund_detail' fund.id %}" role="button"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View</a>
-  <a class="btn btn-default" href="{% url 'admin:lowfat_fund_change' fund.id %}" role="button"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
+  <a title="View" class="btn btn-default" href="{% url 'fund_detail' fund.id %}" role="button"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View</a>
+  <a title="Edit" class="btn btn-default" href="{% url 'fund_edit' fund.id %}" role="button"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
+  <a title="Remove" class="btn btn-default" href="{% url 'fund_remove' fund.id %}" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>
   {% endif %}
 </h1>
 <h2>General Details</h1>

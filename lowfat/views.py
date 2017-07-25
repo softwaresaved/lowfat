@@ -387,6 +387,19 @@ def fund_review(request, fund_id):
 
     return render(request, 'lowfat/fund_review.html', context)
 
+
+@staff_member_required
+def fund_edit(request, fund_id):
+    return HttpResponseRedirect(
+        reverse('admin:lowfat_fund_change', args=[fund_id,])
+    )
+
+@staff_member_required
+def fund_remove(request, fund_id):
+    return HttpResponseRedirect(
+        reverse('admin:lowfat_fund_delete', args=[fund_id,])
+    )
+
 def fund_past(request):
     funds = Fund.objects.filter(
         start_date__lt=django.utils.timezone.now(),
