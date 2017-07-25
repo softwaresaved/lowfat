@@ -707,21 +707,30 @@ def blog_review(request, blog_id):
 
     return render(request, 'lowfat/blog_review.html', context)
 
+@staff_member_required
+def blog_edit(request, blog_id):
+    return HttpResponseRedirect(
+        reverse('admin:lowfat_blog_change', args=[blog_id,])
+    )
+
 @login_required
-def blog_delete(request, blog_id):
-    this_blog = Blog.objects.get(id=blog_id)
-    if "next" in request.GET:
-        next_page = request.GET["next"]
+def blog_remove(request, blog_id):
+    if request.user.is_staff:
+        redirect_url = reverse('admin:lowfat_blog_delete', args=[blog_id,])
     else:
-        next_page = "/"
+        this_blog = Blog.objects.get(id=blog_id)
+        if "next" in request.GET:
+            redirect_url = request.GET["next"]
+        else:
+            redirect_url = "/"
 
-    if Claimant.objects.get(user=request.user) == this_blog.author:
-        this_blog.delete()
-        messages.success(request, 'Blog deleted with success.')
-    else:
-        messages.error(request, 'Only the author can remove the blog.')
+            if Claimant.objects.get(user=request.user) == this_blog.author:
+                this_blog.delete()
+                messages.success(request, 'Blog deleted with success.')
+            else:
+                messages.error(request, 'Only the author can remove the blog.')
 
-    return HttpResponseRedirect(next_page)
+    return HttpResponseRedirect(redirect_url)
 
 @staff_member_required
 def recent_actions(request):

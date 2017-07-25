@@ -12,10 +12,11 @@
      {% endif %}
   >{{ blog.get_status_display }}</span>
   {% if user.is_staff %}
-  <a class="btn btn-default" href="{% url 'blog_review' blog.id %}" role="button"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Review</a>
+  <a  title="Review" class="btn btn-default" href="{% url 'blog_review' blog.id %}" role="button"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Review</a>
   {% endif %}
   {% if user.is_superuser or blog.status == "U" %}
-  <a title="Edit" class="btn btn-default" href="{% if user.is_superuser %}{% url 'admin:lowfat_blog_change' blog.id %}{% else %}{% url 'blog' %}?id={{ blog.id }}{% endif %}" role="button"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
+  <a title="Edit" class="btn btn-default" href="{% if user.is_superuser %}{% url 'blog_edit' blog.id %}{% else %}{% url 'blog' %}?id={{ blog.id }}{% endif %}" role="button"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
+  <a title="Remove" class="btn btn-default" href="{% url 'blog_remove' blog.id %}" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>
   {% endif %}
 </h1>
 <table class="table table-bordered">
