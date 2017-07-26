@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from constance import config
 
@@ -11,17 +11,33 @@ class Job(DailyJob):
     help = "Reminder staffs to review one request."
 
     def execute(self):
+        print("""Running {}
+
+config.DAYS_TO_ANSWER_BACK = {}""".format(
+    __file__,
+    config.DAYS_TO_ANSWER_BACK
+))
+
         today = datetime.now()
-        funds = Fund.objects.filter(
-            status="U",
-        )
-        for fund in funds:
-            datetime_after_request = today - fund.added
-            days_before_notification = datetime_after_request.days % config.DAYS_TO_ANSWER_BACK
-            if days_before_notification == 0:
-                new_fund_staff_reminder_notification(fund)
-            else:
-                print("Skipping notification for {}. Notification in {} days.".format(
-                    fund,
-                    days_before_notification
+        all_requests = [
+            Fund.objects.filter(
+                status="U"
+            ),
+            Expense.objects.filter(
+                status="U"
+            ),
+            Blog.objects.filter(
+                status="U"
+            ),
+        ]
+        for requests in all_requests:
+            for request in requests:
+                datetime_after_request = today - request.added
+                days_before_notification = datetime_after_request.days % config.DAYS_TO_ANSWER_BACK
+                if days_before_notification == 0:
+                    staff_reminder(request)
+                else:
+                    print("Skipping notification for {}. Notification in {} days.".format(
+                        request,
+                        days_before_notification
                     ))

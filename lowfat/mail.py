@@ -115,17 +115,17 @@ def new_blog_notification(blog):
     user_email = [blog.author.email]
     if blog.coauthor.all():
         user_email.extend([author.email for author in blog.coauthor.all()])
-    context = {
-        "blog": blog,
-    }
-    mail = BlogSentMail(
-        **{
-            "justification": "",
-            "sender": None,
-            "receiver": blog.author,
+        context = {
             "blog": blog,
         }
-    )
+        mail = BlogSentMail(
+            **{
+                "justification": "",
+                "sender": None,
+                "receiver": blog.author,
+                "blog": blog,
+            }
+        )
 
     new_notification(admin_url, email_url, user_email, context, mail)
 
@@ -212,18 +212,18 @@ def blog_review_notification(message, sender, old, new, copy_to_staffs):
     user_email = [new.author.email]
     if new.coauthor.all():
         user_email.extend([author.email for author in new.coauthor.all()])
-    context = {
-        "old": old,
-        "new": new,
-    }
-    mail = BlogSentMail(
-        **{
-            "justification": message,
-            "sender": sender,
-            "receiver": new.author,
-            "blog": new,
+        context = {
+            "old": old,
+            "new": new,
         }
-    )
+        mail = BlogSentMail(
+            **{
+                "justification": message,
+                "sender": sender,
+                "receiver": new.author,
+                "blog": new,
+            }
+        )
 
     if new.status == 'P':
         email_url = "/email/template/blog/claimant/change/"
@@ -255,9 +255,12 @@ def new_staff_reminder(admin_url, context):
             fail_silently=False
         )
 
-def new_fund_staff_reminder_notification(fund):  # pylint: disable=invalid-name
-    admin_url = "/email/template/fund/admin/reminder/"
+def staff_reminder(request):  # pylint: disable=invalid-name
+    request_type = type(request).__name__.lower()
+    admin_url = "/email/template/{}/admin/reminder/".format(
+        request_type
+    )
     context = {
-        "fund": fund,
+        request_type: request,
     }
     new_staff_reminder(admin_url, context)
