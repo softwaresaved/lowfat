@@ -27,16 +27,16 @@ def mail_staffs(subject, message, fail_silently=False, connection=None, html_mes
     msg.attach_alternative(html_message, "text/html")
     msg.send(fail_silently=fail_silently)
 
-def new_notification(admin_url, email_url, user_email, context, mail):
+def new_notification(staff_url, email_url, user_email, context, mail):
     if config.STAFF_EMAIL_NOTIFICATION:
-        # Email to admin
+        # Email to staff
         context.update({
             "protocol": "https",
             "site": Site.objects.get(id=SITE_ID),
             "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
         })
 
-        flatemail = FlatPage.objects.get(url=admin_url)
+        flatemail = FlatPage.objects.get(url=staff_url)
         template = Template(flatemail.content)
         jinja_context = Context(context)
         html = template.render(jinja_context)
@@ -73,7 +73,7 @@ def new_notification(admin_url, email_url, user_email, context, mail):
         mail.save()
 
 def new_fund_notification(fund):
-    admin_url = "/email/template/fund/admin/"
+    staff_url = "/email/template/fund/staff/"
     email_url = "/email/template/fund/claimant/"
     user_email = [fund.claimant.email]
     user_context = {
@@ -88,10 +88,10 @@ def new_fund_notification(fund):
         }
     )
 
-    new_notification(admin_url, email_url, user_email, user_context, mail)
+    new_notification(staff_url, email_url, user_email, user_context, mail)
 
 def new_expense_notification(expense):
-    admin_url = "/email/template/expense/admin/"
+    staff_url = "/email/template/expense/staff/"
     email_url = "/email/template/expense/claimant/"
     user_email = [expense.fund.claimant.email]
     user_context = {
@@ -107,10 +107,10 @@ def new_expense_notification(expense):
     )
 
 
-    new_notification(admin_url, email_url, user_email, user_context, mail)
+    new_notification(staff_url, email_url, user_email, user_context, mail)
 
 def new_blog_notification(blog):
-    admin_url = "/email/template/blog/admin/"
+    staff_url = "/email/template/blog/staff/"
     email_url = "/email/template/blog/claimant/"
     user_email = [blog.author.email]
     if blog.coauthor.all():
@@ -127,7 +127,7 @@ def new_blog_notification(blog):
             }
         )
 
-    new_notification(admin_url, email_url, user_email, context, mail)
+    new_notification(staff_url, email_url, user_email, context, mail)
 
 def review_notification(email_url, user_email, context, mail, copy_to_staffs=False):
     """Compose the message and send the email."""
@@ -234,16 +234,16 @@ def blog_review_notification(message, sender, old, new, copy_to_staffs):
 
     review_notification(email_url, user_email, context, mail, copy_to_staffs)
 
-def new_staff_reminder(admin_url, context):
+def new_staff_reminder(staff_url, context):
     if config.STAFF_EMAIL_NOTIFICATION:
-        # Email to admin
+        # Email to staff
         context.update({
             "protocol": "https",
             "site": Site.objects.get(id=SITE_ID),
             "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
         })
 
-        flatemail = FlatPage.objects.get(url=admin_url)
+        flatemail = FlatPage.objects.get(url=staff_url)
         template = Template(flatemail.content)
         jinja_context = Context(context)
         html = template.render(jinja_context)
@@ -257,10 +257,10 @@ def new_staff_reminder(admin_url, context):
 
 def staff_reminder(request):  # pylint: disable=invalid-name
     request_type = type(request).__name__.lower()
-    admin_url = "/email/template/{}/admin/reminder/".format(
+    staff_url = "/email/template/{}/staff/reminder/".format(
         request_type
     )
     context = {
         request_type: request,
     }
-    new_staff_reminder(admin_url, context)
+    new_staff_reminder(staff_url, context)
