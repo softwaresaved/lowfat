@@ -243,6 +243,14 @@ CONSTANCE_CONFIG = OrderedDict([
         False,
         "Notification to staffs by email",
     )),
+    ("STAFF_EMAIL_REMINDER", (
+        False,
+        "Reminder staffs of pending tasks by email",
+    )),
+    ("DAYS_TO_ANSWER_BACK", (
+        3,
+        "Days to answer back before receive a email reminder.",
+    )),
     ("CLAIMANT_EMAIL_NOTIFICATION", (
         False,
         "Notification to claimant by email",
