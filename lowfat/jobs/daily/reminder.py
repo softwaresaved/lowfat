@@ -21,13 +21,13 @@ config.DAYS_TO_ANSWER_BACK = {}""".format(
         today = datetime.now()
         all_requests = [
             Fund.objects.filter(
-                status="U"
+                status__in="UP"
             ),
             Expense.objects.filter(
-                status="U"
+                status__in="SC"
             ),
             Blog.objects.filter(
-                status="U"
+                status__in="UR"
             ),
         ]
         for requests in all_requests:
