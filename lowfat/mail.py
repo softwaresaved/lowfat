@@ -234,14 +234,19 @@ def blog_review_notification(message, sender, old, new, copy_to_staffs):
 
     review_notification(email_url, user_email, context, mail, copy_to_staffs)
 
-def new_staff_reminder(staff_url, context):
-    if config.STAFF_EMAIL_NOTIFICATION:
-        # Email to staff
-        context.update({
+def staff_reminder(request):  # pylint: disable=invalid-name
+    if config.STAFF_EMAIL_REMINDER:
+        request_type = type(request).__name__.lower()
+        staff_url = "/email/template/{}/staff/reminder/".format(
+            request_type
+        )
+
+        context = {
+            request_type: request,
             "protocol": "https",
             "site": Site.objects.get(id=SITE_ID),
             "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
-        })
+        }
 
         flatemail = FlatPage.objects.get(url=staff_url)
         template = Template(flatemail.content)
@@ -254,13 +259,3 @@ def new_staff_reminder(staff_url, context):
             html_message=html,
             fail_silently=False
         )
-
-def staff_reminder(request):  # pylint: disable=invalid-name
-    request_type = type(request).__name__.lower()
-    staff_url = "/email/template/{}/staff/reminder/".format(
-        request_type
-    )
-    context = {
-        request_type: request,
-    }
-    new_staff_reminder(staff_url, context)
