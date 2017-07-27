@@ -573,12 +573,11 @@ def expense_remove_relative(request, fund_id, expense_relative_number):
     )
 
 @login_required
-def blog_form(request):
+def blog_form(request, **kargs):
     # Setup Blog to edit if provide
-    blog_id_to_edit = request.GET.get("id")
-    if blog_id_to_edit:
+    if "blog_id" in kargs:
         try:
-            blog_to_edit = Blog.objects.get(id=blog_id_to_edit)
+            blog_to_edit = Blog.objects.get(id=kargs["blog_id"])
         except:  # pylint: disable=bare-except
             blog_to_edit = None
             messages.error(request, "The blog that you want to edit doesn't exist.")
@@ -597,7 +596,7 @@ def blog_form(request):
         request.POST or None,
         request.FILES or None,
         instance=blog_to_edit,
-        initial=initial,
+        initial=None if blog_to_edit else initial,
         is_staff=True if request.user.is_superuser else False
     )
 
@@ -643,7 +642,7 @@ def blog_form(request):
 
     # Show submission form.
     context = {
-        "title": "Submit blog post draft",
+        "title": "Edit blog post draft" if blog_to_edit else "Submit blog post draft",
         "formset": formset,
         "js_files": ["js/blog.js"],
     }
@@ -665,6 +664,15 @@ def blog_detail(request, blog_id):
         return render(request, 'lowfat/blog_detail.html', context)
 
     raise Http404("Blog post does not exist.")
+
+@login_required
+def blog_edit(request, blog_id):
+    if request.user.is_superuser:  # pylint: disable=no-else-return
+        return HttpResponseRedirect(
+            reverse('admin:lowfat_blog_change', args=[blog_id,])
+        )
+    else:
+        return blog_form(request, blog_id=blog_id)
 
 @staff_member_required
 def blog_review(request, blog_id):
@@ -707,28 +715,27 @@ def blog_review(request, blog_id):
 
     return render(request, 'lowfat/blog_review.html', context)
 
-@staff_member_required
-def blog_edit(request, blog_id):
-    return HttpResponseRedirect(
-        reverse('admin:lowfat_blog_change', args=[blog_id,])
-    )
-
 @login_required
 def blog_remove(request, blog_id):
     if request.user.is_staff:
         redirect_url = reverse('admin:lowfat_blog_delete', args=[blog_id,])
     else:
-        this_blog = Blog.objects.get(id=blog_id)
         if "next" in request.GET:
             redirect_url = request.GET["next"]
         else:
             redirect_url = "/"
 
-            if Claimant.objects.get(user=request.user) == this_blog.author:
-                this_blog.delete()
-                messages.success(request, 'Blog deleted with success.')
-            else:
-                messages.error(request, 'Only the author can remove the blog.')
+        try:
+            this_blog = Blog.objects.get(id=blog_id)
+        except:  # pylint: disable=bare-except
+            this_blog = None
+            messages.error(request, "The blog that you want to remove doesn't exist.")
+
+        if this_blog and Claimant.objects.get(user=request.user) == this_blog.author:
+            this_blog.remove()
+            messages.success(request, 'Blog deleted with success.')
+        else:
+            messages.error(request, 'Only the author can remove the blog.')
 
     return HttpResponseRedirect(redirect_url)
 
