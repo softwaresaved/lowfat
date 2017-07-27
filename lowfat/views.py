@@ -443,7 +443,20 @@ def fund_import(request):
     return render(request, 'lowfat/form.html', context)
 
 @login_required
-def expense_form(request):
+def expense_form(request, **kargs):
+    # Setup Expense to edit if provide
+    if "fund_id" in kargs and "expense_relative_number" in kargs:
+        try:
+            expense_to_edit = Expense.objects.get(
+                fund__id=kargs["fund_id"],
+                relative_number=kargs["expense_relative_number"]
+            )
+        except:  # pylint: disable=bare-except
+            expense_to_edit = None
+            messages.error(request, "The expense that you want to edit doesn't exist.")
+    else:
+        expense_to_edit = None
+
     # Setup Fund if provided
     fund_id = request.GET.get("fund_id")
     if fund_id:
@@ -458,7 +471,8 @@ def expense_form(request):
     formset = ExpenseForm(
         request.POST or None,
         request.FILES or None,
-        initial=initial,
+        instance=expense_to_edit,
+        initial=None if expense_to_edit else initial,
         is_staff=True if request.user.is_superuser else False
     )
 
@@ -487,7 +501,7 @@ def expense_form(request):
 
     # Show submission form.
     context = {
-        "title": "Submit expense claim",
+        "title": "Update expense claim" if expense_to_edit else "Submit expense claim",
         "formset": formset,
     }
     return render(request, 'lowfat/form.html', context)
@@ -512,6 +526,23 @@ def expense_detail_relative(request, fund_id, expense_relative_number):
     this_fund = Fund.objects.get(id=fund_id)
     this_expense = Expense.objects.get(fund=this_fund, relative_number=expense_relative_number)
     return expense_detail(request, this_expense.id)
+
+@login_required
+def expense_edit_relative(request, fund_id, expense_relative_number):
+    if request.user.is_superuser:  # pylint: disable=no-else-return
+        this_expense = Expense.objects.get(
+            fund__id=fund_id,
+            relative_number=expense_relative_number
+        )
+        return HttpResponseRedirect(
+            reverse('admin:lowfat_expense_change', args=[this_expense.id,])
+        )
+    else:
+        return expense_form(
+            request,
+            fund_id=fund_id,
+            expense_relative_number=expense_relative_number
+        )
 
 @staff_member_required
 def expense_review(request, expense_id):
@@ -556,21 +587,32 @@ def expense_review_relative(request, fund_id, expense_relative_number):
     this_expense = Expense.objects.get(fund=this_fund, relative_number=expense_relative_number)
     return expense_review(request, this_expense.id)
 
-@staff_member_required
-def expense_edit_relative(request, fund_id, expense_relative_number):
-    this_fund = Fund.objects.get(id=fund_id)
-    this_expense = Expense.objects.get(fund=this_fund, relative_number=expense_relative_number)
-    return HttpResponseRedirect(
-        reverse('admin:lowfat_expense_change', args=[this_expense.id,])
-    )
-
-@staff_member_required
+@login_required
 def expense_remove_relative(request, fund_id, expense_relative_number):
-    this_fund = Fund.objects.get(id=fund_id)
-    this_expense = Expense.objects.get(fund=this_fund, relative_number=expense_relative_number)
-    return HttpResponseRedirect(
-        reverse('admin:lowfat_expense_delete', args=[this_expense.id,])
-    )
+    try:
+        this_fund = Fund.objects.get(id=fund_id)
+        this_expense = Expense.objects.get(fund=this_fund, relative_number=expense_relative_number)
+    except:  # pylint: disable=bare-except
+        this_expense = None
+        redirect_url = "/"
+        messages.error(request, "The expense that you want to remove doesn't exist.")
+
+    if this_expense:
+        if request.user.is_staff:
+            redirect_url = reverse('admin:lowfat_expense_delete', args=[this_expense.id,])
+        else:
+            if "next" in request.GET:
+                redirect_url = request.GET["next"]
+            else:
+                redirect_url = "/"
+
+            if this_expense and Claimant.objects.get(user=request.user) == this_expense.fund.claimant:
+                this_expense.remove()
+                messages.success(request, 'Blog remove with success.')
+            else:
+                messages.error(request, 'Only the author can remove the blog.')
+
+    return HttpResponseRedirect(redirect_url)
 
 @login_required
 def blog_form(request, **kargs):
