@@ -115,17 +115,17 @@ def new_blog_notification(blog):
     user_email = [blog.author.email]
     if blog.coauthor.all():
         user_email.extend([author.email for author in blog.coauthor.all()])
-        context = {
+    context = {
+        "blog": blog,
+    }
+    mail = BlogSentMail(
+        **{
+            "justification": "",
+            "sender": None,
+            "receiver": blog.author,
             "blog": blog,
         }
-        mail = BlogSentMail(
-            **{
-                "justification": "",
-                "sender": None,
-                "receiver": blog.author,
-                "blog": blog,
-            }
-        )
+    )
 
     new_notification(staff_url, email_url, user_email, context, mail)
 

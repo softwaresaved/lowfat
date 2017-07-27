@@ -42,7 +42,7 @@
         Approved date
       </th>
       {% endif %}
-      {% if user.is_staff %}
+      {% if user.is_staff or claimant and user == claimant.user %}
       <th>
         Actions
       </th>
@@ -68,15 +68,13 @@
         {% if user.is_staff %}
         <a title="Review" href="{% url "fund_review" fund.id %}">{{fund.name}}</a>
         {% if fund.url|length > 0 %}
-        <a title="View website" href="{{fund.url}}"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
-          {% endif %}
-        </a>
+        <a title="View website" href="{{fund.url}}"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span></a>
+        {% endif %}
         {% elif claimant and user == claimant.user %}
         <a href="{% url "fund_detail" fund.id %}">{{fund.name}}</a>
         {% if fund.url|length > 0 %}
-        <a href="{{fund.url}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-          {% endif %}
-        </a>
+        <a href="{{fund.url}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+        {% endif %}
         {% elif fund.url|length > 0 %}
         <a href="{{fund.url}}">{{fund.name}}</a>
         {% else %}
@@ -114,18 +112,23 @@
         {% if fund.status in 'AF' %}
         {{ fund.approved }}
         {% endif %}
+      </td>
       {% endif %}
-      {% if user.is_staff %}
+      {% if user.is_authenticated %}
       <td>
+        {% if user.is_staff %}
         <a class="icon" href="mailto:{{ fund.claimant.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>
-        <a title="View" href="{% url 'fund_detail' fund.id %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-        <a  title="Review" href="{% url 'fund_review' fund.id %}"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
-        {% if user.is_superuser %}
-        <a  title="Edit" href="{% url 'fund_edit' fund.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-        <a  title="Remove" href="{% url 'fund_remove' fund.id %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
         {% endif %}
+        <a title="View" href="{% url 'fund_detail' fund.id %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+        {% if user.is_staff %}
+        <a title="Review" href="{% url 'fund_review' fund.id %}"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
+        {% endif %}
+        {% if user.is_superuser or fund.status in "UP" %}
+        <a title="Edit" href="{% url 'fund_edit' fund.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+        <a title="Remove" href="{% url 'fund_remove' fund.id %}?next={{ request.path }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
         {% endif %}
       </td>
+      {% endif %}
     </tr>
     {% endfor %}
     {% else %}

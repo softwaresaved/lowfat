@@ -50,6 +50,7 @@ FUND_STATUS = (
     ('R', 'Reproved'),  # Fund was declided.
     ('F', 'Archived'),  # Approved funds with all claims and blog posts were processed. No funds are reserved.
     ('C', 'Cancelled'),  # When the fellow decided to cancel their request.
+    ('X', 'Remove'),  # When the fellow decided to remove their request.
 )
 
 FUND_STATUS_LONG_DESCRIPTION = {
@@ -69,6 +70,7 @@ EXPENSE_STATUS = (
     ('P', 'Authoriser checking'),
     ('A', 'Approved (submitted to finance)'),
     ('F', 'Finished'),
+    ('X', 'Remove'),  # When the fellow decided to remove their request.
 )
 
 FUNDS_FROM = (
@@ -91,6 +93,7 @@ BLOG_POST_STATUS = (
     ('P', 'Published'),  # Blog post is published and have a URL at the website.
     ('D', 'Declined'),  # Blog post submitted by mistake.
     ('O', 'Out of date'),  # Blog post that wait too long to be publish for any reason.
+    ('X', 'Remove'),  # When the fellow decided to remove their request.
 )
 
 def fix_url(url):
@@ -470,6 +473,10 @@ class Fund(models.Model):
     updated = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()
 
+    def remove(self):
+        self.status = "X"
+        self.save()
+
     def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
         if not self.pk:
             self.grant_default = config.GRANTS_DEFAULT
@@ -635,6 +642,10 @@ class Expense(models.Model):
     def __str__(self):
         return self.claim.name
 
+    def remove(self):
+        self.status = "X"
+        self.save()
+
     def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
         if self.pk is None:
             previous_expenses = Expense.objects.filter(fund=self.fund).order_by("-pk")
@@ -740,6 +751,10 @@ class Blog(models.Model):
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()
+
+    def remove(self):
+        self.status = "X"
+        self.save()
 
     def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
         self.draft_url = fix_url(self.draft_url)
