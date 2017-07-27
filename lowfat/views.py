@@ -262,14 +262,36 @@ def my_profile(request):
     raise Http404("Claimant does not exist.")
 
 @login_required
-def fund_form(request):
+def fund_form(request, **kargs):
+    # Setup fund to edit if provide
+    if "fund_id" in kargs:
+        try:
+            fund_to_edit = Fund.objects.get(id=kargs["fund_id"])
+        except:  # pylint: disable=bare-except
+            fund_to_edit = None
+            messages.error(request, "The funding request that you want to edit doesn't exist.")
+    else:
+        fund_to_edit = None
+
+    initial = {
+        "start_date": django.utils.timezone.now(),
+        "end_date": django.utils.timezone.now(),
+    }
+
+    if not request.user.is_staff:
+        initial["claimant"] = Claimant.objects.get(user=request.user)
+    elif request.GET.get("claimant_id"):
+        initial["claimant"] = Claimant.objects.get(id=request.GET.get("claimant_id"))
+
+    formset = FundForm(
+        request.POST or None,
+        instance=fund_to_edit,
+        initial=None if fund_to_edit else initial,
+        is_staff=True if request.user.is_superuser else False
+    )
+
     if request.POST:
         # Handle submission
-        post = request.POST.copy()
-        claimant = Claimant.objects.get(id=post['claimant'])
-        post['claimant'] = claimant.id
-        formset = FundForm(post)
-
         if formset.is_valid():
             fund = formset.save()
             messages.success(request, 'Funding request saved on our database.')
@@ -285,21 +307,6 @@ def fund_form(request):
                 reverse('fund_detail', args=[fund.id,])
             )
 
-    initial = {
-        "start_date": django.utils.timezone.now(),
-        "end_date": django.utils.timezone.now(),
-    }
-
-    if not request.user.is_superuser:
-        initial["claimant"] = Claimant.objects.get(user=request.user)
-    elif request.GET.get("claimant_id"):
-        initial["claimant"] = Claimant.objects.get(id=request.GET.get("claimant_id"))
-
-    formset = FundForm(
-        initial=initial,
-        is_staff=True if request.user.is_superuser else False
-    )
-
     if not request.user.is_superuser:
         formset.fields["claimant"].queryset = Claimant.objects.filter(user=request.user)
     elif request.GET.get("claimant_id"):
@@ -309,7 +316,7 @@ def fund_form(request):
 
     # Show submission form.
     context = {
-        "title": "Make a funding request",
+        "title": "Edit funding request" if fund_to_edit else "Make a funding request",
         "formset": formset,
         "js_files": ["js/request.js"],
     }
@@ -387,18 +394,38 @@ def fund_review(request, fund_id):
 
     return render(request, 'lowfat/fund_review.html', context)
 
-
-@staff_member_required
+@login_required
 def fund_edit(request, fund_id):
-    return HttpResponseRedirect(
-        reverse('admin:lowfat_fund_change', args=[fund_id,])
-    )
+    if request.user.is_superuser:  # pylint: disable=no-else-return
+        return HttpResponseRedirect(
+            reverse('admin:lowfat_fund_change', args=[fund_id,])
+        )
+    else:
+        return fund_form(request, fund_id=fund_id)
 
-@staff_member_required
+@login_required
 def fund_remove(request, fund_id):
-    return HttpResponseRedirect(
-        reverse('admin:lowfat_fund_delete', args=[fund_id,])
-    )
+    if request.user.is_staff:
+        redirect_url = reverse('admin:lowfat_fund_delete', args=[fund_id,])
+    else:
+        if "next" in request.GET:
+            redirect_url = request.GET["next"]
+        else:
+            redirect_url = "/"
+
+        try:
+            this_fund = Fund.objects.get(id=fund_id)
+        except:  # pylint: disable=bare-except
+            this_fund = None
+            messages.error(request, "The funding request that you want to remove doesn't exist.")
+
+        if this_fund and Claimant.objects.get(user=request.user) == this_fund.claimant:
+            this_fund.remove()
+            messages.success(request, 'Blog deleted with success.')
+        else:
+            messages.error(request, 'Only the claimant can remove the funding request.')
+
+    return HttpResponseRedirect(redirect_url)
 
 def fund_past(request):
     funds = Fund.objects.filter(
@@ -697,7 +724,6 @@ def blog_detail(request, blog_id):
     if (request.user.is_superuser or
             Claimant.objects.get(user=request.user) == this_blog.author or
             Claimant.objects.get(user=request.user) in this_blog.coauthor.all()):
-
         context = {
             'blog': Blog.objects.get(id=blog_id),
             'emails': BlogSentMail.objects.filter(blog=this_blog),
