@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
     'django_countries',
+    'autofixture',
     'crispy_forms',
     'social_django',
     'dbbackup',
