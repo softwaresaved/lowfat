@@ -591,7 +591,7 @@ def expense_review(request, expense_id):
                     not formset.cleaned_data['not_copy_email_field']
                 )
             return HttpResponseRedirect(
-                reverse('expense_detail', args=[expense.id,])
+                reverse('expense_detail_relative', args=[expense.fund.id, expense.relative_number,])
             )
 
     formset = ExpenseReviewForm(
