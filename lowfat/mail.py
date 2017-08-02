@@ -212,18 +212,18 @@ def blog_review_notification(message, sender, old, new, copy_to_staffs):
     user_email = [new.author.email]
     if new.coauthor.all():
         user_email.extend([author.email for author in new.coauthor.all()])
-        context = {
-            "old": old,
-            "new": new,
+    context = {
+        "old": old,
+        "new": new,
+    }
+    mail = BlogSentMail(
+        **{
+            "justification": message,
+            "sender": sender,
+            "receiver": new.author,
+            "blog": new,
         }
-        mail = BlogSentMail(
-            **{
-                "justification": message,
-                "sender": sender,
-                "receiver": new.author,
-                "blog": new,
-            }
-        )
+    )
 
     if new.status == 'P':
         email_url = "/email/template/blog/claimant/change/"
