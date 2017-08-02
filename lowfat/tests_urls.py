@@ -58,7 +58,7 @@ class URLTest(TestCase):
                     query["post_data"] if "post_data" in query else None
                 )
             )
-            if follow == True and response.redirect_chain:
+            if follow is True and response.redirect_chain:
                 if "final_url" in query:
                     self.assertEqual(
                         response.redirect_chain[-1][0],
@@ -71,7 +71,7 @@ class URLTest(TestCase):
                         )
                     )
                 elif "final_url_regex" in query:
-                    self.assertRegexpMatches(
+                    self.assertRegex(  # pylint: disable=deprecated-method
                         response.redirect_chain[-1][0],
                         query["final_url_regex"],
                         "when {} requested {} {} passing {} it should be redirect".format(
@@ -368,7 +368,7 @@ class URLTest(TestCase):
             {
                 "user": self.public,
                 "expect_code": 200,
-                "final_url_regex": "/login/\?next=/fund/\d+/",
+                "final_url_regex": r"/login/\?next=/fund/\d+/",
             },
             {
                 "user": self.claimant_a,
@@ -392,7 +392,7 @@ class URLTest(TestCase):
             {
                 "user": self.public,
                 "expect_code": 200,
-                "final_url_regex": "/login/\?next=/request/\d+/",
+                "final_url_regex": r"/login/\?next=/request/\d+/",
             },
             {
                 "user": self.claimant_a,
