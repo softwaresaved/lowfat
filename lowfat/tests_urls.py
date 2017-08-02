@@ -40,10 +40,14 @@ class URLTest(TestCase):
             {
                 "user": self.admin,
                 "expect_code": 200,
+                "post_data": {"foo": bar"},
             }
         ]"""
         for query in queries:
-            response = query["user"].get(url)
+            if "post_data" in query:
+                response = query["user"].post(url, query["post_data"])
+            else:
+                response = query["user"].get(url)
             self.assertEqual(
                 response.status_code,
                 query["expect_code"],
@@ -362,16 +366,60 @@ class URLTest(TestCase):
                 "expect_code": 302,
             },
             {
+                "user": self.public,
+                "expect_code": 302,
+                "post_data": {
+                    "draft_url":  "https://www.software.ac.uk/",
+                    "status": "P",
+                    "title": "Foo",
+                    "published_url": "https://www.software.ac.uk/",
+                    "tweet_url": "https://twitter.com/FakeUser/status/999999999999999999",
+                },
+            },
+            {
                 "user": self.claimant_a,
                 "expect_code": 302,
+            },
+            {
+                "user": self.claimant_a,
+                "expect_code": 302,
+                "post_data": {
+                    "draft_url":  "https://www.software.ac.uk/",
+                    "status": "P",
+                    "title": "Foo",
+                    "published_url": "https://www.software.ac.uk/",
+                    "tweet_url": "https://twitter.com/FakeUser/status/999999999999999999",
+                },
             },
             {
                 "user": self.claimant_b,
                 "expect_code": 302,
             },
             {
+                "user": self.claimant_b,
+                "expect_code": 302,
+                "post_data": {
+                    "draft_url":  "https://www.software.ac.uk/",
+                    "status": "P",
+                    "title": "Foo",
+                    "published_url": "https://www.software.ac.uk/",
+                    "tweet_url": "https://twitter.com/FakeUser/status/999999999999999999",
+                },
+            },
+            {
                 "user": self.admin,
                 "expect_code": 200,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+                "post_data": {
+                    "draft_url":  "https://www.software.ac.uk/",
+                    "status": "P",
+                    "title": "Foo",
+                    "published_url": "https://www.software.ac.uk/",
+                    "tweet_url": "https://twitter.com/FakeUser/status/999999999999999999",
+                },
             },
             ]
 
