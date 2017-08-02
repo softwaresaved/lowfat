@@ -534,7 +534,7 @@ class URLTest(TestCase):
                     "funds_from": "F",
                     "grant_used": "SSI1",
                 },
-                "final_url_regex": r"/expense/\d+/",
+                "final_url_regex": r"/request/\d+/expense/\d+",
             },
             ]
 
@@ -617,7 +617,7 @@ class URLTest(TestCase):
                     "funds_from": "F",
                     "grant_used": "SSI1",
                 },
-                "final_url_regex": r"/fund/\d+/expense/\d+/",
+                "final_url_regex": r"/request/\d+/expense/\d+",
             },
             ]
 
