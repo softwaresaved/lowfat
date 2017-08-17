@@ -32,6 +32,12 @@ config.DAYS_TO_ANSWER_BACK = {}""".format(
         ]
         for requests in all_requests:
             for request in requests:
+                if today.day == request.added.day:
+                    print("Skipping notification for {} because request was submit today.".format(
+                        request
+                    ))
+                    continue
+
                 datetime_after_request = today - request.added
                 days_before_notification = datetime_after_request.days % config.DAYS_TO_ANSWER_BACK
                 if days_before_notification == 0:
