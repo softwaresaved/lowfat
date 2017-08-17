@@ -47,4 +47,4 @@ exclude: ['bin', 'README.md']
 markdown: kramdown
 
 # Syntax highlighting
-highlighter: none
+highlighter: rouge
