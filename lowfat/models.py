@@ -47,7 +47,7 @@ FUND_STATUS = (
     ('U', 'Unprocessed'),  # Initial status
     ('P', 'Processing'),  # When someone was assigned to review the request
     ('A', 'Approved'),  # Fund was approved. Funds are reserved.
-    ('R', 'Reproved'),  # Fund was declided.
+    ('R', 'Rejected'),  # Fund was rejected.
     ('F', 'Archived'),  # Approved funds with all claims and blog posts were processed. No funds are reserved.
     ('C', 'Cancelled'),  # When the fellow decided to cancel their request.
     ('X', 'Remove'),  # When the fellow decided to remove their request.
@@ -70,6 +70,7 @@ EXPENSE_STATUS = (
     ('P', 'Authoriser checking'),
     ('A', 'Approved (submitted to finance)'),
     ('F', 'Finished'),
+    ('R', 'Rejected'),  # When expense was rejected.
     ('X', 'Remove'),  # When the fellow decided to remove their request.
 )
 
@@ -91,7 +92,8 @@ BLOG_POST_STATUS = (
     ('G', 'Waiting to be proofread'),  # Blog post is assigned to be proofread by the community officer.
     ('L', 'Waiting to be published'),  # Blog post will be publish by the community officer.
     ('P', 'Published'),  # Blog post is published and have a URL at the website.
-    ('D', 'Declined'),  # Blog post submitted by mistake.
+    ('M', 'Mistaked'),  # Blog post submitted by mistake.
+    ('D', 'Rejected'),  # Blog post is rejected for any reason.
     ('O', 'Out of date'),  # Blog post that wait too long to be publish for any reason.
     ('X', 'Remove'),  # When the fellow decided to remove their request.
 )
