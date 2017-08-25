@@ -10,7 +10,7 @@
     <a href="?funding_requests=A&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Approved</a>
   </li>
   <li role="presentation" {% if funding_requests_status == 'R' %}class="active"{% endif %}>
-    <a href="?funding_requests=R&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Reproved</a>
+    <a href="?funding_requests=R&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Rejected</a>
   </li>
   <li role="presentation" {% if funding_requests_status == 'F' %}class="active"{% endif %}>
     <a href="?funding_requests=F&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Archived</a>
