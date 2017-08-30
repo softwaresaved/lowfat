@@ -92,6 +92,8 @@ class ExpenseAdmin(SimpleHistoryAdmin):
         'get_claimant',
         'get_start_date',
         'status',
+        'invoice',
+        'advance_booking',
     ]
     search_fields = [
         'fund__claimant__surname',
@@ -100,6 +102,8 @@ class ExpenseAdmin(SimpleHistoryAdmin):
     ]
     list_filter = [
         'status',
+        'invoice',
+        'advance_booking',
         AmountListFilter,
     ]
 
