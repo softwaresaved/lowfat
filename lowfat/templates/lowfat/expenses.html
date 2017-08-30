@@ -32,6 +32,14 @@
       <th>
         Claim
       </th>
+      {% if user.is_staff %}
+      <th>
+        Fellow
+      </th>
+      <th>
+        Funding Request
+      </th>
+      {% endif %}
       <th>
         Status
       </th>
@@ -76,6 +84,16 @@
           Missing claim of expense
           {% endif %}
       </td>
+      {% if user.is_staff %}
+      <td>
+        <a href="{% url 'fellow_slug' expense.claimant.slug %}">{{ expense.claimant.fullname }}</a>
+      </td>
+      <td>
+        {% if blog.fund %}
+        <a href="{% url 'fund_detail' expense.fund.id %}">{{ expense.fund.name }}</a>
+        {% endif %}
+      </td>
+      {% endif %}
       <td>
         {{ expense.get_status_display }}
         {% if fund.status == 'F' %}
@@ -124,7 +142,7 @@
     <tr>
       <td
         {% if user.is_staff %}
-        colspan="6"
+        colspan="8"
         {% elif claimant and user == claimant.user %}
         colspan="6"
         {% else %}
