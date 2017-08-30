@@ -46,6 +46,12 @@
           <td>{{ expense.invoice_reference }}</td>
         </tr>
         {% endif %}
+        {% if expense.advance_booking %}
+        <tr>
+          <th>Advance booking</th>
+          <td>{{ expense.advance_bookinge }}</td>
+        </tr>
+        {% endif %}
         <tr>
             <th>Status</th>
             <td>{{ expense.get_status_display }}</td>

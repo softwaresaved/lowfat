@@ -579,6 +579,9 @@ class Expense(models.Model):
     final = models.BooleanField(
         default=False
     )
+    advance_booking = models.BooleanField(
+        default=False
+    )
     # Recipient
     recipient_fullname = models.CharField(
         max_length=MAX_CHAR_LENGTH,
