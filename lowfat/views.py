@@ -256,7 +256,11 @@ def claimant_slug_resolution(request, claimant_slug):
 @login_required
 def my_profile(request):
     if not request.user.is_superuser and not request.user.is_staff:
-        claimant = Claimant.objects.get(user=request.user)
+        try:
+            claimant = Claimant.objects.get(user=request.user)
+        except:  # pylint: disable=bare-except
+            return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/unavailable/'}))
+
         return claimant_detail(request, claimant.id)
 
     raise Http404("Claimant does not exist.")
@@ -279,7 +283,10 @@ def fund_form(request, **kargs):
     }
 
     if not request.user.is_staff:
-        initial["claimant"] = Claimant.objects.get(user=request.user)
+        try:
+            initial["claimant"] = Claimant.objects.get(user=request.user)
+        except:  # pylint: disable=bare-except
+            return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/unavailable/'}))
     elif request.GET.get("claimant_id"):
         initial["claimant"] = Claimant.objects.get(id=request.GET.get("claimant_id"))
 
@@ -521,6 +528,8 @@ def expense_form(request, **kargs):
         claimant = Claimant.objects.all()
     else:
         claimant = Claimant.objects.filter(user=request.user)
+        if not claimant:
+            return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/unavailable/'}))
     formset.fields["fund"].queryset = Fund.objects.filter(
         claimant__in=claimant,
         status__in=['A']
@@ -697,7 +706,10 @@ def blog_form(request, **kargs):
 
     # Limit dropdown list to claimant
     if not request.user.is_superuser:
-        claimant = Claimant.objects.get(user=request.user)
+        try:
+            claimant = Claimant.objects.get(user=request.user)
+        except:  # pylint: disable=bare-except
+            return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/unavailable/'}))
         formset.fields["fund"].queryset = Fund.objects.filter(
             claimant=claimant,
             status__in=['A']
