@@ -28,6 +28,11 @@
       <th>
         Name
       </th>
+      {% if user.is_staff %}
+      <th>
+        Fellow
+      </th>
+      {% endif %}
       <th>
         Start date
       </th>
@@ -98,6 +103,11 @@
         )
         {% endif %}
       </td>
+      {% if user.is_staff %}
+      <td>
+        <a href="{% url 'claimant_slug_resolution' fund.claimant.slug %}">{{ fund.claimant.fullname }}</a>
+      </td>
+      {% endif %}
       <td>{{fund.start_date}}</td>
       <td>{{fund.end_date}}</td>
       {% if user.is_staff or claimant and user == claimant.user %}
@@ -135,7 +145,7 @@
     <tr>
       <td
         {% if user.is_staff %}
-        colspan="7"
+        colspan="8"
         {% elif claimant and user == claimant.user %}
         colspan="6"
         {% else %}
