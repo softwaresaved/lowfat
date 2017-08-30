@@ -105,7 +105,7 @@
       </td>
       {% if user.is_staff %}
       <td>
-        <a href="{% url 'claimant_slug_resolution' fund.claimant.slug %}">{{ fund.claimant.fullname }}</a>
+        <a href="{% url 'fellow_slug' fund.claimant.slug %}">{{ fund.claimant.fullname }}</a>
       </td>
       {% endif %}
       <td>{{fund.start_date}}</td>

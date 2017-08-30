@@ -23,7 +23,7 @@
         <tr>
           <th>Author</th>
           <td>
-            <a href="{% url 'claimant_detail' blog.author.id %}">{{ blog.author.fullname }}</a>
+            <a href="{% url 'fellow_slug' blog.author.slug %}">{{ blog.author.fullname }}</a>
             <a class="icon" href="mailto:{{ blog.author.email }}">
               <i class="fa fa-envelope" aria-hidden="true"></i>
             </a>
@@ -34,7 +34,7 @@
           <th>Contributors</th>
           <td>
             {% for author in blog.coauthor.all %}
-          <a href="{% url 'claimant_detail' author.id %}">{{ author.fullname }}</a>
+          <a href="{% url 'fellow_slug' author.slug %}">{{ author.fullname }}</a>
           <a class="icon" href="mailto:{{ author.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>{% if not forloop.last %}, {% endif %}
             {% endfor %}
           </td>

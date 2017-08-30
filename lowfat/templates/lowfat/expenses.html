@@ -86,7 +86,7 @@
       </td>
       {% if user.is_staff %}
       <td>
-        <a href="{% url 'claimant_slug_resolution' expense.claimant.slug %}">{{ expense.claimant.fullname }}</a>
+        <a href="{% url 'fellow_slug' expense.claimant.slug %}">{{ expense.claimant.fullname }}</a>
       </td>
       <td>
         {% if blog.fund %}
