@@ -56,6 +56,18 @@
             <th>Status</th>
             <td>{{ expense.get_status_display }}</td>
         </tr>
+        {% if expense.advance_booking %}
+        <tr>
+          <th>Advance booking confirmation</th>
+          <td>
+            {% if expense.advance_book_confirmation %}
+            <a href="{{ expense.advance_book_confirmation.url }}">PDF copy of confirmation.</a>
+            {% else %}
+            No confirmation available yet.
+            {% endif %}
+          </td>
+        </tr>
+        {% endif %}
     </tbody>
 </table>
 {% include "lowfat/communication.html" %}

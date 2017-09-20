@@ -587,7 +587,11 @@ def expense_review(request, expense_id):
     if request.POST:
         # Handle submission
         old_expense = copy.deepcopy(this_expense)
-        formset = ExpenseReviewForm(request.POST, instance=this_expense)
+        formset = ExpenseReviewForm(
+            request.POST,
+            request.FILES or None,
+            instance=this_expense
+        )
 
         if formset.is_valid():
             expense = formset.save()
