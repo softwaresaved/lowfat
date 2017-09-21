@@ -30,6 +30,12 @@ GENDERS = (
     ('R', 'Rather not say'),
 )
 
+CAREER_STAGES = (
+    ('E', 'Early Carrer'),
+    ('M', 'Mid-Carrer'),
+    ('L', 'Late Carrer'),
+)
+
 FUND_CATEGORY = (
     ('A', 'Attending a conference/workshop'),
     ('H', 'Organising a conference/workshop (e.g. Software Carpentry)'),
@@ -194,6 +200,11 @@ class Claimant(models.Model):
     # Professional info
     # JACS code for research_area.
     # https://www.hesa.ac.uk/jacs/
+    career_stage_when_apply = models.CharField(
+        choices=CAREER_STAGES,
+        max_length=1,
+        default="M"
+    )
     research_area = models.TextField(
         blank=True,
         help_text="Please describe your research"
