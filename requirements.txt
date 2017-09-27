@@ -1,5 +1,3 @@
-bokeh
-bkcharts
 django
 django-backup
 django-constance[database]
@@ -12,6 +10,8 @@ django-settings-export
 django-simple-history
 html2text
 markdown
+matplotlib
+numpy
 pandas
 pylint
 pylint-django

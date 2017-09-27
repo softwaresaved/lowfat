@@ -1,4 +1,6 @@
 import copy
+from io import BytesIO
+from base64 import b64encode
 
 import django.utils
 from django.contrib import messages
@@ -11,9 +13,7 @@ from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.shortcuts import render
 
-from bokeh.embed import components
-from bokeh.resources import CDN
-from bkcharts import Bar, Histogram
+from matplotlib.pyplot import bar, hist, savefig
 
 from .management.commands import loadoldfunds as loadoldfunds
 from .models import *
@@ -852,33 +852,31 @@ def report(request):
     # XXX Pandas doesn't support DecimalField so we need to convert it into float.
 
     # Number of claimants per year
+    claimants_per_year_plot_bytes = BytesIO()
     claimants_per_year = Claimant.objects.all().values('application_year').annotate(total=Count('application_year'))
-    claimants_per_year_plot = Bar(
-        list(claimants_per_year),
-        values='total',
-        label='application_year',
-        title='Number of claimants'
+    bar(
+        [claimant["application_year"] for claimant in claimants_per_year],
+        [claimant["total"] for claimant in claimants_per_year]
     )
+    savefig(claimants_per_year_plot_bytes, format="png")
+    claimants_per_year_plot_bytes.seek(0)
+    claimants_per_year_plot = b64encode(claimants_per_year_plot_bytes.getvalue())
 
     # Fund requests
+    fund_amount_plot_bytes = BytesIO()
     fund_amount = Fund.objects.all().values('budget_approved')
-    fund_amount_hist = Histogram(
-        [float(amount['budget_approved']) for amount in list(fund_amount)],
-        title='Amount request'
+    hist(
+        [float(amount['budget_approved']) for amount in fund_amount],
+        5
     )
-
-    bokeh_script, bokeh_plots = components(
-        {
-            'claimants_per_year': claimants_per_year_plot,
-            'fund_amount': fund_amount_hist,
-        },
-        CDN
-    )
+    savefig(fund_amount_plot_bytes, format="png")
+    fund_amount_plot_bytes.seek(0)
+    fund_amount_plot = b64encode(fund_amount_plot_bytes.getvalue())
 
     context = {
-        'bokeh_script': bokeh_script,
+        'claimants_per_year': claimants_per_year_plot,
+        'fund_amount': fund_amount_plot,
     }
-    context.update(bokeh_plots)
 
     return render(request, 'lowfat/report.html', context)
 
