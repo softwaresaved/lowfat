@@ -65,7 +65,7 @@
 <p style="text-align: center;">or</p>
 
 <p style="text-align: center;">
-<a style="padding: 10px 15px;" class="button" href="{% url 'social:begin' 'github' %}?next={{ request.get_full_path }}">Sign in with GitHub</a>
+<a style="padding: 10px 15px;" class="button" href="{% url 'social:begin' 'github' %}?{{ request.META.QUERY_STRING }}">Sign in with GitHub</a>
 </p>
 
 </div>
