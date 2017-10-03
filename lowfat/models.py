@@ -14,7 +14,7 @@ from simple_history.models import HistoricalRecords
 from django_countries.fields import CountryField
 
 from .validator import pdf, online_document
-from .jacs import JACS_LEVEL_2
+from .jacs import JACS_3_0_PRINCIPAL_SUBJECT_CODES
 
 INVOICE_HASH = hashlib.md5()
 
@@ -198,8 +198,6 @@ class Claimant(models.Model):
     )
 
     # Professional info
-    # JACS code for research_area.
-    # https://www.hesa.ac.uk/jacs/
     career_stage_when_apply = models.CharField(
         choices=CAREER_STAGES,
         max_length=1,
@@ -209,10 +207,12 @@ class Claimant(models.Model):
         blank=True,
         help_text="Please describe your research"
     )
+    # JACS code for research_area.
+    # https://www.hesa.ac.uk/jacs/
     research_area_code = models.CharField(
-        choices=JACS_LEVEL_2,
-        max_length=4,
-        default="Y000"
+        choices=JACS_3_0_PRINCIPAL_SUBJECT_CODES,
+        max_length=2,
+        default="Y0"
     )
     affiliation = models.CharField(
         max_length=MAX_CHAR_LENGTH,
