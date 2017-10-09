@@ -4,14 +4,14 @@ from __future__ import unicode_literals
 
 from django.db import migrations, models
 
-def fix_jacs_code(apps, schema_editor):
-    Claimant = apps.get_model("lowfat", "Claimant")
+def fix_jacs_code(apps, schema_editor):  # pylint: disable=unused-argument
+    Claimant = apps.get_model("lowfat", "Claimant")  # pylint: disable=invalid-name
     for claimant in Claimant.objects.all():
         claimant.research_area_code = claimant.research_area_code[0:2]
         claimant.save()
 
-def reverse_fix_jacs_code(apps, schema_editor):
-    Claimant = apps.get_model("lowfat", "Claimant")
+def reverse_fix_jacs_code(apps, schema_editor):  # pylint: disable=unused-argument
+    Claimant = apps.get_model("lowfat", "Claimant")  # pylint: disable=invalid-name
     for claimant in Claimant.objects.all():
         claimant.research_area_code = "{}00".format(claimant.research_area_code)
         claimant.save()
