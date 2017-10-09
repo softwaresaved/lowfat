@@ -13,6 +13,8 @@ from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.shortcuts import render
 
+import matplotlib
+matplotlib.use('AGG')
 from matplotlib.pyplot import bar, hist, savefig
 
 from .management.commands import loadoldfunds as loadoldfunds
