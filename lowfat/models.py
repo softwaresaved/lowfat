@@ -19,6 +19,7 @@ from .jacs import JACS_3_0_PRINCIPAL_SUBJECT_CODES
 INVOICE_HASH = hashlib.md5()
 
 MAX_CHAR_LENGTH = 120
+MAX_URL_LENGTH = 360
 MAX_INVOICE_REFERENCE_LENGTH = 14  # e.g. SSIF-xxxx-xxxx
 MAX_PHONE_LENGTH = 14
 MAX_DIGITS = 10
@@ -230,11 +231,11 @@ class Claimant(models.Model):
 
     # Social media
     website = models.CharField(
-        max_length=MAX_CHAR_LENGTH,
+        max_length=MAX_URL_LENGTH,
         blank=True
     )
     website_feed = models.CharField(
-        max_length=MAX_CHAR_LENGTH,
+        max_length=MAX_URL_LENGTH,
         blank=True
     )
     orcid = models.CharField(
@@ -390,7 +391,7 @@ class Fund(models.Model):
     mandatory = models.BooleanField(default=False)
     name = models.CharField(max_length=MAX_CHAR_LENGTH)
     url = models.CharField(
-        max_length=MAX_CHAR_LENGTH,
+        max_length=MAX_URL_LENGTH,
         blank=True,  # See https://github.com/softwaresaved/lowfat/issues/192
     )
     country = CountryField(default='GB')  # Default for United Kingdom
@@ -721,7 +722,7 @@ class Blog(models.Model):
         related_name="author"
     )
     draft_url = models.CharField(
-        max_length=MAX_CHAR_LENGTH,
+        max_length=MAX_URL_LENGTH,
         validators=[online_document]
     )
     final = models.BooleanField(
@@ -753,12 +754,12 @@ class Blog(models.Model):
         blank=True
     )
     published_url = models.CharField(
-        max_length=MAX_CHAR_LENGTH,
+        max_length=MAX_URL_LENGTH,
         null=True,
         blank=True
     )
     tweet_url = models.CharField(
-        max_length=MAX_CHAR_LENGTH,
+        max_length=MAX_URL_LENGTH,
         null=True,
         blank=True
     )
