@@ -91,7 +91,7 @@ class ClaimantForm(GarlicForm):
                 'home_country',
                 'home_city',
                 HTML('<h2>Professional details</h2>'),
-                'career_stage_when_apply'
+                'career_stage_when_apply',
                 'affiliation',
                 'work_description',
                 HTML('<h2>Social Networks</h2>'),
