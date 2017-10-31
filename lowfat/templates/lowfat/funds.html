@@ -67,7 +67,9 @@
       {% endif %}
       >
       {% if user.is_staff or claimant and user == claimant.user %}
-      <td>{{ fund.added }}</td>
+      <td  sorttable_customkey="{{ fund.added | date:'Ymd' }}">
+        {{ fund.added }}
+      </td>
       {% endif %}
       <td>
         {% if user.is_staff %}
@@ -108,8 +110,8 @@
         <a href="{% url 'fellow_slug' fund.claimant.slug %}">{{ fund.claimant.fullname }}</a>
       </td>
       {% endif %}
-      <td>{{fund.start_date}}</td>
-      <td>{{fund.end_date}}</td>
+      <td sorttable_customkey="{{ fund.start_date | date:'Ymd' }}">{{ fund.start_date }}</td>
+      <td sorttable_customkey="{{ fund.end_date | date:'Ymd' }}">{{fund.end_date}}</td>
       {% if user.is_staff or claimant and user == claimant.user %}
       <td>
         {{ fund.get_status_display }}
