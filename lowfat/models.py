@@ -276,6 +276,7 @@ class Claimant(models.Model):
     )
     selected = models.BooleanField(default=False)
     carpentries_instructor = models.BooleanField(default=False)
+    research_software_engineer = models.BooleanField(default=False)
     claimantship_grant = models.DecimalField(
         max_digits=MAX_DIGITS,
         decimal_places=2,
