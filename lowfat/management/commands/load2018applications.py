@@ -1,11 +1,6 @@
-import sys
-import traceback
-import urllib.request
-
 import pandas as pd
 
 from django.contrib.auth.models import User
-from django.core.files import File
 from django.core.management.base import BaseCommand
 
 from lowfat.models import Claimant
@@ -24,7 +19,6 @@ class Command(BaseCommand):
         for index, line in data.iterrows():  # pylint: disable=no-member,unused-variable
             try:
                 received_offer = True if line['Fellow'] == 'Yes' else False
-                photo = None
                 jacs = line["Research Classification"][1:3]
 
                 applicants_dict = {
