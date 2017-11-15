@@ -33,9 +33,9 @@ GENDERS = (
 
 CAREER_STAGES = (
     ('1', 'Phase 1 - Junior (e.g. PhD candidate, Junior Research Software Engineer)'),
-    ('2', 'Early (e.g Research Assistant\/Associate, first grant holder, Lecturer, Research Software Engineer)'),
-    ('3', 'Mid \/ Recognised (e.g. Senior Lecturer, Reader, Senior Researcher, Senior Research Software Engineer, Research Software Group Leader)'),
-    ('4', 'Established \/ Experienced \/ Senior  (e.g. Professor, Director of Research Computing, Distinguished Engineer, Chief Data Scientist)'),
+    ('2', 'Early (e.g Research Assistant/Associate, first grant holder, Lecturer, Research Software Engineer)'),
+    ('3', 'Mid / Recognised (e.g. Senior Lecturer, Reader, Senior Researcher, Senior Research Software Engineer, Research Software Group Leader)'),
+    ('4', 'Established / Experienced / Senior  (e.g. Professor, Director of Research Computing, Distinguished Engineer, Chief Data Scientist)'),
 )
 
 FUND_CATEGORY = (
@@ -295,7 +295,7 @@ class Claimant(models.Model):
         max_length=MAX_CHAR_LENGTH,
         blank=True
     )
-    
+
     # Admin fields
     slug = models.CharField(max_length=MAX_CHAR_LENGTH)
     application_year = models.IntegerField(
