@@ -1,0 +1,46 @@
+{% extends "lowfat/base.html" %}
+{% load markdown %}
+{% load staticfiles %}
+
+{% block content %}
+<h2>Website Profile View</h2>
+<p>{{ claimant.job_title }}, {{ claimant.affiliation }}.</p>
+{% if claimant.interests %}
+<p><strong>Interests</strong><p>
+{{ claimant.interests | markdown | safe }}
+{% endif %}
+{% if claimant.work_description %}
+<p><strong>My work</strong><p>
+{{ claimant.work_description | markdown | safe }}
+{% endif %}
+<p><strong>Online Presence</strong><p>
+  {% if claimant.institutional_website %}
+<p><a class="icon" href="{{ claimant.institutional_website }}">My institutional website</a></p>
+{% endif %}
+{% if claimant.website %}
+<p><a class="icon" href="{{ claimant.website }}">My website</a></p>
+{% endif %}
+{% if claimant.orcid %}
+<p><a class="icon" href="http://orcid.org/{{ claimant.orcid }}">My ORCiD</a></p>
+</td>
+</tr>
+{% endif %}
+{% if claimant.google_scholar %}
+<p><a class="icon" href="https://scholar.google.co.uk/citations?user={{ claimant.google_scholar }}">My Google Scholar</a></p>
+{% endif %}
+{% if claimant.github %}
+<p><a class="icon" href="http://github.com/{{ claimant.github }}">My GitHub page</a></p>
+{% endif %}
+{% if claimant.gitlab %}
+<p><a class="icon" href="https://gitlab.com/{{ claimant.gitlab }}">My GitLab page</a></p>
+{% endif %}
+{% if claimant.twitter %}
+<p>Follow me on Twitter, <a class="icon" href="https://twitter.com/{{ claimant.twitter }}">@{{ claimant.twitter }}</a></p>
+{% endif %}
+{% if claimant.linkedin %}
+<p><a class="icon" href="https://www.linkedin.com/in/{{ claimant.linkedin }}">My LinkedIn</a></p>
+{% endif %}
+{% if claimant.facebook %}
+<p><a class="icon" href="https://facebook.com/{{ claimant.facebook }}">My Facebook</a></p>
+{% endif %}
+{% endblock %}
