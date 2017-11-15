@@ -1,6 +1,6 @@
 import pandas as pd
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, BaseUserManager
 from django.core.management.base import BaseCommand
 
 from lowfat.models import Claimant
@@ -14,6 +14,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         fail_list = []
         success_list = []
+        user_manager = BaseUserManager()
 
         data = pd.read_csv(options['csv'])
         for index, line in data.iterrows():  # pylint: disable=no-member,unused-variable
@@ -63,7 +64,10 @@ class Command(BaseCommand):
                 if received_offer:
                     new_user = User.objects.create_user(
                         username=applicant.slug,
-                        email=applicant.email
+                        email=applicant.email,
+                        password=user_manager.make_random_password(),
+                        first_name=line["First name"],
+                        last_name=line["Surname"]
                     )
                     applicant.user = new_user
                     applicant.save()
