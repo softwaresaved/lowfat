@@ -32,9 +32,10 @@ GENDERS = (
 )
 
 CAREER_STAGES = (
-    ('E', 'Early Carrer'),
-    ('M', 'Mid-Carrer'),
-    ('L', 'Late Carrer'),
+    ('1', 'Phase 1 - Junior (e.g. PhD candidate, Junior Research Software Engineer)'),
+    ('2', 'Early (e.g Research Assistant/Associate, first grant holder, Lecturer, Research Software Engineer)'),
+    ('3', 'Mid / Recognised (e.g. Senior Lecturer, Reader, Senior Researcher, Senior Research Software Engineer, Research Software Group Leader)'),
+    ('4', 'Established / Experienced / Senior  (e.g. Professor, Director of Research Computing, Distinguished Engineer, Chief Data Scientist)'),
 )
 
 FUND_CATEGORY = (
@@ -195,7 +196,8 @@ class Claimant(models.Model):
     photo = models.FileField(
         upload_to='photos/',  # File will be uploaded to MEDIA_ROOT/photos
         null=True,
-        blank=True  # This need to be a JPG.
+        blank=True,  # This need to be a JPG.
+        help_text="A professionally oriented (i.e. work related) main picture of yourself that you are happy to be published on the web - this should be 300px wide and 400px high (exact please)."
     )
 
     # Professional info
@@ -203,6 +205,10 @@ class Claimant(models.Model):
         choices=CAREER_STAGES,
         max_length=1,
         default="M"
+    )
+    job_title_when_apply = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
     )
     research_area = models.TextField(
         blank=True,
@@ -215,7 +221,15 @@ class Claimant(models.Model):
         max_length=2,
         default="Y0"
     )
-    affiliation = models.CharField(
+    affiliation = models.CharField(  # Home institution
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
+    department = models.CharField(  # Department within home institution
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
+    group = models.CharField(  # Group within department
         max_length=MAX_CHAR_LENGTH,
         blank=True
     )
@@ -227,9 +241,24 @@ class Claimant(models.Model):
         null=True,
         blank=True
     )
-    work_description = models.TextField(blank=True)
+
+    # Website
+    #
+    # See https://www.software.ac.uk/fellows/
+    interests = models.TextField(
+        blank=True,
+        help_text="25-50 word summary of your professional interests."
+    )
+    work_description = models.TextField(
+        blank=True,
+        help_text="200-300 words describing the work you do, this can include your plans for Fellowship."
+    )
 
     # Social media
+    institutional_website = models.CharField(
+        max_length=MAX_URL_LENGTH,
+        blank=True
+    )
     website = models.CharField(
         max_length=MAX_URL_LENGTH,
         blank=True
@@ -242,6 +271,10 @@ class Claimant(models.Model):
         max_length=MAX_CHAR_LENGTH,
         blank=True
     )
+    google_scholar = models.CharField(  # For example, https://scholar.google.co.uk/citations?user=XXXXXXXXXXXX
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
     github = models.CharField(
         max_length=MAX_CHAR_LENGTH,
         blank=True
@@ -251,6 +284,10 @@ class Claimant(models.Model):
         blank=True
     )
     twitter = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
+    linkedin = models.CharField(
         max_length=MAX_CHAR_LENGTH,
         blank=True
     )
@@ -276,6 +313,9 @@ class Claimant(models.Model):
         )
     )
     selected = models.BooleanField(default=False)
+    received_offer = models.BooleanField(default=False)
+    activated = models.BooleanField(default=False)
+    is_into_training = models.BooleanField(default=False)
     carpentries_instructor = models.BooleanField(default=False)
     research_software_engineer = models.BooleanField(default=False)
     claimantship_grant = models.DecimalField(
@@ -288,6 +328,16 @@ class Claimant(models.Model):
     notes_from_admin = models.TextField(
         null=True,
         blank=True
+    )
+
+    # Application
+    screencast_url = models.CharField(
+        max_length=MAX_URL_LENGTH,
+        blank=True,  # See https://github.com/softwaresaved/lowfat/issues/192
+    )
+    example_of_writing_url = models.CharField(
+        max_length=MAX_URL_LENGTH,
+        blank=True,  # See https://github.com/softwaresaved/lowfat/issues/192
     )
 
     # Mentors need to be another claimant

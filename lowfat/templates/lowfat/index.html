@@ -23,6 +23,11 @@
     <i class="fa fa-envelope" aria-hidden="true"></i>
   </a>
   {% endif %}
+  {% if claimant.institutional_website %}
+  <a class="icon" href="{{ claimant.institutional_website }}">
+    <i class="fa fa-cloud" aria-hidden="true"></i>
+  </a>
+  {% endif %}
   {% if claimant.website %}
   <a class="icon" href="{{ claimant.website }}">
     <i class="fa fa-cloud" aria-hidden="true"></i>
@@ -38,6 +43,11 @@
     <i class="ai ai-orcid" aria-hidden="true"></i>
   </a>
   {% endif %}
+  {% if claimant.google_scholar %}
+  <a class="icon" href="https://scholar.google.co.uk/citations?user={{ claimant.google_scholar }}">
+    <i class="ai ai-google-scholar" aria-hidden="true"></i>
+  </a>
+  {% endif %}
   {% if claimant.github %}
   <a class="icon" href="http://github.com/{{ claimant.github }}">
     <i class="fa fa-github" aria-hidden="true"></i>
@@ -51,6 +61,11 @@
   {% if claimant.twitter %}
   <a class="icon" href="https://twitter.com/{{ claimant.twitter }}">
     <i class="fa fa-twitter" aria-hidden="true"></i>
+  </a>
+  {% endif %}
+  {% if claimant.linkedin %}
+  <a class="icon" href="https://www.linkedin.com/in/{{ claimant.linkedin }}">
+    <i class="fa fa-linkedin" aria-hidden="true"></i>
   </a>
   {% endif %}
   {% if claimant.facebook %}

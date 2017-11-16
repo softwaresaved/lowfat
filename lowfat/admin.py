@@ -27,8 +27,15 @@ class ClaimantAdmin(SimpleHistoryAdmin):
     ]
     list_filter = [
         'selected',
+        'received_offer',
+        'activated',
         'application_year',
         'gender',
+        'career_stage_when_apply',
+        'research_area_code',
+        'is_into_training',
+        'carpentries_instructor',
+        'research_software_engineer',
     ]
 
 

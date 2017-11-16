@@ -122,21 +122,41 @@ class FellowForm(GarlicForm):
             'home_city',
             'photo',
             'career_stage_when_apply',
+            'job_title_when_apply',
             'research_area',
             'research_area_code',
             'affiliation',
+            'department',
+            'group',
             'funding',
             'funding_notes',
+            'interests',
             'work_description',
+            'institutional_website',
             'website',
             'website_feed',
             'orcid',
+            'google_scholar',
             'github',
             'gitlab',
             'twitter',
+            'linkedin',
             'facebook',
         ]
 
+        labels = {
+            'home_country': "Country",
+            'home_city': "City",
+            'career_stage_when_apply': "Career Stage",
+            'job_title_when_apply': "Job Title",
+            'research_area_code': "Research Classification",
+            'affiliation': "Home institution",
+            'department': "Department",
+            'group': "Group within Department",
+            'funding': "Primary funding body/charity/organisation",
+            'funding_notes': "Any additional funders",
+            'work_description': "Short Biography",
+        }
 
     required_css_class = 'form-field-required'
 
@@ -157,20 +177,49 @@ class FellowForm(GarlicForm):
                 'photo',
                 HTML('<h2>Professional details</h2>'),
                 'career_stage_when_apply',
+                'job_title_when_apply',
                 'research_area',
                 'research_area_code',
                 'affiliation',
+                'department',
+                'group',
                 'funding',
                 'funding_notes',
+                HTML('<h2>Information for the website</h2>'),
+                'interests',
                 'work_description',
                 HTML('<h2>Social Networks</h2>'),
+                'institutional_website',
                 'website',
                 'website_feed',
-                'orcid',
-                'github',
-                'gitlab',
-                'twitter',
-                'facebook',
+                PrependedText(
+                    'orcid',
+                    'https://orcid.org/'
+                ),
+                PrependedText(
+                    'google_scholar',
+                    'https://scholar.google.co.uk/citations?user='
+                ),
+                PrependedText(
+                    'github',
+                    'https://gihub.com/'
+                ),
+                PrependedText(
+                    'gitlab',
+                    'https://gitlab.com/'
+                ),
+                PrependedText(
+                    'twitter',
+                    'https://twitter.com/'
+                ),
+                PrependedText(
+                    'linkedin',
+                    'https://www.linkedin.com/in/'
+                ),
+                PrependedText(
+                    'facebook',
+                    'https://facebook.com/'
+                ),
                 ButtonHolder(
                     Submit('submit', 'Add')
                 )
@@ -411,7 +460,6 @@ class FundImportForm(Form):
 </ul>
 <p class="text-danger">You will not have access to debug information!</p>"""),
                 'csv',
-                'not_send_email_field' if self.is_staff else None,
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
                 )
