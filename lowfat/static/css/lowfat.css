@@ -82,33 +82,6 @@ span.asteriskField::before {
    position: absolute;
    top: 19px; right: -21px;
 }
-.ribbon.fellows-2018 span {
-    background: #89c53f;
-}
-.ribbon.fellows-2017 span {
-    background: #cd1f44;
-}
-.ribbon.fellows-2016 span {
-    background: #1691b2;
-}
-.ribbon.fellows-2015 span {
-    background: #e68325;
-}
-.ribbon.fellows-2014 span {
-    background: #592d8c;
-}
-.ribbon.fellows-2013 span {
-    background: #e65a25;
-}
-.ribbon.fellows-2012 span {
-    background: #14a85c;
-}
-.ribbon.fellows-2011 span {
-    background: #8488a7;
-}
-.ribbon.fellows-2010 span {
-    background: #92a282;
-}
 .ribbon span::before {
    content: '';
    position: absolute;
@@ -128,4 +101,38 @@ span.asteriskField::before {
    border-left: 3px solid transparent;
    border-bottom: 3px solid transparent;
    border-top: 3px solid #000000;
+}
+/* Ribbon color */
+.ribbon.collaborator span {
+    background: Chocolate;
+}
+.ribbon.fellows-2020 span {
+    background: Gold;
+}
+.ribbon.fellows-2018 span {
+    background: DodgerBlue;
+}
+.ribbon.fellows-2017 span {
+    background: Tomato;
+}
+.ribbon.fellows-2016 span {
+    background: LightSeaGreen;
+}
+.ribbon.fellows-2015 span {
+    background: Orchid;
+}
+.ribbon.fellows-2014 span {
+    background: SlateBlue;
+}
+.ribbon.fellows-2013 span {
+    background: LightGreen;
+}
+.ribbon.fellows-2012 span {
+    background: IndianRed;
+}
+.ribbon.fellows-2011 span {
+    background: Gold;
+}
+.ribbon.fellows-2010 span {
+    background: DodgerBlue;
 }
