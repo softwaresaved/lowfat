@@ -7,7 +7,7 @@
   {% if user == claimant.user %}
   My Profile
   {% else %}
-  {% if claimant.selected %}
+  {% if claimant.fellow %}
   Fellow
   {% else %}
   Claimant
@@ -59,7 +59,7 @@
           <th>Research area code</th>
           <td>{{ claimant.get_research_area_code_display }}</td>
         </tr>
-        {% if claimant.selected %}
+        {% if claimant.fellow %}
         <tr>
           <th>Fellowship Inauguration Year</th>
           <td>{{ claimant.application_year|add:"1" }}</td>

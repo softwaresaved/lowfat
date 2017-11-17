@@ -140,7 +140,7 @@ class Claimant(models.Model):
     class Meta:
         app_label = 'lowfat'
         ordering = [
-            "-selected",
+            "-fellow",
             "-application_year",
             "forenames",
             "surname",
@@ -318,9 +318,9 @@ class Claimant(models.Model):
             31
         )
     )
-    selected = models.BooleanField(default=False)
     received_offer = models.BooleanField(default=False)
-    activated = models.BooleanField(default=False)
+    fellow = models.BooleanField(default=False)
+    collaborator = models.BooleanField(default=False)
     is_into_training = models.BooleanField(default=False)
     carpentries_instructor = models.BooleanField(default=False)
     research_software_engineer = models.BooleanField(default=False)
@@ -375,7 +375,7 @@ class Claimant(models.Model):
         return "{} ({}{})".format(
             self.fullname(),
             self.application_year,
-            " ✓" if self.selected else ""
+            " ✓" if self.fellow else ""
         )
 
     def fullname(self):
@@ -417,7 +417,7 @@ class Claimant(models.Model):
         return sum([expense.amount_claimed for expense in this_claimant_expenses])
 
     def link(self):
-        if self.selected:
+        if self.fellow:
             function_name = "fellow_slug"
         else:
             function_name = "claimant_slug"

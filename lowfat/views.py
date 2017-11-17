@@ -25,7 +25,7 @@ from .mail import *
 
 def index(request):
     context = {
-        'claimants': Claimant.objects.exclude(selected=False),
+        'claimants': Claimant.objects.exclude(fellow=False),
         'funds': [(fund, Blog.objects.filter(
             fund=fund,
             status="P"
@@ -113,7 +113,7 @@ def search(request):
              Q(website__contains=search_text) |
              Q(github__contains=search_text) |
              Q(twitter__contains=search_text)) &
-            Q(selected=True)
+            Q(fellow=True)
         ),
         "claimants": Claimant.objects.filter(
             (Q(forenames__contains=search_text) |
@@ -125,7 +125,7 @@ def search(request):
              Q(website__contains=search_text) |
              Q(github__contains=search_text) |
              Q(twitter__contains=search_text)) &
-            Q(selected=False)
+            Q(fellow=False)
         ),
         "funds": Fund.objects.filter(
             Q(claimant__forenames__contains=search_text) |
@@ -194,7 +194,7 @@ def claimant_detail(request, claimant_id):
     this_claimant = Claimant.objects.get(id=claimant_id)
 
     # Avoid leak information from applicants
-    if not request.user.is_superuser and not request.user.is_staff and not (this_claimant.selected or this_claimant.received_offer):
+    if not request.user.is_superuser and not request.user.is_staff and not (this_claimant.fellow or this_claimant.received_offer):
         raise Http404("Claimant does not exist.")
 
     # Setup query parameters
@@ -246,7 +246,7 @@ def claimant_detail(request, claimant_id):
 def claimant_slug_resolution(request, claimant_slug):
     """Resolve claimant slug and return the details."""
     try:
-        claimant = Claimant.objects.get(slug=claimant_slug, selected=True)
+        claimant = Claimant.objects.get(slug=claimant_slug, fellow=True)
     except:  # pylint: disable=bare-except
         claimant = None
 

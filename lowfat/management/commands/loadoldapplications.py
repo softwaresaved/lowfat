@@ -33,7 +33,7 @@ class Command(BaseCommand):
 
                 applicants_dict = {
                     "application_year": line["Inauguration year"] - 1,
-                    "selected": is_fellow,
+                    "fellow": is_fellow,
                     "forenames": line["Forename(s)"],
                     "surname": line["Surname"],
                     "affiliation": line["Home institution"],

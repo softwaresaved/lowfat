@@ -47,7 +47,7 @@ def create_claimant():
         "affiliation": "College",
         "funding": "Self-funded",
         "work_description": "Work",
-        "selected": True,
+        "fellow": True,
     }
 
     with io.BytesIO(b'000') as fake_file:
@@ -72,7 +72,7 @@ def create_claimant():
         "affiliation": "College",
         "funding": "Self-funded",
         "work_description": "Work",
-        "selected": True,
+        "fellow": True,
     }
 
     with io.BytesIO(b'000') as fake_file:

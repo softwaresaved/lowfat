@@ -26,9 +26,9 @@ class ClaimantAdmin(SimpleHistoryAdmin):
         'work_description'
     ]
     list_filter = [
-        'selected',
+        'fellow',
+        'collaborator',
         'received_offer',
-        'activated',
         'application_year',
         'gender',
         'career_stage_when_apply',

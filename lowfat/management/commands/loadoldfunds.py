@@ -21,7 +21,7 @@ class Command(BaseCommand):
         for index, line in data.iterrows():  # pylint: disable=no-member,unused-variable
             try:
                 if pd.notnull(line["Forename(s)"]):  # Looking for missing information.
-                    this_claimant = Claimant.objects.get(forenames=line["Forename(s)"], surname=line["Surname"], selected=True)
+                    this_claimant = Claimant.objects.get(forenames=line["Forename(s)"], surname=line["Surname"], fellow=True)
 
                     if line['Event type'] == 'Attending a conference/workshop':
                         fund_category = 'A'

@@ -24,9 +24,10 @@ def wire_profile(backend, user, response, details, *args, **kwargs):  #pylint: d
     :rtype: None
     """
     if backend.name == 'github':
+        # FIXME Need to include collaborator=True
         claimant = Claimant.objects.filter(
             github=response["login"],
-            selected=True
+            fellow=True
         ).order_by(
             "application_year"
         ).reverse()

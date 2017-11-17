@@ -24,7 +24,7 @@ class Command(BaseCommand):
 
                 applicants_dict = {
                     "application_year": 2017,
-                    "selected": False,
+                    "fellow": False,
                     "received_offer": received_offer,
                     "forenames": line["First name"],
                     "surname": line["Surname"],
