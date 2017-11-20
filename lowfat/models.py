@@ -197,7 +197,7 @@ class Claimant(models.Model):
         upload_to='photos/',  # File will be uploaded to MEDIA_ROOT/photos
         null=True,
         blank=True,  # This need to be a JPG.
-        help_text="A professionally oriented (i.e. work related) main picture of yourself that you are happy to be published on the web - this should be 300px wide and 400px high (exact please)."
+        help_text="A professionally oriented (i.e. work related) thumbnail picture of yourself that you are happy to be published on the web - this should be 150px wide and 150px high (exact please)."
     )
 
     # Professional info
@@ -252,6 +252,12 @@ class Claimant(models.Model):
     work_description = models.TextField(
         blank=True,
         help_text="200-300 words describing the work you do, this can include your plans for Fellowship."
+    )
+    photo_work_description = models.FileField(
+        upload_to='photos/',  # File will be uploaded to MEDIA_ROOT/photos
+        null=True,
+        blank=True,  # This need to be a JPG.
+        help_text="A professionally oriented (i.e. work related) main picture of yourself that you are happy to be published on the web - this should be 300px wide and 400px high (exact please)."
     )
 
     # Social media
