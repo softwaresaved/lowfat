@@ -27,8 +27,12 @@ a.icon:hover {
 }
 
 .passport-photo {
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
+}
+.website-photo {
+    width: 150px;
+    height: 200px;
 }
 
 .expense-review-pdf,
