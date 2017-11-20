@@ -26,7 +26,11 @@ a.icon:hover {
     text-decoration: none;
 }
 
-.passport-photo {
+.grid-photo {
+    width: 120px;
+    height: 120px;
+}
+.detail-photo {
     width: 150px;
     height: 150px;
 }

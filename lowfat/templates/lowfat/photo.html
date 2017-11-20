@@ -1,7 +1,0 @@
-{% if claimant.photo_work_description %}
-<img src="{{claimant.photo_work_description.url}}" alt="Photo of {{ claimant.fullname }}" class="img-responsive website-photo">
-{% elif claimant.photo %}
-<img src="{{claimant.photo.url}}" alt="Photo of {{ claimant.fullname }}" class="img-responsive img-circle passport-photo">
-{% else %}
-<div class="passport-photo"'></div>
-{% endif %}

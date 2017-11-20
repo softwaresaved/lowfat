@@ -13,7 +13,11 @@
     <span>{{ claimant.application_year | add:"1" }}</span>
   </div>
   <a href="{% url 'fellow_slug' claimant.slug %}">
-    {% include 'lowfat/photo.html' %}
+    {% if claimant.photo %}
+    <img src="{{claimant.photo.url}}" alt="Photo of {{ claimant.fullname }}" class="img-responsive img-circle grid-photo">
+    {% else %}
+    <div class="passport-photo"'></div>
+    {% endif %}
     <br>
     {{ claimant.fullname }}
   </a>
