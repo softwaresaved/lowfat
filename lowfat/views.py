@@ -248,7 +248,7 @@ def claimant_detail(request, claimant_id):
 def claimant_slug_resolution(request, claimant_slug):
     """Resolve claimant slug and return the details."""
     try:
-        claimant = Claimant.objects.get(Q(slug=claimant_slug) & (Q(fellow=True) | Q(collaborator=True)))
+        claimant = Claimant.objects.get(Q(slug=claimant_slug) & (Q(fellow=True) | Q(collaborator=True) | Q(received_offer=True)))
     except:  # pylint: disable=bare-except
         claimant = None
 
