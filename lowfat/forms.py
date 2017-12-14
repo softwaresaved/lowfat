@@ -64,13 +64,16 @@ class ClaimantForm(GarlicForm):
             'career_stage_when_apply',
             'affiliation',
             'work_description',
+            'institutional_website',
             'website',
             'website_feed',
             'orcid',
+            'google_scholar',
             'github',
             'gitlab',
             'bitbucket',
             'twitter',
+            'linkedin',
             'facebook',
         ]
 
@@ -96,14 +99,41 @@ class ClaimantForm(GarlicForm):
                 'affiliation',
                 'work_description',
                 HTML('<h2>Social Networks</h2>'),
+                'institutional_website',
                 'website',
                 'website_feed',
-                'orcid',
-                'github',
-                'gitlab',
-                'bitbucket',
-                'twitter',
-                'facebook',
+                PrependedText(
+                    'orcid',
+                    'https://orcid.org/'
+                ),
+                PrependedText(
+                    'google_scholar',
+                    'https://scholar.google.co.uk/citations?user='
+                ),
+                PrependedText(
+                    'github',
+                    'https://gihub.com/'
+                ),
+                PrependedText(
+                    'gitlab',
+                    'https://gitlab.com/'
+                ),
+                PrependedText(
+                    'bitbucket',
+                    'https://bitbucket.org/'
+                ),
+                PrependedText(
+                    'linkedin',
+                    'https://www.linkedin.com/in/'
+                ),
+                PrependedText(
+                    'twitter',
+                    'https://twitter.com/'
+                ),
+                PrependedText(
+                    'facebook',
+                    'https://facebook.com/'
+                ),
                 ButtonHolder(
                     Submit('submit', 'Add')
                 )
@@ -220,12 +250,12 @@ class FellowForm(GarlicForm):
                     'https://bitbucket.org/'
                 ),
                 PrependedText(
-                    'twitter',
-                    'https://twitter.com/'
-                ),
-                PrependedText(
                     'linkedin',
                     'https://www.linkedin.com/in/'
+                ),
+                PrependedText(
+                    'twitter',
+                    'https://twitter.com/'
                 ),
                 PrependedText(
                     'facebook',
