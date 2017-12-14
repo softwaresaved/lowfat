@@ -97,6 +97,7 @@ GRANTS = (
 BLOG_POST_STATUS = (
     ('U', 'Waiting for triage'),  # This is the status after we receive the blog post draft.
     ('R', 'Waiting to be reviewed'),  # Blog post is assigned to one staff to be reviewed.
+    ('C', 'Reviewing loop'),  # Blog post is waiting for another reviewing interaction.
     ('G', 'Waiting to be proofread'),  # Blog post is assigned to be proofread by the community officer.
     ('L', 'Waiting to be published'),  # Blog post will be publish by the community officer.
     ('P', 'Published'),  # Blog post is published and have a URL at the website.
