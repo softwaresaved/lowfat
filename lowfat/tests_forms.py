@@ -333,6 +333,7 @@ class FellowFormTest(TestCase):
             "google_scholar": "ac",
             "github": "ac",
             "gitlab": "ac",
+            "bitbucket": "ac",
             "twitter": "ac",
             "linkedin": "ac",
             "facebook": "ac",

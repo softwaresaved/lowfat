@@ -67,6 +67,11 @@
     <i class="fa fa-gitlab" aria-hidden="true"></i>
   </a>
   {% endif %}
+  {% if claimant.bitbucket %}
+  <a class="icon" href="https://bitbucket.org/{{ claimant.bitbucket }}">
+    <i class="fa fa-bitbucket" aria-hidden="true"></i>
+  </a>
+  {% endif %}
   {% if claimant.twitter %}
   <a class="icon" href="https://twitter.com/{{ claimant.twitter }}">
     <i class="fa fa-twitter" aria-hidden="true"></i>

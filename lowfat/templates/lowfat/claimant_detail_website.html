@@ -37,6 +37,9 @@
 {% if claimant.gitlab %}
 <p><a class="icon" href="https://gitlab.com/{{ claimant.gitlab }}">My GitLab page</a></p>
 {% endif %}
+{% if claimant.bitbucket %}
+<p><a class="icon" href="https://bitbucket.org/{{ claimant.bitbucket }}">My Bitbucket page</a></p>
+{% endif %}
 {% if claimant.twitter %}
 <p>Follow me on Twitter, <a class="icon" href="https://twitter.com/{{ claimant.twitter }}">@{{ claimant.twitter }}</a></p>
 {% endif %}

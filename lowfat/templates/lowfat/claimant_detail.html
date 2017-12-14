@@ -129,6 +129,14 @@
           </td>
         </tr>
         {% endif %}
+        {% if claimant.bitbucket %}
+        <tr>
+          <th>Bitbucket</th>
+          <td>
+            <a class="icon" href="https://bitbucket.org/{{ claimant.bitbucket }}">{{ claimant.bitbucket }}</a>
+          </td>
+        </tr>
+        {% endif %}
         {% if claimant.twitter %}
         <tr>
           <th>Twitter</th>

@@ -289,6 +289,10 @@ class Claimant(models.Model):
         max_length=MAX_CHAR_LENGTH,
         blank=True
     )
+    bitbucket = models.CharField(  # https://bitbucket.org/
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
     twitter = models.CharField(
         max_length=MAX_CHAR_LENGTH,
         blank=True
