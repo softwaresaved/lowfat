@@ -69,6 +69,7 @@ class ClaimantForm(GarlicForm):
             'orcid',
             'github',
             'gitlab',
+            'bitbucket',
             'twitter',
             'facebook',
         ]
@@ -100,6 +101,7 @@ class ClaimantForm(GarlicForm):
                 'orcid',
                 'github',
                 'gitlab',
+                'bitbucket',
                 'twitter',
                 'facebook',
                 ButtonHolder(
@@ -140,6 +142,7 @@ class FellowForm(GarlicForm):
             'google_scholar',
             'github',
             'gitlab',
+            'bitbucket',
             'twitter',
             'linkedin',
             'facebook',
@@ -211,6 +214,10 @@ class FellowForm(GarlicForm):
                 PrependedText(
                     'gitlab',
                     'https://gitlab.com/'
+                ),
+                PrependedText(
+                    'bitbucket',
+                    'https://bitbucket.org/'
                 ),
                 PrependedText(
                     'twitter',
