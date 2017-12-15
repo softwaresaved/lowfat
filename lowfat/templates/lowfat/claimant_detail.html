@@ -9,6 +9,10 @@
   {% else %}
   {% if claimant.fellow %}
   Fellow
+  {% elif claimant.received_offer %}
+  Fellow
+  {% elif claimant.collaborator %}
+  Collaborator
   {% else %}
   Claimant
   {% endif %}
