@@ -7,8 +7,8 @@ from .models import *
 @admin.register(Claimant)
 class ClaimantAdmin(SimpleHistoryAdmin):
     list_display = [
-        'surname',
         'forenames',
+        'surname',
         'email',
         'application_year',
     ]
