@@ -13,7 +13,7 @@ markdown
 matplotlib
 numpy
 pandas
-pylint
+pylint<=1.7.5
 pylint-django
 pypdf2
 python-gnupg
