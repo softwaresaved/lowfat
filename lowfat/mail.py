@@ -23,6 +23,7 @@ def mail_staffs(subject, message, fail_silently=False, connection=None, html_mes
         DEFAULT_FROM_EMAIL,
         ast.literal_eval(config.STAFFS_EMAIL),
         connection=connection,
+        reply_to=[config.FELLOWS_MANAGEMENT_EMAIL]
     )
     msg.attach_alternative(html_message, "text/html")
     msg.send(fail_silently=fail_silently)
@@ -65,7 +66,8 @@ def new_notification(staff_url, email_url, user_email, context, mail):
             flatemail.title,
             plain_text,
             DEFAULT_FROM_EMAIL,
-            user_email
+            user_email,
+            reply_to=[config.FELLOWS_MANAGEMENT_EMAIL]
         )
         msg.attach_alternative(html, "text/html")
         msg.send(fail_silently=False)
@@ -152,7 +154,8 @@ def review_notification(email_url, user_email, context, mail, copy_to_staffs=Fal
             plain_text,
             mail.sender.email,
             user_email,
-            bcc=ast.literal_eval(config.STAFFS_EMAIL) if copy_to_staffs else None
+            bcc=ast.literal_eval(config.STAFFS_EMAIL) if copy_to_staffs else None,
+            reply_to=[config.FELLOWS_MANAGEMENT_EMAIL]
         )
         msg.attach_alternative(html, "text/html")
         msg.send(fail_silently=False)
