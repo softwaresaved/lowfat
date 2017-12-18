@@ -131,7 +131,7 @@ def new_blog_notification(blog):
 
     new_notification(staff_url, email_url, user_email, context, mail)
 
-def review_notification(email_url, user_email, context, mail, copy_to_staffs=False):
+def review_notification(email_url, user_email, context, mail, copy_to_staffs=False, copy_to_gatekeeper=False):   # pylint: disable=too-many-arguments
     """Compose the message and send the email."""
     if config.CLAIMANT_EMAIL_NOTIFICATION and email_url is not None:
         # Generate message
@@ -154,6 +154,7 @@ def review_notification(email_url, user_email, context, mail, copy_to_staffs=Fal
             plain_text,
             mail.sender.email,
             user_email,
+            cc=[config.WEBSITE_GATEKEEPER_EMAIL] if copy_to_gatekeeper else None,
             bcc=ast.literal_eval(config.STAFFS_EMAIL) if copy_to_staffs else None,
             reply_to=[config.FELLOWS_MANAGEMENT_EMAIL]
         )
@@ -230,16 +231,20 @@ def blog_review_notification(message, sender, old, new, copy_to_staffs):
 
     if new.status == 'P':
         email_url = "/email/template/blog/claimant/publish/"
+        copy_to_gatekeeper = True
     elif new.status == 'G':
         email_url = "/email/template/blog/claimant/proofread/"
         context["WEBSITE_GATEKEEPER"] = config.WEBSITE_GATEKEEPER
         context["WEBSITE_GATEKEEPER_EMAIL"] = config.WEBSITE_GATEKEEPER_EMAIL
+        copy_to_gatekeeper = True
     elif message:
         email_url = "/email/template/default/"
+        copy_to_gatekeeper = False
     else:
         email_url = None
+        copy_to_gatekeeper = False
 
-    review_notification(email_url, user_email, context, mail, copy_to_staffs)
+    review_notification(email_url, user_email, context, mail, copy_to_staffs, copy_to_gatekeeper)
 
 def staff_reminder(request):  # pylint: disable=invalid-name
     if config.STAFF_EMAIL_REMINDER:
