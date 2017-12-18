@@ -236,6 +236,18 @@ CONSTANCE_CONFIG = OrderedDict([
         "fellows-management@software.ac.uk",
         "Contact address to fellows management staffs",
     )),
+    ("WEBSITE_GATEKEEPER", (
+        "Gatekeeper Name",
+        "Name of website gatekeeper, e.g. 'John'",
+    )),
+    ("WEBSITE_GATEKEEPER_EMAIL", (
+        "gatekeeper@software.ac.uk",
+        "Email of website gatekeeper, e.g. 'john@software.ac.uk'",
+    )),
+    ("STAFFS_EMAIL", (
+        "['Software Sustainability Institute <fellows-management@software.ac.uk>']",
+        "Contact address of staffs, e.g. ['John <john@example.com>', 'Mary <mary@example.com>']",
+    )),
     ("STAFFS_EMAIL", (
         "['Software Sustainability Institute <fellows-management@software.ac.uk>']",
         "Contact address of staffs, e.g. ['John <john@example.com>', 'Mary <mary@example.com>']",

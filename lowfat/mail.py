@@ -226,7 +226,11 @@ def blog_review_notification(message, sender, old, new, copy_to_staffs):
     )
 
     if new.status == 'P':
-        email_url = "/email/template/blog/claimant/change/"
+        email_url = "/email/template/blog/claimant/publish/"
+    elif new.status == 'G':
+        email_url = "/email/template/blog/claimant/proofread/"
+        context["WEBSITE_GATEKEEPER"] = config.WEBSITE_GATEKEEPER
+        context["WEBSITE_GATEKEEPER_EMAIL"] = config.WEBSITE_GATEKEEPER_EMAIL
     elif message:
         email_url = "/email/template/default/"
     else:

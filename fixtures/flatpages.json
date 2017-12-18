@@ -121,21 +121,6 @@
 },
 {
     "model": "flatpages.flatpage",
-    "pk": 9,
-    "fields": {
-        "url": "/email/template/blog/claimant/change/",
-        "title": "New message about your blog post draft",
-        "content": "{% load markdown %}\r\n<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Dear {{ new.author.fullname }}{% if new.coauthor.all|length > 0 %} et al.{% endif%},</p>\r\n{%if new.published_url %}<p>Your blog post has been published at <a href=\"{{ new.published_url }}\">{{ new.published_url }}</a>.</p>{% endif %}\r\n{%if new.tweet_url %}<p>And we mentioned it on Twitter, <a href=\"{{ new.tweet_url }}\">{{ new.tweet_url }}</a>.</p>{% endif %}\r\n{% if notes %}\r\n<p>Notes:</p>\r\n<blockquote>\r\n{{ notes | markdown | safe }}\r\n</blockquote>\r\n{% endif %}\r\n<p>\r\nBest wishes,<br>\r\nFellows Management (<a href=\"{{ FELLOWS_MANAGEMENT_EMAIL }}\">{{ FELLOWS_MANAGEMENT_EMAIL }}</a>)<br>\r\nSoftware Sustainability Institute\r\n</p>\r\n</body>\r\n</html>",
-        "enable_comments": false,
-        "template_name": "",
-        "registration_required": false,
-        "sites": [
-            1
-        ]
-    }
-},
-{
-    "model": "flatpages.flatpage",
     "pk": 10,
     "fields": {
         "url": "/email/template/expense/claimant/change/",
@@ -231,6 +216,36 @@
         "url": "/email/template/fund/staff/reminder/",
         "title": "We have a funding request pending your review",
         "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Hi,</p>\r\n<p><strong>On {{ fund.added }}</strong>, we received a new funding request from <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.claimant.link }}\">{{ fund.claimant.fullname }}</a> for <a href=\"{{ fund.url }}\">{{ fund.name }}</a>.</p>\r\n<p>Please visit <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.link_review }}\">{{ protocol }}://{{ site.domain }}{{ fund.link_review }}</a> to review it.</p>\r\n<p>\r\n---\r\nLowFAT\r\n</p>\r\n</body>\r\n</html>",
+        "enable_comments": false,
+        "template_name": "",
+        "registration_required": false,
+        "sites": [
+            1
+        ]
+    }
+},
+{
+    "model": "flatpages.flatpage",
+    "pk": 17,
+    "fields": {
+        "url": "/email/template/blog/claimant/publish/",
+        "title": "Your blog post was published",
+        "content": "{% load markdown %}\r\n<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Dear {{ new.author.fullname }}{% if new.coauthor.all|length > 0 %} et al.{% endif%},</p>\r\n{%if new.published_url %}<p>Your blog post has been published at <a href=\"{{ new.published_url }}\">{{ new.published_url }}</a>.</p>{% endif %}\r\n{%if new.tweet_url %}<p>And we mentioned it on Twitter, <a href=\"{{ new.tweet_url }}\">{{ new.tweet_url }}</a>.</p>{% endif %}\r\n{% if notes %}\r\n<p>Notes:</p>\r\n<blockquote>\r\n{{ notes | markdown | safe }}\r\n</blockquote>\r\n{% endif %}\r\n<p>\r\nBest wishes,<br>\r\nFellows Management (<a href=\"{{ FELLOWS_MANAGEMENT_EMAIL }}\">{{ FELLOWS_MANAGEMENT_EMAIL }}</a>)<br>\r\nSoftware Sustainability Institute\r\n</p>\r\n</body>\r\n</html>",
+        "enable_comments": false,
+        "template_name": "",
+        "registration_required": false,
+        "sites": [
+            1
+        ]
+    }
+},
+{
+    "model": "flatpages.flatpage",
+    "pk": 18,
+    "fields": {
+        "url": "/email/template/blog/claimant/proofread/",
+        "title": "New message about your blog post draft",
+        "content": "{% load markdown %}\r\n<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Dear {{ new.author.fullname }}{% if new.coauthor.all|length > 0 %} et al.{% endif%},</p>\r\n<p>Your <a href=\"{{ new.draft_url }}\">blog post draft</a> will be proofread and published by <a href=\"mailto:{{ WEBSITE_GATEKEEPER_EMAIL }}\">{{ WEBSITE_GATEKEEPER }}</a> who might contact you back with minor suggestions.</p>\r\n{% if notes %}\r\n<p>Notes:</p>\r\n<blockquote>\r\n{{ notes | markdown | safe }}\r\n</blockquote>\r\n{% endif %}\r\n<p>\r\nBest wishes,<br>\r\nFellows Management (<a href=\"{{ FELLOWS_MANAGEMENT_EMAIL }}\">{{ FELLOWS_MANAGEMENT_EMAIL }}</a>)<br>\r\nSoftware Sustainability Institute\r\n</p>\r\n</body>\r\n</html>",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
