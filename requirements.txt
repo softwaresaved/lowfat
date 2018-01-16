@@ -1,4 +1,4 @@
-django
+django==1.11
 django-backup
 django-constance[database]
 django-countries
@@ -13,7 +13,7 @@ markdown
 matplotlib
 numpy
 pandas
-pylint<=1.6.0
+pylint
 pylint-django
 pypdf2
 python-gnupg
