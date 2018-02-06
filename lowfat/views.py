@@ -29,7 +29,7 @@ def get_terms_and_conditions_url(request):
         try:
             claimant = Claimant.objects.get(user=request.user)
             url = claimant.terms_and_conditions.url
-        except:
+        except:  # pylint: disable=bare-except
             pass
 
     return url

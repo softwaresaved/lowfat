@@ -361,7 +361,7 @@ class Claimant(models.Model):
         default=0.00
     )
     attended_inaugural_meeting = models.BooleanField(default=False)
-    attended_collaborations_workshop = models.BooleanField(default=False)
+    attended_collaborations_workshop = models.BooleanField(default=False)  # pylint: disable=invalid-name
     notes_from_admin = models.TextField(
         null=True,
         blank=True

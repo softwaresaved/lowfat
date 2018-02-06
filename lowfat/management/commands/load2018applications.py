@@ -11,6 +11,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('csv', nargs='?', default='2018.csv')
 
+    # pylint: disable=too-many-branches,too-many-locals
     def handle(self, *args, **options):
         fail_list = []
         success_list = []

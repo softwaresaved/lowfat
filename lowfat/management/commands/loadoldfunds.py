@@ -15,7 +15,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('csv', nargs='?', default='old_funds.csv')
 
-    # pylint: disable=too-many-branches
+    # pylint: disable=too-many-branches,too-many-locals
     def handle(self, *args, **options):
         data = pd.read_csv(options['csv'])
         for index, line in data.iterrows():  # pylint: disable=no-member,unused-variable

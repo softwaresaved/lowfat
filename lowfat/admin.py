@@ -86,10 +86,13 @@ class AmountListFilter(admin.SimpleListFilter):
         provided in the query string and retrievable via
         `self.value()`.
         """
+        query = None
         if self.value() == '0':
-            return queryset.filter(amount_claimed__lte=0)
+            query = queryset.filter(amount_claimed__lte=0)
         if self.value() == '1':
-            return queryset.filter(amount_claimed__gt=0)
+            query = queryset.filter(amount_claimed__gt=0)
+
+        return query
 
 
 @admin.register(Expense)
