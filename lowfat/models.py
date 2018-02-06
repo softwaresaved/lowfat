@@ -336,6 +336,7 @@ class Claimant(models.Model):
         blank=False,
         default=0.00
     )
+    attended_inaugural_meeting = models.BooleanField(default=False)
     notes_from_admin = models.TextField(
         null=True,
         blank=True
