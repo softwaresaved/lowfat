@@ -137,6 +137,11 @@ def pair_fund_with_blog(funds, status=None):
 
 class TermsAndConditions(models.Model):
     """Terms and Conditions information."""
+    class Meta:
+        ordering = [
+            "-year",
+        ]
+
     year = models.CharField(  # Year as string so it can be used for special cases.
         max_length=4,  # YYYY
         primary_key=True

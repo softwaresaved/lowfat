@@ -340,7 +340,7 @@ class FundForm(GarlicForm):
                 'city',
                 'start_date',
                 'end_date',
-                HTML('<h2>Costs</h2><p>Please provide an estimate of your costs below. All values should be entered in GBP. See the terms and conditions for details (<a href="http://www.software.ac.uk/fellowship-terms-and-conditions-{% now "Y" %}">http://www.software.ac.uk/fellowship-terms-and-conditions-{% now "Y" %}</a>)</p><p>Please fill in all cost sections that are relevant to your event type.</p>'),
+                HTML('<h2>Costs</h2><p>Please provide an estimate of your costs below. All values should be entered in GBP. See the terms and conditions for details (<a href="{{ terms_and_conditions_url }}">{{ terms_and_conditions_url }}</a>)</p><p>Please fill in all cost sections that are relevant to your event type.</p>'),
                 PrependedText(
                     'budget_request_travel',
                     '£',
@@ -554,7 +554,7 @@ class ExpenseForm(GarlicForm):
                 '',
                 'fund',
                 HTML("</p>If your funding request isn't on the drop down menu above please email <a href='mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}'>us</a>."),
-                HTML("</p><a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'>Fellowship Programme's terms and conditions</a> applies to your request. Please follow the guidelines at <a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}#how-to-apply-for-and-claim-expenses'>How to apply for, and claim, expenses</a> section of <a href='https://www.software.ac.uk/fellowship-terms-and-conditions-{% now 'Y' %}'>Fellowship Programme's terms and conditions.</a></p>"),
+                HTML("</p><a href='{{ terms_and_conditions_url }}'>Fellowship Programme's terms and conditions</a> applies to your request. Please follow the guidelines at <a href='{{ terms_and_conditions_url }}#how-to-apply-for-and-claim-expenses'>How to apply for, and claim, expenses</a> section of <a href='{{ terms_and_conditions_url }}'>Fellowship Programme's terms and conditions.</a></p>"),
                 'claim',
                 PrependedText(
                     'amount_claimed',

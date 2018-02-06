@@ -22,6 +22,17 @@ from .models import *
 from .forms import *
 from .mail import *
 
+def get_terms_and_conditions_url(request):
+    """Return the terms and conditions link associated with the user."""
+    url = TermsAndConditions.objects.all()[0].url
+    if not request.user.is_superuser and not request.user.is_staff:
+        try:
+            claimant = Claimant.objects.get(user=request.user)
+            url = claimant.terms_and_conditions.url
+        except:
+            pass
+
+    return url
 
 def index(request):
     context = {
@@ -328,6 +339,7 @@ def fund_form(request, **kargs):
     # Show submission form.
     context = {
         "title": "Edit funding request" if fund_to_edit else "Make a funding request",
+        "terms_and_conditions_url": get_terms_and_conditions_url(request),
         "formset": formset,
         "js_files": ["js/request.js"],
     }
@@ -542,6 +554,7 @@ def expense_form(request, **kargs):
     # Show submission form.
     context = {
         "title": "Update expense claim" if expense_to_edit else "Submit expense claim",
+        "terms_and_conditions_url": get_terms_and_conditions_url(request),
         "formset": formset,
     }
     return render(request, 'lowfat/form.html', context)
