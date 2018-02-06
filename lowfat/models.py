@@ -145,6 +145,10 @@ class TermsAndConditions(models.Model):
         max_length=MAX_CHAR_LENGTH
     )
 
+    def __str__(self):
+        return "{} Terms & Conditions".format(
+            self.year
+        )
 
 class Claimant(models.Model):
     """Describe a claimant."""
