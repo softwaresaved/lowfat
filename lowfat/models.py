@@ -135,6 +135,17 @@ def pair_fund_with_blog(funds, status=None):
         **args
     )) for fund in funds]
 
+class TermsAndConditions(models.Model):
+    """Terms and Conditions information."""
+    year = models.CharField(  # Year as string so it can be used for special cases.
+        max_length=4,  # YYYY
+        primary_key=True
+    )
+    url = models.CharField(  # External web page.
+        max_length=MAX_CHAR_LENGTH
+    )
+
+
 class Claimant(models.Model):
     """Describe a claimant."""
 
@@ -309,6 +320,10 @@ class Claimant(models.Model):
 
     # Admin fields
     slug = models.CharField(max_length=MAX_CHAR_LENGTH)
+    terms_and_conditions = models.ForeignKey(
+        'TermsAndConditions',
+        null=True,
+    )
     application_year = models.IntegerField(
         null=False,
         blank=False,
