@@ -5,17 +5,20 @@ from __future__ import unicode_literals
 from django.db import migrations, models
 import django.db.models.deletion
 
-def create_past_terms_and_conditions(apps, schema_editor):  # pylint: disable=unused-argument,invalid-name
-    old_documents = [
-        ("2018", "https://www.software.ac.uk/fellowship-programme/2018/terms-and-conditions"),
-        ("2017", "https://www.software.ac.uk/fellowship-terms-and-conditions-2017"),
-        ("2016", "https://www.software.ac.uk/fellowship-terms-and-conditions-2016"),
-        ("2015", "https://www.software.ac.uk/fellowship-terms-and-conditions-2015"),
-        ("2014", "https://www.software.ac.uk/fellowship-terms-and-conditions-2014"),
-    ]
+OLD_TERMS_AND_CONDITIONS = [
+    ("2019", "https://www.software.ac.uk/fellowship-programme/2019/terms-and-conditions"),
+    ("2018", "https://www.software.ac.uk/fellowship-programme/2018/terms-and-conditions"),
+    ("2017", "https://www.software.ac.uk/fellowship-terms-and-conditions-2017"),
+    ("2016", "https://www.software.ac.uk/fellowship-terms-and-conditions-2016"),
+    ("2015", "https://www.software.ac.uk/fellowship-terms-and-conditions-2015"),
+    ("2014", "https://www.software.ac.uk/fellowship-terms-and-conditions-2014"),
+    ("2013", "https://www.software.ac.uk/fellowship-terms-and-conditions-2013"),
+    ("2012", "https://www.software.ac.uk/fellowship-terms-and-conditions-2012"),
+]
 
+def create_past_terms_and_conditions(apps, schema_editor):  # pylint: disable=unused-argument,invalid-name
     TermsAndConditions = apps.get_model("lowfat", "TermsAndConditions")  # pylint: disable=invalid-name
-    for document in old_documents:
+    for document in OLD_TERMS_AND_CONDITIONS:
         new_terms_and_conditions = TermsAndConditions(
             document[0],
             document[1]
@@ -23,7 +26,28 @@ def create_past_terms_and_conditions(apps, schema_editor):  # pylint: disable=un
         new_terms_and_conditions.save()
 
 def reverse_create_past_terms_and_conditions(apps, schema_editor):  # pylint: disable=unused-argument,invalid-name
-    pass
+    TermsAndConditions = apps.get_model("lowfat", "TermsAndConditions")  # pylint: disable=invalid-name
+    for document in TermsAndConditions.objects.all():
+        document.delete()
+
+def assign_past_terms_and_conditions(apps, schema_editor):  # pylint: disable=unused-argument,invalid-name
+    Claimant = apps.get_model("lowfat", "Claimant")  # pylint: disable=invalid-name
+    TermsAndConditions = apps.get_model("lowfat", "TermsAndConditions")  # pylint: disable=invalid-name
+
+    for claimant in Claimant.objects.all():
+        application_year = claimant.application_year + 1
+        terms_and_conditions = TermsAndConditions.objects.get(
+            year=str(application_year + 1)
+        )
+        claimant.terms_and_conditions = terms_and_conditions
+        claimant.save()
+
+def reverse_assign_past_terms_and_conditions(apps, schema_editor):  # pylint: disable=unused-argument,invalid-name
+    Claimant = apps.get_model("lowfat", "Claimant")  # pylint: disable=invalid-name
+
+    for claimant in Claimant.objects.all():
+        claimant.terms_and_conditions = None
+        claimant.save()
 
 class Migration(migrations.Migration):
 
@@ -52,5 +76,9 @@ class Migration(migrations.Migration):
         migrations.RunPython(
             create_past_terms_and_conditions,
             reverse_create_past_terms_and_conditions
+        ),
+        migrations.RunPython(
+            assign_past_terms_and_conditions,
+            reverse_assign_past_terms_and_conditions
         ),
     ]
