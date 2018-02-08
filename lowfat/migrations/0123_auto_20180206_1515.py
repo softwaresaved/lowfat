@@ -35,7 +35,7 @@ def assign_past_terms_and_conditions(apps, schema_editor):  # pylint: disable=un
     TermsAndConditions = apps.get_model("lowfat", "TermsAndConditions")  # pylint: disable=invalid-name
 
     for claimant in Claimant.objects.all():
-        application_year = claimant.application_year + 1
+        application_year = claimant.application_year
         terms_and_conditions = TermsAndConditions.objects.get(
             year=str(application_year + 1)
         )
