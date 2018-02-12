@@ -24,7 +24,9 @@ from .mail import *
 
 def get_terms_and_conditions_url(request):
     """Return the terms and conditions link associated with the user."""
-    url = TermsAndConditions.objects.all()[0].url
+    url = TermsAndConditions.objects.get(
+        year=str(django.utils.timezone.now().year)
+    ).url
     if not request.user.is_superuser and not request.user.is_staff:
         try:
             claimant = Claimant.objects.get(user=request.user)
