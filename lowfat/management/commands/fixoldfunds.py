@@ -5,7 +5,7 @@ import pandas as pd
 from django.contrib.auth.models import User, BaseUserManager
 from django.core.management.base import BaseCommand
 
-from lowfat.models import Expense
+from lowfat.models import Fund, Expense
 
 class Command(BaseCommand):
     help = "Change funding requests and expenses claims dates imported with loadoldfunds.py to last day of fellowship."
@@ -19,8 +19,8 @@ class Command(BaseCommand):
                     # This is part of their fellowship
                     fund.added = datetime.datetime(
                         fund.claimant.application_year + 1,
-                        01,
-                        01
+                        1,
+                        1
                     )
                 else:
                     fund.added = datetime.datetime(
