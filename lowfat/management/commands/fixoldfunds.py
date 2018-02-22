@@ -33,10 +33,18 @@ class Command(BaseCommand):
         for expense in Expense.objects.all():
             if expense.received_date == datetime.date(1, 1, 1):  # This is possible because of our import script
                 print("Changing dates for {}".format(expense))
-                expense.received_date = expense.fund.claimant.inauguration_grant_expiration
-                expense.added = datetime.datetime(
-                    expense.fund.claimant.inauguration_grant_expiration.year,
-                    expense.fund.claimant.inauguration_grant_expiration.month,
-                    expense.fund.claimant.inauguration_grant_expiration.day
-                )
+                if expense.fund.end_date < epense.fund.claimant.inauguration_grant_expiration:
+                    expense.received_date = expense.fund.claimant.inauguration_grant_expiration
+                    expense.added = datetime.datetime(
+                        expense.fund.claimant.inauguration_grant_expiration.year,
+                        expense.fund.claimant.inauguration_grant_expiration.month,
+                        expense.fund.claimant.inauguration_grant_expiration.day
+                    )
+                else:
+                    expense.received_date = expense.fund.end_date + datetime.timedelta(30)
+                    expense.added = datetime.datetime(
+                        expense.fund.claimant.end_date.year,
+                        expense.fund.claimant.end_date.month,
+                        expense.fund.claimant.end_date.day
+                    ) + datetime.timedelta(30)
                 expense.save()
