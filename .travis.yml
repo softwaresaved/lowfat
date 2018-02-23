@@ -10,7 +10,6 @@ python:
   - "nightly" # currently points to 3.7-dev
 
 env:
-  - DJANGO_VERSION=1.10 # Unsupported after December 2017
   - DJANGO_VERSION=1.11 # Unsupported after April 2020
 
 install:
