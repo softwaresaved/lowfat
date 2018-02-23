@@ -589,7 +589,6 @@ class ExpenseReviewForm(GarlicForm):
         model = Expense
         fields = [
             'status',
-            'received_date',
             'asked_for_authorization_date',
             'send_to_finance_date',
             'amount_authorized_for_payment',
@@ -599,10 +598,6 @@ class ExpenseReviewForm(GarlicForm):
         ]
 
         widgets = {
-            'received_date': DateWidget(
-                usel10n=True,
-                bootstrap_version=3
-            ),
             'asked_for_authorization_date': DateWidget(
                 usel10n=True,
                 bootstrap_version=3
@@ -624,7 +619,6 @@ class ExpenseReviewForm(GarlicForm):
             Fieldset(
                 '',
                 'status',
-                'received_date',
                 'asked_for_authorization_date',
                 'send_to_finance_date',
                 PrependedText(

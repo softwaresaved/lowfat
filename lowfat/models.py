@@ -642,7 +642,7 @@ class Expense(models.Model):
     class Meta:
         app_label = 'lowfat'
         ordering = [
-            "-received_date",
+            "-added",
             "relative_number",
         ]
 
@@ -708,7 +708,6 @@ class Expense(models.Model):
         max_length=1,
         default="P"
     )
-    received_date = models.DateField(default=django.utils.timezone.now)
     asked_for_authorization_date = models.DateField(
         blank=True,
         null=True
