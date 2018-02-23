@@ -43,8 +43,8 @@ class Command(BaseCommand):
                 else:
                     expense.received_date = expense.fund.end_date + datetime.timedelta(30)
                     expense.added = datetime.datetime(
-                        expense.fund.claimant.end_date.year,
-                        expense.fund.claimant.end_date.month,
-                        expense.fund.claimant.end_date.day
+                        expense.fund.end_date.year,
+                        expense.fund.end_date.month,
+                        expense.fund.end_date.day
                     ) + datetime.timedelta(30)
                 expense.save()
