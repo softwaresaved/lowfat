@@ -1128,7 +1128,6 @@ class ExpenseReviewFormTest(TestCase):
         for fund in ['C', 'I', 'F']:
             data = {
                 "status": "S",
-                "received_date": "2016-01-01",
                 "asked_for_authorization_date": "2016-01-01",
                 "send_to_finance_date": "2016-01-01",
                 "amount_authorized_for_payment": 100.00,
@@ -1143,7 +1142,6 @@ class ExpenseReviewFormTest(TestCase):
         for grant in ['SSI1', 'SSI2', 'SSI3']:
             data = {
                 "status": "S",
-                "received_date": "2016-01-01",
                 "asked_for_authorization_date": "2016-01-01",
                 "send_to_finance_date": "2016-01-01",
                 "amount_authorized_for_payment": 100.00,
@@ -1158,7 +1156,6 @@ class ExpenseReviewFormTest(TestCase):
         for status in ('W', 'S', 'C', 'P', 'A', 'F'):
             data = {
                 "status": status,
-                "received_date": "2016-01-01",
                 "asked_for_authorization_date": "2016-01-01",
                 "send_to_finance_date": "2016-01-01",
                 "amount_authorized_for_payment": 100.00,
@@ -1173,7 +1170,6 @@ class ExpenseReviewFormTest(TestCase):
     def test_minimal_expected(self):
         data = {
             "status": "S",
-            "received_date": "2016-01-01",
             "asked_for_authorization_date": "2016-01-01",
             "send_to_finance_date": "2016-01-01",
             "amount_authorized_for_payment": 100.00,
@@ -1187,7 +1183,6 @@ class ExpenseReviewFormTest(TestCase):
     def test_full_expected(self):
         data = {
             "status": "S",
-            "received_date": "2016-01-01",
             "asked_for_authorization_date": "2016-01-01",
             "send_to_finance_date": "2016-01-01",
             "amount_authorized_for_payment": 100.00,

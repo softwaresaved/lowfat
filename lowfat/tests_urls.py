@@ -471,7 +471,6 @@ class URLTest(TestCase):
                 "expect_code": 200,
                 "post_data": {
                     "status": "S",
-                    "received_date": "2016-01-01",
                     "asked_for_authorization_date": "2016-01-01",
                     "send_to_finance_date": "2016-01-01",
                     "amount_authorized_for_payment": 100.00,
@@ -490,7 +489,6 @@ class URLTest(TestCase):
                 "expect_code": 200,
                 "post_data": {
                     "status": "S",
-                    "received_date": "2016-01-01",
                     "asked_for_authorization_date": "2016-01-01",
                     "send_to_finance_date": "2016-01-01",
                     "amount_authorized_for_payment": 100.00,
@@ -509,7 +507,6 @@ class URLTest(TestCase):
                 "expect_code": 200,
                 "post_data": {
                     "status": "S",
-                    "received_date": "2016-01-01",
                     "asked_for_authorization_date": "2016-01-01",
                     "send_to_finance_date": "2016-01-01",
                     "amount_authorized_for_payment": 100.00,
@@ -527,7 +524,6 @@ class URLTest(TestCase):
                 "expect_code": 200,
                 "post_data": {
                     "status": "S",
-                    "received_date": "2016-01-01",
                     "asked_for_authorization_date": "2016-01-01",
                     "send_to_finance_date": "2016-01-01",
                     "amount_authorized_for_payment": 100.00,
@@ -554,7 +550,6 @@ class URLTest(TestCase):
                 "expect_code": 200,
                 "post_data": {
                     "status": "S",
-                    "received_date": "2016-01-01",
                     "asked_for_authorization_date": "2016-01-01",
                     "send_to_finance_date": "2016-01-01",
                     "amount_authorized_for_payment": 100.00,
@@ -573,7 +568,6 @@ class URLTest(TestCase):
                 "expect_code": 200,
                 "post_data": {
                     "status": "S",
-                    "received_date": "2016-01-01",
                     "asked_for_authorization_date": "2016-01-01",
                     "send_to_finance_date": "2016-01-01",
                     "amount_authorized_for_payment": 100.00,
@@ -592,7 +586,6 @@ class URLTest(TestCase):
                 "expect_code": 200,
                 "post_data": {
                     "status": "S",
-                    "received_date": "2016-01-01",
                     "asked_for_authorization_date": "2016-01-01",
                     "send_to_finance_date": "2016-01-01",
                     "amount_authorized_for_payment": 100.00,
@@ -610,7 +603,6 @@ class URLTest(TestCase):
                 "expect_code": 200,
                 "post_data": {
                     "status": "S",
-                    "received_date": "2016-01-01",
                     "asked_for_authorization_date": "2016-01-01",
                     "send_to_finance_date": "2016-01-01",
                     "amount_authorized_for_payment": 100.00,
