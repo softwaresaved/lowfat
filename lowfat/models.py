@@ -433,7 +433,7 @@ class Claimant(models.Model):
             spent_from_committed += sum([expense.amount_claimed for expense in Expense.objects.filter(
                 fund=fund,
                 status__in=['A', 'F']
-                )])
+            )])
 
         return sum([fund.budget_approved for fund in this_claimant_funds]) - spent_from_committed
 
@@ -743,7 +743,10 @@ class Expense(models.Model):
     history = HistoricalRecords()
 
     def __str__(self):
-        return self.claim.name
+        return "Expense {} - {}".format(
+            self.id,
+            self.claim.name
+        )
 
     def remove(self):
         self.status = "X"
