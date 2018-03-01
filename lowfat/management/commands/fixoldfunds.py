@@ -1,3 +1,5 @@
+# WARNING Commit 441fc27 will break this script
+
 import datetime
 
 import pandas as pd
@@ -15,36 +17,30 @@ class Command(BaseCommand):
             day = datetime.timedelta(1)
             if fund.added - datetime.datetime(2016, 12, 22) < day:  # This is the day that we ran import script
                 print("Changing dates for {}".format(fund))
-                if fund.end_date < fund.claimant.inauguration_grant_expiration:
-                    # This is part of their fellowship
-                    fund.added = datetime.datetime(
-                        fund.claimant.application_year + 1,
+                provisional_date = fund.start_date - datetime.timedelta(30)
+                if fund.start_date.year == fund.claimant.application_year + 1 and provisional_date.year != fund.start_date.year:
+                    # Fellow can't request the funding before their fellowship start!
+                    # We will use the first day of the year
+                    provisional_date  = datetime.datetime(
+                        fund.start_date.year,
                         1,
                         1
                     )
-                else:
-                    fund.added = datetime.datetime(
-                        fund.start_date.year,
-                        fund.start_date.month,
-                        1
-                    ) - datetime.timedelta(30)
+                fund.added = datetime.datetime(
+                    provisional_date.year,
+                    provisional_date.month,
+                    provisional_date.day
+                )
                 fund.save()
 
         for expense in Expense.objects.all():
             if expense.received_date == datetime.date(1, 1, 1):  # This is possible because of our import script
                 print("Changing dates for {}".format(expense))
-                if expense.fund.end_date < expense.fund.claimant.inauguration_grant_expiration:
-                    expense.received_date = expense.fund.claimant.inauguration_grant_expiration
-                    expense.added = datetime.datetime(
-                        expense.fund.claimant.inauguration_grant_expiration.year,
-                        expense.fund.claimant.inauguration_grant_expiration.month,
-                        expense.fund.claimant.inauguration_grant_expiration.day
-                    )
-                else:
-                    expense.received_date = expense.fund.end_date + datetime.timedelta(30)
-                    expense.added = datetime.datetime(
-                        expense.fund.end_date.year,
-                        expense.fund.end_date.month,
-                        expense.fund.end_date.day
-                    ) + datetime.timedelta(30)
+                provisional_date = expense.fund.end_date + datetime.timedelta(30)
+                expense.received_date = provisional_date
+                expense.added = datetime.datetime(
+                    provisional_date.year,
+                    provisional_date.month,
+                    provisional_date.day
+                )
                 expense.save()
