@@ -133,7 +133,24 @@ class ExpenseAdmin(SimpleHistoryAdmin):
 
 @admin.register(Blog)
 class BlogAdmin(SimpleHistoryAdmin):
-    pass
+    list_display = [
+        'author',
+        'fund',
+        'added',
+    ]
+    search_fields = [
+        'fund',
+        'author',
+        'coauthor',
+        'notes_from_author',
+        'notes_from_admin',
+        'title',
+        'published_url',
+        'tweet_url',
+    ]
+    list_filter = [
+        'status',
+    ]
 
 
 @admin.register(FundSentMail)
