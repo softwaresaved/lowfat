@@ -44,6 +44,7 @@ class FundAdmin(SimpleHistoryAdmin):
     list_display = [
         'claimant',
         'title',
+        'added',
     ]
     search_fields = [
         'claimant__surname',
