@@ -421,6 +421,7 @@ class FundReviewForm(GarlicForm):
             #"ad_status",  # TODO uncomment in the future
             "grant_heading",
             "grant",
+            "activity",
             "required_blog_posts",
             "budget_approved",
             "notes_from_admin",
@@ -429,6 +430,7 @@ class FundReviewForm(GarlicForm):
         labels = {
             "grant_heading": "Default Grant Heading",
             "grant": "Default Grant",
+            "activity": "Activities type",
             'budget_approved': 'Total budget approved',
         }
 
@@ -445,6 +447,7 @@ class FundReviewForm(GarlicForm):
                 "status",
                 "grant",
                 "grant_heading",
+                "activity",
                 "required_blog_posts",
                 PrependedText(
                     "budget_approved",

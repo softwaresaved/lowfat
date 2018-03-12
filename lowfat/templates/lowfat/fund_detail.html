@@ -40,6 +40,16 @@
               <span class="glyphicon glyphicon glyphicon-info-sign" title="{{ fund.status_help }}" aria-hidden="true"></span>
             </td>
         </tr>
+        {% if user.is_staff %}
+        <tr>
+            <th>Activities</th>
+            <td>
+              {% for tag in fund.activity.all %}
+              <span class="label label-default">{{ tag.name }}</span>
+              {% endfor %}
+            </td>
+        </tr>
+        {% endif %}
         <tr>
             <th>Location</th>
 	    <td>{{ fund.city }}, {{ fund.get_country_display }}</td>
