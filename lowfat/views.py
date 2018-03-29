@@ -60,9 +60,9 @@ def dashboard(request):
             return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/welcome/'}))
 
         # Setup query parameters
-        funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPARF"
-        expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCPAF"
-        blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URGLPDO"
+        funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPARF"  # Pending
+        expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCPAF"  # All
+        blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URCGLPMDOX"  # All
 
         context.update(
             {
@@ -87,9 +87,9 @@ def dashboard(request):
         )
     else:
         # Setup query parameters
-        funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UP"
-        expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCP"
-        blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URGL"
+        funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UP"  # Pending
+        expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCP"  # Pending
+        blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URCGL"  # Pending
 
         context.update(
             {
