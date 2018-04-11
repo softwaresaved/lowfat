@@ -2,12 +2,8 @@
 
 import datetime
 
-import pandas as pd
-
-from django.contrib.auth.models import User, BaseUserManager
+from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
-
-from lowfat.models import Fund, Expense
 
 class Command(BaseCommand):
     help = "Change funding requests and expenses claims dates imported with loadoldfunds.py to last day of fellowship."
@@ -21,7 +17,7 @@ class Command(BaseCommand):
                 if fund.start_date.year == fund.claimant.application_year + 1 and provisional_date.year != fund.start_date.year:
                     # Fellow can't request the funding before their fellowship start!
                     # We will use the first day of the year
-                    provisional_date  = datetime.datetime(
+                    provisional_date = datetime.datetime(
                         fund.start_date.year,
                         1,
                         1
