@@ -92,6 +92,7 @@ class Grant(tagulous.models.TagTreeModel):
         initial = "SSI1, SSI1/Core, SSI1/Fellowship, SSI1/Continuing, SSI2, SSI2/Core, SSI2/Fellowship, SSI2/Continuing, SSI3, SSI3/Core, SSI3/Fellowship, SSI3/Continuing"
         force_lowercase = True
         autocomplete_view = None
+        max_count = 1
 
 
 BLOG_POST_STATUS = (
