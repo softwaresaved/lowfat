@@ -13,6 +13,8 @@ from simple_history.models import HistoricalRecords
 
 from django_countries.fields import CountryField
 
+import tagulous
+
 from .validator import pdf, online_document
 from .jacs import JACS_3_0_PRINCIPAL_SUBJECT_CODES
 
@@ -83,6 +85,12 @@ EXPENSE_STATUS = (
     ('R', 'Rejected'),  # When expense was rejected.
     ('X', 'Remove'),  # When the fellow decided to remove their request.
 )
+
+class Grant(tagulous.models.TagTreeModel):
+    class TagMeta:
+        initial = "SSI1, SSI1/Core, SSI1/Fellowship, SSI1/Continuing, SSI2, SSI2/Core, SSI2/Fellowship, SSI2/Continuing, SSI3, SSI3/Core, SSI3/Fellowship, SSI3/Continuing"
+        force_lowercase = True
+        autocomplete_view = None
 
 FUNDS_FROM = (
     ('C', 'Continuing (claimantship)'),
@@ -553,6 +561,10 @@ class Fund(models.Model):
         blank=False,
         default=1
     )
+    grant = tagulous.models.TagField(
+        to=Grant,
+        default="SSI2/Fellowship"
+    )
     funds_from_default = models.CharField(
         choices=FUNDS_FROM,
         max_length=1,
@@ -724,6 +736,10 @@ class Expense(models.Model):
         decimal_places=2,
         blank=False,
         default=0.00
+    )
+    grant = tagulous.models.TagField(
+        to=Grant,
+        default="SSI2/Fellowship"
     )
     funds_from = models.CharField(
         choices=FUNDS_FROM,
