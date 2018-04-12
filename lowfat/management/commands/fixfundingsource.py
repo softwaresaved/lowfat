@@ -22,12 +22,14 @@ class Command(BaseCommand):
                     )
                 for fund in funds:
                     fund.funds_from_default = line["new_funding_source_subcategory"]
+                    fund.grant_default = line["funding_source"]
                     print("Changing {}...".format(fund))
                     fund.save()
                     print("Changed {}...".format(fund))
 
                     for expense in Expense.objects.filter(fund=fund):
                         expense.funds_from = line["new_funding_source_subcategory"]
+                        expense.grant_used = line["funding_source"]
                         print("Changing {}...".format(expense))
                         expense.save()
                         print("Changed {}...".format(expense))
