@@ -18,7 +18,7 @@ class Command(BaseCommand):
                 funds = Fund.objects.filter(
                     claimant__forenames=line["forname_s"],
                     claimant__surname=line["surname"],
-                    name=line["event_title"]
+                    title=line["event_title"]
                     )
                 for fund in funds:
                     fund.funds_from_default = line["new_funding_source_subcategory"]
