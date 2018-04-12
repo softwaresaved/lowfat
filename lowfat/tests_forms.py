@@ -354,7 +354,7 @@ class FundFormTest(TestCase):
     def test_null_claimant(self):
         data = {
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "http://fake.com",
             "country": "GB",
             "city": "L",
@@ -376,7 +376,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": "",
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "http://fake.com",
             "country": "GB",
             "city": "L",
@@ -394,7 +394,7 @@ class FundFormTest(TestCase):
         form = FundForm(data)
         self.assertFalse(form.is_valid())
 
-    def test_null_name(self):
+    def test_null_title(self):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
@@ -415,11 +415,11 @@ class FundFormTest(TestCase):
         form = FundForm(data)
         self.assertFalse(form.is_valid())
 
-    def test_blank_name(self):
+    def test_blank_title(self):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "",
+            "title": "",
             "url": "http://fake.com",
             "country": "GB",
             "city": "L",
@@ -441,7 +441,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "country": "GB",
             "city": "L",
             "start_date": date.today(),
@@ -462,7 +462,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "",
             "country": "GB",
             "city": "L",
@@ -484,7 +484,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "fake",
             "country": "GB",
             "city": "L",
@@ -506,7 +506,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "http://fake.com",
             "city": "L",
             "start_date": date.today(),
@@ -527,7 +527,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "http://fake.com",
             "country": "",
             "city": "L",
@@ -549,7 +549,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "http://fake.com",
             "country": "GB",
             "start_date": date.today(),
@@ -570,7 +570,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "http://fake.com",
             "country": "GB",
             "city": "",
@@ -592,7 +592,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "http://fake.com",
             "country": "GB",
             "city": "L",
@@ -613,7 +613,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "http://fake.com",
             "country": "GB",
             "city": "L",
@@ -635,7 +635,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "http://fake.com",
             "country": "GB",
             "city": "L",
@@ -656,7 +656,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "http://fake.com",
             "country": "GB",
             "city": "L",
@@ -677,7 +677,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "http://fake.com",
             "country": "GB",
             "city": "L",
@@ -698,7 +698,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "http://fake.com",
             "country": "GB",
             "city": "L",
@@ -719,7 +719,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "http://fake.com",
             "country": "GB",
             "city": "L",
@@ -740,7 +740,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "http://fake.com",
             "country": "GB",
             "city": "L",
@@ -761,7 +761,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "http://fake.com",
             "country": "GB",
             "city": "L",
@@ -782,7 +782,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "http://fake.com",
             "country": "GB",
             "city": "L",
@@ -803,7 +803,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "http://fake.com",
             "country": "GB",
             "city": "L",
@@ -824,7 +824,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "http://fake.com",
             "country": "GB",
             "city": "L",
@@ -846,7 +846,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "http://fake.com",
             "country": "GB",
             "city": "L",
@@ -868,7 +868,7 @@ class FundFormTest(TestCase):
         data = {
             "claimant": self.claimant_id,
             "category": "A",
-            "name": "Fake",
+            "title": "Fake",
             "url": "http://fake.com",
             "country": "GB",
             "city": "L",

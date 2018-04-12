@@ -26,7 +26,7 @@
       </th>
       {% endif %}
       <th>
-        Name
+        Title
       </th>
       {% if user.is_staff %}
       <th>
@@ -73,19 +73,19 @@
       {% endif %}
       <td>
         {% if user.is_staff %}
-        <a title="Review" href="{% url "fund_review" fund.id %}">{{fund.name}}</a>
+        <a title="Review" href="{% url "fund_review" fund.id %}">{{fund.title}}</a>
         {% if fund.url|length > 0 %}
         <a title="View website" href="{{fund.url}}"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span></a>
         {% endif %}
         {% elif claimant and user == claimant.user %}
-        <a href="{% url "fund_detail" fund.id %}">{{fund.name}}</a>
+        <a href="{% url "fund_detail" fund.id %}">{{fund.title}}</a>
         {% if fund.url|length > 0 %}
         <a href="{{fund.url}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
         {% endif %}
         {% elif fund.url|length > 0 %}
-        <a href="{{fund.url}}">{{fund.name}}</a>
+        <a href="{{fund.url}}">{{fund.title}}</a>
         {% else %}
-        {{fund.name}}
+        {{fund.title}}
         {% endif %}
         {% if blog %}
         (

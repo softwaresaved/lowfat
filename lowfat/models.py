@@ -461,7 +461,7 @@ class Fund(models.Model):
         ordering = [
             "-start_date",
             "-end_date",
-            "name",
+            "title",
         ]
 
     # TODO Make claimant more generic to include staffs.
@@ -476,7 +476,7 @@ class Fund(models.Model):
         blank=True
     )
     mandatory = models.BooleanField(default=False)
-    name = models.CharField(max_length=MAX_CHAR_LENGTH)
+    title = models.CharField(max_length=MAX_CHAR_LENGTH)
     url = models.CharField(
         max_length=MAX_URL_LENGTH,
         blank=True,  # See https://github.com/softwaresaved/lowfat/issues/192
@@ -590,7 +590,7 @@ class Fund(models.Model):
         super(Fund, self).save(*args, **kwargs)
 
     def __str__(self):
-        return "{} ({})".format(self.name, self.id)
+        return "{} ({})".format(self.title, self.id)
 
     def status_help(self):
         """Provide long description for the status."""
@@ -769,7 +769,7 @@ class Expense(models.Model):
             if self.invoice:
                 INVOICE_HASH.update(bytes("{} - {} #{}".format(
                     self.fund.claimant.fullname,  # pylint: disable=no-member
-                    self.fund.name,
+                    self.fund.title,
                     self.relative_number
                 ), 'utf-8'))
                 self.invoice_reference = "SSIF-{}-{}".format(

@@ -145,7 +145,7 @@ def search(request):
         "funds": Fund.objects.filter(
             Q(claimant__forenames__contains=search_text) |
             Q(claimant__surname__contains=search_text) |
-            Q(name__contains=search_text) |
+            Q(title__contains=search_text) |
             Q(url__contains=search_text) |
             Q(justification__contains=search_text) |
             Q(additional_info__contains=search_text)
