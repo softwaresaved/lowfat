@@ -39,10 +39,13 @@ CAREER_STAGES = (
 )
 
 FUND_CATEGORY = (
-    ('A', 'Attending a conference/workshop'),
-    ('H', 'Organising a conference/workshop (e.g. Software Carpentry)'),
-    ('P', 'Policy related event'),
-    ('O', 'Other'),
+    ('A', 'Attending'),
+    ('H', 'Organising'),
+)
+
+FUND_FOCUS = (
+    ('D', 'Domain specific'),
+    ('C', 'Cross cutting'),
 )
 
 AD_STATUS = (
@@ -69,7 +72,6 @@ FUND_STATUS_LONG_DESCRIPTION = {
     'F': "We archived your fund request since all the expense claims were processed.",
     'C': "You decided to cancel this request for any reason.",
 }
-
 
 EXPENSE_STATUS = (
     ('W', 'Not submitted yet'),
@@ -469,11 +471,12 @@ class Fund(models.Model):
     category = models.CharField(
         choices=FUND_CATEGORY,
         max_length=1,
-        default="O"
+        default="A"
     )
-    category_other = models.CharField(
-        max_length=MAX_CHAR_LENGTH,
-        blank=True
+    focus = models.CharField(
+        choices=FUND_FOCUS,
+        max_length=1,
+        default="C"
     )
     mandatory = models.BooleanField(default=False)
     title = models.CharField(max_length=MAX_CHAR_LENGTH)

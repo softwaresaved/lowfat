@@ -286,7 +286,6 @@ class FundForm(GarlicForm):
 
         labels = {
             'claimant': 'Requester name',
-            'category_other': 'Specify the category if used "Other"',
             'mandatory': 'Is this related with Fellows face to face selection meeting, Fellows inaugural meeting or Collaborations Workshop?',
             'title': 'Event title',
             'url': 'Event webpage link',
@@ -307,6 +306,7 @@ class FundForm(GarlicForm):
         widgets = {
             'claimant': Select(attrs={"class": "select-single-item"}),
             'category': Select(attrs={"class": "select-single-item"}),
+            'focus': Select(attrs={"class": "select-single-item"}),
             'country': Select(attrs={"class": "select-single-item"}),
             'start_date': DateWidget(
                 usel10n=True,
@@ -332,7 +332,7 @@ class FundForm(GarlicForm):
                 'claimant',
                 HTML('<h2>Funding request details</h2>'),
                 'category',
-                'category_other',
+                'focus',
                 'mandatory',
                 'title',
                 'url',
@@ -407,6 +407,10 @@ class FundForm(GarlicForm):
         # Force user to select one category
         self.fields['category'].widget.choices.insert(0, ('', '---------'))
         self.fields['category'].initial = ''
+
+        # Force user to select one focus
+        self.fields['focus'].widget.choices.insert(0, ('', '---------'))
+        self.fields['focus'].initial = ''
 
 
 class FundReviewForm(GarlicForm):

@@ -541,7 +541,7 @@
     "fields": {
         "claimant": 2,
         "category": "O",
-        "category_other": "",
+        "focus": "C",
         "mandatory": false,
         "title": "9d680248 - Iron Man",
         "url": "http://9d680248.com",
@@ -580,7 +580,7 @@
     "fields": {
         "claimant": 5,
         "category": "H",
-        "category_other": "",
+        "focus": "C",
         "mandatory": false,
         "title": "9d683330 - The Hulk",
         "url": "http://9d683330.com",
@@ -619,7 +619,7 @@
     "fields": {
         "claimant": 1,
         "category": "H",
-        "category_other": "",
+        "focus": "C",
         "mandatory": false,
         "title": "9d681148 - Captain America",
         "url": "http://9d681148.com",
@@ -658,7 +658,7 @@
     "fields": {
         "claimant": 2,
         "category": "H",
-        "category_other": "",
+        "focus": "C",
         "mandatory": false,
         "title": "9d680716 - Iron Man",
         "url": "http://9d680716.com",
@@ -697,7 +697,7 @@
     "fields": {
         "claimant": 3,
         "category": "O",
-        "category_other": "",
+        "focus": "C",
         "mandatory": false,
         "title": "9d68144a - Green Arrow",
         "url": "http://9d68144a.com",
@@ -736,7 +736,7 @@
     "fields": {
         "claimant": 4,
         "category": "O",
-        "category_other": "",
+        "focus": "C",
         "mandatory": false,
         "title": "9d6816de - Black Widow",
         "url": "http://9d6816de.com",
@@ -775,7 +775,7 @@
     "fields": {
         "claimant": 1,
         "category": "A",
-        "category_other": "",
+        "focus": "C",
         "mandatory": false,
         "title": "9d6818e6 - Captain America",
         "url": "http://9d6818e6.com",
@@ -814,7 +814,7 @@
     "fields": {
         "claimant": 1,
         "category": "A",
-        "category_other": "",
+        "focus": "C",
         "mandatory": false,
         "title": "9d681b66 - Captain America",
         "url": "http://9d681b66.com",
@@ -853,7 +853,7 @@
     "fields": {
         "claimant": 3,
         "category": "A",
-        "category_other": "",
+        "focus": "C",
         "mandatory": false,
         "title": "9d681d8c - Green Arrow",
         "url": "http://9d681d8c.com",
@@ -892,7 +892,7 @@
     "fields": {
         "claimant": 4,
         "category": "H",
-        "category_other": "",
+        "focus": "C",
         "mandatory": false,
         "title": "9d6816aa - Black Widow",
         "url": "http://9d6816aa.com",
