@@ -86,23 +86,13 @@ EXPENSE_STATUS = (
     ('X', 'Remove'),  # When the fellow decided to remove their request.
 )
 
+
 class Grant(tagulous.models.TagTreeModel):
     class TagMeta:
         initial = "SSI1, SSI1/Core, SSI1/Fellowship, SSI1/Continuing, SSI2, SSI2/Core, SSI2/Fellowship, SSI2/Continuing, SSI3, SSI3/Core, SSI3/Fellowship, SSI3/Continuing"
         force_lowercase = True
         autocomplete_view = None
 
-FUNDS_FROM = (
-    ('C', 'Continuing (claimantship)'),
-    ('I', 'Core (Software Sustainability Institute)'),
-    ('F', 'Grant (inauguration claimantship)'),
-)
-
-GRANTS = (
-    ('SSI1', 'Software Sustainability Institute - Phase 1'),
-    ('SSI2', 'Software Sustainability Institute - Phase 2'),
-    ('SSI3', 'Software Sustainability Institute - Phase 3'),
-)
 
 BLOG_POST_STATUS = (
     ('U', 'Waiting for triage'),  # This is the status after we receive the blog post draft.
@@ -434,8 +424,8 @@ class Claimant(models.Model):
         """Return the ammount committed from the claimantship grant."""
         this_claimant_funds = Fund.objects.filter(
             claimant=self,
-            status__in=['A'],
-            funds_from_default="F"
+            status__in=['A']
+            # FIXME funds_from_default="F"
         )
 
         spent_from_committed = 0
@@ -451,8 +441,8 @@ class Claimant(models.Model):
         """Return the ammount alread spent from the claimantship grant."""
         this_claimant_expenses = Expense.objects.filter(
             fund__claimant=self,
-            status__in=['A', 'F'],
-            funds_from="F"
+            status__in=['A', 'F']
+            # FIXME funds_from="F"
         )
 
         return sum([expense.amount_claimed for expense in this_claimant_expenses])
@@ -565,16 +555,6 @@ class Fund(models.Model):
         to=Grant,
         default="SSI2/Fellowship"
     )
-    funds_from_default = models.CharField(
-        choices=FUNDS_FROM,
-        max_length=1,
-        default="F"
-    )
-    grant_default = models.CharField(
-        choices=GRANTS,
-        max_length=4,
-        default="SSI2"
-    )
     notes_from_admin = models.TextField(
         null=True,
         blank=True
@@ -595,7 +575,7 @@ class Fund(models.Model):
 
     def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
         if not self.pk:
-            self.grant_default = config.GRANTS_DEFAULT
+            self.grant = config.GRANTS_DEFAULT
 
         if self.status == "A":
             self.approved = datetime.now()
@@ -741,16 +721,6 @@ class Expense(models.Model):
         to=Grant,
         default="SSI2/Fellowship"
     )
-    funds_from = models.CharField(
-        choices=FUNDS_FROM,
-        max_length=1,
-        default="F"
-    )
-    grant_used = models.CharField(
-        choices=GRANTS,
-        max_length=4,
-        default="SSI2"
-    )
     notes_from_admin = models.TextField(
         null=True,
         blank=True
@@ -780,10 +750,9 @@ class Expense(models.Model):
                 self.relative_number = 1
 
             if self.fund.mandatory:  # pylint: disable=no-member
-                self.funds_from = 'I'  # Use of Core fund
+                self.grant = "SSI2/Core"  # Use of Core fund
             else:
-                self.funds_from = self.fund.funds_from_default  # pylint: disable=no-member
-            self.grant_used = self.fund.grant_default  # pylint: disable=no-member
+                self.grant = self.fund.grant  # pylint: disable=no-member
 
             if self.invoice:
                 INVOICE_HASH.update(bytes("{} - {} #{}".format(

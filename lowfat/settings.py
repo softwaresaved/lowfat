@@ -231,12 +231,8 @@ DBBACKUP_GPG_RECIPIENT = ""  # XXX This variable need to be filled for --encrypt
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_IGNORE_ADMIN_VERSION_CHECK = True
 CONSTANCE_CONFIG = OrderedDict([
-    ("FUNDS_FROM_DEFAULT", (
-        "F",
-        "Default funds used for expense",
-    )),
     ("GRANTS_DEFAULT", (
-        "SSI2",
+        "SSI2/Fellowship",
         "Default grant for expenses",
     )),
     ("FELLOWS_MANAGEMENT_EMAIL", (
