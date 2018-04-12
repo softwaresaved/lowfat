@@ -92,7 +92,7 @@ def create_fund():
         "claimant": claimant,
         "category": "A",
         "status": "A",
-        "name": "Fake",
+        "title": "Fake",
         "url": "http://fake.com",
         "country": "GB",
         "city": "L",

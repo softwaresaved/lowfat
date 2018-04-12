@@ -127,6 +127,20 @@
 },
 {
     "model": "lowfat.termsandconditions",
+    "pk": "2012",
+    "fields": {
+        "url": "https://www.software.ac.uk/fellowship-terms-and-conditions-2012"
+    }
+},
+{
+    "model": "lowfat.termsandconditions",
+    "pk": "2013",
+    "fields": {
+        "url": "https://www.software.ac.uk/fellowship-terms-and-conditions-2013"
+    }
+},
+{
+    "model": "lowfat.termsandconditions",
     "pk": "2014",
     "fields": {
         "url": "https://www.software.ac.uk/fellowship-terms-and-conditions-2014"
@@ -158,6 +172,13 @@
     "pk": "2018",
     "fields": {
         "url": "https://www.software.ac.uk/fellowship-programme/2018/terms-and-conditions"
+    }
+},
+{
+    "model": "lowfat.termsandconditions",
+    "pk": "2019",
+    "fields": {
+        "url": "https://www.software.ac.uk/fellowship-programme/2019/terms-and-conditions"
     }
 },
 {
@@ -522,7 +543,7 @@
         "category": "O",
         "category_other": "",
         "mandatory": false,
-        "name": "9d680248 - Iron Man",
+        "title": "9d680248 - Iron Man",
         "url": "http://9d680248.com",
         "country": "GB",
         "city": "U",
@@ -561,7 +582,7 @@
         "category": "H",
         "category_other": "",
         "mandatory": false,
-        "name": "9d683330 - The Hulk",
+        "title": "9d683330 - The Hulk",
         "url": "http://9d683330.com",
         "country": "GB",
         "city": "U",
@@ -600,7 +621,7 @@
         "category": "H",
         "category_other": "",
         "mandatory": false,
-        "name": "9d681148 - Captain America",
+        "title": "9d681148 - Captain America",
         "url": "http://9d681148.com",
         "country": "GB",
         "city": "U",
@@ -639,7 +660,7 @@
         "category": "H",
         "category_other": "",
         "mandatory": false,
-        "name": "9d680716 - Iron Man",
+        "title": "9d680716 - Iron Man",
         "url": "http://9d680716.com",
         "country": "GB",
         "city": "U",
@@ -678,7 +699,7 @@
         "category": "O",
         "category_other": "",
         "mandatory": false,
-        "name": "9d68144a - Green Arrow",
+        "title": "9d68144a - Green Arrow",
         "url": "http://9d68144a.com",
         "country": "GB",
         "city": "U",
@@ -717,7 +738,7 @@
         "category": "O",
         "category_other": "",
         "mandatory": false,
-        "name": "9d6816de - Black Widow",
+        "title": "9d6816de - Black Widow",
         "url": "http://9d6816de.com",
         "country": "GB",
         "city": "U",
@@ -756,7 +777,7 @@
         "category": "A",
         "category_other": "",
         "mandatory": false,
-        "name": "9d6818e6 - Captain America",
+        "title": "9d6818e6 - Captain America",
         "url": "http://9d6818e6.com",
         "country": "GB",
         "city": "U",
@@ -795,7 +816,7 @@
         "category": "A",
         "category_other": "",
         "mandatory": false,
-        "name": "9d681b66 - Captain America",
+        "title": "9d681b66 - Captain America",
         "url": "http://9d681b66.com",
         "country": "GB",
         "city": "U",
@@ -834,7 +855,7 @@
         "category": "A",
         "category_other": "",
         "mandatory": false,
-        "name": "9d681d8c - Green Arrow",
+        "title": "9d681d8c - Green Arrow",
         "url": "http://9d681d8c.com",
         "country": "GB",
         "city": "U",
@@ -873,7 +894,7 @@
         "category": "H",
         "category_other": "",
         "mandatory": false,
-        "name": "9d6816aa - Black Widow",
+        "title": "9d6816aa - Black Widow",
         "url": "http://9d6816aa.com",
         "country": "GB",
         "city": "U",

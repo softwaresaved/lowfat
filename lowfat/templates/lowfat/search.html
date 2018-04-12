@@ -22,7 +22,7 @@ No fellow found.
 {% for fund in funds %}
   <li>
     <a href="{% url 'fund_detail' fund.id %}">
-      {{ fund.name }}
+      {{ fund.title }}
     </a>
   </li>
 {% endfor %}  

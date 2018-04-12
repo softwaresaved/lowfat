@@ -288,7 +288,7 @@ class FundForm(GarlicForm):
             'claimant': 'Requester name',
             'category_other': 'Specify the category if used "Other"',
             'mandatory': 'Is this related with Fellows face to face selection meeting, Fellows inaugural meeting or Collaborations Workshop?',
-            'name': 'Event name',
+            'title': 'Event title',
             'url': 'Event webpage link',
             'country': 'Country in which event is taking place',
             'city': 'City in which the event is taking place',
@@ -334,7 +334,7 @@ class FundForm(GarlicForm):
                 'category',
                 'category_other',
                 'mandatory',
-                'name',
+                'title',
                 'url',
                 'country',
                 'city',
@@ -479,7 +479,7 @@ class FundImportForm(Form):
 <li>Forename(s)</li>
 <li>Surname</li>
 <li>Event type</li>
-<li>Event name</li>
+<li>Event title</li>
 <li>Event website</li>
 <li>Event Country</li>
 <li>Event City</li>

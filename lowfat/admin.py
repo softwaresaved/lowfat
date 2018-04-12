@@ -43,12 +43,12 @@ class ClaimantAdmin(SimpleHistoryAdmin):
 class FundAdmin(SimpleHistoryAdmin):
     list_display = [
         'claimant',
-        'name',
+        'title',
     ]
     search_fields = [
         'claimant__surname',
         'claimant__forenames',
-        'name',
+        'title',
         'country',
         'city',
     ]
@@ -108,7 +108,7 @@ class ExpenseAdmin(SimpleHistoryAdmin):
     search_fields = [
         'fund__claimant__surname',
         'fund__claimant__forenames',
-        'fund__name',
+        'fund__title',
     ]
     list_filter = [
         'status',

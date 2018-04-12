@@ -83,7 +83,7 @@
           {% else %}
           <a href="{% url 'expense_detail_relative' expense.fund.id expense.relative_number %}"
              {% endif %}
-             >{{ expense.fund.name }} #{{ expense.relative_number }}</a>
+             >{{ expense.fund.title }} #{{ expense.relative_number }}</a>
           {% else %}
           Missing claim of expense
           {% endif %}
@@ -93,7 +93,7 @@
         <a title='View' href="{% url 'fellow_slug' expense.fund.claimant.slug %}">{{ expense.fund.claimant.fullname }}</a>
       </td>
       <td>
-        <a title='View' href="{% url 'fund_detail' expense.fund.id %}">{{ expense.fund.name }}</a>
+        <a title='View' href="{% url 'fund_detail' expense.fund.id %}">{{ expense.fund.title }}</a>
       </td>
       {% endif %}
       <td>

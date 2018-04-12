@@ -2,8 +2,9 @@
 
 import datetime
 
-from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
+
+from lowfat.models import Fund, Expense
 
 class Command(BaseCommand):
     help = "Change funding requests and expenses claims dates imported with loadoldfunds.py to last day of fellowship."
