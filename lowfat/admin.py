@@ -6,6 +6,70 @@ from .models import *
 
 @admin.register(Claimant)
 class ClaimantAdmin(SimpleHistoryAdmin):
+    fieldsets = [
+        (
+            None,
+            {
+                "fields": [
+                    "user",
+                    "forenames",
+                    "surname",
+                    "email",
+                ]
+            },
+        ),
+        (
+            "Personal Information",
+            {
+                "fields": [
+                    "phone",
+                    "gender",
+                    "home_country",
+                    "home_city",
+                    "home_lon",
+                    "home_lat",
+                    "photo",
+                ]
+            },
+        ),
+        (
+            "Professional information",
+            {
+                "fields": [
+                    "career_stage_when_apply",
+                    "job_title_when_apply",
+                    "research_area",
+                    "research_area_code",
+                    "affiliation",
+                    "department",
+                    "group",
+                    "funding",
+                    "funding_notes",
+                ],
+            },
+        ),
+        (
+            "Administration",
+            {
+                "fields": [
+                    "slug",
+                    "terms_and_conditions",
+                    "application_year",
+                    "inauguration_grant_expiration",
+                    "received_offer",
+                    "fellow",
+                    "collaborator",
+                    "is_into_training",
+                    "carpentries_instructor",
+                    "research_software_engineer",
+                    "claimantship_grant",
+                    "attended_inaugural_meeting",
+                    "attended_collaborations_workshop",
+                    "notes_from_admin",
+                ],
+            },
+        ),
+    ]
     list_display = [
         'forenames',
         'surname',
@@ -44,6 +108,7 @@ class FundAdmin(SimpleHistoryAdmin):
     list_display = [
         'claimant',
         'title',
+        'added',
     ]
     search_fields = [
         'claimant__surname',
@@ -132,7 +197,24 @@ class ExpenseAdmin(SimpleHistoryAdmin):
 
 @admin.register(Blog)
 class BlogAdmin(SimpleHistoryAdmin):
-    pass
+    list_display = [
+        'author',
+        'fund',
+        'added',
+    ]
+    search_fields = [
+        'fund',
+        'author',
+        'coauthor',
+        'notes_from_author',
+        'notes_from_admin',
+        'title',
+        'published_url',
+        'tweet_url',
+    ]
+    list_filter = [
+        'status',
+    ]
 
 
 @admin.register(FundSentMail)
