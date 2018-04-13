@@ -56,6 +56,7 @@ class FundActivity(tagulous.models.TagTreeModel):
         force_lowercase = True
         autocomplete_view = None
         protected = True
+        space_delimiter = False
 
 AD_STATUS = (
     ('U', 'Unprocessed'),  # Initial status
