@@ -13,6 +13,8 @@ from simple_history.models import HistoricalRecords
 
 from django_countries.fields import CountryField
 
+import tagulous
+
 from .validator import pdf, online_document
 from .jacs import JACS_3_0_PRINCIPAL_SUBJECT_CODES
 
@@ -47,6 +49,14 @@ FUND_FOCUS = (
     ('D', 'Domain specific'),
     ('C', 'Cross cutting'),
 )
+
+class FundActivity(tagulous.models.TagTreeModel):
+    class TagMeta:
+        initial = "attending as ssi, conference, field trip, focus group, hack, knowledge exchange, local, meeting, new paradigm, new resource, organising submeeting, panel, paying for others, policy, poster presentation, prize, roundtable, roundtable/lead, software Special Interest Group, ssi organised, supported collaborator, survey, talk at, talk at/invited, teaching at, teaching as helper, training/attending, training/organiser, unconference, working group, workshop"
+        force_lowercase = True
+        autocomplete_view = None
+        protected = True
+        space_delimiter = False
 
 AD_STATUS = (
     ('U', 'Unprocessed'),  # Initial status
@@ -398,6 +408,7 @@ class Claimant(models.Model):
                 config.FELLOWSHIP_EXPENSES_END_MONTH,
                 config.FELLOWSHIP_EXPENSES_END_DAY
             )
+
         self.slug = slug_generator(self.forenames, self.surname)
         self.website = fix_url(self.website)
         self.website_feed = fix_url(self.website_feed)
@@ -477,6 +488,9 @@ class Fund(models.Model):
         choices=FUND_FOCUS,
         max_length=1,
         default="C"
+    )
+    activity = tagulous.models.TagField(
+        to=FundActivity
     )
     mandatory = models.BooleanField(default=False)
     title = models.CharField(max_length=MAX_CHAR_LENGTH)

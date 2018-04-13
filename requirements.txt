@@ -1,6 +1,7 @@
-django==1.11
+django<2.0
 django-constance[database]
 django-countries
+git+https://github.com/radiac/django-tagulous.git@feature/django-1_11#egg=django-tagulous #django-tagulous
 django-crispy-forms
 django-datetime-widget
 django-dbbackup>=3.2.0
