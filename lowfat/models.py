@@ -84,7 +84,7 @@ EXPENSE_STATUS = (
     ('X', 'Remove'),  # When the fellow decided to remove their request.
 )
 
-FUNDS_FROM = (
+GRANT_HEADING = (
     ('C', 'Continuing (claimantship)'),
     ('I', 'Core (Software Sustainability Institute)'),
     ('F', 'Grant (inauguration claimantship)'),
@@ -427,7 +427,7 @@ class Claimant(models.Model):
         this_claimant_funds = Fund.objects.filter(
             claimant=self,
             status__in=['A'],
-            funds_from_default="F"
+            grant_heading="F"
         )
 
         spent_from_committed = 0
@@ -444,7 +444,7 @@ class Claimant(models.Model):
         this_claimant_expenses = Expense.objects.filter(
             fund__claimant=self,
             status__in=['A', 'F'],
-            funds_from="F"
+            grant_heading="F"
         )
 
         return sum([expense.amount_claimed for expense in this_claimant_expenses])
@@ -553,12 +553,12 @@ class Fund(models.Model):
         blank=False,
         default=1
     )
-    funds_from_default = models.CharField(
-        choices=FUNDS_FROM,
+    grant_heading = models.CharField(
+        choices=GRANT_HEADING,
         max_length=1,
         default="F"
     )
-    grant_default = models.CharField(
+    grant = models.CharField(
         choices=GRANTS,
         max_length=4,
         default="SSI2"
@@ -583,7 +583,7 @@ class Fund(models.Model):
 
     def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
         if not self.pk:
-            self.grant_default = config.GRANTS_DEFAULT
+            self.grant = config.GRANTS_DEFAULT
 
         if self.status == "A":
             self.approved = datetime.now()
@@ -725,12 +725,12 @@ class Expense(models.Model):
         blank=False,
         default=0.00
     )
-    funds_from = models.CharField(
-        choices=FUNDS_FROM,
+    grant_heading = models.CharField(
+        choices=GRANT_HEADING,
         max_length=1,
         default="F"
     )
-    grant_used = models.CharField(
+    grant = models.CharField(
         choices=GRANTS,
         max_length=4,
         default="SSI2"
@@ -764,10 +764,10 @@ class Expense(models.Model):
                 self.relative_number = 1
 
             if self.fund.mandatory:  # pylint: disable=no-member
-                self.funds_from = 'I'  # Use of Core fund
+                self.grant_heading = 'I'  # Use of Core fund
             else:
-                self.funds_from = self.fund.funds_from_default  # pylint: disable=no-member
-            self.grant_used = self.fund.grant_default  # pylint: disable=no-member
+                self.grant_heading = self.fund.grant_heading  # pylint: disable=no-member
+            self.grant = self.fund.grant  # pylint: disable=no-member
 
             if self.invoice:
                 INVOICE_HASH.update(bytes("{} - {} #{}".format(

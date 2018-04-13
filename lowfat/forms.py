@@ -276,8 +276,8 @@ class FundForm(GarlicForm):
             "ad_status",
             "budget_approved",
             "required_blog_posts",
-            "funds_from_default",
-            "grant_default",
+            "grant_heading",
+            "grant",
             "notes_from_admin",
             "added",
             "approved",
@@ -419,16 +419,16 @@ class FundReviewForm(GarlicForm):
         fields = [
             "status",
             #"ad_status",  # TODO uncomment in the future
-            "funds_from_default",
-            "grant_default",
+            "grant_heading",
+            "grant",
             "required_blog_posts",
             "budget_approved",
             "notes_from_admin",
         ]
 
         labels = {
-            "funds_from_default": "Default \"Funds from\"",
-            "grant_default": "Default \"Grant used\"",
+            "grant_heading": "Default Grant Heading",
+            "grant": "Default Grant",
             'budget_approved': 'Total budget approved',
         }
 
@@ -443,8 +443,8 @@ class FundReviewForm(GarlicForm):
             Fieldset(
                 '',
                 "status",
-                "funds_from_default",
-                "grant_default",
+                "grant",
+                "grant_heading",
                 "required_blog_posts",
                 PrependedText(
                     "budget_approved",
@@ -596,8 +596,8 @@ class ExpenseReviewForm(GarlicForm):
             'asked_for_authorization_date',
             'send_to_finance_date',
             'amount_authorized_for_payment',
-            'funds_from',
-            'grant_used',
+            'grant_heading',
+            'grant',
             'notes_from_admin',
         ]
 
@@ -632,8 +632,8 @@ class ExpenseReviewForm(GarlicForm):
                     step=0.01,
                     onblur="this.value = parseFloat(this.value).toFixed(2);"
                 ),
-                'funds_from',
-                'grant_used',
+                'grant',
+                'grant_heading',
                 'notes_from_admin',
                 'email',
                 'not_send_email_field' if self.is_staff else None,
