@@ -31,7 +31,8 @@ class Command(BaseCommand):
                     elif line["focus"] == "Cross_cutting":
                         fund.focus = "C"
 
-                    fund.activity = line["activities"]
+                    if pd.notnull(line["activities"]):
+                        fund.activity = line["activities"]
 
                     print("Changing {}...".format(fund))
                     fund.save()
