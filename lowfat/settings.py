@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
     'django_countries',
+    'tagulous',
     'autofixture',
     'crispy_forms',
     'social_django',
@@ -99,6 +100,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'lowfat.wsgi.application'
 
+SERIALIZATION_MODULES = {
+    'xml':    'tagulous.serializers.xml_serializer',
+    'json':   'tagulous.serializers.json',
+    'python': 'tagulous.serializers.python',
+    'yaml':   'tagulous.serializers.pyyaml',
+}
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
@@ -224,12 +231,8 @@ DBBACKUP_GPG_RECIPIENT = ""  # XXX This variable need to be filled for --encrypt
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_IGNORE_ADMIN_VERSION_CHECK = True
 CONSTANCE_CONFIG = OrderedDict([
-    ("FUNDS_FROM_DEFAULT", (
-        "F",
-        "Default funds used for expense",
-    )),
     ("GRANTS_DEFAULT", (
-        "SSI2",
+        "SSI2/Fellowship",
         "Default grant for expenses",
     )),
     ("FELLOWS_MANAGEMENT_EMAIL", (

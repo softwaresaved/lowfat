@@ -3,8 +3,8 @@
     "model": "auth.user",
     "pk": 1,
     "fields": {
-        "password": "pbkdf2_sha256$30000$AdiounftvFQ6$HMsq84pr0B3aCxYpFT5ma2TbPeK8fPS0zs6kxAh+gIs=",
-        "last_login": "2016-12-07T14:40:40",
+        "password": "pbkdf2_sha256$36000$CRt4uLKECGMC$dXSjwEfVEc3Ev9uMfOswgdp14r4nXTAoLL6Js+YmhHg=",
+        "last_login": "2018-04-12T11:00:11.316",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -123,6 +123,76 @@
         "date_joined": "2017-08-30T13:00:54.403",
         "groups": [],
         "user_permissions": []
+    }
+},
+{
+    "model": "lowfat.grant",
+    "pk": 1,
+    "fields": {
+        "name": "ssi2",
+        "slug": "ssi2",
+        "count": 0,
+        "protected": false,
+        "parent": null,
+        "path": "ssi2",
+        "label": "ssi2",
+        "level": 1
+    }
+},
+{
+    "model": "lowfat.grant",
+    "pk": 2,
+    "fields": {
+        "name": "ssi2/fellowship",
+        "slug": "fellowship",
+        "count": 10,
+        "protected": false,
+        "parent": 1,
+        "path": "ssi2/fellowship",
+        "label": "fellowship",
+        "level": 2
+    }
+},
+{
+    "model": "lowfat.grant",
+    "pk": 3,
+    "fields": {
+        "name": "ssi1",
+        "slug": "ssi1",
+        "count": 0,
+        "protected": false,
+        "parent": null,
+        "path": "ssi1",
+        "label": "ssi1",
+        "level": 1
+    }
+},
+{
+    "model": "lowfat.grant",
+    "pk": 4,
+    "fields": {
+        "name": "ssi1/fellowship",
+        "slug": "fellowship",
+        "count": 7,
+        "protected": false,
+        "parent": 3,
+        "path": "ssi1/fellowship",
+        "label": "fellowship",
+        "level": 2
+    }
+},
+{
+    "model": "lowfat.grant",
+    "pk": 5,
+    "fields": {
+        "name": "ssi1/continuing",
+        "slug": "continuing",
+        "count": 1,
+        "protected": false,
+        "parent": 3,
+        "path": "ssi1/continuing",
+        "label": "continuing",
+        "level": 2
     }
 },
 {
@@ -566,12 +636,13 @@
         "ad_status": "V",
         "status": "F",
         "required_blog_posts": 1,
-        "funds_from_default": "F",
-        "grant_default": "SSI2",
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
         "approved": null,
-        "updated": "2016-07-17T14:10:36.273"
+        "updated": "2018-04-12T10:59:27.140",
+        "grant": [
+            "ssi2/fellowship"
+        ]
     }
 },
 {
@@ -605,12 +676,13 @@
         "ad_status": "V",
         "status": "A",
         "required_blog_posts": 1,
-        "funds_from_default": "F",
-        "grant_default": "SSI2",
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
         "approved": "2017-05-22T16:14:32.070",
-        "updated": "2017-05-22T16:14:32.070"
+        "updated": "2018-04-12T10:59:27.123",
+        "grant": [
+            "ssi2/fellowship"
+        ]
     }
 },
 {
@@ -644,12 +716,13 @@
         "ad_status": "V",
         "status": "F",
         "required_blog_posts": 1,
-        "funds_from_default": "F",
-        "grant_default": "SSI2",
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
         "approved": null,
-        "updated": "2016-07-17T14:09:12.999"
+        "updated": "2018-04-12T10:59:27.108",
+        "grant": [
+            "ssi2/fellowship"
+        ]
     }
 },
 {
@@ -683,12 +756,13 @@
         "ad_status": "V",
         "status": "F",
         "required_blog_posts": 1,
-        "funds_from_default": "F",
-        "grant_default": "SSI2",
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
         "approved": null,
-        "updated": "2016-07-17T14:10:21.669"
+        "updated": "2018-04-12T10:59:27.135",
+        "grant": [
+            "ssi2/fellowship"
+        ]
     }
 },
 {
@@ -722,12 +796,13 @@
         "ad_status": "V",
         "status": "F",
         "required_blog_posts": 1,
-        "funds_from_default": "F",
-        "grant_default": "SSI2",
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
         "approved": null,
-        "updated": "2016-07-17T14:10:06.354"
+        "updated": "2018-04-12T10:59:27.113",
+        "grant": [
+            "ssi2/fellowship"
+        ]
     }
 },
 {
@@ -761,12 +836,13 @@
         "ad_status": "V",
         "status": "A",
         "required_blog_posts": 1,
-        "funds_from_default": "F",
-        "grant_default": "SSI2",
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
         "approved": "2017-05-22T16:14:32.068",
-        "updated": "2017-05-22T16:14:32.068"
+        "updated": "2018-04-12T10:59:27.102",
+        "grant": [
+            "ssi2/fellowship"
+        ]
     }
 },
 {
@@ -800,12 +876,13 @@
         "ad_status": "V",
         "status": "R",
         "required_blog_posts": 1,
-        "funds_from_default": "F",
-        "grant_default": "SSI1",
         "notes_from_admin": "",
         "added": "2016-07-13T14:58:08.260",
         "approved": null,
-        "updated": "2016-07-17T14:09:23.715"
+        "updated": "2018-04-12T10:59:27.145",
+        "grant": [
+            "ssi1/fellowship"
+        ]
     }
 },
 {
@@ -839,12 +916,13 @@
         "ad_status": "H",
         "status": "F",
         "required_blog_posts": 1,
-        "funds_from_default": "F",
-        "grant_default": "SSI1",
         "notes_from_admin": "",
         "added": "2016-07-13T14:59:44.036",
         "approved": null,
-        "updated": "2016-07-13T14:59:44.036"
+        "updated": "2018-04-12T10:59:27.128",
+        "grant": [
+            "ssi1/fellowship"
+        ]
     }
 },
 {
@@ -878,12 +956,13 @@
         "ad_status": "H",
         "status": "R",
         "required_blog_posts": 1,
-        "funds_from_default": "F",
-        "grant_default": "SSI2",
         "notes_from_admin": "",
         "added": "2016-07-13T15:01:25.316",
         "approved": null,
-        "updated": "2016-09-05T10:51:42.337"
+        "updated": "2018-04-12T10:59:27.118",
+        "grant": [
+            "ssi2/fellowship"
+        ]
     }
 },
 {
@@ -917,12 +996,13 @@
         "ad_status": "V",
         "status": "P",
         "required_blog_posts": 1,
-        "funds_from_default": "F",
-        "grant_default": "SSI2",
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
         "approved": null,
-        "updated": "2016-09-05T10:53:16.027"
+        "updated": "2018-04-12T10:59:27.094",
+        "grant": [
+            "ssi2/fellowship"
+        ]
     }
 },
 {
@@ -947,11 +1027,12 @@
         "asked_for_authorization_date": "2016-07-17",
         "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "500.00",
-        "funds_from": "F",
-        "grant_used": "SSI1",
         "notes_from_admin": "",
         "added": "2016-07-13T15:05:50.610",
-        "updated": "2016-07-17T13:58:56.945"
+        "updated": "2018-04-12T10:59:27.152",
+        "grant": [
+            "ssi1/fellowship"
+        ]
     }
 },
 {
@@ -976,11 +1057,12 @@
         "asked_for_authorization_date": "2016-07-17",
         "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "2000.00",
-        "funds_from": "F",
-        "grant_used": "SSI1",
         "notes_from_admin": "",
         "added": "2016-07-13T15:03:29.250",
-        "updated": "2016-07-17T13:59:13.965"
+        "updated": "2018-04-12T10:59:27.180",
+        "grant": [
+            "ssi1/fellowship"
+        ]
     }
 },
 {
@@ -1005,11 +1087,12 @@
         "asked_for_authorization_date": "2016-07-17",
         "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "400.00",
-        "funds_from": "F",
-        "grant_used": "SSI1",
         "notes_from_admin": "",
         "added": "2016-07-13T15:03:57.771",
-        "updated": "2016-07-17T13:59:25.548"
+        "updated": "2018-04-12T10:59:27.173",
+        "grant": [
+            "ssi1/fellowship"
+        ]
     }
 },
 {
@@ -1034,11 +1117,12 @@
         "asked_for_authorization_date": null,
         "send_to_finance_date": null,
         "amount_authorized_for_payment": "0.00",
-        "funds_from": "C",
-        "grant_used": "SSI1",
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
-        "updated": "2016-07-17T14:03:11.682"
+        "updated": "2018-04-12T10:59:27.185",
+        "grant": [
+            "ssi1/continuing"
+        ]
     }
 },
 {
@@ -1063,11 +1147,12 @@
         "asked_for_authorization_date": "2016-07-17",
         "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "2500.00",
-        "funds_from": "F",
-        "grant_used": "SSI2",
         "notes_from_admin": "",
         "added": "2016-07-13T15:04:56.919",
-        "updated": "2016-07-17T14:03:06.035"
+        "updated": "2018-04-12T10:59:27.162",
+        "grant": [
+            "ssi2/fellowship"
+        ]
     }
 },
 {
@@ -1092,11 +1177,12 @@
         "asked_for_authorization_date": "2016-07-17",
         "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "500.00",
-        "funds_from": "F",
-        "grant_used": "SSI1",
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
-        "updated": "2016-07-17T14:02:48.682"
+        "updated": "2018-04-12T10:59:27.193",
+        "grant": [
+            "ssi1/fellowship"
+        ]
     }
 },
 {
@@ -1121,11 +1207,12 @@
         "asked_for_authorization_date": "2016-07-17",
         "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "500.00",
-        "funds_from": "F",
-        "grant_used": "SSI1",
         "notes_from_admin": "",
         "added": "2016-07-13T15:05:22.698",
-        "updated": "2016-07-17T14:02:32.024"
+        "updated": "2018-04-12T10:59:27.158",
+        "grant": [
+            "ssi1/fellowship"
+        ]
     }
 },
 {
@@ -1150,11 +1237,12 @@
         "asked_for_authorization_date": "2016-07-17",
         "send_to_finance_date": "2016-07-17",
         "amount_authorized_for_payment": "1000.00",
-        "funds_from": "F",
-        "grant_used": "SSI2",
         "notes_from_admin": "",
         "added": "2016-07-13T15:04:23.530",
-        "updated": "2016-07-17T14:02:07.034"
+        "updated": "2018-04-12T10:59:27.168",
+        "grant": [
+            "ssi2/fellowship"
+        ]
     }
 },
 {

@@ -940,8 +940,7 @@ class FundReviewFormTest(TestCase):
     def test_null_status(self):
         data = {
             "ad_status": "V",
-            "funds_from_default": "F",
-            "grant_default": "SSI1",
+            "grant": "SSI1",
             "required_blog_posts": 1,
             "budget_approved": 100.00,
             "notes_from_admin": ":-)",
@@ -954,8 +953,7 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "",
             "ad_status": "V",
-            "funds_from_default": "F",
-            "grant_default": "SSI1",
+            "grant": "SSI1",
             "required_blog_posts": 1,
             "budget_approved": 100.00,
             "notes_from_admin": ":-)",
@@ -981,8 +979,7 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "",
             "ad_status": "V",
-            "funds_from_default": "",
-            "grant_default": "SSI1",
+            "grant": "SSI1",
             "required_blog_posts": 1,
             "budget_approved": 100.00,
             "notes_from_admin": ":-)",
@@ -995,7 +992,6 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "",
             "ad_status": "V",
-            "funds_from_default": "F",
             "required_blog_posts": 1,
             "budget_approved": 100.00,
             "notes_from_admin": ":-)",
@@ -1008,8 +1004,7 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "",
             "ad_status": "V",
-            "funds_from_default": "F",
-            "grant_default": "",
+            "grant": "",
             "required_blog_posts": 1,
             "budget_approved": 100.00,
             "notes_from_admin": ":-)",
@@ -1023,8 +1018,7 @@ class FundReviewFormTest(TestCase):
     #    data = {
     #        "status": "A",
     #        "required_blog_posts": 1,
-    #        "funds_from_default": "F",
-    #        "grant_default": "SSI1",
+    #        "grant": "SSI1",
     #        "budget_approved": 100.00,
     #        "notes_from_admin": ":-)",
     #    }
@@ -1036,8 +1030,7 @@ class FundReviewFormTest(TestCase):
     #    data = {
     #        "status": "A",
     #        "ad_status": "",
-    #        "funds_from_default": "F",
-    #        "grant_default": "SSI1",
+    #        "grant": "SSI1",
     #        "required_blog_posts": 1,
     #        "budget_approved": 100.00,
     #        "notes_from_admin": ":-)",
@@ -1050,8 +1043,7 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "A",
             "ad_status": "V",
-            "funds_from_default": "F",
-            "grant_default": "SSI1",
+            "grant": "SSI1",
             "budget_approved": 100.00,
         }
 
@@ -1062,8 +1054,7 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "A",
             "ad_status": "V",
-            "funds_from_default": "F",
-            "grant_default": "SSI1",
+            "grant": "SSI1",
             "required_blog_posts": 1,
             "notes_from_admin": ":-)",
         }
@@ -1075,8 +1066,7 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "A",
             "ad_status": "V",
-            "funds_from_default": "F",
-            "grant_default": "SSI1",
+            "grant": "SSI1",
             "required_blog_posts": 1,
             "budget_approved": 100.00,
         }
@@ -1088,8 +1078,7 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "A",
             "ad_status": "V",
-            "funds_from_default": "F",
-            "grant_default": "SSI1",
+            "grant": "SSI1",
             "required_blog_posts": 1,
             "budget_approved": 100.00,
             "notes_from_admin": ":-)",
@@ -1170,29 +1159,14 @@ class ExpenseReviewFormTest(TestCase):
     def setUp(self):
         self.claimant_id, self.fund_id, self.expense_id, self.blog_id = create_all()
 
-    def test_funds_from(self):
-        for fund in ['C', 'I', 'F']:
-            data = {
-                "status": "S",
-                "asked_for_authorization_date": "2016-01-01",
-                "send_to_finance_date": "2016-01-01",
-                "amount_authorized_for_payment": 100.00,
-                "funds_from": fund,
-                "grant_used": "SSI1",
-            }
-
-            form = ExpenseReviewForm(data)
-            self.assertTrue(form.is_valid())
-
-    def test_grant_used(self):
+    def test_grant(self):
         for grant in ['SSI1', 'SSI2', 'SSI3']:
             data = {
                 "status": "S",
                 "asked_for_authorization_date": "2016-01-01",
                 "send_to_finance_date": "2016-01-01",
                 "amount_authorized_for_payment": 100.00,
-                "funds_from": "F",
-                "grant_used": grant,
+                "grant": grant,
             }
 
             form = ExpenseReviewForm(data)
@@ -1205,8 +1179,7 @@ class ExpenseReviewFormTest(TestCase):
                 "asked_for_authorization_date": "2016-01-01",
                 "send_to_finance_date": "2016-01-01",
                 "amount_authorized_for_payment": 100.00,
-                "funds_from": "F",
-                "grant_used": "SSI1",
+                "grant": "SSI1",
             }
 
             form = ExpenseReviewForm(data)
@@ -1219,8 +1192,7 @@ class ExpenseReviewFormTest(TestCase):
             "asked_for_authorization_date": "2016-01-01",
             "send_to_finance_date": "2016-01-01",
             "amount_authorized_for_payment": 100.00,
-            "funds_from": "F",
-            "grant_used": "SSI1",
+            "grant": "SSI1",
         }
 
         form = ExpenseReviewForm(data)
@@ -1232,8 +1204,7 @@ class ExpenseReviewFormTest(TestCase):
             "asked_for_authorization_date": "2016-01-01",
             "send_to_finance_date": "2016-01-01",
             "amount_authorized_for_payment": 100.00,
-            "funds_from": "F",
-            "grant_used": "SSI1",
+            "grant": "SSI1",
             "notes_from_admin": ":-)",
         }
 
