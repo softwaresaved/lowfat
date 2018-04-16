@@ -430,7 +430,7 @@ class FundReviewForm(GarlicForm):
         labels = {
             "grant_heading": "Default Grant Heading",
             "grant": "Default Grant",
-            "activity": "Activities type",
+            "activity": "Activities tag",
             'budget_approved': 'Total budget approved',
         }
 
@@ -448,6 +448,7 @@ class FundReviewForm(GarlicForm):
                 "grant",
                 "grant_heading",
                 "activity",
+                HTML("""Visit <a href="/pages/guide/activities-tag/">Activities Tag Taxonomy</a> for a description about the tags."""),
                 "required_blog_posts",
                 PrependedText(
                     "budget_approved",
