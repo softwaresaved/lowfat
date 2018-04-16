@@ -253,5 +253,20 @@
             1
         ]
     }
+},
+{
+    "model": "flatpages.flatpage",
+    "pk": 19,
+    "fields": {
+        "url": "/guide/activities-tag/",
+        "title": "Activities Tag Taxonomy",
+        "content": "<p>The following tags are available:</p>\r\n<dl>\r\n  <dt>attending as ssi</dt><dd>Description will be available soon.</dd>\r\n  <dt>conference</dt><dd>Description will be available soon.</dd>\r\n  <dt>field trip</dt><dd>Description will be available soon.</dd>\r\n  <dt>focus group</dt><dd>Description will be available soon.</dd>\r\n  <dt>hack</dt><dd>Description will be available soon.</dd>\r\n  <dt>knowledge exchange</dt><dd>Description will be available soon.</dd>\r\n  <dt>local</dt><dd>Description will be available soon.</dd>\r\n  <dt>meeting</dt><dd>Description will be available soon.</dd>\r\n  <dt>new paradigm</dt><dd>Description will be available soon.</dd>\r\n  <dt>new resource</dt><dd>Description will be available soon.</dd>\r\n  <dt>organising submeeting</dt><dd>Description will be available soon.</dd>\r\n  <dt>panel</dt><dd>Description will be available soon.</dd>\r\n  <dt>paying for others</dt><dd>Description will be available soon.</dd>\r\n  <dt>policy</dt><dd>Description will be available soon.</dd>\r\n  <dt>poster presentation</dt><dd>Description will be available soon.</dd>\r\n  <dt>prize</dt><dd>Description will be available soon.</dd>\r\n  <dt>roundtable lead</dt><dd>Description will be available soon.</dd>\r\n  <dt>software special interest group</dt><dd>Description will be available soon.</dd>\r\n  <dt>ssi organised</dt><dd>Description will be available soon.</dd>\r\n  <dt>supported collaborator</dt><dd>Description will be available soon.</dd>\r\n  <dt>survey</dt><dd>Description will be available soon.</dd>\r\n  <dt>talk at</dt><dd>Description will be available soon.</dd>\r\n  <dt>talk at/invited</dt><dd>Description will be available soon.</dd>\r\n  <dt>teaching at</dt><dd>Description will be available soon.</dd>\r\n  <dt>teaching/helper</dt><dd>Description will be available soon.</dd>\r\n  <dt>training/attending</dt><dd>Description will be available soon.</dd>\r\n  <dt>training organiser</dt><dd>Description will be available soon.</dd>\r\n  <dt>unconference</dt><dd>Description will be available soon.</dd>\r\n  <dt>working group</dt><dd>Description will be available soon.</dd>\r\n  <dt>workshop</dt><dd>Description will be available soon.</dd>\r\n</dl>",
+        "enable_comments": false,
+        "template_name": "lowfat/base.html",
+        "registration_required": true,
+        "sites": [
+            1
+        ]
+    }
 }
 ]
