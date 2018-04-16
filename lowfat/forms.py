@@ -419,6 +419,8 @@ class FundReviewForm(GarlicForm):
         fields = [
             "status",
             #"ad_status",  # TODO uncomment in the future
+            "category",
+            "focus",
             "grant_heading",
             "grant",
             "activity",
@@ -445,6 +447,8 @@ class FundReviewForm(GarlicForm):
             Fieldset(
                 '',
                 "status",
+                "category",
+                "focus",
                 "grant",
                 "grant_heading",
                 "activity",
