@@ -126,6 +126,7 @@ class FundAdmin(SimpleHistoryAdmin):
         'ad_status',
         'status',
         'activity',
+        'mandatory',
     ]
 
 
