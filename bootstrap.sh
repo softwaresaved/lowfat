@@ -10,6 +10,7 @@ ACADEMICONS_ZIP=${TMP_FOLDER}/academicons.zip
 GARLIC_ZIP=${TMP_FOLDER}/garlic.zip
 DATETIME_WIDGET_ZIP=${TMP_FOLDER}/datetimewidget.zip
 SELECTIZE_ZIP=${TMP_FOLDER}/selectize.zip
+TAGULOUS_ZIP=${TMP_FOLDER}/tagulous.zip
 
 # Bootstrap
 curl \
@@ -103,6 +104,20 @@ unzip \
     $SELECTIZE_ZIP \
     selectize.js-0.12.4/dist/js/standalone/selectize.min.js \
     > $TMP_FOLDER/selectize/js/selectize.min.js
+
+# Tagulous
+curl \
+    --silent \
+    -L \
+    -o $TAGULOUS_ZIP \
+    https://github.com/radiac/django-tagulous/archive/0.12.0.zip
+unzip \
+    -q \
+    -u \
+    $TAGULOUS_ZIP \
+    "django-tagulous-0.12.0/tagulous/static/tagulous/*" \
+    -d $TMP_FOLDER
+cp -v -r $TMP_FOLDER/django-tagulous-0.12.0/tagulous/static/tagulous $STATIC_FOLDER
 
 # Copy files
 for folder in css fonts js
