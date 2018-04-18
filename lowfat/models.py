@@ -901,6 +901,47 @@ class Blog(models.Model):
     def link_review(self):
         return reverse("blog_review", args=[self.id])
 
+class CarpentryWorkshop(models.Model):
+    """Provide the link to the blog post about the fund."""
+    class Meta:
+        app_label = 'lowfat'
+
+    # Form
+    amy_id = models.CharField(  # Workshop ID used at https://amy.software-carpentry.org/workshops/admin-dashboard/
+        primary_key=True
+    )
+    host = models.ManyToManyField(
+        'Claimant',
+        blank=True,
+        related_name="host"
+    )
+    instructor = models.ManyToManyField(
+        'Claimant',
+        blank=True,
+        related_name="instructor"
+    )
+    helper = models.ManyToManyField(
+        'Claimant',
+        blank=True,
+        related_name="helper"
+    )
+
+    # Information to pull from AMY
+    start_date = models.DateField(
+        null=True
+    )
+    end_date = models.DateField(
+        null=True
+    )
+    Website =  = models.CharField(
+        max_length=MAX_URL_LENGTH,
+        validators=[online_document],
+        null=True
+    )
+    attendance  = models.IntegerField(
+        null=True
+    )
+
 class GeneralSentMail(models.Model):
     """Emails sent with custom text."""
     class Meta:
