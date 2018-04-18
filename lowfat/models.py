@@ -727,7 +727,7 @@ class Expense(models.Model):
     status = models.CharField(
         choices=EXPENSE_STATUS,
         max_length=1,
-        default="P"
+        default="S"
     )
     asked_for_authorization_date = models.DateField(
         blank=True,
