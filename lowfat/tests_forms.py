@@ -940,6 +940,8 @@ class FundReviewFormTest(TestCase):
     def test_null_status(self):
         data = {
             "ad_status": "V",
+            "category": "A",
+            "focus": "C",
             "grant_heading": "F",
             "grant": "SSI1",
             "required_blog_posts": 1,
@@ -954,6 +956,8 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "",
             "ad_status": "V",
+            "category": "A",
+            "focus": "C",
             "grant_heading": "F",
             "grant": "SSI1",
             "required_blog_posts": 1,
@@ -964,10 +968,70 @@ class FundReviewFormTest(TestCase):
         form = FundReviewForm(data)
         self.assertFalse(form.is_valid())
 
+    def test_null_category(self):
+        data = {
+            "status": "A",
+            "ad_status": "V",
+            "focus": "C",
+            "grant_heading": "F",
+            "grant": "SSI1",
+            "required_blog_posts": 1,
+            "budget_approved": 100.00,
+        }
+
+        form = FundReviewForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_blank_category(self):
+        data = {
+            "status": "A",
+            "ad_status": "V",
+            "category": "",
+            "focus": "C",
+            "grant_heading": "F",
+            "grant": "SSI1",
+            "required_blog_posts": 1,
+            "budget_approved": 100.00,
+        }
+
+        form = FundReviewForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_null_focus(self):
+        data = {
+            "status": "A",
+            "ad_status": "V",
+            "category": "A",
+            "grant_heading": "F",
+            "grant": "SSI1",
+            "required_blog_posts": 1,
+            "budget_approved": 100.00,
+        }
+
+        form = FundReviewForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_blank_focus(self):
+        data = {
+            "status": "A",
+            "ad_status": "V",
+            "category": "A",
+            "focus": "",
+            "grant_heading": "F",
+            "grant": "SSI1",
+            "required_blog_posts": 1,
+            "budget_approved": 100.00,
+        }
+
+        form = FundReviewForm(data)
+        self.assertFalse(form.is_valid())
+
     def test_null_fund_from_default(self):
         data = {
             "status": "",
             "ad_status": "V",
+            "category": "A",
+            "focus": "C",
             "grant": "SSI1",
             "required_blog_posts": 1,
             "budget_approved": 100.00,
@@ -981,6 +1045,8 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "",
             "ad_status": "V",
+            "category": "A",
+            "focus": "C",
             "grant_heading": "",
             "grant": "SSI1",
             "required_blog_posts": 1,
@@ -995,6 +1061,8 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "",
             "ad_status": "V",
+            "category": "A",
+            "focus": "C",
             "grant_heading": "F",
             "required_blog_posts": 1,
             "budget_approved": 100.00,
@@ -1008,6 +1076,8 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "",
             "ad_status": "V",
+            "category": "A",
+            "focus": "C",
             "grant_heading": "F",
             "grant": "",
             "required_blog_posts": 1,
@@ -1022,6 +1092,8 @@ class FundReviewFormTest(TestCase):
     #def test_null_ad_status(self):
     #    data = {
     #        "status": "A",
+    #        "category": "A",
+    #        "focus": "C",
     #        "required_blog_posts": 1,
     #        "grant_heading": "F",
     #        "grant": "SSI1",
@@ -1036,6 +1108,8 @@ class FundReviewFormTest(TestCase):
     #    data = {
     #        "status": "A",
     #        "ad_status": "",
+    #        "category": "A",
+    #        "focus": "C",
     #        "grant_heading": "F",
     #        "grant": "SSI1",
     #        "required_blog_posts": 1,
@@ -1050,6 +1124,8 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "A",
             "ad_status": "V",
+            "category": "A",
+            "focus": "C",
             "grant_heading": "F",
             "grant": "SSI1",
             "budget_approved": 100.00,
@@ -1062,6 +1138,8 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "A",
             "ad_status": "V",
+            "category": "A",
+            "focus": "C",
             "grant_heading": "F",
             "grant": "SSI1",
             "required_blog_posts": 1,
@@ -1075,6 +1153,8 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "A",
             "ad_status": "V",
+            "category": "A",
+            "focus": "C",
             "grant_heading": "F",
             "grant": "SSI1",
             "required_blog_posts": 1,
@@ -1088,6 +1168,8 @@ class FundReviewFormTest(TestCase):
         data = {
             "status": "A",
             "ad_status": "V",
+            "category": "A",
+            "focus": "C",
             "grant_heading": "F",
             "grant": "SSI1",
             "required_blog_posts": 1,

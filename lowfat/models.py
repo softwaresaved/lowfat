@@ -50,7 +50,7 @@ FUND_FOCUS = (
     ('C', 'Cross cutting'),
 )
 
-class FundActivity(tagulous.models.TagTreeModel):
+class FundActivity(tagulous.models.TagTreeModel):  # pylint: disable=model-no-explicit-unicode
     class Meta:
         verbose_name = 'Fund Activity Tag'
         verbose_name_plural = 'Fund Activity Tags'
@@ -494,7 +494,8 @@ class Fund(models.Model):
         default="C"
     )
     activity = tagulous.models.TagField(
-        to=FundActivity
+        to=FundActivity,
+        blank=True
     )
     mandatory = models.BooleanField(default=False)
     title = models.CharField(max_length=MAX_CHAR_LENGTH)
