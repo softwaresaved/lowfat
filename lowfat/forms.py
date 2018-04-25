@@ -421,6 +421,7 @@ class FundReviewForm(GarlicForm):
             #"ad_status",  # TODO uncomment in the future
             "category",
             "focus",
+            "mandatory",
             "grant_heading",
             "grant",
             "activity",
@@ -430,6 +431,7 @@ class FundReviewForm(GarlicForm):
         ]
 
         labels = {
+            "mandatory": "Is this a mandatory event?",
             "grant_heading": "Default Grant Heading",
             "grant": "Default Grant",
             "activity": "Activities tag",
@@ -449,6 +451,7 @@ class FundReviewForm(GarlicForm):
                 "status",
                 "category",
                 "focus",
+                "mandatory",
                 "grant",
                 "grant_heading",
                 "activity",
