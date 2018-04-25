@@ -35,7 +35,7 @@
     "fields": {
         "url": "/email/template/fund/staff/",
         "title": "We have a new funding request pending your review",
-        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Hi,</p>\r\n<p>We received a new funding request from <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.claimant.link }}\">{{ fund.claimant.fullname }}</a> for <a href=\"{{ fund.url }}\">{{ fund.name }}</a>.</p>\r\n<p>Please visit <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.link_review }}\">{{ protocol }}://{{ site.domain }}{{ fund.link_review }}</a> to review it.</p>\r\n<p>\r\n---\r\nLowFAT\r\n</p>\r\n</body>\r\n</html>",
+        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Hi,</p>\r\n<p>We received a new funding request from <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.claimant.link }}\">{{ fund.claimant.fullname }}</a> for <a href=\"{{ fund.url }}\">{{ fund.title }}</a>.</p>\r\n<p>Please visit <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.link_review }}\">{{ protocol }}://{{ site.domain }}{{ fund.link_review }}</a> to review it.</p>\r\n<p>\r\n---\r\nLowFAT\r\n</p>\r\n</body>\r\n</html>",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -80,7 +80,7 @@
     "fields": {
         "url": "/email/template/fund/claimant/",
         "title": "We received your funding request",
-        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Dear {{ fund.claimant.fullname }},</p>\r\n<p>We have received your funding request for {{ fund.name }}.</p>\r\n<p>The Fellows Management team will evaluate it and reply to you in the next few days.</p>\r\n<p>You can check the status of your funding request at <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.link }}\">{{ protocol }}://{{ site.domain }}{{ fund.link }}</a>.</p>\r\n<p>If you do not hear from us in 3 days then please email us a reminder to <a href=\"mailto:{{ FELLOWS_MANAGEMENT_EMAIL }}\">{{ FELLOWS_MANAGEMENT_EMAIL }}</a>.</p>\r\n<p>\r\nBest wishes,<br>\r\nFellows Management (<a href=\"mailto:{{ FELLOWS_MANAGEMENT_EMAIL }}\">{{ FELLOWS_MANAGEMENT_EMAIL }}</a>)<br>\r\nSoftware Sustainability Institute\r\n</p>\r\n</body>\r\n</html>",
+        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Dear {{ fund.claimant.fullname }},</p>\r\n<p>We have received your funding request for {{ fund.title }}.</p>\r\n<p>The Fellows Management team will evaluate it and reply to you in the next few days.</p>\r\n<p>You can check the status of your funding request at <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.link }}\">{{ protocol }}://{{ site.domain }}{{ fund.link }}</a>.</p>\r\n<p>If you do not hear from us in 3 days then please email us a reminder to <a href=\"mailto:{{ FELLOWS_MANAGEMENT_EMAIL }}\">{{ FELLOWS_MANAGEMENT_EMAIL }}</a>.</p>\r\n<p>\r\nBest wishes,<br>\r\nFellows Management (<a href=\"mailto:{{ FELLOWS_MANAGEMENT_EMAIL }}\">{{ FELLOWS_MANAGEMENT_EMAIL }}</a>)<br>\r\nSoftware Sustainability Institute\r\n</p>\r\n</body>\r\n</html>",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -95,7 +95,7 @@
     "fields": {
         "url": "/email/template/expense/staff/",
         "title": "We have a new expense claim pending your review",
-        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Hi,</p>\r\n<p>We received a new expense claim from <a href=\"{{ protocol }}://{{ site.domain }}{{ expense.fund.claimant.link }}\">{{ expense.fund.claimant.fullname }}</a> for <a href=\"{{ expense.fund.url }}\">{{ expense.fund.name }}</a>.</p>\r\n<p>Please visit <a href=\"{{ protocol }}://{{ site.domain }}{{ expense.link_review }}\">{{ protocol }}://{{ site.domain }}{{ expense.link_review }}</a> to review it.</p>\r\n<p>\r\n---<br>\r\nLowFAT\r\n</p>\r\n</body>\r\n</html>",
+        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Hi,</p>\r\n<p>We received a new expense claim from <a href=\"{{ protocol }}://{{ site.domain }}{{ expense.fund.claimant.link }}\">{{ expense.fund.claimant.fullname }}</a> for <a href=\"{{ expense.fund.url }}\">{{ expense.fund.title }}</a>.</p>\r\n<p>Please visit <a href=\"{{ protocol }}://{{ site.domain }}{{ expense.link_review }}\">{{ protocol }}://{{ site.domain }}{{ expense.link_review }}</a> to review it.</p>\r\n<p>\r\n---<br>\r\nLowFAT\r\n</p>\r\n</body>\r\n</html>",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -110,7 +110,7 @@
     "fields": {
         "url": "/email/template/expense/claimant/",
         "title": "We received your expense claim",
-        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Dear {{ expense.fund.claimant.fullname }},</p>\r\n<p>We have received your expenses claim of \u00a3{{ expense.amount_claimed }} for {{ expense.fund.name }}.</p>\r\n<p>We will process it as soon as possible and we will contact you if needed.</p>\r\n<p>You can check the status of your expense claim at <a href=\"{{ protocol }}://{{ site.domain }}{{ expense.link }}\">{{ protocol }}://{{ site.domain }}{{ expense.link }}</a>.</p>\r\n<p>\r\nBest wishes,<br>\r\nFellows Management (<a href=\"mailto:{{ FELLOWS_MANAGEMENT_EMAIL }}\">{{ FELLOWS_MANAGEMENT_EMAIL }}</a>)<br>\r\nSoftware Sustainability Institute\r\n</p>\r\n</body>\r\n</html>",
+        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Dear {{ expense.fund.claimant.fullname }},</p>\r\n<p>We have received your expenses claim of \u00a3{{ expense.amount_claimed }} for {{ expense.fund.title }}.</p>\r\n<p>We will process it as soon as possible and we will contact you if needed.</p>\r\n<p>You can check the status of your expense claim at <a href=\"{{ protocol }}://{{ site.domain }}{{ expense.link }}\">{{ protocol }}://{{ site.domain }}{{ expense.link }}</a>.</p>\r\n<p>\r\nBest wishes,<br>\r\nFellows Management (<a href=\"mailto:{{ FELLOWS_MANAGEMENT_EMAIL }}\">{{ FELLOWS_MANAGEMENT_EMAIL }}</a>)<br>\r\nSoftware Sustainability Institute\r\n</p>\r\n</body>\r\n</html>",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -125,7 +125,7 @@
     "fields": {
         "url": "/email/template/expense/claimant/change/",
         "title": "New message about your expense claim request",
-        "content": "{% load markdown %}\r\n<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Dear  {{ new.fund.claimant.fullname }},</p>\r\n<p>Your expense claim for {{ new.fund.name }} has been {{ new.get_status_display }}.</p>\r\n<p>You can check the details of your expense claim at <a href=\"{{ protocol }}://{{ site.domain }}{{ new.link }}\">{{ protocol }}://{{ site.domain }}{{ new.link }}</a>.</p>\r\n{% if notes %}\r\n<p>Notes:</p>\r\n<blockquotes>\r\n{{ notes | markdown | safe }}\r\n</blockquotes>\r\n{% endif %}\r\n<p>\r\nBest wishes,<br>\r\nFellows Management (<a href=\"mailto:{{ FELLOWS_MANAGEMENT_EMAIL }}\">{{ FELLOWS_MANAGEMENT_EMAIL }}</a>)<br>\r\nSoftware Sustainability Institute\r\n</p>\r\n</body>\r\n</html>",
+        "content": "{% load markdown %}\r\n<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Dear  {{ new.fund.claimant.fullname }},</p>\r\n<p>Your expense claim for {{ new.fund.title }} has been {{ new.get_status_display }}.</p>\r\n<p>You can check the details of your expense claim at <a href=\"{{ protocol }}://{{ site.domain }}{{ new.link }}\">{{ protocol }}://{{ site.domain }}{{ new.link }}</a>.</p>\r\n{% if notes %}\r\n<p>Notes:</p>\r\n<blockquotes>\r\n{{ notes | markdown | safe }}\r\n</blockquotes>\r\n{% endif %}\r\n<p>\r\nBest wishes,<br>\r\nFellows Management (<a href=\"mailto:{{ FELLOWS_MANAGEMENT_EMAIL }}\">{{ FELLOWS_MANAGEMENT_EMAIL }}</a>)<br>\r\nSoftware Sustainability Institute\r\n</p>\r\n</body>\r\n</html>",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -140,7 +140,7 @@
     "fields": {
         "url": "/email/template/fund/claimant/change/",
         "title": "Message about your funding request",
-        "content": "{% load markdown %}\r\n<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Dear {{ new.claimant.fullname }},</p>\r\n<p>Your funding request for {{ new.name }} has been {{ new.get_status_display }}.</p>\r\n<p>You can check the details of your funding request at <a href=\"{{ protocol }}://{{ site.domain }}{{ new.link }}\">{{ protocol }}://{{ site.domain }}{{ new.link }}</a>.</p>\r\n{% if notes %}\r\n<p>Notes:</p>\r\n<blockquote>\r\n{{ notes | markdown | safe }}\r\n</blockquote>\r\n{% endif %}\r\n<p>\r\nBest wishes,<br>\r\nFellows Management (<a href=\"{{ FELLOWS_MANAGEMENT_EMAIL }}\">{{ FELLOWS_MANAGEMENT_EMAIL }}</a>)<br>\r\nSoftware Sustainability Institute\r\n</p>\r\n</body>\r\n</html>",
+        "content": "{% load markdown %}\r\n<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Dear {{ new.claimant.fullname }},</p>\r\n<p>Your funding request for {{ new.title }} has been {{ new.get_status_display }}.</p>\r\n<p>You can check the details of your funding request at <a href=\"{{ protocol }}://{{ site.domain }}{{ new.link }}\">{{ protocol }}://{{ site.domain }}{{ new.link }}</a>.</p>\r\n{% if notes %}\r\n<p>Notes:</p>\r\n<blockquote>\r\n{{ notes | markdown | safe }}\r\n</blockquote>\r\n{% endif %}\r\n<p>\r\nBest wishes,<br>\r\nFellows Management (<a href=\"{{ FELLOWS_MANAGEMENT_EMAIL }}\">{{ FELLOWS_MANAGEMENT_EMAIL }}</a>)<br>\r\nSoftware Sustainability Institute\r\n</p>\r\n</body>\r\n</html>",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -200,7 +200,7 @@
     "fields": {
         "url": "/email/template/expense/staff/reminder/",
         "title": "We have a expense claim pending your review",
-        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Hi,</p>\r\n<p><strong>On {{ expense.added }}</strong>, we received a new expense claim from <a href=\"{{ protocol }}://{{ site.domain }}{{ expense.fund.claimant.link }}\">{{ expense.fund.claimant.fullname }}</a> for <a href=\"{{ expense.fund.url }}\">{{ expense.fund.name }}</a>.</p>\r\n<p>Please visit <a href=\"{{ protocol }}://{{ site.domain }}{{ expense.link_review }}\">{{ protocol }}://{{ site.domain }}{{ expense.link_review }}</a> to review it.</p>\r\n<p>\r\n---<br>\r\nLowFAT\r\n</p>\r\n</body>\r\n</html>",
+        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Hi,</p>\r\n<p><strong>On {{ expense.added }}</strong>, we received a new expense claim from <a href=\"{{ protocol }}://{{ site.domain }}{{ expense.fund.claimant.link }}\">{{ expense.fund.claimant.fullname }}</a> for <a href=\"{{ expense.fund.url }}\">{{ expense.fund.title }}</a>.</p>\r\n<p>Please visit <a href=\"{{ protocol }}://{{ site.domain }}{{ expense.link_review }}\">{{ protocol }}://{{ site.domain }}{{ expense.link_review }}</a> to review it.</p>\r\n<p>\r\n---<br>\r\nLowFAT\r\n</p>\r\n</body>\r\n</html>",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
@@ -215,7 +215,7 @@
     "fields": {
         "url": "/email/template/fund/staff/reminder/",
         "title": "We have a funding request pending your review",
-        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Hi,</p>\r\n<p><strong>On {{ fund.added }}</strong>, we received a new funding request from <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.claimant.link }}\">{{ fund.claimant.fullname }}</a> for <a href=\"{{ fund.url }}\">{{ fund.name }}</a>.</p>\r\n<p>Please visit <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.link_review }}\">{{ protocol }}://{{ site.domain }}{{ fund.link_review }}</a> to review it.</p>\r\n<p>\r\n---\r\nLowFAT\r\n</p>\r\n</body>\r\n</html>",
+        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Hi,</p>\r\n<p><strong>On {{ fund.added }}</strong>, we received a new funding request from <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.claimant.link }}\">{{ fund.claimant.fullname }}</a> for <a href=\"{{ fund.url }}\">{{ fund.title }}</a>.</p>\r\n<p>Please visit <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.link_review }}\">{{ protocol }}://{{ site.domain }}{{ fund.link_review }}</a> to review it.</p>\r\n<p>\r\n---\r\nLowFAT\r\n</p>\r\n</body>\r\n</html>",
         "enable_comments": false,
         "template_name": "",
         "registration_required": false,
