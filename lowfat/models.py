@@ -54,6 +54,9 @@ class FundActivity(tagulous.models.TagTreeModel):  # pylint: disable=model-no-ex
     class Meta:
         verbose_name = 'Fund Activity Tag'
         verbose_name_plural = 'Fund Activity Tags'
+        ordering = [
+            "name",
+        ]
 
     class TagMeta:
         initial = "attending as ssi, conference, field trip, focus group, hack, knowledge exchange, local, meeting, new paradigm, new resource, organising submeeting, panel, paying for others, policy, poster presentation, prize, roundtable, roundtable/lead, software Special Interest Group, ssi organised, supported collaborator, survey, talk at, talk at/invited, teaching at, teaching as helper, training/attending, training/organiser, unconference, working group, workshop"
