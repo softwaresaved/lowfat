@@ -425,7 +425,7 @@ class Claimant(models.Model):
     def __str__(self):
         return "{} ({}{})".format(
             self.fullname(),
-            self.application_year,
+            self.application_year + 1,
             " ✓" if self.fellow else ""
         )
 
