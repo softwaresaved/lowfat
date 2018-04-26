@@ -15,6 +15,11 @@ from django.template import Context, Template
 from .models import *
 from .settings import DEFAULT_FROM_EMAIL, SITE_ID
 
+def html2text_fix(html):
+    """Remove split text in blockquotes."""
+    # Workaround until https://github.com/Alir3z4/html2text/pull/179/files is merged.
+    return html2text(html).replace("\n\n>", "\n>")
+
 def mail_staffs(subject, message, fail_silently=False, connection=None, html_message=None):
     """Overwrite of Django mail_staffs()"""
     msg = EmailMultiAlternatives(
@@ -41,7 +46,7 @@ def new_notification(staff_url, email_url, user_email, context, mail):
         template = Template(flatemail.content)
         jinja_context = Context(context)
         html = template.render(jinja_context)
-        plain_text = html2text(html)
+        plain_text = html2text_fix(html)
         mail_staffs(
             flatemail.title,
             plain_text,
@@ -61,7 +66,7 @@ def new_notification(staff_url, email_url, user_email, context, mail):
         template = Template(flatemail.content)
         jinja_context = Context(context)
         html = template.render(jinja_context)
-        plain_text = html2text(html)
+        plain_text = html2text_fix(html)
         msg = EmailMultiAlternatives(
             flatemail.title,
             plain_text,
@@ -145,7 +150,7 @@ def review_notification(email_url, user_email, context, mail, copy_to_staffs=Fal
         })
         context = Context(context)
         html = template.render(context)
-        plain_text = html2text(html)
+        plain_text = html2text_fix(html)
         mail.justification = plain_text
 
         # Email to claimant
@@ -264,7 +269,7 @@ def staff_reminder(request):  # pylint: disable=invalid-name
         template = Template(flatemail.content)
         jinja_context = Context(context)
         html = template.render(jinja_context)
-        plain_text = html2text(html)
+        plain_text = html2text_fix(html)
         mail_staffs(
             flatemail.title,
             plain_text,
