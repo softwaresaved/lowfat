@@ -51,6 +51,7 @@ FUND_PATTERNS = [
     url(r'^(?P<fund_id>[0-9]+)/remove', views.fund_remove, name="fund_remove"),
     url(r'^(?P<fund_id>[0-9]+)/', views.fund_detail, name="fund_detail"),
     url(r'^previous/', views.fund_past, name="fund_past"),
+    url(r'^ical/', views.fund_ical, name="fund_ical"),
     url(r'^import/', views.fund_import, name="fund_import"),
     url(r'^', views.fund_form, name="fund"),
 ]

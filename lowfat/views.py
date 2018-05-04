@@ -469,6 +469,17 @@ def fund_past(request):
 
     return render(request, 'lowfat/fund_past.html', context)
 
+def fund_ical(request):
+    funds = Fund.objects.filter(
+        can_be_advertise_after=True,
+    )
+
+    context = {
+        'funds': funds,
+    }
+
+    return render(request, 'lowfat/ical.html', context)
+
 @staff_member_required
 def fund_import(request):
     if request.POST:
