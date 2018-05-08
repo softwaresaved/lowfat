@@ -22,7 +22,7 @@
         <tr>
             <th>Requester name</th>
             <td>
-              <a href="{% url 'fellow_slug' expense.fund.claimant.slug %}">{{ expense.fund.claimant.fullname }}</a>
+              {{ expense.fund.claimant.fullname_link|safe }}
               <a class="icon" href="mailto:{{ expense.fund.claimant.email }}">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
               </a>
@@ -30,7 +30,7 @@
         </tr>
         <tr>
             <th>Funding request title</th>
-            <td><a href="{% url 'fund_detail' expense.fund.id %}">{{ expense.fund.title }}</a></td>
+            <td>{{ expense.fund.title_link|safe }}</td>
         </tr>
         <tr>
             <th>Budget approved</th>

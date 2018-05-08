@@ -432,6 +432,20 @@ class Claimant(models.Model):
     def fullname(self):
         return "{} {}".format(self.forenames, self.surname)
 
+    def link(self):
+        if self.fellow:
+            function_name = "fellow_slug"
+        else:
+            function_name = "claimant_slug"
+        return reverse(function_name, args=[self.slug])
+
+    def fullname_link(self):
+        return """<a href="{}">{} {}</a>""".format(
+            self.link(),
+            self.forenames,
+            self.surname
+        )
+
     def claimantship_available(self):
         """Return the remain claimantship grant."""
         money_available = 0
@@ -466,13 +480,6 @@ class Claimant(models.Model):
         )
 
         return sum([expense.amount_claimed for expense in this_claimant_expenses])
-
-    def link(self):
-        if self.fellow:
-            function_name = "fellow_slug"
-        else:
-            function_name = "claimant_slug"
-        return reverse(function_name, args=[self.slug])
 
 class Fund(models.Model):
     """Describe a fund from one claimant."""
@@ -657,6 +664,12 @@ class Fund(models.Model):
 
     def link(self):
         return reverse("fund_detail", args=[self.id])
+
+    def title_link(self):
+        return """<a href="{}">{}</a>""".format(
+            self.link(),
+            self.title
+        )
 
     def link_review(self):
         return reverse("fund_review", args=[self.id])
