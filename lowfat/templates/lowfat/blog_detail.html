@@ -24,9 +24,7 @@
     <tr>
       <th>Author</th>
       <td>
-        <a href="{% url 'fellow_slug' blog.author.slug %}">
-          {{ blog.author.fullname }}
-        </a>
+          {{ blog.author.fullname_link|sage }}
         <a class="icon" href="mailto:{{ blog.author.email }}">
           <i class="fa fa-envelope" aria-hidden="true"></i>
         </a>
@@ -37,7 +35,7 @@
       <th>Contributors</th>
         <td>
           {% for author in blog.coauthor.all %}
-          <a href="{% url 'fellow_slug' author.slug %}">{{ author.fullname }}</a>
+          {{ author.fullname_link|safe }}
           <a class="icon" href="mailto:{{ author.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>{% if not forloop.last %}, {% endif %}
           {% endfor %}
         </td>
@@ -46,11 +44,7 @@
     {% if blog.fund %}
     <tr>
       <th>Funding request title</th>
-      <td>
-        <a href="{% url 'fund_detail' blog.fund.id %}">
-          {{ blog.fund.title }}
-        </a>
-      </td>
+      <td>{{ blog.fund.title_link|safe }}</td>
     </tr>
     {% endif %}
     <tr>
