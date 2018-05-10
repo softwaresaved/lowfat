@@ -109,6 +109,59 @@ class ClaimantAdmin(SimpleHistoryAdmin):
 
 @admin.register(Fund)
 class FundAdmin(SimpleHistoryAdmin):
+    fieldsets = [
+        (None, {
+            'fields': [
+                'claimant',
+                'title',
+                'url',
+                'country',
+                'city',
+                'lon',
+                'lat',
+                'start_date',
+                'end_date',
+                'justification',
+                'additional_info',
+                'extra_sponsored',
+                ]
+            }),
+        ('Budget', {
+            'fields': [
+                'budget_request_travel',
+                'budget_request_attendance_fees',
+                'budget_request_subsistence_cost',
+                'budget_request_venue_hire',
+                'budget_request_catering',
+                'budget_request_others',
+                'budget_approved',
+                ]
+            }),
+        ('Metadata', {
+            'fields': [
+                'category',
+                'focus',
+                'activity',
+                'mandatory',
+                ]
+            }),
+        ('GDPR', {
+            'fields': [
+                'can_be_advertise_before',
+                'can_be_advertise_after',
+                ]
+            }),
+        ('Admin', {
+            'fields': [
+                'ad_status',
+                'status',
+                'required_blog_posts',
+                'grant',
+                'grant_heading',
+                'notes_from_admin',
+                ]
+            }),
+        ]
     list_display = [
         'claimant',
         'title',
