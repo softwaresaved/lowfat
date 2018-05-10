@@ -171,6 +171,44 @@ class AmountListFilter(admin.SimpleListFilter):
 
 @admin.register(Expense)
 class ExpenseAdmin(SimpleHistoryAdmin):
+    fieldsets = [
+        (None, {
+            'fields': [
+                'fund',
+                'claim',
+                'amount_claimed',
+                'justification_for_extra',
+                'final',
+                ]
+            }),
+        ('Requests', {
+            'fields': [
+                'invoice',
+                'invoice_reference',
+                'advance_booking',
+                ]
+            }),
+        ('Recipient', {
+            'fields': [
+                'recipient_fullname',
+                'recipient_email',
+                'recipient_affiliation',
+                'recipient_group',
+                'recipient_connection',
+                ]
+            }),
+        ('Admin', {
+            'fields': [
+                'status',
+                'amount_authorized_for_payment',
+                'asked_for_authorization_date',
+                'send_to_finance_date',
+                'grant_heading',
+                'grant',
+                'notes_from_admin',
+                ]
+            })
+        ]
     list_display = [
         'fund',
         'get_claimant',
