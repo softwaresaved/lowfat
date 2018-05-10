@@ -109,6 +109,59 @@ class ClaimantAdmin(SimpleHistoryAdmin):
 
 @admin.register(Fund)
 class FundAdmin(SimpleHistoryAdmin):
+    fieldsets = [
+        (None, {
+            'fields': [
+                'claimant',
+                'title',
+                'url',
+                'country',
+                'city',
+                'lon',
+                'lat',
+                'start_date',
+                'end_date',
+                'justification',
+                'additional_info',
+                'extra_sponsored',
+                ]
+            }),
+        ('Budget', {
+            'fields': [
+                'budget_request_travel',
+                'budget_request_attendance_fees',
+                'budget_request_subsistence_cost',
+                'budget_request_venue_hire',
+                'budget_request_catering',
+                'budget_request_others',
+                'budget_approved',
+                ]
+            }),
+        ('Metadata', {
+            'fields': [
+                'category',
+                'focus',
+                'activity',
+                'mandatory',
+                ]
+            }),
+        ('GDPR', {
+            'fields': [
+                'can_be_advertise_before',
+                'can_be_advertise_after',
+                ]
+            }),
+        ('Admin', {
+            'fields': [
+                'ad_status',
+                'status',
+                'required_blog_posts',
+                'grant',
+                'grant_heading',
+                'notes_from_admin',
+                ]
+            }),
+        ]
     list_display = [
         'claimant',
         'title',
@@ -171,6 +224,44 @@ class AmountListFilter(admin.SimpleListFilter):
 
 @admin.register(Expense)
 class ExpenseAdmin(SimpleHistoryAdmin):
+    fieldsets = [
+        (None, {
+            'fields': [
+                'fund',
+                'claim',
+                'amount_claimed',
+                'justification_for_extra',
+                'final',
+                ]
+            }),
+        ('Requests', {
+            'fields': [
+                'invoice',
+                'invoice_reference',
+                'advance_booking',
+                ]
+            }),
+        ('Recipient', {
+            'fields': [
+                'recipient_fullname',
+                'recipient_email',
+                'recipient_affiliation',
+                'recipient_group',
+                'recipient_connection',
+                ]
+            }),
+        ('Admin', {
+            'fields': [
+                'status',
+                'amount_authorized_for_payment',
+                'asked_for_authorization_date',
+                'send_to_finance_date',
+                'grant_heading',
+                'grant',
+                'notes_from_admin',
+                ]
+            })
+        ]
     list_display = [
         'fund',
         'get_claimant',
@@ -206,6 +297,32 @@ class ExpenseAdmin(SimpleHistoryAdmin):
 
 @admin.register(Blog)
 class BlogAdmin(SimpleHistoryAdmin):
+    fieldsets = [
+        (None, {
+            'fields': [
+                'author',
+                'coauthor',
+                'fund',
+                'draft_url',
+                'final',
+                'notes_from_author',
+            ]
+        }),
+        ('Publish information', {
+            'fields': [
+                'status',
+                'title',
+                'published_url',
+                'tweet_url',
+            ]
+        }),
+        ('Admin', {
+            'fields': [
+                'reviewer',
+                'notes_from_admin',
+            ]
+        })
+    ]
     list_display = [
         'author',
         'fund',
