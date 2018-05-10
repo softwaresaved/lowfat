@@ -206,6 +206,32 @@ class ExpenseAdmin(SimpleHistoryAdmin):
 
 @admin.register(Blog)
 class BlogAdmin(SimpleHistoryAdmin):
+    fieldsets = [
+        (None, {
+            'fields': [
+                'author',
+                'coauthor',
+                'fund',
+                'draft_url',
+                'final',
+                'notes_from_author',
+            ]
+        }),
+        ('Publish information', {
+            'fields': [
+                'status',
+                'title',
+                'published_url',
+                'tweet_url',
+            ]
+        }),
+        ('Admin', {
+            'fields': [
+                'reviewer',
+                'notes_from_admin',
+            ]
+        })
+    ]
     list_display = [
         'author',
         'fund',
