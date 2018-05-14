@@ -19,8 +19,8 @@
   <a title="Remove" class="btn btn-default" href="{% url 'expense_remove_relative' expense.fund.id expense.relative_number %}?next={% url 'dashboard' %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>
   {% endif %}
 </h1>
-<object class="expense-review-pdf" data="{{ expense.claim.url }}" type="application/pdf">
-  <p>You will need to download the <a href="{{ expense.claim.url }}">PDF file.</a></p>
+<object class="expense-review-pdf" data="{% url 'expense_claim_relative' expense.fund.id expense.relative_number %}" type="application/pdf">
+  <p>You will need to download the <a href="{% url 'expense_claim_relative' expense.fund.id expense.relative_number %}">PDF file.</a></p>
 </object>
 <table class="table table-bordered">
     <tbody>
