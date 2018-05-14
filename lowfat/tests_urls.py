@@ -615,6 +615,31 @@ class URLTest(TestCase):
 
         self.run_requests(url, queries)
 
+    def test_expense_claim_relative(self):
+        this_expense = Expense.objects.get(id=self.expense_id)
+        url = '/fund/{}/expense/{}/pdf'.format(self.fund_id, this_expense.relative_number)
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 200,
+                "final_url_regex": r"/login/\?next=/fund/\d+/expense/\d+/pdf",
+            },
+            {
+                "user": self.claimant_a,
+                "expect_code": 200,
+            },
+            {
+                "user": self.claimant_b,
+                "expect_code": 404,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
+
+        self.run_requests(url, queries)
+
     def test_expense_details(self):
         url = '/expense/{}/'.format(self.expense_id)
         queries = [
