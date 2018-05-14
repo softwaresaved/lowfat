@@ -24,7 +24,7 @@
     <tr>
       <th>Author</th>
       <td>
-          {{ blog.author.fullname_link|sage }}
+          {{ blog.author.fullname_link|safe }}
         <a class="icon" href="mailto:{{ blog.author.email }}">
           <i class="fa fa-envelope" aria-hidden="true"></i>
         </a>
