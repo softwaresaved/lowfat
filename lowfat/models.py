@@ -823,6 +823,13 @@ class Expense(models.Model):
     def link_review(self):
         return reverse("expense_review", args=[self.id])
 
+    def link_claim(self):
+        return reverse("expense_claim", args=[self.id])
+
+    def claim_clean_name(self):
+        return "{}".format(
+            self.claim.name.replace("/", "-")
+        )
 
 class Blog(models.Model):
     """Provide the link to the blog post about the fund."""

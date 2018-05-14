@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count, Q
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.shortcuts import render
 
@@ -668,6 +668,26 @@ def expense_remove_relative(request, fund_id, expense_relative_number):
                 messages.error(request, 'Only the author can remove the blog.')
 
     return HttpResponseRedirect(redirect_url)
+
+@login_required
+def expense_claim(request, expense_id):
+    this_expense = Expense.objects.get(id=expense_id)
+
+    if (request.user.is_superuser or
+            Claimant.objects.get(user=request.user) == this_expense.fund.claimant):
+        with open(this_expense.claim.path, "rb") as _file:
+            response = HttpResponse(_file.read(), content_type="application/pdf")
+            response['Content-Disposition'] = 'inline; filename="{}"'.format(
+                this_expense.claim_clean_name())
+            return response
+
+    raise Http404("PDF does not exist.")
+
+@login_required
+def expense_claim_relative(request, fund_id, expense_relative_number):
+    this_fund = Fund.objects.get(id=fund_id)
+    this_expense = Expense.objects.get(fund=this_fund, relative_number=expense_relative_number)
+    return expense_claim(request, this_expense.id)
 
 @login_required
 def blog_form(request, **kargs):
