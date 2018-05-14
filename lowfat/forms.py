@@ -329,7 +329,7 @@ class FundForm(GarlicForm):
             if date_from_today.days <= 0:
                 raise ValidationError('"Start date of event" must be in the future.')
         return self.cleaned_data['start_date']
-    
+
     def clean_end_date(self):
         if 'end_date' in self.cleaned_data:
             date_from_today = self.cleaned_data['end_date'] - date.today()
