@@ -2,6 +2,7 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//lowFAT/Software Sustainability Institute
 {% for fund in funds %}
+{% if fund.can_be_included_in_calendar %}
 BEGIN:VEVENT
 UID:lowFAT-fund-{{ fund.id }}
 DTSTAMP:{{ fund.added|date:"Ymd" }}T{{ fund.added|date:"Hi" }}00Z
@@ -14,5 +15,6 @@ DTSTART:{{ fund.start_date|date:"Ymd" }}
 DTEND:{{ fund.end_date|date:"Ymd" }}
 SUMMARY:{{ fund.title }}
 END:VEVENT
+{% endif %}
 {% endfor %}
 END:VCALENDAR
