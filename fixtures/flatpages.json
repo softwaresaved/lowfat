@@ -268,5 +268,20 @@
             1
         ]
     }
+},
+{
+    "model": "flatpages.flatpage",
+    "pk": 20,
+    "fields": {
+        "url": "/privacy/",
+        "title": "Privacy Statement",
+        "content": "<p><strong>Information about you: how we use it and with whom we share it.</strong></p>\r\n<p>The information you provide will be used by the Software Sustainability Institute (a collaborative project between the University of Edinburgh, the University of Manchester, the University of Oxford and the University of Southampton) to:</p>\r\n<ul>\r\n  <li>Administer your Fellowship with the Institute, including your participation in the selection process.</li>\r\n  <li>Enable you to submit expense claim requests.</li>\r\n  <li>If selected to receive a Fellowship:\r\n    <ul>\r\n      <li>Enable you to submit and keep you informed on the progress of requests made in conjunction with your Fellowship.</li>\r\n      <li>Create pages on our websites showcasing the work you have done as a Fellow of the Institute.</li>\r\n      <li>Review your progress as a Fellow in your inaugural year.</li>\r\n      <li>Keep you informed about Institute activities that may be of benefit to you.</li>\r\n    </ul>\r\n  <li>Report aggregated demographic information on the Fellowship programme  to stakeholders.</li>\r\n</ul>\r\n<p>The Institute will use an external company to process information about you on the Institute\u2019s behalf. We use Google Forms, Google Sheets and Google Drive to collect and manage your application data; Dropbox to store your application video and document and share it with reviewers; and Mailchimp for email communication. The Institute, through its constituent University partners, remains responsible for the information and will ensure it is kept securely.</p>\r\n<p>We are using information about you because it is necessary for performance of a contract, namely allowing you to participate in the Fellowship programme and receive funding.</p>\r\n<p>We will hold the personal data you provided for one year after your application if unsuccessful. If you are successful and awarded a Fellowship, we will hold the personal data you provided for one year after you choose to withdraw from the Fellowship programme or one year after the closure of the Institute. Exceptions to this are:</p>\r\n<ul>\r\n  <li>We are obliged to keep your expenses claims for longer (a period of seven years) to comply with legislation (1970 c.9 <a href=\"http://www.legislation.gov.uk/ukpga/1970/9/contents/enacted\">Taxes Management Act 1970</a> and 1980 c.58 <a href=\"http://www.legislation.gov.uk/ukpga/1980/58/contents\">Limitation Act 1980</a>).</li>\r\n  <li>Information about funding requests you have submitted will be kept until one year after the closure of the Institute.</li>\r\n  <li>Blog posts and web pages you provide as part of your Fellowship will be published under a CC-BY license and will be archived indefinitely.</li>\r\n</ul>\r\n<p>You can view and update the information you have provided by using lowFAT or by getting in touch with the Fellowship management team at: <a href=\"mailto:fellows-management@software.ac.uk\">fellows-management@software.ac.uk</a>.</p>\r\n<p>If you have any questions, please contact: <a href=\"mailto:info@software.ac.uk\">Neil Chue Hong, Director - Software Sustainability Institute</a>.</p>\r\n<p>This privacy statement is continued at <a href=\"edin.ac/privacy\">edin.ac/privacy</a>.</p>",
+        "enable_comments": false,
+        "template_name": "lowfat/base.html",
+        "registration_required": false,
+        "sites": [
+            1
+        ]
+    }
 }
 ]

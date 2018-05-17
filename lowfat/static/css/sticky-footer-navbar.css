@@ -14,10 +14,14 @@ body {
   left: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 90px;
+  /* height: 90px;*/
   background-color: #f5f5f5;
 }
 
+.footer ul {
+    margin-top: 20px;
+    padding-left: 0px;
+}
 
 /* Custom page CSS
 -------------------------------------------------- */
@@ -25,9 +29,6 @@ body {
 
 body > .container {
   padding: 90px 15px 0;
-}
-.container .text-muted {
-  margin: 20px 0;
 }
 
 .footer > p {

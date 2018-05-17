@@ -59,7 +59,7 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-logo" href="https://software.ac.uk">
-            <img class="logo img-responsive" src="{% static 'img/logo.png' %}">
+            <img img="{{ organisation_name }} logo"class="logo img-responsive" src="{% static 'img/logo.png' %}">
           </a>
           <a class="navbar-brand" href="{% url 'index' %}">lowFAT</a>
         </div>
@@ -123,7 +123,13 @@
     </div>
     <footer class="footer">
       <div class="container">
-        <p class="text-muted">Powered with
+        <ul class="list-inline">
+          <li><a href="{{ organisation_website }}">{{ organisation_name }}</a></li>
+          <li><a href="/pages/privacy/">Privacy</a></li>
+          <li><a href="mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}">Contact
+              us</a></li>
+          </ul>
+        <p class="text-muted text-center">Powered with
           <a href="http://python.org/">Python 3</a>,
           <a href="http://djangoproject.com/">Django</a>,
           <a href="http://radiac.net/projects/django-tagulous/">django-tagulous</a>,
@@ -133,11 +139,9 @@
           <a href="http://www.kryogenix.org/code/browser/sorttable/">SortTable</a>,
           <a href="http://fontawesome.io/">Font Awesome</a>, and
           <a href="http://jpswalsh.github.io/academicons/">Academicons</a>.
+          <br>
           Running version {{ settings.VERSION }}
           from <a href="{{ settings.URL_SRC }}">{{ settings.URL_SRC }}</a>.
-          <br>
-          If you need any help please email
-          <a href="mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}">us</a>.
         </p>
       </div>
     </footer>
