@@ -59,7 +59,7 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-logo" href="https://software.ac.uk">
-            <img class="logo img-responsive" src="{% static 'img/logo.png' %}">
+            <img img="{{ organisation_name }} logo"class="logo img-responsive" src="{% static 'img/logo.png' %}">
           </a>
           <a class="navbar-brand" href="{% url 'index' %}">lowFAT</a>
         </div>
@@ -124,6 +124,7 @@
     <footer class="footer">
       <div class="container">
         <ul class="list-inline">
+          <li><a href="{{ organisation_website }}">{{ organisation_name }}</a></li>
           <li><a href="/pages/privacy/">Privacy</a></li>
           <li><a href="mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}">Contact
               us</a></li>
