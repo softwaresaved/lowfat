@@ -563,8 +563,11 @@ class Fund(models.Model):
     justification = models.TextField()
     additional_info = models.TextField(blank=True)
     extra_sponsored = models.TextField(blank=True)
+
+    # GDPR
+    can_be_included_in_calendar = models.BooleanField(default=False)
     can_be_advertise_before = models.BooleanField(default=False)
-    can_be_advertise_after = models.BooleanField(default=True)
+    can_be_advertise_after = models.BooleanField(default=False)
 
     # Admin fields
     ad_status = models.CharField(
