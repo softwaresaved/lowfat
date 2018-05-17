@@ -93,6 +93,7 @@ TEMPLATES = [
                 'constance.context_processors.config',
                 'lowfat.context.site',
                 'lowfat.context.maintenance',
+                'lowfat.context.organisation',
             ],
         },
     },
@@ -231,6 +232,14 @@ DBBACKUP_GPG_RECIPIENT = ""  # XXX This variable need to be filled for --encrypt
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_IGNORE_ADMIN_VERSION_CHECK = True
 CONSTANCE_CONFIG = OrderedDict([
+    ("ORGANISATION_NAME", (
+        "Software Sustainability Institute",
+        "Default organisation name",
+    )),
+    ("ORGANISATION_WEBSITE", (
+        "https://www.software.ac.uk/",
+        "Default organisation website",
+    )),
     ("FUNDS_FROM_DEFAULT", (
         "F",
         "Default funds used for expense",

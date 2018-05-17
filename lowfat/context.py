@@ -10,6 +10,13 @@ def site(request):  # pylint: disable=unused-argument
         'site': Site.objects.get_current()
     }
 
+def organisation(request):  # pylint: disable=unused-argument
+    """Return the organisation."""
+    return {
+        'organisation_name': config.ORGANISATION_NAME,
+        'organisation_website': config.ORGANISATION_WEBSITE,
+    }
+
 def maintenance(request):  # pylint: disable=unused-argument
     """Return true if default maintancance time."""
     now = timezone.now()
