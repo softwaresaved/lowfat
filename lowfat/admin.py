@@ -8,6 +8,10 @@ from .models import *
 class FundActivityAdmin(SimpleHistoryAdmin):
     pass
 
+@admin.register(FormerClaimant)
+class FormerClaimantAdmin(SimpleHistoryAdmin):
+    pass
+
 @admin.register(Claimant)
 class ClaimantAdmin(SimpleHistoryAdmin):
     fieldsets = [

@@ -174,6 +174,102 @@ class TermsAndConditions(models.Model):
             self.year
         )
 
+
+class FormerClaimant(models.Model):
+    """Describe a former claimant that have personal data deleted."""
+
+    class Meta:
+        app_label = 'lowfat'
+        ordering = [
+            "-fellow",
+            "-application_year",
+        ]
+
+    # Personal info
+    gender = models.CharField(
+        choices=GENDERS,
+        max_length=1,
+        default="R"
+    )
+    home_country = CountryField(
+        blank=False,
+        default='GB'  # Default for United Kingdom
+    )
+    home_city = models.CharField(
+        blank=False,
+        max_length=MAX_CHAR_LENGTH
+    )
+    home_lon = models.FloatField(
+        null=True,
+        blank=True
+    )
+    home_lat = models.FloatField(
+        null=True,
+        blank=True
+    )
+
+    # Professional info
+    career_stage_when_apply = models.CharField(
+        choices=CAREER_STAGES,
+        max_length=1,
+        default="M"
+    )
+    job_title_when_apply = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
+    research_area = models.TextField(
+        blank=True,
+        help_text="Please describe your research"
+    )
+    # JACS code for research_area.
+    # https://www.hesa.ac.uk/jacs/
+    research_area_code = models.CharField(
+        choices=JACS_3_0_PRINCIPAL_SUBJECT_CODES,
+        max_length=2,
+        default="Y0"
+    )
+    affiliation = models.CharField(  # Home institution
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
+    department = models.CharField(  # Department within home institution
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
+    group = models.CharField(  # Group within department
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
+    funding = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
+    funding_notes = models.TextField(
+        null=True,
+        blank=True
+    )
+
+    # Admin fields
+    application_year = models.IntegerField(
+        null=False,
+        blank=False,
+        default=date.today().year
+    )
+    received_offer = models.BooleanField(default=False)
+    fellow = models.BooleanField(default=False)
+    collaborator = models.BooleanField(default=False)
+    is_into_training = models.BooleanField(default=False)
+    carpentries_instructor = models.BooleanField(default=False)
+    research_software_engineer = models.BooleanField(default=False)
+    attended_inaugural_meeting = models.BooleanField(default=False)
+    attended_collaborations_workshop = models.BooleanField(default=False)  # pylint: disable=invalid-name
+
+    def __str__(self):
+        return "{}".format(
+            self.id
+        )
+
 class Claimant(models.Model):
     """Describe a claimant."""
 
