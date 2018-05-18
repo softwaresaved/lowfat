@@ -416,6 +416,7 @@ class FundForm(GarlicForm):
                 'extra_sponsored',
                 HTML('<h2>GDPR</h2>'),
                 HTML('<h3>Publicity</h3>'),
+                'can_be_included_in_calendar',
                 'can_be_advertise_before',
                 'can_be_advertise_after',
                 'not_send_email_field' if self.is_staff else None,
