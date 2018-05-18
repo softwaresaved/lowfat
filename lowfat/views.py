@@ -291,6 +291,10 @@ def fund_form(request, **kargs):
         except:  # pylint: disable=bare-except
             fund_to_edit = None
             messages.error(request, "The funding request that you want to edit doesn't exist.")
+        if not (request.user.is_superuser or
+            Claimant.objects.get(user=request.user) == fund_to_edit.claimant):
+            fund_to_edit = None
+            messages.error(request, "You don't have permission to edit the requested funding request.")
     else:
         fund_to_edit = None
 
@@ -307,12 +311,18 @@ def fund_form(request, **kargs):
     elif request.GET.get("claimant_id"):
         initial["claimant"] = Claimant.objects.get(id=request.GET.get("claimant_id"))
 
-    formset = FundForm(
-        request.POST or None,
-        instance=fund_to_edit,
-        initial=None if fund_to_edit else initial,
-        is_staff=True if request.user.is_superuser else False
-    )
+    if fund_to_edit and Claimant.objects.get(user=request.user) == fund_to_edit.claimant and fund_to_edit.status != 'U':
+        formset = FundGDPRForm(
+            request.POST or None,
+            instance=fund_to_edit
+        )
+    else:
+        formset = FundForm(
+            request.POST or None,
+            instance=fund_to_edit,
+            initial=None if fund_to_edit else initial,
+            is_staff=True if request.user.is_superuser else False
+        )
 
     if request.POST:
         # Handle submission
@@ -331,12 +341,13 @@ def fund_form(request, **kargs):
                 reverse('fund_detail', args=[fund.id,])
             )
 
-    if not request.user.is_superuser:
-        formset.fields["claimant"].queryset = Claimant.objects.filter(user=request.user)
-    elif request.GET.get("claimant_id"):
-        formset.fields["claimant"].queryset = Claimant.objects.filter(id=request.GET.get("claimant_id"))
-    else:
-        formset.fields["claimant"].queryset = Claimant.objects.all()
+    if type(formset).__name__ == "FundForm":
+        if not request.user.is_superuser:
+            formset.fields["claimant"].queryset = Claimant.objects.filter(user=request.user)
+        elif request.GET.get("claimant_id"):
+            formset.fields["claimant"].queryset = Claimant.objects.filter(id=request.GET.get("claimant_id"))
+        else:
+            formset.fields["claimant"].queryset = Claimant.objects.all()
 
     # Show submission form.
     context = {

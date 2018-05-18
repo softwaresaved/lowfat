@@ -435,6 +435,41 @@ class FundForm(GarlicForm):
         self.fields['focus'].initial = ''
 
 
+class FundGDPRForm(GarlicForm):
+    class Meta:
+        model = Fund
+        fields = [
+            'can_be_included_in_calendar',
+            'can_be_advertise_before',
+            'can_be_advertise_after',
+        ]
+
+        labels = {
+            'can_be_included_in_calendar': "Can we include your participation in this event into the Fellows calendar?",
+            'can_be_advertise_before': "Can we public promote your involvement in this event before it takes place?",
+            'can_be_advertise_after': "Can we public promote your involvement in this event after it takes place?"
+        }
+
+    required_css_class = 'form-field-required'
+
+    def __init__(self, *args, **kwargs):
+        super(FundGDPRForm, self).__init__(*args, **kwargs)
+
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                HTML('<h2>GDPR</h2>'),
+                HTML('<h3>Publicity</h3>'),
+                'can_be_advertise_before',
+                'can_be_advertise_after',
+                'can_be_included_in_calendar',
+                ButtonHolder(
+                    Submit('submit', '{{ title }}')
+                )
+            )
+        )
+
+
 class FundReviewForm(GarlicForm):
     class Meta:
         model = Fund
