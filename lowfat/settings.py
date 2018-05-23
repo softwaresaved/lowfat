@@ -300,6 +300,10 @@ CONSTANCE_CONFIG = OrderedDict([
         3,
         "Month deadline that expenses must be submited.",
     )),
+    ("CALENDAR_ACCESS_TOKEN", (
+        "lKI7BSE7JCWaIw54xywVZy8zRTKLqOM3",
+        "Token to access the calendar.",
+    )),
 ])
 
 
