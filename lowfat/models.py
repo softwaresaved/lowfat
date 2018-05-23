@@ -564,10 +564,10 @@ class Fund(models.Model):
     additional_info = models.TextField(blank=True)
     extra_sponsored = models.TextField(blank=True)
 
-    # GDPR
-    can_be_included_in_calendar = models.BooleanField(default=False)
-    can_be_advertise_before = models.BooleanField(default=False)
-    can_be_advertise_after = models.BooleanField(default=False)
+    # Publicity
+    can_be_included_in_calendar = models.BooleanField(default=False)  # For privacy.
+    can_be_advertise_before = models.BooleanField(default=False)  # For privacy.
+    can_be_advertise_after = models.BooleanField(default=True)  # For fulfilment of contract.
 
     # Admin fields
     ad_status = models.CharField(
