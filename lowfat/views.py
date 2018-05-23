@@ -283,7 +283,7 @@ def my_profile(request):
     raise Http404("Claimant does not exist.")
 
 @login_required
-def fund_form(request, **kargs):
+def fund_form(request, **kargs):  # pylint: disable=too-many-branches
     # Setup fund to edit if provide
     if "fund_id" in kargs:
         try:
@@ -292,7 +292,7 @@ def fund_form(request, **kargs):
             fund_to_edit = None
             messages.error(request, "The funding request that you want to edit doesn't exist.")
         if not (request.user.is_superuser or
-            Claimant.objects.get(user=request.user) == fund_to_edit.claimant):
+                Claimant.objects.get(user=request.user) == fund_to_edit.claimant):
             fund_to_edit = None
             messages.error(request, "You don't have permission to edit the requested funding request.")
     else:

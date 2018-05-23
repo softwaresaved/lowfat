@@ -300,7 +300,7 @@ class FundForm(GarlicForm):
             'budget_request_venue_hire': "Venue hire",
             'budget_request_catering': "Catering",
             'budget_request_others': "Other costs",
-            'can_be_included_in_calendar': "Can we include your participation in this event into the Fellows calendar?",
+            'can_be_included_in_calendar': "Can we include your participation in this event into the private Fellows calendar?",
             'can_be_advertise_before': "Can we public promote your involvement in this event before it takes place?",
             'can_be_advertise_after': "Can we public promote your involvement in this event after it takes place?"
         }
@@ -414,8 +414,7 @@ class FundForm(GarlicForm):
                 'additional_info',
                 HTML('<h2>Details of people being sponsored from your Fellowship funds</h2><p>If you are sponsoring others to take part in this event from your Fellowship funds please give their names and email addresses below, if you do not know their names at this stage please state whether there is sponsorship of others needed in this request. In either case please provide some justification.</p>'),
                 'extra_sponsored',
-                HTML('<h2>GDPR</h2>'),
-                HTML('<h3>Publicity</h3>'),
+                HTML('<h2>Publicity</h2>'),
                 'can_be_included_in_calendar',
                 'can_be_advertise_before',
                 'can_be_advertise_after',
