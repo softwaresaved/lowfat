@@ -12,7 +12,7 @@ html2text
 markdown
 matplotlib
 numpy
-pandas
+git+https://github.com/pandas-dev/pandas.git@master#egg=panda
 pylint>=1.8.2
 pylint-django>=0.9.0
 pypdf2
