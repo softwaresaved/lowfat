@@ -53,7 +53,9 @@ def index(request):
 
 @login_required
 def dashboard(request):
-    context = {}
+    context = {
+        'ical_token': config.CALENDAR_ACCESS_TOKEN,
+    }
 
     if not request.user.is_superuser and not request.user.is_staff:
         try:
