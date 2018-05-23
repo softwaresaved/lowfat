@@ -13,6 +13,8 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.shortcuts import render
 
+from constance import config
+
 import matplotlib
 matplotlib.use('AGG')
 from matplotlib.pyplot import bar, hist, savefig
@@ -51,7 +53,9 @@ def index(request):
 
 @login_required
 def dashboard(request):
-    context = {}
+    context = {
+        'ical_token': config.CALENDAR_ACCESS_TOKEN,
+    }
 
     if not request.user.is_superuser and not request.user.is_staff:
         try:
@@ -480,7 +484,10 @@ def fund_past(request):
 
     return render(request, 'lowfat/fund_past.html', context)
 
-def fund_ical(request):
+def fund_ical(request, token):
+    if token != config.CALENDAR_ACCESS_TOKEN:
+        raise Http404("Expense claim does not exist.")
+
     funds = Fund.objects.filter(
         can_be_advertise_after=True,
     )

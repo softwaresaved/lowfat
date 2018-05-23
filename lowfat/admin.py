@@ -145,8 +145,9 @@ class FundAdmin(SimpleHistoryAdmin):
                 'mandatory',
                 ]
             }),
-        ('GDPR', {
+        ('Publicity', {
             'fields': [
+                'can_be_included_in_calendar',
                 'can_be_advertise_before',
                 'can_be_advertise_after',
                 ]

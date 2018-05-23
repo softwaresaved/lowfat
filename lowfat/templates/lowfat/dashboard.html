@@ -27,6 +27,7 @@
     <a class="btn btn-default btn-block" href="{% url 'blog' %}">Submit a blog post</a>
   </div>
 </div>
+<p><a href="{% url 'fund_ical' token=ical_token %}">Click here</a> to access the shared calendar of events related with fellows.</p>
 {% if user.is_superuser or user.is_staff %}
 <p><a href="{% url 'recent_actions' %}">Click here</a> to view last changes on the database.</p>
 <p><a href="{% url 'fund_import' %}">Click here</a> to import funding requests
