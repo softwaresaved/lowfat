@@ -15,6 +15,8 @@ from django.shortcuts import render
 
 from constance import config
 
+import pandas as pd
+
 import matplotlib
 matplotlib.use('AGG')
 from matplotlib.pyplot import bar, hist, savefig
@@ -919,6 +921,17 @@ def report(request):
     # XXX Pandas can't process Django QuerySet so we need to convert it into list.
     # XXX Pandas doesn't support DecimalField so we need to convert it into float.
 
+    # Finances
+    finances = pd.DataFrame(list(Expense.objects.all().values())).loc[:, ["send_to_finance_date", "amount_claimed", "grant", "grant_heading"]]
+    finances_html = finances.to_html(
+        index=False,
+        classes=["table", "table-striped", "table-bordered"]
+    )
+    finances_csv = b64encode(finances.to_csv(
+        header=True,
+        index=False
+        ).encode())
+
     # Number of claimants per year
     claimants_per_year_plot_bytes = BytesIO()
     claimants_per_year = Claimant.objects.all().values('application_year').annotate(total=Count('application_year'))
@@ -944,6 +957,8 @@ def report(request):
     context = {
         'claimants_per_year': claimants_per_year_plot,
         'fund_amount': fund_amount_plot,
+        'finances_html': finances_html,
+        'finances_csv': finances_csv,
     }
 
     return render(request, 'lowfat/report.html', context)

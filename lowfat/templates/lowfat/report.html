@@ -12,4 +12,7 @@
 <img src="data:image/png;base64,{{ claimants_per_year | safe }}" />
 <h2>Funding requests</h2>
 <img src="data:image/png;base64,{{ fund_amount | safe }}" />
+<h2>Finances</h2>
+<p><a download="finances.csv" href="data:application/octet-stream;charset=utf-16le;base64,{{ finances_csv | safe }}">Download the table as CSV.</a></p>
+{{ finances_html | safe }}
 {% endblock %}
