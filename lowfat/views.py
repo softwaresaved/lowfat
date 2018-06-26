@@ -922,10 +922,11 @@ def report(request):
     # XXX Pandas doesn't support DecimalField so we need to convert it into float.
 
     # Finances
-    finances = pd.DataFrame(list(Expense.objects.all().values())).loc[:, ["send_to_finance_date", "amount_claimed", "grant", "grant_heading"]]
+    finances = pd.DataFrame(list(Expense.objects.all().values())).loc[:, ["send_to_finance_date", "amount_authorized_for_payment", "grant", "grant_heading"]]
     finances_html = finances.to_html(
         index=False,
         classes=["table", "table-striped", "table-bordered"]
+        # max_rows=6  # FIXME To activate this in the future.
     )
     finances_csv = b64encode(finances.to_csv(
         header=True,
@@ -957,8 +958,11 @@ def report(request):
     context = {
         'claimants_per_year': claimants_per_year_plot,
         'fund_amount': fund_amount_plot,
-        'finances_html': finances_html,
-        'finances_csv': finances_csv,
+        'finances': {
+            "html": finances_html,
+            "csv": finances_csv,
+            "total": finances["amount_authorized_for_payment"].sum(),
+            },
     }
 
     return render(request, 'lowfat/report.html', context)
