@@ -12,4 +12,25 @@
 <img src="data:image/png;base64,{{ claimants_per_year | safe }}" />
 <h2>Funding requests</h2>
 <img src="data:image/png;base64,{{ fund_amount | safe }}" />
+<h2>Finances</h2>
+<h3>Summary</h3>
+<table class="table table-striped table-bordered">
+  <tr>
+    <th>Description</th>
+    <th>Amount</th>
+  </tr>
+  <tr>
+    <td>Total amount of expenditure</td>
+    <td>{{ finances.total }}</td>
+  </tr>
+</table>
+<h3>Data</h3>
+<p>
+  <a
+    download="lowfat-finances-data.csv"
+    href="data:application/octet-stream;charset=utf-16le;base64,{{ finances.csv | safe }}">
+    Download the full data as CSV.
+  </a>
+</p>
+{{ finances.html | safe }}
 {% endblock %}
