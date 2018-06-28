@@ -923,10 +923,9 @@ def report(request):
 
     # Finances
     finances = read_frame(Expense.objects.all()).loc[:, ["send_to_finance_date", "amount_authorized_for_payment", "grant", "grant_heading"]]
-    finances_html = finances.to_html(
+    finances_html = finances.head().to_html(
         index=False,
         classes=["table", "table-striped", "table-bordered"]
-        # max_rows=6  # FIXME To activate this in the future.
     )
     finances_csv = b64encode(finances.to_csv(
         header=True,
