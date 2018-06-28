@@ -15,7 +15,7 @@ from django.shortcuts import render
 
 from constance import config
 
-import pandas as pd
+from django_pandas.io import read_frame
 
 import matplotlib
 matplotlib.use('AGG')
@@ -922,7 +922,7 @@ def report(request):
     # XXX Pandas doesn't support DecimalField so we need to convert it into float.
 
     # Finances
-    finances = pd.DataFrame(list(Expense.objects.all().values())).loc[:, ["send_to_finance_date", "amount_authorized_for_payment", "grant", "grant_heading"]]
+    finances = read_frame(Expense.objects.all()).loc[:, ["send_to_finance_date", "amount_authorized_for_payment", "grant", "grant_heading"]]
     finances_html = finances.to_html(
         index=False,
         classes=["table", "table-striped", "table-bordered"]
