@@ -3,10 +3,8 @@
 {% block content %}
 <h1>Expense Detail
   <span
-  {% if expense.status in 'AF' %}
+  {% if expense.status in 'A' %}
   class="label label-success"
-  {% elif expense.status in 'UP' %}
-  class="label label-danger"
   {% else %}
   class="label label-warning"
   {% endif %}
@@ -14,7 +12,7 @@
   {% if user.is_staff %}
   <a title="Review" class="btn btn-default" href="{% url 'expense_review_relative' expense.fund.id expense.relative_number %}" role="button"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Review</a>
   {% endif %}
-  {% if user.is_superuser or expense.status in "WSCP" %}
+  {% if user.is_superuser or expense.status in "SC" %}
   <a title="Edit" class="btn btn-default" href="{% url 'expense_edit_relative' expense.fund.id expense.relative_number %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
   <a title="Remove" class="btn btn-default" href="{% url 'expense_remove_relative' expense.fund.id expense.relative_number %}?next={% url 'dashboard' %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>
   {% endif %}

@@ -1327,7 +1327,7 @@ class ExpenseReviewFormTest(TestCase):
             self.assertTrue(form.is_valid())
 
     def test_expense_status(self):
-        for status in ('W', 'S', 'C', 'P', 'A', 'F'):
+        for status in ('S', 'C', 'A', 'R', 'X'):
             data = {
                 "status": status,
                 "asked_for_authorization_date": "2016-01-01",
