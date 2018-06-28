@@ -91,12 +91,9 @@ FUND_STATUS_LONG_DESCRIPTION = {
 }
 
 EXPENSE_STATUS = (
-    ('W', 'Not submitted yet'),
-    ('S', 'Submitted (awaiting processing)'),
-    ('C', 'Administrator checking'),
-    ('P', 'Authoriser checking'),
-    ('A', 'Approved (submitted to finance)'),
-    ('F', 'Finished'),
+    ('S', 'Submitted'),
+    ('C', 'Processing'),
+    ('A', 'Approved'),
     ('R', 'Rejected'),  # When expense was rejected.
     ('X', 'Remove'),  # When the fellow decided to remove their request.
 )
