@@ -921,6 +921,15 @@ def report(request):
     # XXX Pandas can't process Django QuerySet so we need to convert it into list.
     # XXX Pandas doesn't support DecimalField so we need to convert it into float.
 
+    # Summary
+    fellows = Claimant.objects.filter(fellow=True)
+    summary = {
+        "years": django.utils.timezone.now().year - fellows.order_by('application_year')[0].application_year,
+        "fellows": len(fellows),
+        "organisations": len(fellows.order_by('affiliation').values('affiliation').distinct()),
+        "disciplines": len(fellows.order_by('research_area_code').values('research_area_code').distinct()),
+    }
+
     # Finances
     finances = read_frame(Expense.objects.all()).loc[:, ["send_to_finance_date", "amount_authorized_for_payment", "grant", "grant_heading"]]
     finances_html = finances.head().to_html(
@@ -957,6 +966,7 @@ def report(request):
     context = {
         'claimants_per_year': claimants_per_year_plot,
         'fund_amount': fund_amount_plot,
+        'summary': summary,
         'finances': {
             "html": finances_html,
             "csv": finances_csv,

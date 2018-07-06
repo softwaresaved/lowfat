@@ -8,7 +8,26 @@
   please raise them as tickets in
   <a href="{{ settings.URL_SRC }}/issues/">{{ settings.URL_SRC }}/issues/</a>.
 </p>
-<h2>Claimants</h2>
+<h2>Summary</h2>
+<table class="table table-striped table-bordered">
+  <tr>
+    <th>Number of years of the programme</th>
+    <td>{{ summary.years }}</td>
+  </tr>
+  <tr>
+    <th>Number of Fellows</th>
+    <td>{{ summary.fellows }}</td>
+  </tr>
+  <tr>
+    <th>Number of organisations</th>
+    <td>{{ summary.organisations }}</td>
+  </tr>
+  <tr>
+    <th>Number of research disciplines</th>
+    <td>{{ summary.disciplines }}</td>
+  </tr>
+</table>
+<h2>Fellows</h2>
 <img src="data:image/png;base64,{{ claimants_per_year | safe }}" />
 <h2>Funding requests</h2>
 <img src="data:image/png;base64,{{ fund_amount | safe }}" />
