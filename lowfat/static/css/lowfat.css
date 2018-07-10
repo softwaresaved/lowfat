@@ -136,3 +136,36 @@ span.asteriskField::before {
 .ribbon.fellows-2010 span {
     background: DodgerBlue;
 }
+
+article#report h1 a.anchor-link,
+article#report h2 a.anchor-link,
+article#report h3 a.anchor-link,
+article#report h4 a.anchor-link,
+article#report h5 a.anchor-link,
+article#report h6 a.anchor-link {
+    visibility: hidden;
+}
+
+article#report h1:hover a.anchor-link,
+article#report h2:hover a.anchor-link,
+article#report h3:hover a.anchor-link,
+article#report h4:hover a.anchor-link,
+article#report h5:hover a.anchor-link,
+article#report h6:hover a.anchor-link {
+    visibility: visible;
+}
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin: 16px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

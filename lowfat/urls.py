@@ -98,6 +98,7 @@ urlpatterns = [  # pylint: disable=invalid-name
     url(r'^promote/', views.promote, name="promote"),
     url(r'^my-profile/', views.my_profile, name="my_profile"),
     url(r'^geojson/', views.geojson, name="geojson"),
+    url(r'^report/(?P<report_filename>.+)', views.report_by_name, name="report_by_name"),
     url(r'^report/', views.report, name="report"),
     url(r'^search/', views.search, name="search"),
     url(r'^recent-actions/', views.recent_actions, name="recent_actions"),
