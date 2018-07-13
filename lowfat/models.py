@@ -13,7 +13,7 @@ from simple_history.models import HistoricalRecords
 
 from django_countries.fields import CountryField
 
-import tagulous
+import tagulous.models
 
 from .validator import pdf, online_document
 from .jacs import JACS_3_0_PRINCIPAL_SUBJECT_CODES
