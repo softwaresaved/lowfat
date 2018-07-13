@@ -283,5 +283,20 @@
             1
         ]
     }
+},
+{
+    "model": "flatpages.flatpage",
+    "pk": 21,
+    "fields": {
+        "url": "/email/template/staff/follow_up/",
+        "title": "Funding Requests, Expense Claims and Blog Posts to follow up with",
+        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Hi,</p>\r\n<p>This week you should follow up with the following funding requests, expense claims and blog posts.</p>\r\n{% if funds %}\r\n<h1>Funding Requests</h1>\r\n<ul>\r\n{% for fund in funds %}\r\n<li>Funding request from <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.claimant.link }}\">{{ fund.claimant.fullname }}</a> for <a href=\"{{ fund.url }}\">{{ fund.title }}</a>. Please visit <a href=\"{{ protocol }}://{{ site.domain }}{{ fund.link_review }}\">{{ protocol }}://{{ site.domain }}{{ fund.link_review }}</a> to review it.</li>\r\n{% endfor %}\r\n</ul>\r\n{% endif %}\r\n{% if expenses %}\r\n<h1>Expense Claims</h1>\r\n<ul>\r\n{% for expense in expenses %}\r\n<li>Expense claim from <a href=\"{{ protocol }}://{{ site.domain }}{{ expense.fund.claimant.link }}\">{{ expense.fund.claimant.fullname }}</a> for <a href=\"{{ expense.fund.url }}\">{{ expense.fund.title }}</a>. Please visit <a href=\"{{ protocol }}://{{ site.domain }}{{ expense.link_review }}\">{{ protocol }}://{{ site.domain }}{{ expense.link_review }}</a> to review it.</li>\r\n{% endfor %}\r\n</ul>\r\n{% endif %}\r\n{% if blogs %}\r\n<h1>Blog Posts</h1>\r\n<ul>\r\n{% for blog in blogs %}\r\n<li>Blog post from <a href=\"{{ protocol }}://{{ site.domain }}{{ blog.author.link }}\">{{ blog.author.fullname }}</a>. Please visit <a href=\"{{ protocol }}://{{ site.domain }}{{ blog.link_review }}\">{{ protocol }}://{{ site.domain }}{{ blog.link_review }}</a> to review it.</li>\r\n{% endfor %}\r\n</ul>\r\n{% endif %}\r\n<p>\r\n---<br>\r\nLowFAT\r\n</p>\r\n</body>\r\n</html>",
+        "enable_comments": false,
+        "template_name": "",
+        "registration_required": false,
+        "sites": [
+            1
+        ]
+    }
 }
 ]
