@@ -60,9 +60,8 @@ config.DAYS_TO_ANSWER_BACK = {}""".format(
                     status__in="RCGL"  # For "Waiting to be reviewed", "Reviewing loop", "Waiting to be proofread", "Waiting to be published"
                 ),
             ]
-            staff_follow_up(all_unprocessed_requests)
+            staff_follow_up(all_processing_requests)
         else:
-            print("Today is not Skipping notification for {}. Notification in {} days.".format(
-                        request,
-                        days_before_notification
-                    ))
+            print("Today is not {}. Skipping notification.".format(
+                config.FOLLOW_UP_DAY
+            ))
