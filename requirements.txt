@@ -9,6 +9,7 @@ django-extensions
 django-pandas
 django-settings-export
 django-simple-history>=1.9.0
+geopy
 html2text
 markdown
 matplotlib

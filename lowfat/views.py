@@ -15,6 +15,8 @@ from django.shortcuts import render
 
 from constance import config
 
+from geopy.geocoders import Nominatim
+
 from django_pandas.io import read_frame
 
 import matplotlib

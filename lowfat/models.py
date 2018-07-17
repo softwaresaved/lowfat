@@ -2,6 +2,8 @@ from datetime import datetime, date
 import re
 import hashlib
 
+from geopy.geocoders import Nominatim
+
 from constance import config
 
 import django.utils
@@ -616,6 +618,17 @@ class Fund(models.Model):
 
         if self.status == "A":
             self.approved = datetime.now()
+
+        geolocator = Nominatim()
+        try:
+            location = geolocator.geocode(
+                self.city,
+                country_bias=self.country
+            )
+            self.lon = location.longitude
+            self.lat = location.latitude
+        except:  # pylint: disable=bare-except
+            pass
 
         self.url = fix_url(self.url)
 
