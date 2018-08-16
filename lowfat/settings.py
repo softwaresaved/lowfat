@@ -234,63 +234,71 @@ CONSTANCE_IGNORE_ADMIN_VERSION_CHECK = True
 CONSTANCE_CONFIG = OrderedDict([
     ("ORGANISATION_NAME", (
         "Software Sustainability Institute",
-        "Default organisation name",
+        "Default organisation name.",
     )),
     ("ORGANISATION_WEBSITE", (
         "https://www.software.ac.uk/",
-        "Default organisation website",
+        "Default organisation website.",
     )),
     ("FUNDS_FROM_DEFAULT", (
         "F",
-        "Default funds used for expense",
+        "Default funds used for expense.",
     )),
     ("GRANTS_DEFAULT", (
         "SSI2",
-        "Default grant for expenses",
+        "Default grant for expenses.",
     )),
     ("FELLOWS_MANAGEMENT_EMAIL", (
         "fellows-management@software.ac.uk",
-        "Contact address to fellows management staffs",
+        "Contact address to fellows management staffs.",
     )),
     ("WEBSITE_GATEKEEPER", (
         "Gatekeeper Name",
-        "Name of website gatekeeper, e.g. 'John'",
+        "Name of website gatekeeper, e.g. 'John'.",
     )),
     ("WEBSITE_GATEKEEPER_EMAIL", (
         "gatekeeper@software.ac.uk",
-        "Email of website gatekeeper, e.g. 'john@software.ac.uk'",
+        "Email of website gatekeeper, e.g. 'john@software.ac.uk'.",
     )),
     ("STAFFS_EMAIL", (
         "['Software Sustainability Institute <fellows-management@software.ac.uk>']",
-        "Contact address of staffs, e.g. ['John <john@example.com>', 'Mary <mary@example.com>']",
+        "Contact address of staffs, e.g. ['John <john@example.com>', 'Mary <mary@example.com>'].",
     )),
     ("STAFFS_EMAIL", (
         "['Software Sustainability Institute <fellows-management@software.ac.uk>']",
-        "Contact address of staffs, e.g. ['John <john@example.com>', 'Mary <mary@example.com>']",
+        "Contact address of staffs, e.g. ['John <john@example.com>', 'Mary <mary@example.com>'].",
     )),
     ("STAFF_EMAIL_NOTIFICATION", (
         False,
-        "Notification to staffs by email",
+        "Notification to staffs by email.",
     )),
     ("STAFF_EMAIL_REMINDER", (
         False,
-        "Reminder staffs of pending tasks by email",
+        "Reminder staffs of pending tasks by email.",
     )),
     ("DAYS_TO_ANSWER_BACK", (
         3,
         "Days to answer back before receive a email reminder.",
     )),
+    ("STAFF_EMAIL_FOLLOW_UP", (
+        False,
+        "Reminder staff of tasks to follow up with by email.",
+    )),
+    ("FOLLOW_UP_DAY", (
+        0,
+        "Weekday to send follow up email to staff. 0 for Monday.",
+    )),
     ("CLAIMANT_EMAIL_NOTIFICATION", (
         False,
-        "Notification to claimant by email",
+        "Notification to claimant by email.",
     )),
     ("MAINTENANCE_DAY", (
         4,
-        "Day when maintenance normaly take place",
+        "Day when maintenance normaly take place.",
     )),
     ("MAINTENANCE_HOUR", (
         9,
-        "Hour when maintenance normaly take placece",
+        "Hour when maintenance normaly take placece.",
     )),
     ("FELLOWSHIP_EXPENSES_END_DAY", (
         31,
