@@ -1,7 +1,5 @@
 import copy
 import os
-from io import BytesIO
-from base64 import b64encode
 
 import django.utils
 from django.contrib import messages
@@ -9,16 +7,12 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Count, Q
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.shortcuts import render
 
 from constance import config
-
-from geopy.geocoders import Nominatim
-
-from django_pandas.io import read_frame
 
 from .management.commands import loadoldfunds as loadoldfunds
 from .models import *
