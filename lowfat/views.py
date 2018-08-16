@@ -1,4 +1,5 @@
 import copy
+import os
 from io import BytesIO
 from base64 import b64encode
 
@@ -16,10 +17,6 @@ from django.shortcuts import render
 from constance import config
 
 from django_pandas.io import read_frame
-
-import matplotlib
-matplotlib.use('AGG')
-from matplotlib.pyplot import bar, hist, savefig
 
 from .management.commands import loadoldfunds as loadoldfunds
 from .models import *
@@ -916,52 +913,20 @@ def recent_actions(request):
     return render(request, "lowfat/recent_actions.html", context)
 
 @staff_member_required
+def report_by_name(request, report_filename):
+    """Report view."""
+    try:
+        with open("lowfat/reports/html/{}".format(report_filename), "r") as _file:
+            response = HttpResponse(_file.read(), content_type="text/plain")
+            return response
+    except:  # pylint: disable=bare-except
+        raise Http404("Report does not exist.")
+
+@staff_member_required
 def report(request):
     """Report view."""
-    # XXX Pandas can't process Django QuerySet so we need to convert it into list.
-    # XXX Pandas doesn't support DecimalField so we need to convert it into float.
-
-    # Finances
-    finances = read_frame(Expense.objects.all()).loc[:, ["send_to_finance_date", "amount_authorized_for_payment", "grant", "grant_heading"]]
-    finances_html = finances.head().to_html(
-        index=False,
-        classes=["table", "table-striped", "table-bordered"]
-    )
-    finances_csv = b64encode(finances.to_csv(
-        header=True,
-        index=False
-        ).encode())
-
-    # Number of claimants per year
-    claimants_per_year_plot_bytes = BytesIO()
-    claimants_per_year = Claimant.objects.all().values('application_year').annotate(total=Count('application_year'))
-    bar(
-        [claimant["application_year"] for claimant in claimants_per_year],
-        [claimant["total"] for claimant in claimants_per_year]
-    )
-    savefig(claimants_per_year_plot_bytes, format="png")
-    claimants_per_year_plot_bytes.seek(0)
-    claimants_per_year_plot = b64encode(claimants_per_year_plot_bytes.getvalue())
-
-    # Fund requests
-    fund_amount_plot_bytes = BytesIO()
-    fund_amount = Fund.objects.all().values('budget_approved')
-    hist(
-        [float(amount['budget_approved']) for amount in fund_amount],
-        5
-    )
-    savefig(fund_amount_plot_bytes, format="png")
-    fund_amount_plot_bytes.seek(0)
-    fund_amount_plot = b64encode(fund_amount_plot_bytes.getvalue())
-
     context = {
-        'claimants_per_year': claimants_per_year_plot,
-        'fund_amount': fund_amount_plot,
-        'finances': {
-            "html": finances_html,
-            "csv": finances_csv,
-            "total": finances["amount_authorized_for_payment"].sum(),
-            },
+        'notebook_filenames': [filename for filename in os.listdir("lowfat/reports/html/") if filename.endswith(".html")],
     }
 
     return render(request, 'lowfat/report.html', context)
