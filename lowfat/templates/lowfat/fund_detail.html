@@ -4,14 +4,14 @@
 {% block content %}
 <h1>Funding request
   <span
-  {% if fund.status in 'AF' %}
-  class="label label-success"
-  {% elif fund.status in 'R' %}
-  class="label label-danger"
-  {% else %}
-  class="label label-warning"
-  {% endif %}
-  >{{ fund.get_status_display }}</span>
+    {% if fund.status in 'AF' %}
+    class="label label-success"
+    {% elif fund.status in 'R' %}
+    class="label label-danger"
+    {% else %}
+    class="label label-warning"
+    {% endif %}
+    >{{ fund.get_status_display }}</span>
   {% if user.is_staff %}
   <a title="Review" class="btn btn-default" href="{% url 'fund_review' fund.id %}" role="button"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Review</a>
   {% endif %}
@@ -22,118 +22,124 @@
 </h1>
 <h2>General Details</h1>
 <table class="table table-bordered">
-    <tbody>
-        <tr>
-            <th>Title</th>
-            <td>{{ fund.title }}</td>
-        </tr>
-        <tr>
-            <th>URL</th>
-            {% if fund.url|length > 0 %}
-            <td><a href="{{ fund.url }}">{{ fund.url }}</a></td>
-            {% endif %}
-        </tr>
-        <tr>
-            <th>Status</th>
-            <td>
-              {{ fund.get_status_display }}
-              <span class="glyphicon glyphicon glyphicon-info-sign" title="{{ fund.status_help }}" aria-hidden="true"></span>
-            </td>
-        </tr>
-        {% if user.is_staff %}
-        <tr>
-            <th>
-              Activities tag
-              <a href="/pages/guide/activities-tag/"><span class="glyphicon
-              glyphicon glyphicon-info-sign" title="More information about the tags." aria-hidden="true"></span>
-            </th>
-            <td>
-              {% for tag in fund.activity.all %}
-              <span class="label label-default">{{ tag.name }}</span>
-              {% endfor %}
-            </td>
-        </tr>
+  <tbody>
+    {% if user.is_staff %}
+    <tr>
+      <th>Claimant</th>
+      <td>{{ fund.claimant.fullname }}</td>
+    </tr>
+    {% endif %}
+    <tr>
+      <th>Title</th>
+      <td>{{ fund.title }}</td>
+    </tr>
+    <tr>
+      <th>URL</th>
+      {% if fund.url|length > 0 %}
+      <td><a href="{{ fund.url }}">{{ fund.url }}</a></td>
+      {% endif %}
+    </tr>
+    <tr>
+      <th>Status</th>
+      <td>
+        {{ fund.get_status_display }}
+        <span class="glyphicon glyphicon glyphicon-info-sign" title="{{ fund.status_help }}" aria-hidden="true"></span>
+      </td>
+    </tr>
+    {% if user.is_staff %}
+    <tr>
+      <th>
+        Activities tag
+        <a href="/pages/guide/activities-tag/"><span class="glyphicon
+                                                     glyphicon glyphicon-info-sign" title="More information about the tags." aria-hidden="true"></span>
+      </th>
+      <td>
+        {% for tag in fund.activity.all %}
+        <span class="label label-default">{{ tag.name }}</span>
+        {% endfor %}
+      </td>
+    </tr>
+    {% endif %}
+    <tr>
+      <th>Location</th>
+      <td>{{ fund.city }}, {{ fund.get_country_display }}</td>
+    </tr>
+    <tr>
+      <th>Start date</th>
+      <td>{{ fund.start_date }}</td>
+    </tr>
+    <tr>
+      <th>End data</th>
+      <td>{{ fund.end_date }}</td>
+    </tr>
+    <tr>
+      <th>Approved data</th>
+      <td>
+        {% if fund.status in 'AF' %}
+        {{ fund.approved }}
         {% endif %}
-        <tr>
-            <th>Location</th>
-	    <td>{{ fund.city }}, {{ fund.get_country_display }}</td>
-        </tr>
-        <tr>
-            <th>Start date</th>
-            <td>{{ fund.start_date }}</td>
-        </tr>
-        <tr>
-            <th>End data</th>
-            <td>{{ fund.end_date }}</td>
-        </tr>
-        <tr>
-            <th>Approved data</th>
-            <td>
-              {% if fund.status in 'AF' %}
-              {{ fund.approved }}
-              {% endif %}
-            </td>
-        </tr>
-        {% if user.is_superuser %}
-        <tr>
-          <th>Justication</th>
-          <td>{{ fund.justification | markdown | safe }}</td>
-        </tr>
-        <tr>
-          <th>Additional information</th>
-          <td>{{ fund.additional_info | markdown | safe }}</td>
-        </tr>
-  {% endif %}
-    </tbody>
+      </td>
+    </tr>
+    {% if user.is_superuser %}
+    <tr>
+      <th>Justication</th>
+      <td>{{ fund.justification | markdown | safe }}</td>
+    </tr>
+    <tr>
+      <th>Additional information</th>
+      <td>{{ fund.additional_info | markdown | safe }}</td>
+    </tr>
+    {% endif %}
+  </tbody>
 </table>
 {% if fund.status in 'AF' or expenses or blogs %}
 <h2>Budget Summary</h2>
 <table class="table table-bordered">
-    <tbody>
-        <tr>
-            <th><strong>Total</strong> budget request</th>
-            <td>£{{ fund.budget_total|floatformat:2 }}</td>
-        </tr>
-        <tr>
-            <th><strong>Total</strong> budget approve</th>
-            <td>
-              {% if fund.status in 'AF' %}
-              £{{ fund.budget_approved|floatformat:2 }}
-              {% else %}
-              £0.00
-              {% endif %}
-            </td>
-        </tr>
-    </tbody>
+  <tbody>
+    <tr>
+      <th><strong>Total</strong> budget request</th>
+      <td>£{{ fund.budget_total|floatformat:2 }}</td>
+    </tr>
+    <tr>
+      <th><strong>Total</strong> budget approve</th>
+      <td>
+        {% if fund.status in 'AF' %}
+        £{{ fund.budget_approved|floatformat:2 }}
+        {% else %}
+        £0.00
+        {% endif %}
+      </td>
+    </tr>
+  </tbody>
 </table>
 <h2>Budget Details</h2>
 <table class="table table-bordered">
-    <tbody>
-        <tr>
-            <th>Travel expenses</th>
-            <td>£{{ fund.budget_request_travel|floatformat:2 }}</td>
-        </tr>
-        <tr>
-            <th>Attendance fees</th>
-            <td>£{{ fund.budget_request_attendance_fees|floatformat:2 }}</td>
-        </tr>
-        <tr>
-            <th>Subsistence cost</th>
-            <td>£{{ fund.budget_request_subsistence_cost|floatformat:2 }}</td>
-        </tr>
-        <tr>
-            <th>Venue hire</th>
-            <td>£{{ fund.budget_request_venue_hire|floatformat:2 }}</td>
-        </tr>
-        <tr>
-            <th>Catering</th>
-            <td>£{{ fund.budget_request_catering|floatformat:2 }}</td>
-        </tr>
-        <tr>
-            <th>Others</th>
-            <td>£{{ fund.budget_request_others|floatformat:2 }}</td>
-        </tr>
-    </tbody>
+  <tbody>
+    <tr>
+      <th>Travel expenses</th>
+      <td>£{{ fund.budget_request_travel|floatformat:2 }}</td>
+    </tr>
+    <tr>
+      <th>Attendance fees</th>
+      <td>£{{ fund.budget_request_attendance_fees|floatformat:2 }}</td>
+    </tr>
+    <tr>
+      <th>Subsistence cost</th>
+      <td>£{{ fund.budget_request_subsistence_cost|floatformat:2 }}</td>
+    </tr>
+    <tr>
+      <th>Venue hire</th>
+      <td>£{{ fund.budget_request_venue_hire|floatformat:2 }}</td>
+    </tr>
+    <tr>
+      <th>Catering</th>
+      <td>£{{ fund.budget_request_catering|floatformat:2 }}</td>
+    </tr>
+    <tr>
+      <th>Others</th>
+      <td>£{{ fund.budget_request_others|floatformat:2 }}</td>
+    </tr>
+  </tbody>
 </table>
 {% include 'lowfat/expenses.html' %}
 {% include 'lowfat/blogs.html' %}
