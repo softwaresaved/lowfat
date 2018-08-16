@@ -180,6 +180,7 @@ def claimant_form(request):
 
     if formset.is_valid():
         claimant = formset.save()
+        claimant.update_latlon()
         messages.success(request, 'Profile saved on our database.')
         return HttpResponseRedirect(reverse('claimant_detail',
                                             args=[claimant.id,]))
@@ -327,6 +328,7 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches
         # Handle submission
         if formset.is_valid():
             fund = formset.save()
+            fund.update_latlon()
             messages.success(request, 'Funding request saved on our database.')
             if not formset.cleaned_data["not_send_email_field"]:
                 new_fund_notification(fund)

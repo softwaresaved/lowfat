@@ -421,6 +421,23 @@ class Claimant(models.Model):
 
         super(Claimant, self).save(*args, **kwargs)
 
+    def update_latlon(self):
+        geolocator = Nominatim(
+            country_bias=self.home_country,
+            user_agent="lowfat/dev"
+        )
+        try:
+            location = geolocator.geocode(
+                self.home_city
+            )
+            if location is not None:
+                self.home_lon = location.longitude
+                self.home_lat = location.latitude
+
+                self.save()
+        except Exception as exception:  # pylint: disable=broad-except
+            print(exception)
+
     def __str__(self):
         return "{} ({}{})".format(
             self.fullname(),
@@ -619,20 +636,26 @@ class Fund(models.Model):
         if self.status == "A":
             self.approved = datetime.now()
 
-        geolocator = Nominatim()
-        try:
-            location = geolocator.geocode(
-                self.city,
-                country_bias=self.country
-            )
-            self.lon = location.longitude
-            self.lat = location.latitude
-        except:  # pylint: disable=bare-except
-            pass
-
         self.url = fix_url(self.url)
 
         super(Fund, self).save(*args, **kwargs)
+
+    def update_latlon(self):
+        geolocator = Nominatim(
+            country_bias=self.country,
+            user_agent="lowfat/dev"
+        )
+        try:
+            location = geolocator.geocode(
+                self.city
+            )
+            if location is not None:
+                self.lon = location.longitude
+                self.lat = location.latitude
+
+                self.save()
+        except Exception as exception:  # pylint: disable=broad-except
+            print(exception)
 
     def __str__(self):
         return "{} ({})".format(self.title, self.id)
