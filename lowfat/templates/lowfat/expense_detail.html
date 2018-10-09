@@ -55,8 +55,12 @@
         </tr>
         {% endif %}
         <tr>
-            <th>Status</th>
-            <td>{{ expense.get_status_display }}</td>
+          <th>Blog post (Submitted/Requested)</th>
+          <td>{{ expense.fund.total_of_blog_posts }}/{{ expense.fund.required_blog_posts }}</td>
+        </tr>
+        <tr>
+          <th>Status</th>
+          <td>{{ expense.get_status_display }}</td>
         </tr>
     </tbody>
 </table>
