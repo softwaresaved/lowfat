@@ -58,6 +58,16 @@
       <td><a href="{{ blog.draft_url }}">{{ blog.draft_url }}</a></td>
     </tr>
     <tr>
+      <th>Reviewer</th>
+      <td>
+        {% if blog.reviewer %}
+        {{ blog.reviewer.get_full_name }} <a href="mailto:{{ blog.reviewer.email }}" class="icon"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+        {% else %}
+        Reviewer not assign yet.
+        {% endif %}
+      </td>
+    </tr>
+    <tr>
       <th>Published URL</th>
       {% if blog.published_url|length > 0 %}
       <td><a href="{{ blog.published_url }}">{{ blog.published_url }}</a></td>
