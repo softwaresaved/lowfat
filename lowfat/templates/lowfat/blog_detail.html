@@ -59,19 +59,23 @@
     </tr>
     <tr>
       <th>Published URL</th>
-      {% if blog.published_url|length > 0 %}
-      <td><a href="{{ blog.published_url }}">{{ blog.published_url }}</a></td>
-      {% else %}
-      <td></td>
-      {% endif %}
+      <td>
+        {% if blog.published_url|length > 0 %}
+        <a href="{{ blog.published_url }}">{{ blog.published_url }}</a>
+        {% else %}
+        Not published yet.
+        {% endif %}
+      </td>
     </tr>
     <tr>
       <th>Tweet URL</th>
-      {% if blog.tweet_url|length > 0 %}
-      <td><a href="{{ blog.tweet_url }}">{{ blog.tweet_url }}</a></td>
-      {% else %}
-      <td></td>
-      {% endif %}
+      <td>
+        {% if blog.tweet_url|length > 0 %}
+        <a href="{{ blog.tweet_url }}">{{ blog.tweet_url }}</a>
+        {% else %}
+        Not published yet.
+        {% endif %}
+      </td>
     </tr>
   </tbody>
 </table>
