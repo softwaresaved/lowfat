@@ -77,6 +77,10 @@
       <td>
         {% if fund.status in 'AF' %}
         {{ fund.approved }}
+        {% elif fund.status in 'UP' %}
+        Not approved yet.
+        {% else %}
+        Not approved.
         {% endif %}
       </td>
     </tr>

@@ -109,16 +109,18 @@
       {% if user.is_staff or claimant and user == claimant.user or fund.claimant and user == fund.claimant.user %}
       <td>
         {{ blog.get_status_display }}
-        {% if blog.status == "C" or blog.status == "G" or blog.status == "L" %}
+        {% if blog.status in "RCGL" and blog.reviewer %}
         (Please contact <a href="mailto:{{ blog.reviewer.email }}">{{ blog.reviewer.get_full_name }}</a>.)
         {% endif %}
       </td>
       {% endif %}
       <td>
-        {% if blog.published_url|length > 0 %}
+        {% if blog.status in 'P' %}
         {{ blog.updated }}
+        {% elif blog.status in 'URCGL' %}
+        Not published yet
         {% else %}
-        <strong>Unpublished</strong>
+        Not published
         {% endif %}
       </td>
       {% if user.is_staff or claimant and user == claimant.user or fund.claimant and user == fund.claimant.user %}

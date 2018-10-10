@@ -123,6 +123,10 @@
       <td {% if fund.status in 'AF' %} sorttable_customkey="{{ fund.approved | date:'Ymd' }}" {% endif %}>
         {% if fund.status in 'AF' %}
         {{ fund.approved }}
+        {% elif fund.status in 'UP' %}
+        Not approved yet.
+        {% else %}
+        Not approved.
         {% endif %}
       </td>
       {% endif %}
