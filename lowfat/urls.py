@@ -45,6 +45,7 @@ FUND_PATTERNS = [
     url(r'^(?P<fund_id>[0-9]+)/expense/(?P<expense_relative_number>[0-9\-]+)/review$', views.expense_review_relative, name="expense_review_relative"),
     url(r'^(?P<fund_id>[0-9]+)/expense/(?P<expense_relative_number>[0-9\-]+)/edit$', views.expense_edit_relative, name="expense_edit_relative"),
     url(r'^(?P<fund_id>[0-9]+)/expense/(?P<expense_relative_number>[0-9\-]+)/remove$', views.expense_remove_relative, name="expense_remove_relative"),
+    url(r'^(?P<fund_id>[0-9]+)/expense/(?P<expense_relative_number>[0-9\-]+)/append$', views.expense_append_relative, name="expense_append_relative"),
     url(r'^(?P<fund_id>[0-9]+)/expense/(?P<expense_relative_number>[0-9\-]+)/pdf$', views.expense_claim_relative, name="expense_claim_relative"),
     url(r'^(?P<fund_id>[0-9]+)/review', views.fund_review, name="fund_review"),
     url(r'^(?P<fund_id>[0-9]+)/edit', views.fund_edit, name="fund_edit"),
