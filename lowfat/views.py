@@ -719,6 +719,9 @@ def expense_append_relative(request, fund_id, expense_relative_number):
 
     if request.POST and request.FILES and this_expense:
         try:
+            # Workaround for 'bytes' object has no attribute 'seek'
+            # Suggestion by ƘɌỈSƬƠƑ
+            # https://stackoverflow.com/a/38678468/1802726
             request_pdf_io = io.BytesIO(request.FILES["pdf"].read())
             PdfFileReader(request_pdf_io)
             request_pdf_io.seek(0)
@@ -735,7 +738,11 @@ def expense_append_relative(request, fund_id, expense_relative_number):
         # https://stackoverflow.com/a/29871560/1802726
         merger = PdfFileMerger()
         with open(this_expense.claim.path, "rb") as _file:
-            merger.append(_file)
+            # Workaround for 'bytes' object has no attribute 'seek'
+            # Suggestion by ƘɌỈSƬƠƑ
+            # https://stackoverflow.com/a/38678468/1802726
+            original_pdf_io = io.BytesIO(_file.read())
+        merger.append(original_pdf_io)
         merger.append(request_pdf_io)
         merger.write(this_expense.claim.path)
 
