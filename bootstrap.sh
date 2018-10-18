@@ -29,7 +29,7 @@ curl \
     --silent \
     -L \
     -o $FONT_AWESOME_ZIP \
-    https://github.com/FortAwesome/Font-Awesome/archive/v4.6.3.zip
+    https://use.fontawesome.com/releases/v5.4.1/fontawesome-free-5.4.1-web.zip
 unzip \
     -q \
     -u \
@@ -43,7 +43,7 @@ curl \
     --silent \
     -L \
     -o $ACADEMICONS_ZIP \
-    https://github.com/jpswalsh/academicons/archive/v1.8.0.zip
+    https://github.com/jpswalsh/academicons/archive/v1.8.6.zip
 unzip \
     -q \
     -u \
@@ -64,12 +64,12 @@ curl \
     --silent \
     -L \
     -o $GARLIC_ZIP \
-    https://github.com/guillaumepotier/Garlic.js/archive/1.2.4.zip
+    https://github.com/guillaumepotier/Garlic.js/archive/1.4.2.zip
 unzip \
     -q \
     -p \
     $GARLIC_ZIP \
-    Garlic.js-1.2.4/dist/garlic.min.js \
+    Garlic.js-1.4.2/dist/garlic.min.js \
     > $TMP_FOLDER/garlic/js/garlic.min.js
 
 # Datetime Widget
@@ -110,14 +110,14 @@ curl \
     --silent \
     -L \
     -o $TAGULOUS_ZIP \
-    https://github.com/radiac/django-tagulous/archive/0.12.0.zip
+    https://github.com/radiac/django-tagulous/archive/0.13.2.zip
 unzip \
     -q \
     -u \
     $TAGULOUS_ZIP \
-    "django-tagulous-0.12.0/tagulous/static/tagulous/*" \
+    "django-tagulous-0.13.2/tagulous/static/tagulous/*" \
     -d $TMP_FOLDER
-cp -v -r $TMP_FOLDER/django-tagulous-0.12.0/tagulous/static/tagulous $STATIC_FOLDER
+cp -v -r $TMP_FOLDER/django-tagulous-0.13.2/tagulous/static/tagulous $STATIC_FOLDER
 
 # Copy files
 for folder in css fonts js
