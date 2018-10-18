@@ -14,7 +14,7 @@ from django.shortcuts import render
 
 from constance import config
 
-from .management.commands import loadoldfunds as loadoldfunds
+from .management.commands import loadoldfunds
 from .models import *
 from .forms import *
 from .mail import *

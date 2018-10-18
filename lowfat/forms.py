@@ -272,7 +272,7 @@ class FellowForm(GarlicForm):
 class FundForm(GarlicForm):
     class Meta:
         model = Fund
-        exclude = [
+        exclude = [  # pylint: disable=modelform-uses-exclude
             "status",
             "ad_status",
             "budget_approved",
@@ -784,7 +784,7 @@ class BlogForm(GarlicForm):
 class BlogReviewForm(GarlicForm):
     class Meta:
         model = Blog
-        exclude = [
+        exclude = [  # pylint: disable=modelform-uses-exclude
             "fund",
             "author",
             "coauthor",
