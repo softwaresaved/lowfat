@@ -632,6 +632,10 @@ class Fund(models.Model):
     def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
         if not self.pk:
             self.grant = config.GRANTS_DEFAULT
+            if date.today() < self.claimant.inauguration_grant_expiration:
+                self.grant_heading = "F"
+            else:
+                self.grant_heading = "C"
 
         if self.status == "A":
             self.approved = datetime.now()
