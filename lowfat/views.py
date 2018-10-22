@@ -63,7 +63,7 @@ def dashboard(request):
             return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/welcome/'}))
 
         # Setup query parameters
-        funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPARF"  # Pending
+        funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPAMRF"  # Pending
         expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCPAF"  # All
         blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URCGLPMDOX"  # All
 
@@ -217,7 +217,7 @@ def claimant_detail(request, claimant_id):
         raise Http404("Claimant does not exist.")
 
     # Setup query parameters
-    funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPARF"
+    funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPAMRF"
     expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCPAF"
     blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URGLPDO"
 
@@ -249,7 +249,7 @@ def claimant_detail(request, claimant_id):
         funds = Fund.objects.filter(
             claimant=this_claimant,
             can_be_advertise_after=True,
-            status__in="AF"
+            status__in="AMF"
         )
         context.update(
             {
@@ -385,7 +385,7 @@ def fund_detail(request, fund_id):
             Claimant.objects.get(user=request.user) == this_fund.claimant):
 
         # Setup query parameters
-        funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPARF"
+        funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPAMRF"
         expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCPAF"
         blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URGLPDO"
 
