@@ -356,6 +356,13 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches
             fund.budget_approved = fund.budget_total()
             fund.save()
 
+            # Attempt to pre approved funding request.
+            if fund.pre_approve():
+                messages.success(request, 'Funding request approved.')
+
+            if not formset.cleaned_data["not_send_email_field"]:
+                new_fund_notification(fund)
+
             return HttpResponseRedirect(
                 reverse('fund_detail', args=[fund.id,])
             )

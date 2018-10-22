@@ -1,6 +1,8 @@
 from datetime import datetime, date
-import re
+from difflib import SequenceMatcher
+import ast
 import hashlib
+import re
 
 from geopy.geocoders import Nominatim
 
@@ -721,6 +723,20 @@ class Fund(models.Model):
 
     def link_review(self):
         return reverse("fund_review", args=[self.id])
+
+    def pre_approve(self):
+        approved = False
+        titles_of_funding_request = ast.literal_eval(config.PRE_APPROVED_FUNDING_REQUEST_TITLE)
+
+        for title in titles_of_funding_request:
+            if (SequenceMatcher(None, self.title, title).ratio() > 0.7 and
+                self.budget_total() < config.PRE_APPROVED_FUNDING_REQUEST_BUDGET):
+                self.status = 'M'
+                self.save()
+                approved = True
+                break
+
+        return approved
 
 
 class Expense(models.Model):

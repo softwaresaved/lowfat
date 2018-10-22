@@ -308,6 +308,14 @@ CONSTANCE_CONFIG = OrderedDict([
         3,
         "Month deadline that expenses must be submited.",
     )),
+    ("PRE_APPROVED_FUNDING_REQUEST_TITLE", (
+        "['Collaborations Workshop', 'Fellows Inaugural Meeting']",
+        "Name of pre approved funding requests, e.g. ['Collaborations Workshop', 'Fellows Inaugural Meeting'].",
+    )),
+    ("PRE_APPROVED_FUNDING_REQUEST_BUDGET", (
+        250,
+        "Maximum budget for pre approved funding requests, e.g. 250.",
+    )),
     ("CALENDAR_ACCESS_TOKEN", (
         "lKI7BSE7JCWaIw54xywVZy8zRTKLqOM3",
         "Token to access the calendar.",
