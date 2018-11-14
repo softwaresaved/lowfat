@@ -102,3 +102,33 @@ td, th {
     margin-bottom: 20px;
     padding: 15px;
 }
+
+.money-bar-graph {
+  width: 100%;
+  height: 38px;
+  color: #414042;
+}
+
+.money-used,
+.money-reserved,
+.money-available {
+    display: inline-block;
+    height: 100%;
+    box-sizing: border-box;
+    float: left;
+    font-weight: bold;
+    font-family: arial, sans-serif;
+    padding: 10px;
+}
+
+.money-used {
+    background: red;
+}
+
+.money-reserved {
+    background: #f7b334;
+}
+
+.money-available {
+    background: green;
+}
