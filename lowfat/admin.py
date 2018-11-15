@@ -53,6 +53,34 @@ class ClaimantAdmin(SimpleHistoryAdmin):
             },
         ),
         (
+            "Social Media",
+            {
+                "fields": [
+                    "institutional_website",
+                    "website",
+                    "website_feed",
+                    "orcid",
+                    "google_scholar",
+                    "github",
+                    "gitlab",
+                    "bitbucket",
+                    "twitter",
+                    "linkedin",
+                    "facebook",
+                ]
+            },
+        ),
+        (
+            "Website",
+            {
+                "fields": [
+                    "interests",
+                    "work_description",
+                    "photo_work_description",
+                ]
+            },
+        ),
+        (
             "Administration",
             {
                 "fields": [
