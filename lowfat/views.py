@@ -636,6 +636,7 @@ def expense_review(request, expense_id):
 
         if formset.is_valid():
             expense = formset.save()
+            messages.success(request, 'Expense claim updated.')
             if not formset.cleaned_data["not_send_email_field"]:
                 expense_review_notification(
                     formset.cleaned_data['email'],
@@ -644,6 +645,12 @@ def expense_review(request, expense_id):
                     expense,
                     not formset.cleaned_data['not_copy_email_field']
                 )
+
+            if expense.status == 'A' and expense.final:
+                expense.fund.status = 'F'
+                expense.fund.save()
+                messages.success(request, 'Funding request archived.')
+            
             return HttpResponseRedirect(
                 reverse('expense_detail_relative', args=[expense.fund.id, expense.relative_number,])
             )

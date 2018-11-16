@@ -660,6 +660,7 @@ class ExpenseReviewForm(GarlicForm):
         model = Expense
         fields = [
             'status',
+            'final',
             'asked_for_authorization_date',
             'send_to_finance_date',
             'amount_authorized_for_payment',
@@ -690,6 +691,7 @@ class ExpenseReviewForm(GarlicForm):
             Fieldset(
                 '',
                 'status',
+                'final',
                 'asked_for_authorization_date',
                 'send_to_finance_date',
                 PrependedText(
