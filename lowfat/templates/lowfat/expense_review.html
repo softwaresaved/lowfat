@@ -17,64 +17,70 @@
 <div class="row">
   <div class="col-md-6">
     <h2>Fund</h2>
-<table class="table table-bordered">
-    <tbody>
+    <table class="table table-bordered">
+      <tbody>
         <tr>
-            <th>Requester name</th>
-            <td>
-              {{ expense.fund.claimant.fullname_link|safe }}
-              <a class="icon" href="mailto:{{ expense.fund.claimant.email }}">
-                <i class="fa fa-envelope" aria-hidden="true"></i>
-              </a>
-            </td>
+          <th>Requester name</th>
+          <td>
+            {{ expense.fund.claimant.fullname_link|safe }}
+            <a class="icon" href="mailto:{{ expense.fund.claimant.email }}">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+            </a>
+          </td>
         </tr>
         <tr>
-            <th>Funding request title</th>
-            <td>{{ expense.fund.title_link|safe }}</td>
+          <th>Funding request title</th>
+          <td>{{ expense.fund.title_link|safe }}</td>
         </tr>
         <tr>
-            <th>Budget approved</th>
-            <td>
-              {% if expense.fund.status in 'AF' %}
-              £{{ expense.fund.budget_approved }}
-              {% else %}
-              £0.00
-              {% endif %}
-            </td>
+          <th>Budget approved</th>
+          <td>
+            {% if expense.fund.status in 'AF' %}
+            £{{ expense.fund.budget_approved }}
+            {% else %}
+            £0.00
+            {% endif %}
+          </td>
         </tr>
         <tr>
-            <th>Extra sponsored</th>
-            <td>{{ expense.fund.extra_sponsored }}</td>
+          <th>Extra sponsored</th>
+          <td>{{ expense.fund.extra_sponsored }}</td>
         </tr>
         <tr>
-            <th>Recipient</th>
-            <td>
-              {% if expense.recipient_fullname %}
-              {{ expense.fund.extra_sponsored }}
-              {% else %}
-              {{ expense.fund.claimant.fullname }}
-              {% endif %}
-            </td>
+          <th>Recipient</th>
+          <td>
+            {% if expense.recipient_fullname %}
+            {{ expense.fund.extra_sponsored }}
+            {% else %}
+            {{ expense.fund.claimant.fullname }}
+            {% endif %}
+          </td>
         </tr>
         <tr>
-            <th>Final claim</th>
-            <td>{{ expense.final }}</td>
+          <th>Final claim</th>
+          <td>{{ expense.final }}</td>
         </tr>
         <tr>
           <th>Blog post (Submitted/Requested)</th>
           <td>{{ expense.fund.total_of_blog_posts }} / {{ expense.fund.required_blog_posts }}</td>
         </tr>
-    </tbody>
-</table>
-  {% include "lowfat/communication.html" %}
+      </tbody>
+    </table>
+    {% include "lowfat/communication.html" %}
   </div>
-  <div class="col-md-6">
-<h2>Expense</h2>
-<table class="table table-bordered">
-    <tbody>
+  <div class="col-md-6" style="background:
+       {% if expense.fund.total_of_blog_posts < expense.fund.required_blog_posts %}
+       #fcf8e3
+       {% else %}
+       #dff0d8
+       {% endif %}
+  ;" >
+    <h2>Expense</h2>
+    <table class="table table-bordered">
+      <tbody>
         <tr>
-            <th>Received date</th>
-            <td>{{ expense.added }}</td>
+          <th>Received date</th>
+          <td>{{ expense.added }}</td>
         </tr>
         {% if expense.advance_booking %}
         <tr>
@@ -82,9 +88,9 @@
           <td>{{ expense.advance_bookinge }}</td>
         </tr>
         {% endif %}
-    </tbody>
-</table>
-{% crispy formset %}
+      </tbody>
+    </table>
+    {% crispy formset %}
   </div>
 </div>
 {% endblock %}
