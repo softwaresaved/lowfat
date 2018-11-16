@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$36000$naUGL9poUKTK$S25Z5p0u/omOwy/83rwVZT+BXOGQ+bvRq/gM0swX1tQ=",
-        "last_login": "2018-11-15T11:04:49.011",
+        "last_login": "2018-11-16T15:42:32.153",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -711,8 +711,8 @@
         "category": "A",
         "focus": "C",
         "mandatory": false,
-        "title": "9d680248 - Iron Man",
-        "url": "http://9d680248.com",
+        "title": "9d680248",
+        "url": "http://9d680248.co.uk",
         "country": "GB",
         "city": "U",
         "lon": -71.04731,
@@ -740,7 +740,7 @@
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
         "approved": null,
-        "updated": "2018-04-25T15:46:51.513",
+        "updated": "2018-11-16T15:44:59.848",
         "activity": [
             "ssi organised",
             "teaching at"
@@ -755,8 +755,8 @@
         "category": "H",
         "focus": "C",
         "mandatory": false,
-        "title": "9d683330 - The Hulk",
-        "url": "http://9d683330.com",
+        "title": "9d683330",
+        "url": "http://9d683330.co.uk",
         "country": "GB",
         "city": "U",
         "lon": -178.32413,
@@ -783,8 +783,8 @@
         "grant": "SSI2",
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
-        "approved": "2018-04-25T15:43:12.812",
-        "updated": "2018-04-25T15:43:12.814",
+        "approved": "2018-11-16T15:44:32.420",
+        "updated": "2018-11-16T15:44:32.421",
         "activity": [
             "conference",
             "training"
@@ -799,8 +799,8 @@
         "category": "H",
         "focus": "C",
         "mandatory": false,
-        "title": "9d681148 - Captain America",
-        "url": "http://9d681148.com",
+        "title": "9d681148",
+        "url": "http://9d681148.co.uk",
         "country": "GB",
         "city": "U",
         "lon": -90.89369,
@@ -828,7 +828,7 @@
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
         "approved": null,
-        "updated": "2018-04-25T15:41:04.259",
+        "updated": "2018-11-16T15:43:56.872",
         "activity": [
             "local",
             "panel",
@@ -845,8 +845,8 @@
         "category": "H",
         "focus": "C",
         "mandatory": false,
-        "title": "9d680716 - Iron Man",
-        "url": "http://9d680716.com",
+        "title": "9d680716",
+        "url": "http://9d680716.co.uk",
         "country": "GB",
         "city": "U",
         "lon": 173.44064,
@@ -874,7 +874,7 @@
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
         "approved": null,
-        "updated": "2018-04-25T15:44:21.987",
+        "updated": "2018-11-16T15:44:50.101",
         "activity": [
             "conference",
             "roundtable"
@@ -889,8 +889,8 @@
         "category": "A",
         "focus": "C",
         "mandatory": false,
-        "title": "9d68144a - Green Arrow",
-        "url": "http://9d68144a.com",
+        "title": "9d68144a",
+        "url": "http://9d68144a.co.uk",
         "country": "GB",
         "city": "U",
         "lon": 102.7173,
@@ -918,7 +918,7 @@
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
         "approved": null,
-        "updated": "2018-04-25T15:42:47.952",
+        "updated": "2018-11-16T15:44:06.965",
         "activity": [
             "attending as ssi"
         ]
@@ -932,8 +932,8 @@
         "category": "A",
         "focus": "C",
         "mandatory": false,
-        "title": "9d6816de - Black Widow",
-        "url": "http://9d6816de.com",
+        "title": "9d6816de",
+        "url": "http://9d6816de.co.uk",
         "country": "GB",
         "city": "U",
         "lon": -65.84834,
@@ -960,8 +960,8 @@
         "grant": "SSI2",
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
-        "approved": "2018-04-25T15:39:50.987",
-        "updated": "2018-04-25T15:39:50.988",
+        "approved": "2018-11-16T15:43:48.152",
+        "updated": "2018-11-16T15:43:48.152",
         "activity": [
             "local",
             "policy",
@@ -977,8 +977,8 @@
         "category": "A",
         "focus": "C",
         "mandatory": false,
-        "title": "9d6818e6 - Captain America",
-        "url": "http://9d6818e6.com",
+        "title": "9d6818e6",
+        "url": "http://9d6818e6.co.uk",
         "country": "GB",
         "city": "U",
         "lon": -6.73372,
@@ -1006,7 +1006,7 @@
         "notes_from_admin": "",
         "added": "2016-07-13T14:58:08.260",
         "approved": null,
-        "updated": "2016-07-17T14:09:23.715",
+        "updated": "2018-11-16T15:45:10.571",
         "activity": []
     }
 },
@@ -1018,8 +1018,8 @@
         "category": "A",
         "focus": "C",
         "mandatory": false,
-        "title": "9d681b66 - Captain America",
-        "url": "http://9d681b66.com",
+        "title": "9d681b66",
+        "url": "http://9d681b66.co.uk",
         "country": "GB",
         "city": "U",
         "lon": -9.87283,
@@ -1047,7 +1047,7 @@
         "notes_from_admin": "",
         "added": "2016-07-13T14:59:44.036",
         "approved": null,
-        "updated": "2018-04-25T15:43:45.278",
+        "updated": "2018-11-16T15:44:42.068",
         "activity": [
             "local",
             "panel",
@@ -1063,8 +1063,8 @@
         "category": "A",
         "focus": "C",
         "mandatory": false,
-        "title": "9d681d8c - Green Arrow",
-        "url": "http://9d681d8c.com",
+        "title": "9d681d8c",
+        "url": "http://9d681d8c.co.uk",
         "country": "GB",
         "city": "U",
         "lon": 48.89437,
@@ -1092,7 +1092,7 @@
         "notes_from_admin": "",
         "added": "2016-07-13T15:01:25.316",
         "approved": null,
-        "updated": "2016-09-05T10:51:42.337",
+        "updated": "2018-11-16T15:44:20.948",
         "activity": []
     }
 },
@@ -1104,8 +1104,8 @@
         "category": "H",
         "focus": "C",
         "mandatory": false,
-        "title": "9d6816aa - Black Widow",
-        "url": "http://9d6816aa.com",
+        "title": "9d6816aa",
+        "url": "http://9d6816aa.co.uk",
         "country": "GB",
         "city": "U",
         "lon": -65.84834,
@@ -1133,7 +1133,7 @@
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
         "approved": null,
-        "updated": "2016-09-05T10:53:16.027",
+        "updated": "2018-11-16T15:43:38.915",
         "activity": []
     }
 },
@@ -1148,7 +1148,7 @@
         "amount_claimed": "500.00",
         "justification_for_extra": "",
         "invoice": false,
-        "final": false,
+        "final": true,
         "advance_booking": false,
         "recipient_fullname": "",
         "recipient_email": "",
@@ -1163,7 +1163,7 @@
         "grant": "SSI1",
         "notes_from_admin": "",
         "added": "2016-07-13T15:05:50.610",
-        "updated": "2016-07-17T13:58:56.945"
+        "updated": "2018-11-16T15:46:28.189"
     }
 },
 {
@@ -1177,7 +1177,7 @@
         "amount_claimed": "20000.00",
         "justification_for_extra": "",
         "invoice": false,
-        "final": false,
+        "final": true,
         "advance_booking": false,
         "recipient_fullname": "",
         "recipient_email": "",
@@ -1192,7 +1192,7 @@
         "grant": "SSI1",
         "notes_from_admin": "",
         "added": "2016-07-13T15:03:29.250",
-        "updated": "2016-07-17T13:59:13.965"
+        "updated": "2018-11-16T15:46:33.677"
     }
 },
 {
@@ -1206,7 +1206,7 @@
         "amount_claimed": "400.00",
         "justification_for_extra": "",
         "invoice": false,
-        "final": false,
+        "final": true,
         "advance_booking": false,
         "recipient_fullname": "",
         "recipient_email": "",
@@ -1221,7 +1221,7 @@
         "grant": "SSI1",
         "notes_from_admin": "",
         "added": "2016-07-13T15:03:57.771",
-        "updated": "2016-07-17T13:59:25.548"
+        "updated": "2018-11-16T15:46:45.547"
     }
 },
 {
@@ -1235,7 +1235,7 @@
         "amount_claimed": "1000.00",
         "justification_for_extra": "",
         "invoice": false,
-        "final": false,
+        "final": true,
         "advance_booking": false,
         "recipient_fullname": "",
         "recipient_email": "",
@@ -1250,7 +1250,7 @@
         "grant": "SSI1",
         "notes_from_admin": "",
         "added": "2016-07-07T14:59:46.412",
-        "updated": "2016-07-17T14:03:11.682"
+        "updated": "2018-11-16T15:46:15.615"
     }
 },
 {
@@ -1264,7 +1264,7 @@
         "amount_claimed": "2500.00",
         "justification_for_extra": "",
         "invoice": false,
-        "final": false,
+        "final": true,
         "advance_booking": false,
         "recipient_fullname": "",
         "recipient_email": "",
@@ -1279,7 +1279,7 @@
         "grant": "SSI2",
         "notes_from_admin": "",
         "added": "2016-07-13T15:04:56.919",
-        "updated": "2016-07-17T14:03:06.035"
+        "updated": "2018-11-16T15:46:39.225"
     }
 },
 {
@@ -1322,7 +1322,7 @@
         "amount_claimed": "500.00",
         "justification_for_extra": "",
         "invoice": false,
-        "final": false,
+        "final": true,
         "advance_booking": false,
         "recipient_fullname": "",
         "recipient_email": "",
@@ -1337,7 +1337,7 @@
         "grant": "SSI1",
         "notes_from_admin": "",
         "added": "2016-07-13T15:05:22.698",
-        "updated": "2016-07-17T14:02:32.024"
+        "updated": "2018-11-16T15:46:50.906"
     }
 },
 {
@@ -1351,7 +1351,7 @@
         "amount_claimed": "1000.00",
         "justification_for_extra": "",
         "invoice": false,
-        "final": false,
+        "final": true,
         "advance_booking": false,
         "recipient_fullname": "",
         "recipient_email": "",
@@ -1366,7 +1366,7 @@
         "grant": "SSI2",
         "notes_from_admin": "",
         "added": "2016-07-13T15:04:23.530",
-        "updated": "2016-07-17T14:02:07.034"
+        "updated": "2018-11-16T15:46:22.116"
     }
 },
 {
