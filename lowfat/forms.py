@@ -656,6 +656,56 @@ class ExpenseForm(GarlicForm):
 
         self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
 
+class ExpenseShortlistedForm(GarlicForm):
+    class Meta:
+        model = Expense
+        fields = [
+            'fund',
+            'claim',
+            'amount_claimed',
+            'justification_for_extra',
+        ]
+
+        labels = {
+            'fund': 'Choose approved funding request',
+            'claim': 'PDF copy of claim and receipt(s)',
+            'justification_for_extra': "If the claim is greater by 20% than the amount requested please provide justification",
+        }
+
+        widgets = {
+            'fund': Select(attrs={"class": "select-single-item"}),
+        }
+
+
+    required_css_class = 'form-field-required'
+
+    def __init__(self, *args, **kwargs):
+        super(ExpenseShortlistedForm, self).__init__(*args, **kwargs)
+
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                'fund',
+                HTML("</p>If your funding request isn't on the drop down menu above please email <a href='mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}'>us</a>."),
+                'claim',
+                PrependedText(
+                    'amount_claimed',
+                    '£',
+                    min=0.00,
+                    step=0.01,
+                    onblur="this.value = parseFloat(this.value).toFixed(2);"
+                ),
+                'justification_for_extra',
+                'not_send_email_field' if self.is_staff else None,
+                ButtonHolder(
+                    Submit('submit', '{{ title }}')
+                )
+            )
+        )
+
+        self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
+
+
 class ExpenseReviewForm(GarlicForm):
     class Meta:
         model = Expense

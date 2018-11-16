@@ -554,13 +554,26 @@ def expense_form(request, **kargs):
             "amount_claimed": "0.00",  # Workaround for https://github.com/softwaresaved/lowfat/issues/191
         }
 
-    formset = ExpenseForm(
-        request.POST or None,
-        request.FILES or None,
-        instance=expense_to_edit,
-        initial=None if expense_to_edit else initial,
-        is_staff=True if request.user.is_superuser else False
-    )
+    try:
+        claimant = Claimant.objects.get(user=request.user)
+    except:
+        claimant = None
+    if claimant and not claimant.fellow:
+        formset = ExpenseShortlistedForm(
+            request.POST or None,
+            request.FILES or None,
+            instance=expense_to_edit,
+            initial=None if expense_to_edit else initial,
+            is_staff=True if request.user.is_superuser else False
+        )
+    else:
+        formset = ExpenseForm(
+            request.POST or None,
+            request.FILES or None,
+            instance=expense_to_edit,
+            initial=None if expense_to_edit else initial,
+            is_staff=True if request.user.is_superuser else False
+        )
 
     if formset.is_valid():
         expense = formset.save()
