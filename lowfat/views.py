@@ -213,7 +213,7 @@ def claimant_detail(request, claimant_id):
     this_claimant = Claimant.objects.get(id=claimant_id)
 
     # Avoid leak information from applicants
-    if not request.user.is_superuser and not request.user.is_staff and not (this_claimant.fellow or this_claimant.received_offer or this_claimant.collaborator):
+    if not request.user.is_superuser and not request.user.is_staff and not (this_claimant.fellow or this_claimant.received_offer or this_claimant.shortlisted or this_claimant.collaborator):
         raise Http404("Claimant does not exist.")
 
     # Setup query parameters
