@@ -1,5 +1,7 @@
 import copy
+import io
 import os
+import shutil
 
 import django.utils
 from django.contrib import messages
@@ -14,7 +16,9 @@ from django.shortcuts import render
 
 from constance import config
 
-from .management.commands import loadoldfunds
+from PyPDF2 import PdfFileMerger, PdfFileReader
+
+from .management.commands import loadoldfunds as loadoldfunds
 from .models import *
 from .forms import *
 from .mail import *
@@ -701,6 +705,52 @@ def expense_remove_relative(request, fund_id, expense_relative_number):
                 messages.error(request, 'Only the author can remove the blog.')
 
     return HttpResponseRedirect(redirect_url)
+
+@login_required
+def expense_append_relative(request, fund_id, expense_relative_number):
+    try:
+        this_expense = Expense.objects.get(
+            fund=Fund.objects.get(id=fund_id),
+            relative_number=expense_relative_number
+        )
+    except:  # pylint: disable=bare-except
+        this_expense = None
+        messages.error(request, "The expense that you want doesn't exist.")
+
+    if request.POST and request.FILES and this_expense:
+        try:
+            # Workaround for 'bytes' object has no attribute 'seek'
+            # Suggestion by ƘɌỈSƬƠƑ
+            # https://stackoverflow.com/a/38678468/1802726
+            request_pdf_io = io.BytesIO(request.FILES["pdf"].read())
+            PdfFileReader(request_pdf_io)
+            request_pdf_io.seek(0)
+        except:
+            messages.error(request, 'File is not a PDF.')
+
+        # Backup of original PDF
+        shutil.copyfile(
+            this_expense.claim.path,
+            "{}-backup.pdf".format(this_expense.claim.path)
+        )
+
+        # Based on Emile Bergeron's suggestion
+        # https://stackoverflow.com/a/29871560/1802726
+        merger = PdfFileMerger()
+        with open(this_expense.claim.path, "rb") as _file:
+            # Workaround for 'bytes' object has no attribute 'seek'
+            # Suggestion by ƘɌỈSƬƠƑ
+            # https://stackoverflow.com/a/38678468/1802726
+            original_pdf_io = io.BytesIO(_file.read())
+        merger.append(original_pdf_io)
+        merger.append(request_pdf_io)
+        merger.write(this_expense.claim.path)
+
+        messages.success(request, 'PDF updated.')
+
+    return HttpResponseRedirect(
+        reverse('expense_detail_relative', args=[fund_id, expense_relative_number,])
+    )
 
 @login_required
 def expense_claim(request, expense_id):

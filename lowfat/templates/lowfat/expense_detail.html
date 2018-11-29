@@ -66,6 +66,18 @@
           <th>Status</th>
           <td>{{ expense.get_status_display }}</td>
         </tr>
+        <tr>
+          <th>Add pages</th>
+          <td>
+            <form class="form-inline" action="/request/{{ expense.fund.id }}/expense/{{ expense.relative_number }}/append" method="post" enctype="multipart/form-data">{% csrf_token %}
+              <div class="form-group">
+                <label for="add-page">PDF file</label>
+                <input type="file" id="pdf" name="pdf" required>
+              </div>
+              <button type="submit" class="btn btn-default">Send pages</button>
+            </form>
+          </td>
+        </tr>
     </tbody>
 </table>
 {% include "lowfat/communication.html" %}
