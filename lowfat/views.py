@@ -185,7 +185,7 @@ def claimant_form(request):
     if formset.is_valid():
         claimant = formset.save()
         claimant.update_latlon()
-        messages.success(request, 'Profile saved on our database.')
+        messages.success(request, 'Profile saved.')
         return HttpResponseRedirect(reverse('claimant_detail',
                                             args=[claimant.id,]))
 
@@ -333,7 +333,7 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches
         if formset.is_valid():
             fund = formset.save()
             fund.update_latlon()
-            messages.success(request, 'Funding request saved on our database.')
+            messages.success(request, 'Funding request saved.')
             if not formset.cleaned_data["not_send_email_field"]:
                 new_fund_notification(fund)
 
@@ -393,7 +393,7 @@ def fund_detail(request, fund_id):
 
         return render(request, 'lowfat/fund_detail.html', context)
 
-    raise Http404("Fund does not exist.")
+    raise Http404("Funding request does not exist.")
 
 @staff_member_required
 def fund_review(request, fund_id):
@@ -409,6 +409,7 @@ def fund_review(request, fund_id):
 
         if formset.is_valid():
             fund = formset.save()
+            messages.success(request, 'Funding request updated.')
             if not formset.cleaned_data["not_send_email_field"]:
                 fund_review_notification(
                     formset.cleaned_data['email'],
@@ -458,7 +459,7 @@ def fund_remove(request, fund_id):
             this_fund = Fund.objects.get(id=fund_id)
         except:  # pylint: disable=bare-except
             this_fund = None
-            messages.error(request, "The funding request that you want to remove doesn't exist.")
+            messages.error(request, "Funding request that you want to remove doesn't exist.")
 
         if this_fund and Claimant.objects.get(user=request.user) == this_fund.claimant:
             this_fund.remove()
@@ -560,7 +561,7 @@ def expense_form(request, **kargs):
 
     if formset.is_valid():
         expense = formset.save()
-        messages.success(request, 'Expense saved on our database.')
+        messages.success(request, 'Expense saved.')
         if not formset.cleaned_data["not_send_email_field"]:
             new_expense_notification(expense)
         return HttpResponseRedirect(
@@ -819,7 +820,7 @@ def blog_form(request, **kargs):
                 )
         blog.save()
 
-        messages.success(request, 'Blog draft saved on our database.')
+        messages.success(request, 'Blog draft saved.')
         if not formset.cleaned_data["not_send_email_field"]:
             new_blog_notification(blog)
         return HttpResponseRedirect(
@@ -887,6 +888,7 @@ def blog_review(request, blog_id):
 
         if formset.is_valid():
             blog = formset.save()
+            messages.success(request, 'Blog updated.')
             if not formset.cleaned_data["not_send_email_field"]:
                 blog_review_notification(
                     formset.cleaned_data['email'],
