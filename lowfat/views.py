@@ -556,7 +556,7 @@ def expense_form(request, **kargs):
 
     try:
         claimant = Claimant.objects.get(user=request.user)
-    except:
+    except:  # pylint: disable=bare-except
         claimant = None
     if claimant and not claimant.fellow:
         formset = ExpenseShortlistedForm(
