@@ -84,7 +84,17 @@
         {% endif %}
       </td>
     </tr>
-    {% if user.is_superuser %}
+    {% if user.is_staff %}
+    <tr>
+      <th>
+        Approver
+      </th>
+      <td>
+        {{ fund.approver }}
+      </td>
+    </tr>
+    {% endif %}
+    {% if user.is_staff %}
     <tr>
       <th>Justication</th>
       <td>{{ fund.justification | markdown | safe }}</td>

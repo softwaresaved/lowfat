@@ -409,6 +409,9 @@ def fund_review(request, fund_id):
 
         if formset.is_valid():
             fund = formset.save()
+            if fund.status == "A" and fund.approver == None:
+                fund.approver = request.user
+                fund.save()
             messages.success(request, 'Funding request updated.')
             if not formset.cleaned_data["not_send_email_field"]:
                 fund_review_notification(
