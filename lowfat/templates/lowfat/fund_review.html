@@ -61,6 +61,10 @@
 <table class="table table-bordered">
     <tbody>
         <tr>
+            <th>Fellowship grant available</th>
+            <td>£{{ fund.claimant.claimantship_available|floatformat:2 }}</td>
+        </tr>
+        <tr>
             <th><strong>Total</strong> budget request</th>
             <td>£{{ fund.budget_total|floatformat:2 }}</td>
         </tr>
@@ -97,9 +101,16 @@
 </table>
 {% include "lowfat/communication.html" %}
   </div>
-  <div class="col-md-6">
-<h2>Review</h2>
-{% crispy formset %}
+  <div class="col-md-6"
+       style="background:
+       {% if fund.claimant.claimantship_available < fund.budget_total %}
+       #fcf8e3
+       {% else %}
+       #dff0d8
+       {% endif %}
+  ;">
+    <h2>Review</h2>
+    {% crispy formset %}
   </div>
 </div>
 {% endblock %}
