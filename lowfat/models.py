@@ -596,6 +596,11 @@ class Fund(models.Model):
         max_length=1,
         default="U"
     )
+    approver = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True
+    )
     required_blog_posts = models.IntegerField(
         null=False,
         blank=False,
