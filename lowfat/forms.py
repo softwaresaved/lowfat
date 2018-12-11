@@ -1,5 +1,6 @@
 from datetime import datetime, date
 
+from django.contrib.auth.models import User
 from django.forms import (
     BooleanField,
     CharField,
@@ -821,3 +822,5 @@ class BlogReviewForm(GarlicForm):
                 )
                 )
             )
+
+        self.fields['reviewer'].queryset = User.objects.filter(is_staff=True)
