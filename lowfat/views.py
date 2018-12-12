@@ -213,7 +213,7 @@ def claimant_detail(request, claimant_id):
     this_claimant = Claimant.objects.get(id=claimant_id)
 
     # Avoid leak information from applicants
-    if not request.user.is_superuser and not request.user.is_staff and not (this_claimant.fellow or this_claimant.received_offer or this_claimant.collaborator):
+    if not request.user.is_superuser and not request.user.is_staff and not (this_claimant.fellow or this_claimant.received_offer or this_claimant.shortlisted or this_claimant.collaborator):
         raise Http404("Claimant does not exist.")
 
     # Setup query parameters
@@ -288,6 +288,12 @@ def my_profile(request):
 
 @login_required
 def fund_form(request, **kargs):  # pylint: disable=too-many-branches
+    if not request.user.is_staff:
+        try:
+            claimant = Claimant.objects.get(user=request.user)
+        except:  # pylint: disable=bare-except
+            claimant = None
+
     # Setup fund to edit if provide
     if "fund_id" in kargs:
         try:
@@ -296,7 +302,7 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches
             fund_to_edit = None
             messages.error(request, "The funding request that you want to edit doesn't exist.")
         if not (request.user.is_superuser or
-                Claimant.objects.get(user=request.user) == fund_to_edit.claimant):
+                climant == fund_to_edit.claimant):
             fund_to_edit = None
             messages.error(request, "You don't have permission to edit the requested funding request.")
     else:
@@ -308,25 +314,33 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches
     }
 
     if not request.user.is_staff:
-        try:
-            initial["claimant"] = Claimant.objects.get(user=request.user)
-        except:  # pylint: disable=bare-except
+        if claimant:
+            initial["claimant"] = claimant
+        else:
             return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/unavailable/'}))
     elif request.GET.get("claimant_id"):
-        initial["claimant"] = Claimant.objects.get(id=request.GET.get("claimant_id"))
+        initial["claimant"] = claimant
 
-    if fund_to_edit and Claimant.objects.get(user=request.user) == fund_to_edit.claimant and fund_to_edit.status != 'U':
+    if fund_to_edit and claimant == fund_to_edit.claimant and fund_to_edit.status != 'U':
         formset = FundGDPRForm(
             request.POST or None,
             instance=fund_to_edit
         )
     else:
-        formset = FundForm(
-            request.POST or None,
-            instance=fund_to_edit,
-            initial=None if fund_to_edit else initial,
-            is_staff=True if request.user.is_superuser else False
-        )
+        if claimant.shortlisted:
+            formset = FundShortlistedForm(
+                request.POST or None,
+                instance=fund_to_edit,
+                initial=None if fund_to_edit else initial,
+                is_staff=True if request.user.is_superuser else False
+            )
+        else:
+            formset = FundForm(
+                request.POST or None,
+                instance=fund_to_edit,
+                initial=None if fund_to_edit else initial,
+                is_staff=True if request.user.is_superuser else False
+            )
 
     if request.POST:
         # Handle submission
@@ -346,7 +360,7 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches
                 reverse('fund_detail', args=[fund.id,])
             )
 
-    if type(formset).__name__ == "FundForm":
+    if type(formset).__name__ in ["FundForm", "FundShortlistedForm"]:
         if not request.user.is_superuser:
             formset.fields["claimant"].queryset = Claimant.objects.filter(user=request.user)
         elif request.GET.get("claimant_id"):
@@ -554,13 +568,26 @@ def expense_form(request, **kargs):
             "amount_claimed": "0.00",  # Workaround for https://github.com/softwaresaved/lowfat/issues/191
         }
 
-    formset = ExpenseForm(
-        request.POST or None,
-        request.FILES or None,
-        instance=expense_to_edit,
-        initial=None if expense_to_edit else initial,
-        is_staff=True if request.user.is_superuser else False
-    )
+    try:
+        claimant = Claimant.objects.get(user=request.user)
+    except:  # pylint: disable=bare-except
+        claimant = None
+    if claimant and not claimant.fellow:
+        formset = ExpenseShortlistedForm(
+            request.POST or None,
+            request.FILES or None,
+            instance=expense_to_edit,
+            initial=None if expense_to_edit else initial,
+            is_staff=True if request.user.is_superuser else False
+        )
+    else:
+        formset = ExpenseForm(
+            request.POST or None,
+            request.FILES or None,
+            instance=expense_to_edit,
+            initial=None if expense_to_edit else initial,
+            is_staff=True if request.user.is_superuser else False
+        )
 
     if formset.is_valid():
         expense = formset.save()

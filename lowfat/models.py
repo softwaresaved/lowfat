@@ -365,6 +365,7 @@ class Claimant(models.Model):
             31
         )
     )
+    shortlisted = models.BooleanField(default=False)
     received_offer = models.BooleanField(default=False)
     fellow = models.BooleanField(default=False)
     collaborator = models.BooleanField(default=False)

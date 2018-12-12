@@ -435,6 +435,93 @@ class FundForm(GarlicForm):
         self.fields['focus'].initial = ''
 
 
+class FundShortlistedForm(FundForm):
+    def __init__(self, *args, **kwargs):
+        super(FundShortlistedForm, self).__init__(*args, **kwargs)
+
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                HTML('<p>To apply for expenses for eligible events, please fill in this form at least one month before the start date of the event you wish to attend or organise.</p><h2>Requester details</h2>'),
+                'claimant',
+                HTML('<h2>Funding request details</h2>'),
+                'category',
+                'focus',
+                'mandatory',
+                'title',
+                'url',
+                'country',
+                'city',
+                'start_date',
+                'end_date',
+                HTML('<h2>Costs</h2><p>Please provide an estimate of your costs below. All values should be entered in GBP. See the terms and conditions for details (<a href="{{ terms_and_conditions_url }}">{{ terms_and_conditions_url }}</a>)</p><p>Please fill in all cost sections that are relevant to your event type.</p>'),
+                PrependedText(
+                    'budget_request_travel',
+                    '£',
+                    onblur="update_budget()",
+                    min=0.00,
+                    step=0.01
+                ),
+                PrependedText(
+                    'budget_request_attendance_fees',
+                    '£',
+                    onblur="update_budget()",
+                    min=0.00,
+                    step=0.01
+                ),
+                PrependedText(
+                    'budget_request_subsistence_cost',
+                    '£',
+                    onblur="update_budget()",
+                    min=0.00,
+                    step=0.01
+                ),
+                PrependedText(
+                    'budget_request_venue_hire',
+                    '£',
+                    onblur="update_budget()",
+                    min=0.00,
+                    step=0.01
+                ),
+                PrependedText(
+                    'budget_request_catering',
+                    '£',
+                    onblur="update_budget()",
+                    min=0.00,
+                    step=0.01
+                ),
+                PrependedText(
+                    'budget_request_others',
+                    '£',
+                    onblur="update_budget()",
+                    min=0.00,
+                    step=0.01
+                ),
+                PrependedText(
+                    'total_budget',
+                    '£',
+                    disabled=True,
+                    value=0.00
+                ),
+                HTML('<h2>Justification for attending or organising the event</h2><p>When filling in the questions below please consider the following points:</p><ul><li>For attending conferences/workshops: will the conference focus on a significant field, will you meet significant researchers, will there be a focus on research software?</li><li>For organising workshops: how will the event help your domain, how will the event help the Institute, how will the event help you.</li><li>For policy related work: how might participation or organisation help the policy goals of the Institute, such as improving software and improved research (this can include people and tools perspectives).</li><li>For other: please state reasons - note it maybe good to discuss matter with the Institute Community Lead before filling the form to make sure the rationale is aligned to the Institute and to your own objectives.</li></ul>'),
+                'justification',
+                'additional_info',
+                'not_send_email_field' if self.is_staff else None,
+                ButtonHolder(
+                    Submit('submit', '{{ title }}')
+                )
+            )
+        )
+
+        # Force user to select one category
+        self.fields['category'].widget.choices.insert(0, ('', '---------'))
+        self.fields['category'].initial = ''
+
+        # Force user to select one focus
+        self.fields['focus'].widget.choices.insert(0, ('', '---------'))
+        self.fields['focus'].initial = ''
+
+
 class FundGDPRForm(GarlicForm):
     class Meta:
         model = Fund
@@ -656,6 +743,56 @@ class ExpenseForm(GarlicForm):
 
         self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
 
+class ExpenseShortlistedForm(GarlicForm):
+    class Meta:
+        model = Expense
+        fields = [
+            'fund',
+            'claim',
+            'amount_claimed',
+            'justification_for_extra',
+        ]
+
+        labels = {
+            'fund': 'Choose approved funding request',
+            'claim': 'PDF copy of claim and receipt(s)',
+            'justification_for_extra': "If the claim is greater by 20% than the amount requested please provide justification",
+        }
+
+        widgets = {
+            'fund': Select(attrs={"class": "select-single-item"}),
+        }
+
+
+    required_css_class = 'form-field-required'
+
+    def __init__(self, *args, **kwargs):
+        super(ExpenseShortlistedForm, self).__init__(*args, **kwargs)
+
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                'fund',
+                HTML("</p>If your funding request isn't on the drop down menu above please email <a href='mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}'>us</a>."),
+                'claim',
+                PrependedText(
+                    'amount_claimed',
+                    '£',
+                    min=0.00,
+                    step=0.01,
+                    onblur="this.value = parseFloat(this.value).toFixed(2);"
+                ),
+                'justification_for_extra',
+                'not_send_email_field' if self.is_staff else None,
+                ButtonHolder(
+                    Submit('submit', '{{ title }}')
+                )
+            )
+        )
+
+        self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
+
+
 class ExpenseReviewForm(GarlicForm):
     class Meta:
         model = Expense
@@ -761,12 +898,11 @@ class BlogForm(GarlicForm):
             Fieldset(
                 '',
                 'fund',
+                'final',
                 'author' if self.is_staff else None,
                 'coauthor',
                 HTML("<p>We prefer to receive links to <a href='https://www.google.co.uk/docs/about/'>Google Docs</a> (tips <a href='/pages/guide/google-docs/'>here</a>), <a href='https://products.office.com/en-gb/office-365-home'>Microsoft Office 365 document</a> or any other online live collaborative document platform you like to use. Posts published somewhere already, e.g. your personal blog, are welcome as well.</p>"),
                 'draft_url',
-                HTML('<p>To apply for expenses for eligible events, please fill in this form at least one month before the start date of the event you wish to attend or organise.</p><h2>Requester details</h2>'),
-                'final',
                 'notes_from_author',
                 'not_send_email_field' if self.is_staff else None,
                 ButtonHolder(

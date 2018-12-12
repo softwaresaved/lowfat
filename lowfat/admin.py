@@ -88,6 +88,7 @@ class ClaimantAdmin(SimpleHistoryAdmin):
                     "terms_and_conditions",
                     "application_year",
                     "inauguration_grant_expiration",
+                    "shortlisted",
                     "received_offer",
                     "fellow",
                     "collaborator",
