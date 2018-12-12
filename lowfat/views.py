@@ -360,7 +360,7 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches
                 reverse('fund_detail', args=[fund.id,])
             )
 
-    if type(formset).__name__ == "FundForm":
+    if type(formset).__name__ in ["FundForm", "FundShortlistedForm"]:
         if not request.user.is_superuser:
             formset.fields["claimant"].queryset = Claimant.objects.filter(user=request.user)
         elif request.GET.get("claimant_id"):
