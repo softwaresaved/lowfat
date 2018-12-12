@@ -327,7 +327,7 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches
             instance=fund_to_edit
         )
     else:
-        if claimant.shortlisted:
+        if not request.user.is_staff and claimant.shortlisted:
             formset = FundShortlistedForm(
                 request.POST or None,
                 instance=fund_to_edit,
