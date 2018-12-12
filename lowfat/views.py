@@ -346,11 +346,11 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches
         # Handle submission
         if formset.is_valid():
             fund = formset.save()
-            fund.update_latlon()
             messages.success(request, 'Funding request saved.')
             if not formset.cleaned_data["not_send_email_field"]:
                 new_fund_notification(fund)
 
+            fund.update_latlon()
             # Default value for budget_approved is budget_total.
             # The reason for this is to save staffs to copy and paste the approved amount.
             fund.budget_approved = fund.budget_total()
@@ -359,9 +359,14 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches
             # Attempt to pre approved funding request.
             if fund.pre_approve():
                 messages.success(request, 'Funding request approved.')
-
-            if not formset.cleaned_data["not_send_email_field"]:
-                new_fund_notification(fund)
+                if not formset.cleaned_data["not_send_email_field"]:
+                    fund_review_notification(
+                        "",
+                        request.user,
+                        fund,
+                        fund,
+                        True
+                    )
 
             return HttpResponseRedirect(
                 reverse('fund_detail', args=[fund.id,])
