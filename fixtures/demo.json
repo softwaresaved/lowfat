@@ -648,7 +648,7 @@
     "model": "lowfat.claimant",
     "pk": 6,
     "fields": {
-        "user": null,
+        "user": 8,
         "forenames": "Rooney",
         "surname": "Whitney",
         "email": "rooney.whitney@mail.co.uk",
