@@ -619,6 +619,8 @@ class Fund(ModelWithToken):
         default=0.00
     )
     justification = models.TextField()
+    success_targeted = models.TextField()
+    success_reported = models.TextField(blank=True)  # Only provide later
     additional_info = models.TextField(blank=True)
     extra_sponsored = models.TextField(blank=True)
 

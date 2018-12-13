@@ -166,6 +166,12 @@ class FundAdmin(SimpleHistoryAdmin):
                 'budget_approved',
                 ]
             }),
+        ('Success', {
+            'fields': [
+                'success_targeted',
+                'success_reported',
+                ]
+            }),
         ('Metadata', {
             'fields': [
                 'category',

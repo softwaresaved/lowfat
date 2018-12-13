@@ -276,6 +276,7 @@ class FundForm(GarlicForm):
     class Meta:
         model = Fund
         exclude = [  # pylint: disable=modelform-uses-exclude
+            "success_reported",
             "status",
             "ad_status",
             "budget_approved",
@@ -303,6 +304,7 @@ class FundForm(GarlicForm):
             'budget_request_venue_hire': "Venue hire",
             'budget_request_catering': "Catering",
             'budget_request_others': "Other costs",
+            'success_targeted': "Successful outputs and outcomes",
             'can_be_included_in_calendar': "Can we include your participation in this event into the private Fellows calendar?",
             'can_be_advertise_before': "Can we public promote your involvement in this event before it takes place?",
             'can_be_advertise_after': "Can we public promote your involvement in this event after it takes place?"
@@ -414,6 +416,8 @@ class FundForm(GarlicForm):
                 ),
                 HTML('<h2>Justification for attending or organising the event</h2><p>When filling in the questions below please consider the following points:</p><ul><li>For attending conferences/workshops: will the conference focus on a significant field, will you meet significant researchers, will there be a focus on research software?</li><li>For organising workshops: how will the event help your domain, how will the event help the Institute, how will the event help you.</li><li>For policy related work: how might participation or organisation help the policy goals of the Institute, such as improving software and improved research (this can include people and tools perspectives).</li><li>For other: please state reasons - note it maybe good to discuss matter with the Institute Community Lead before filling the form to make sure the rationale is aligned to the Institute and to your own objectives.</li></ul>'),
                 'justification',
+                HTML('<p>Please specify what the successful outputs (what maybe be produced) and outcomes (what change it could lead to) would be for your participation in this event. These can include learning goals being met, collaborations, reports etc.</p>'),
+                'success_targeted',
                 'additional_info',
                 HTML('<h2>Details of people being sponsored from your Fellowship funds</h2><p>If you are sponsoring others to take part in this event from your Fellowship funds please give their names and email addresses below, if you do not know their names at this stage please state whether there is sponsorship of others needed in this request. In either case please provide some justification.</p>'),
                 'extra_sponsored',
@@ -1067,6 +1071,13 @@ class ExpenseReviewForm(GarlicForm):
 
 
 class BlogForm(GarlicForm):
+    success_reported = CharField(
+        widget=Textarea,
+        required=False,
+        initial="",
+        label="What outputs were produced and which outcomes did your participation lead to"
+    )
+
     class Meta:
         model = Blog
         fields = [
@@ -1117,6 +1128,7 @@ class BlogForm(GarlicForm):
                 'coauthor',
                 HTML("<p>We prefer to receive links to <a href='https://www.google.co.uk/docs/about/'>Google Docs</a> (tips <a href='/pages/guide/google-docs/'>here</a>), <a href='https://products.office.com/en-gb/office-365-home'>Microsoft Office 365 document</a> or any other online live collaborative document platform you like to use. Posts published somewhere already, e.g. your personal blog, are welcome as well.</p>"),
                 'draft_url',
+                'success_reported',
                 'notes_from_author',
                 'not_send_email_field' if self.is_staff else None,
                 ButtonHolder(
