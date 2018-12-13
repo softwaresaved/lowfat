@@ -17,7 +17,7 @@ class Command(BaseCommand):
         data = pd.read_csv(options['csv'])
         for index, line in data.iterrows():  # pylint: disable=no-member,unused-variable
             try:
-                is_fellow = True if line['Selected'] == 'Yes' else False
+                is_fellow = line['Selected'] == 'Yes'
 
                 if pd.notnull(line["Photo"]):
                     photo_name, photo_info = urllib.request.urlretrieve(line["Photo"])  # pylint: disable=unused-variable

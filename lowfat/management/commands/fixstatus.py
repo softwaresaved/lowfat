@@ -36,9 +36,7 @@ class Command(BaseCommand):
                         if expense.status in ["S", "C"]:
                             can_be_archive = False
                             break
-                    if can_be_archive == True:
+                    if can_be_archive:
                         print("Changing status for {}".format(fund))
                         fund.status = "F"
                         fund.save()
-                        
-                    

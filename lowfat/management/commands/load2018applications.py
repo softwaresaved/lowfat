@@ -20,7 +20,7 @@ class Command(BaseCommand):
         data = pd.read_csv(options['csv'])
         for index, line in data.iterrows():  # pylint: disable=no-member,unused-variable
             try:
-                received_offer = True if line['Fellow'] == 'Yes' else False
+                received_offer = line['Fellow'] == 'Yes'
                 jacs = line["Research Classification"][1:3]
 
                 applicants_dict = {
@@ -51,9 +51,9 @@ class Command(BaseCommand):
                     "github": line["GitHub"] if pd.notnull(line["GitHub"]) else "",
                     "gitlab": line["GitLab"] if pd.notnull(line["GitLab"]) else "",
                     "twitter": line["Twitter handle"] if pd.notnull(line["Twitter handle"]) else "",
-                    "is_into_training": True if line["Have training in plans - added by AN"] == "Yes" else False,
-                    "carpentries_instructor": True if line["Carpentry instructor - added by AN"] == "Yes" else False,
-                    "research_software_engineer": True if line["RSE - added by AN"] == "Yes" else False,
+                    "is_into_training": line["Have training in plans - added by AN"] == "Yes",
+                    "carpentries_instructor": line["Carpentry instructor - added by AN"] == "Yes",
+                    "research_software_engineer": if line["RSE - added by AN"] == "Yes",
                     "screencast_url": line["Application Screencast URL"] if pd.notnull(line["Application Screencast URL"]) else "",
                     "example_of_writing_url": line["Example of writing"] if pd.notnull(line["Example of writing"]) else "",
                 }

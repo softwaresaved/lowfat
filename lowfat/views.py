@@ -18,7 +18,7 @@ from constance import config
 
 from PyPDF2 import PdfFileMerger, PdfFileReader
 
-from .management.commands import loadoldfunds as loadoldfunds
+from .management.commands import loadoldfunds
 from .models import *
 from .forms import *
 from .mail import *
@@ -302,7 +302,7 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches
             fund_to_edit = None
             messages.error(request, "The funding request that you want to edit doesn't exist.")
         if not (request.user.is_superuser or
-                climant == fund_to_edit.claimant):
+                claimant == fund_to_edit.claimant):
             fund_to_edit = None
             messages.error(request, "You don't have permission to edit the requested funding request.")
     else:
@@ -331,15 +331,15 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches
             formset = FundShortlistedForm(
                 request.POST or None,
                 instance=fund_to_edit,
-                initial=None if fund_to_edit else initial,
-                is_staff=True if request.user.is_superuser else False
+                initial=None if fund_to_edit else initial, 
+               is_staff=bool(request.user.is_superuser)
             )
         else:
             formset = FundForm(
                 request.POST or None,
                 instance=fund_to_edit,
                 initial=None if fund_to_edit else initial,
-                is_staff=True if request.user.is_superuser else False
+                is_staff=bool(request.user.is_superuser)
             )
 
     if request.POST:
@@ -423,7 +423,7 @@ def fund_review(request, fund_id):
 
         if formset.is_valid():
             fund = formset.save()
-            if fund.status == "A" and fund.approver == None:
+            if fund.status == "A" and fund.approver == None:  # pylint: disable=singleton-comparison
                 fund.approver = request.user
                 fund.save()
             messages.success(request, 'Funding request updated.')
@@ -442,7 +442,7 @@ def fund_review(request, fund_id):
     formset = FundReviewForm(
         None,
         instance=this_fund,
-        is_staff=True if request.user.is_superuser else False
+        is_staff=bool(request.user.is_superuser)
     )
 
     context = {
@@ -578,7 +578,7 @@ def expense_form(request, **kargs):
             request.FILES or None,
             instance=expense_to_edit,
             initial=None if expense_to_edit else initial,
-            is_staff=True if request.user.is_superuser else False
+            is_staff=bool(request.user.is_superuser)
         )
     else:
         formset = ExpenseForm(
@@ -586,7 +586,7 @@ def expense_form(request, **kargs):
             request.FILES or None,
             instance=expense_to_edit,
             initial=None if expense_to_edit else initial,
-            is_staff=True if request.user.is_superuser else False
+            is_staff=bool(request.user.is_superuser)
         )
 
     if formset.is_valid():
@@ -685,7 +685,7 @@ def expense_review(request, expense_id):
                 expense.fund.status = 'F'
                 expense.fund.save()
                 messages.success(request, 'Funding request archived.')
-            
+
             return HttpResponseRedirect(
                 reverse('expense_detail_relative', args=[expense.fund.id, expense.relative_number,])
             )
@@ -693,7 +693,7 @@ def expense_review(request, expense_id):
     formset = ExpenseReviewForm(
         None,
         instance=this_expense,
-        is_staff=True if request.user.is_superuser else False
+        is_staff=bool(request.user.is_superuser)
     )
 
     context = {
@@ -756,7 +756,7 @@ def expense_append_relative(request, fund_id, expense_relative_number):
             request_pdf_io = io.BytesIO(request.FILES["pdf"].read())
             PdfFileReader(request_pdf_io)
             request_pdf_io.seek(0)
-        except:
+        except:  # pylint: disable=bare-except
             messages.error(request, 'File is not a PDF.')
 
         # Backup of original PDF
@@ -804,7 +804,7 @@ def expense_claim_relative(request, fund_id, expense_relative_number):
     return expense_claim(request, this_expense.id)
 
 @login_required
-def blog_form(request, **kargs):
+def blog_form(request, **kargs):  # pylint: disable=too-many-branches
     # Setup Blog to edit if provide
     if "blog_id" in kargs:
         try:
@@ -828,7 +828,7 @@ def blog_form(request, **kargs):
         request.FILES or None,
         instance=blog_to_edit,
         initial=None if blog_to_edit else initial,
-        is_staff=True if request.user.is_superuser else False
+        is_staff=bool(request.user.is_superuser)
     )
 
     if formset.is_valid():
@@ -934,7 +934,7 @@ def blog_review(request, blog_id):
     formset = BlogReviewForm(
         None,
         instance=this_blog,
-        is_staff=True if request.user.is_superuser else False
+        is_staff=bool(request.user.is_superuser)
     )
 
     # Limit dropdown list to staffs
