@@ -6,6 +6,7 @@ from django.forms import (
     CharField,
     CheckboxInput,
     ChoiceField,
+    EmailField,
     FileField,
     Form,
     ModelForm,
@@ -270,6 +271,7 @@ class FellowForm(GarlicForm):
         )
 
 
+
 class FundForm(GarlicForm):
     class Meta:
         model = Fund
@@ -419,6 +421,215 @@ class FundForm(GarlicForm):
                 'can_be_included_in_calendar',
                 'can_be_advertise_before',
                 'can_be_advertise_after',
+                'not_send_email_field' if self.is_staff else None,
+                ButtonHolder(
+                    Submit('submit', '{{ title }}')
+                )
+            )
+        )
+
+        # Force user to select one category
+        self.fields['category'].widget.choices.insert(0, ('', '---------'))
+        self.fields['category'].initial = ''
+
+        # Force user to select one focus
+        self.fields['focus'].widget.choices.insert(0, ('', '---------'))
+        self.fields['focus'].initial = ''
+
+
+class FundPublicForm(GarlicForm):
+    forenames = CharField(
+        max_length=MAX_CHAR_LENGTH,
+        required=True
+    )
+    surname = CharField(
+        max_length=MAX_CHAR_LENGTH,
+        required=True
+    )
+    email = EmailField(
+        required=True
+    )
+    phone = CharField(
+        max_length=MAX_CHAR_LENGTH,
+        required=True,
+        help_text="The number that we can contact you."
+    )
+    #gender = CharField(
+    #    choices=GENDERS,
+    #    max_length=1,
+    #    default="R"
+    #)
+    #home_country = CountryField(
+    #    required=True,
+    #    default='GB'  # Default for United Kingdom
+    #)
+    home_city = CharField(
+        required=True,
+        max_length=MAX_CHAR_LENGTH
+    )
+    affiliation = CharField(  # Home institution
+        max_length=MAX_CHAR_LENGTH,
+        required=True,
+    )
+    department = CharField(  # Department within home institution
+        max_length=MAX_CHAR_LENGTH,
+        required=True
+    )
+    
+    class Meta:
+        model = Fund
+        exclude = [  # pylint: disable=modelform-uses-exclude
+            'claimant',
+            'mandatory',
+            'additional_info',
+            'extra_sponsored',
+            'can_be_included_in_calendar',
+            'can_be_advertise_before',
+            'can_be_advertise_after',
+            "status",
+            "ad_status",
+            "budget_approved",
+            "required_blog_posts",
+            "grant_heading",
+            "grant",
+            "notes_from_admin",
+            "added",
+            "approved",
+            "updated",
+        ]
+
+        labels = {
+            'mandatory': 'Is this related with Fellows face to face selection meeting, Fellows inaugural meeting or Collaborations Workshop?',
+            'title': 'Event title',
+            'url': 'Event webpage link',
+            'country': 'Country in which event is taking place',
+            'city': 'City in which the event is taking place',
+            'start_date': 'Start date of event',
+            'end_date': 'End date of event',
+            'budget_request_travel': "Travel costs (e.g. airfare or ground transportation)",
+            'budget_request_attendance_fees': "Attendance fees (e.g. workshop / event registration costs)",
+            'budget_request_subsistence_cost': "Subsistence costs (e.g. accommodation and meals)",
+            'budget_request_venue_hire': "Venue hire",
+            'budget_request_catering': "Catering",
+            'budget_request_others': "Other costs",
+            'can_be_included_in_calendar': "Can we include your participation in this event into the private Fellows calendar?",
+            'can_be_advertise_before': "Can we public promote your involvement in this event before it takes place?",
+            'can_be_advertise_after': "Can we public promote your involvement in this event after it takes place?"
+        }
+
+        widgets = {
+            'claimant': Select(attrs={"class": "select-single-item"}),
+            'category': Select(attrs={"class": "select-single-item"}),
+            'focus': Select(attrs={"class": "select-single-item"}),
+            'country': Select(attrs={"class": "select-single-item"}),
+            'start_date': DateWidget(
+                usel10n=True,
+                bootstrap_version=3
+            ),
+            'end_date': DateWidget(
+                usel10n=True,
+                bootstrap_version=3
+            ),
+        }
+
+
+    required_css_class = 'form-field-required'
+    total_budget = CharField(required=False)
+
+    def clean_start_date(self):
+        if 'start_date' in self.cleaned_data:
+            date_from_today = self.cleaned_data['start_date'] - date.today()
+            if date_from_today.days <= 0:
+                raise ValidationError('"Start date of event" must be in the future.')
+        return self.cleaned_data['start_date']
+
+    def clean_end_date(self):
+        if 'end_date' in self.cleaned_data:
+            date_from_today = self.cleaned_data['end_date'] - date.today()
+            if date_from_today.days <= 0:
+                raise ValidationError('"End date of event" must be in the future.')
+        if 'start_date' in self.cleaned_data and 'end_date' in self.cleaned_data:
+            duration = self.cleaned_data['end_date'] - self.cleaned_data['start_date']
+            if duration.days < 0:
+                raise ValidationError('"End date of event" must be after "Start date of event".')
+        return self.cleaned_data['end_date']
+
+    def __init__(self, *args, **kwargs):
+        super(FundPublicForm, self).__init__(*args, **kwargs)
+
+        self.helper.layout = Layout(
+            Fieldset(
+                '',
+                HTML('<h2>Your details</h2>'),
+                'forenames',
+                'surname',
+                #'gender',
+                'email',
+                'phone',
+                'home_city',
+                #'home_country',
+                'affiliation',
+                'department',
+                HTML('<h2>Funding request details</h2>'),
+                'category',
+                'focus',
+                'title',
+                'url',
+                'country',
+                'city',
+                'start_date',
+                'end_date',
+                HTML('<h2>Costs</h2><p>Please provide an estimate of your costs below. All values should be entered in GBP. See the terms and conditions for details (<a href="{{ terms_and_conditions_url }}">{{ terms_and_conditions_url }}</a>)</p><p>Please fill in all cost sections that are relevant to your event type.</p>'),
+                PrependedText(
+                    'budget_request_travel',
+                    '£',
+                    onblur="update_budget()",
+                    min=0.00,
+                    step=0.01
+                ),
+                PrependedText(
+                    'budget_request_attendance_fees',
+                    '£',
+                    onblur="update_budget()",
+                    min=0.00,
+                    step=0.01
+                ),
+                PrependedText(
+                    'budget_request_subsistence_cost',
+                    '£',
+                    onblur="update_budget()",
+                    min=0.00,
+                    step=0.01
+                ),
+                PrependedText(
+                    'budget_request_venue_hire',
+                    '£',
+                    onblur="update_budget()",
+                    min=0.00,
+                    step=0.01
+                ),
+                PrependedText(
+                    'budget_request_catering',
+                    '£',
+                    onblur="update_budget()",
+                    min=0.00,
+                    step=0.01
+                ),
+                PrependedText(
+                    'budget_request_others',
+                    '£',
+                    onblur="update_budget()",
+                    min=0.00,
+                    step=0.01
+                ),
+                PrependedText(
+                    'total_budget',
+                    '£',
+                    disabled=True,
+                    value=0.00
+                ),
+                HTML('<h2>Justification for attending or organising the event</h2><p>When filling in the questions below please consider the following points:</p><ul><li>For attending conferences/workshops: will the conference focus on a significant field, will you meet significant researchers, will there be a focus on research software?</li><li>For organising workshops: how will the event help your domain, how will the event help the Institute, how will the event help you.</li><li>For policy related work: how might participation or organisation help the policy goals of the Institute, such as improving software and improved research (this can include people and tools perspectives).</li><li>For other: please state reasons - note it maybe good to discuss matter with the Institute Community Lead before filling the form to make sure the rationale is aligned to the Institute and to your own objectives.</li></ul>'),
+                'justification',
                 'not_send_email_field' if self.is_staff else None,
                 ButtonHolder(
                     Submit('submit', '{{ title }}')

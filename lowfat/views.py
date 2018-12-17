@@ -389,37 +389,119 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches
     }
     return render(request, 'lowfat/form.html', context)
 
+def fund_form_public(request):
+    initial = {
+        "start_date": django.utils.timezone.now(),
+        "end_date": django.utils.timezone.now(),
+    }
+
+    formset = FundPublicForm(
+        request.POST or None,
+        initial=initial, 
+        is_staff=bool(request.user.is_superuser)
+    )
+
+    if request.POST:
+        # Handle submission
+        if formset.is_valid():
+            username = "{}.{}".format(
+                formset.cleaned_data["forenames"].lower(),
+                formset.cleaned_data["surname"].lower()
+            )
+            try:
+                user = User.objects.get(username=username)
+                is_new_user = False
+            except:
+                user = User.objects.create_user(
+                    username,
+                    formset.cleaned_data["email"],
+                    User.objects.make_random_password(),
+                    first_name=formset.cleaned_data["forenames"],
+                    last_name=formset.cleaned_data["surname"]
+                )
+                user.save()
+                is_new_user = True
+
+            if is_new_user:
+                claimant = Claimant.objects.create(
+                    user=user,
+                    forenames=formset.cleaned_data["forenames"],
+                    surname=formset.cleaned_data["surname"],
+                    email=formset.cleaned_data["email"],
+                    phone=formset.cleaned_data["phone"],
+                    home_city=formset.cleaned_data["home_city"]
+                )
+                claimant.save()
+            else:
+                claimant = Claimant.objects.get(
+                    user=user
+                )
+
+            fund = formset.save(commit=False)
+            fund.claimant = claimant
+            fund.update_latlon()
+            # Default value for budget_approved is budget_total.
+            # The reason for this is to save staffs to copy and paste the approved amount.
+            fund.budget_approved = fund.budget_total()
+            fund.save()
+
+            messages.success(request, 'Funding request saved.')
+            if not formset.cleaned_data["not_send_email_field"]:
+                new_fund_notification(fund)
+
+            #return HttpResponseRedirect(
+            #    reverse('fund_detail', args=[fund.id,])
+            #)
+
+    # Show submission form.
+    context = {
+        "title": "Make a funding request",
+        "terms_and_conditions_url": get_terms_and_conditions_url(request),
+        "formset": formset,
+        "js_files": ["js/request.js"],
+    }
+    return render(request, 'lowfat/form.html', context)
+
+def fund_detail_public(request, access_token):
+    this_fund = Fund.objects.get(access_token=access_token)
+    return _fund_detail(request, this_fund.id)
+
 @login_required
 def fund_detail(request, fund_id):
     this_fund = Fund.objects.get(id=fund_id)
+    
+    if (request.user.is_anonymous or not request.user.is_superuser or
+        Claimant.objects.get(user=request.user) != this_fund.claimant):
+        raise Http404("Funding request does not exist.")
 
-    if (request.user.is_staff or
-            Claimant.objects.get(user=request.user) == this_fund.claimant):
+    return _fund_detail(request, this_fund.id)
 
-        # Setup query parameters
-        funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPAMRF"
-        expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCPAF"
-        blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URGLPDO"
+def _fund_detail(request, fund_id):
+    this_fund = Fund.objects.get(id=fund_id)
 
-        context = {
-            'funding_requests_status': funding_requests_status,
-            'expenses_status': expenses_status,
-            'blogs_status': blogs_status,
-            'fund': this_fund,
-            'expenses': Expense.objects.filter(
-                fund=this_fund,
-                status__in=expenses_status
-            ),
-            'blogs': Blog.objects.filter(
-                fund=this_fund,
-                status__in=blogs_status
-            ),
-            'emails': FundSentMail.objects.filter(fund=this_fund),
-        }
+    # Setup query parameters
+    funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPAMRF"
+    expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCPAF"
+    blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URGLPDO"
 
-        return render(request, 'lowfat/fund_detail.html', context)
+    context = {
+        'funding_requests_status': funding_requests_status,
+        'expenses_status': expenses_status,
+        'blogs_status': blogs_status,
+        'fund': this_fund,
+        'expenses': Expense.objects.filter(
+            fund=this_fund,
+            status__in=expenses_status
+        ),
+        'blogs': Blog.objects.filter(
+            fund=this_fund,
+            status__in=blogs_status
+        ),
+        'emails': FundSentMail.objects.filter(fund=this_fund),
+    }
 
-    raise Http404("Funding request does not exist.")
+    return render(request, 'lowfat/fund_detail.html', context)
+
 
 @staff_member_required
 def fund_review(request, fund_id):

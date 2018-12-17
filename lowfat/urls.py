@@ -85,6 +85,8 @@ urlpatterns = [  # pylint: disable=invalid-name
     url(r'^claimant/', include(CLAIMED_PATTERNS)),
     url(r'^fellow/', include(FELLOW_PATTERNS)),
     url(r'^request/', include(FUND_PATTERNS)),
+    url(r'^public/request/(?P<access_token>[0-9A-Za-z]{32})/', views.fund_detail_public, name="fund_detail_public"),
+    url(r'^public/request/', views.fund_form_public, name="fund_public"),
     url(r'^fund/', include(FUND_PATTERNS, "lowfat", "fund_")),
     url(r'^expense/(?P<expense_id>[0-9\-]+)/pdf', views.expense_claim, name="expense_claim"),
     url(r'^expense/(?P<expense_id>[0-9\-]+)/review', views.expense_review, name="expense_review"),

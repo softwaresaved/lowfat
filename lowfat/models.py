@@ -23,6 +23,7 @@ from .validator import pdf, online_document
 from .jacs import JACS_3_0_PRINCIPAL_SUBJECT_CODES
 
 INVOICE_HASH = hashlib.md5()
+ACCESS_TOKEN = hashlib.md5()
 
 MAX_CHAR_LENGTH = 120
 MAX_URL_LENGTH = 360
@@ -512,6 +513,13 @@ class Fund(models.Model):
             "title",
         ]
 
+    # Access token
+    access_token = models.CharField(
+        max_length=16,
+        null=True,
+        blank=True
+    )
+    
     # TODO Make claimant more generic to include staffs.
     claimant = models.ForeignKey('Claimant')
     category = models.CharField(
@@ -646,6 +654,12 @@ class Fund(models.Model):
                 self.grant_heading = "F"
             else:
                 self.grant_heading = "C"
+
+            ACCESS_TOKEN.update(bytes("{} - {}".format(  # Need something random
+                    self.claimant.fullname,  # pylint: disable=no-member
+                    self.title
+                ), 'utf-8'))
+            self.access_token = ACCESS_TOKEN.hexdigest()
 
         if self.status == "A":
             self.approved = datetime.now()
