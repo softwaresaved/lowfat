@@ -22,7 +22,7 @@
   {% if user == claimant.user %}
   <a class="btn btn-default" href="{% url 'fellow' %}?full=true" role="button">Edit</a>
   {% endif %}
-  {% if user.is_superuser %}
+  {% if user.is_staff %}
   <a class="btn btn-default" href="{% url 'admin:lowfat_claimant_change' claimant.id %}" role="button">Edit</a>
   {% endif %}
 </h1>
@@ -69,7 +69,7 @@
           <td>{{ claimant.application_year|add:"1" }}</td>
         </tr>
         {% endif %}
-        {% if user.is_superuser or user.is_staff or claimant and user == claimant.user %}
+        {% if user.is_staff or user.is_staff or claimant and user == claimant.user %}
         <tr>
           <th>Email</th>
           <td>
@@ -180,7 +180,7 @@
     </table>
   </div>
 </div>
-{% if user.is_superuser %}
+{% if user.is_staff %}
 <div class="row bg-info">
   <div class="fellow col-md-12">
     <h1>Staff view</h1>

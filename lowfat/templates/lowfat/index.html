@@ -27,7 +27,7 @@
     {{ claimant.fullname }}
   </a>
   <br>
-  {% if user.is_superuser %}
+  {% if user.is_staff %}
   <a class="icon" href="mailto:{{ claimant.email }}">
     <i class="fa fa-envelope" aria-hidden="true"></i>
   </a>
@@ -90,7 +90,7 @@
   <a class="icon">
     <i class="fa fa-fw">&nbsp;</i>
   </a>
-    {% if user.is_staff or user.is_superuser %}
+    {% if user.is_staff or user.is_staff %}
     <br>
     £{{ claimant.claimantship_available|floatformat:2 }}
     {% endif %}

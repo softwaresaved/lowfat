@@ -14,7 +14,7 @@
   {% if user.is_staff %}
   <a  title="Review" class="btn btn-default" href="{% url 'blog_review' blog.id %}" role="button"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Review</a>
   {% endif %}
-  {% if user.is_superuser or blog.status == "U" %}
+  {% if user.is_staff or blog.status == "U" %}
   <a title="Edit" class="btn btn-default" href="{% url 'blog_edit' blog.id %}" role="button"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
   <a title="Remove" class="btn btn-default" href="{% url 'blog_remove' blog.id %}?next={% url 'dashboard' %}" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>
   {% endif %}

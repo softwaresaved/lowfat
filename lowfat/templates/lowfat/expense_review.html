@@ -4,7 +4,7 @@
 {% block content %}
 <h1>
   Expense Review
-  {% if user.is_superuser %}
+  {% if user.is_staff %}
   <a title="View" class="btn btn-default" href="{% url 'expense_detail_relative' expense.fund.id expense.relative_number %}" role="button"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View</a>
   <a title="Edit" class="btn btn-default" href="{% url 'expense_edit_relative' expense.fund.id expense.relative_number %}" role="button"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
   <a title="Remove" class="btn btn-default" href="{% url 'expense_remove_relative' expense.fund.id expense.relative_number %}" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>

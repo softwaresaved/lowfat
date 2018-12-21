@@ -117,7 +117,7 @@
         {% if user.is_staff %}
         <a  title="Review" href="{% url 'expense_review_relative' expense.fund.id expense.relative_number %}"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
         {% endif %}
-        {% if user.is_superuser or expense.status in "SC" %}
+        {% if user.is_staff or expense.status in "SC" %}
         <a  title="Edit" href="{% url 'expense_edit_relative' expense.fund.id expense.relative_number %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
         <a  title="Remove" href="{% url 'expense_remove_relative' expense.fund.id expense.relative_number %}?next={{ request.path }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
       </td>
