@@ -12,12 +12,14 @@
     class="label label-warning"
     {% endif %}
     >{{ fund.get_status_display }}</span>
+  {% if user.is_authenticated %}
   {% if user.is_staff %}
   <a title="Review" class="btn btn-default" href="{% url 'fund_review' fund.id %}" role="button"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Review</a>
   {% endif %}
   <a title="Edit" class="btn btn-default" href="{% url 'fund_edit' fund.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
   {% if user.is_staff or fund.status in "UP" %}
   <a title="Remove" class="btn btn-default" href="{% url 'fund_remove' fund.id %}?next={% url 'dashboard' %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>
+  {% endif %}
   {% endif %}
 </h1>
 <h2>General Details</h1>
@@ -106,7 +108,6 @@
     {% endif %}
   </tbody>
 </table>
-{% if fund.status in 'AMF' or expenses or blogs %}
 <h2>Budget Summary</h2>
 <table class="table table-bordered">
   <tbody>
@@ -155,6 +156,7 @@
     </tr>
   </tbody>
 </table>
+{% if fund.status in 'AF' or expenses or blogs %}
 {% include 'lowfat/expenses.html' %}
 {% include 'lowfat/blogs.html' %}
 {% include "lowfat/communication.html" %}
