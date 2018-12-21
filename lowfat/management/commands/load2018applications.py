@@ -53,7 +53,7 @@ class Command(BaseCommand):
                     "twitter": line["Twitter handle"] if pd.notnull(line["Twitter handle"]) else "",
                     "is_into_training": line["Have training in plans - added by AN"] == "Yes",
                     "carpentries_instructor": line["Carpentry instructor - added by AN"] == "Yes",
-                    "research_software_engineer": if line["RSE - added by AN"] == "Yes",
+                    "research_software_engineer": line["RSE - added by AN"] == "Yes",
                     "screencast_url": line["Application Screencast URL"] if pd.notnull(line["Application Screencast URL"]) else "",
                     "example_of_writing_url": line["Example of writing"] if pd.notnull(line["Example of writing"]) else "",
                 }

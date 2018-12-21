@@ -28,7 +28,7 @@ def get_terms_and_conditions_url(request):
     url = TermsAndConditions.objects.get(
         year=str(django.utils.timezone.now().year)
     ).url
-    if not request.user.is_superuser and not request.user.is_staff:
+    if not request.user.is_staff:
         try:
             claimant = Claimant.objects.get(user=request.user)
             url = claimant.terms_and_conditions.url
@@ -56,7 +56,7 @@ def dashboard(request):
         'ical_token': config.CALENDAR_ACCESS_TOKEN,
     }
 
-    if not request.user.is_superuser and not request.user.is_staff:
+    if not request.user.is_staff:
         try:
             claimant = Claimant.objects.get(user=request.user)
         except:  # pylint: disable=bare-except
@@ -168,7 +168,7 @@ def promote(request):
 
 @login_required
 def claimant_form(request):
-    if not request.user.is_superuser and not request.user.is_staff:
+    if not request.user.is_staff:
         instance = Claimant.objects.get(user=request.user)
         title_begin = "Edit"
     else:
@@ -213,7 +213,7 @@ def claimant_detail(request, claimant_id):
     this_claimant = Claimant.objects.get(id=claimant_id)
 
     # Avoid leak information from applicants
-    if not request.user.is_superuser and not request.user.is_staff and not (this_claimant.fellow or this_claimant.received_offer or this_claimant.shortlisted or this_claimant.collaborator):
+    if not request.user.is_staff and not (this_claimant.fellow or this_claimant.received_offer or this_claimant.shortlisted or this_claimant.collaborator):
         raise Http404("Claimant does not exist.")
 
     # Setup query parameters
@@ -276,7 +276,7 @@ def claimant_slug_resolution(request, claimant_slug):
 
 @login_required
 def my_profile(request):
-    if not request.user.is_superuser and not request.user.is_staff:
+    if not request.user.is_staff:
         try:
             claimant = Claimant.objects.get(user=request.user)
         except:  # pylint: disable=bare-except
@@ -301,7 +301,7 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches
         except:  # pylint: disable=bare-except
             fund_to_edit = None
             messages.error(request, "The funding request that you want to edit doesn't exist.")
-        if not (request.user.is_superuser or
+        if not (request.user.is_staff or
                 claimant == fund_to_edit.claimant):
             fund_to_edit = None
             messages.error(request, "You don't have permission to edit the requested funding request.")
@@ -331,15 +331,15 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches
             formset = FundShortlistedForm(
                 request.POST or None,
                 instance=fund_to_edit,
-                initial=None if fund_to_edit else initial, 
-               is_staff=bool(request.user.is_superuser)
+                initial=None if fund_to_edit else initial,
+                is_staff=bool(request.user.is_staff)
             )
         else:
             formset = FundForm(
                 request.POST or None,
                 instance=fund_to_edit,
                 initial=None if fund_to_edit else initial,
-                is_staff=bool(request.user.is_superuser)
+                is_staff=bool(request.user.is_staff)
             )
 
     if request.POST:
@@ -361,7 +361,7 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches
             )
 
     if type(formset).__name__ in ["FundForm", "FundShortlistedForm"]:
-        if not request.user.is_superuser:
+        if not request.user.is_staff:
             formset.fields["claimant"].queryset = Claimant.objects.filter(user=request.user)
         elif request.GET.get("claimant_id"):
             formset.fields["claimant"].queryset = Claimant.objects.filter(id=request.GET.get("claimant_id"))
@@ -381,7 +381,7 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches
 def fund_detail(request, fund_id):
     this_fund = Fund.objects.get(id=fund_id)
 
-    if (request.user.is_superuser or
+    if (request.user.is_staff or
             Claimant.objects.get(user=request.user) == this_fund.claimant):
 
         # Setup query parameters
@@ -442,7 +442,7 @@ def fund_review(request, fund_id):
     formset = FundReviewForm(
         None,
         instance=this_fund,
-        is_staff=bool(request.user.is_superuser)
+        is_staff=bool(request.user.is_staff)
     )
 
     context = {
@@ -455,7 +455,7 @@ def fund_review(request, fund_id):
 
 @login_required
 def fund_edit(request, fund_id):
-    if request.user.is_superuser:  # pylint: disable=no-else-return
+    if request.user.is_staff:  # pylint: disable=no-else-return
         return HttpResponseRedirect(
             reverse('admin:lowfat_fund_change', args=[fund_id,])
         )
@@ -578,7 +578,7 @@ def expense_form(request, **kargs):
             request.FILES or None,
             instance=expense_to_edit,
             initial=None if expense_to_edit else initial,
-            is_staff=bool(request.user.is_superuser)
+            is_staff=bool(request.user.is_staff)
         )
     else:
         formset = ExpenseForm(
@@ -586,7 +586,7 @@ def expense_form(request, **kargs):
             request.FILES or None,
             instance=expense_to_edit,
             initial=None if expense_to_edit else initial,
-            is_staff=bool(request.user.is_superuser)
+            is_staff=bool(request.user.is_staff)
         )
 
     if formset.is_valid():
@@ -603,7 +603,7 @@ def expense_form(request, **kargs):
         claimant = Claimant.objects.filter(id=fund.claimant.id)
     elif request.GET.get("claimant_id"):
         claimant = Claimant.objects.filter(id=request.GET.get("claimant_id"))
-    elif request.user.is_superuser:
+    elif request.user.is_staff:
         claimant = Claimant.objects.all()
     else:
         claimant = Claimant.objects.filter(user=request.user)
@@ -626,7 +626,7 @@ def expense_form(request, **kargs):
 def expense_detail(request, expense_id):
     this_expense = Expense.objects.get(id=expense_id)
 
-    if (request.user.is_superuser or
+    if (request.user.is_staff or
             Claimant.objects.get(user=request.user) == this_expense.fund.claimant):
         context = {
             'expense': Expense.objects.get(id=expense_id),
@@ -645,7 +645,7 @@ def expense_detail_relative(request, fund_id, expense_relative_number):
 
 @login_required
 def expense_edit_relative(request, fund_id, expense_relative_number):
-    if request.user.is_superuser:  # pylint: disable=no-else-return
+    if request.user.is_staff:  # pylint: disable=no-else-return
         this_expense = Expense.objects.get(
             fund__id=fund_id,
             relative_number=expense_relative_number
@@ -693,7 +693,7 @@ def expense_review(request, expense_id):
     formset = ExpenseReviewForm(
         None,
         instance=this_expense,
-        is_staff=bool(request.user.is_superuser)
+        is_staff=bool(request.user.is_staff)
     )
 
     context = {
@@ -787,7 +787,7 @@ def expense_append_relative(request, fund_id, expense_relative_number):
 def expense_claim(request, expense_id):
     this_expense = Expense.objects.get(id=expense_id)
 
-    if (request.user.is_superuser or
+    if (request.user.is_staff or
             Claimant.objects.get(user=request.user) == this_expense.fund.claimant):
         with open(this_expense.claim.path, "rb") as _file:
             response = HttpResponse(_file.read(), content_type="application/pdf")
@@ -828,7 +828,7 @@ def blog_form(request, **kargs):  # pylint: disable=too-many-branches
         request.FILES or None,
         instance=blog_to_edit,
         initial=None if blog_to_edit else initial,
-        is_staff=bool(request.user.is_superuser)
+        is_staff=bool(request.user.is_staff)
     )
 
     if formset.is_valid():
@@ -840,7 +840,7 @@ def blog_form(request, **kargs):  # pylint: disable=too-many-branches
                 blog.author = Claimant.objects.get(id=formset.cleaned_data["author"])
             elif blog.fund:
                 blog.author = blog.fund.claimant
-            elif not request.user.is_superuser:
+            elif not request.user.is_staff:
                 blog.author = Claimant.objects.get(user=request.user)
             else:
                 blog.delete()  # XXX Quick way to solve the issue
@@ -858,7 +858,7 @@ def blog_form(request, **kargs):  # pylint: disable=too-many-branches
         )
 
     # Limit dropdown list to claimant
-    if not request.user.is_superuser:
+    if not request.user.is_staff:
         try:
             claimant = Claimant.objects.get(user=request.user)
         except:  # pylint: disable=bare-except
@@ -886,7 +886,7 @@ def blog_form(request, **kargs):  # pylint: disable=too-many-branches
 def blog_detail(request, blog_id):
     this_blog = Blog.objects.get(id=blog_id)
 
-    if (request.user.is_superuser or
+    if (request.user.is_staff or
             Claimant.objects.get(user=request.user) == this_blog.author or
             Claimant.objects.get(user=request.user) in this_blog.coauthor.all()):
         context = {
@@ -900,7 +900,7 @@ def blog_detail(request, blog_id):
 
 @login_required
 def blog_edit(request, blog_id):
-    if request.user.is_superuser:  # pylint: disable=no-else-return
+    if request.user.is_staff:  # pylint: disable=no-else-return
         return HttpResponseRedirect(
             reverse('admin:lowfat_blog_change', args=[blog_id,])
         )
@@ -934,7 +934,7 @@ def blog_review(request, blog_id):
     formset = BlogReviewForm(
         None,
         instance=this_blog,
-        is_staff=bool(request.user.is_superuser)
+        is_staff=bool(request.user.is_staff)
     )
 
     # Limit dropdown list to staffs
