@@ -331,8 +331,8 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches
             formset = FundShortlistedForm(
                 request.POST or None,
                 instance=fund_to_edit,
-                initial=None if fund_to_edit else initial, 
-               is_staff=bool(request.user.is_staff)
+                initial=None if fund_to_edit else initial,
+                is_staff=bool(request.user.is_staff)
             )
         else:
             formset = FundForm(
