@@ -524,7 +524,10 @@ class ModelWithToken(models.Model):
         self.save()
 
     def access_token_is_valid(self):
-        return date.today() < self.access_token_expire_date
+        if self.access_token_expire_date is not None:
+            return date.today() < self.access_token_expire_date
+
+        return False
 
     
 class Fund(ModelWithToken):
@@ -740,9 +743,12 @@ class Fund(ModelWithToken):
     def link(self):
         return reverse("fund_detail", args=[self.id])
 
+    def link_public(self):
+        return reverse("fund_detail_public", args=[self.access_token])
+
     def title_link(self):
         return """<a href="{}">{}</a>""".format(
-            self.link(),
+            self.link_public() if self.access_token_is_valid() else self.link(),
             self.title
         )
 
