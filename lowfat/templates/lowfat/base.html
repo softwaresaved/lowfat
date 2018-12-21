@@ -16,7 +16,6 @@
     <!-- Begin CSS block -->
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/sticky-footer-navbar.css' %}" />
 
     <!-- Social Media -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}"/>
@@ -48,69 +47,119 @@
     {{ form.media }}
   </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top""navbar navbar-default">
-      <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-logo" href="https://software.ac.uk">
-            <img img="{{ organisation_name }} logo"class="logo img-responsive" src="{% static 'img/logo.png' %}">
-          </a>
-          <a class="navbar-brand" href="{% url 'index' %}">lowFAT</a>
+    <div class="header-sticky">
+      <div class="pre-header">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-12">
+              <div>
+                <nav role="navigation" aria-labelledby="block-otherpages-menu" id="block-otherpages" class="settings-tray-editable">
+                  <div id="secondary-menu" class="secondary-menu">
+                    <div class="header-links header-link-social" style="">
+                      <a href="https://www.software.ac.uk/rss"
+                         target="_blank"
+                         title="Subscribe to the Software Sustainability Institute news feed">
+                        <i class="fa fa-rss"><span class="sr-only">RSS</span></i>
+                      </a>
+                      <a href="https://twitter.com/SoftwareSaved"
+                         target="_blank"
+                         title="Follow the Software Sustainability Institute on Twitter">
+                        <i class="fa fa-twitter"><span class="sr-only">Twitter</span></i>
+                      </a>
+                    </div>
+                    <ul class="menu list-inline list-unstyled text-right" >
+                      <li class="expanded" >
+                        <a href="https://www.software.ac.uk/blog">Blog</a>
+                      </li>
+                      <li class="expanded" >
+                        <a href="https://www.software.ac.uk/news">News</a>
+                      </li>
+                      <li class="expanded" >
+                        <a href="https://www.software.ac.uk/events">Events</a>
+                      </li>
+                      <li class="expanded" >
+                        <a href="https://www.software.ac.uk/contact">Contact</a>
+                      </li>
+                      <li class="expanded" >
+                        <a href="https://www.software.ac.uk/subscribe">Subscribe</a>
+                      </li>
+                    </ul>
+                  </div>
+                </nav>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-right">
-            {% if user.is_authenticated %}
-            {% if user.is_staff or user.is_superuser %}
-            <li>
-              <form class="form-inline" action="{% url 'search' %}" method="post">
-                {% csrf_token %}
-                <div class="input-group">
-                  <input class="form-control" type="text" name="search" value={{ search }}>
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Search</button>
-                  </span>
+      </div>
+      <header class="header clearfix">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-3">
+              <div>
+                <div id="block-ssi-branding" class="settings-tray-editable" data-drupal-settingstray="editable">
+                  <a href="https://software.ac.uk/" title="Home" rel="home">
+                    <img src="https://software.ac.uk/themes/ssi/images/ssi_logo_with_name-small2.png" alt="Home" />
+                  </a>
                 </div>
-              </form>
-            </li>
-            {% else %}
-            <li>
-              <a href="{% url 'my_profile' %}">My Profile</a>
-            </li>
-            {% endif %}
-            <li>
-              <a href="{% url 'dashboard' %}">My Dashboard</a>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="{% url 'fund' %}">Make a funding request</a></li>
-                <li><a href="{% url 'expense' %}">Submit expense claim</a></li>
-                <li><a href="{% url 'blog' %}">Submit a blog post</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="{% url 'sign_out' %}">Sign out</a>
-            </li>
-            {% else %}
-            <li>
-              <a href="{% url 'sign_in' %}">Sign in</a>
-            </li>
-            <li>
-              <a href="{% url 'social:begin' 'github' %}">Sign in with GitHub</a>
-            </li>
-            {% endif %}
-          </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
+              </div>
+            </div>
+            <div class="col-xs-9">
+              <div>
+                <nav role="navigation"
+                     aria-labelledby="block-primarylinks-menu"
+                     id="block-primarylinks"
+                     class="settings-tray-editable">
+                  <div id="header-menu">
+                    <ul class="menu list-inline list-unstyled nav navbar-nav" >
+                      {% if user.is_authenticated %}
+                      {% if user.is_staff or user.is_superuser %}
+                      <li>
+                        <form class="form-inline" action="{% url 'search' %}" method="post">
+                          {% csrf_token %}
+                          <div class="input-group">
+                            <input class="form-control" type="text" name="search" value={{ search }}>
+                            <span class="input-group-btn">
+                              <button class="btn btn-default" type="button">Search</button>
+                            </span>
+                          </div>
+                        </form>
+                      </li>
+                      {% else %}
+                      <li class="menu-item">
+                        <a href="{% url 'my_profile' %}">My Profile</a>
+                      </li>
+                      {% endif %}
+                      <li class="menu-item">
+                        <a href="{% url 'dashboard' %}">My Dashboard</a>
+                      </li>
+                      <li class="menu-item dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                          <li class="menu-item"><a href="{% url 'fund' %}">Make a funding request</a></li>
+                          <li class="menu-item"><a href="{% url 'expense' %}">Submit expense claim</a></li>
+                          <li class="menu-item"><a href="{% url 'blog' %}">Submit a blog post</a></li>
+                        </ul>
+                      </li>
+                      <li class="menu-item">
+                        <a href="{% url 'sign_out' %}">Sign out</a>
+                      </li>
+                      {% else %}
+                      <li class="menu-item">
+                        <a href="{% url 'sign_in' %}">Sign in</a>
+                      </li>
+                      <li class="menu-item">
+                        <a href="{% url 'social:begin' 'github' %}">Sign in with GitHub</a>
+                      </li>
+                      {% endif %}
+                    </ul>
+                  </div>
+                </nav>
+              </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+          </div>
+        </div>
+      </header>
+    </div>
     <div class="container">
       {% include "lowfat/alert.html" %}
       {% include "lowfat/maintenance.html" %}
@@ -121,28 +170,48 @@
       {% block content %}{% endblock %}
       {% endif %}
     </div>
-    <footer class="footer">
-      <div class="container">
-        <ul class="list-inline">
-          <li><a href="{{ organisation_website }}">{{ organisation_name }}</a></li>
-          <li><a href="/pages/privacy/">Privacy</a></li>
-          <li><a href="mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}">Contact
-              us</a></li>
-          </ul>
-        <p class="text-muted text-center">Powered with
-          <a href="http://python.org/">Python 3</a>,
-          <a href="http://djangoproject.com/">Django</a>,
-          <a href="http://radiac.net/projects/django-tagulous/">django-tagulous</a>,
-          <a href="http://getbootstrap.com/">Bootstrap</a>,
-          <a href="http://garlicjs.org/">Garlic.js</a>,
-          <a href="https://selectize.github.io/selectize.js/">Selectize.js</a>,
-          <a href="http://www.kryogenix.org/code/browser/sorttable/">SortTable</a>,
-          <a href="http://fontawesome.io/">Font Awesome</a>, and
-          <a href="http://jpswalsh.github.io/academicons/">Academicons</a>.
-          <br>
-          Running version {{ settings.VERSION }}
-          from <a href="{{ settings.URL_SRC }}">{{ settings.URL_SRC }}</a>.
-        </p>
+    <footer>
+      <div class="footer">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <p>Powered with
+                <a href="http://python.org/">Python 3</a>,
+                <a href="http://djangoproject.com/">Django</a>,
+                <a href="http://radiac.net/projects/django-tagulous/">django-tagulous</a>,
+                <a href="http://getbootstrap.com/">Bootstrap</a>,
+                <a href="http://garlicjs.org/">Garlic.js</a>,
+                <a href="https://selectize.github.io/selectize.js/">Selectize.js</a>,
+                <a href="http://www.kryogenix.org/code/browser/sorttable/">SortTable</a>,
+                <a href="http://fontawesome.io/">Font Awesome</a>, and
+                <a href="http://jpswalsh.github.io/academicons/">Academicons</a>.
+                <br>
+                Running version {{ settings.VERSION }}
+                from <a href="{{ settings.URL_SRC }}">{{ settings.URL_SRC }}</a>.
+              </p>
+              <p>
+                &copy;2010 - 2018 <a href="https://www.ed.ac.uk/">The University of Edinburgh</a> on
+                behalf of the <a href="https://software.ac.uk/">Software Sustainability Institute</a>.
+              </p>
+            </div>
+            <div class="col-xs-12 col-md-6 text-right">
+              <ul class="list-inline list-unstyle text-right">
+                <li>
+                  <a href="https://software.ac.uk/terms">Terms</a>
+                </li>
+                <li>
+                  <a href="https://software.ac.uk/privacy">Privacy Policy</a>
+                </li>
+                <li>
+                  <a href="https://software.ac.uk/cookies">Cookie Policy</a>
+                </li>
+                <li>
+                  <a href="mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}">Contact us</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
     {% block extra_js_body %}{% endblock %}

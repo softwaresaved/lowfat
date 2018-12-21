@@ -1,3 +1,120 @@
+/* Software Sustainability Institute website */
+.header-sticky {
+    position: sticky !important;
+    top: 0px;
+    left: 0px;
+    z-index: 999;
+}
+
+.pre-header {
+    padding: 2px 5px;
+    background: #C62B33;
+    width: 100%;
+}
+
+.header-link-social a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.secondary-menu .menu {
+    padding-top: 3px;
+    margin: 0px;
+}
+
+.secondary-menu .header-link-social {
+    text-align: right;
+    display: inline-block;
+    width: auto;
+    float: right;
+    font-size: 1.3em;
+    margin: 0px 0px 0px 25px;
+}
+
+.secondary-menu li a {
+    font-weight: 400;
+    color: #fff;
+    font-size: 16px;
+}
+
+.header {
+    padding: 15px 0 0px;
+    background: #fff;
+    border-bottom: 2px solid #AD262D;
+}
+
+.container-fluid {
+    max-width: 1200px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#header-menu .nav > li > a {
+    font-weight: 400;
+    color: #4D4D4D;
+    position: relative;
+    display: block;
+    text-decoration: none;
+}
+
+#header-menu .nav > li > a:hover {
+    background: #AD262D;
+    color: #fff !important;
+}
+
+@media (min-width: 1300px) {
+    .navbar-nav {
+        float: right;
+        margin: 0;
+        padding-top: 30px;
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-nav > li {
+        float: left;
+    }
+    .navbar-nav > li > a {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+}
+
+@media (min-width: 768px) {
+    .footer {
+        padding: 30px;
+    }
+}
+
+.footer {
+    width: 100%;
+    background: #912026;
+    font-size: 14px;
+    color: #fff;
+}
+
+.footer a {
+    font-size: 14px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer a {
+    font-size: 14px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+/* lowFAT */
 td > pre {
     white-space: pre-wrap;
 }
