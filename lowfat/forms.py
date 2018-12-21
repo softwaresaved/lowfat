@@ -952,7 +952,10 @@ class ExpenseForm(GarlicForm):
             )
         )
 
-        self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
+        if "initial" in kwargs and "fund" in kwargs["initial"]:
+            self.fields['fund'].queryset = Fund.objects.filter(id=kwargs["initial"]["fund"].id)
+        else:
+            self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
 
 class ExpenseShortlistedForm(GarlicForm):
     class Meta:

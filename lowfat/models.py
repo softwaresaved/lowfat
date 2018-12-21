@@ -3,6 +3,7 @@ from difflib import SequenceMatcher
 import ast
 import hashlib
 import re
+import uuid
 
 from geopy.geocoders import Nominatim
 
@@ -23,7 +24,6 @@ from .validator import pdf, online_document
 from .jacs import JACS_3_0_PRINCIPAL_SUBJECT_CODES
 
 INVOICE_HASH = hashlib.md5()
-ACCESS_TOKEN = hashlib.md5()
 
 MAX_CHAR_LENGTH = 120
 MAX_URL_LENGTH = 360
@@ -503,7 +503,31 @@ class Claimant(models.Model):
 
         return sum([expense.amount_claimed for expense in this_claimant_expenses])
 
-class Fund(models.Model):
+class ModelWithToken(models.Model):
+    class Meta:
+        abstract = True
+
+    # Access token
+    access_token = models.CharField(
+        max_length=32,
+        null=True,
+        blank=True
+    )
+    access_token_expire_date = models.DateField(
+        null=True,
+        blank=True
+    )
+
+    def new_access_token(self):
+        self.access_token = uuid.uuid4().hex
+        self.access_token_expire_date = date.today() + timedelta(days=30)
+        self.save()
+
+    def access_token_is_valid(self):
+        return date.today() < self.access_token_expire_date
+
+    
+class Fund(ModelWithToken):
     """Describe a fund from one claimant."""
     class Meta:
         app_label = 'lowfat'
@@ -513,13 +537,6 @@ class Fund(models.Model):
             "title",
         ]
 
-    # Access token
-    access_token = models.CharField(
-        max_length=16,
-        null=True,
-        blank=True
-    )
-    
     # TODO Make claimant more generic to include staffs.
     claimant = models.ForeignKey('Claimant')
     category = models.CharField(
@@ -655,12 +672,6 @@ class Fund(models.Model):
             else:
                 self.grant_heading = "C"
 
-            ACCESS_TOKEN.update(bytes("{} - {}".format(  # Need something random
-                    self.claimant.fullname,  # pylint: disable=no-member
-                    self.title
-                ), 'utf-8'))
-            self.access_token = ACCESS_TOKEN.hexdigest()
-
         if self.status == "A":
             self.approved = datetime.now()
 
@@ -748,8 +759,17 @@ class Fund(models.Model):
 
         return approved
 
+    def new_access_token(self):
+        self.access_token = uuid.uuid4().hex
+        today = date.today()
+        if today < self.end_date:
+            self.access_token_expire_date = self.end_date + timedelta(days=30)
+        else:
+            self.access_token_expire_date = today + timedelta(days=30)
+        self.save()
 
-class Expense(models.Model):
+
+class Expense(ModelWithToken):
     """This describe one expense for one fund."""
     class Meta:
         app_label = 'lowfat'
@@ -905,7 +925,8 @@ class Expense(models.Model):
             self.claim.name.replace("/", "-")
         )
 
-class Blog(models.Model):
+
+class Blog(ModelWithToken):
     """Provide the link to the blog post about the fund."""
     class Meta:
         app_label = 'lowfat'
