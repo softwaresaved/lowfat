@@ -770,7 +770,7 @@ def _expense_detail(request, expense):
 def expense_detail_public(request, access_token):
     try:
         expense = Expense.objects.get(access_token=access_token)
-        if not expense.access_token_is_valid:
+        if not expense.access_token_is_valid():
             expense = None
         pass
     except ObjectDoesNotExist:
@@ -1047,21 +1047,79 @@ def blog_form(request, **kargs):  # pylint: disable=too-many-branches
     }
     return render(request, 'lowfat/form.html', context)
 
+def blog_form_public(request, access_token):  # pylint: disable=too-many-branches
+    try:
+        fund = Fund.objects.get(access_token=access_token)
+        if not fund.access_token_is_valid():
+            fund = None
+    except ObjectDoesNotExist:
+        fund = None
+
+    if fund is None:
+        raise Http404("Funding request does not exist.")
+
+    initial = {"fund": fund}
+
+    formset = BlogForm(
+        request.POST or None,
+        request.FILES or None,
+        initial=initial,
+        is_staff=bool(request.user.is_staff)
+    )
+
+    if formset.is_valid():
+        blog = formset.save()
+
+        blog.new_access_token()
+        blog.save()
+
+        messages.success(request, 'Blog draft saved.')
+        if not formset.cleaned_data["not_send_email_field"]:
+            new_blog_notification(blog)
+        return HttpResponseRedirect(
+            reverse('blog_detail_public', args=[blog.access_token,])
+        )
+
+    # Show submission form.
+    context = {
+        "title": "Submit blog post draft",
+        "formset": formset,
+        "js_files": ["js/blog.js"],
+    }
+    return render(request, 'lowfat/form.html', context)
+
+def _blog_detail(request, blog):
+    if blog is None:
+        raise Http404("Blog doesn't exist.")
+
+    context = {
+        'blog': blog,
+        'emails': BlogSentMail.objects.filter(blog=blog),
+    }
+    return render(request, 'lowfat/blog_detail.html', context)
+
 @login_required
 def blog_detail(request, blog_id):
-    this_blog = Blog.objects.get(id=blog_id)
+    try:
+        blog = Blog.objects.get(id=blog_id)
+        if not (request.user.is_staff or
+                Claimant.objects.get(user=request.user) == blog.author or
+                Claimant.objects.get(user=request.user) in blog.coauthor.all()):
+            blog = None
+    except ObjectDoesNotExist:
+        blog = None
 
-    if (request.user.is_staff or
-            Claimant.objects.get(user=request.user) == this_blog.author or
-            Claimant.objects.get(user=request.user) in this_blog.coauthor.all()):
-        context = {
-            'blog': Blog.objects.get(id=blog_id),
-            'emails': BlogSentMail.objects.filter(blog=this_blog),
-        }
+    return _blog_detail(request, blog)
 
-        return render(request, 'lowfat/blog_detail.html', context)
+def blog_detail_public(request, access_token):
+    try:
+        blog = Blog.objects.get(access_token=access_token)
+        if not blog.access_token_is_valid():
+            blog = None
+    except ObjectDoesNotExist:
+        blog = None
 
-    raise Http404("Blog post does not exist.")
+    return _blog_detail(request, blog)
 
 @login_required
 def blog_edit(request, blog_id):
