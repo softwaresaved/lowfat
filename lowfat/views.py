@@ -500,7 +500,7 @@ def fund_detail(request, fund_id):
     if not (request.user.is_staff or Claimant.objects.get(user=request.user) == fund.claimant):
         raise Http404("Funding request does not exist.")
 
-    return _fund_detail(request, this_fund)
+    return _fund_detail(request, fund)
 
 @staff_member_required
 def fund_review(request, fund_id):
