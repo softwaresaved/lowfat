@@ -80,13 +80,15 @@
         <a
           {% if user.is_staff %}
           href="{% url 'expense_review_relative' expense.fund.id expense.relative_number %}"
+          {% elif claimant and user == claimant.user %}
+          href="{% url 'expense_detail_relative' expense.fund.id expense.relative_number %}"
           {% else %}
-          <a href="{% url 'expense_detail_relative' expense.fund.id expense.relative_number %}"
-             {% endif %}
-             >{{ expense.fund.title }} #{{ expense.relative_number }}</a>
-          {% else %}
-          Missing claim of expense
+          href="{% url 'expense_detail_public' expense.access_token %}"
           {% endif %}
+        >{{ expense.fund.title }} #{{ expense.relative_number }}</a>
+        {% else %}
+        Missing claim of expense
+        {% endif %}
       </td>
       {% if user.is_staff %}
       <td>
@@ -109,6 +111,7 @@
       <td>
         £{{ expense.amount_authorized_for_payment|floatformat:2 }}
       </td>
+      {% if user.is_staff or claimant and user == claimant.user or fund.claimant and user == fund.claimant.user %}
       <td>
         {% if user.is_staff %}
         <a class="icon" href="mailto:{{ expense.fund.claimant.email }}"><i class="fab fa-envelope" aria-hidden="true"></i></a>
@@ -121,6 +124,7 @@
         <a  title="Edit" href="{% url 'expense_edit_relative' expense.fund.id expense.relative_number %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
         <a  title="Remove" href="{% url 'expense_remove_relative' expense.fund.id expense.relative_number %}?next={{ request.path }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
       </td>
+      {% endif %}
       {% endif %}
     </tr>
     {% endfor %}
