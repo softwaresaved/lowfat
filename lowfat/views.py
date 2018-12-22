@@ -272,7 +272,7 @@ def claimant_slug_resolution(request, claimant_slug):
         claimant = None
 
     if claimant:
-        return claimant_detail(request, claimant)
+        return _claimant_detail(request, claimant)
 
     raise Http404("Claimant does not exist.")
 
