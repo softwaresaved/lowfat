@@ -209,12 +209,10 @@ def claimant_promote(request, claimant_id):
         reverse('claimant_detail', args=[claimant.id,])
     )
 
-def claimant_detail(request, claimant_id):
+def _claimant_detail(request, claimant):
     """Details about claimant."""
-    this_claimant = Claimant.objects.get(id=claimant_id)
-
     # Avoid leak information from applicants
-    if not request.user.is_staff and not (this_claimant.fellow or this_claimant.received_offer or this_claimant.shortlisted or this_claimant.collaborator):
+    if not request.user.is_staff and not (claimant.fellow or claimant.received_offer or claimant.shortlisted or claimant.collaborator):
         raise Http404("Claimant does not exist.")
 
     # Setup query parameters
@@ -226,29 +224,29 @@ def claimant_detail(request, claimant_id):
         'funding_requests_status': funding_requests_status,
         'expenses_status': expenses_status,
         'blogs_status': blogs_status,
-        'claimant': this_claimant,
+        'claimant': claimant,
     }
 
     if request.user.is_staff:
         funds = Fund.objects.filter(
-            claimant=this_claimant,
+            claimant=claimant,
             status__in=funding_requests_status
         )
         context.update(
             {
                 'funds': pair_fund_with_blog(funds, "P"),
                 'expenses': Expense.objects.filter(
-                    fund__claimant=this_claimant,
+                    fund__claimant=claimant,
                     status__in=expenses_status
                 ),
                 'blogs': Blog.objects.filter(
-                    Q(author=this_claimant, status__in=blogs_status) | Q(coauthor=this_claimant, status__in=blogs_status)
+                    Q(author=claimant, status__in=blogs_status) | Q(coauthor=claimant, status__in=blogs_status)
                 ).distinct(),
             }
         )
     else:
         funds = Fund.objects.filter(
-            claimant=this_claimant,
+            claimant=claimant,
             can_be_advertise_after=True,
             status__in="AMF"
         )
@@ -256,12 +254,15 @@ def claimant_detail(request, claimant_id):
             {
                 'funds': pair_fund_with_blog(funds, "P"),
                 'blogs': Blog.objects.filter(
-                    Q(author=this_claimant, status="P") | Q(coauthor=this_claimant, status="P")
+                    Q(author=claimant, status="P") | Q(coauthor=claimant, status="P")
                 ).distinct(),
             }
         )
 
     return render(request, 'lowfat/claimant_detail.html', context)
+
+def claimant_detail(request, claimant_id):
+    raise Http404("URL not supported in lowFAT 2.x.")
 
 def claimant_slug_resolution(request, claimant_slug):
     """Resolve claimant slug and return the details."""
@@ -271,7 +272,7 @@ def claimant_slug_resolution(request, claimant_slug):
         claimant = None
 
     if claimant:
-        return claimant_detail(request, claimant.id)
+        return claimant_detail(request, claimant)
 
     raise Http404("Claimant does not exist.")
 
