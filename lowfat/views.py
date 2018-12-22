@@ -403,59 +403,58 @@ def fund_form_public(request):
         is_staff=bool(request.user.is_superuser)
     )
 
-    if request.POST:
+    if request.POST and formset.is_valid():
         # Handle submission
-        if formset.is_valid():
-            username = "{}.{}".format(
-                formset.cleaned_data["forenames"].lower(),
-                formset.cleaned_data["surname"].lower()
+        username = "{}.{}".format(
+            formset.cleaned_data["forenames"].lower(),
+            formset.cleaned_data["surname"].lower()
+        )
+        try:
+            user = User.objects.get(username=username)
+            is_new_user = False
+        except ObjectDoesNotExist:
+            user = User.objects.create_user(
+                username,
+                formset.cleaned_data["email"],
+                User.objects.make_random_password(),
+                first_name=formset.cleaned_data["forenames"],
+                last_name=formset.cleaned_data["surname"]
             )
-            try:
-                user = User.objects.get(username=username)
-                is_new_user = False
-            except ObjectDoesNotExist:
-                user = User.objects.create_user(
-                    username,
-                    formset.cleaned_data["email"],
-                    User.objects.make_random_password(),
-                    first_name=formset.cleaned_data["forenames"],
-                    last_name=formset.cleaned_data["surname"]
-                )
-                user.save()
-                is_new_user = True
+            user.save()
+            is_new_user = True
 
-            messages.success(request, 'Your username is {}.'.format(username))
-            if is_new_user:
-                claimant = Claimant.objects.create(
-                    user=user,
-                    forenames=formset.cleaned_data["forenames"],
-                    surname=formset.cleaned_data["surname"],
-                    email=formset.cleaned_data["email"],
-                    phone=formset.cleaned_data["phone"],
-                    home_city=formset.cleaned_data["home_city"]
-                )
-                claimant.save()
-            else:
-                claimant = Claimant.objects.get(
-                    user=user
-                )
-
-            fund = formset.save(commit=False)
-            fund.claimant = claimant
-            fund.new_access_token()
-            fund.update_latlon()
-            # Default value for budget_approved is budget_total.
-            # The reason for this is to save staffs to copy and paste the approved amount.
-            fund.budget_approved = fund.budget_total()
-            fund.save()
-
-            messages.success(request, 'Funding request saved.')
-            if not formset.cleaned_data["not_send_email_field"]:
-                new_fund_notification(fund)
-
-            return HttpResponseRedirect(
-                reverse('fund_detail_public', args=[fund.access_token,])
+        messages.success(request, 'Your username is {}.'.format(username))
+        if is_new_user:
+            claimant = Claimant.objects.create(
+                user=user,
+                forenames=formset.cleaned_data["forenames"],
+                surname=formset.cleaned_data["surname"],
+                email=formset.cleaned_data["email"],
+                phone=formset.cleaned_data["phone"],
+                home_city=formset.cleaned_data["home_city"]
             )
+            claimant.save()
+        else:
+            claimant = Claimant.objects.get(
+                user=user
+            )
+
+        fund = formset.save(commit=False)
+        fund.claimant = claimant
+        fund.new_access_token()
+        fund.update_latlon()
+        # Default value for budget_approved is budget_total.
+        # The reason for this is to save staffs to copy and paste the approved amount.
+        fund.budget_approved = fund.budget_total()
+        fund.save()
+
+        messages.success(request, 'Funding request saved.')
+        if not formset.cleaned_data["not_send_email_field"]:
+            new_fund_notification(fund)
+
+        return HttpResponseRedirect(
+            reverse('fund_detail_public', args=[fund.access_token,])
+        )
 
     # Show submission form.
     context = {
@@ -466,22 +465,7 @@ def fund_form_public(request):
     }
     return render(request, 'lowfat/form.html', context)
 
-def fund_detail_public(request, access_token):
-    this_fund = Fund.objects.get(access_token=access_token)
-    return _fund_detail(request, this_fund.id)
-
-@login_required
-def fund_detail(request, fund_id):
-    this_fund = Fund.objects.get(id=fund_id)
-    
-    if not (request.user.is_staff or Claimant.objects.get(user=request.user) == this_fund.claimant):
-        raise Http404("Funding request does not exist.")
-
-    return _fund_detail(request, this_fund.id)
-
-def _fund_detail(request, fund_id):
-    this_fund = Fund.objects.get(id=fund_id)
-
+def _fund_detail(request, fund):
     # Setup query parameters
     funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPAMRF"
     expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCPAF"
@@ -491,20 +475,32 @@ def _fund_detail(request, fund_id):
         'funding_requests_status': funding_requests_status,
         'expenses_status': expenses_status,
         'blogs_status': blogs_status,
-        'fund': this_fund,
+        'fund': fund,
         'expenses': Expense.objects.filter(
-            fund=this_fund,
+            fund=fund,
             status__in=expenses_status
         ),
         'blogs': Blog.objects.filter(
-            fund=this_fund,
+            fund=fund,
             status__in=blogs_status
         ),
-        'emails': FundSentMail.objects.filter(fund=this_fund),
+        'emails': FundSentMail.objects.filter(fund=fund),
     }
 
     return render(request, 'lowfat/fund_detail.html', context)
 
+def fund_detail_public(request, access_token):
+    fund = Fund.objects.get(access_token=access_token)
+    return _fund_detail(request, fund)
+
+@login_required
+def fund_detail(request, fund_id):
+    fund = Fund.objects.get(id=fund_id)
+    
+    if not (request.user.is_staff or Claimant.objects.get(user=request.user) == fund.claimant):
+        raise Http404("Funding request does not exist.")
+
+    return _fund_detail(request, this_fund)
 
 @staff_member_required
 def fund_review(request, fund_id):
