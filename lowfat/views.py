@@ -1066,7 +1066,7 @@ def blog_form_public(request, access_token):  # pylint: disable=too-many-branche
 
     if formset.is_valid():
         blog = formset.save()
-
+        blog.author = blog.fund.claimant
         blog.new_access_token()
         blog.save()
 
