@@ -95,7 +95,7 @@
         {% endif %}
         {% if post.tweet_url|length > 0 %}
         <a class="icon" href="{{post.tweet_url}}">
-          <i class="fa fa-twitter" aria-hidden="true"></i>
+          <i class="fab fa-twitter" aria-hidden="true"></i>
         </a>
         {% endif %}
         {% if not forloop.last %}
@@ -133,7 +133,7 @@
       {% if user.is_authenticated %}
       <td>
         {% if user.is_staff %}
-        <a class="icon" href="mailto:{{ fund.claimant.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+        <a class="icon" href="mailto:{{ fund.claimant.email }}"><i class="fab fa-envelope" aria-hidden="true"></i></a>
         {% endif %}
         <a title="View" href="{% url 'fund_detail' fund.id %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
         {% if user.is_staff %}

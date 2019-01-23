@@ -25,7 +25,7 @@
           <td>
             {{ blog.author.fullname_link|safe }}
             <a class="icon" href="mailto:{{ blog.author.email }}">
-              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <i class="fab fa-envelope" aria-hidden="true"></i>
             </a>
           </td>
         </tr>
@@ -35,7 +35,7 @@
           <td>
             {% for author in blog.coauthor.all %}
             {{ author.fullname_link|safe }}
-            <a class="icon" href="mailto:{{ author.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>{% if not forloop.last %}, {% endif %}
+            <a class="icon" href="mailto:{{ author.email }}"><i class="fab fa-envelope" aria-hidden="true"></i></a>{% if not forloop.last %}, {% endif %}
             {% endfor %}
           </td>
         </tr>
