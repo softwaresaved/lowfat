@@ -3,6 +3,7 @@ from difflib import SequenceMatcher
 import ast
 import hashlib
 import re
+import uuid
 
 from geopy.geocoders import Nominatim
 
@@ -502,7 +503,34 @@ class Claimant(models.Model):
 
         return sum([expense.amount_claimed for expense in this_claimant_expenses])
 
-class Fund(models.Model):
+class ModelWithToken(models.Model):
+    class Meta:
+        abstract = True
+
+    # Access token
+    access_token = models.CharField(
+        max_length=32,
+        null=True,
+        blank=True
+    )
+    access_token_expire_date = models.DateField(
+        null=True,
+        blank=True
+    )
+
+    def new_access_token(self):
+        self.access_token = uuid.uuid4().hex
+        self.access_token_expire_date = date.today() + timedelta(days=30)
+        self.save()
+
+    def access_token_is_valid(self):
+        if self.access_token_expire_date is not None:
+            return date.today() < self.access_token_expire_date
+
+        return False
+
+    
+class Fund(ModelWithToken):
     """Describe a fund from one claimant."""
     class Meta:
         app_label = 'lowfat'
@@ -715,9 +743,12 @@ class Fund(models.Model):
     def link(self):
         return reverse("fund_detail", args=[self.id])
 
+    def link_public(self):
+        return reverse("fund_detail_public", args=[self.access_token])
+
     def title_link(self):
         return """<a href="{}">{}</a>""".format(
-            self.link(),
+            self.link_public() if self.access_token_is_valid() else self.link(),
             self.title
         )
 
@@ -734,8 +765,17 @@ class Fund(models.Model):
 
         return approved
 
+    def new_access_token(self):
+        self.access_token = uuid.uuid4().hex
+        today = date.today()
+        if today < self.end_date:
+            self.access_token_expire_date = self.end_date + timedelta(days=30)
+        else:
+            self.access_token_expire_date = today + timedelta(days=30)
+        self.save()
 
-class Expense(models.Model):
+
+class Expense(ModelWithToken):
     """This describe one expense for one fund."""
     class Meta:
         app_label = 'lowfat'
@@ -891,7 +931,8 @@ class Expense(models.Model):
             self.claim.name.replace("/", "-")
         )
 
-class Blog(models.Model):
+
+class Blog(ModelWithToken):
     """Provide the link to the blog post about the fund."""
     class Meta:
         app_label = 'lowfat'

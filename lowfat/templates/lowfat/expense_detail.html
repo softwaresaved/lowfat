@@ -9,6 +9,7 @@
   class="label label-warning"
   {% endif %}
   >{{ expense.get_status_display }}</span>
+  {% if user.is_authenticated %}
   {% if user.is_staff %}
   <a title="Review" class="btn btn-default" href="{% url 'expense_review_relative' expense.fund.id expense.relative_number %}" role="button"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Review</a>
   {% endif %}
@@ -16,8 +17,16 @@
   <a title="Edit" class="btn btn-default" href="{% url 'expense_edit_relative' expense.fund.id expense.relative_number %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
   <a title="Remove" class="btn btn-default" href="{% url 'expense_remove_relative' expense.fund.id expense.relative_number %}?next={% url 'dashboard' %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>
   {% endif %}
+  {% endif %}
 </h1>
-<object class="expense-review-pdf" data="{% url 'expense_claim_relative' expense.fund.id expense.relative_number %}" type="application/pdf">
+<object
+  class="expense-review-pdf"
+  {% if user.is_authenticated %}
+  data="{% url 'expense_claim_relative' expense.fund.id expense.relative_number %}"
+  {% else %}
+  data="{% url 'expense_claim_public' expense.access_token %}"
+  {% endif %}
+  type="application/pdf">
   <p>You will need to download the <a href="{% url 'expense_claim_relative' expense.fund.id expense.relative_number %}">PDF file.</a></p>
 </object>
 <table class="table table-bordered">
@@ -66,6 +75,7 @@
           <th>Status</th>
           <td>{{ expense.get_status_display }}</td>
         </tr>
+        {% if user.is_authenticated %}
         <tr>
           <th>Add pages</th>
           <td>
@@ -78,6 +88,7 @@
             </form>
           </td>
         </tr>
+        {% endif %}
     </tbody>
 </table>
 {% include "lowfat/communication.html" %}

@@ -189,6 +189,7 @@ class FundAdmin(SimpleHistoryAdmin):
                 'grant',
                 'grant_heading',
                 'notes_from_admin',
+                'access_token',
                 ]
             }),
         ]

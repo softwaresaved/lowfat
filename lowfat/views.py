@@ -3,16 +3,17 @@ import io
 import os
 import shutil
 
-import django.utils
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.urls import reverse
 from django.shortcuts import render
+from django.urls import reverse
+import django.utils
 
 from constance import config
 
@@ -208,12 +209,10 @@ def claimant_promote(request, claimant_id):
         reverse('claimant_detail', args=[claimant.id,])
     )
 
-def claimant_detail(request, claimant_id):
+def _claimant_detail(request, claimant):
     """Details about claimant."""
-    this_claimant = Claimant.objects.get(id=claimant_id)
-
     # Avoid leak information from applicants
-    if not request.user.is_staff and not (this_claimant.fellow or this_claimant.received_offer or this_claimant.shortlisted or this_claimant.collaborator):
+    if not request.user.is_staff and not (claimant.fellow or claimant.received_offer or claimant.shortlisted or claimant.collaborator):
         raise Http404("Claimant does not exist.")
 
     # Setup query parameters
@@ -225,29 +224,29 @@ def claimant_detail(request, claimant_id):
         'funding_requests_status': funding_requests_status,
         'expenses_status': expenses_status,
         'blogs_status': blogs_status,
-        'claimant': this_claimant,
+        'claimant': claimant,
     }
 
     if request.user.is_staff:
         funds = Fund.objects.filter(
-            claimant=this_claimant,
+            claimant=claimant,
             status__in=funding_requests_status
         )
         context.update(
             {
                 'funds': pair_fund_with_blog(funds, "P"),
                 'expenses': Expense.objects.filter(
-                    fund__claimant=this_claimant,
+                    fund__claimant=claimant,
                     status__in=expenses_status
                 ),
                 'blogs': Blog.objects.filter(
-                    Q(author=this_claimant, status__in=blogs_status) | Q(coauthor=this_claimant, status__in=blogs_status)
+                    Q(author=claimant, status__in=blogs_status) | Q(coauthor=claimant, status__in=blogs_status)
                 ).distinct(),
             }
         )
     else:
         funds = Fund.objects.filter(
-            claimant=this_claimant,
+            claimant=claimant,
             can_be_advertise_after=True,
             status__in="AMF"
         )
@@ -255,12 +254,15 @@ def claimant_detail(request, claimant_id):
             {
                 'funds': pair_fund_with_blog(funds, "P"),
                 'blogs': Blog.objects.filter(
-                    Q(author=this_claimant, status="P") | Q(coauthor=this_claimant, status="P")
+                    Q(author=claimant, status="P") | Q(coauthor=claimant, status="P")
                 ).distinct(),
             }
         )
 
     return render(request, 'lowfat/claimant_detail.html', context)
+
+def claimant_detail(request, claimant_id):
+    raise Http404("URL not supported in lowFAT 2.x.")
 
 def claimant_slug_resolution(request, claimant_slug):
     """Resolve claimant slug and return the details."""
@@ -270,7 +272,7 @@ def claimant_slug_resolution(request, claimant_slug):
         claimant = None
 
     if claimant:
-        return claimant_detail(request, claimant.id)
+        return _claimant_detail(request, claimant)
 
     raise Http404("Claimant does not exist.")
 
@@ -389,37 +391,116 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches
     }
     return render(request, 'lowfat/form.html', context)
 
+def fund_form_public(request):
+    initial = {
+        "start_date": django.utils.timezone.now(),
+        "end_date": django.utils.timezone.now(),
+    }
+
+    formset = FundPublicForm(
+        request.POST or None,
+        initial=initial, 
+        is_staff=bool(request.user.is_superuser)
+    )
+
+    if request.POST and formset.is_valid():
+        # Handle submission
+        username = "{}.{}".format(
+            formset.cleaned_data["forenames"].lower(),
+            formset.cleaned_data["surname"].lower()
+        )
+        try:
+            user = User.objects.get(username=username)
+            is_new_user = False
+        except ObjectDoesNotExist:
+            user = User.objects.create_user(
+                username,
+                formset.cleaned_data["email"],
+                User.objects.make_random_password(),
+                first_name=formset.cleaned_data["forenames"],
+                last_name=formset.cleaned_data["surname"]
+            )
+            user.save()
+            is_new_user = True
+
+        messages.success(request, 'Your username is {}.'.format(username))
+        if is_new_user:
+            claimant = Claimant.objects.create(
+                user=user,
+                forenames=formset.cleaned_data["forenames"],
+                surname=formset.cleaned_data["surname"],
+                email=formset.cleaned_data["email"],
+                phone=formset.cleaned_data["phone"],
+                home_city=formset.cleaned_data["home_city"]
+            )
+            claimant.save()
+        else:
+            claimant = Claimant.objects.get(
+                user=user
+            )
+
+        fund = formset.save(commit=False)
+        fund.claimant = claimant
+        fund.new_access_token()
+        fund.update_latlon()
+        # Default value for budget_approved is budget_total.
+        # The reason for this is to save staffs to copy and paste the approved amount.
+        fund.budget_approved = fund.budget_total()
+        fund.save()
+
+        messages.success(request, 'Funding request saved.')
+        if not formset.cleaned_data["not_send_email_field"]:
+            new_fund_notification(fund)
+
+        return HttpResponseRedirect(
+            reverse('fund_detail_public', args=[fund.access_token,])
+        )
+
+    # Show submission form.
+    context = {
+        "title": "Make a funding request",
+        "terms_and_conditions_url": get_terms_and_conditions_url(request),
+        "formset": formset,
+        "js_files": ["js/request.js"],
+    }
+    return render(request, 'lowfat/form.html', context)
+
+def _fund_detail(request, fund):
+    # Setup query parameters
+    funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPAMRF"
+    expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCPAF"
+    blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URGLPDO"
+
+    context = {
+        'funding_requests_status': funding_requests_status,
+        'expenses_status': expenses_status,
+        'blogs_status': blogs_status,
+        'fund': fund,
+        'expenses': Expense.objects.filter(
+            fund=fund,
+            status__in=expenses_status
+        ),
+        'blogs': Blog.objects.filter(
+            fund=fund,
+            status__in=blogs_status
+        ),
+        'emails': FundSentMail.objects.filter(fund=fund),
+    }
+
+    return render(request, 'lowfat/fund_detail.html', context)
+
+def fund_detail_public(request, access_token):
+    fund = Fund.objects.get(access_token=access_token)
+    return _fund_detail(request, fund)
+
 @login_required
 def fund_detail(request, fund_id):
-    this_fund = Fund.objects.get(id=fund_id)
+    fund = Fund.objects.get(id=fund_id)
+    
+    if not (request.user.is_staff or Claimant.objects.get(user=request.user) == fund.claimant):
+        raise Http404("Funding request does not exist.")
 
-    if (request.user.is_staff or
-            Claimant.objects.get(user=request.user) == this_fund.claimant):
-
-        # Setup query parameters
-        funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPAMRF"
-        expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCPAF"
-        blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URGLPDO"
-
-        context = {
-            'funding_requests_status': funding_requests_status,
-            'expenses_status': expenses_status,
-            'blogs_status': blogs_status,
-            'fund': this_fund,
-            'expenses': Expense.objects.filter(
-                fund=this_fund,
-                status__in=expenses_status
-            ),
-            'blogs': Blog.objects.filter(
-                fund=this_fund,
-                status__in=blogs_status
-            ),
-            'emails': FundSentMail.objects.filter(fund=this_fund),
-        }
-
-        return render(request, 'lowfat/fund_detail.html', context)
-
-    raise Http404("Funding request does not exist.")
+    return _fund_detail(request, fund)
 
 @staff_member_required
 def fund_review(request, fund_id):
@@ -607,7 +688,7 @@ def expense_form(request, **kargs):
         if not formset.cleaned_data["not_send_email_field"]:
             new_expense_notification(expense)
         return HttpResponseRedirect(
-            reverse('expense_detail', args=[expense.id,])
+            reverse('expense_detail_relative', args=[expense.fund.id, expense.relative_number,])
         )
 
     # Limit dropdown list to claimant
@@ -634,26 +715,78 @@ def expense_form(request, **kargs):
     }
     return render(request, 'lowfat/form.html', context)
 
-@login_required
+def expense_form_public(request, access_token):
+    try:
+        fund = Fund.objects.get(access_token=access_token)
+        if not fund.access_token_is_valid():
+            fund = None
+    except ObjectDoesNotExist:
+        fund = None
+
+    if fund is None:
+        raise Http404("Funding request does not exist.")
+
+    initial = {"fund": fund}
+    formset = ExpenseForm(
+        request.POST or None,
+        request.FILES or None,
+        initial=initial,
+        is_staff=bool(request.user.is_staff)
+    )
+
+    if formset.is_valid():
+        expense = formset.save()
+        expense.new_access_token()
+        expense.save()
+        messages.success(request, 'Expense saved.')
+        if not formset.cleaned_data["not_send_email_field"]:
+            new_expense_notification(expense)
+        return HttpResponseRedirect(
+            reverse('expense_detail_public', args=[expense.access_token,])
+        )
+
+    # Show submission form.
+    context = {
+        "title": "Submit expense claim",
+        "terms_and_conditions_url": get_terms_and_conditions_url(request),
+        "formset": formset,
+    }
+    return render(request, 'lowfat/form.html', context)
+
+def _expense_detail(request, expense):
+    if expense is None:
+        raise Http404("Expense doesn't exist.")
+
+    context = {
+        'expense': expense,
+        'emails': ExpenseSentMail.objects.filter(expense=expense),
+    }
+
+    return render(request, 'lowfat/expense_detail.html', context)
+
+def expense_detail_public(request, access_token):
+    try:
+        expense = Expense.objects.get(access_token=access_token)
+        if not expense.access_token_is_valid():
+            expense = None
+        pass
+    except ObjectDoesNotExist:
+        expense = None
+
+    return _expense_detail(request, expense)
+
 def expense_detail(request, expense_id):
-    this_expense = Expense.objects.get(id=expense_id)
-
-    if (request.user.is_staff or
-            Claimant.objects.get(user=request.user) == this_expense.fund.claimant):
-        context = {
-            'expense': Expense.objects.get(id=expense_id),
-            'emails': ExpenseSentMail.objects.filter(expense=this_expense),
-        }
-
-        return render(request, 'lowfat/expense_detail.html', context)
-
-    raise Http404("Expense claim does not exist.")
+    raise Http404("URL not supported in lowFAT 2.x.")
 
 @login_required
 def expense_detail_relative(request, fund_id, expense_relative_number):
     this_fund = Fund.objects.get(id=fund_id)
     this_expense = Expense.objects.get(fund=this_fund, relative_number=expense_relative_number)
-    return expense_detail(request, this_expense.id)
+
+    if not (request.user.is_staff or Claimant.objects.get(user=request.user) == this_expense.fund.claimant):
+        this_expense = None
+
+    return _expense_detail(request, this_expense)
 
 @login_required
 def expense_edit_relative(request, fund_id, expense_relative_number):
@@ -795,25 +928,42 @@ def expense_append_relative(request, fund_id, expense_relative_number):
         reverse('expense_detail_relative', args=[fund_id, expense_relative_number,])
     )
 
-@login_required
+def _expense_claim(request, expense):
+    if expense is None:
+        raise Http404("PDF does not exist.")
+
+    with open(expense.claim.path, "rb") as _file:
+        response = HttpResponse(_file.read(), content_type="application/pdf")
+    response['Content-Disposition'] = 'inline; filename="{}"'.format(
+        expense.claim_clean_name())
+    return response
+
 def expense_claim(request, expense_id):
-    this_expense = Expense.objects.get(id=expense_id)
-
-    if (request.user.is_staff or
-            Claimant.objects.get(user=request.user) == this_expense.fund.claimant):
-        with open(this_expense.claim.path, "rb") as _file:
-            response = HttpResponse(_file.read(), content_type="application/pdf")
-            response['Content-Disposition'] = 'inline; filename="{}"'.format(
-                this_expense.claim_clean_name())
-            return response
-
-    raise Http404("PDF does not exist.")
+    raise Http404("URL not supported in lowFAT 2.x.")
 
 @login_required
 def expense_claim_relative(request, fund_id, expense_relative_number):
-    this_fund = Fund.objects.get(id=fund_id)
-    this_expense = Expense.objects.get(fund=this_fund, relative_number=expense_relative_number)
-    return expense_claim(request, this_expense.id)
+    try:
+        fund = Fund.objects.get(id=fund_id)
+        expense = Expense.objects.get(fund=fund, relative_number=expense_relative_number)
+
+        if not (request.user.is_staff or
+            Claimant.objects.get(user=request.user) == expense.fund.claimant):
+            expense = None
+    except ObjectDoesNotExist:
+        expense = None
+
+    return _expense_claim(request, expense)
+
+def expense_claim_public(request, access_token):
+    try:
+        expense = Expense.objects.get(access_token=access_token)
+        if not expense.access_token_is_valid():
+            expense = None
+    except ObjectDoesNotExist:
+        expense = None
+
+    return _expense_claim(request, expense)
 
 @login_required
 def blog_form(request, **kargs):  # pylint: disable=too-many-branches
@@ -894,21 +1044,79 @@ def blog_form(request, **kargs):  # pylint: disable=too-many-branches
     }
     return render(request, 'lowfat/form.html', context)
 
+def blog_form_public(request, access_token):  # pylint: disable=too-many-branches
+    try:
+        fund = Fund.objects.get(access_token=access_token)
+        if not fund.access_token_is_valid():
+            fund = None
+    except ObjectDoesNotExist:
+        fund = None
+
+    if fund is None:
+        raise Http404("Funding request does not exist.")
+
+    initial = {"fund": fund}
+
+    formset = BlogForm(
+        request.POST or None,
+        request.FILES or None,
+        initial=initial,
+        is_staff=bool(request.user.is_staff)
+    )
+
+    if formset.is_valid():
+        blog = formset.save()
+        blog.author = blog.fund.claimant
+        blog.new_access_token()
+        blog.save()
+
+        messages.success(request, 'Blog draft saved.')
+        if not formset.cleaned_data["not_send_email_field"]:
+            new_blog_notification(blog)
+        return HttpResponseRedirect(
+            reverse('blog_detail_public', args=[blog.access_token,])
+        )
+
+    # Show submission form.
+    context = {
+        "title": "Submit blog post draft",
+        "formset": formset,
+        "js_files": ["js/blog.js"],
+    }
+    return render(request, 'lowfat/form.html', context)
+
+def _blog_detail(request, blog):
+    if blog is None:
+        raise Http404("Blog doesn't exist.")
+
+    context = {
+        'blog': blog,
+        'emails': BlogSentMail.objects.filter(blog=blog),
+    }
+    return render(request, 'lowfat/blog_detail.html', context)
+
 @login_required
 def blog_detail(request, blog_id):
-    this_blog = Blog.objects.get(id=blog_id)
+    try:
+        blog = Blog.objects.get(id=blog_id)
+        if not (request.user.is_staff or
+                Claimant.objects.get(user=request.user) == blog.author or
+                Claimant.objects.get(user=request.user) in blog.coauthor.all()):
+            blog = None
+    except ObjectDoesNotExist:
+        blog = None
 
-    if (request.user.is_staff or
-            Claimant.objects.get(user=request.user) == this_blog.author or
-            Claimant.objects.get(user=request.user) in this_blog.coauthor.all()):
-        context = {
-            'blog': Blog.objects.get(id=blog_id),
-            'emails': BlogSentMail.objects.filter(blog=this_blog),
-        }
+    return _blog_detail(request, blog)
 
-        return render(request, 'lowfat/blog_detail.html', context)
+def blog_detail_public(request, access_token):
+    try:
+        blog = Blog.objects.get(access_token=access_token)
+        if not blog.access_token_is_valid():
+            blog = None
+    except ObjectDoesNotExist:
+        blog = None
 
-    raise Http404("Blog post does not exist.")
+    return _blog_detail(request, blog)
 
 @login_required
 def blog_edit(request, blog_id):
