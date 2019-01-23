@@ -1,12 +1,12 @@
 {% if user.is_staff %}
 <ul class="nav nav-tabs">
-  <li role="presentation" {% if funding_requests_status == 'UPARF' %}class="active"{% endif %}>
+  <li role="presentation" {% if funding_requests_status == 'UPAMRF' %}class="active"{% endif %}>
     <a href="?funding_requests=UPARF&expenses={{ expenses_status }}&blogs={{ blogs_status }}">All</a>
   </li>
   <li role="presentation" {% if funding_requests_status == 'UP' %}class="active"{% endif %}>
     <a href="?funding_requests=UP&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Pending</a>
   </li>
-  <li role="presentation" {% if funding_requests_status == 'A' %}class="active"{% endif %}>
+  <li role="presentation" {% if funding_requests_status == 'AM' %}class="active"{% endif %}>
     <a href="?funding_requests=A&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Approved</a>
   </li>
   <li role="presentation" {% if funding_requests_status == 'R' %}class="active"{% endif %}>
@@ -61,7 +61,7 @@
       class="danger"
       {% elif fund.status in 'P' %}
       class="warning"
-      {% elif fund.status in 'AF' %}
+      {% elif fund.status in 'AMF' %}
       class="success"
       {% endif %}
       {% endif %}
@@ -120,8 +120,8 @@
         if need
         {% endif %}
       </td>
-      <td {% if fund.status in 'AF' %} sorttable_customkey="{{ fund.approved | date:'Ymd' }}" {% endif %}>
-        {% if fund.status in 'AF' %}
+      <td {% if fund.status in 'AMF' %} sorttable_customkey="{{ fund.approved | date:'Ymd' }}" {% endif %}>
+        {% if fund.status in 'AMF' %}
         {{ fund.approved }}
         {% elif fund.status in 'UP' %}
         Not approved yet.

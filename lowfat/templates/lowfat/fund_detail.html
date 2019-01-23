@@ -4,7 +4,7 @@
 {% block content %}
 <h1>Funding request
   <span
-    {% if fund.status in 'AF' %}
+    {% if fund.status in 'AMF' %}
     class="label label-success"
     {% elif fund.status in 'R' %}
     class="label label-danger"
@@ -75,7 +75,7 @@
     <tr>
       <th>Approved date</th>
       <td>
-        {% if fund.status in 'AF' %}
+        {% if fund.status in 'AMF' %}
         {{ fund.approved }}
         {% elif fund.status in 'UP' %}
         Not approved yet.
@@ -106,7 +106,7 @@
     {% endif %}
   </tbody>
 </table>
-{% if fund.status in 'AF' or expenses or blogs %}
+{% if fund.status in 'AMF' or expenses or blogs %}
 <h2>Budget Summary</h2>
 <table class="table table-bordered">
   <tbody>
@@ -117,7 +117,7 @@
     <tr>
       <th><strong>Total</strong> budget approve</th>
       <td>
-        {% if fund.status in 'AF' %}
+        {% if fund.status in 'AMF' %}
         £{{ fund.budget_approved|floatformat:2 }}
         {% else %}
         £0.00

@@ -183,7 +183,7 @@ def fund_review_notification(message, sender, old, new, copy_to_staffs):
         }
     )
 
-    if new.status in ('A', 'R'):
+    if new.status in ('A', 'M', 'R'):
         email_url = "/email/template/fund/claimant/change/"
     elif message:
         email_url = "/email/template/default/"

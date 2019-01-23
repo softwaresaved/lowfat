@@ -1,6 +1,8 @@
 from datetime import datetime, date
-import re
+from difflib import SequenceMatcher
+import ast
 import hashlib
+import re
 
 from geopy.geocoders import Nominatim
 
@@ -77,6 +79,7 @@ FUND_STATUS = (
     ('U', 'Unprocessed'),  # Initial status
     ('P', 'Processing'),  # When someone was assigned to review the request
     ('A', 'Approved'),  # Fund was approved. Funds are reserved.
+    ('M', 'Approved'),  # Fund was approved by machine. Funds are reserved.
     ('R', 'Rejected'),  # Fund was rejected.
     ('F', 'Archived'),  # Approved funds with all claims and blog posts were processed. No funds are reserved.
     ('C', 'Cancelled'),  # When the fellow decided to cancel their request.
@@ -87,6 +90,7 @@ FUND_STATUS_LONG_DESCRIPTION = {
     'U': "We didn't start to process your request yet.",
     'P': "One of your staffs is reviewing your request. You should have our reply soon.",
     'A': "Your fund request was approved.",
+    'M': "Your fund request was pre-approved.",
     'R': "Your fund request was declided.",
     'F': "We archived your fund request since all the expense claims were processed.",
     'C': "You decided to cancel this request for any reason.",
@@ -719,6 +723,16 @@ class Fund(models.Model):
 
     def link_review(self):
         return reverse("fund_review", args=[self.id])
+
+    def pre_approve(self):
+        approved = False
+
+        if self.mandatory and self.budget_total() < config.PRE_APPROVED_FUNDING_REQUEST_BUDGET:
+                self.status = 'M'
+                self.save()
+                approved = True
+
+        return approved
 
 
 class Expense(models.Model):
