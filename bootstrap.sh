@@ -29,7 +29,7 @@ curl \
     --silent \
     -L \
     -o $FONT_AWESOME_ZIP \
-    https://use.fontawesome.com/releases/v5.4.1/fontawesome-free-5.4.1-web.zip
+    https://use.fontawesome.com/releases/v5.6.3/fontawesome-free-5.6.3-web.zip
 unzip \
     -q \
     -u \
@@ -120,7 +120,7 @@ unzip \
 cp -v -r $TMP_FOLDER/django-tagulous-0.13.2/tagulous/static/tagulous $STATIC_FOLDER
 
 # Copy files
-for folder in css fonts js
+for folder in css fonts js webfonts
 do
     cp -v -r $TMP_FOLDER/*/$folder $STATIC_FOLDER
 done

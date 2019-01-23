@@ -85,7 +85,7 @@
         <a href="{{ blog.published_url }}">{{ blog.title }}</a>
         {% if blog.tweet_url|length > 0 %}
         <a class="icon" href="{{blog.tweet_url}}">
-          <i class="fa fa-twitter" aria-hidden="true"></i>
+          <i class="fab fa-twitter" aria-hidden="true"></i>
         </a>
         {% endif %}
         {% else %}
@@ -126,7 +126,7 @@
       {% if user.is_staff or claimant and user == claimant.user or fund.claimant and user == fund.claimant.user %}
       <td>
         {% if user.is_staff %}
-        <a class="icon" href="mailto:{{ blog.author.email }}"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+        <a class="icon" href="mailto:{{ blog.author.email }}"><i class="fab fa-envelope" aria-hidden="true"></i></a>
         {% endif %}
         <a title="View" href="{% url 'blog_detail' blog.id %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
         {% if user.is_staff %}
