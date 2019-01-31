@@ -159,8 +159,31 @@ class URLTest(TestCase):
 
         self.run_requests(url, queries)
 
-    def test_claimant_details(self):
+    def test_claimant_details_by_id(self):
         url = '/claimant/{}/'.format(self.claimant_id)
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 404,
+            },
+            {
+                "user": self.claimant_a,
+                "expect_code": 404,
+            },
+            {
+                "user": self.claimant_b,
+                "expect_code": 404,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 404,
+            },
+            ]
+
+        self.run_requests(url, queries)
+
+    def test_claimant_details_by_slug(self):
+        url = '/claimant/{}/'.format(Claimant.objects.get(id=self.claimant_id).slug)
         queries = [
             {
                 "user": self.public,
@@ -645,12 +668,11 @@ class URLTest(TestCase):
         queries = [
             {
                 "user": self.public,
-                "expect_code": 200,
-                "final_url_regex": r"/login/\?next=/expense/\d+/",
+                "expect_code": 404,
             },
             {
                 "user": self.claimant_a,
-                "expect_code": 200,
+                "expect_code": 404,
             },
             {
                 "user": self.claimant_b,
@@ -658,7 +680,7 @@ class URLTest(TestCase):
             },
             {
                 "user": self.admin,
-                "expect_code": 200,
+                "expect_code": 404,
             },
             ]
 
