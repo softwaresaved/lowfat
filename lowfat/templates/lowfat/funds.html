@@ -133,7 +133,7 @@
       {% if user.is_authenticated %}
       <td>
         {% if user.is_staff %}
-        <a class="icon" href="mailto:{{ fund.claimant.email }}"><i class="fab fa-envelope" aria-hidden="true"></i></a>
+        <a class="icon" href="mailto:{{ fund.claimant.email }}"><i class="fas fa-envelope" aria-hidden="true"></i></a>
         {% endif %}
         <a title="View" href="{% url 'fund_detail' fund.id %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
         {% if user.is_staff %}

@@ -118,7 +118,7 @@
       {% if user.is_staff or claimant and user == claimant.user or fund.claimant and user == fund.claimant.user %}
       <td>
         {% if user.is_staff %}
-        <a class="icon" href="mailto:{{ expense.fund.claimant.email }}"><i class="fab fa-envelope" aria-hidden="true"></i></a>
+        <a class="icon" href="mailto:{{ expense.fund.claimant.email }}"><i class="fas fa-envelope" aria-hidden="true"></i></a>
         {% endif %}
         <a title="View" href="{% url 'expense_detail_relative' expense.fund.id expense.relative_number %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
         {% if user.is_staff %}

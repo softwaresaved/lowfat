@@ -29,22 +29,22 @@
   <br>
   {% if user.is_staff %}
   <a class="icon" href="mailto:{{ claimant.email }}">
-    <i class="fa fa-envelope" aria-hidden="true"></i>
+    <i class="fas fa-envelope" aria-hidden="true"></i>
   </a>
   {% endif %}
   {% if claimant.institutional_website %}
   <a class="icon" href="{{ claimant.institutional_website }}">
-    <i class="fa fa-cloud" aria-hidden="true"></i>
+    <i class="fas fa-cloud" aria-hidden="true"></i>
   </a>
   {% endif %}
   {% if claimant.website %}
   <a class="icon" href="{{ claimant.website }}">
-    <i class="fa fa-cloud" aria-hidden="true"></i>
+    <i class="fas fa-cloud" aria-hidden="true"></i>
   </a>
   {% endif %}
   {% if claimant.website_feed %}
   <a class="icon" href="{{ claimant.website_feed }}">
-    <i class="fa fa-rss" aria-hidden="true"></i>
+    <i class="fas fa-rss" aria-hidden="true"></i>
   </a>
   {% endif %}
   {% if claimant.orcid %}
