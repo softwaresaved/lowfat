@@ -476,6 +476,14 @@ class Claimant(models.Model):
 
         return money_available
 
+    def claimantship_passed(self):
+        """Return the ammount alread spent from the claimantship grant."""
+        money_passed = 0
+        if self.inauguration_grant_expiration < date.today():
+            money_passed = self.claimantship_grant - self.claimantship_committed() - self.claimantship_spent()
+
+        return money_passed
+
     def claimantship_committed(self):
         """Return the ammount committed from the claimantship grant."""
         this_claimant_funds = Fund.objects.filter(
@@ -502,6 +510,7 @@ class Claimant(models.Model):
         )
 
         return sum([expense.amount_claimed for expense in this_claimant_expenses])
+
 
 class ModelWithToken(models.Model):
     class Meta:

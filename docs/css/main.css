@@ -106,12 +106,14 @@ td, th {
 .money-bar-graph {
   width: 100%;
   height: 38px;
-  color: #414042;
+  color: white;
+  margin-bottom: 20px;
 }
 
 .money-used,
 .money-reserved,
-.money-available {
+.money-available,
+.money-passed {
     display: inline-block;
     height: 100%;
     box-sizing: border-box;
@@ -121,14 +123,35 @@ td, th {
     padding: 10px;
 }
 
+.money-used:first-child,
+.money-reserved:first-child,
+.money-available:first-child,
+.money-passed:first-child {
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.money-used:last-child,
+.money-reserved:last-child,
+.money-available:last-child,
+.money-passed:last-child {
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Based on Kaktos Color Palette, https://www.color-hex.com/color-palette/73689 */
 .money-used {
-    background: red;
+    background: #d21f1f;
 }
 
 .money-reserved {
-    background: #f7b334;
+    background: #d8910a;
 }
 
 .money-available {
-    background: green;
+    background: #29872f;
+}
+
+.money-passed {
+    background: black;
 }
