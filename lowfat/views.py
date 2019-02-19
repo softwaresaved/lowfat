@@ -996,6 +996,11 @@ def blog_form(request, **kargs):  # pylint: disable=too-many-branches
     if formset.is_valid():
         blog = formset.save()
 
+        # Save information about success
+        if blog.fund:
+            blog.fund.success_reported = formset.cleaned_data["success_reported"]
+            blog.fund.save()
+
         # Handle blog post not related with a funding request
         if not blog.author:
             if formset.cleaned_data["author"]:  # Because blog.author is None!
