@@ -848,7 +848,8 @@ class Expense(ModelWithToken):
     )
     recipient_connection = models.CharField(
         max_length=MAX_CHAR_LENGTH,
-        blank=True
+        blank=True,
+        help_text="You need to provide a reason for submit the recipient claim. An common reasons is \"because the recipient was of of the speakers on that workshop.\""
     )
 
     # Admin fields

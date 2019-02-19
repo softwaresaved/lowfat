@@ -949,7 +949,6 @@ class ExpenseForm(GarlicForm):
                 'recipient_email',
                 'recipient_affiliation',
                 'recipient_group',
-                HTML("<p>You need to provide a reason for submit the recipient claim. An common reasons is \"because the recipient was of of the speakers on that workshop\".</p>"),
                 'recipient_connection',
                 'not_send_email_field' if self.is_staff else None,
                 ButtonHolder(
