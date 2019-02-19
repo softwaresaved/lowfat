@@ -368,6 +368,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -391,6 +392,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -413,6 +415,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -434,6 +437,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -457,6 +461,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -479,6 +484,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -502,6 +508,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -525,6 +532,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -547,6 +555,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -570,6 +579,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -592,6 +602,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -615,6 +626,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -637,6 +649,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -660,6 +673,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -683,6 +697,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -705,6 +720,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -727,6 +743,8 @@ class FundFormTest(TestCase):
             "budget_request_venue_hire": 0.00,
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
+            "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -750,6 +768,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -772,6 +791,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -794,6 +814,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -816,6 +837,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -838,6 +860,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -860,6 +883,7 @@ class FundFormTest(TestCase):
             "budget_request_venue_hire": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -882,6 +906,7 @@ class FundFormTest(TestCase):
             "budget_request_venue_hire": 0.00,
             "budget_request_catering": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -904,6 +929,7 @@ class FundFormTest(TestCase):
             "budget_request_venue_hire": 0.00,
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -927,10 +953,59 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": "",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
         self.assertFalse(form.is_valid())
+
+    def test_null_success_targeted(self):
+        data = {
+            "claimant": self.claimant_id,
+            "category": "A",
+            "focus": "C",
+            "title": "Fake",
+            "url": "http://fake.com",
+            "country": "GB",
+            "city": "L",
+            "start_date": date.today() + timedelta(1),
+            "end_date": date.today() + timedelta(2),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+        }
+
+        form = FundForm(data)
+        self.assertFalse(form.is_valid())
+
+    def test_blank_success_targeted(self):
+        data = {
+            "claimant": self.claimant_id,
+            "category": "A",
+            "focus": "C",
+            "title": "Fake",
+            "url": "http://fake.com",
+            "country": "GB",
+            "city": "L",
+            "start_date": date.today() + timedelta(1),
+            "end_date": date.today() + timedelta(2),
+            "budget_request_travel": 100.00,
+            "budget_request_attendance_fees": 0.00,
+            "budget_request_subsistence_cost": 0.00,
+            "budget_request_venue_hire": 0.00,
+            "budget_request_catering": 0.00,
+            "budget_request_others": 0.00,
+            "justification": ":-)",
+            "success_targeted": "",
+        }
+
+        form = FundForm(data)
+        self.assertFalse(form.is_valid())
+
 
     def test_minimal_expected(self):
         data = {
@@ -950,6 +1025,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
         }
 
         form = FundForm(data)
@@ -973,6 +1049,7 @@ class FundFormTest(TestCase):
             "budget_request_catering": 0.00,
             "budget_request_others": 0.00,
             "justification": ":-)",
+            "success_targeted": ":-)",
             "additional_info": "",
         }
 
