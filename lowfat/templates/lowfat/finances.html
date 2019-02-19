@@ -1,4 +1,38 @@
 <h2>Finances</h2>
+
+<figure>
+  <div class="money-bar-graph">
+    {% if claimant.claimantship_spent > 0 %}
+    <span style="width:{% widthratio claimant.claimantship_spent 3000 100 %}%"
+          class="money-used"
+          title="Spent">
+      £{{ claimant.claimantship_spent|floatformat:2 }}
+    </span>
+    {% endif %}
+    {% if claimant.claimantship_committed > 0 %}
+    <span style="width:{% widthratio claimant.claimantship_committed 3000 100 %}%"
+          class="money-reserved"
+          title="Commited">
+      £{{ claimant.claimantship_committed|floatformat:2 }}
+    </span>
+    {% endif %}
+    {% if claimant.claimantship_available %}
+    <span style="width:{% widthratio claimant.claimantship_available 3000 100 %}%"
+          class="money-available"
+          title="Available">
+      £{{ claimant.claimantship_available|floatformat:2 }}
+    </span>
+    {% endif %}
+    {% if claimant.claimantship_passed %}
+    <span style="width:{% widthratio claimant.claimantship_passed 3000 100 %}%"
+          class="money-passed"
+          title="Passed">
+      £{{ claimant.claimantship_passed|floatformat:2 }}
+    </span>
+    {% endif %}
+  </div>
+</figure>
+
 <table class="table table-bordered">
   <tbody>
   <tr>
