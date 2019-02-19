@@ -516,6 +516,7 @@ class FundPublicForm(GarlicForm):
             'budget_request_venue_hire': "Venue hire",
             'budget_request_catering': "Catering",
             'budget_request_others': "Other costs",
+            'success_targeted': "Successful outputs and outcomes",
             'can_be_included_in_calendar': "Can we include your participation in this event into the private Fellows calendar?",
             'can_be_advertise_before': "Can we public promote your involvement in this event before it takes place?",
             'can_be_advertise_after': "Can we public promote your involvement in this event after it takes place?"
@@ -634,6 +635,7 @@ class FundPublicForm(GarlicForm):
                 ),
                 HTML('<h2>Justification for attending or organising the event</h2><p>When filling in the questions below please consider the following points:</p><ul><li>For attending conferences/workshops: will the conference focus on a significant field, will you meet significant researchers, will there be a focus on research software?</li><li>For organising workshops: how will the event help your domain, how will the event help the Institute, how will the event help you.</li><li>For policy related work: how might participation or organisation help the policy goals of the Institute, such as improving software and improved research (this can include people and tools perspectives).</li><li>For other: please state reasons - note it maybe good to discuss matter with the Institute Community Lead before filling the form to make sure the rationale is aligned to the Institute and to your own objectives.</li></ul>'),
                 'justification',
+                'success_targeted',
                 'not_send_email_field' if self.is_staff else None,
                 ButtonHolder(
                     Submit('submit', '{{ title }}')

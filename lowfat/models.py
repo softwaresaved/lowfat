@@ -619,7 +619,9 @@ class Fund(ModelWithToken):
         default=0.00
     )
     justification = models.TextField()
-    success_targeted = models.TextField()
+    success_targeted = models.TextField(
+        help_text="Please specify what outputs (what maybe be produced) and outcomes (what change it could lead to) are likely to be produced from your participation in this event. These can include learning goals being met, collaborations, reports etc."
+    )
     success_reported = models.TextField(blank=True)  # Only provide later
     additional_info = models.TextField(blank=True)
     extra_sponsored = models.TextField(blank=True)
