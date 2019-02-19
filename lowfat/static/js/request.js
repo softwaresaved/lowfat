@@ -22,3 +22,23 @@ update_budget = function() {
 document.addEventListener('DOMContentLoaded', function() {
    update_budget()
 }, false);
+
+/* Hide some costs input */
+update_cost_list = function() {
+    var category = document.getElementById("id_category");
+    var venue = document.getElementById("div_id_budget_request_venue_hire");
+    var catering = document.getElementById("div_id_budget_request_catering");
+    if (category.value == "A") {
+        venue.style.display = "none";
+        catering.style.display = "none";
+    }
+    if (category.value == "H") {
+        venue.style.display = "block";
+        catering.style.display = "block";
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var category = document.getElementById("id_category");
+    category.onchange = update_cost_list;
+});
