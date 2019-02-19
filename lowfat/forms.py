@@ -479,7 +479,7 @@ class FundPublicForm(GarlicForm):
         max_length=MAX_CHAR_LENGTH,
         required=True
     )
-    
+
     class Meta:
         model = Fund
         exclude = [  # pylint: disable=modelform-uses-exclude

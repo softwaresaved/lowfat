@@ -1,6 +1,4 @@
 from datetime import datetime, date, timedelta
-from difflib import SequenceMatcher
-import ast
 import hashlib
 import re
 import uuid
@@ -538,7 +536,7 @@ class ModelWithToken(models.Model):
 
         return False
 
-    
+
 class Fund(ModelWithToken):
     """Describe a fund from one claimant."""
     class Meta:
@@ -772,9 +770,9 @@ class Fund(ModelWithToken):
         approved = False
 
         if self.mandatory and self.budget_total() < config.PRE_APPROVED_FUNDING_REQUEST_BUDGET:
-                self.status = 'M'
-                self.save()
-                approved = True
+            self.status = 'M'
+            self.save()
+            approved = True
 
         return approved
 

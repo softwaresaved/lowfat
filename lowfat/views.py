@@ -289,7 +289,7 @@ def my_profile(request):
     raise Http404("Claimant does not exist.")
 
 @login_required
-def fund_form(request, **kargs):  # pylint: disable=too-many-branches
+def fund_form(request, **kargs):  # pylint: disable=too-many-branches,too-many-statements
     if not request.user.is_staff:
         try:
             claimant = Claimant.objects.get(user=request.user)
@@ -399,7 +399,7 @@ def fund_form_public(request):
 
     formset = FundPublicForm(
         request.POST or None,
-        initial=initial, 
+        initial=initial,
         is_staff=bool(request.user.is_superuser)
     )
 
@@ -496,7 +496,7 @@ def fund_detail_public(request, access_token):
 @login_required
 def fund_detail(request, fund_id):
     fund = Fund.objects.get(id=fund_id)
-    
+
     if not (request.user.is_staff or Claimant.objects.get(user=request.user) == fund.claimant):
         raise Http404("Funding request does not exist.")
 
@@ -519,7 +519,7 @@ def fund_review(request, fund_id):
             if fund.status == "A" and fund.approver == None:  # pylint: disable=singleton-comparison
                 fund.approver = request.user
                 fund.save()
-            messages.success(request, 'Funding request updated.')
+                messages.success(request, 'Funding request updated.')
             if not formset.cleaned_data["not_send_email_field"]:
                 fund_review_notification(
                     formset.cleaned_data['email'],
@@ -702,10 +702,10 @@ def expense_form(request, **kargs):
         claimant = Claimant.objects.filter(user=request.user)
         if not claimant:
             return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/unavailable/'}))
-    formset.fields["fund"].queryset = Fund.objects.filter(
-        claimant__in=claimant,
-        status__in=['A']
-    )
+        formset.fields["fund"].queryset = Fund.objects.filter(
+            claimant__in=claimant,
+            status__in=['A']
+        )
 
     # Show submission form.
     context = {
@@ -769,7 +769,6 @@ def expense_detail_public(request, access_token):
         expense = Expense.objects.get(access_token=access_token)
         if not expense.access_token_is_valid():
             expense = None
-        pass
     except ObjectDoesNotExist:
         expense = None
 
@@ -918,9 +917,9 @@ def expense_append_relative(request, fund_id, expense_relative_number):
             # Suggestion by ƘɌỈSƬƠƑ
             # https://stackoverflow.com/a/38678468/1802726
             original_pdf_io = io.BytesIO(_file.read())
-        merger.append(original_pdf_io)
-        merger.append(request_pdf_io)
-        merger.write(this_expense.claim.path)
+            merger.append(original_pdf_io)
+            merger.append(request_pdf_io)
+            merger.write(this_expense.claim.path)
 
         messages.success(request, 'PDF updated.')
 
@@ -934,8 +933,8 @@ def _expense_claim(request, expense):
 
     with open(expense.claim.path, "rb") as _file:
         response = HttpResponse(_file.read(), content_type="application/pdf")
-    response['Content-Disposition'] = 'inline; filename="{}"'.format(
-        expense.claim_clean_name())
+        response['Content-Disposition'] = 'inline; filename="{}"'.format(
+            expense.claim_clean_name())
     return response
 
 def expense_claim(request, expense_id):
@@ -948,7 +947,7 @@ def expense_claim_relative(request, fund_id, expense_relative_number):
         expense = Expense.objects.get(fund=fund, relative_number=expense_relative_number)
 
         if not (request.user.is_staff or
-            Claimant.objects.get(user=request.user) == expense.fund.claimant):
+                Claimant.objects.get(user=request.user) == expense.fund.claimant):
             expense = None
     except ObjectDoesNotExist:
         expense = None
