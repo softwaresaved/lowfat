@@ -1,3 +1,5 @@
+{% load markdown %}
+
 <h2>Communication</h2>
 {% for email in emails %}
 <table class="table table-bordered">
@@ -20,7 +22,7 @@
     </tr>
     <tr>
       <th>Message</th>
-      <td><pre>{{ email.justification }}</pre></td>
+      <td>{{ email.justification | markdown | safe }}</td>
     </tr>
   </tbody>
 </table>
