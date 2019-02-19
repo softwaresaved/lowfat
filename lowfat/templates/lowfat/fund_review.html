@@ -11,6 +11,11 @@
   <a title="Remove" class="btn btn-default" href="{% url 'fund_remove' fund.id %}" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>
   {% endif %}
 </h1>
+{% if fund.access_token %}
+<div class="alert alert-warning">
+  This funding request was made using the public form.
+</div>
+{% endif %}
 <h2>General Details</h1>
 <table class="table table-bordered">
     <tbody>
