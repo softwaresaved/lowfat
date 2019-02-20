@@ -84,9 +84,9 @@
         <a
           {% if user.is_staff %}
           href="{% url 'expense_review_relative' expense.fund.id expense.relative_number %}"
-          {% elif claimant and user == claimant.user %}
+          {% elif expense.fund.claimant and user == expense.fund.claimant.user %}
           href="{% url 'expense_detail_relative' expense.fund.id expense.relative_number %}"
-          {% else %}
+          {% elif expense.access_token %}
           href="{% url 'expense_detail_public' expense.access_token %}"
           {% endif %}
         >{{ expense.fund.title }} #{{ expense.relative_number }}</a>
