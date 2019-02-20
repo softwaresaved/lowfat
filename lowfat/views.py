@@ -284,7 +284,7 @@ def my_profile(request):
         except:  # pylint: disable=bare-except
             return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/unavailable/'}))
 
-        return claimant_detail(request, claimant.id)
+        return _claimant_detail(request, claimant)
 
     raise Http404("Claimant does not exist.")
 

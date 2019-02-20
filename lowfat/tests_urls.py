@@ -159,6 +159,30 @@ class URLTest(TestCase):
 
         self.run_requests(url, queries)
 
+    def test_my_profile(self):
+        url = '/my-profile/'
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 200,
+                "final_url": "/login/?next=/my-profile/",
+            },
+            {
+                "user": self.claimant_a,
+                "expect_code": 200,
+            },
+            {
+                "user": self.claimant_b,
+                "expect_code": 200,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 404,
+            },
+            ]
+
+        self.run_requests(url, queries)
+        
     def test_claimant_details_by_id(self):
         url = '/claimant/{}/'.format(self.claimant_id)
         queries = [
