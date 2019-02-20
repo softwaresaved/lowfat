@@ -139,8 +139,8 @@
         {% if user.is_staff %}
         <a title="Review" href="{% url 'fund_review' fund.id %}"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
         {% endif %}
-        <a title="Edit" href="{% url 'fund_edit' fund.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
         {% if user.is_staff or fund.status in "UP" %}
+        <a title="Edit" href="{% url 'fund_edit' fund.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
         <a title="Remove" href="{% url 'fund_remove' fund.id %}?next={{ request.path }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
         {% endif %}
       </td>
