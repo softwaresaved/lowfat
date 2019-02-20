@@ -752,10 +752,11 @@ class Fund(ModelWithToken):
         return Blog.objects.filter(fund=self).count()
 
     def link(self):
-        return reverse("fund_detail", args=[self.id])
-
-    def link_public(self):
-        return reverse("fund_detail_public", args=[self.access_token])
+        if self.access_token:
+            link = reverse("fund_detail_public", args=[self.access_token])
+        else:
+            link = reverse("fund_detail", args=[self.id])
+        return link
 
     def title_link(self):
         return """<a href="{}">{}</a>""".format(
@@ -930,7 +931,11 @@ class Expense(ModelWithToken):
         super(Expense, self).save(*args, **kwargs)
 
     def link(self):
-        return reverse("expense_detail", args=[self.id])
+        if self.access_token:
+            link = reverse("expense_detail_public", args=[self.access_token])
+        else:
+            link = reverse("expense_detail", args=[self.id])
+        return link
 
     def link_review(self):
         return reverse("expense_review", args=[self.id])
@@ -1033,7 +1038,11 @@ class Blog(ModelWithToken):
         return "{}".format(self.draft_url)
 
     def link(self):
-        return reverse("blog_detail", args=[self.id])
+        if self.access_token:
+            link = reverse("blog_detail_public", args=[self.access_token])
+        else:
+            link = reverse("blog_detail", args=[self.id])
+        return link
 
     def link_review(self):
         return reverse("blog_review", args=[self.id])
