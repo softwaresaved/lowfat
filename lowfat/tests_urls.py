@@ -182,7 +182,7 @@ class URLTest(TestCase):
             ]
 
         self.run_requests(url, queries)
-        
+
     def test_claimant_details_by_id(self):
         url = '/claimant/{}/'.format(self.claimant_id)
         queries = [

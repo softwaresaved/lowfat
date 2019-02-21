@@ -760,7 +760,7 @@ class Fund(ModelWithToken):
 
     def title_link(self):
         return """<a href="{}">{}</a>""".format(
-            self.link_public() if self.access_token_is_valid() else self.link(),
+            self.link(),
             self.title
         )
 
