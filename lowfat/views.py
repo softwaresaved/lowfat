@@ -212,7 +212,13 @@ def claimant_promote(request, claimant_id):
 def _claimant_detail(request, claimant):
     """Details about claimant."""
     # Avoid leak information from applicants
-    if not request.user.is_staff and not (claimant.fellow or claimant.received_offer or claimant.shortlisted or claimant.collaborator):
+    if request.user.is_staff:
+        pass
+    elif claimant.fellow or claimant.collaborator:
+        pass
+    elif claimant.received_offer and (claimant.user == request.user):
+        pass
+    else:
         raise Http404("Claimant does not exist.")
 
     # Setup query parameters
@@ -267,7 +273,7 @@ def claimant_detail(request, claimant_id):
 def claimant_slug_resolution(request, claimant_slug):
     """Resolve claimant slug and return the details."""
     try:
-        claimant = Claimant.objects.get(Q(slug=claimant_slug) & (Q(fellow=True) | Q(collaborator=True) | Q(received_offer=True)))
+        claimant = Claimant.objects.get(slug=claimant_slug)
     except:  # pylint: disable=bare-except
         claimant = None
 
