@@ -134,12 +134,25 @@
     {% endfor %}
     {% if fund %}
     <tr>
+      {% if user.is_staff or claimant and user == claimant.user %}
+      <td>
+        -
+      </td>
+      {% endif %}
       <td>
         <strong>Total</strong>
       </td>
       <td>
         -
       </td>
+      {% if user.is_staff %}
+      <td>
+        -
+      </td>
+      <td>
+        -
+      </td>
+      {% endif %}
       <th>
         {{ fund.expenses_claimed }}
       </th>
