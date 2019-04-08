@@ -734,17 +734,22 @@ class Fund(ModelWithToken):
 
     def expenses_claimed(self):
         """Return the total ammount of expenses claimant."""
-        this_fund_expenses = Expense.objects.filter(fund=self)
+        this_fund_expenses = Expense.objects.filter(
+            fund=self,
+            status__in=["S", "C", "A"]
+        )
         return sum([expense.amount_claimed for expense in this_fund_expenses])
 
     def expenses_claimed_left(self):
         """Return the total ammount left to claimant."""
-        this_fund_expenses = Expense.objects.filter(fund=self)
-        return self.budget_total() - sum([expense.amount_claimed for expense in this_fund_expenses])
+        return self.budget_total() - self.expenses_claimed()
 
     def expenses_authorized_for_payment(self):
         """Return the total ammount of expenses authorized_for_payment."""
-        this_fund_expenses = Expense.objects.filter(fund=self)
+        this_fund_expenses = Expense.objects.filter(
+            fund=self,
+            status__in=["A"]
+        )
         return sum([expense.amount_authorized_for_payment for expense in this_fund_expenses])
 
     def total_of_blog_posts(self):
