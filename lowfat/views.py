@@ -503,7 +503,11 @@ def fund_detail_public(request, access_token):
 def fund_detail(request, fund_id):
     fund = Fund.objects.get(id=fund_id)
 
-    if not (request.user.is_staff or Claimant.objects.get(user=request.user) == fund.claimant):
+    if request.user.is_staff:
+        pass
+    elif Claimant.objects.get(user=request.user) == fund.claimant:
+        pass
+    else:
         raise Http404("Funding request does not exist.")
 
     return _fund_detail(request, fund)
