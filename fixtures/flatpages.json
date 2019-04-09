@@ -298,5 +298,20 @@
             1
         ]
     }
+},
+{
+    "model": "flatpages.flatpage",
+    "pk": 22,
+    "fields": {
+        "url": "/email/template/claimant/staff/update/",
+        "title": "Claimant Profile Updated - Actions required",
+        "content": "<!DOCTYPE HTML>\r\n<html>\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\r\n</head>\r\n<body>\r\n<p>Hi,</p>\r\n<p><strong>On {{ claimant.updated }}</strong>, <a href=\"{{ protocol }}://{{ site.domain }}{{ claimant.link }}\">{{ claimant.fullname }}</a>'s profile was updated. The following actions are required:</p>\r\n<ul>\r\n<li>update profile on Institute's website</li>\r\n<li>update email address on mailing list</li>\r\n</ul>\r\n<p>\r\n---<br>\r\nLowFAT\r\n</p>\r\n</body>\r\n</html>",
+        "enable_comments": false,
+        "template_name": "",
+        "registration_required": false,
+        "sites": [
+            1
+        ]
+    }
 }
 ]

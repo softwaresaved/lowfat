@@ -301,3 +301,26 @@ def staff_follow_up(requests):  # pylint: disable=invalid-name
             html_message=html,
             fail_silently=False
         )
+
+def claimant_profile_update_notification(claimant):  # pylint: disable=invalid-name
+    if config.STAFF_EMAIL_REMINDER:
+        staff_url = "/email/template/claimant/staff/update/"
+
+        context = {
+            "claimant": claimant,
+            "protocol": "https",
+            "site": Site.objects.get(id=SITE_ID),
+            "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
+        }
+
+        flatemail = FlatPage.objects.get(url=staff_url)
+        template = Template(flatemail.content)
+        jinja_context = Context(context)
+        html = template.render(jinja_context)
+        plain_text = html2text_fix(html)
+        mail_staffs(
+            flatemail.title,
+            plain_text,
+            html_message=html,
+            fail_silently=False
+        )

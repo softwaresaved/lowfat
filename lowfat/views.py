@@ -187,8 +187,8 @@ def claimant_form(request):
         claimant = formset.save()
         claimant.update_latlon()
         messages.success(request, 'Profile saved.')
-        return HttpResponseRedirect(reverse('claimant_detail',
-                                            args=[claimant.id,]))
+        claimant_profile_update_notification(claimant)
+        return HttpResponseRedirect(reverse('my_profile'))
 
     # Show submission form.
     context = {
