@@ -1,3 +1,4 @@
+from datetime import datetime
 import copy
 import io
 import os
@@ -116,6 +117,32 @@ def dashboard(request):
         )
 
     return render(request, 'lowfat/dashboard.html', context)
+
+@staff_member_required
+def staff(request):
+    context = {}
+    return render(request, 'lowfat/staff.html', context)
+
+@staff_member_required
+def get_fellows_photos(request):
+    import zipfile
+
+    ZIP_FILENAME = "/tmp/fellows_photos{}.zip".format(
+        datetime.now().isoformat(timespec='minutes')
+    )
+
+    with zipfile.ZipFile(ZIP_FILENAME, "w") as fellows_photos_zip:
+        for fellow in Claimant.objects.filter(fellow=True):
+            fellows_photos_zip.write(
+                fellow.photo.path,
+                "{}.jpg".format(fellow.slug)
+            )
+
+    # TODO Use BytesIO instead of real files
+    return HttpResponse(
+        open(ZIP_FILENAME, 'rb'),
+        content_type='application/zip'
+    )
 
 @staff_member_required
 def search(request):

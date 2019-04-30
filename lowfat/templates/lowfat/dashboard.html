@@ -6,25 +6,25 @@
 {% if user.is_staff or user.is_staff %}
 <div class="row">
   <div class="col-md-4">
-    <a class="btn btn-default btn-block" href="{% url 'claimant' %}">Create claimant profile</a>
+    <a role="button" class="btn btn-default btn-block" href="{% url 'claimant' %}">Create claimant profile</a>
   </div>
   <div class="col-md-4">
-    <a class="btn btn-default btn-block" href="{% url 'promote' %}">Promote claimant profile to fellow profile</a>
+    <a role="button" class="btn btn-default btn-block" href="{% url 'promote' %}">Promote claimant profile to fellow profile</a>
   </div>
   <div class="col-md-4">
-    <a class="btn btn-default btn-block" href="{% url 'report' %}">View summary report of events <strong>(Work in progress)</strong></a>
+    <a role="button" class="btn btn-default btn-block" href="{% url 'report' %}">View summary report of events <strong>(Work in progress)</strong></a>
   </div>
 </div>
 {% endif %}
 <div class="row">
   <div class="col-md-4">
-    <a class="btn btn-default btn-block" href="{% url 'fund' %}">Make a funding request</a>
+    <a role="button" class="btn btn-default btn-block" href="{% url 'fund' %}">Make a funding request</a>
   </div>
   <div class="col-md-4">
-    <a class="btn btn-default btn-block" href="{% url 'expense' %}">Submit expense claim</a>
+    <a role="button" class="btn btn-default btn-block" href="{% url 'expense' %}">Submit expense claim</a>
   </div>
   <div class="col-md-4">
-    <a class="btn btn-default btn-block" href="{% url 'blog' %}">Submit a blog post</a>
+    <a role="button" class="btn btn-default btn-block" href="{% url 'blog' %}">Submit a blog post</a>
   </div>
 </div>
 {% if user.is_staff or claimant.fellow %}
