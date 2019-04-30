@@ -26,6 +26,12 @@ admin.site.site_title = "lowFAT administration"
 admin.site.index_title = "lowFAT administration"
 admin.site.login_template = "lowfat/admin_login.html"
 
+STAFF_PATTERNS = [
+    url(r'^photos', views.get_fellows_photos, name="get_fellows_photos"),
+    url(r'^', views.staff, name="staff"),
+]
+
+
 CLAIMED_PATTERNS = [
     url(r'^(?P<claimant_id>[0-9]+)/promote/', views.claimant_promote, name="claimant_promote"),
     url(r'^(?P<claimant_id>[0-9]+)/demote/', views.claimant_demote, name="claimant_demote"),
@@ -112,6 +118,7 @@ urlpatterns = [  # pylint: disable=invalid-name
     url(r'^report/', views.report, name="report"),
     url(r'^search/', views.search, name="search"),
     url(r'^recent-actions/', views.recent_actions, name="recent_actions"),
+    url(r'^staff/', include(STAFF_PATTERNS)),
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name="index"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
