@@ -1,8 +1,6 @@
-import datetime
-
 from django.core.management.base import BaseCommand
 
-from lowfat.models import Claimant, Fund, Expense
+from lowfat.models import Claimant, Fund
 
 class Command(BaseCommand):
     help = "CW19 funding request"
@@ -22,8 +20,7 @@ class Command(BaseCommand):
                     fund,
                     claimant,
                     candidate
-                    )
-                )
+                ))
                 fund.claimant = candidate
                 fund.save()
                 print("Transfer complete.")
