@@ -389,6 +389,9 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches,too-many-s
     return render(request, 'lowfat/form.html', context)
 
 def fund_form_public(request):
+    if request.user:
+        return HttpResponseRedirect(reverse('fund'))
+
     initial = {
         "start_date": django.utils.timezone.now(),
         "end_date": django.utils.timezone.now(),
