@@ -202,11 +202,29 @@ def claimant_form(request):
 @staff_member_required
 def claimant_promote(request, claimant_id):
     claimant = Claimant.objects.get(id=claimant_id)
-    claimant.slected = True
+    claimant.fellow = True
     claimant.save()
+    messages.success(
+        request,
+        '{} promoted to Fellow.'.format(claimant.fullname())
+    )
 
     return HttpResponseRedirect(
-        reverse('claimant_detail', args=[claimant.id,])
+        reverse('fellow_slug', args=[claimant.slug,])
+    )
+
+@staff_member_required
+def claimant_demote(request, claimant_id):
+    claimant = Claimant.objects.get(id=claimant_id)
+    claimant.fellow = False
+    claimant.save()
+    messages.success(
+        request,
+        '{} is NOT a Fellow anymore.'.format(claimant.fullname())
+    )
+
+    return HttpResponseRedirect(
+        reverse('fellow_slug', args=[claimant.slug,])
     )
 
 def _claimant_detail(request, claimant):

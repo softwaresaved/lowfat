@@ -18,14 +18,20 @@
           <td>
             {% if claimant.fellow %}
                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                {% endif %}
+            {% endif %}
             </td>
             <td>{{ claimant.fullname }}</td>
             <td>{{ claimant.application_year }}</td>
             <td>
+              {% if claimant.fellow %}
+              <a href="{% url 'fellow_demote'  claimant.id %}">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+              </a>
+              {% else %}
               <a href="{% url 'fellow_promote'  claimant.id %}">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
               </a>
+              {% endif %}
             </td>
         </tr>
         {% endfor %}

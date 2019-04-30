@@ -28,6 +28,7 @@ admin.site.login_template = "lowfat/admin_login.html"
 
 CLAIMED_PATTERNS = [
     url(r'^(?P<claimant_id>[0-9]+)/promote/', views.claimant_promote, name="claimant_promote"),
+    url(r'^(?P<claimant_id>[0-9]+)/demote/', views.claimant_demote, name="claimant_demote"),
     url(r'^(?P<claimant_id>[0-9]+)/', views.claimant_detail, name="claimant_detail"),
     url(r'^(?P<claimant_slug>.+)/', views.claimant_slug_resolution, name="claimant_slug"),
     url(r'^', views.claimant_form, name="claimant"),
@@ -35,6 +36,7 @@ CLAIMED_PATTERNS = [
 
 FELLOW_PATTERNS = [
     url(r'^(?P<claimant_id>[0-9]+)/promote/', views.claimant_promote, name="fellow_promote"),
+    url(r'^(?P<claimant_id>[0-9]+)/demote/', views.claimant_demote, name="fellow_demote"),
     url(r'^(?P<claimant_id>[0-9]+)/', views.claimant_detail, name="fellow_detail"),
     url(r'^(?P<claimant_slug>.+)/', views.claimant_slug_resolution, name="fellow_slug"),
     url(r'^', views.claimant_form, name="fellow"),

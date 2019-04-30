@@ -253,6 +253,84 @@ class URLTest(TestCase):
 
         self.run_requests(url, queries)
 
+    def test_claimant_promote_view(self):
+        url = '/promote/'
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 200,
+                "final_url": "/admin/login/?next={}".format(url),
+            },
+            {
+                "user": self.claimant_a,
+                "expect_code": 200,
+                "final_url": "/admin/login/?next={}".format(url),
+            },
+            {
+                "user": self.claimant_b,
+                "expect_code": 200,
+                "final_url": "/admin/login/?next={}".format(url),
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
+
+        self.run_requests(url, queries)
+
+    def test_claimant_promote(self):
+        url = '/fellow/{}/promote'.format(self.claimant_id)
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 200,
+                "final_url": "/admin/login/?next={}".format(url),
+            },
+            {
+                "user": self.claimant_a,
+                "expect_code": 200,
+                "final_url": "/admin/login/?next={}".format(url),
+            },
+            {
+                "user": self.claimant_b,
+                "expect_code": 200,
+                "final_url": "/admin/login/?next={}".format(url),
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
+
+        self.run_requests(url, queries)
+
+    def test_claimant_demote(self):
+        url = '/fellow/{}/demote'.format(self.claimant_id)
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 200,
+                "final_url": "/admin/login/?next={}".format(url),
+            },
+            {
+                "user": self.claimant_a,
+                "expect_code": 200,
+                "final_url": "/admin/login/?next={}".format(url),
+            },
+            {
+                "user": self.claimant_b,
+                "expect_code": 200,
+                "final_url": "/admin/login/?next={}".format(url),
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
+
+        self.run_requests(url, queries)
+
     def test_fund_review(self):
         url = '/fund/{}/review'.format(self.fund_id)
         queries = [
