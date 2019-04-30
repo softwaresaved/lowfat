@@ -245,7 +245,7 @@ CONSTANCE_CONFIG = OrderedDict([
         "Default funds used for expense.",
     )),
     ("GRANTS_DEFAULT", (
-        "SSI2",
+        "SSI3",
         "Default grant for expenses.",
     )),
     ("FELLOWS_MANAGEMENT_EMAIL", (

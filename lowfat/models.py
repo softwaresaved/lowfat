@@ -113,6 +113,7 @@ GRANTS = (
     ('SSI1', 'Software Sustainability Institute - Phase 1'),
     ('SSI2', 'Software Sustainability Institute - Phase 2'),
     ('SSI3', 'Software Sustainability Institute - Phase 3'),
+    ('SSI4', 'Software Sustainability Institute - Phase 4'),
 )
 
 BLOG_POST_STATUS = (
@@ -658,7 +659,7 @@ class Fund(ModelWithToken):
     grant = models.CharField(
         choices=GRANTS,
         max_length=4,
-        default="SSI2"
+        default="SSI3"
     )
     notes_from_admin = models.TextField(
         null=True,
@@ -886,7 +887,7 @@ class Expense(ModelWithToken):
     grant = models.CharField(
         choices=GRANTS,
         max_length=4,
-        default="SSI2"
+        default="SSI3"
     )
     notes_from_admin = models.TextField(
         null=True,
