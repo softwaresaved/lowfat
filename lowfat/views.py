@@ -335,20 +335,12 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches,too-many-s
             instance=fund_to_edit
         )
     else:
-        if not request.user.is_staff and claimant.shortlisted:
-            formset = FundShortlistedForm(
-                request.POST or None,
-                instance=fund_to_edit,
-                initial=None if fund_to_edit else initial,
-                is_staff=bool(request.user.is_staff)
-            )
-        else:
-            formset = FundForm(
-                request.POST or None,
-                instance=fund_to_edit,
-                initial=None if fund_to_edit else initial,
-                is_staff=bool(request.user.is_staff)
-            )
+        formset = FundForm(
+            request.POST or None,
+            instance=fund_to_edit,
+            initial=None if fund_to_edit else initial,
+            is_staff=bool(request.user.is_staff)
+        )
 
     if request.POST:
         # Handle submission
@@ -380,13 +372,12 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches,too-many-s
                 reverse('fund_detail', args=[fund.id,])
             )
 
-    if type(formset).__name__ in ["FundForm", "FundShortlistedForm"]:
-        if not request.user.is_staff:
-            formset.fields["claimant"].queryset = Claimant.objects.filter(user=request.user)
-        elif request.GET.get("claimant_id"):
-            formset.fields["claimant"].queryset = Claimant.objects.filter(id=request.GET.get("claimant_id"))
-        else:
-            formset.fields["claimant"].queryset = Claimant.objects.all()
+    if not request.user.is_staff:
+        formset.fields["claimant"].queryset = Claimant.objects.filter(user=request.user)
+    elif request.GET.get("claimant_id"):
+        formset.fields["claimant"].queryset = Claimant.objects.filter(id=request.GET.get("claimant_id"))
+    else:
+        formset.fields["claimant"].queryset = Claimant.objects.all()
 
     # Show submission form.
     context = {
