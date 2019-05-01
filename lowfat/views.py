@@ -145,6 +145,13 @@ def get_fellows_photos(request):
     )
 
 @staff_member_required
+def rss(request):
+    context = {
+        'claimants': Claimant.objects.filter(fellow=True),
+    }
+    return render(request, 'lowfat/rss.opml', context)
+
+@staff_member_required
 def search(request):
     search_text = request.POST.get("search")
     context = {
