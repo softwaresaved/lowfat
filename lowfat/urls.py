@@ -28,6 +28,7 @@ admin.site.login_template = "lowfat/admin_login.html"
 
 STAFF_PATTERNS = [
     url(r'^photos', views.get_fellows_photos, name="get_fellows_photos"),
+    url(r'^rss', views.rss, name="rss"),
     url(r'^', views.staff, name="staff"),
 ]
 

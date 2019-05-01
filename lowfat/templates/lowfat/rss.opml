@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opml version="1.0">
+<head>
+<title>Software Sustainability Institute - Fellows Feeds</title>
+</head>
+<body>
+{% for claimant in claimants %}
+{% if claimant.website_feed %}
+<outline text="{{ claimant.fullname }}" htmlUrl="{{ claimant.website_feed }}" type="rss" xmlUrl="{{ claimant.website_feed }}"/>
+{% endif %}
+{% endfor %}
+</body>
+</opml>
