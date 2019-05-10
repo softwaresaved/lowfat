@@ -441,7 +441,7 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches,too-many-s
     return render(request, 'lowfat/form.html', context)
 
 def fund_form_public(request):
-    if request.user:
+    if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('fund'))
 
     initial = {
