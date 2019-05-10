@@ -284,22 +284,19 @@ class URLTest(TestCase):
         queries = [
             {
                 "user": self.public,
-                "expect_code": 200,
-                "final_url": "/admin/login/?next={}".format(url),
+                "expect_code": 404,
             },
             {
                 "user": self.claimant_a,
-                "expect_code": 200,
-                "final_url": "/admin/login/?next={}".format(url),
+                "expect_code": 404,
             },
             {
                 "user": self.claimant_b,
-                "expect_code": 200,
-                "final_url": "/admin/login/?next={}".format(url),
+                "expect_code": 404,
             },
             {
                 "user": self.admin,
-                "expect_code": 200,
+                "expect_code": 404,  # FIXME
             },
             ]
 
@@ -310,22 +307,19 @@ class URLTest(TestCase):
         queries = [
             {
                 "user": self.public,
-                "expect_code": 200,
-                "final_url": "/admin/login/?next={}".format(url),
+                "expect_code": 404,
             },
             {
                 "user": self.claimant_a,
-                "expect_code": 200,
-                "final_url": "/admin/login/?next={}".format(url),
+                "expect_code": 404,
             },
             {
                 "user": self.claimant_b,
-                "expect_code": 200,
-                "final_url": "/admin/login/?next={}".format(url),
+                "expect_code": 404,
             },
             {
                 "user": self.admin,
-                "expect_code": 200,
+                "expect_code": 404,  # FIXME
             },
             ]
 
@@ -566,6 +560,30 @@ class URLTest(TestCase):
                 "user": self.public,
                 "expect_code": 200,
                 "final_url": "/login/?next=/request/",
+            },
+            {
+                "user": self.claimant_a,
+                "expect_code": 200,
+            },
+            {
+                "user": self.claimant_b,
+                "expect_code": 200,
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+            },
+            ]
+
+        self.run_requests(url, queries)
+
+    def test_request_with_id(self):
+        url = '/request/?claimant_id={}'.format(self.claimant_id)
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 200,
+                "final_url": "/login/?next=/request/%3Fclaimant_id%3D{}".format(self.claimant_id),
             },
             {
                 "user": self.claimant_a,

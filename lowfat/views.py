@@ -379,7 +379,7 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches,too-many-s
         else:
             return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/unavailable/'}))
     elif request.GET.get("claimant_id"):
-        initial["claimant"] = claimant
+        initial["claimant"] = Claimant.objects.get(id=request.GET.get("claimant_id"))
 
     if fund_to_edit and claimant == fund_to_edit.claimant and fund_to_edit.status != 'U':
         formset = FundGDPRForm(
