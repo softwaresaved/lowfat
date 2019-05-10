@@ -1,14 +1,15 @@
 django<2.0
 django-constance[database]
 django-countries
-django-tagulous
 django-crispy-forms
 django-datetime-widget
 django-dbbackup>=3.2.0
 django-extensions
+django-mailbox
 django-pandas
 django-settings-export
 django-simple-history>=1.9.0
+django-tagulous
 geopy
 html2text
 markdown

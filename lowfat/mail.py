@@ -72,7 +72,13 @@ def new_notification(staff_url, email_url, user_email, context, mail):
             plain_text,
             DEFAULT_FROM_EMAIL,
             user_email,
-            reply_to=[config.FELLOWS_MANAGEMENT_EMAIL]
+            reply_to=[config.FELLOWS_MANAGEMENT_EMAIL],
+            headers={
+                'Message-ID': '{}:{}#{}:lowfat@ed.ac.uk'.format(
+                    "fund",
+                    context["fund"].id
+                ),
+            },
         )
         msg.attach_alternative(html, "text/html")
         msg.send(fail_silently=False)

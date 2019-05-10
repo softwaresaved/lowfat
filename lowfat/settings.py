@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
     'django_countries',
+    'django_mailbox',
     'tagulous',
     'autofixture',
     'crispy_forms',

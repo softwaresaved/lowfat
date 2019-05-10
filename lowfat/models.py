@@ -12,6 +12,9 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
+from django_mailbox.signals import message_received
+from django.dispatch import receiver
+
 from simple_history.models import HistoricalRecords
 
 from django_countries.fields import CountryField
@@ -1064,6 +1067,9 @@ class GeneralSentMail(models.Model):
     justification = models.TextField()
 
     # Internal
+    message_id = models.CharField(
+        max_length=MAX_URL_LENGTH
+    )    
     sender = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,  # For confirmation email
@@ -1083,3 +1089,16 @@ class ExpenseSentMail(GeneralSentMail):
 
 class BlogSentMail(GeneralSentMail):
     blog = models.ForeignKey('Blog')
+
+@receiver(message_received)
+def reply2mail(sender, message, **args):
+    print("I just recieved a message titled {} from a mailbox named {}".format(message.subject, message.mailbox.name))
+    for h, v in message.get_email_object().items():
+        if h == "In-Reply-To":
+            print("Processing {}".format(v))
+            m = re.search(':(?P<type>fund|expense|blog)#(?P<id>\number):lowfat@ac.uk', v)
+            if m:
+                print(m.type)
+                print(m.id)
+        
+
