@@ -15,6 +15,10 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse
 import django.utils
+from django.core.mail import EmailMessage
+
+
+from django_mailbox.models import Mailbox
 
 from constance import config
 
@@ -1151,7 +1155,7 @@ def _blog_detail(request, blog):
 
     context = {
         'blog': blog,
-        'emails': BlogSentMail.objects.filter(blog=blog),
+        'emails': blog.get_all_mail(),
     }
     return render(request, 'lowfat/blog_detail.html', context)
 
@@ -1177,6 +1181,27 @@ def blog_detail_public(request, access_token):
         blog = None
 
     return _blog_detail(request, blog)
+
+@login_required
+def blog_reply(request, blog_id):
+    this_blog = Blog.objects.get(id=blog_id)
+
+    if request.POST:
+        reply_to = this_blog.get_first_mail()
+        reply = EmailMessage(
+            "Re: {}".format(reply_to.subject),
+            request.POST.get("message"),
+            'lowfat@software.ac.uk',
+            [reply_to.to_header]
+        )
+        reply_to.reply(
+            reply
+        )
+        messages.success(request, 'Email sent.')
+
+    return HttpResponseRedirect(
+            reverse('blog_detail', args=[blog_id,])
+    )
 
 @login_required
 def blog_edit(request, blog_id):

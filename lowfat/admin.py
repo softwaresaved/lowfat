@@ -358,6 +358,11 @@ class BlogAdmin(SimpleHistoryAdmin):
                 'reviewer',
                 'notes_from_admin',
             ]
+        }),
+        ('Communication', {
+            'fields': [
+                'first_message_id',
+            ]
         })
     ]
     list_display = [

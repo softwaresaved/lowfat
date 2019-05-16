@@ -1,6 +1,8 @@
 """
 Send email for some views.
 """
+from datetime import datetime
+
 import ast
 
 from constance import config
@@ -11,6 +13,8 @@ from django.contrib.flatpages.models import FlatPage
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 from django.template import Context, Template
+
+from django_mailbox.models import Mailbox
 
 from .models import *
 from .settings import DEFAULT_FROM_EMAIL, SITE_ID
@@ -73,15 +77,21 @@ def new_notification(staff_url, email_url, user_email, context, mail):
             DEFAULT_FROM_EMAIL,
             user_email,
             reply_to=[config.FELLOWS_MANAGEMENT_EMAIL],
-            headers={
-                'Message-ID': '{}:{}#{}:lowfat@ed.ac.uk'.format(
-                    "fund",
-                    context["fund"].id
-                ),
-            },
+            #headers={
+            #    'Message-ID': '{}#{}:{}:lowfat@ed.ac.uk'.format(
+            #        "fund",
+            #        context["fund"].id,
+            #        datetime.utcnow().isoformat()
+            #    ),
+            #},
         )
         msg.attach_alternative(html, "text/html")
         msg.send(fail_silently=False)
+
+        # Record email in django-mailbox
+        Mailbox.objects.get(id=1).record_outgoing_message(
+            msg.message()
+        )
         mail.justification = plain_text
         mail.save()
 

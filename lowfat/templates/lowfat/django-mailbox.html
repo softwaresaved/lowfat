@@ -1,0 +1,37 @@
+{% load markdown %}
+
+<h2>Communication</h2>
+<table class="table table-bordered">
+  <tbody>
+    {% for email in emails %}
+    <tr>
+      <th>Date</th>
+      <td>{{ email.get_email_object.date }}</td>
+    </tr>
+    <tr>
+      <th>From</th>
+      {% if email.from_address is None %}
+      <td>no-reply@{{ site }}</td>
+      {% else %}
+      <td>{{ email.from_address }}</td>
+      {% endif %}
+    </tr>
+    <tr>
+      <th>To</th>
+      <td>{{ email.to_addresses }}</td>
+    </tr>
+    <tr>
+      <th>Message</th>
+      <td>{{ email.text | markdown | safe }}</td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+
+<form action="reply/" method="post">{% csrf_token %}
+  <div class="form-group">
+    <label for="message">Reply</label>
+    <textarea name="message" class="form-control" id="message"></textarea>
+  </div>
+  <button type="submit" class="btn btn-default">Submit message</button>
+</form>

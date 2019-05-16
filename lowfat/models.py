@@ -12,6 +12,7 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
+from django_mailbox.models import Mailbox, Message
 from django_mailbox.signals import message_received
 from django.dispatch import receiver
 
@@ -541,7 +542,38 @@ class ModelWithToken(models.Model):
         return False
 
 
-class Fund(ModelWithToken):
+class ModelWithMailBox(models.Model):
+    class Meta:
+        abstract = True
+
+    first_message_id = models.CharField(
+        max_length=256,
+        null=True,
+        blank=True
+    )
+
+    def get_first_mail(self):
+        return Message.objects.get(
+            message_id=self.first_message_id
+        )
+
+    def get_all_mail(self):
+        # XXX Improve speed
+        all_mail = []
+        message = self.get_first_mail()
+        while message is not None:
+            try:
+                all_mail.append(message)
+                message = message.get_next_by_processed()
+            except:
+                break
+        else:
+            all_mail.append(message)
+
+        return all_mail
+
+
+class Fund(ModelWithToken, ModelWithMailBox):
     """Describe a fund from one claimant."""
     class Meta:
         app_label = 'lowfat'
@@ -796,7 +828,7 @@ class Fund(ModelWithToken):
         self.save()
 
 
-class Expense(ModelWithToken):
+class Expense(ModelWithToken, ModelWithMailBox):
     """This describe one expense for one fund."""
     class Meta:
         app_label = 'lowfat'
@@ -958,7 +990,7 @@ class Expense(ModelWithToken):
         )
 
 
-class Blog(ModelWithToken):
+class Blog(ModelWithToken, ModelWithMailBox):
     """Provide the link to the blog post about the fund."""
     class Meta:
         app_label = 'lowfat'
