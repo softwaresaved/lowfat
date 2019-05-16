@@ -5,6 +5,10 @@
   <tbody>
     {% for email in emails %}
     <tr>
+      <th>ID</th>
+      <td>{{ email.message_id }}</td>
+    </tr>
+    <tr>
       <th>Date</th>
       <td>{{ email.get_email_object.date }}</td>
     </tr>

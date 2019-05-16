@@ -198,6 +198,11 @@ class FundAdmin(SimpleHistoryAdmin):
                 'access_token',
                 ]
             }),
+        ('Communication', {
+            'fields': [
+                'first_message_id',
+            ]
+        })
         ]
     list_display = [
         'claimant',
@@ -297,7 +302,12 @@ class ExpenseAdmin(SimpleHistoryAdmin):
                 'grant',
                 'notes_from_admin',
                 ]
-            })
+            }),
+        ('Communication', {
+            'fields': [
+                'first_message_id',
+            ]
+        })
         ]
     list_display = [
         'fund',

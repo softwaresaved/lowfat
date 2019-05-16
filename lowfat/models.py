@@ -553,22 +553,25 @@ class ModelWithMailBox(models.Model):
     )
 
     def get_first_mail(self):
-        return Message.objects.get(
-            message_id=self.first_message_id
-        )
+        first_mail = None
+        if self.first_message_id:
+            first_mail = Message.objects.get(
+                message_id=self.first_message_id
+            )
+        return first_mail
 
     def get_all_mail(self):
         # XXX Improve speed
         all_mail = []
-        message = self.get_first_mail()
-        while message is not None:
-            try:
-                all_mail.append(message)
-                message = message.get_next_by_processed()
-            except:
-                break
-        else:
+        try:
+            message = self.get_first_mail()
+        except:
+            message = None
+            
+        if message is not None:
             all_mail.append(message)
+            for reply in message.replies.all():
+                all_mail.append(reply)
 
         return all_mail
 

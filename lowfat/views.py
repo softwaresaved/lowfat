@@ -540,7 +540,7 @@ def _fund_detail(request, fund):
             fund=fund,
             status__in=blogs_status
         ),
-        'emails': FundSentMail.objects.filter(fund=fund),
+        'emails': fund.get_all_mail(),
     }
 
     return render(request, 'lowfat/fund_detail.html', context)
@@ -819,7 +819,7 @@ def _expense_detail(request, expense):
 
     context = {
         'expense': expense,
-        'emails': ExpenseSentMail.objects.filter(expense=expense),
+        'emails': expense.get_all_mail(),
     }
 
     return render(request, 'lowfat/expense_detail.html', context)

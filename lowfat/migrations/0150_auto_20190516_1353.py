@@ -18,10 +18,10 @@ def move_mail(apps, schema_editor):
                     'lowfat@software.ac.uk',
                     [mail.receiver.email]
                 )
-                Mailbox.objects.get(id=1).record_outgoing_message(
+                recorded_first_message = Mailbox.objects.get(id=1).record_outgoing_message(
                     first_message.message()
                 )
-                fund.first_message_id = first_message.message_id
+                fund.first_message_id = recorded_first_message.message_id
                 fund.save()
             else:
                 reply = EmailMessage(
@@ -29,7 +29,7 @@ def move_mail(apps, schema_editor):
                     mail.justification,
                     'lowfat@software.ac.uk',
                 )
-                first_message.reply(
+                recorded_first_message.reply(
                     reply
                 )
 
@@ -44,10 +44,10 @@ def move_mail(apps, schema_editor):
                     'lowfat@software.ac.uk',
                     [mail.receiver.email]
                 )
-                Mailbox.objects.get(id=1).record_outgoing_message(
+                recorded_first_message = Mailbox.objects.get(id=1).record_outgoing_message(
                     first_message.message()
                 )
-                expense.first_message_id = first_message.message_id
+                expense.first_message_id = recorded_first_message.message_id
                 expense.save()
             else:
                 reply = EmailMessage(
@@ -55,7 +55,7 @@ def move_mail(apps, schema_editor):
                     mail.justification,
                     'lowfat@software.ac.uk',
                 )
-                first_message.reply(
+                recorded_first_message.reply(
                     reply
                 )
 
@@ -70,10 +70,10 @@ def move_mail(apps, schema_editor):
                     'lowfat@software.ac.uk',
                     [mail.receiver.email]
                 )
-                Mailbox.objects.get(id=1).record_outgoing_message(
+                recorded_first_message = Mailbox.objects.get(id=1).record_outgoing_message(
                     first_message.message()
                 )
-                blog.first_message_id = first_message.message_id
+                blog.first_message_id = recorded_first_message.message_id
                 blog.save()
             else:
                 reply = EmailMessage(
@@ -81,7 +81,7 @@ def move_mail(apps, schema_editor):
                     mail.justification,
                     'lowfat@software.ac.uk',
                 )
-                first_message.reply(
+                recorded_first_message.reply(
                     reply
                 )
 
