@@ -40,7 +40,7 @@ class URLTest(TestCase):
             {
                 "user": self.admin,
                 "expect_code": 200,
-                "post_data": {"foo": bar"},
+                "post_data": {"foo": "bar"},
             }
         ]"""
         for query in queries:
@@ -530,6 +530,34 @@ class URLTest(TestCase):
             {
                 "user": self.admin,
                 "expect_code": 200,
+            },
+            ]
+
+        self.run_requests(url, queries)
+
+    def test_request_reply(self):
+        url = '/request/{}/reply/'.format(self.fund_id)
+        queries = [
+            {
+                "user": self.public,
+                "expect_code": 200,
+                "final_url_regex": r"/login/\?next=/request/\d+/reply/",
+                "post_data": {"message": "Email body"},
+            },
+            {
+                "user": self.claimant_a,
+                "expect_code": 200,
+                "post_data": {"message": "Email body"},
+            },
+            {
+                "user": self.claimant_b,
+                "expect_code": 404,
+                "post_data": {"message": "Email body"},
+            },
+            {
+                "user": self.admin,
+                "expect_code": 200,
+                "post_data": {"message": "Email body"},
             },
             ]
 

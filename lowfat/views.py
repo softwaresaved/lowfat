@@ -562,6 +562,34 @@ def fund_detail(request, fund_id):
 
     return _fund_detail(request, fund)
 
+def _fund_reply(request, fund):
+    if request.user.is_authenticated:
+        from_field = User.objects.get(username=request.user).email
+    else:
+        from_field = fund.claimant.email
+        
+    if request.POST:
+        reply_to = fund.get_first_mail()
+        reply = EmailMessage(
+            "Re: {}".format(reply_to.subject),
+            request.POST.get("message"),
+            from_field,
+            ["lowfat@software.ac.uk"]
+        )
+        reply_to.reply(
+            reply
+        )
+        messages.success(request, 'Email sent.')
+
+@login_required
+def fund_reply(request, fund_id):
+    this_fund = Fund.objects.get(id=fund_id)
+    _fund_reply(request, this_fund)
+
+    return HttpResponseRedirect(
+            reverse('fund_detail', args=[fund_id,])
+    )
+
 @staff_member_required
 def fund_review(request, fund_id):
     this_fund = Fund.objects.get(id=fund_id)
@@ -846,6 +874,35 @@ def expense_detail_relative(request, fund_id, expense_relative_number):
         this_expense = None
 
     return _expense_detail(request, this_expense)
+
+
+def _expense_reply(request, expense):
+    if request.user.is_authenticated:
+        from_field = User.objects.get(username=request.user).email
+    else:
+        from_field = fund.claimant.email
+        
+    if request.POST:
+        reply_to = expense.get_first_mail()
+        reply = EmailMessage(
+            "Re: {}".format(reply_to.subject),
+            request.POST.get("message"),
+            from_field,
+            'lowfat@software.ac.uk'
+        )
+        reply_to.reply(
+            reply
+        )
+        messages.success(request, 'Email sent.')
+
+@login_required
+def expense_reply(request, expense_id):
+    this_expense = Expense.objects.get(id=expense_id)
+    _expense_reply(request, this_expense)
+
+    return HttpResponseRedirect(
+            reverse('expense_detail', args=[expense_id,])
+    )
 
 @login_required
 def expense_edit_relative(request, fund_id, expense_relative_number):
@@ -1182,22 +1239,29 @@ def blog_detail_public(request, access_token):
 
     return _blog_detail(request, blog)
 
-@login_required
-def blog_reply(request, blog_id):
-    this_blog = Blog.objects.get(id=blog_id)
+def _blog_reply(request, blog):
+    if request.user.is_authenticated:
+        from_field = User.objects.get(username=request.user).email
+    else:
+        from_field = fund.claimant.email
 
     if request.POST:
-        reply_to = this_blog.get_first_mail()
+        reply_to = blog.get_first_mail()
         reply = EmailMessage(
             "Re: {}".format(reply_to.subject),
             request.POST.get("message"),
-            'lowfat@software.ac.uk',
-            [reply_to.to_header]
+            from_field,
+            'lowfat@software.ac.uk'
         )
         reply_to.reply(
             reply
         )
         messages.success(request, 'Email sent.')
+
+@login_required
+def blog_reply(request, blog_id):
+    this_blog = Blog.objects.get(id=blog_id)
+    _blog_reply(request, this_blog)
 
     return HttpResponseRedirect(
             reverse('blog_detail', args=[blog_id,])
