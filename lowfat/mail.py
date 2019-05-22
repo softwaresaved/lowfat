@@ -89,6 +89,7 @@ def new_notification(staff_url, email_url, user_email, context, mail):
         msg.send(fail_silently=False)
 
         # Record email in django-mailbox
+        # https://github.com/coddingtonbear/django-mailbox/issues/25#issuecomment-52272997
         Mailbox.objects.get(id=1).record_outgoing_message(
             msg.message()
         )
