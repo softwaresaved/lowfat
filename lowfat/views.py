@@ -572,7 +572,7 @@ def fund_review(request, fund_id):
 
         if formset.is_valid():
             fund = formset.save()
-            if fund.status == "A" and fund.approver == None:  # pylint: disable=singleton-comparison
+            if fund.status in "AM" and fund.approver == None:  # pylint: disable=singleton-comparison
                 fund.approver = request.user
                 fund.save()
                 messages.success(request, 'Funding request updated.')
@@ -639,7 +639,7 @@ def fund_past(request):
     funds = Fund.objects.filter(
         start_date__lt=django.utils.timezone.now(),
         category="H",
-        status__in=["A", "F"],
+        status__in="AMF",
         can_be_advertise_after=True,
     )
 
@@ -1164,7 +1164,7 @@ def blog_detail(request, blog_id):
                 Claimant.objects.get(user=request.user) in blog.coauthor.all()):
             blog = None
     except ObjectDoesNotExist:
-        blog = None
+        blog = Non
 
     return _blog_detail(request, blog)
 
