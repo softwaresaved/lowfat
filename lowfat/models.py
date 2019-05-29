@@ -940,14 +940,14 @@ class Expense(ModelWithToken):
         if self.access_token:
             link = reverse("expense_detail_public", args=[self.access_token])
         else:
-            link = reverse("expense_detail_relative", args=[self.id])
+            link = reverse("expense_detail_relative", args=[expense.fund.id, expense.relative_number,])
         return link
 
     def link_review(self):
-        return reverse("expense_review_relative", args=[self.id])
+        return reverse("expense_review_relative", args=[expense.fund.id, expense.relative_number,])
 
     def link_claim(self):
-        return reverse("expense_claim_relative", args=[self.id])
+        return reverse("expense_claim_relative", args=[expense.fund.id, expense.relative_number,])
 
     def claim_clean_name(self):
         return "{}".format(
