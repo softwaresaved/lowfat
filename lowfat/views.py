@@ -87,7 +87,11 @@ def dashboard(request):
                     fund__claimant=claimant,
                     status__in=expenses_status
                 ),
-                'blogs': Blog.objects.filter(Q(author=claimant, status__in=blogs_status) | Q(coauthor=claimant, status__in=blogs_status)),
+                'blogs': Blog.objects.filter(
+                    Q(author=claimant, status__in=blogs_status) | Q(coauthor=claimant, status__in=blogs_status)
+                    # Need to get distinct otherwise posts will be shown twice if user is author and coauthor
+                    # This happens here because the two ORed filter components operate on different table joins
+                ).distinct(),
             }
         )
     else:
@@ -299,6 +303,7 @@ def _claimant_detail(request, claimant):
                 ),
                 'blogs': Blog.objects.filter(
                     Q(author=claimant, status__in=blogs_status) | Q(coauthor=claimant, status__in=blogs_status)
+                    # Distinct is required here - see comment in dashboard view
                 ).distinct(),
             }
         )
@@ -313,6 +318,7 @@ def _claimant_detail(request, claimant):
                 'funds': pair_fund_with_blog(funds, "P"),
                 'blogs': Blog.objects.filter(
                     Q(author=claimant, status="P") | Q(coauthor=claimant, status="P")
+                    # Distinct is required here - see comment in dashboard view
                 ).distinct(),
             }
         )
