@@ -131,11 +131,11 @@ def staff(request):
 def get_fellows_photos(request):
     import zipfile
 
-    ZIP_FILENAME = "/tmp/fellows_photos{}.zip".format(
+    zip_filename = "/tmp/fellows_photos{}.zip".format(
         datetime.now().isoformat(timespec='minutes')
     )
 
-    with zipfile.ZipFile(ZIP_FILENAME, "w") as fellows_photos_zip:
+    with zipfile.ZipFile(zip_filename, "w") as fellows_photos_zip:
         for fellow in Claimant.objects.filter(fellow=True):
             fellows_photos_zip.write(
                 fellow.photo.path,
@@ -144,7 +144,7 @@ def get_fellows_photos(request):
 
     # TODO Use BytesIO instead of real files
     return HttpResponse(
-        open(ZIP_FILENAME, 'rb'),
+        open(zip_filename, 'rb'),
         content_type='application/zip'
     )
 
@@ -1165,12 +1165,14 @@ def _blog_detail(request, blog):
 def blog_detail(request, blog_id):
     try:
         blog = Blog.objects.get(id=blog_id)
+
         if not (request.user.is_staff or
                 Claimant.objects.get(user=request.user) == blog.author or
                 Claimant.objects.get(user=request.user) in blog.coauthor.all()):
             blog = None
+
     except ObjectDoesNotExist:
-        blog = Non
+        blog = None
 
     return _blog_detail(request, blog)
 
