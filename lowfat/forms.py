@@ -922,7 +922,7 @@ class ExpenseShortlistedForm(GarlicForm):
             )
         )
 
-        self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
+        self.fields['fund'].queryset = Fund.objects.filter(status__in={'A', 'M'})
 
 
 class ExpenseReviewForm(GarlicForm):
