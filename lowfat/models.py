@@ -20,6 +20,7 @@ import tagulous.models
 
 from .validator import pdf, online_document
 from .jacs import JACS_3_0_PRINCIPAL_SUBJECT_CODES
+from .utils import ChoicesEnum
 
 INVOICE_HASH = hashlib.md5()
 
@@ -129,6 +130,25 @@ BLOG_POST_STATUS = (
     ('X', 'Remove'),  # When the fellow decided to remove their request.
 )
 
+
+class ApprovalChain(ChoicesEnum):
+    """
+    Which approval chain is required to authorise this request?
+    """
+    FELLOWS = "fellows"
+    ONE_TIME = "onetime"
+
+    @classmethod
+    def email_address(cls, chain):
+        if chain == cls.FELLOWS:
+            return config.FELLOWS_MANAGEMENT_EMAIL
+        
+        if chain == cls.ONE_TIME:
+            return config.ONETIME_APPROVAL_EMAIL
+
+        raise ValueError("Approval chain has not been fully defined")
+
+
 def fix_url(url):
     """Prepend 'http://' to URL."""
     if url is not None and url:
@@ -156,6 +176,7 @@ def pair_fund_with_blog(funds, status=None):
         fund=fund,
         **args
     )) for fund in funds]
+
 
 class TermsAndConditions(models.Model):
     """Terms and Conditions information."""
@@ -648,8 +669,7 @@ class Fund(ModelWithToken):
     )
     required_blog_posts = models.IntegerField(
         null=False,
-        blank=False,
-        default=1
+        blank=True
     )
     grant_heading = models.CharField(
         choices=GRANT_HEADING,
@@ -675,6 +695,13 @@ class Fund(ModelWithToken):
     updated = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()
 
+    #: Who is required to approve this request?
+    approval_chain = models.CharField(
+        choices=ApprovalChain.choices(),
+        max_length=8,
+        default=ApprovalChain.FELLOWS
+    )
+
     def remove(self):
         self.status = "X"
         self.save()
@@ -689,6 +716,10 @@ class Fund(ModelWithToken):
 
         if self.status == "A":
             self.approved = datetime.now()
+
+        if self.required_blog_posts is None:
+            # Blog posts are not required if an event is mandatory - e.g. collaborations workshop
+            self.required_blog_posts = 0 if self.mandatory else 1
 
         self.url = fix_url(self.url)
 

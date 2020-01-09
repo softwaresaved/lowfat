@@ -271,7 +271,6 @@ class FellowForm(GarlicForm):
         )
 
 
-
 class FundForm(GarlicForm):
     class Meta:
         model = Fund

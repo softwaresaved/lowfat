@@ -252,6 +252,10 @@ CONSTANCE_CONFIG = OrderedDict([
         "fellows-management@software.ac.uk",
         "Contact address to fellows management staffs.",
     )),
+    ("ONETIME_APPROVAL_EMAIL", (
+        "fellows-management@software.ac.uk",
+        "Address for approval of one-time requests.",
+    )),
     ("WEBSITE_GATEKEEPER", (
         "Gatekeeper Name",
         "Name of website gatekeeper, e.g. 'John'.",
