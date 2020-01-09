@@ -16,4 +16,3 @@ venv/
 # IDEs
 .idea/
 .vscode/
-.pylintrc
