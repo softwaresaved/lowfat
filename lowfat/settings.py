@@ -119,6 +119,38 @@ DATABASES = {
 }
 
 
+# Logging
+# https://docs.djangoproject.com/en/1.11/ref/settings/#logging
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': 'lowfat.log',
+            'when': 'W6',
+            'backupCount': 4,
+            'formatter': 'timestamped',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+    'formatters': {
+        'timestamped': {
+            'format': '[{asctime} {levelname} {module}.{funcName}:{lineno}] {message}',
+            'style': '{',
+        }
+    }
+}
+
+
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
 

@@ -1,6 +1,7 @@
 from datetime import datetime
 import copy
 import io
+import logging
 import os
 import shutil
 
@@ -12,7 +13,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 import django.utils
 
@@ -25,11 +26,22 @@ from .models import *
 from .forms import *
 from .mail import *
 
+
+logger = logging.getLogger(__name__)
+
+
 def get_terms_and_conditions_url(request):
     """Return the terms and conditions link associated with the user."""
-    url = TermsAndConditions.objects.get(
-        year=str(django.utils.timezone.now().year)
-    ).url
+    try:
+        url = TermsAndConditions.objects.get(
+            year=str(django.utils.timezone.now().year)
+        ).url
+        
+    except TermsAndConditions.DoesNotExist:
+        message = "Could not find terms and conditions URL for this year"
+        logger.error(message)
+        raise Http404(message)
+    
     if not request.user.is_staff:
         try:
             claimant = Claimant.objects.get(user=request.user)
@@ -38,6 +50,7 @@ def get_terms_and_conditions_url(request):
             pass
 
     return url
+
 
 def index(request):
     context = {

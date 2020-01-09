@@ -184,11 +184,15 @@ class TermsAndConditions(models.Model):
         ordering = [
             "-year",
         ]
+        verbose_name_plural = "terms and conditions"
 
+    #: Programme year for which this terms and conditions page is valid
     year = models.CharField(  # Year as string so it can be used for special cases.
         max_length=4,  # YYYY
         primary_key=True
     )
+
+    #: URL of terms and conditions page
     url = models.CharField(  # External web page.
         max_length=MAX_CHAR_LENGTH
     )
@@ -197,6 +201,7 @@ class TermsAndConditions(models.Model):
         return "{} Terms & Conditions".format(
             self.year
         )
+
 
 class Claimant(models.Model):
     """Describe a claimant."""

@@ -6,6 +6,7 @@ upload
 *.sqlite3
 *.csv
 backups/
+*.log
 
 # Python runtime and setup
 __pycache__
@@ -15,3 +16,4 @@ venv/
 # IDEs
 .idea/
 .vscode/
+.pylintrc
