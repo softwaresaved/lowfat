@@ -239,7 +239,9 @@ def claimant_form(request):
         claimant.update_latlon()
         messages.success(request, 'Profile saved.')
         claimant_profile_update_notification(claimant)
-        return HttpResponseRedirect(reverse('my_profile'))
+        return HttpResponseRedirect(
+            reverse('claimant_slug', args=[claimant.slug])
+        )
 
     # Show submission form.
     context = {
@@ -341,17 +343,25 @@ def _claimant_detail(request, claimant):
 def claimant_detail(request, claimant_id):
     raise Http404("URL not supported in lowFAT 2.x.")
 
+
 def claimant_slug_resolution(request, claimant_slug):
-    """Resolve claimant slug and return the details."""
+    """
+    Resolve claimant slug and return the details.
+    """
     try:
         claimant = Claimant.objects.get(slug=claimant_slug)
-    except:  # pylint: disable=bare-except
-        claimant = None
-
-    if claimant:
         return _claimant_detail(request, claimant)
 
-    raise Http404("Claimant does not exist.")
+    except Claimant.DoesNotExist:
+        raise Http404('Claimant does not exist')
+    
+    except Claimant.MultipleObjectsReturned:
+        message = 'Multiple claimants exist with the same slug identifier "{0}".' \
+                  'Please contact an admin to fix this.'.format(claimant_slug)
+
+        logger.error(message)
+        raise Http404(message)
+
 
 @login_required
 def my_profile(request):

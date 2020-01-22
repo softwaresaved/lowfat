@@ -1,5 +1,6 @@
 from datetime import datetime, date, timedelta
 import hashlib
+import itertools
 import re
 import uuid
 
@@ -8,6 +9,7 @@ from geopy.geocoders import Nominatim
 from constance import config
 
 import django.utils
+import django.utils.text
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
@@ -158,13 +160,6 @@ def fix_url(url):
             url = "http://{}".format(url)
 
     return url
-
-def slug_generator(forenames, surname):
-    """Generate slug for Claimant"""
-    return "{}-{}".format(
-        forenames.lower().replace(" ", "-"),
-        surname.lower().replace(" ", "-")
-    )
 
 def pair_fund_with_blog(funds, status=None):
     """Create list of tuples where first element is fund and second is list of blog related with it."""
@@ -437,6 +432,36 @@ class Claimant(models.Model):
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()
+    
+    def get_absolute_url(self):
+        return reverse('claimant-slug-resolution', kwargs={'claimant_slug': self.slug})
+
+    def slug_generator(self):
+        """
+        Generate slug for Claimant - checking that it doesn't conflict with an existing Claimant.
+        """
+        base_slug = django.utils.text.slugify("{0}-{1}".format(self.forenames, self.surname))
+        slug = base_slug
+        
+        for i in itertools.count():
+            try:
+                # Has this slug already been used?
+                existing = Claimant.objects.get(slug=slug)
+                if existing.pk == self.pk:
+                    break
+
+            except Claimant.DoesNotExist:
+                # No - use this slug
+                break
+
+            except Claimant.MultipleObjectsReturned:
+                # Yes - multiple times - try the next one
+                pass
+
+            # Yes - try the next one
+            slug = '{0}-{1}'.format(base_slug, i)
+            
+        return slug
 
     def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
         if not self.id:
@@ -446,7 +471,9 @@ class Claimant(models.Model):
                 config.FELLOWSHIP_EXPENSES_END_DAY
             )
 
-        self.slug = slug_generator(self.forenames, self.surname)
+        if not self.slug:
+            self.slug = self.slug_generator()
+
         self.website = fix_url(self.website)
         self.website_feed = fix_url(self.website_feed)
 
