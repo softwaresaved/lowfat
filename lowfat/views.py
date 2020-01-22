@@ -4,6 +4,7 @@ import io
 import logging
 import os
 import shutil
+import zipfile
 
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
@@ -13,7 +14,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 from django.urls import reverse
 import django.utils
 
@@ -27,7 +28,7 @@ from .forms import *
 from .mail import *
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 
 def get_terms_and_conditions_url(request):
@@ -36,18 +37,26 @@ def get_terms_and_conditions_url(request):
         url = TermsAndConditions.objects.get(
             year=str(django.utils.timezone.now().year)
         ).url
-        
+
     except TermsAndConditions.DoesNotExist:
         message = "Could not find terms and conditions URL for this year"
         logger.error(message)
         raise Http404(message)
-    
+
     if not request.user.is_staff:
         try:
             claimant = Claimant.objects.get(user=request.user)
             url = claimant.terms_and_conditions.url
-        except:  # pylint: disable=bare-except
-            pass
+
+        except Claimant.DoesNotExist:
+            raise Http404('Claimant does not exist')
+
+        except Claimant.MultipleObjectsReturned:
+            message = 'Multiple claimants exist with the same registered user. ' \
+                      'Please contact an admin to fix this.'
+
+            logger.error(message)
+            raise Http404(message)
 
     return url
 
@@ -142,8 +151,6 @@ def staff(request):
 
 @staff_member_required
 def get_fellows_photos(request):
-    import zipfile
-
     zip_filename = "/tmp/fellows_photos{}.zip".format(
         datetime.now().isoformat(timespec='minutes')
     )
@@ -354,9 +361,9 @@ def claimant_slug_resolution(request, claimant_slug):
 
     except Claimant.DoesNotExist:
         raise Http404('Claimant does not exist')
-    
+
     except Claimant.MultipleObjectsReturned:
-        message = 'Multiple claimants exist with the same slug identifier "{0}".' \
+        message = 'Multiple claimants exist with the same slug identifier "{0}". ' \
                   'Please contact an admin to fix this.'.format(claimant_slug)
 
         logger.error(message)

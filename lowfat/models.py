@@ -144,7 +144,7 @@ class ApprovalChain(ChoicesEnum):
     def email_address(cls, chain):
         if chain == cls.FELLOWS:
             return config.FELLOWS_MANAGEMENT_EMAIL
-        
+
         if chain == cls.ONE_TIME:
             return config.ONETIME_APPROVAL_EMAIL
 
@@ -432,7 +432,7 @@ class Claimant(models.Model):
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()
-    
+
     def get_absolute_url(self):
         return reverse('claimant-slug-resolution', kwargs={'claimant_slug': self.slug})
 
@@ -442,7 +442,7 @@ class Claimant(models.Model):
         """
         base_slug = django.utils.text.slugify("{0}-{1}".format(self.forenames, self.surname))
         slug = base_slug
-        
+
         for i in itertools.count():
             try:
                 # Has this slug already been used?
@@ -460,7 +460,7 @@ class Claimant(models.Model):
 
             # Yes - try the next one
             slug = '{0}-{1}'.format(base_slug, i)
-            
+
         return slug
 
     def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
