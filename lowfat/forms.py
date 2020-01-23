@@ -9,6 +9,7 @@ from django.forms import (
     EmailField,
     FileField,
     Form,
+    HiddenInput,
     ModelForm,
     Select,
     SelectMultiple,
@@ -322,6 +323,7 @@ class FundForm(GarlicForm):
                 usel10n=True,
                 bootstrap_version=3
             ),
+            'approval_chain': HiddenInput,
         }
 
 
@@ -438,6 +440,9 @@ class FundForm(GarlicForm):
         # Force user to select one focus
         self.fields['focus'].widget.choices.insert(0, ('', '---------'))
         self.fields['focus'].initial = ''
+        
+        # For non-public funds use fellows approval chain
+        self.fields['approval_chain'].initial = ApprovalChain.FELLOWS
 
 
 class FundPublicForm(GarlicForm):
@@ -534,6 +539,7 @@ class FundPublicForm(GarlicForm):
                 usel10n=True,
                 bootstrap_version=3
             ),
+            'approval_chain': HiddenInput,
         }
 
 
@@ -649,6 +655,9 @@ class FundPublicForm(GarlicForm):
         # Force user to select one focus
         self.fields['focus'].widget.choices.insert(0, ('', '---------'))
         self.fields['focus'].initial = ''
+
+        # For public funds use onetime request approval chain
+        self.fields['approval_chain'].initial = ApprovalChain.ONE_TIME
 
 
 class FundGDPRForm(GarlicForm):

@@ -485,6 +485,7 @@ class FundFormTest(TestCase):
             "budget_request_others": 0.00,
             "justification": ":-)",
             "success_targeted": ":-)",
+            "approval_chain": ApprovalChain.ONE_TIME.value,
         }
 
         form = FundForm(data)
@@ -509,6 +510,7 @@ class FundFormTest(TestCase):
             "budget_request_others": 0.00,
             "justification": ":-)",
             "success_targeted": ":-)",
+            "approval_chain": ApprovalChain.ONE_TIME.value,
         }
 
         form = FundForm(data)
@@ -533,6 +535,7 @@ class FundFormTest(TestCase):
             "budget_request_others": 0.00,
             "justification": ":-)",
             "success_targeted": ":-)",
+            "approval_chain": ApprovalChain.ONE_TIME.value,
         }
 
         form = FundForm(data)
@@ -1026,6 +1029,7 @@ class FundFormTest(TestCase):
             "budget_request_others": 0.00,
             "justification": ":-)",
             "success_targeted": ":-)",
+            "approval_chain": ApprovalChain.ONE_TIME.value,
         }
 
         form = FundForm(data)
@@ -1051,6 +1055,7 @@ class FundFormTest(TestCase):
             "justification": ":-)",
             "success_targeted": ":-)",
             "additional_info": "",
+            "approval_chain": ApprovalChain.ONE_TIME.value,
         }
 
         form = FundForm(data)
