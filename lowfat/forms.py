@@ -440,7 +440,7 @@ class FundForm(GarlicForm):
         # Force user to select one focus
         self.fields['focus'].widget.choices.insert(0, ('', '---------'))
         self.fields['focus'].initial = ''
-        
+
         # For non-public funds use fellows approval chain
         self.fields['approval_chain'].initial = ApprovalChain.FELLOWS
 

@@ -49,5 +49,5 @@ class ClaimantSlugTest(TestCase):
             home_city='Testville',
             phone=0
         )
-        
+
         self.assertNotEqual(claimant1.slug, claimant2.slug)

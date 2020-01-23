@@ -35,7 +35,7 @@ def create_claimant():
     create_users()
 
     # Must be able to find a T&Cs otherwise 404
-    terms = TermsAndConditions.objects.create(
+    terms = TermsAndConditions.objects.create(  # pylint: disable=unused-variable
         year=str(timezone.now().year),
         url='Dummy URL'
     )
