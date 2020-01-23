@@ -1,8 +1,10 @@
 from datetime import datetime
 import copy
 import io
+import logging
 import os
 import shutil
+import zipfile
 
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
@@ -25,19 +27,61 @@ from .models import *
 from .forms import *
 from .mail import *
 
+
+logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
+
+
 def get_terms_and_conditions_url(request):
     """Return the terms and conditions link associated with the user."""
-    url = TermsAndConditions.objects.get(
-        year=str(django.utils.timezone.now().year)
-    ).url
+    try:
+        url = TermsAndConditions.objects.get(
+            year=str(django.utils.timezone.now().year)
+        ).url
+
+    except TermsAndConditions.DoesNotExist:
+        message = "Could not find terms and conditions URL for this year"
+        logger.error(message)
+        raise Http404(message)
+
     if not request.user.is_staff:
         try:
             claimant = Claimant.objects.get(user=request.user)
             url = claimant.terms_and_conditions.url
-        except:  # pylint: disable=bare-except
-            pass
+
+        except (AttributeError, TypeError):
+            # Claimant has no terms and conditions linked or is Anonymous user
+            # Use this years T&Cs as default and log a warning
+
+            messages.warning(
+                request,
+                'You do not have a specific terms and conditions linked to your profile. '
+                'Please contact an admin to resolve this. '
+                'As a default, we are now using this year\'s terms and conditions.'
+            )
+            logger.warning('No terms and conditions for user %s, using default for this year')
+
+            try:
+                url = TermsAndConditions.objects.get(
+                    year=str(django.utils.timezone.now().year)
+                ).url
+
+            except TermsAndConditions.DoesNotExist:
+                message = "Could not find terms and conditions URL for this year"
+                logger.error(message)
+                raise Http404(message)
+
+        except Claimant.DoesNotExist:
+            raise Http404('Claimant does not exist')
+
+        except Claimant.MultipleObjectsReturned:
+            message = 'Multiple claimants exist with the same registered user. ' \
+                      'Please contact an admin to fix this.'
+
+            logger.error(message)
+            raise Http404(message)
 
     return url
+
 
 def index(request):
     context = {
@@ -87,7 +131,11 @@ def dashboard(request):
                     fund__claimant=claimant,
                     status__in=expenses_status
                 ),
-                'blogs': Blog.objects.filter(Q(author=claimant, status__in=blogs_status) | Q(coauthor=claimant, status__in=blogs_status)),
+                'blogs': Blog.objects.filter(
+                    Q(author=claimant, status__in=blogs_status) | Q(coauthor=claimant, status__in=blogs_status)
+                    # Need to get distinct otherwise posts will be shown twice if user is author and coauthor
+                    # This happens here because the two ORed filter components operate on different table joins
+                ).distinct(),
             }
         )
     else:
@@ -125,13 +173,11 @@ def staff(request):
 
 @staff_member_required
 def get_fellows_photos(request):
-    import zipfile
-
-    ZIP_FILENAME = "/tmp/fellows_photos{}.zip".format(
+    zip_filename = "/tmp/fellows_photos{}.zip".format(
         datetime.now().isoformat(timespec='minutes')
     )
 
-    with zipfile.ZipFile(ZIP_FILENAME, "w") as fellows_photos_zip:
+    with zipfile.ZipFile(zip_filename, "w") as fellows_photos_zip:
         for fellow in Claimant.objects.filter(fellow=True):
             fellows_photos_zip.write(
                 fellow.photo.path,
@@ -140,7 +186,7 @@ def get_fellows_photos(request):
 
     # TODO Use BytesIO instead of real files
     return HttpResponse(
-        open(ZIP_FILENAME, 'rb'),
+        open(zip_filename, 'rb'),
         content_type='application/zip'
     )
 
@@ -222,7 +268,9 @@ def claimant_form(request):
         claimant.update_latlon()
         messages.success(request, 'Profile saved.')
         claimant_profile_update_notification(claimant)
-        return HttpResponseRedirect(reverse('my_profile'))
+        return HttpResponseRedirect(
+            reverse('claimant_slug', args=[claimant.slug])
+        )
 
     # Show submission form.
     context = {
@@ -299,6 +347,7 @@ def _claimant_detail(request, claimant):
                 ),
                 'blogs': Blog.objects.filter(
                     Q(author=claimant, status__in=blogs_status) | Q(coauthor=claimant, status__in=blogs_status)
+                    # Distinct is required here - see comment in dashboard view
                 ).distinct(),
             }
         )
@@ -313,6 +362,7 @@ def _claimant_detail(request, claimant):
                 'funds': pair_fund_with_blog(funds, "P"),
                 'blogs': Blog.objects.filter(
                     Q(author=claimant, status="P") | Q(coauthor=claimant, status="P")
+                    # Distinct is required here - see comment in dashboard view
                 ).distinct(),
             }
         )
@@ -322,17 +372,25 @@ def _claimant_detail(request, claimant):
 def claimant_detail(request, claimant_id):
     raise Http404("URL not supported in lowFAT 2.x.")
 
+
 def claimant_slug_resolution(request, claimant_slug):
-    """Resolve claimant slug and return the details."""
+    """
+    Resolve claimant slug and return the details.
+    """
     try:
         claimant = Claimant.objects.get(slug=claimant_slug)
-    except:  # pylint: disable=bare-except
-        claimant = None
-
-    if claimant:
         return _claimant_detail(request, claimant)
 
-    raise Http404("Claimant does not exist.")
+    except Claimant.DoesNotExist:
+        raise Http404('Claimant does not exist')
+
+    except Claimant.MultipleObjectsReturned:
+        message = 'Multiple claimants exist with the same slug identifier "{0}". ' \
+                  'Please contact an admin to fix this.'.format(claimant_slug)
+
+        logger.error(message)
+        raise Http404(message)
+
 
 @login_required
 def my_profile(request):
@@ -1159,12 +1217,14 @@ def _blog_detail(request, blog):
 def blog_detail(request, blog_id):
     try:
         blog = Blog.objects.get(id=blog_id)
+
         if not (request.user.is_staff or
                 Claimant.objects.get(user=request.user) == blog.author or
                 Claimant.objects.get(user=request.user) in blog.coauthor.all()):
             blog = None
+
     except ObjectDoesNotExist:
-        blog = Non
+        blog = None
 
     return _blog_detail(request, blog)
 

@@ -5,6 +5,7 @@ import io
 
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.utils import timezone
 
 from .models import *
 
@@ -32,6 +33,12 @@ def create_users():
 
 def create_claimant():
     create_users()
+
+    # Must be able to find a T&Cs otherwise 404
+    terms = TermsAndConditions.objects.create(  # pylint: disable=unused-variable
+        year=str(timezone.now().year),
+        url='Dummy URL'
+    )
 
     data = {
         "user": User.objects.get(username="claimant-b"),

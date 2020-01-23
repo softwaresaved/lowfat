@@ -1,7 +1,19 @@
-*.sqlite3
-*.csv
 fixtures/
-backups/
 static
 upload
+
+# Data
+*.sqlite3
+*.csv
+backups/
+*.log
+*.log.*
+
+# Python runtime and setup
 __pycache__
+env/
+venv/
+
+# IDEs
+.idea/
+.vscode/

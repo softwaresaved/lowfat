@@ -393,3 +393,8 @@ class ExpenseSentMailAdmin(SimpleHistoryAdmin):
 @admin.register(BlogSentMail)
 class BlogSentMailAdmin(SimpleHistoryAdmin):
     pass
+
+
+@admin.register(TermsAndConditions)
+class TermsAndConditionsAdmin(SimpleHistoryAdmin):
+    pass

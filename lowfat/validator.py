@@ -12,12 +12,15 @@ def online_document(url):
     """Check if online document is available."""
     try:
         online_resource = request.urlopen(url)
+
     except HTTPError as exception:
         if exception.code == 410:
             raise ValidationError("Online document was removed.")  # This is the code returned by Google Drive
-        elif exception.code == 403:
-            req = request.Request(url, headers={'User-Agent' : "lowFAT"})
+
+        if exception.code == 403:
+            req = request.Request(url, headers={'User-Agent': "lowFAT"})
             online_resource = request.urlopen(req)
+
         else:
             raise ValidationError("Error! HTTP status code is {}.".format(exception.code))
 

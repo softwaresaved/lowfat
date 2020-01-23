@@ -1,5 +1,6 @@
 from datetime import datetime, date, timedelta
 import hashlib
+import itertools
 import re
 import uuid
 
@@ -8,6 +9,7 @@ from geopy.geocoders import Nominatim
 from constance import config
 
 import django.utils
+import django.utils.text
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
@@ -20,6 +22,7 @@ import tagulous.models
 
 from .validator import pdf, online_document
 from .jacs import JACS_3_0_PRINCIPAL_SUBJECT_CODES
+from .utils import ChoicesEnum
 
 INVOICE_HASH = hashlib.md5()
 
@@ -129,6 +132,25 @@ BLOG_POST_STATUS = (
     ('X', 'Remove'),  # When the fellow decided to remove their request.
 )
 
+
+class ApprovalChain(ChoicesEnum):
+    """
+    Which approval chain is required to authorise this request?
+    """
+    FELLOWS = "fellows"
+    ONE_TIME = "onetime"
+
+    @classmethod
+    def email_address(cls, chain):
+        if chain == cls.FELLOWS:
+            return config.FELLOWS_MANAGEMENT_EMAIL
+
+        if chain == cls.ONE_TIME:
+            return config.ONETIME_APPROVAL_EMAIL
+
+        raise ValueError("Approval chain has not been fully defined")
+
+
 def fix_url(url):
     """Prepend 'http://' to URL."""
     if url is not None and url:
@@ -138,13 +160,6 @@ def fix_url(url):
             url = "http://{}".format(url)
 
     return url
-
-def slug_generator(forenames, surname):
-    """Generate slug for Claimant"""
-    return "{}-{}".format(
-        forenames.lower().replace(" ", "-"),
-        surname.lower().replace(" ", "-")
-    )
 
 def pair_fund_with_blog(funds, status=None):
     """Create list of tuples where first element is fund and second is list of blog related with it."""
@@ -157,17 +172,22 @@ def pair_fund_with_blog(funds, status=None):
         **args
     )) for fund in funds]
 
+
 class TermsAndConditions(models.Model):
     """Terms and Conditions information."""
     class Meta:
         ordering = [
             "-year",
         ]
+        verbose_name_plural = "terms and conditions"
 
+    #: Programme year for which this terms and conditions page is valid
     year = models.CharField(  # Year as string so it can be used for special cases.
         max_length=4,  # YYYY
         primary_key=True
     )
+
+    #: URL of terms and conditions page
     url = models.CharField(  # External web page.
         max_length=MAX_CHAR_LENGTH
     )
@@ -176,6 +196,7 @@ class TermsAndConditions(models.Model):
         return "{} Terms & Conditions".format(
             self.year
         )
+
 
 class Claimant(models.Model):
     """Describe a claimant."""
@@ -412,6 +433,36 @@ class Claimant(models.Model):
     updated = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()
 
+    def get_absolute_url(self):
+        return reverse('claimant-slug-resolution', kwargs={'claimant_slug': self.slug})
+
+    def slug_generator(self):
+        """
+        Generate slug for Claimant - checking that it doesn't conflict with an existing Claimant.
+        """
+        base_slug = django.utils.text.slugify("{0}-{1}".format(self.forenames, self.surname))
+        slug = base_slug
+
+        for i in itertools.count():
+            try:
+                # Has this slug already been used?
+                existing = Claimant.objects.get(slug=slug)
+                if existing.pk == self.pk:
+                    break
+
+            except Claimant.DoesNotExist:
+                # No - use this slug
+                break
+
+            except Claimant.MultipleObjectsReturned:
+                # Yes - multiple times - try the next one
+                pass
+
+            # Yes - try the next one
+            slug = '{0}-{1}'.format(base_slug, i)
+
+        return slug
+
     def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
         if not self.id:
             self.inauguration_grant_expiration = date(
@@ -420,7 +471,9 @@ class Claimant(models.Model):
                 config.FELLOWSHIP_EXPENSES_END_DAY
             )
 
-        self.slug = slug_generator(self.forenames, self.surname)
+        if not self.slug:
+            self.slug = self.slug_generator()
+
         self.website = fix_url(self.website)
         self.website_feed = fix_url(self.website_feed)
 
@@ -648,8 +701,7 @@ class Fund(ModelWithToken):
     )
     required_blog_posts = models.IntegerField(
         null=False,
-        blank=False,
-        default=1
+        blank=True
     )
     grant_heading = models.CharField(
         choices=GRANT_HEADING,
@@ -675,6 +727,13 @@ class Fund(ModelWithToken):
     updated = models.DateTimeField(auto_now=True)
     history = HistoricalRecords()
 
+    #: Who is required to approve this request?
+    approval_chain = models.CharField(
+        choices=ApprovalChain.choices(),
+        max_length=8,
+        default=ApprovalChain.FELLOWS
+    )
+
     def remove(self):
         self.status = "X"
         self.save()
@@ -689,6 +748,10 @@ class Fund(ModelWithToken):
 
         if self.status == "A":
             self.approved = datetime.now()
+
+        if self.required_blog_posts is None:
+            # Blog posts are not required if an event is mandatory - e.g. collaborations workshop
+            self.required_blog_posts = 0 if self.mandatory else 1
 
         self.url = fix_url(self.url)
 
@@ -939,15 +1002,17 @@ class Expense(ModelWithToken):
     def link(self):
         if self.access_token:
             link = reverse("expense_detail_public", args=[self.access_token])
+
         else:
-            link = reverse("expense_detail_relative", args=[expense.fund.id, expense.relative_number,])
+            link = reverse("expense_detail_relative", args=[self.fund.id, self.relative_number])
+
         return link
 
     def link_review(self):
-        return reverse("expense_review_relative", args=[expense.fund.id, expense.relative_number,])
+        return reverse("expense_review_relative", args=[self.fund.id, self.relative_number])
 
     def link_claim(self):
-        return reverse("expense_claim_relative", args=[expense.fund.id, expense.relative_number,])
+        return reverse("expense_claim_relative", args=[self.fund.id, self.relative_number])
 
     def claim_clean_name(self):
         return "{}".format(
