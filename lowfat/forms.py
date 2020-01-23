@@ -874,7 +874,7 @@ class ExpenseForm(GarlicForm):
         if "initial" in kwargs and "fund" in kwargs["initial"]:
             self.fields['fund'].queryset = Fund.objects.filter(id=kwargs["initial"]["fund"].id)
         else:
-            self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
+            self.fields['fund'].queryset = Fund.objects.filter(status__in=FUND_STATUS_APPROVED_SET)
 
 class ExpenseShortlistedForm(GarlicForm):
     class Meta:
@@ -923,7 +923,7 @@ class ExpenseShortlistedForm(GarlicForm):
             )
         )
 
-        self.fields['fund'].queryset = Fund.objects.filter(status__in={'A', 'M'})
+        self.fields['fund'].queryset = Fund.objects.filter(status__in=FUND_STATUS_APPROVED_SET)
 
 
 class ExpenseReviewForm(GarlicForm):
@@ -1055,10 +1055,10 @@ class BlogForm(GarlicForm):
         if "initial" in kwargs and "fund" in kwargs["initial"]:
             self.fields['fund'].queryset = Fund.objects.filter(id=kwargs["initial"]["fund"].id)
         else:
-            self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
+            self.fields['fund'].queryset = Fund.objects.filter(status__in=FUND_STATUS_APPROVED_SET)
 
         if user:
-            self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
+            self.fields['fund'].queryset = Fund.objects.filter(status__in=FUND_STATUS_APPROVED_SET)
 
         if self.is_staff:
             # Force staff to select one author
