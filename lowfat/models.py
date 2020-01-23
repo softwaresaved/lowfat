@@ -88,6 +88,12 @@ FUND_STATUS = (
     ('X', 'Remove'),  # When the fellow decided to remove their request.
 )
 
+#: Set of statuses which constitute an approved fund
+FUND_STATUS_APPROVED_SET = {
+    'A',
+    'M',
+}
+
 FUND_STATUS_LONG_DESCRIPTION = {
     'U': "We didn't start to process your request yet.",
     'P': "One of your staffs is reviewing your request. You should have our reply soon.",
@@ -521,7 +527,7 @@ class Claimant(models.Model):
         )
 
     def claimantship_available(self):
-        """Return the remain claimantship grant."""
+        """Return the remaining claimantship grant."""
         money_available = 0
         if self.inauguration_grant_expiration > date.today():
             money_available = self.claimantship_grant - self.claimantship_committed() - self.claimantship_spent()
@@ -529,7 +535,7 @@ class Claimant(models.Model):
         return money_available
 
     def claimantship_passed(self):
-        """Return the ammount alread spent from the claimantship grant."""
+        """Return the amount already spent from the claimantship grant."""
         money_passed = 0
         if self.inauguration_grant_expiration < date.today():
             money_passed = self.claimantship_grant - self.claimantship_committed() - self.claimantship_spent()
@@ -537,10 +543,10 @@ class Claimant(models.Model):
         return money_passed
 
     def claimantship_committed(self):
-        """Return the ammount committed from the claimantship grant."""
+        """Return the amount committed from the claimantship grant."""
         this_claimant_funds = Fund.objects.filter(
             claimant=self,
-            status__in=['A'],
+            status__in=FUND_STATUS_APPROVED_SET,
             grant_heading="F"
         )
 
@@ -548,16 +554,16 @@ class Claimant(models.Model):
         for fund in this_claimant_funds:
             spent_from_committed += sum([expense.amount_claimed for expense in Expense.objects.filter(
                 fund=fund,
-                status__in=['A', 'F']
+                status__in=['A', 'M', 'F']
             )])
 
         return sum([fund.budget_approved for fund in this_claimant_funds]) - spent_from_committed
 
     def claimantship_spent(self):
-        """Return the ammount alread spent from the claimantship grant."""
+        """Return the amount already spent from the claimantship grant."""
         this_claimant_expenses = Expense.objects.filter(
             fund__claimant=self,
-            status__in=['A', 'F'],
+            status__in=['A', 'M', 'F'],
             grant_heading="F"
         )
 
@@ -746,7 +752,7 @@ class Fund(ModelWithToken):
             else:
                 self.grant_heading = "C"
 
-        if self.status == "A":
+        if self.status in FUND_STATUS_APPROVED_SET:
             self.approved = datetime.now()
 
         if self.required_blog_posts is None:
@@ -797,22 +803,22 @@ class Fund(ModelWithToken):
         )
 
     def expenses_claimed(self):
-        """Return the total ammount of expenses claimant."""
+        """Return the total amount of expenses claimant."""
         this_fund_expenses = Expense.objects.filter(
             fund=self,
-            status__in=["S", "C", "A"]
+            status__in=["S", "C", "A", "M"]
         )
         return sum([expense.amount_claimed for expense in this_fund_expenses])
 
     def expenses_claimed_left(self):
-        """Return the total ammount left to claimant."""
+        """Return the total amount left to claimant."""
         return self.budget_total() - self.expenses_claimed()
 
     def expenses_authorized_for_payment(self):
-        """Return the total ammount of expenses authorized_for_payment."""
+        """Return the total amount of expenses authorized_for_payment."""
         this_fund_expenses = Expense.objects.filter(
             fund=self,
-            status__in=["A"]
+            status__in=FUND_STATUS_APPROVED_SET
         )
         return sum([expense.amount_authorized_for_payment for expense in this_fund_expenses])
 

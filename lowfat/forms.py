@@ -9,7 +9,6 @@ from django.forms import (
     EmailField,
     FileField,
     Form,
-    HiddenInput,
     ModelForm,
     Select,
     SelectMultiple,
@@ -287,6 +286,7 @@ class FundForm(GarlicForm):
             "added",
             "approved",
             "updated",
+            "approval_chain",
         ]
 
         labels = {
@@ -323,7 +323,6 @@ class FundForm(GarlicForm):
                 usel10n=True,
                 bootstrap_version=3
             ),
-            'approval_chain': HiddenInput,
         }
 
 
@@ -441,9 +440,6 @@ class FundForm(GarlicForm):
         self.fields['focus'].widget.choices.insert(0, ('', '---------'))
         self.fields['focus'].initial = ''
 
-        # For non-public funds use fellows approval chain
-        self.fields['approval_chain'].initial = ApprovalChain.FELLOWS
-
 
 class FundPublicForm(GarlicForm):
     forenames = CharField(
@@ -504,6 +500,7 @@ class FundPublicForm(GarlicForm):
             "added",
             "approved",
             "updated",
+            "approval_chain",
         ]
 
         labels = {
@@ -539,7 +536,6 @@ class FundPublicForm(GarlicForm):
                 usel10n=True,
                 bootstrap_version=3
             ),
-            'approval_chain': HiddenInput,
         }
 
 
@@ -655,9 +651,6 @@ class FundPublicForm(GarlicForm):
         # Force user to select one focus
         self.fields['focus'].widget.choices.insert(0, ('', '---------'))
         self.fields['focus'].initial = ''
-
-        # For public funds use onetime request approval chain
-        self.fields['approval_chain'].initial = ApprovalChain.ONE_TIME
 
 
 class FundGDPRForm(GarlicForm):
@@ -881,7 +874,7 @@ class ExpenseForm(GarlicForm):
         if "initial" in kwargs and "fund" in kwargs["initial"]:
             self.fields['fund'].queryset = Fund.objects.filter(id=kwargs["initial"]["fund"].id)
         else:
-            self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
+            self.fields['fund'].queryset = Fund.objects.filter(status__in=FUND_STATUS_APPROVED_SET)
 
 class ExpenseShortlistedForm(GarlicForm):
     class Meta:
@@ -930,7 +923,7 @@ class ExpenseShortlistedForm(GarlicForm):
             )
         )
 
-        self.fields['fund'].queryset = Fund.objects.filter(status__in={'A', 'M'})
+        self.fields['fund'].queryset = Fund.objects.filter(status__in=FUND_STATUS_APPROVED_SET)
 
 
 class ExpenseReviewForm(GarlicForm):
@@ -1062,10 +1055,10 @@ class BlogForm(GarlicForm):
         if "initial" in kwargs and "fund" in kwargs["initial"]:
             self.fields['fund'].queryset = Fund.objects.filter(id=kwargs["initial"]["fund"].id)
         else:
-            self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
+            self.fields['fund'].queryset = Fund.objects.filter(status__in=FUND_STATUS_APPROVED_SET)
 
         if user:
-            self.fields['fund'].queryset = Fund.objects.filter(status__in=['A'])
+            self.fields['fund'].queryset = Fund.objects.filter(status__in=FUND_STATUS_APPROVED_SET)
 
         if self.is_staff:
             # Force staff to select one author

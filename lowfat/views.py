@@ -108,7 +108,9 @@ def dashboard(request):
     if not request.user.is_staff:
         try:
             claimant = Claimant.objects.get(user=request.user)
-        except:  # pylint: disable=bare-except
+
+        except Claimant.DoesNotExist:
+            logger.warning('No claimant found for user %s', request.user.username)
             return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/welcome/'}))
 
         # Setup query parameters
@@ -358,7 +360,7 @@ def _claimant_detail(request, claimant):
         funds = Fund.objects.filter(
             claimant=claimant,
             can_be_advertise_after=True,
-            status__in="AMF"
+            status__in=FUND_STATUS_APPROVED_SET
         )
         context.update(
             {
@@ -459,6 +461,9 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches,too-many-s
     if request.POST:
         # Handle submission
         if formset.is_valid():
+            # Use Fellows approval chain for requests using this form
+            formset.instance.approval_chain = ApprovalChain.FELLOWS
+
             fund = formset.save()
             messages.success(request, 'Funding request saved.')
             if not formset.cleaned_data["not_send_email_field"]:
@@ -518,6 +523,9 @@ def fund_form_public(request):
     )
 
     if request.POST and formset.is_valid():
+        # Use One-Time approval chain for requests using this form
+        formset.instance.approval_chain = ApprovalChain.ONE_TIME
+
         # Handle submission
         username = "{}.{}".format(
             formset.cleaned_data["forenames"].lower(),
@@ -634,7 +642,7 @@ def fund_review(request, fund_id):
 
         if formset.is_valid():
             fund = formset.save()
-            if fund.status in "AM" and fund.approver == None:  # pylint: disable=singleton-comparison
+            if fund.status in FUND_STATUS_APPROVED_SET and fund.approver == None:  # pylint: disable=singleton-comparison
                 fund.approver = request.user
                 fund.save()
                 messages.success(request, 'Funding request updated.')
@@ -701,7 +709,7 @@ def fund_past(request):
     funds = Fund.objects.filter(
         start_date__lt=django.utils.timezone.now(),
         category="H",
-        status__in="AMF",
+        status__in=FUND_STATUS_APPROVED_SET,
         can_be_advertise_after=True,
     )
 
@@ -755,18 +763,18 @@ def fund_import(request):
 
 @login_required
 def expense_form(request, **kargs):
-    # Setup Expense to edit if provide
+    # Setup Expense to edit if provided
+    expense_to_edit = None
+
     if "fund_id" in kargs and "expense_relative_number" in kargs:
         try:
             expense_to_edit = Expense.objects.get(
                 fund__id=kargs["fund_id"],
                 relative_number=kargs["expense_relative_number"]
             )
-        except:  # pylint: disable=bare-except
-            expense_to_edit = None
+
+        except Expense.DoesNotExist:
             messages.error(request, "The expense that you want to edit doesn't exist.")
-    else:
-        expense_to_edit = None
 
     # Setup Fund if provided
     fund_id = request.GET.get("fund_id")
@@ -781,8 +789,10 @@ def expense_form(request, **kargs):
 
     try:
         claimant = Claimant.objects.get(user=request.user)
-    except:  # pylint: disable=bare-except
+
+    except Claimant.DoesNotExist:
         claimant = None
+
     if claimant and not claimant.fellow:
         formset = ExpenseShortlistedForm(
             request.POST or None,
@@ -822,7 +832,7 @@ def expense_form(request, **kargs):
             return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/unavailable/'}))
         formset.fields["fund"].queryset = Fund.objects.filter(
             claimant__in=claimant,
-            status__in=['A']
+            status__in=FUND_STATUS_APPROVED_SET
         )
 
     # Show submission form.
@@ -1149,13 +1159,13 @@ def blog_form(request, **kargs):  # pylint: disable=too-many-branches
             return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/unavailable/'}))
         formset.fields["fund"].queryset = Fund.objects.filter(
             claimant=claimant,
-            status__in=['A']
+            status__in=FUND_STATUS_APPROVED_SET
         )
     elif request.GET.get("claimant_id"):
         claimant = Claimant.objects.get(id=request.GET.get("claimant_id"))
         formset.fields["fund"].queryset = Fund.objects.filter(
             claimant=claimant,
-            status__in=['A']
+            status__in=FUND_STATUS_APPROVED_SET
         )
 
     # Show submission form.
