@@ -129,7 +129,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': 'lowfat.log',
+            'filename': os.path.join(BASE_DIR, 'lowfat.log'),
             'when': 'W6',
             'backupCount': 4,
             'formatter': 'timestamped',

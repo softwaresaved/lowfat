@@ -40,6 +40,7 @@ def get_terms_and_conditions_url(request):
 
     except TermsAndConditions.DoesNotExist:
         message = "Could not find terms and conditions URL for this year"
+        messages.error(request, message)
         logger.error(message)
         raise Http404(message)
 
@@ -67,6 +68,7 @@ def get_terms_and_conditions_url(request):
 
             except TermsAndConditions.DoesNotExist:
                 message = "Could not find terms and conditions URL for this year"
+                messages.error(request, message)
                 logger.error(message)
                 raise Http404(message)
 
@@ -77,6 +79,7 @@ def get_terms_and_conditions_url(request):
             message = 'Multiple claimants exist with the same registered user. ' \
                       'Please contact an admin to fix this.'
 
+            messages.error(request, message)
             logger.error(message)
             raise Http404(message)
 
@@ -388,6 +391,7 @@ def claimant_slug_resolution(request, claimant_slug):
         message = 'Multiple claimants exist with the same slug identifier "{0}". ' \
                   'Please contact an admin to fix this.'.format(claimant_slug)
 
+        messages.error(request, message)
         logger.error(message)
         raise Http404(message)
 
