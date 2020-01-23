@@ -47,6 +47,27 @@ def get_terms_and_conditions_url(request):
         try:
             claimant = Claimant.objects.get(user=request.user)
             url = claimant.terms_and_conditions.url
+            
+        except AttributeError:
+            # Claimant has no terms and conditions linked - use this years T&Cs as default and log a warning
+
+            messages.warning(
+                request,
+                'You do not have a specific terms and conditions linked to your profile. '
+                'Please contact an admin to resolve this. '
+                'As a default, we are now using this year\'s terms and conditions.'
+            )
+            logger.warning('No terms and conditions for user %s, using default for this year')
+
+            try:
+                url = TermsAndConditions.objects.get(
+                    year=str(django.utils.timezone.now().year)
+                ).url
+
+            except TermsAndConditions.DoesNotExist:
+                message = "Could not find terms and conditions URL for this year"
+                logger.error(message)
+                raise Http404(message)
 
         except Claimant.DoesNotExist:
             raise Http404('Claimant does not exist')

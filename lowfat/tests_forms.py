@@ -1260,7 +1260,7 @@ class FundReviewFormTest(TestCase):
         }
 
         form = FundReviewForm(data)
-        self.assertFalse(form.is_valid())
+        self.assertTrue(form.is_valid())
 
     def test_null_budget_approved(self):
         data = {
