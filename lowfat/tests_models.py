@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from .models import fix_url
+from .models import Claimant, fix_url
 
 class FixURLTest(TestCase):
     def test_none(self):
@@ -32,3 +32,22 @@ class FixURLTest(TestCase):
         expected_url = "https://software.ac.uk"
 
         self.assertEqual(fix_url(url), expected_url)
+
+
+class ClaimantSlugTest(TestCase):
+    def test_same_name(self):
+        claimant1 = Claimant.objects.create(
+            forenames='First Person',
+            surname='Test',
+            home_city='Testville',
+            phone=0
+        )
+
+        claimant2 = Claimant.objects.create(
+            forenames='Second Person',
+            surname='Test',
+            home_city='Testville',
+            phone=0
+        )
+        
+        self.assertNotEqual(claimant1.slug, claimant2.slug)
