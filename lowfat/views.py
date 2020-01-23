@@ -459,6 +459,9 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches,too-many-s
     if request.POST:
         # Handle submission
         if formset.is_valid():
+            # Use Fellows approval chain for requests using this form
+            formset.instance.approval_chain = ApprovalChain.FELLOWS
+
             fund = formset.save()
             messages.success(request, 'Funding request saved.')
             if not formset.cleaned_data["not_send_email_field"]:
@@ -518,6 +521,9 @@ def fund_form_public(request):
     )
 
     if request.POST and formset.is_valid():
+        # Use One-Time approval chain for requests using this form
+        formset.instance.approval_chain = ApprovalChain.ONE_TIME
+
         # Handle submission
         username = "{}.{}".format(
             formset.cleaned_data["forenames"].lower(),
