@@ -48,8 +48,9 @@ def get_terms_and_conditions_url(request):
             claimant = Claimant.objects.get(user=request.user)
             url = claimant.terms_and_conditions.url
             
-        except AttributeError:
-            # Claimant has no terms and conditions linked - use this years T&Cs as default and log a warning
+        except (AttributeError, TypeError):
+            # Claimant has no terms and conditions linked or is Anonymous user
+            # Use this years T&Cs as default and log a warning
 
             messages.warning(
                 request,
