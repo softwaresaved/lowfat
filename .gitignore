@@ -9,7 +9,8 @@ backups/
 *.log
 *.log.*
 
-# Python runtime and setup
+# Python runtime, setup and testing
+.mypy_cache/
 __pycache__
 env/
 venv/
