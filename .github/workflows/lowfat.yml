@@ -25,8 +25,8 @@ jobs:
 
         include:
           - python-version: 3.8
-          - django-version: 2.2
-          - experimental: true
+            django-version: 2.2
+            experimental: true
 
     steps:
     - uses: actions/checkout@v2
