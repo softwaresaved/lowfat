@@ -1041,7 +1041,14 @@ class BlogForm(GarlicForm):
                 'final',
                 'author' if self.is_staff else None,
                 'coauthor',
-                HTML("<p>We prefer to receive links to <a href='https://www.google.co.uk/docs/about/'>Google Docs</a> (tips <a href='/pages/guide/google-docs/'>here</a>), <a href='https://products.office.com/en-gb/office-365-home'>Microsoft Office 365 document</a> or any other online live collaborative document platform you like to use. Posts published somewhere already, e.g. your personal blog, are welcome as well.</p>"),
+                HTML(
+                    "<p>For guidance on writing a blog post for the SSI website, please refer to the"
+                    " <a href='https://software.ac.uk/resources/guides/guides-content-contributors'>Guides for content contributors.</a></p>"
+                    "<p>We prefer to receive links to <a href='https://www.google.co.uk/docs/about/'>Google Docs</a>"
+                    " (tips <a href='/pages/guide/google-docs/'>here</a>),"
+                    " <a href='https://products.office.com/en-gb/office-365-home'>Microsoft Office 365 document</a>"
+                    " or any other online live collaborative document platform you like to use."
+                    " Posts published somewhere already, e.g. your personal blog, are welcome as well.</p>"),
                 'draft_url',
                 'success_reported',
                 'notes_from_author',
