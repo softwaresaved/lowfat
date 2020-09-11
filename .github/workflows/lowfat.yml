@@ -35,6 +35,8 @@ jobs:
     - name: Test with Django test command
       run: |
         python manage.py test
+
+    - name: Test database migration and fixtures
         python manage.py migrate
         python manage.py loaddata fixtures/demo.json
 
