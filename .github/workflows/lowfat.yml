@@ -47,6 +47,7 @@ jobs:
         python manage.py test
 
     - name: Test database migration and fixtures
+      run: |
         python manage.py migrate
         python manage.py loaddata fixtures/demo.json
 
