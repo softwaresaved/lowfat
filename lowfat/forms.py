@@ -46,7 +46,7 @@ class GarlicForm(ModelForm):
         self.is_staff = kwargs.pop("is_staff", False)
 
         # Set up Garlic attribute to persistent data
-        super(GarlicForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.attrs = {
             'data_persist': "garlic",
@@ -84,7 +84,7 @@ class ClaimantForm(GarlicForm):
     required_css_class = 'form-field-required'
 
     def __init__(self, *args, **kwargs):
-        super(ClaimantForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -200,7 +200,7 @@ class FellowForm(GarlicForm):
     required_css_class = 'form-field-required'
 
     def __init__(self, *args, **kwargs):
-        super(FellowForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -348,7 +348,7 @@ class FundForm(GarlicForm):
         return self.cleaned_data['end_date']
 
     def __init__(self, *args, **kwargs):
-        super(FundForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -561,7 +561,7 @@ class FundPublicForm(GarlicForm):
         return self.cleaned_data['end_date']
 
     def __init__(self, *args, **kwargs):
-        super(FundPublicForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -671,7 +671,7 @@ class FundGDPRForm(GarlicForm):
     required_css_class = 'form-field-required'
 
     def __init__(self, *args, **kwargs):
-        super(FundGDPRForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -718,7 +718,7 @@ class FundReviewForm(GarlicForm):
     email = CharField(widget=Textarea, required=False)
 
     def __init__(self, *args, **kwargs):
-        super(FundReviewForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -754,7 +754,7 @@ class FundImportForm(Form):
     csv = FileField()
 
     def __init__(self, *args, **kwargs):
-        super(FundImportForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper = FormHelper()
         self.helper.attrs = {
@@ -837,7 +837,7 @@ class ExpenseForm(GarlicForm):
     required_css_class = 'form-field-required'
 
     def __init__(self, *args, **kwargs):
-        super(ExpenseForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -900,7 +900,7 @@ class ExpenseShortlistedForm(GarlicForm):
     required_css_class = 'form-field-required'
 
     def __init__(self, *args, **kwargs):
-        super(ExpenseShortlistedForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -956,7 +956,7 @@ class ExpenseReviewForm(GarlicForm):
     email = CharField(widget=Textarea, required=False)
 
     def __init__(self, *args, **kwargs):
-        super(ExpenseReviewForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -1032,7 +1032,7 @@ class BlogForm(GarlicForm):
 
 
     def __init__(self, *args, user=None, **kwargs):
-        super(BlogForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -1090,7 +1090,7 @@ class BlogReviewForm(GarlicForm):
     email = CharField(widget=Textarea, required=False)
 
     def __init__(self, *args, **kwargs):
-        super(BlogReviewForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
