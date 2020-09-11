@@ -3,11 +3,13 @@ Wrapper around tests
 """
 import io
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.utils import timezone
 
 from .models import *
+
+User = get_user_model()
 
 ADMIN_PASSWORD = '123456'
 CLAIMED_A_PASSWORD = '123456'

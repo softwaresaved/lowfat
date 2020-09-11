@@ -8,8 +8,8 @@ import zipfile
 
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
@@ -26,6 +26,9 @@ from .management.commands import loadoldfunds
 from .models import *
 from .forms import *
 from .mail import *
+
+
+User = get_user_model()
 
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
