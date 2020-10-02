@@ -10,6 +10,7 @@ backups/
 *.log.*
 
 # Python runtime, setup and testing
+.coverage
 .mypy_cache/
 __pycache__
 env/

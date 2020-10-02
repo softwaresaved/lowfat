@@ -1,0 +1,7 @@
+[run]
+omit =
+    # Omit Django migration files
+    */migrations/*
+
+    # Omit tests themselves
+    */test*.py
