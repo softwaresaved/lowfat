@@ -1,6 +1,7 @@
 import pandas as pd
 
-from django.contrib.auth.models import User, BaseUserManager
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import BaseUserManager
 from django.core.management.base import BaseCommand
 from django.db import IntegrityError
 
@@ -63,7 +64,7 @@ class Command(BaseCommand):
                 success_list.append(index)
 
                 if received_offer:
-                    new_user = User.objects.create_user(
+                    new_user = get_user_model().objects.create_user(
                         username=applicant.slug,
                         email=applicant.email,
                         password=user_manager.make_random_password(),
@@ -85,7 +86,7 @@ class Command(BaseCommand):
                         success_list.append(index)
 
                         if received_offer:
-                            new_user = User.objects.create_user(
+                            new_user = get_user_model().objects.create_user(
                                 username=applicant.slug,
                                 email=applicant.email,
                                 password=user_manager.make_random_password(),

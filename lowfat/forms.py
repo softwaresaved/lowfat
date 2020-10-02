@@ -1,6 +1,7 @@
 from datetime import datetime, date
+import textwrap
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.forms import (
     BooleanField,
     CharField,
@@ -46,7 +47,7 @@ class GarlicForm(ModelForm):
         self.is_staff = kwargs.pop("is_staff", False)
 
         # Set up Garlic attribute to persistent data
-        super(GarlicForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.attrs = {
             'data_persist': "garlic",
@@ -84,7 +85,7 @@ class ClaimantForm(GarlicForm):
     required_css_class = 'form-field-required'
 
     def __init__(self, *args, **kwargs):
-        super(ClaimantForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -200,7 +201,7 @@ class FellowForm(GarlicForm):
     required_css_class = 'form-field-required'
 
     def __init__(self, *args, **kwargs):
-        super(FellowForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -348,7 +349,7 @@ class FundForm(GarlicForm):
         return self.cleaned_data['end_date']
 
     def __init__(self, *args, **kwargs):
-        super(FundForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -561,7 +562,7 @@ class FundPublicForm(GarlicForm):
         return self.cleaned_data['end_date']
 
     def __init__(self, *args, **kwargs):
-        super(FundPublicForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -671,7 +672,7 @@ class FundGDPRForm(GarlicForm):
     required_css_class = 'form-field-required'
 
     def __init__(self, *args, **kwargs):
-        super(FundGDPRForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -718,7 +719,7 @@ class FundReviewForm(GarlicForm):
     email = CharField(widget=Textarea, required=False)
 
     def __init__(self, *args, **kwargs):
-        super(FundReviewForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -754,7 +755,7 @@ class FundImportForm(Form):
     csv = FileField()
 
     def __init__(self, *args, **kwargs):
-        super(FundImportForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper = FormHelper()
         self.helper.attrs = {
@@ -837,14 +838,23 @@ class ExpenseForm(GarlicForm):
     required_css_class = 'form-field-required'
 
     def __init__(self, *args, **kwargs):
-        super(ExpenseForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
                 '',
                 'fund',
-                HTML("</p>If your funding request isn't on the drop down menu above please email <a href='mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}'>us</a>."),
-                HTML("</p><a href='{{ terms_and_conditions_url }}'>Fellowship Programme's terms and conditions</a> applies to your request. Please follow the guidelines at <a href='{{ terms_and_conditions_url }}#how-to-apply-for-and-claim-expenses'>How to apply for, and claim, expenses</a> section of <a href='{{ terms_and_conditions_url }}'>Fellowship Programme's terms and conditions.</a></p>"),
+                HTML("<p>If your funding request isn't on the drop down menu above please email <a href='mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}'>us</a>.</p>"),
+                HTML(textwrap.dedent("""\
+                    <p>
+                      Before submitting your expense claim:
+                      <ol>
+                        <li>Please follow the <a href='https://drive.google.com/file/d/1oddJAqzf7wIrzj7r3qPQ-ijoZzPcILQ9/view'>Guidelines for reimbursement of expenses from the Software Sustainability Institute</a>.</li>
+                        <li>You MUST fill out and attach the <a href='https://drive.google.com/file/d/1muv__x8fhiaGw2hI81sytXTgFqnOsVGl/view'>University of Edinburgh Payment for Non-Staff/Student Expenses form</a> along with your receipts to your expense claim.</li>
+                        <li>The <a href='{{ terms_and_conditions_url }}'>Fellowship Programme Terms and Conditions</a> and the <a href='https://drive.google.com/file/d/1wjCD2anwNGgDqee_2dm1C0moPrqxNbju/view'>University of Edinburgh Finance Expenses Policy</a> apply to your request.</li>
+                      </ol>
+                    </p>"""
+                )),
                 'claim',
                 PrependedText(
                     'amount_claimed',
@@ -900,7 +910,7 @@ class ExpenseShortlistedForm(GarlicForm):
     required_css_class = 'form-field-required'
 
     def __init__(self, *args, **kwargs):
-        super(ExpenseShortlistedForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -956,7 +966,7 @@ class ExpenseReviewForm(GarlicForm):
     email = CharField(widget=Textarea, required=False)
 
     def __init__(self, *args, **kwargs):
-        super(ExpenseReviewForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -1032,7 +1042,7 @@ class BlogForm(GarlicForm):
 
 
     def __init__(self, *args, user=None, **kwargs):
-        super(BlogForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -1041,7 +1051,14 @@ class BlogForm(GarlicForm):
                 'final',
                 'author' if self.is_staff else None,
                 'coauthor',
-                HTML("<p>We prefer to receive links to <a href='https://www.google.co.uk/docs/about/'>Google Docs</a> (tips <a href='/pages/guide/google-docs/'>here</a>), <a href='https://products.office.com/en-gb/office-365-home'>Microsoft Office 365 document</a> or any other online live collaborative document platform you like to use. Posts published somewhere already, e.g. your personal blog, are welcome as well.</p>"),
+                HTML(
+                    "<p>For guidance on writing a blog post for the SSI website, please refer to the"
+                    " <a href='https://software.ac.uk/resources/guides/guides-content-contributors'>Guides for content contributors.</a></p>"
+                    "<p>We prefer to receive links to <a href='https://www.google.co.uk/docs/about/'>Google Docs</a>"
+                    " (tips <a href='/pages/guide/google-docs/'>here</a>),"
+                    " <a href='https://products.office.com/en-gb/office-365-home'>Microsoft Office 365 document</a>"
+                    " or any other online live collaborative document platform you like to use."
+                    " Posts published somewhere already, e.g. your personal blog, are welcome as well.</p>"),
                 'draft_url',
                 'success_reported',
                 'notes_from_author',
@@ -1083,7 +1100,7 @@ class BlogReviewForm(GarlicForm):
     email = CharField(widget=Textarea, required=False)
 
     def __init__(self, *args, **kwargs):
-        super(BlogReviewForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
             Fieldset(
@@ -1105,4 +1122,5 @@ class BlogReviewForm(GarlicForm):
                 )
             )
 
-        self.fields['reviewer'].queryset = User.objects.filter(is_staff=True)
+        self.fields['reviewer'].queryset = get_user_model().objects.filter(
+            is_staff=True)

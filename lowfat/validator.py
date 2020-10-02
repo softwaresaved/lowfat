@@ -1,6 +1,4 @@
-"""
-Validator functions
-"""
+"""Validator functions."""
 from urllib import request
 from urllib.error import HTTPError
 
@@ -13,16 +11,18 @@ def online_document(url):
     try:
         online_resource = request.urlopen(url)
 
-    except HTTPError as exception:
-        if exception.code == 410:
-            raise ValidationError("Online document was removed.")  # This is the code returned by Google Drive
+    except HTTPError as exc:
+        if exc.code == 410:
+            # This is the code returned by Google Drive
+            raise ValidationError("Online document was removed.") from exc
 
-        if exception.code == 403:
+        if exc.code == 403:
             req = request.Request(url, headers={'User-Agent': "lowFAT"})
             online_resource = request.urlopen(req)
 
         else:
-            raise ValidationError("Error! HTTP status code is {}.".format(exception.code))
+            raise ValidationError(
+                "Error! HTTP status code is {}.".format(exc.code)) from exc
 
     # Need to test if website didn't redirect the request to another resource.
     if url != online_resource.geturl() or online_resource.getcode() != 200:
@@ -38,5 +38,6 @@ def pdf(value):
 
     try:
         pdf_file = PyPDF2.PdfFileReader(value.file)  # pylint: disable=unused-variable
+
     except:
-        raise ValidationError("File doesn't look to be a PDF file.")
+        raise ValidationError("File doesn't look to be a PDF file.")  # pylint: disable=raise-missing-from

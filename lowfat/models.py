@@ -469,7 +469,7 @@ class Claimant(models.Model):
 
         return slug
 
-    def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
+    def save(self, *args, **kwargs):  # pylint: disable=signature-differs
         if not self.id:
             self.inauguration_grant_expiration = date(
                 date.today().year + 2,
@@ -483,7 +483,7 @@ class Claimant(models.Model):
         self.website = fix_url(self.website)
         self.website_feed = fix_url(self.website_feed)
 
-        super(Claimant, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def update_latlon(self):
         geolocator = Nominatim(
@@ -744,7 +744,7 @@ class Fund(ModelWithToken):
         self.status = "X"
         self.save()
 
-    def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
+    def save(self, *args, **kwargs):  # pylint: disable=signature-differs
         if not self.pk:
             self.grant = config.GRANTS_DEFAULT
             if date.today() < self.claimant.inauguration_grant_expiration:
@@ -761,7 +761,7 @@ class Fund(ModelWithToken):
 
         self.url = fix_url(self.url)
 
-        super(Fund, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def update_latlon(self):
         geolocator = Nominatim(
@@ -978,7 +978,7 @@ class Expense(ModelWithToken):
         self.status = "X"
         self.save()
 
-    def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
+    def save(self, *args, **kwargs):  # pylint: disable=signature-differs
         if self.pk is None:
             previous_expenses = Expense.objects.filter(fund=self.fund).order_by("-pk")
             if previous_expenses:
@@ -1003,7 +1003,7 @@ class Expense(ModelWithToken):
                     INVOICE_HASH.hexdigest()[5:9]
                 )
 
-        super(Expense, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def link(self):
         if self.access_token:
@@ -1102,14 +1102,14 @@ class Blog(ModelWithToken):
         self.status = "X"
         self.save()
 
-    def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
+    def save(self, *args, **kwargs):  # pylint: disable=signature-differs
         self.draft_url = fix_url(self.draft_url)
         self.published_url = fix_url(self.published_url)
         self.tweet_url = fix_url(self.tweet_url)
 
         if self.published_url:
             self.status = 'P'
-        super(Blog, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return "{}".format(self.draft_url)

@@ -45,10 +45,10 @@
     {% endfor %}
     <!-- End Javascript block -->
 
-    {{ form.media }}
+    {% if form %}{{ form.media }}{% endif %}
   </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top""navbar navbar-default">
+    <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -73,7 +73,7 @@
               <form class="form-inline" action="{% url 'search' %}" method="post">
                 {% csrf_token %}
                 <div class="input-group">
-                  <input class="form-control" type="text" name="search" value={{ search }}>
+                  <input class="form-control" type="text" name="search" {% if search %}value="{{ search }}"{% endif %}>
                   <span class="input-group-btn">
                     <button class="btn btn-default" type="button">Search</button>
                   </span>
@@ -129,8 +129,9 @@
         <ul class="list-inline">
           <li><a href="{{ organisation_website }}">{{ organisation_name }}</a></li>
           <li><a href="/pages/privacy/">Privacy</a></li>
-          <li><a href="mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}">Contact
-              us</a></li>
+          <li><a href="https://docs.google.com/document/d/1CwQSNwtS3KeE6VZtOZTba2Q7Hz4VuLSEgcMJL_gLTOo">
+              Accessibility Statement</a></li>
+          <li><a href="mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}">Contact us</a></li>
           </ul>
         <p class="text-muted text-center">Powered with
           <a href="http://python.org/">Python 3</a>,
@@ -151,4 +152,3 @@
     {% block extra_js_body %}{% endblock %}
   </body>
 </html>
-

@@ -153,15 +153,18 @@ def review_notification(email_url, user_email, context, mail, copy_to_staffs=Fal
         plain_text = html2text_fix(html)
         mail.justification = plain_text
 
+        cc_addresses = [config.FELLOWS_MANAGEMENT_EMAIL]
+        if copy_to_gatekeeper:
+            cc_addresses.append(config.WEBSITE_GATEKEEPER)
+
         # Email to claimant
         msg = EmailMultiAlternatives(
             flatemail.title,
             plain_text,
             mail.sender.email,
             user_email,
-            cc=[config.WEBSITE_GATEKEEPER_EMAIL] if copy_to_gatekeeper else None,
-            bcc=ast.literal_eval(config.STAFFS_EMAIL) if copy_to_staffs else None,
-            reply_to=[config.FELLOWS_MANAGEMENT_EMAIL]
+            cc=cc_addresses,
+            bcc=ast.literal_eval(config.STAFFS_EMAIL) if copy_to_staffs else None
         )
         msg.attach_alternative(html, "text/html")
         msg.send(fail_silently=False)

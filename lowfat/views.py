@@ -8,8 +8,8 @@ import zipfile
 
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
@@ -28,6 +28,9 @@ from .forms import *
 from .mail import *
 
 
+User = get_user_model()
+
+
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 
@@ -38,11 +41,11 @@ def get_terms_and_conditions_url(request):
             year=str(django.utils.timezone.now().year)
         ).url
 
-    except TermsAndConditions.DoesNotExist:
+    except TermsAndConditions.DoesNotExist as exc:
         message = "Could not find terms and conditions URL for this year"
         messages.error(request, message)
         logger.error(message)
-        raise Http404(message)
+        raise Http404(message) from exc
 
     if not request.user.is_staff:
         try:
@@ -66,22 +69,22 @@ def get_terms_and_conditions_url(request):
                     year=str(django.utils.timezone.now().year)
                 ).url
 
-            except TermsAndConditions.DoesNotExist:
+            except TermsAndConditions.DoesNotExist as exc:
                 message = "Could not find terms and conditions URL for this year"
                 messages.error(request, message)
                 logger.error(message)
-                raise Http404(message)
+                raise Http404(message) from exc
 
-        except Claimant.DoesNotExist:
-            raise Http404('Claimant does not exist')
+        except Claimant.DoesNotExist as exc:
+            raise Http404('Claimant does not exist') from exc
 
-        except Claimant.MultipleObjectsReturned:
+        except Claimant.MultipleObjectsReturned as exc:
             message = 'Multiple claimants exist with the same registered user. ' \
                       'Please contact an admin to fix this.'
 
             messages.error(request, message)
             logger.error(message)
-            raise Http404(message)
+            raise Http404(message) from exc
 
     return url
 
@@ -386,16 +389,16 @@ def claimant_slug_resolution(request, claimant_slug):
         claimant = Claimant.objects.get(slug=claimant_slug)
         return _claimant_detail(request, claimant)
 
-    except Claimant.DoesNotExist:
-        raise Http404('Claimant does not exist')
+    except Claimant.DoesNotExist as exc:
+        raise Http404('Claimant does not exist') from exc
 
-    except Claimant.MultipleObjectsReturned:
+    except Claimant.MultipleObjectsReturned as exc:
         message = 'Multiple claimants exist with the same slug identifier "{0}". ' \
                   'Please contact an admin to fix this.'.format(claimant_slug)
 
         messages.error(request, message)
         logger.error(message)
-        raise Http404(message)
+        raise Http404(message) from exc
 
 
 @login_required
@@ -1361,7 +1364,7 @@ def report_by_name(request, report_filename):
             response = HttpResponse(_file.read(), content_type="text/plain")
             return response
     except:  # pylint: disable=bare-except
-        raise Http404("Report does not exist.")
+        raise Http404("Report does not exist.")  # pylint: disable=raise-missing-from
 
 @staff_member_required
 def report(request):
