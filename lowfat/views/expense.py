@@ -1,7 +1,7 @@
 import copy
 import io
 import shutil
-from PyPDF2 import PdfFileMerger, PdfFileReader
+
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
@@ -9,6 +9,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse
+
+from PyPDF2 import PdfFileMerger, PdfFileReader
+
 from lowfat.models import Claimant, Expense, Fund, FUND_STATUS_APPROVED_SET, ExpenseSentMail
 from lowfat.forms import ExpenseForm, ExpenseReviewForm, ExpenseShortlistedForm
 from lowfat.mail import expense_review_notification, new_expense_notification

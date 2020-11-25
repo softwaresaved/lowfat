@@ -1,14 +1,21 @@
-from constance import config
 from datetime import datetime, date, timedelta
-from geopy.geocoders import Nominatim
 import re
-from simple_history.models import HistoricalRecords
-import tagulous.models
 import uuid
-from django_countries.fields import CountryField
+
+from geopy.geocoders import Nominatim
+
+from constance import config
+
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
+
+from simple_history.models import HistoricalRecords
+
+from django_countries.fields import CountryField
+
+import tagulous.models
+
 from lowfat.utils import ChoicesEnum
 from .blog import Blog
 from .expense import Expense
@@ -314,7 +321,7 @@ class Fund(ModelWithToken):
     def save(self, *args, **kwargs):  # pylint: disable=signature-differs
         if not self.pk:
             self.grant = config.GRANTS_DEFAULT
-            if date.today() < self.claimant.inauguration_grant_expiration:
+            if date.today() < self.claimant.inauguration_grant_expiration:  # pylint: disable=no-member
                 self.grant_heading = "F"
             else:
                 self.grant_heading = "C"

@@ -1,5 +1,5 @@
-from constance import config
 import copy
+
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import get_user_model
@@ -9,6 +9,9 @@ from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse
 import django.utils
+
+from constance import config
+
 from lowfat.management.commands import loadoldfunds
 from lowfat.models import ApprovalChain, Blog, Claimant, Expense, Fund, FUND_STATUS_APPROVED_SET, FundSentMail
 from lowfat.forms import FundForm, FundGDPRForm, FundImportForm, FundPublicForm, FundReviewForm

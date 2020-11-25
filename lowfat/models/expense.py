@@ -1,9 +1,12 @@
 from datetime import date, timedelta
 import hashlib
-from django.urls import reverse
-from simple_history.models import HistoricalRecords
 import uuid
+
 from django.db import models
+from django.urls import reverse
+
+from simple_history.models import HistoricalRecords
+
 from lowfat.validator import pdf
 
 EXPENSE_STATUS = (
@@ -193,7 +196,7 @@ class Expense(ModelWithToken):
             if self.invoice:
                 INVOICE_HASH.update(bytes("{} - {} #{}".format(
                     self.fund.claimant.fullname,  # pylint: disable=no-member
-                    self.fund.title,
+                    self.fund.title,  # pylint: disable=no-member
                     self.relative_number
                 ), 'utf-8'))
                 self.invoice_reference = "SSIF-{}-{}".format(
@@ -208,15 +211,15 @@ class Expense(ModelWithToken):
             link = reverse("expense_detail_public", args=[self.access_token])
 
         else:
-            link = reverse("expense_detail_relative", args=[self.fund.id, self.relative_number])
+            link = reverse("expense_detail_relative", args=[self.fund.id, self.relative_number])  # pylint: disable=no-member
 
         return link
 
     def link_review(self):
-        return reverse("expense_review_relative", args=[self.fund.id, self.relative_number])
+        return reverse("expense_review_relative", args=[self.fund.id, self.relative_number])  # pylint: disable=no-member
 
     def link_claim(self):
-        return reverse("expense_claim_relative", args=[self.fund.id, self.relative_number])
+        return reverse("expense_claim_relative", args=[self.fund.id, self.relative_number])  # pylint: disable=no-member
 
     def claim_clean_name(self):
         return "{}".format(

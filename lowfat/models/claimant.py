@@ -1,14 +1,20 @@
-from constance import config
 from datetime import date
-from geopy.geocoders import Nominatim
 import itertools
 import re
-from simple_history.models import HistoricalRecords
-from django.db import models
-from django.conf import settings
-from django_countries.fields import CountryField
-from django.urls import reverse
+
+from geopy.geocoders import Nominatim
+
+from constance import config
+
 import django.utils.text
+from django.conf import settings
+from django.db import models
+from django.urls import reverse
+
+from simple_history.models import HistoricalRecords
+
+from django_countries.fields import CountryField
+
 from lowfat.jacs import JACS_3_0_PRINCIPAL_SUBJECT_CODES
 from .fund import Fund, FUND_STATUS_APPROVED_SET
 from .expense import Expense

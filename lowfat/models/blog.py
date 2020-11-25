@@ -1,11 +1,14 @@
 from datetime import date, timedelta
 import re
-from simple_history.models import HistoricalRecords
 import uuid
+
+import django.utils
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
-import django.utils
+
+from simple_history.models import HistoricalRecords
+
 from lowfat.validator import online_document
 
 BLOG_POST_STATUS = (

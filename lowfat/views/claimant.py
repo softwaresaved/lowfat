@@ -1,7 +1,7 @@
-from constance import config
 from datetime import datetime
-import zipfile
 import logging
+import zipfile
+
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
@@ -10,6 +10,9 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse
 import django.utils
+
+from constance import config
+
 from lowfat.forms import ClaimantForm, FellowForm
 from lowfat.mail import claimant_profile_update_notification
 from lowfat.models import Blog, Claimant, Expense, Fund, FUND_STATUS_APPROVED_SET, TermsAndConditions, pair_fund_with_blog
