@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'datetimewidget',
     'simple_history',
     'lowfat',
+    'imagekit',
 ]
 
 MIDDLEWARE = [

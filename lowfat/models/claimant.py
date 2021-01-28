@@ -6,6 +6,9 @@ from geopy.geocoders import Nominatim
 
 from constance import config
 
+from imagekit.models import ImageSpecField
+from imagekit.processors import Thumbnail
+
 import django.utils.text
 from django.conf import settings
 from django.db import models
@@ -137,7 +140,12 @@ class Claimant(models.Model):
         upload_to='photos/',  # File will be uploaded to MEDIA_ROOT/photos
         null=True,
         blank=True,  # This need to be a JPG.
-        help_text="A professionally oriented (i.e. work related) thumbnail picture of yourself that you are happy to be published on the web - this should be 150px wide and 150px high (exact please)."
+        help_text="A professionally oriented (i.e. work related) thumbnail picture of yourself that you are"
+                  " happy to be published on the web - this should be 150px wide and 150px high (exact please)."
+    )
+    photo_thumb = ImageSpecField(
+        source='photo',
+        processors=[Thumbnail(width=150, height=150, upscale=True)]
     )
 
     # Professional info
@@ -198,6 +206,10 @@ class Claimant(models.Model):
         null=True,
         blank=True,  # This need to be a JPG.
         help_text="A professionally oriented (i.e. work related) main picture of yourself that you are happy to be published on the web - this should be 300px wide and 400px high (exact please)."
+    )
+    photo_work_thumb = ImageSpecField(
+        source='photo_work_description',
+        processors=[Thumbnail(width=150, height=150, upscale=True)]
     )
 
     # Social media

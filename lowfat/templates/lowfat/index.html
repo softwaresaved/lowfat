@@ -19,9 +19,9 @@
   {% endif %}
   <a href="{% url 'fellow_slug' claimant.slug %}">
     {% if claimant.photo %}
-    <img src="{{claimant.photo.url}}" alt="Photo of {{ claimant.fullname }}" class="img-responsive img-circle grid-photo">
+    <img src="{{claimant.photo_thumb.url}}" alt="Photo of {{ claimant.fullname }}" class="img-responsive img-circle grid-photo">
     {% else %}
-    <div class="passport-photo"'></div>
+    <div class="passport-photo"></div>
     {% endif %}
     <br>
     {{ claimant.fullname }}

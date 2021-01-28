@@ -29,11 +29,11 @@
 <div class="row">
   <div class="fellow col-md-2">
     {% if claimant.photo_work_description %}
-    <img src="{{claimant.photo_work_description.url}}" alt="Photo of {{ claimant.fullname }}" class="img-responsive website-photo">
+    <img src="{{claimant.photo_work_thumb.url}}" alt="Photo of {{ claimant.fullname }}" class="img-responsive website-photo">
     {% elif claimant.photo %}
-    <img src="{{claimant.photo.url}}" alt="Photo of {{ claimant.fullname }}" class="img-responsive detail-photo">
+    <img src="{{claimant.photo_thumb.url}}" alt="Photo of {{ claimant.fullname }}" class="img-responsive detail-photo">
     {% else %}
-    <div class="passport-photo"'></div>
+    <div class="passport-photo"></div>
     {% endif %}
   </div>
   <div class="fellow col-md-10">

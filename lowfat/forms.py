@@ -28,6 +28,7 @@ from .models import *
 TODAY_YEAR = datetime.now().year
 SELECT_DATE_WIDGE_YEARS = [TODAY_YEAR + delta for delta in range(-3, 4)]
 
+
 class GarlicForm(ModelForm):
     not_send_email_field = BooleanField(
         widget=CheckboxInput,
@@ -80,7 +81,6 @@ class ClaimantForm(GarlicForm):
             'linkedin',
             'facebook',
         ]
-
 
     required_css_class = 'form-field-required'
 
@@ -325,7 +325,6 @@ class FundForm(GarlicForm):
                 bootstrap_version=3
             ),
         }
-
 
     required_css_class = 'form-field-required'
     total_budget = CharField(required=False)
@@ -885,6 +884,7 @@ class ExpenseForm(GarlicForm):
             self.fields['fund'].queryset = Fund.objects.filter(id=kwargs["initial"]["fund"].id)
         else:
             self.fields['fund'].queryset = Fund.objects.filter(status__in=FUND_STATUS_APPROVED_SET)
+
 
 class ExpenseShortlistedForm(GarlicForm):
     class Meta:

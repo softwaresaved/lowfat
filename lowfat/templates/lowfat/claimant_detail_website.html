@@ -4,7 +4,7 @@
 {% block content %}
 <h2>Website Profile View</h2>
 {% if claimant.photo_work_description %}
-<img src="{{claimant.photo_work_description.url}}" alt="Photo of {{ claimant.fullname }}" class="pull-right">
+<img src="{{claimant.photo_work_thumb.url}}" alt="Photo of {{ claimant.fullname }}" class="pull-right">
 {% endif %}
 <p>{{ claimant.job_title }}, {{ claimant.affiliation }}.</p>
 {% if claimant.interests %}
