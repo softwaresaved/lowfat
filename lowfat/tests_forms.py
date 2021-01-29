@@ -32,7 +32,7 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
                 "photo": test_image
             }
@@ -57,7 +57,7 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
                 "photo": test_image
             }
@@ -82,7 +82,7 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
                 "photo": test_image
             }
@@ -107,7 +107,7 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
                 "photo": test_image
             }
@@ -132,7 +132,7 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
                 "photo": test_image
             }
@@ -157,7 +157,7 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
                 "photo": test_image
             }
@@ -182,7 +182,7 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
                 "photo": test_image
             }
@@ -206,7 +206,7 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
                 "photo": test_image
             }
@@ -230,7 +230,7 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
                 "photo": test_image
             }
@@ -254,7 +254,7 @@ class FellowFormTest(TestCase):
             "work_description": "",
         }
 
-        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
                 "photo": test_image
             }
@@ -303,7 +303,7 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
                 "photo": test_image
             }
@@ -344,7 +344,7 @@ class FellowFormTest(TestCase):
             "facebook": "ac",
         }
 
-        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
                 "photo": test_image
             }
@@ -1066,6 +1066,7 @@ class FundFormTest(TestCase):
         form = FundForm(data)
         self.assertTrue(form.is_valid())
 
+
 class FundReviewFormTest(TestCase):
     def setUp(self):
         self.claimant_id, self.fund_id = create_fund()
@@ -1323,9 +1324,9 @@ class ExpenseFormTest(TestCase):
             "amount_claimed": 100.00,
         }
 
-        with open("upload/expenses/ec1.pdf", "rb") as fake_file:
+        with open(BASE_DIR.joinpath("upload/expenses/ec1.pdf"), 'rb') as fake_file:
             file_data = {
-                "claim": SimpleUploadedFile('claim.pdf', fake_file.read()),
+                "claim": fake_file,
             }
 
         form = ExpenseForm(data, file_data)
@@ -1337,9 +1338,9 @@ class ExpenseFormTest(TestCase):
             "amount_claimed": 100.00,
         }
 
-        with open("upload/expenses/ec1.pdf", "rb") as fake_file:
+        with open(BASE_DIR.joinpath("upload/expenses/ec1.pdf"), 'rb') as fake_file:
             file_data = {
-                "claim": SimpleUploadedFile('claim.pdf', fake_file.read()),
+                "claim": fake_file,
             }
 
         form = ExpenseForm(data, file_data)
@@ -1350,9 +1351,9 @@ class ExpenseFormTest(TestCase):
             "fund": self.fund_id,
         }
 
-        with open("upload/expenses/ec1.pdf", "rb") as fake_file:
+        with open(BASE_DIR.joinpath("upload/expenses/ec1.pdf"), 'rb') as fake_file:
             file_data = {
-                "claim": SimpleUploadedFile('claim.pdf', fake_file.read()),
+                "claim": fake_file,
             }
 
         form = ExpenseForm(data, file_data)
@@ -1373,13 +1374,14 @@ class ExpenseFormTest(TestCase):
             "amount_claimed": 100.00,
         }
 
-        with open("upload/expenses/ec1.pdf", "rb") as fake_file:
+        with open(BASE_DIR.joinpath("upload/expenses/ec1.pdf"), 'rb') as fake_file:
             file_data = {
-                "claim": SimpleUploadedFile('claim.pdf', fake_file.read()),
+                "claim": fake_file,
             }
 
         form = ExpenseForm(data, file_data)
         self.assertTrue(form.is_valid())
+
 
 class ExpenseReviewFormTest(TestCase):
     def setUp(self):
@@ -1426,7 +1428,6 @@ class ExpenseReviewFormTest(TestCase):
 
             form = ExpenseReviewForm(data)
             self.assertTrue(form.is_valid())
-
 
     def test_minimal_expected(self):
         data = {
@@ -1498,6 +1499,7 @@ class BlogFormTest(TestCase):
 
         form = BlogForm(data)
         self.assertTrue(form.is_valid())
+
 
 class BlogReviewFormTest(TestCase):
     def setUp(self):

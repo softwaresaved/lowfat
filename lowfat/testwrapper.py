@@ -2,6 +2,7 @@
 Wrapper around tests
 """
 import io
+import pathlib
 
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -14,6 +15,10 @@ User = get_user_model()
 ADMIN_PASSWORD = '123456'
 CLAIMED_A_PASSWORD = '123456'
 CLAIMED_B_PASSWORD = '123456'
+
+# Define the base directory for lowfat
+BASE_DIR = pathlib.Path(__name__).absolute().parent
+
 
 def create_users():
     User.objects.create_superuser(
@@ -59,9 +64,9 @@ def create_claimant():
         "fellow": True,
     }
 
-    with io.BytesIO(b'000') as fake_file:
+    with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'wb') as test_image:
         data.update({
-            "photo": SimpleUploadedFile('b_b.jpg', fake_file.read()),
+            "photo": test_image,
         })
 
     claimant = Claimant(**data)
@@ -84,14 +89,15 @@ def create_claimant():
         "fellow": True,
     }
 
-    with io.BytesIO(b'000') as fake_file:
+    with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'wb') as test_image:
         data.update({
-            "photo": SimpleUploadedFile('a_a.jpg', fake_file.read()),
+            "photo": test_image,
         })
 
     claimant = Claimant(**data)
     claimant.save()
     return claimant.id
+
 
 def create_fund():
     claimant_id = create_claimant()
@@ -131,9 +137,9 @@ def create_all():
         "amount_claimed": "100.00",
         }
 
-    with io.BytesIO(b'000') as fake_file:
+    with open(BASE_DIR.joinpath("upload/expenses/ec1.pdf"), 'wb') as fake_file:
         data.update({
-            "claim": SimpleUploadedFile('fake-claim.jpg', fake_file.read()),
+            "claim": fake_file,
         })
 
     expense = Expense(**data)
