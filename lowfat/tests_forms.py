@@ -8,6 +8,7 @@ from .testwrapper import *
 from .models import *
 from .forms import *
 
+
 class FellowFormTest(TestCase):
     def test_blank_name(self):
         data = {
@@ -26,9 +27,9 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with io.BytesIO(b'000') as fake_file:
+        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
+                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
             }
 
         form = FellowForm(data, file_data)
@@ -51,9 +52,9 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with io.BytesIO(b'000') as fake_file:
+        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
+                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
             }
 
         form = FellowForm(data, file_data)
@@ -76,9 +77,9 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with io.BytesIO(b'000') as fake_file:
+        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
+                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
             }
 
         form = FellowForm(data, file_data)
@@ -101,9 +102,9 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with io.BytesIO(b'000') as fake_file:
+        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
+                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
             }
 
         form = FellowForm(data, file_data)
@@ -126,9 +127,9 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with io.BytesIO(b'000') as fake_file:
+        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
+                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
             }
 
         form = FellowForm(data, file_data)
@@ -151,9 +152,9 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with io.BytesIO(b'000') as fake_file:
+        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
+                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
             }
 
         form = FellowForm(data, file_data)
@@ -176,9 +177,9 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with io.BytesIO(b'000') as fake_file:
+        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
+                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
             }
 
         form = FellowForm(data, file_data)
@@ -200,9 +201,9 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with io.BytesIO(b'000') as fake_file:
+        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
+                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
             }
 
         form = FellowForm(data, file_data)
@@ -225,9 +226,9 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with io.BytesIO(b'000') as fake_file:
+        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
+                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
             }
 
         form = FellowForm(data, file_data)
@@ -249,9 +250,9 @@ class FellowFormTest(TestCase):
             "work_description": "",
         }
 
-        with io.BytesIO(b'000') as fake_file:
+        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
+                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
             }
 
         form = FellowForm(data, file_data)
@@ -298,9 +299,9 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with io.BytesIO(b'000') as fake_file:
+        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
+                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
             }
 
         form = FellowForm(data, file_data)
@@ -339,9 +340,9 @@ class FellowFormTest(TestCase):
             "facebook": "ac",
         }
 
-        with io.BytesIO(b'000') as fake_file:
+        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('a_c.jpg', fake_file.read()),
+                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
             }
 
         form = FellowForm(data, file_data)
