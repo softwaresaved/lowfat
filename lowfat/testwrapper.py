@@ -121,6 +121,7 @@ def create_fund():
     fund.save()
     return claimant_id, fund.id
 
+
 def create_all():
     claimant_id, fund_id = create_fund()
     fund = Fund.objects.get(id=fund_id)

@@ -1,15 +1,20 @@
 from datetime import date, timedelta
 import io
+import pathlib
 
 from django.test import TestCase
-from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.files.uploadedfile import SimpleUploadedFile, UploadedFile
 
 from .testwrapper import *
 from .models import *
 from .forms import *
 
+# Define the base directory for lowfat
+BASE_DIR = pathlib.Path(__name__).absolute().parent
+
 
 class FellowFormTest(TestCase):
+
     def test_blank_name(self):
         data = {
             "forenames": "",
@@ -27,9 +32,9 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
+                "photo": test_image
             }
 
         form = FellowForm(data, file_data)
@@ -52,9 +57,9 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
+                "photo": test_image
             }
 
         form = FellowForm(data, file_data)
@@ -77,9 +82,9 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
+                "photo": test_image
             }
 
         form = FellowForm(data, file_data)
@@ -102,9 +107,9 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
+                "photo": test_image
             }
 
         form = FellowForm(data, file_data)
@@ -127,9 +132,9 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
+                "photo": test_image
             }
 
         form = FellowForm(data, file_data)
@@ -152,9 +157,9 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
+                "photo": test_image
             }
 
         form = FellowForm(data, file_data)
@@ -177,9 +182,9 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
+                "photo": test_image
             }
 
         form = FellowForm(data, file_data)
@@ -201,14 +206,13 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
+                "photo": test_image
             }
 
         form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
-
 
     def test_blank_funding(self):
         data = {
@@ -226,9 +230,9 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
+                "photo": test_image
             }
 
         form = FellowForm(data, file_data)
@@ -250,9 +254,9 @@ class FellowFormTest(TestCase):
             "work_description": "",
         }
 
-        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
+                "photo": test_image
             }
 
         form = FellowForm(data, file_data)
@@ -299,9 +303,9 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
+                "photo": test_image
             }
 
         form = FellowForm(data, file_data)
@@ -340,13 +344,14 @@ class FellowFormTest(TestCase):
             "facebook": "ac",
         }
 
-        with io.open("../upload/photos/ali-christensen.jpg") as test_image:
+        with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg")) as test_image:
             file_data = {
-                "photo": SimpleUploadedFile('ali-christensen.jpg', test_image.read())
+                "photo": test_image
             }
 
         form = FellowForm(data, file_data)
         self.assertTrue(form.is_valid())
+
 
 class FundFormTest(TestCase):
     def setUp(self):
@@ -1009,7 +1014,6 @@ class FundFormTest(TestCase):
 
         form = FundForm(data)
         self.assertFalse(form.is_valid())
-
 
     def test_minimal_expected(self):
         data = {
