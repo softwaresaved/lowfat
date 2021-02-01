@@ -1,13 +1,11 @@
 """
 Wrapper around tests
 """
-import io
 import pathlib
 
 from django.contrib.auth import get_user_model
 from django.core.files import File
 from django.core.files.images import ImageFile
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.utils import timezone
 
 from .models import *

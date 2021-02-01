@@ -1,11 +1,9 @@
 from datetime import date, timedelta
-import io
 import pathlib
 
 from django.test import TestCase
 from django.core.files import File
 from django.core.files.images import ImageFile
-from django.core.files.uploadedfile import SimpleUploadedFile, UploadedFile
 
 from .testwrapper import *
 from .models import *
@@ -1332,7 +1330,7 @@ class ExpenseFormTest(TestCase):
             }
 
             form = ExpenseForm(data, file_data)
-        self.assertFalse(form.is_valid())
+            self.assertFalse(form.is_valid())
 
     def test_blank_fund(self):
         data = {
@@ -1346,7 +1344,7 @@ class ExpenseFormTest(TestCase):
             }
 
             form = ExpenseForm(data, file_data)
-        self.assertFalse(form.is_valid())
+            self.assertFalse(form.is_valid())
 
     def test_null_amount_claimed(self):
         data = {
@@ -1359,7 +1357,7 @@ class ExpenseFormTest(TestCase):
             }
 
             form = ExpenseForm(data, file_data)
-        self.assertFalse(form.is_valid())
+            self.assertFalse(form.is_valid())
 
     def test_null_claim(self):
         data = {
@@ -1381,7 +1379,7 @@ class ExpenseFormTest(TestCase):
                 "claim": File(fake_file, name='ec1.pdf'),
             }
             form = ExpenseForm(data, file_data)
-        self.assertTrue(form.is_valid())
+            self.assertTrue(form.is_valid())
 
 
 class ExpenseReviewFormTest(TestCase):
