@@ -3,6 +3,8 @@ import io
 import pathlib
 
 from django.test import TestCase
+from django.core.files import File
+from django.core.files.images import ImageFile
 from django.core.files.uploadedfile import SimpleUploadedFile, UploadedFile
 
 from .testwrapper import *
@@ -34,10 +36,10 @@ class FellowFormTest(TestCase):
 
         with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
-                "photo": test_image
+                "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-        form = FellowForm(data, file_data)
+            form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_email(self):
@@ -59,10 +61,10 @@ class FellowFormTest(TestCase):
 
         with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
-                "photo": test_image
+                "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-        form = FellowForm(data, file_data)
+            form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_phone(self):
@@ -84,10 +86,10 @@ class FellowFormTest(TestCase):
 
         with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
-                "photo": test_image
+                "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-        form = FellowForm(data, file_data)
+            form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_country(self):
@@ -109,10 +111,10 @@ class FellowFormTest(TestCase):
 
         with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
-                "photo": test_image
+                "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-        form = FellowForm(data, file_data)
+            form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_city(self):
@@ -134,10 +136,10 @@ class FellowFormTest(TestCase):
 
         with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
-                "photo": test_image
+                "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-        form = FellowForm(data, file_data)
+            form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_research_area(self):
@@ -159,10 +161,10 @@ class FellowFormTest(TestCase):
 
         with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
-                "photo": test_image
+                "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-        form = FellowForm(data, file_data)
+            form = FellowForm(data, file_data)
         self.assertTrue(form.is_valid())
 
     def test_blank_research_area_code(self):
@@ -184,10 +186,10 @@ class FellowFormTest(TestCase):
 
         with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
-                "photo": test_image
+                "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-        form = FellowForm(data, file_data)
+            form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_affiliation(self):
@@ -208,10 +210,10 @@ class FellowFormTest(TestCase):
 
         with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
-                "photo": test_image
+                "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-        form = FellowForm(data, file_data)
+            form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_funding(self):
@@ -232,10 +234,10 @@ class FellowFormTest(TestCase):
 
         with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
-                "photo": test_image
+                "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-        form = FellowForm(data, file_data)
+            form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_description(self):
@@ -256,10 +258,10 @@ class FellowFormTest(TestCase):
 
         with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
-                "photo": test_image
+                "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-        form = FellowForm(data, file_data)
+            form = FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_null_photo(self):
@@ -305,10 +307,10 @@ class FellowFormTest(TestCase):
 
         with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
-                "photo": test_image
+                "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-        form = FellowForm(data, file_data)
+            form = FellowForm(data, file_data)
         self.assertTrue(form.is_valid())
 
     def test_expected(self):
@@ -346,10 +348,10 @@ class FellowFormTest(TestCase):
 
         with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
             file_data = {
-                "photo": test_image
+                "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-        form = FellowForm(data, file_data)
+            form = FellowForm(data, file_data)
         self.assertTrue(form.is_valid())
 
 
@@ -1326,10 +1328,10 @@ class ExpenseFormTest(TestCase):
 
         with open(BASE_DIR.joinpath("upload/expenses/ec1.pdf"), 'rb') as fake_file:
             file_data = {
-                "claim": fake_file,
+                "claim": File(fake_file, name='ec1.pdf'),
             }
 
-        form = ExpenseForm(data, file_data)
+            form = ExpenseForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_fund(self):
@@ -1340,10 +1342,10 @@ class ExpenseFormTest(TestCase):
 
         with open(BASE_DIR.joinpath("upload/expenses/ec1.pdf"), 'rb') as fake_file:
             file_data = {
-                "claim": fake_file,
+                "claim": File(fake_file, name='ec1.pdf'),
             }
 
-        form = ExpenseForm(data, file_data)
+            form = ExpenseForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_null_amount_claimed(self):
@@ -1353,10 +1355,10 @@ class ExpenseFormTest(TestCase):
 
         with open(BASE_DIR.joinpath("upload/expenses/ec1.pdf"), 'rb') as fake_file:
             file_data = {
-                "claim": fake_file,
+                "claim": File(fake_file, name='ec1.pdf'),
             }
 
-        form = ExpenseForm(data, file_data)
+            form = ExpenseForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_null_claim(self):
@@ -1376,10 +1378,9 @@ class ExpenseFormTest(TestCase):
 
         with open(BASE_DIR.joinpath("upload/expenses/ec1.pdf"), 'rb') as fake_file:
             file_data = {
-                "claim": fake_file,
+                "claim": File(fake_file, name='ec1.pdf'),
             }
-
-        form = ExpenseForm(data, file_data)
+            form = ExpenseForm(data, file_data)
         self.assertTrue(form.is_valid())
 
 

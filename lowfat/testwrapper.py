@@ -5,6 +5,8 @@ import io
 import pathlib
 
 from django.contrib.auth import get_user_model
+from django.core.files import File
+from django.core.files.images import ImageFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.utils import timezone
 
@@ -64,13 +66,13 @@ def create_claimant():
         "fellow": True,
     }
 
-    with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'wb') as test_image:
+    with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
         data.update({
-            "photo": test_image,
+            "photo": ImageFile(test_image, name="ali-christensen.jpg"),
         })
 
-    claimant = Claimant(**data)
-    claimant.save()
+        claimant = Claimant(**data)
+        claimant.save()
 
     data = {
         "user": User.objects.get(username="claimant-a"),
@@ -89,13 +91,13 @@ def create_claimant():
         "fellow": True,
     }
 
-    with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'wb') as test_image:
+    with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
         data.update({
-            "photo": test_image,
+            "photo": ImageFile(test_image, name="ali-christensen.jpg"),
         })
 
-    claimant = Claimant(**data)
-    claimant.save()
+        claimant = Claimant(**data)
+        claimant.save()
     return claimant.id
 
 
@@ -137,13 +139,13 @@ def create_all():
         "amount_claimed": "100.00",
         }
 
-    with open(BASE_DIR.joinpath("upload/expenses/ec1.pdf"), 'wb') as fake_file:
+    with open(BASE_DIR.joinpath("upload/expenses/ec1.pdf"), 'rb') as fake_file:
         data.update({
-            "claim": fake_file,
+            "claim": File(fake_file, name="ec1.pdf"),
         })
 
-    expense = Expense(**data)
-    expense.save()
+        expense = Expense(**data)
+        expense.save()
 
     data = {
         "fund": fund,

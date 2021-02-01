@@ -181,7 +181,6 @@ def get_fellows_photos(request):
                 "{}.jpg".format(fellow.slug)
             )
 
-    # TODO Use BytesIO instead of real files
     return HttpResponse(
         open(zip_filename, 'rb'),
         content_type='application/zip'
