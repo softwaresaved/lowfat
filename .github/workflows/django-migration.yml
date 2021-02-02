@@ -15,8 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.5, 3.6, 3.7]
+        python-version: [3.6, 3.7]
+        # TODO update Django versions as we refactor towards 3.x
         django-version: [1.11, 2.0]
+      fail-fast: false
 
     steps:
     - uses: actions/checkout@v2
