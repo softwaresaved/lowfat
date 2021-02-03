@@ -313,7 +313,8 @@ class Claimant(models.Model):
     mentor = models.ForeignKey(
         'self',
         blank=True,
-        null=True
+        null=True,
+        on_delete=models.CASCADE
     )
 
     # Control

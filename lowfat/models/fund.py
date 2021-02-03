@@ -180,7 +180,7 @@ class Fund(ModelWithToken):
         ]
 
     # TODO Make claimant more generic to include staffs.
-    claimant = models.ForeignKey('Claimant')
+    claimant = models.ForeignKey('Claimant', on_delete=models.CASCADE)
     category = models.CharField(
         choices=FUND_CATEGORY,
         max_length=1,
@@ -277,7 +277,8 @@ class Fund(ModelWithToken):
     approver = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
-        blank=True
+        blank=True,
+        on_delete=models.CASCADE
     )
     required_blog_posts = models.IntegerField(
         null=False,

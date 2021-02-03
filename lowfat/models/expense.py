@@ -84,7 +84,7 @@ class Expense(ModelWithToken):
     )
 
     # Form
-    fund = models.ForeignKey('Fund')
+    fund = models.ForeignKey('Fund', on_delete=models.CASCADE)
     claim = models.FileField(
         upload_to='expenses/',  # File will be uploaded to MEDIA_ROOT/expenses
         validators=[pdf]
