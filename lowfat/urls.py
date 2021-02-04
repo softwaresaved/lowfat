@@ -32,7 +32,6 @@ STAFF_PATTERNS = [
     path('', views.staff, name="staff"),
 ]
 
-
 CLAIMED_PATTERNS = [
     path('<int:claimant_id>/promote', views.claimant_promote, name="claimant_promote"),
     path('<int:claimant_id>/demote', views.claimant_demote, name="claimant_demote"),
@@ -67,29 +66,27 @@ FUND_PATTERNS = [
 ]
 
 urlpatterns = [  # pylint: disable=invalid-name
-    path('login/reset', auth_views.password_reset,
-         {
-             'template_name': 'lowfat/password_reset.html',
-             'email_template_name': 'lowfat/password_reset_email.html',
-             'subject_template_name': 'lowfat/password_reset_subject.txt',
-         },
+    path('login/reset',
+         auth_views.PasswordResetView.as_view(template_name='lowfat/password_reset.html',
+                                              email_template_name='lowfat/password_reset_email.html',
+                                              subject_template_name='lowfat/password_reset_subject.txt'),
          name="password_reset"),
-    path('login/reset/done', auth_views.password_reset_done,
-         {'template_name': 'lowfat/password_reset_done.html'},
+    path('login/reset/done',
+         auth_views.PasswordResetDoneView.as_view(template_name='lowfat/password_reset_done.html'),
          name="password_reset_done"),
-    path('login/reset/<uidb64>/<token>', auth_views.password_reset_confirm,
-         {'template_name': 'lowfat/password_reset_confirm.html'},
+    path('login/reset/<uidb64>/<token>',
+         auth_views.PasswordResetConfirmView.as_view(template_name='lowfat/password_reset_confirm.html'),
          name="password_reset_confirm"),
-    path('login/reset/complete', auth_views.password_reset_complete,
-         {'template_name': 'lowfat/password_reset_complete.html'},
+    path('login/reset/complete',
+         auth_views.PasswordResetConfirmView.as_view(template_name='lowfat/password_reset_complete.html'),
          name="password_reset_complete"),
-    path('', include('social_django.urls', namespace='social')),
-    path('login', auth_views.login,
-         {'template_name': 'lowfat/sign_in.html'},
+    path('login',
+         auth_views.LoginView.as_view(template_name='lowfat/sign_in.html'),
          name="sign_in"),
-    path('disconnect', auth_views.logout,
-         {'next_page': ''},
+    path('disconnect',
+         auth_views.LogoutView.as_view(next_page=''),
          name="sign_out"),
+    path('', include('social_django.urls', namespace='social')),
     path('pages', include('django.contrib.flatpages.urls')),
     path('claimant', include(CLAIMED_PATTERNS)),
     path('fellow', include(FELLOW_PATTERNS)),

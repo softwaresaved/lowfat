@@ -4,9 +4,11 @@ from simple_history.admin import SimpleHistoryAdmin
 
 from .models import *
 
+
 @admin.register(FundActivity)
 class FundActivityAdmin(SimpleHistoryAdmin):
     pass
+
 
 @admin.register(Claimant)
 class ClaimantAdmin(SimpleHistoryAdmin):
