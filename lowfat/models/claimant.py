@@ -95,7 +95,8 @@ class Claimant(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         null=True,
-        blank=True
+        blank=True,
+        on_delete=models.CASCADE
     )
 
     # Personal info (application details)
@@ -263,6 +264,7 @@ class Claimant(models.Model):
     terms_and_conditions = models.ForeignKey(
         'TermsAndConditions',
         null=True,
+        on_delete=models.CASCADE
     )
     application_year = models.IntegerField(
         null=False,
