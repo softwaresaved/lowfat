@@ -78,12 +78,14 @@ class Blog(ModelWithToken):
     fund = models.ForeignKey(
         'Fund',
         null=True,
-        blank=True
+        blank=True,
+        on_delete=models.CASCADE
     )
     author = models.ForeignKey(
         'Claimant',
         null=True,
-        blank=True
+        blank=True,
+        on_delete=models.CASCADE
     )
     coauthor = models.ManyToManyField(
         'Claimant',
@@ -111,7 +113,8 @@ class Blog(ModelWithToken):
     reviewer = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
-        blank=True
+        blank=True,
+        on_delete=models.CASCADE
     )
     notes_from_admin = models.TextField(
         null=True,
@@ -179,19 +182,20 @@ class GeneralSentMail(models.Model):
     sender = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,  # For confirmation email
+        on_delete=models.CASCADE
     )
-    receiver = models.ForeignKey('Claimant')
+    receiver = models.ForeignKey('Claimant', on_delete=models.CASCADE)
     date = models.DateField(default=django.utils.timezone.now)
     history = HistoricalRecords()
 
 
 class FundSentMail(GeneralSentMail):
-    fund = models.ForeignKey('Fund')
+    fund = models.ForeignKey('Fund', on_delete=models.CASCADE)
 
 
 class ExpenseSentMail(GeneralSentMail):
-    expense = models.ForeignKey('Expense')
+    expense = models.ForeignKey('Expense', on_delete=models.CASCADE)
 
 
 class BlogSentMail(GeneralSentMail):
-    blog = models.ForeignKey('Blog')
+    blog = models.ForeignKey('Blog', on_delete=models.CASCADE)

@@ -48,8 +48,8 @@ class GarlicForm(ModelForm):
         self.is_staff = kwargs.pop("is_staff", False)
 
         # Set up Garlic attribute to persistent data
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
+        super(GarlicForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
         self.helper.attrs = {
             'data_persist': "garlic",
         }
