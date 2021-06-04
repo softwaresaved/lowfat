@@ -4,5 +4,6 @@
 pip-tools
 prospector
 pytest
+tox
 vulture
 yapf

@@ -4,6 +4,8 @@
 #
 #    pip-compile requirements-devel.in
 #
+appdirs==1.4.4
+    # via virtualenv
 astroid==2.4.1
     # via
     #   prospector
@@ -15,8 +17,14 @@ attrs==20.3.0
     # via pytest
 click==7.1.2
     # via pip-tools
+distlib==0.3.2
+    # via virtualenv
 dodgy==0.2.1
     # via prospector
+filelock==3.0.12
+    # via
+    #   tox
+    #   virtualenv
 flake8-polyfill==1.0.2
     # via pep8-naming
 flake8==3.8.4
@@ -26,6 +34,8 @@ importlib-metadata==3.4.0
     #   flake8
     #   pluggy
     #   pytest
+    #   tox
+    #   virtualenv
 iniconfig==1.1.1
     # via pytest
 isort==4.3.21
@@ -38,17 +48,23 @@ mccabe==0.6.1
     #   prospector
     #   pylint
 packaging==20.9
-    # via pytest
+    # via
+    #   pytest
+    #   tox
 pep8-naming==0.10.0
     # via prospector
 pip-tools==5.5.0
     # via -r requirements-devel.in
 pluggy==0.13.1
-    # via pytest
+    # via
+    #   pytest
+    #   tox
 prospector==1.3.1
     # via -r requirements-devel.in
 py==1.10.0
-    # via pytest
+    # via
+    #   pytest
+    #   tox
 pycodestyle==2.6.0
     # via
     #   flake8
@@ -94,18 +110,26 @@ requirements-detector==0.7
 setoptconf==0.2.0
     # via prospector
 six==1.15.0
-    # via astroid
+    # via
+    #   astroid
+    #   tox
+    #   virtualenv
 snowballstemmer==2.1.0
     # via pydocstyle
 toml==0.10.2
     # via
     #   pylint
     #   pytest
+    #   tox
     #   vulture
+tox==3.23.1
+    # via -r requirements-devel.in
 typed-ast==1.4.2
     # via astroid
 typing-extensions==3.7.4.3
     # via importlib-metadata
+virtualenv==20.4.7
+    # via tox
 vulture==2.3
     # via -r requirements-devel.in
 wrapt==1.12.1
