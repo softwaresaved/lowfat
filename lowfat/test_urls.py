@@ -280,7 +280,7 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_claimant_promote(self):
-        url = '/fellow/{}/promote'.format(self.claimant_id)
+        url = '/fellow/{}/promote/'.format(self.claimant_id)
         queries = [
             {
                 "user": self.public,
@@ -296,14 +296,14 @@ class URLTest(TestCase):
             },
             {
                 "user": self.admin,
-                "expect_code": 404,  # FIXME
+                "expect_code": 200,
             },
             ]
 
         self.run_requests(url, queries)
 
     def test_claimant_demote(self):
-        url = '/fellow/{}/demote'.format(self.claimant_id)
+        url = '/fellow/{}/demote/'.format(self.claimant_id)
         queries = [
             {
                 "user": self.public,
@@ -319,14 +319,14 @@ class URLTest(TestCase):
             },
             {
                 "user": self.admin,
-                "expect_code": 404,  # FIXME
+                "expect_code": 200,
             },
             ]
 
         self.run_requests(url, queries)
 
     def test_fund_review(self):
-        url = '/fund/{}/review'.format(self.fund_id)
+        url = '/fund/{}/review/'.format(self.fund_id)
         queries = [
             {
                 "user": self.public,
@@ -404,7 +404,7 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_request_review(self):
-        url = '/request/{}/review'.format(self.fund_id)
+        url = '/request/{}/review/'.format(self.fund_id)
         queries = [
             {
                 "user": self.public,
@@ -602,7 +602,7 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_expense_review(self):
-        url = '/expense/{}/review'.format(self.expense_id)
+        url = '/expense/{}/review/'.format(self.expense_id)
         queries = [
             {
                 "user": self.public,
@@ -681,7 +681,7 @@ class URLTest(TestCase):
 
     def test_expense_review_relative(self):
         this_expense = Expense.objects.get(id=self.expense_id)
-        url = '/fund/{}/expense/{}/review'.format(self.fund_id, this_expense.relative_number)
+        url = '/fund/{}/expense/{}/review/'.format(self.fund_id, this_expense.relative_number)
         queries = [
             {
                 "user": self.public,
