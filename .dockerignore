@@ -1,0 +1,8 @@
+# Files and directories to be excluded from the Docker image
+
+*.log*
+*env*/
+upload/
+settings.ini
+.tox/
+*.sqlite3
