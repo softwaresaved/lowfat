@@ -12,7 +12,9 @@ backups/
 # Python runtime, setup and testing
 .coverage
 .mypy_cache/
+.tox/
 __pycache__
+.venv/
 env/
 venv/
 

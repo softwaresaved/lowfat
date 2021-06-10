@@ -296,7 +296,7 @@ class URLTest(TestCase):
             },
             {
                 "user": self.admin,
-                "expect_code": 404,  # FIXME
+                "expect_code": 200,
             },
             ]
 
@@ -319,7 +319,7 @@ class URLTest(TestCase):
             },
             {
                 "user": self.admin,
-                "expect_code": 404,  # FIXME
+                "expect_code": 200,
             },
             ]
 

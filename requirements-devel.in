@@ -1,0 +1,9 @@
+# Generate requirements-devel.txt using pip-tools
+# `pip-compile requirements-devel.in`
+-c requirements.txt
+pip-tools
+prospector
+pytest
+tox
+vulture
+yapf
