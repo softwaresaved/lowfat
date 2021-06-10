@@ -1,7 +1,7 @@
-django~=2.0
+django~=2.0.0
 django-constance[database]~=2.5.0
 django-countries
-django-tagulous
+django-tagulous==1.0.0
 django-crispy-forms<1.9
 django-datetime-widget
 django-dbbackup>=3.2.0
