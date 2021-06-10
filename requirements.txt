@@ -1,4 +1,4 @@
-django=2.0
+django~=2.0
 django-constance[database]~=2.5.0
 django-countries
 django-tagulous
@@ -16,7 +16,7 @@ html2text~=2020.1.16
 markdown~=3.3.3
 matplotlib
 numpy
-pandas~=1.2.0
+pandas~=1.1.5
 pylint>=1.8.2
 pylint-django>=0.9.0
 pypdf2~=1.26.0

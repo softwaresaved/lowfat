@@ -1,0 +1,62 @@
+# This workflow will install Python dependencies, run tests and lint with a range of Python and Django versions
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: LowFAT
+
+on:
+  push:
+    branches: [ django-v3-port ]
+  pull_request:
+    branches: [ django-v3-port ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7]
+      fail-fast: false
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Update pip
+      run: |
+        python -m pip install --upgrade pip
+
+    - name: Get pip cache dir
+      id: pip-cache
+      run: |
+        echo "::set-output name=dir::$(pip cache dir)"
+
+    - name: Cache pip
+      uses: actions/cache@v2
+      with:
+        path: ${{ steps.pip-cache.outputs.dir }}
+        # Look to see if there is a cache hit for the corresponding requirements file
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+          ${{ runner.os }}-
+
+    - name: Install dependencies
+      run: |
+        pip install tox
+
+    - name: Lint and test
+      run: |
+        tox
+
+    - name: Test loading fixtures
+      run: |
+        # This feels slightly out of place here but isn't safe to do in Tox
+        # as it will update the development database when run locally
+        pip install -r requirements.txt
+        python manage.py migrate
+        python manage.py loaddata fixtures/demo.json
