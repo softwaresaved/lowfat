@@ -280,7 +280,7 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_claimant_promote(self):
-        url = '/fellow/{}/promote'.format(self.claimant_id)
+        url = '/fellow/{}/promote/'.format(self.claimant_id)
         queries = [
             {
                 "user": self.public,
@@ -303,7 +303,7 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_claimant_demote(self):
-        url = '/fellow/{}/demote'.format(self.claimant_id)
+        url = '/fellow/{}/demote/'.format(self.claimant_id)
         queries = [
             {
                 "user": self.public,
@@ -326,7 +326,7 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_fund_review(self):
-        url = '/fund/{}/review'.format(self.fund_id)
+        url = '/fund/{}/review/'.format(self.fund_id)
         queries = [
             {
                 "user": self.public,
@@ -404,7 +404,7 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_request_review(self):
-        url = '/request/{}/review'.format(self.fund_id)
+        url = '/request/{}/review/'.format(self.fund_id)
         queries = [
             {
                 "user": self.public,
@@ -578,12 +578,12 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_request_with_id(self):
-        url = '/request/?claimant_id={}'.format(self.claimant_id)
+        url = '/request/{}/'.format(self.claimant_id)
         queries = [
             {
                 "user": self.public,
                 "expect_code": 200,
-                "final_url": "/login/?next=/request/%3Fclaimant_id%3D{}".format(self.claimant_id),
+                "final_url": "/login/?next=/request/{}/".format(self.claimant_id),
             },
             {
                 "user": self.claimant_a,
@@ -602,7 +602,7 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_expense_review(self):
-        url = '/expense/{}/review'.format(self.expense_id)
+        url = '/expense/{}/review/'.format(self.expense_id)
         queries = [
             {
                 "user": self.public,
@@ -681,7 +681,7 @@ class URLTest(TestCase):
 
     def test_expense_review_relative(self):
         this_expense = Expense.objects.get(id=self.expense_id)
-        url = '/fund/{}/expense/{}/review'.format(self.fund_id, this_expense.relative_number)
+        url = '/fund/{}/expense/{}/review/'.format(self.fund_id, this_expense.relative_number)
         queries = [
             {
                 "user": self.public,
@@ -760,7 +760,7 @@ class URLTest(TestCase):
 
     def test_expense_claim_relative(self):
         this_expense = Expense.objects.get(id=self.expense_id)
-        url = '/fund/{}/expense/{}/pdf'.format(self.fund_id, this_expense.relative_number)
+        url = '/fund/{}/expense/{}/pdf/'.format(self.fund_id, this_expense.relative_number)
         queries = [
             {
                 "user": self.public,
@@ -856,7 +856,7 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_blog_review(self):
-        url = '/blog/{}/review'.format(self.blog_id)
+        url = '/blog/{}/review/'.format(self.blog_id)
         queries = [
             {
                 "user": self.public,
@@ -1069,7 +1069,7 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_index(self):
-        url = '/'
+        url = '/index/'
 
         queries = [
             {
