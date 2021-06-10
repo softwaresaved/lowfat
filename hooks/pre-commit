@@ -1,3 +1,0 @@
-#!/bin/bash
-
-source activate lowfat && python manage.py test && pylint lowfat --load-plugins pylint_django --django-settings-module=lowfat.settings
