@@ -18,8 +18,6 @@ services:
   web:
     build: .
     restart: unless-stopped
-    ports:
-      - 8000:8000
     volumes:
       - staticfiles:/app/static
       # Keep database and uploaded files on host filesystem to ease migration
