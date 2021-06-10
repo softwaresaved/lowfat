@@ -12,12 +12,11 @@ from django.forms import (
     Form,
     ModelForm,
     Select,
+    SelectDateWidget,
     SelectMultiple,
     Textarea,
     ValidationError,
 )
-
-from datetimewidget.widgets import DateWidget
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML
@@ -316,14 +315,8 @@ class FundForm(GarlicForm):
             'category': Select(attrs={"class": "select-single-item"}),
             'focus': Select(attrs={"class": "select-single-item"}),
             'country': Select(attrs={"class": "select-single-item"}),
-            'start_date': DateWidget(
-                usel10n=True,
-                bootstrap_version=3
-            ),
-            'end_date': DateWidget(
-                usel10n=True,
-                bootstrap_version=3
-            ),
+            'start_date': SelectDateWidget(),
+            'end_date': SelectDateWidget(),
         }
 
     required_css_class = 'form-field-required'
@@ -528,14 +521,8 @@ class FundPublicForm(GarlicForm):
             'category': Select(attrs={"class": "select-single-item"}),
             'focus': Select(attrs={"class": "select-single-item"}),
             'country': Select(attrs={"class": "select-single-item"}),
-            'start_date': DateWidget(
-                usel10n=True,
-                bootstrap_version=3
-            ),
-            'end_date': DateWidget(
-                usel10n=True,
-                bootstrap_version=3
-            ),
+            'start_date': SelectDateWidget(),
+            'end_date': SelectDateWidget(),
         }
 
 
@@ -951,14 +938,8 @@ class ExpenseReviewForm(GarlicForm):
         ]
 
         widgets = {
-            'asked_for_authorization_date': DateWidget(
-                usel10n=True,
-                bootstrap_version=3
-            ),
-            'send_to_finance_date': DateWidget(
-                usel10n=True,
-                bootstrap_version=3
-            ),
+            'asked_for_authorization_date': SelectDateWidget(),
+            'send_to_finance_date': SelectDateWidget(),
         }
 
 

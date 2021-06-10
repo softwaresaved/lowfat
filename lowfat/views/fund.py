@@ -258,7 +258,7 @@ def fund_review(request, fund_id):
 
         if formset.is_valid():
             fund = formset.save()
-            if fund.status in FUND_STATUS_APPROVED_SET and fund.approver == None:  # pylint: disable=singleton-comparison
+            if fund.status in FUND_STATUS_APPROVED_SET and fund.approver is None:  # pylint: disable=singleton-comparison
                 fund.approver = request.user
                 fund.save()
                 messages.success(request, 'Funding request updated.')
