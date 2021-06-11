@@ -3,107 +3,147 @@
 {% block content %}
 <h1>Software Sustainability Institute</h1>
 <div class="container">
+
 {% for claimant in claimants %}
-{% if forloop.counter0|divisibleby:"6" %}
-<div class="row">
-{% endif %}
-<div class="fellow col-md-2">
-  {% if claimant.fellow %}
-  <div class="ribbon fellows-{{ claimant.application_year | add:"1" }}">
-    <span>{{ claimant.application_year | add:"1" }}</span>
-  </div>
-  {% elif claimant.collaborator %}
-  <div class="ribbon collaborator">
-    <span>Collab.</span>
-  </div>
-  {% endif %}
-  <a href="{% url 'fellow_slug' claimant.slug %}">
-    {% if claimant.photo %}
-    <img src="{{claimant.photo_thumb.url}}" alt="Photo of {{ claimant.fullname }}" class="img-responsive img-circle grid-photo">
-    {% else %}
-    <div class="passport-photo"></div>
+    {% if forloop.counter0|divisibleby:"6" %}
+        <div class="row">
     {% endif %}
-    <br>
-    {{ claimant.fullname }}
-  </a>
-  <br>
-  {% if user.is_staff %}
-  <a class="icon" href="mailto:{{ claimant.email }}">
-    <i class="fas fa-envelope" aria-hidden="true"></i>
-  </a>
-  {% endif %}
-  {% if claimant.institutional_website %}
-  <a class="icon" href="{{ claimant.institutional_website }}">
-    <i class="fas fa-cloud" aria-hidden="true"></i>
-  </a>
-  {% endif %}
-  {% if claimant.website %}
-  <a class="icon" href="{{ claimant.website }}">
-    <i class="fas fa-cloud" aria-hidden="true"></i>
-  </a>
-  {% endif %}
-  {% if claimant.website_feed %}
-  <a class="icon" href="{{ claimant.website_feed }}">
-    <i class="fas fa-rss" aria-hidden="true"></i>
-  </a>
-  {% endif %}
-  {% if claimant.orcid %}
-  <a class="icon" href="http://orcid.org/{{ claimant.orcid }}">
-    <i class="ai ai-orcid" aria-hidden="true"></i>
-  </a>
-  {% endif %}
-  {% if claimant.google_scholar %}
-  <a class="icon" href="https://scholar.google.co.uk/citations?user={{ claimant.google_scholar }}">
-    <i class="ai ai-google-scholar" aria-hidden="true"></i>
-  </a>
-  {% endif %}
-  {% if claimant.github %}
-  <a class="icon" href="http://github.com/{{ claimant.github }}">
-    <i class="fab fa-github" aria-hidden="true"></i>
-  </a>
-  {% endif %}
-  {% if claimant.gitlab %}
-  <a class="icon" href="https://gitlab.com/{{ claimant.gitlab }}">
-    <i class="fab fa-gitlab" aria-hidden="true"></i>
-  </a>
-  {% endif %}
-  {% if claimant.bitbucket %}
-  <a class="icon" href="https://bitbucket.org/{{ claimant.bitbucket }}">
-    <i class="fab fa-bitbucket" aria-hidden="true"></i>
-  </a>
-  {% endif %}
-  {% if claimant.twitter %}
-  <a class="icon" href="https://twitter.com/{{ claimant.twitter }}">
-    <i class="fab fa-twitter" aria-hidden="true"></i>
-  </a>
-  {% endif %}
-  {% if claimant.linkedin %}
-  <a class="icon" href="https://www.linkedin.com/in/{{ claimant.linkedin }}">
-    <i class="fab fa-linkedin" aria-hidden="true"></i>
-  </a>
-  {% endif %}
-  {% if claimant.facebook %}
-  <a class="icon" href="https://facebook.com/{{ claimant.facebook }}">
-    <i class="fab fa-facebook" aria-hidden="true"></i>
-  </a>
-  {% endif %}
-  <a class="icon">
-    <i class="fab fa-fw">&nbsp;</i>
-  </a>
-    {% if user.is_staff or user.is_staff %}
-    <br>
-    £{{ claimant.claimantship_available|floatformat:2 }}
+
+    <div class="fellow col-md-2">
+        {% if claimant.fellow %}
+            <div class="ribbon fellows-{{ claimant.application_year | add:"1" }}">
+                <span>{{ claimant.application_year | add:"1" }}</span>
+            </div>
+
+        {% elif claimant.collaborator %}
+            <div class="ribbon collaborator">
+                <span>Collab.</span>
+            </div>
+        {% endif %}
+
+        <a href="{% url 'fellow_slug' claimant.slug %}">
+            {% if claimant.photo %}
+                <img src="{{claimant.photo_thumb.url}}" alt="Photo of {{ claimant.fullname }}" class="img-responsive img-circle grid-photo">
+            {% else %}
+                <div class="passport-photo"></div>
+            {% endif %}
+
+            <br>
+            {{ claimant.fullname }}
+        </a>
+
+        <br>
+
+        {% if user.is_staff %}
+            <a class="icon" href="mailto:{{ claimant.email }}"
+               aria-label="Contact {{ claimant.fullname }}">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+
+        {% endif %}
+
+        {% if claimant.institutional_website %}
+            <a class="icon" href="{{ claimant.institutional_website }}">
+                <i class="fas fa-cloud" aria-hidden="true" title="{{ claimant.fullname }}'s institutional website"></i>
+                <span class="sr-only">{{ claimant.fullname }}'s institutional website</span>
+            </a>
+        {% endif %}
+
+        {% if claimant.website %}
+            <a class="icon" href="{{ claimant.website }}">
+                <i class="fas fa-cloud" aria-hidden="true" title="{{ claimant.fullname }}'s website"></i>
+                <span class="sr-only">{{ claimant.fullname }}'s website</span>
+            </a>
+        {% endif %}
+
+        {% if claimant.website_feed %}
+            <a class="icon" href="{{ claimant.website_feed }}" title="{{ claimant.fullname }}'s website feed">
+                <i class="fas fa-rss" aria-hidden="true"></i>
+                <span class="sr-only">{{ claimant.fullname}}'s website feed</span>
+            </a>
+        {% endif %}
+
+        {% if claimant.orcid %}
+            <a class="icon" href="http://orcid.org/{{ claimant.orcid }}" title="{{ claimant.fullname }}'s ORCID profile">
+                <i class="ai ai-orcid" aria-hidden="true"></i>
+                <span class="sr-only">{{ claimant.fullname}}'s ORCID profile</span>
+            </a>
+        {% endif %}
+
+        {% if claimant.google_scholar %}
+            <a class="icon" href="https://scholar.google.co.uk/citations?user={{ claimant.google_scholar }}" title="{{ claimant.fullname }}'s Google Scholar profile">
+                <i class="ai ai-google-scholar" aria-hidden="true"></i>
+                <span class="sr-only">{{ claimant.fullname}}'s Google Scholar profile</span>
+            </a>
+        {% endif %}
+
+        {% if claimant.github %}
+            <a class="icon" href="http://github.com/{{ claimant.github }}" title="{{ claimant.fullname }}'s GitHub profile">
+                <i class="fab fa-github" aria-hidden="true"></i>
+                <span class="sr-only">{{ claimant.fullname}}'s GitHub profile</span>
+            </a>
+        {% endif %}
+
+        {% if claimant.gitlab %}
+            <a class="icon" href="https://gitlab.com/{{ claimant.gitlab }}" title="{{ claimant.fullname }}'s GitLab profile">
+                <i class="fab fa-gitlab" aria-hidden="true"></i>
+                <span class="sr-only">{{ claimant.fullname}}'s GitLab profile</span>
+            </a>
+        {% endif %}
+
+        {% if claimant.bitbucket %}
+            <a class="icon" href="https://bitbucket.org/{{ claimant.bitbucket }}" title="{{ claimant.fullname }}'s Bitbucket profile">
+                <i class="fab fa-bitbucket" aria-hidden="true"></i>
+                <span class="sr-only">{{ claimant.fullname}}'s Bitbucket profile</span>
+            </a>
+        {% endif %}
+
+        {% if claimant.twitter %}
+            <a class="icon" href="https://twitter.com/{{ claimant.twitter }}" title="{{ claimant.fullname }}'s Twitter profile">
+                <i class="fab fa-twitter" aria-hidden="true"></i>
+                <span class="sr-only">{{ claimant.fullname}}'s Twitter profile</span>
+            </a>
+        {% endif %}
+
+        {% if claimant.linkedin %}
+            <a class="icon" href="https://www.linkedin.com/in/{{ claimant.linkedin }}" title="{{ claimant.fullname }}'s LinkedIn profile">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+                <span class="sr-only">{{ claimant.fullname}}'s LinkedIn profile</span>
+            </a>
+        {% endif %}
+
+        {% if claimant.facebook %}
+            <a class="icon" href="https://facebook.com/{{ claimant.facebook }}" title="{{ claimant.fullname }}'s Facebook profile">
+                <i class="fab fa-facebook" aria-hidden="true"></i>
+                <span class="sr-only">{{ claimant.fullname}}'s Facebook profile</span>
+            </a>
+        {% endif %}
+
+        <a class="icon">
+            <i class="fab fa-fw">&nbsp;</i>
+        </a>
+
+        {% if user.is_staff or user.is_staff %}
+            <br>
+            £{{ claimant.claimantship_available|floatformat:2 }}
+        {% endif %}
+
+    </div>
+
+    {% if forloop.counter|divisibleby:"6" %}
+        </div>
     {% endif %}
-</div>
-{% if forloop.counter|divisibleby:"6" %}
-</div>
-{% endif %}
+
 {% endfor %}
 <ul>
 </div>
 
 <h2>Events</h2>
+
 <p>The following events will happen in the short future and have the support of at least one of the Institute fellows.</p>
+
 {% include 'lowfat/funds.html' %}
+
 <p>Check <a href="{% url 'fund_past' %}">previous events</a> also organized by Institute fellows.</p>
+
 {% endblock %}
