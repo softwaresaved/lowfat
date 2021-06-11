@@ -119,10 +119,6 @@
             </a>
         {% endif %}
 
-        <a class="icon">
-            <i class="fab fa-fw">&nbsp;</i>
-        </a>
-
         {% if user.is_staff or user.is_staff %}
             <br>
             £{{ claimant.claimantship_available|floatformat:2 }}
