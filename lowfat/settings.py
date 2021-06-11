@@ -211,6 +211,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Stored files
 # https://docs.djangoproject.com/en/1.9/ref/settings/#media-url
