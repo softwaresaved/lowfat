@@ -9,7 +9,7 @@ from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse
-import django.utils
+from django.utils import timezone
 
 from constance import config
 
@@ -24,7 +24,7 @@ def get_terms_and_conditions_url(request):
     """Return the terms and conditions link associated with the user."""
     try:
         url = TermsAndConditions.objects.get(
-            year=str(django.utils.timezone.now().year)
+            year=str(timezone.now().year)
         ).url
 
     except TermsAndConditions.DoesNotExist as exc:
@@ -52,7 +52,7 @@ def get_terms_and_conditions_url(request):
 
             try:
                 url = TermsAndConditions.objects.get(
-                    year=str(django.utils.timezone.now().year)
+                    year=str(timezone.now().year)
                 ).url
 
             except TermsAndConditions.DoesNotExist as exc:
@@ -83,7 +83,7 @@ def index(request):
         'funds': [(fund, Blog.objects.filter(
             fund=fund,
             status="P"
-        )) for fund in Fund.objects.filter(category="H", start_date__gte=django.utils.timezone.now(), can_be_advertise_before=True)],
+        )) for fund in Fund.objects.filter(category="H", start_date__gte=timezone.now(), can_be_advertise_before=True)],
     }
 
     return render(request, 'lowfat/index.html', context)

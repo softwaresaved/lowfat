@@ -8,7 +8,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse
-import django.utils
+from django.utils import timezone
 
 from constance import config
 
@@ -44,8 +44,8 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches,too-many-s
         fund_to_edit = None
 
     initial = {
-        "start_date": django.utils.timezone.now(),
-        "end_date": django.utils.timezone.now(),
+        "start_date": timezone.now(),
+        "end_date": timezone.now(),
     }
 
     if not request.user.is_staff:
@@ -124,8 +124,8 @@ def fund_form_public(request):
         return HttpResponseRedirect(reverse('fund'))
 
     initial = {
-        "start_date": django.utils.timezone.now(),
-        "end_date": django.utils.timezone.now(),
+        "start_date": timezone.now(),
+        "end_date": timezone.now(),
     }
 
     formset = FundPublicForm(
@@ -326,7 +326,7 @@ def fund_remove(request, fund_id):
 
 def fund_past(request):
     funds = Fund.objects.filter(
-        start_date__lt=django.utils.timezone.now(),
+        start_date__lt=timezone.now(),
         category="H",
         status__in=FUND_STATUS_APPROVED_SET,
         can_be_advertise_after=True,

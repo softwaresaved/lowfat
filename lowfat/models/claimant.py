@@ -9,7 +9,7 @@ from constance import config
 from imagekit.models import ImageSpecField
 from imagekit.processors import Thumbnail
 
-import django.utils.text
+from django.utils import text
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
@@ -331,7 +331,7 @@ class Claimant(models.Model):
         """
         Generate slug for Claimant - checking that it doesn't conflict with an existing Claimant.
         """
-        base_slug = django.utils.text.slugify("{0}-{1}".format(self.forenames, self.surname))
+        base_slug = text.slugify("{0}-{1}".format(self.forenames, self.surname))
         slug = base_slug
 
         for i in itertools.count():
