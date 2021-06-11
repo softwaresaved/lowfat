@@ -10,7 +10,6 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
-
 from constance import config
 
 from lowfat.forms import ClaimantForm, FellowForm

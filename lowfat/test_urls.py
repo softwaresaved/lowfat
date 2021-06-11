@@ -284,15 +284,18 @@ class URLTest(TestCase):
         queries = [
             {
                 "user": self.public,
-                "expect_code": 404,
+                "expect_code": 200,
+                "final_url": "/admin/login/?next={}".format(url),
             },
             {
                 "user": self.claimant_a,
-                "expect_code": 404,
+                "expect_code": 200,
+                "final_url": "/admin/login/?next={}".format(url),
             },
             {
                 "user": self.claimant_b,
-                "expect_code": 404,
+                "expect_code": 200,
+                "final_url": "/admin/login/?next={}".format(url),
             },
             {
                 "user": self.admin,
@@ -307,15 +310,18 @@ class URLTest(TestCase):
         queries = [
             {
                 "user": self.public,
-                "expect_code": 404,
+                "expect_code": 200,
+                "final_url": "/admin/login/?next={}".format(url),
             },
             {
                 "user": self.claimant_a,
-                "expect_code": 404,
+                "expect_code": 200,
+                "final_url": "/admin/login/?next={}".format(url),
             },
             {
                 "user": self.claimant_b,
-                "expect_code": 404,
+                "expect_code": 200,
+                "final_url": "/admin/login/?next={}".format(url),
             },
             {
                 "user": self.admin,

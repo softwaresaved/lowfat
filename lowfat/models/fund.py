@@ -165,7 +165,6 @@ class ModelWithToken(models.Model):
     def access_token_is_valid(self):
         if self.access_token_expire_date is not None:
             return date.today() < self.access_token_expire_date
-
         return False
 
 
