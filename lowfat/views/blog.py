@@ -74,7 +74,7 @@ def blog_form(request, **kargs):  # pylint: disable=too-many-branches
         if not formset.cleaned_data["not_send_email_field"]:
             new_blog_notification(blog)
         return HttpResponseRedirect(
-            reverse('blog_detail', args=[blog.id,])
+            reverse('blog_detail', args=[blog.id])
         )
 
     # Limit dropdown list to claimant
@@ -133,7 +133,7 @@ def blog_form_public(request, access_token):  # pylint: disable=too-many-branche
         if not formset.cleaned_data["not_send_email_field"]:
             new_blog_notification(blog)
         return HttpResponseRedirect(
-            reverse('blog_detail_public', args=[blog.access_token,])
+            reverse('blog_detail_public', args=[blog.access_token])
         )
 
     # Show submission form.
@@ -161,9 +161,9 @@ def blog_detail(request, blog_id):
     try:
         blog = Blog.objects.get(id=blog_id)
 
-        if not (request.user.is_staff or
-                Claimant.objects.get(user=request.user) == blog.author or
-                Claimant.objects.get(user=request.user) in blog.coauthor.all()):
+        if not (request.user.is_staff
+                or Claimant.objects.get(user=request.user) == blog.author
+                or Claimant.objects.get(user=request.user) in blog.coauthor.all()):
             blog = None
 
     except ObjectDoesNotExist:
@@ -187,7 +187,7 @@ def blog_detail_public(request, access_token):
 def blog_edit(request, blog_id):
     if request.user.is_staff:  # pylint: disable=no-else-return
         return HttpResponseRedirect(
-            reverse('admin:lowfat_blog_change', args=[blog_id,])
+            reverse('admin:lowfat_blog_change', args=[blog_id])
         )
     else:
         return blog_form(request, blog_id=blog_id)
@@ -214,7 +214,7 @@ def blog_review(request, blog_id):
                     not formset.cleaned_data['not_copy_email_field']
                 )
             return HttpResponseRedirect(
-                reverse('blog_detail', args=[blog.id,])
+                reverse('blog_detail', args=[blog.id])
             )
 
     formset = BlogReviewForm(
@@ -239,7 +239,7 @@ def blog_review(request, blog_id):
 @login_required
 def blog_remove(request, blog_id):
     if request.user.is_staff:
-        redirect_url = reverse('admin:lowfat_blog_delete', args=[blog_id,])
+        redirect_url = reverse('admin:lowfat_blog_delete', args=[blog_id])
     else:
         if "next" in request.GET:
             redirect_url = request.GET["next"]

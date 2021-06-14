@@ -36,8 +36,7 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches,too-many-s
         except:  # pylint: disable=bare-except
             fund_to_edit = None
             messages.error(request, "The funding request that you want to edit doesn't exist.")
-        if not (request.user.is_staff or
-                claimant == fund_to_edit.claimant):
+        if not (request.user.is_staff or claimant == fund_to_edit.claimant):
             fund_to_edit = None
             messages.error(request, "You don't have permission to edit the requested funding request.")
     else:
@@ -99,7 +98,7 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches,too-many-s
                     )
 
             return HttpResponseRedirect(
-                reverse('fund_detail', args=[fund.id,])
+                reverse('fund_detail', args=[fund.id])
             )
 
     if not request.user.is_staff:
@@ -187,7 +186,7 @@ def fund_form_public(request):
             new_fund_notification(fund)
 
         return HttpResponseRedirect(
-            reverse('fund_detail_public', args=[fund.access_token,])
+            reverse('fund_detail_public', args=[fund.access_token])
         )
 
     # Show submission form.
@@ -271,7 +270,7 @@ def fund_review(request, fund_id):
                     not formset.cleaned_data['not_copy_email_field']
                 )
             return HttpResponseRedirect(
-                reverse('fund_detail', args=[fund.id,])
+                reverse('fund_detail', args=[fund.id])
             )
 
     formset = FundReviewForm(
@@ -293,7 +292,7 @@ def fund_review(request, fund_id):
 def fund_edit(request, fund_id):
     if request.user.is_staff:  # pylint: disable=no-else-return
         return HttpResponseRedirect(
-            reverse('admin:lowfat_fund_change', args=[fund_id,])
+            reverse('admin:lowfat_fund_change', args=[fund_id])
         )
     else:
         return fund_form(request, fund_id=fund_id)
@@ -302,7 +301,7 @@ def fund_edit(request, fund_id):
 @login_required
 def fund_remove(request, fund_id):
     if request.user.is_staff:
-        redirect_url = reverse('admin:lowfat_fund_delete', args=[fund_id,])
+        redirect_url = reverse('admin:lowfat_fund_delete', args=[fund_id])
     else:
         if "next" in request.GET:
             redirect_url = request.GET["next"]

@@ -73,7 +73,7 @@ def expense_form(request, **kargs):
         if not formset.cleaned_data["not_send_email_field"]:
             new_expense_notification(expense)
         return HttpResponseRedirect(
-            reverse('expense_detail_relative', args=[expense.fund.id, expense.relative_number,])
+            reverse('expense_detail_relative', args=[expense.fund.id, expense.relative_number])
         )
 
     # Limit dropdown list to claimant
@@ -128,7 +128,7 @@ def expense_form_public(request, access_token):
         if not formset.cleaned_data["not_send_email_field"]:
             new_expense_notification(expense)
         return HttpResponseRedirect(
-            reverse('expense_detail_public', args=[expense.access_token,])
+            reverse('expense_detail_public', args=[expense.access_token])
         )
 
     # Show submission form.
@@ -186,7 +186,7 @@ def expense_edit_relative(request, fund_id, expense_relative_number):
             relative_number=expense_relative_number
         )
         return HttpResponseRedirect(
-            reverse('admin:lowfat_expense_change', args=[this_expense.id,])
+            reverse('admin:lowfat_expense_change', args=[this_expense.id])
         )
     else:
         return expense_form(
@@ -223,7 +223,7 @@ def expense_review(request, expense_id):
                 messages.success(request, 'Funding request archived.')
 
             return HttpResponseRedirect(
-                reverse('expense_detail_relative', args=[expense.fund.id, expense.relative_number,])
+                reverse('expense_detail_relative', args=[expense.fund.id, expense.relative_number])
             )
 
     formset = ExpenseReviewForm(
@@ -260,7 +260,7 @@ def expense_remove_relative(request, fund_id, expense_relative_number):
 
     if this_expense:
         if request.user.is_staff:
-            redirect_url = reverse('admin:lowfat_expense_delete', args=[this_expense.id,])
+            redirect_url = reverse('admin:lowfat_expense_delete', args=[this_expense.id])
         else:
             if "next" in request.GET:
                 redirect_url = request.GET["next"]
@@ -319,7 +319,7 @@ def expense_append_relative(request, fund_id, expense_relative_number):
         messages.success(request, 'PDF updated.')
 
     return HttpResponseRedirect(
-        reverse('expense_detail_relative', args=[fund_id, expense_relative_number,])
+        reverse('expense_detail_relative', args=[fund_id, expense_relative_number])
     )
 
 
@@ -344,8 +344,8 @@ def expense_claim_relative(request, fund_id, expense_relative_number):
         fund = Fund.objects.get(id=fund_id)
         expense = Expense.objects.get(fund=fund, relative_number=expense_relative_number)
 
-        if not (request.user.is_staff or
-                Claimant.objects.get(user=request.user) == expense.fund.claimant):
+        if not (request.user.is_staff or Claimant.objects.get(
+                user=request.user) == expense.fund.claimant):
             expense = None
     except ObjectDoesNotExist:
         expense = None
