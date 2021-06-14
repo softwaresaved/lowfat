@@ -20,10 +20,10 @@ class URLTest(TestCase):
         )
         self.claimant_a.name = 'claimant-a'
         # unpack outputs of create_all here for ease of use later
-        self.claimant_id_a = self.claimant_test_data['claimant_a']['claimant_id']
-        self.fund_id_a = self.claimant_test_data['claimant_a']['fund_id']
-        self.expense_id_a = self.claimant_test_data['claimant_a']['expense_id']
-        self.blog_id_a = self.claimant_test_data['claimant_a']['blog_id']
+        self.claimant_id_a = self.claimant_test_data[self.claimant_a.name]['claimant_id']
+        self.fund_id_a = self.claimant_test_data[self.claimant_a.name]['fund_id']
+        self.expense_id_a = self.claimant_test_data[self.claimant_a.name]['expense_id']
+        self.blog_id_a = self.claimant_test_data[self.claimant_a.name]['blog_id']
 
         self.claimant_b = Client()
         self.claimant_b.login(
@@ -32,10 +32,10 @@ class URLTest(TestCase):
         )
         self.claimant_b.name = 'claimant-b'
         # unpack outputs of create_all here for ease of use later
-        self.claimant_id_b = self.claimant_test_data['claimant_b']['claimant_id']
-        self.fund_id_b = self.claimant_test_data['claimant_b']['fund_id']
-        self.expense_id_b = self.claimant_test_data['claimant_b']['expense_id']
-        self.blog_id_b = self.claimant_test_data['claimant_b']['blog_id']
+        self.claimant_id_b = self.claimant_test_data[self.claimant_b.name]['claimant_id']
+        self.fund_id_b = self.claimant_test_data[self.claimant_b.name]['fund_id']
+        self.expense_id_b = self.claimant_test_data[self.claimant_b.name]['expense_id']
+        self.blog_id_b = self.claimant_test_data[self.claimant_b.name]['blog_id']
 
         self.admin = Client()
         self.admin.login(

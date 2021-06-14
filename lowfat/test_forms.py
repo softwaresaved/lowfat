@@ -355,7 +355,8 @@ class FellowFormTest(TestCase):
 
 class FundFormTest(TestCase):
     def setUp(self):
-        self.claimant_id = create_claimant()
+        create_users()
+        self.claimant_a_id, self.claimant_b_id = create_claimants()
 
     def test_null_claimant(self):
         data = {
@@ -406,7 +407,7 @@ class FundFormTest(TestCase):
 
     def test_null_category(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "focus": "C",
             "title": "Fake",
             "url": "http://fake.com",
@@ -429,7 +430,7 @@ class FundFormTest(TestCase):
 
     def test_null_focus(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "url": "http://fake.com",
             "country": "GB",
@@ -451,7 +452,7 @@ class FundFormTest(TestCase):
 
     def test_blank_title(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "",
@@ -475,7 +476,7 @@ class FundFormTest(TestCase):
 
     def test_null_url(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -499,7 +500,7 @@ class FundFormTest(TestCase):
 
     def test_blank_url(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -524,7 +525,7 @@ class FundFormTest(TestCase):
 
     def test_not_http_url(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -549,7 +550,7 @@ class FundFormTest(TestCase):
 
     def test_null_country(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -572,7 +573,7 @@ class FundFormTest(TestCase):
 
     def test_blank_country(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -596,7 +597,7 @@ class FundFormTest(TestCase):
 
     def test_null_city(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -619,7 +620,7 @@ class FundFormTest(TestCase):
 
     def test_blank_city(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -643,7 +644,7 @@ class FundFormTest(TestCase):
 
     def test_null_start_date(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -666,7 +667,7 @@ class FundFormTest(TestCase):
 
     def test_blank_start_date(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -690,7 +691,7 @@ class FundFormTest(TestCase):
 
     def test_old_start_date(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -714,7 +715,7 @@ class FundFormTest(TestCase):
 
     def test_null_end_date(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -737,7 +738,7 @@ class FundFormTest(TestCase):
 
     def test_blank_end_date(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -761,7 +762,7 @@ class FundFormTest(TestCase):
 
     def test_old_end_date(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -785,7 +786,7 @@ class FundFormTest(TestCase):
 
     def test_null_budget_request_travel(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -808,7 +809,7 @@ class FundFormTest(TestCase):
 
     def test_null_budget_request_attendance_fees(self):  # pylint: disable=invalid-name
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -831,7 +832,7 @@ class FundFormTest(TestCase):
 
     def test_null_budget_request_subsistence_cost(self):  # pylint: disable=invalid-name
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -854,7 +855,7 @@ class FundFormTest(TestCase):
 
     def test_null_request_venue_hire(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -877,7 +878,7 @@ class FundFormTest(TestCase):
 
     def test_null_budget_request_catering(self):  # pylint: disable=invalid-name
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -900,7 +901,7 @@ class FundFormTest(TestCase):
 
     def test_null_budget_request_others(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -923,7 +924,7 @@ class FundFormTest(TestCase):
 
     def test_null_justification(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -946,7 +947,7 @@ class FundFormTest(TestCase):
 
     def test_blank_justification(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -970,7 +971,7 @@ class FundFormTest(TestCase):
 
     def test_null_success_targeted(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -993,7 +994,7 @@ class FundFormTest(TestCase):
 
     def test_blank_success_targeted(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -1017,7 +1018,7 @@ class FundFormTest(TestCase):
 
     def test_minimal_expected(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -1042,7 +1043,7 @@ class FundFormTest(TestCase):
 
     def test_full_expected(self):
         data = {
-            "claimant": self.claimant_id,
+            "claimant": self.claimant_a_id,
             "category": "A",
             "focus": "C",
             "title": "Fake",
@@ -1069,7 +1070,9 @@ class FundFormTest(TestCase):
 
 class FundReviewFormTest(TestCase):
     def setUp(self):
-        self.claimant_id, self.fund_id = create_fund()
+        create_users()
+        self.claimant_a_id, self.claimant_b_id = create_claimants()
+        self.fund_id = create_fund(claimant_id=self.claimant_a_id).id
 
     def test_null_status(self):
         data = {
@@ -1317,7 +1320,9 @@ class FundReviewFormTest(TestCase):
 
 class ExpenseFormTest(TestCase):
     def setUp(self):
-        self.claimant_id, self.fund_id = create_fund()
+        create_users()
+        self.claimant_a_id, self.claimant_b_id = create_claimants()
+        self.fund_id = create_fund(claimant_id=self.claimant_a_id).id
 
     def test_null_fund(self):
         data = {
@@ -1384,7 +1389,12 @@ class ExpenseFormTest(TestCase):
 
 class ExpenseReviewFormTest(TestCase):
     def setUp(self):
-        self.claimant_id, self.fund_id, self.expense_id, self.blog_id = create_all()
+        self.claimant_test_data = create_all()
+        # unpack outputs of create_all here for ease of use later
+        self.claimant_id_a = self.claimant_test_data['claimant-a']['claimant_id']
+        self.fund_id_a = self.claimant_test_data['claimant-a']['fund_id']
+        self.expense_id_a = self.claimant_test_data['claimant-a']['expense_id']
+        self.blog_id_a = self.claimant_test_data['claimant-a']['blog_id']
 
     def test_grant_heading(self):
         for fund in ['C', 'I', 'F']:
@@ -1458,7 +1468,9 @@ class ExpenseReviewFormTest(TestCase):
 
 class BlogFormTest(TestCase):
     def setUp(self):
-        self.claimant_id, self.fund_id = create_fund()
+        create_users()
+        self.claimant_a_id, self.claimant_b_id = create_claimants()
+        self.fund_id = create_fund(claimant_id=self.claimant_a_id).id
 
     def test_null_draft_url(self):
         data = {
@@ -1502,7 +1514,12 @@ class BlogFormTest(TestCase):
 
 class BlogReviewFormTest(TestCase):
     def setUp(self):
-        self.claimant_id, self.fund_id, self.expense_id, self.blog_id = create_all()
+        self.claimant_test_data = create_all()
+        # unpack outputs of create_all here for ease of use later
+        self.claimant_id_a = self.claimant_test_data['claimant-a']['claimant_id']
+        self.fund_id_a = self.claimant_test_data['claimant-a']['fund_id']
+        self.expense_id_a = self.claimant_test_data['claimant-a']['expense_id']
+        self.blog_id_a = self.claimant_test_data['claimant-a']['blog_id']
 
     def test_blog_status(self):
         for status in ('U', 'R', 'L', 'P', 'D', 'O'):
