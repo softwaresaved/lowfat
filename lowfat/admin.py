@@ -155,8 +155,8 @@ class FundAdmin(SimpleHistoryAdmin):
                 'justification',
                 'additional_info',
                 'extra_sponsored',
-                ]
-            }),
+            ]
+        }),
         ('Budget', {
             'fields': [
                 'budget_request_travel',
@@ -166,29 +166,29 @@ class FundAdmin(SimpleHistoryAdmin):
                 'budget_request_catering',
                 'budget_request_others',
                 'budget_approved',
-                ]
-            }),
+            ]
+        }),
         ('Success', {
             'fields': [
                 'success_targeted',
                 'success_reported',
-                ]
-            }),
+            ]
+        }),
         ('Metadata', {
             'fields': [
                 'category',
                 'focus',
                 'activity',
                 'mandatory',
-                ]
-            }),
+            ]
+        }),
         ('Publicity', {
             'fields': [
                 'can_be_included_in_calendar',
                 'can_be_advertise_before',
                 'can_be_advertise_after',
-                ]
-            }),
+            ]
+        }),
         ('Admin', {
             'fields': [
                 'ad_status',
@@ -198,9 +198,9 @@ class FundAdmin(SimpleHistoryAdmin):
                 'grant_heading',
                 'notes_from_admin',
                 'access_token',
-                ]
-            }),
-        ]
+            ]
+        }),
+    ]
     list_display = [
         'claimant',
         'title',
@@ -271,15 +271,15 @@ class ExpenseAdmin(SimpleHistoryAdmin):
                 'amount_claimed',
                 'justification_for_extra',
                 'final',
-                ]
-            }),
+            ]
+        }),
         ('Requests', {
             'fields': [
                 'invoice',
                 'invoice_reference',
                 'advance_booking',
-                ]
-            }),
+            ]
+        }),
         ('Recipient', {
             'fields': [
                 'recipient_fullname',
@@ -287,8 +287,8 @@ class ExpenseAdmin(SimpleHistoryAdmin):
                 'recipient_affiliation',
                 'recipient_group',
                 'recipient_connection',
-                ]
-            }),
+            ]
+        }),
         ('Admin', {
             'fields': [
                 'status',
@@ -298,9 +298,9 @@ class ExpenseAdmin(SimpleHistoryAdmin):
                 'grant_heading',
                 'grant',
                 'notes_from_admin',
-                ]
-            })
-        ]
+            ]
+        })
+    ]
     list_display = [
         'fund',
         'get_claimant',
