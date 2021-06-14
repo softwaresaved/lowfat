@@ -47,6 +47,7 @@ def create_claimant():
         url='Dummy URL'
     )
 
+    # define data for claimant_b
     data = {
         "user": User.objects.get(username="claimant-b"),
         "forenames": "B",
@@ -63,14 +64,14 @@ def create_claimant():
         "work_description": "Work",
         "fellow": True,
     }
-
+    # With claimant_b's image open make and save to the test_db claimant_b
     with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
         data.update({
             "photo": ImageFile(test_image, name="ali-christensen.jpg"),
         })
 
-        claimant = Claimant(**data)
-        claimant.save()
+        claimant_b = Claimant(**data)
+        claimant_b.save()
 
     data = {
         "user": User.objects.get(username="claimant-a"),
@@ -88,23 +89,22 @@ def create_claimant():
         "work_description": "Work",
         "fellow": True,
     }
-
+    # With claimant_a's image open make and save to the test_db claimant_a
     with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
         data.update({
             "photo": ImageFile(test_image, name="ali-christensen.jpg"),
         })
 
-        claimant = Claimant(**data)
-        claimant.save()
-    return claimant.id
+        claimant_a = Claimant(**data)
+        claimant_a.save()
+    return claimant_a.id
 
 
-def create_fund():
-    claimant_id = create_claimant()
-    claimant = Claimant.objects.get(id=claimant_id)
+def create_fund(claimant_id):
+    _claimant = Claimant.objects.get(id=claimant_id)
 
     data = {
-        "claimant": claimant,
+        "claimant": _claimant,
         "category": "A",
         "status": "A",
         "title": "Fake",
@@ -129,11 +129,12 @@ def create_fund():
 
 
 def create_all():
-    claimant_id, fund_id = create_fund()
-    fund = Fund.objects.get(id=fund_id)
+    claimant_id = create_claimant()
+    fund_id = create_fund(claimant_id)
+    _fund = Fund.objects.get(id=fund_id)
 
     data = {
-        "fund": fund,
+        "fund": _fund,
         "amount_claimed": "100.00",
         }
 
