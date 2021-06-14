@@ -584,12 +584,12 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_request_with_id(self):
-        url = '/request/{}/'.format(self.claimant_id)
+        url = '/request/{}/'.format(self.fund_id)
         queries = [
             {
                 "user": self.public,
                 "expect_code": 200,
-                "final_url": "/login/?next=/request/{}/".format(self.claimant_id),
+                "final_url": "/login/?next=/request/{}/".format(self.fund_id),
             },
             {
                 "user": self.claimant_a,
