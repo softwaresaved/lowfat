@@ -21,7 +21,7 @@ services:
     volumes:
       - staticfiles:/app/static
       # Keep database and uploaded files on host filesystem to ease migration
-      - ./db.sqlite3:/app/db.sqlite3
+      - ./db.sqlite3:/app/db.sqlite3:z
       - ./upload:/app/upload
     env_file: ${DEPLOYMENT_ENVIRONMENT}.env
 
