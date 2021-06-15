@@ -1,5 +1,7 @@
 import copy
+import logging
 import os
+import sys
 
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
@@ -15,6 +17,8 @@ from lowfat.models import Blog, Claimant, Expense, Fund, FUND_STATUS_APPROVED_SE
 from lowfat.forms import BlogForm, BlogReviewForm
 from lowfat.mail import blog_review_notification, new_blog_notification
 
+logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
+
 User = get_user_model()
 
 
@@ -24,11 +28,17 @@ def blog_form(request, **kargs):  # pylint: disable=too-many-branches
     if "blog_id" in kargs:
         try:
             blog_to_edit = Blog.objects.get(id=kargs["blog_id"])
-        except:  # pylint: disable=bare-except
+
+        except:
+            logger.warning('Exception caught by bare except')
+            logger.warning('%s %s', *(sys.exc_info()[0:2]))
+
             blog_to_edit = None
             messages.error(request, "The blog that you want to edit doesn't exist.")
+
     else:
         blog_to_edit = None
+
     # Setup Fund if provided
     fund_id = request.GET.get("fund_id")
     if fund_id:
@@ -81,12 +91,18 @@ def blog_form(request, **kargs):  # pylint: disable=too-many-branches
     if not request.user.is_staff:
         try:
             claimant = Claimant.objects.get(user=request.user)
-        except:  # pylint: disable=bare-except
+
+        except:
+            logger.warning('Exception caught by bare except')
+            logger.warning('%s %s', *(sys.exc_info()[0:2]))
+
             return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/unavailable/'}))
+
         formset.fields["fund"].queryset = Fund.objects.filter(
             claimant=claimant,
             status__in=FUND_STATUS_APPROVED_SET
         )
+
     elif request.GET.get("claimant_id"):
         claimant = Claimant.objects.get(id=request.GET.get("claimant_id"))
         formset.fields["fund"].queryset = Fund.objects.filter(
@@ -248,7 +264,11 @@ def blog_remove(request, blog_id):
 
         try:
             this_blog = Blog.objects.get(id=blog_id)
-        except:  # pylint: disable=bare-except
+
+        except:
+            logger.warning('Exception caught by bare except')
+            logger.warning('%s %s', *(sys.exc_info()[0:2]))
+
             this_blog = None
             messages.error(request, "The blog that you want to remove doesn't exist.")
 
@@ -295,7 +315,11 @@ def report_by_name(request, report_filename):
         with open("lowfat/reports/html/{}".format(report_filename), "r") as _file:
             response = HttpResponse(_file.read(), content_type="text/plain")
             return response
-    except:  # pylint: disable=bare-except
+
+    except:
+        logger.warning('Exception caught by bare except')
+        logger.warning('%s %s', *(sys.exc_info()[0:2]))
+
         raise Http404("Report does not exist.")  # pylint: disable=raise-missing-from
 
 

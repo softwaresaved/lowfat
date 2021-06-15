@@ -1,4 +1,6 @@
 from datetime import datetime, date
+import logging
+import sys
 import textwrap
 
 from django.contrib.auth import get_user_model
@@ -23,6 +25,8 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML
 
 from . import models
+
+logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 TODAY_YEAR = datetime.now().year
 SELECT_DATE_WIDGE_YEARS = [TODAY_YEAR + delta for delta in range(-3, 4)]
@@ -1005,7 +1009,11 @@ class BlogForm(GarlicForm):
     # workaround for "no such table: lowfat_claimant"
     try:
         author_choices = [(this_claimant.id, this_claimant) for this_claimant in models.Claimant.objects.all()]
-    except:  # pylint: disable=bare-except
+
+    except:
+        logger.warning('Exception caught by bare except')
+        logger.warning('%s %s', *(sys.exc_info()[0:2]))
+
         author_choices = []
     author = ChoiceField(
         widget=Select(attrs={"class": "select-single-item"}),

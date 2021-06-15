@@ -1,10 +1,14 @@
 """Validator functions."""
+import logging
+import sys
 from urllib import request
 from urllib.error import HTTPError
 
 from django.core.exceptions import ValidationError
 
 import PyPDF2
+
+logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 
 def online_document(url):
@@ -42,4 +46,7 @@ def pdf(value):
         _ = PyPDF2.PdfFileReader(value.file)
 
     except:
+        logger.warning('Exception caught by bare except')
+        logger.warning('%s %s', *(sys.exc_info()[0:2]))
+
         raise ValidationError("File doesn't look to be a PDF file.")  # pylint: disable=raise-missing-from

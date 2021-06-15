@@ -1,6 +1,8 @@
 import copy
 import io
+import logging
 import shutil
+import sys
 
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
@@ -16,6 +18,8 @@ from lowfat.models import Claimant, Expense, Fund, FUND_STATUS_APPROVED_SET, Exp
 from lowfat.forms import ExpenseForm, ExpenseReviewForm, ExpenseShortlistedForm
 from lowfat.mail import expense_review_notification, new_expense_notification
 from .claimant import get_terms_and_conditions_url
+
+logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 
 @login_required
@@ -253,7 +257,11 @@ def expense_remove_relative(request, fund_id, expense_relative_number):
     try:
         this_fund = Fund.objects.get(id=fund_id)
         this_expense = Expense.objects.get(fund=this_fund, relative_number=expense_relative_number)
-    except:  # pylint: disable=bare-except
+
+    except:
+        logger.warning('Exception caught by bare except')
+        logger.warning('%s %s', *(sys.exc_info()[0:2]))
+
         this_expense = None
         redirect_url = "/"
         messages.error(request, "The expense that you want to remove doesn't exist.")
@@ -283,7 +291,11 @@ def expense_append_relative(request, fund_id, expense_relative_number):
             fund=Fund.objects.get(id=fund_id),
             relative_number=expense_relative_number
         )
-    except:  # pylint: disable=bare-except
+
+    except:
+        logger.warning('Exception caught by bare except')
+        logger.warning('%s %s', *(sys.exc_info()[0:2]))
+
         this_expense = None
         messages.error(request, "The expense that you want doesn't exist.")
 
@@ -295,7 +307,11 @@ def expense_append_relative(request, fund_id, expense_relative_number):
             request_pdf_io = io.BytesIO(request.FILES["pdf"].read())
             PdfFileReader(request_pdf_io)
             request_pdf_io.seek(0)
-        except:  # pylint: disable=bare-except
+
+        except:
+            logger.warning('Exception caught by bare except')
+            logger.warning('%s %s', *(sys.exc_info()[0:2]))
+
             messages.error(request, 'File is not a PDF.')
 
         # Backup of original PDF

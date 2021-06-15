@@ -1,5 +1,6 @@
 from datetime import datetime
 import logging
+import sys
 import zipfile
 
 from django.contrib import messages
@@ -401,7 +402,11 @@ def my_profile(request):
     if not request.user.is_staff:
         try:
             claimant = Claimant.objects.get(user=request.user)
-        except:  # pylint: disable=bare-except
+
+        except:
+            logger.warning('Exception caught by bare except')
+            logger.warning('%s %s', *(sys.exc_info()[0:2]))
+
             return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/unavailable/'}))
 
         return _claimant_detail(request, claimant)
