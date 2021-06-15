@@ -18,11 +18,11 @@ from django.forms import (
     ValidationError,
 )
 
+from crispy_forms.bootstrap import PrependedText
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML
-from crispy_forms.bootstrap import PrependedText
 
-from .models import *
+from . import models
 
 TODAY_YEAR = datetime.now().year
 SELECT_DATE_WIDGE_YEARS = [TODAY_YEAR + delta for delta in range(-3, 4)]
@@ -56,7 +56,7 @@ class GarlicForm(ModelForm):
 
 class ClaimantForm(GarlicForm):
     class Meta:
-        model = Claimant
+        model = models.Claimant
         fields = [
             'forenames',
             'surname',
@@ -146,7 +146,7 @@ class ClaimantForm(GarlicForm):
 
 class FellowForm(GarlicForm):
     class Meta:
-        model = Claimant
+        model = models.Claimant
         fields = [
             'forenames',
             'surname',
@@ -273,7 +273,7 @@ class FellowForm(GarlicForm):
 
 class FundForm(GarlicForm):
     class Meta:
-        model = Fund
+        model = models.Fund
         exclude = [  # pylint: disable=modelform-uses-exclude
             "success_reported",
             "status",
@@ -436,18 +436,18 @@ class FundForm(GarlicForm):
 
 class FundPublicForm(GarlicForm):
     forenames = CharField(
-        max_length=MAX_CHAR_LENGTH,
+        max_length=models.MAX_CHAR_LENGTH,
         required=True
     )
     surname = CharField(
-        max_length=MAX_CHAR_LENGTH,
+        max_length=models.MAX_CHAR_LENGTH,
         required=True
     )
     email = EmailField(
         required=True
     )
     phone = CharField(
-        max_length=MAX_CHAR_LENGTH,
+        max_length=models.MAX_CHAR_LENGTH,
         required=True,
         help_text="The number that we can contact you."
     )
@@ -462,19 +462,19 @@ class FundPublicForm(GarlicForm):
     # )
     home_city = CharField(
         required=True,
-        max_length=MAX_CHAR_LENGTH
+        max_length=models.MAX_CHAR_LENGTH
     )
     affiliation = CharField(  # Home institution
-        max_length=MAX_CHAR_LENGTH,
+        max_length=models.MAX_CHAR_LENGTH,
         required=True,
     )
     department = CharField(  # Department within home institution
-        max_length=MAX_CHAR_LENGTH,
+        max_length=models.MAX_CHAR_LENGTH,
         required=True
     )
 
     class Meta:
-        model = Fund
+        model = models.Fund
         exclude = [  # pylint: disable=modelform-uses-exclude
             'claimant',
             'mandatory',
@@ -641,7 +641,7 @@ class FundPublicForm(GarlicForm):
 
 class FundGDPRForm(GarlicForm):
     class Meta:
-        model = Fund
+        model = models.Fund
         fields = [
             'can_be_included_in_calendar',
             'can_be_advertise_before',
@@ -676,7 +676,7 @@ class FundGDPRForm(GarlicForm):
 
 class FundReviewForm(GarlicForm):
     class Meta:
-        model = Fund
+        model = models.Fund
         fields = [
             # "ad_status",  # TODO uncomment in the future
             "category",
@@ -784,7 +784,7 @@ class FundImportForm(Form):
 
 class ExpenseForm(GarlicForm):
     class Meta:
-        model = Expense
+        model = models.Expense
         fields = [
             'fund',
             'claim',
@@ -863,14 +863,14 @@ class ExpenseForm(GarlicForm):
         )
 
         if "initial" in kwargs and "fund" in kwargs["initial"]:
-            self.fields['fund'].queryset = Fund.objects.filter(id=kwargs["initial"]["fund"].id)
+            self.fields['fund'].queryset = models.Fund.objects.filter(id=kwargs["initial"]["fund"].id)
         else:
-            self.fields['fund'].queryset = Fund.objects.filter(status__in=FUND_STATUS_APPROVED_SET)
+            self.fields['fund'].queryset = models.Fund.objects.filter(status__in=models.FUND_STATUS_APPROVED_SET)
 
 
 class ExpenseShortlistedForm(GarlicForm):
     class Meta:
-        model = Expense
+        model = models.Expense
         fields = [
             'fund',
             'claim',
@@ -914,12 +914,12 @@ class ExpenseShortlistedForm(GarlicForm):
             )
         )
 
-        self.fields['fund'].queryset = Fund.objects.filter(status__in=FUND_STATUS_APPROVED_SET)
+        self.fields['fund'].queryset = models.Fund.objects.filter(status__in=models.FUND_STATUS_APPROVED_SET)
 
 
 class ExpenseReviewForm(GarlicForm):
     class Meta:
-        model = Expense
+        model = models.Expense
         fields = [
             'status',
             'final',
@@ -978,7 +978,7 @@ class BlogForm(GarlicForm):
     )
 
     class Meta:
-        model = Blog
+        model = models.Blog
         fields = [
             'fund',
             'coauthor',
@@ -1003,7 +1003,7 @@ class BlogForm(GarlicForm):
 
     # workaround for "no such table: lowfat_claimant"
     try:
-        author_choices = [(this_claimant.id, this_claimant) for this_claimant in Claimant.objects.all()]
+        author_choices = [(this_claimant.id, this_claimant) for this_claimant in models.Claimant.objects.all()]
     except:  # pylint: disable=bare-except
         author_choices = []
     author = ChoiceField(
@@ -1042,12 +1042,12 @@ class BlogForm(GarlicForm):
         )
 
         if "initial" in kwargs and "fund" in kwargs["initial"]:
-            self.fields['fund'].queryset = Fund.objects.filter(id=kwargs["initial"]["fund"].id)
+            self.fields['fund'].queryset = models.Fund.objects.filter(id=kwargs["initial"]["fund"].id)
         else:
-            self.fields['fund'].queryset = Fund.objects.filter(status__in=FUND_STATUS_APPROVED_SET)
+            self.fields['fund'].queryset = models.Fund.objects.filter(status__in=models.FUND_STATUS_APPROVED_SET)
 
         if user:
-            self.fields['fund'].queryset = Fund.objects.filter(status__in=FUND_STATUS_APPROVED_SET)
+            self.fields['fund'].queryset = models.Fund.objects.filter(status__in=models.FUND_STATUS_APPROVED_SET)
 
         if self.is_staff:
             # Force staff to select one author
@@ -1057,7 +1057,7 @@ class BlogForm(GarlicForm):
 
 class BlogReviewForm(GarlicForm):
     class Meta:
-        model = Blog
+        model = models.Blog
         exclude = [  # pylint: disable=modelform-uses-exclude
             "fund",
             "author",
