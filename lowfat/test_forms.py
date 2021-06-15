@@ -1226,36 +1226,36 @@ class FundReviewFormTest(TestCase):
         self.assertFalse(form.is_valid())
 
     # TODO uncomment in the future
-    #def test_null_ad_status(self):
-    #    data = {
-    #        "status": "A",
-    #        "category": "A",
-    #        "focus": "C",
-    #        "required_blog_posts": 1,
-    #        "grant_heading": "F",
-    #        "grant": "SSI1",
-    #        "budget_approved": 100.00,
-    #        "notes_from_admin": ":-)",
-    #    }
+    # def test_null_ad_status(self):
+    #     data = {
+    #         "status": "A",
+    #         "category": "A",
+    #         "focus": "C",
+    #         "required_blog_posts": 1,
+    #         "grant_heading": "F",
+    #         "grant": "SSI1",
+    #         "budget_approved": 100.00,
+    #         "notes_from_admin": ":-)",
+    #     }
     #
-    #    form = FundReviewForm(data)
-    #    self.assertFalse(form.is_valid())
+    #     form = FundReviewForm(data)
+    #     self.assertFalse(form.is_valid())
     #
-    #def test_blank_ad_status(self):
-    #    data = {
-    #        "status": "A",
-    #        "ad_status": "",
-    #        "category": "A",
-    #        "focus": "C",
-    #        "grant_heading": "F",
-    #        "grant": "SSI1",
-    #        "required_blog_posts": 1,
-    #        "budget_approved": 100.00,
-    #        "notes_from_admin": ":-)",
-    #    }
+    # def test_blank_ad_status(self):
+    #     data = {
+    #         "status": "A",
+    #         "ad_status": "",
+    #         "category": "A",
+    #         "focus": "C",
+    #         "grant_heading": "F",
+    #         "grant": "SSI1",
+    #         "required_blog_posts": 1,
+    #         "budget_approved": 100.00,
+    #         "notes_from_admin": ":-)",
+    #     }
     #
-    #    form = FundReviewForm(data)
-    #    self.assertFalse(form.is_valid())
+    #     form = FundReviewForm(data)
+    #     self.assertFalse(form.is_valid())
 
     def test_null_required_blog_posts(self):
         data = {
@@ -1524,7 +1524,7 @@ class BlogReviewFormTest(TestCase):
     def test_blog_status(self):
         for status in ('U', 'R', 'L', 'P', 'D', 'O'):
             data = {
-                "draft_url":  "https://www.software.ac.uk/",
+                "draft_url": "https://www.software.ac.uk/",
                 "status": status,
                 "published_url": "https://www.software.ac.uk/",
             }
@@ -1534,7 +1534,7 @@ class BlogReviewFormTest(TestCase):
 
     def test_minimal_expected(self):
         data = {
-            "draft_url":  "https://www.software.ac.uk/",
+            "draft_url": "https://www.software.ac.uk/",
             "status": "P",
             "published_url": "https://www.software.ac.uk/",
         }
@@ -1544,7 +1544,7 @@ class BlogReviewFormTest(TestCase):
 
     def test_full_expected(self):
         data = {
-            "draft_url":  "https://www.software.ac.uk/",
+            "draft_url": "https://www.software.ac.uk/",
             "status": "P",
             "published_url": "https://www.software.ac.uk/",
             "title": "Title",

@@ -135,7 +135,7 @@ def create_fund(*, claimant_id):
         "budget_request_others": "0.00",
         "justification": ":-)",
         "additional_info": "",
-        }
+    }
 
     _fund = Fund(**data)
     _fund.save()
@@ -159,7 +159,7 @@ def create_all():
         data = {
             "fund": _fund,
             "amount_claimed": "100.00",
-            }
+        }
 
         with open(BASE_DIR.joinpath("upload/expenses/ec1.pdf"), 'rb') as fake_file:
             data.update({
@@ -173,11 +173,11 @@ def create_all():
             "fund": _fund,
             "author": _fund.claimant,
             "draft_url": "http://software.ac.uk",
-            }
+        }
 
         _blog = Blog(**data)
         _blog.save()
-        claimant_test_data[f"{_claimant.user.username}"] ={
+        claimant_test_data[f"{_claimant.user.username}"] = {
             'claimant_id': _claimant_id,
             'fund_id': _fund.id,
             'expense_id': _expense.id,

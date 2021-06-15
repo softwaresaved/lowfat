@@ -113,7 +113,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -138,7 +138,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 302,
             },
-            ]
+        ]
 
         self.run_requests(url, queries, follow=False)
 
@@ -166,7 +166,7 @@ class URLTest(TestCase):
                 "expect_code": 200,
                 "final_url": "/",
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -190,7 +190,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 404,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -213,7 +213,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 404,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -236,7 +236,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -260,7 +260,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -286,7 +286,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -312,7 +312,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -338,7 +338,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -416,7 +416,7 @@ class URLTest(TestCase):
                 },
                 "final_url_regex": r"/request/\d+/",
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -494,7 +494,7 @@ class URLTest(TestCase):
                 },
                 "final_url_regex": r"/request/\d+/",
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -518,7 +518,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -542,7 +542,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -566,7 +566,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -590,7 +590,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -614,7 +614,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -692,7 +692,7 @@ class URLTest(TestCase):
                 },
                 "final_url_regex": r"/request/\d+/expense/\d+",
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -771,7 +771,7 @@ class URLTest(TestCase):
                 },
                 "final_url_regex": r"/request/\d+/expense/\d+",
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -796,7 +796,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -822,7 +822,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 404,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -847,7 +847,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -871,7 +871,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -887,7 +887,7 @@ class URLTest(TestCase):
                 "user": self.public,
                 "expect_code": 200,
                 "post_data": {
-                    "draft_url":  "https://www.software.ac.uk/",
+                    "draft_url": "https://www.software.ac.uk/",
                     "status": "P",
                     "title": "Foo",
                     "published_url": "https://www.software.ac.uk/",
@@ -904,7 +904,7 @@ class URLTest(TestCase):
                 "user": self.claimant_a,
                 "expect_code": 200,
                 "post_data": {
-                    "draft_url":  "https://www.software.ac.uk/",
+                    "draft_url": "https://www.software.ac.uk/",
                     "status": "P",
                     "title": "Foo",
                     "published_url": "https://www.software.ac.uk/",
@@ -921,7 +921,7 @@ class URLTest(TestCase):
                 "user": self.claimant_b,
                 "expect_code": 200,
                 "post_data": {
-                    "draft_url":  "https://www.software.ac.uk/",
+                    "draft_url": "https://www.software.ac.uk/",
                     "status": "P",
                     "title": "Foo",
                     "published_url": "https://www.software.ac.uk/",
@@ -937,7 +937,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
                 "post_data": {
-                    "draft_url":  "https://www.software.ac.uk/",
+                    "draft_url": "https://www.software.ac.uk/",
                     "status": "P",
                     "title": "Foo",
                     "published_url": "https://www.software.ac.uk/",
@@ -945,7 +945,7 @@ class URLTest(TestCase):
                 },
                 "final_url_regex": r"/blog/\d+/",
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -969,7 +969,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -985,7 +985,7 @@ class URLTest(TestCase):
                 "user": self.public,
                 "expect_code": 200,
                 "post_data": {
-                    "draft_url":  "https://www.software.ac.uk/",
+                    "draft_url": "https://www.software.ac.uk/",
                 },
                 "final_url": "/login/?next=/blog/",
             },
@@ -997,7 +997,7 @@ class URLTest(TestCase):
                 "user": self.claimant_a,
                 "expect_code": 200,
                 "post_data": {
-                    "draft_url":  "https://www.software.ac.uk/",
+                    "draft_url": "https://www.software.ac.uk/",
                 },
                 "final_url_regex": r"/blog/\d+/",
             },
@@ -1009,7 +1009,7 @@ class URLTest(TestCase):
                 "user": self.claimant_b,
                 "expect_code": 200,
                 "post_data": {
-                    "draft_url":  "https://www.software.ac.uk/",
+                    "draft_url": "https://www.software.ac.uk/",
                 },
                 "final_url_regex": r"/blog/\d+/",
             },
@@ -1021,7 +1021,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
                 "post_data": {
-                    "draft_url":  "https://www.software.ac.uk/",
+                    "draft_url": "https://www.software.ac.uk/",
                 },
                 "final_url_regex": r"/blog/",
             },
@@ -1030,11 +1030,11 @@ class URLTest(TestCase):
                 "expect_code": 200,
                 "post_data": {
                     "author": 1,
-                    "draft_url":  "https://www.software.ac.uk/",
+                    "draft_url": "https://www.software.ac.uk/",
                 },
                 "final_url_regex": r"/blog/\d+/",
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -1058,7 +1058,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -1085,7 +1085,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -1109,6 +1109,6 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
