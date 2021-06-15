@@ -451,15 +451,15 @@ class FundPublicForm(GarlicForm):
         required=True,
         help_text="The number that we can contact you."
     )
-    #gender = CharField(
-    #    choices=GENDERS,
-    #    max_length=1,
-    #    default="R"
-    #)
-    #home_country = CountryField(
-    #    required=True,
-    #    default='GB'  # Default for United Kingdom
-    #)
+    # gender = CharField(
+    #     choices=GENDERS,
+    #     max_length=1,
+    #     default="R"
+    # )
+    # home_country = CountryField(
+    #     required=True,
+    #     default='GB'  # Default for United Kingdom
+    # )
     home_city = CharField(
         required=True,
         max_length=MAX_CHAR_LENGTH
@@ -525,7 +525,6 @@ class FundPublicForm(GarlicForm):
             'end_date': SelectDateWidget(),
         }
 
-
     required_css_class = 'form-field-required'
     total_budget = CharField(required=False)
 
@@ -556,11 +555,11 @@ class FundPublicForm(GarlicForm):
                 HTML('<h2>Your details</h2>'),
                 'forenames',
                 'surname',
-                #'gender',
+                # 'gender',
                 'email',
                 'phone',
                 'home_city',
-                #'home_country',
+                # 'home_country',
                 'affiliation',
                 'department',
                 HTML('<h2>Funding request details</h2>'),
@@ -679,8 +678,7 @@ class FundReviewForm(GarlicForm):
     class Meta:
         model = Fund
         fields = [
-            "status",
-            #"ad_status",  # TODO uncomment in the future
+            # "ad_status",  # TODO uncomment in the future
             "category",
             "focus",
             "mandatory",
@@ -699,7 +697,6 @@ class FundReviewForm(GarlicForm):
             "activity": "Activities tag",
             'budget_approved': 'Total budget approved',
         }
-
 
     required_css_class = 'form-field-required'
     email = CharField(widget=Textarea, required=False)
@@ -820,7 +817,6 @@ class ExpenseForm(GarlicForm):
             'fund': Select(attrs={"class": "select-single-item"}),
         }
 
-
     required_css_class = 'form-field-required'
 
     def __init__(self, *args, **kwargs):
@@ -839,8 +835,7 @@ class ExpenseForm(GarlicForm):
                         <li>You MUST fill out and attach the <a href='https://drive.google.com/file/d/1muv__x8fhiaGw2hI81sytXTgFqnOsVGl/view'>University of Edinburgh Payment for Non-Staff/Student Expenses form</a> along with your receipts to your expense claim.</li>
                         <li>The <a href='{{ terms_and_conditions_url }}'>Fellowship Programme Terms and Conditions</a> and the <a href='https://drive.google.com/file/d/1wjCD2anwNGgDqee_2dm1C0moPrqxNbju/view'>University of Edinburgh Finance Expenses Policy</a> apply to your request.</li>
                       </ol>
-                    </p>"""
-                )),
+                    </p>""")),
                 'claim',
                 PrependedText(
                     'amount_claimed',
@@ -893,7 +888,6 @@ class ExpenseShortlistedForm(GarlicForm):
             'fund': Select(attrs={"class": "select-single-item"}),
         }
 
-
     required_css_class = 'form-field-required'
 
     def __init__(self, *args, **kwargs):
@@ -941,7 +935,6 @@ class ExpenseReviewForm(GarlicForm):
             'asked_for_authorization_date': SelectDateWidget(),
             'send_to_finance_date': SelectDateWidget(),
         }
-
 
     required_css_class = 'form-field-required'
     email = CharField(widget=Textarea, required=False)
@@ -999,13 +992,12 @@ class BlogForm(GarlicForm):
             'draft_url': 'URL of blog post draft',
             'final': "Is this the final blog post draft associated with this funding request?",
             'notes_from_author': "Notes"
-            }
+        }
 
         widgets = {
             'fund': Select(attrs={"class": "select-single-item"}),
             'coauthor': SelectMultiple(attrs={"class": "select-many-item"}),
         }
-
 
     required_css_class = 'form-field-required'
 
@@ -1020,7 +1012,6 @@ class BlogForm(GarlicForm):
         choices=author_choices,
         label='Main author of draft'
     )
-
 
     def __init__(self, *args, user=None, **kwargs):
         super().__init__(*args, **kwargs)
@@ -1047,8 +1038,8 @@ class BlogForm(GarlicForm):
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
                 )
-                )
             )
+        )
 
         if "initial" in kwargs and "fund" in kwargs["initial"]:
             self.fields['fund'].queryset = Fund.objects.filter(id=kwargs["initial"]["fund"].id)
@@ -1076,7 +1067,6 @@ class BlogReviewForm(GarlicForm):
             "updated",
         ]
 
-
     required_css_class = 'form-field-required'
     email = CharField(widget=Textarea, required=False)
 
@@ -1100,8 +1090,8 @@ class BlogReviewForm(GarlicForm):
                 ButtonHolder(
                     Submit('submit', 'Update')
                 )
-                )
             )
+        )
 
         self.fields['reviewer'].queryset = get_user_model().objects.filter(
             is_staff=True)
