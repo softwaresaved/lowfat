@@ -2,15 +2,15 @@ from django.contrib import admin
 
 from simple_history.admin import SimpleHistoryAdmin
 
-from .models import *
+from . import models
 
 
-@admin.register(FundActivity)
+@admin.register(models.FundActivity)
 class FundActivityAdmin(SimpleHistoryAdmin):
     pass
 
 
-@admin.register(Claimant)
+@admin.register(models.Claimant)
 class ClaimantAdmin(SimpleHistoryAdmin):
     fieldsets = [
         (
@@ -138,7 +138,7 @@ class ClaimantAdmin(SimpleHistoryAdmin):
     ]
 
 
-@admin.register(Fund)
+@admin.register(models.Fund)
 class FundAdmin(SimpleHistoryAdmin):
     fieldsets = [
         (None, {
@@ -261,7 +261,7 @@ class AmountListFilter(admin.SimpleListFilter):
         return query
 
 
-@admin.register(Expense)
+@admin.register(models.Expense)
 class ExpenseAdmin(SimpleHistoryAdmin):
     fieldsets = [
         (None, {
@@ -334,7 +334,7 @@ class ExpenseAdmin(SimpleHistoryAdmin):
     get_start_date.admin_order_field = 'fund__start_date'
 
 
-@admin.register(Blog)
+@admin.register(models.Blog)
 class BlogAdmin(SimpleHistoryAdmin):
     fieldsets = [
         (None, {
@@ -382,21 +382,21 @@ class BlogAdmin(SimpleHistoryAdmin):
     ]
 
 
-@admin.register(FundSentMail)
+@admin.register(models.FundSentMail)
 class FundSentMailAdmin(SimpleHistoryAdmin):
     pass
 
 
-@admin.register(ExpenseSentMail)
+@admin.register(models.ExpenseSentMail)
 class ExpenseSentMailAdmin(SimpleHistoryAdmin):
     pass
 
 
-@admin.register(BlogSentMail)
+@admin.register(models.BlogSentMail)
 class BlogSentMailAdmin(SimpleHistoryAdmin):
     pass
 
 
-@admin.register(TermsAndConditions)
+@admin.register(models.TermsAndConditions)
 class TermsAndConditionsAdmin(SimpleHistoryAdmin):
     pass
