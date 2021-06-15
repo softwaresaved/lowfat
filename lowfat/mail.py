@@ -12,7 +12,7 @@ from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 from django.template import Context, Template
 
-from .models import *
+from . import models
 from .settings import DEFAULT_FROM_EMAIL, SITE_ID
 
 
@@ -90,7 +90,7 @@ def new_fund_notification(fund):
     user_context = {
         "fund": fund,
     }
-    mail = FundSentMail(
+    mail = models.FundSentMail(
         **{
             "justification": "",
             "sender": None,
@@ -109,7 +109,7 @@ def new_expense_notification(expense):
     user_context = {
         "expense": expense,
     }
-    mail = ExpenseSentMail(
+    mail = models.ExpenseSentMail(
         **{
             "justification": "",
             "sender": None,
@@ -130,7 +130,7 @@ def new_blog_notification(blog):
     context = {
         "blog": blog,
     }
-    mail = BlogSentMail(
+    mail = models.BlogSentMail(
         **{
             "justification": "",
             "sender": None,
@@ -184,7 +184,7 @@ def fund_review_notification(message, sender, old, new, copy_to_staffs):
         "old": old,
         "new": new,
     }
-    mail = FundSentMail(
+    mail = models.FundSentMail(
         **{
             "justification": message,
             "sender": sender,
@@ -210,7 +210,7 @@ def expense_review_notification(message, sender, old, new, copy_to_staffs):
         "old": old,
         "new": new,
     }
-    mail = ExpenseSentMail(
+    mail = models.ExpenseSentMail(
         **{
             "justification": message,
             "sender": sender,
@@ -237,7 +237,7 @@ def blog_review_notification(message, sender, old, new, copy_to_staffs):
         "old": old,
         "new": new,
     }
-    mail = BlogSentMail(
+    mail = models.BlogSentMail(
         **{
             "justification": message,
             "sender": sender,
