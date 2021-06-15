@@ -1,13 +1,15 @@
-from django.test import TestCase, Client
+from django.test import Client, TestCase
 
-from .testwrapper import *
-from .models import *
+from . import (
+    models,
+    testwrapper,
+)
 
 
 class URLTest(TestCase):
     def setUp(self):
         # Create the users, claimants, funds and blogs then get a dictionary contain the test data
-        self.claimant_test_data = create_all()
+        self.claimant_test_data = testwrapper.create_all()
 
         # Every test needs a client.
         self.public = Client()
@@ -16,7 +18,7 @@ class URLTest(TestCase):
         self.claimant_a = Client()
         self.claimant_a.login(
             username='claimant-a',
-            password=CLAIMED_A_PASSWORD
+            password=testwrapper.CLAIMED_A_PASSWORD
         )
         self.claimant_a.name = 'claimant-a'
         # unpack outputs of create_all here for ease of use later
@@ -28,7 +30,7 @@ class URLTest(TestCase):
         self.claimant_b = Client()
         self.claimant_b.login(
             username='claimant-b',
-            password=CLAIMED_B_PASSWORD
+            password=testwrapper.CLAIMED_B_PASSWORD
         )
         self.claimant_b.name = 'claimant-b'
         # unpack outputs of create_all here for ease of use later
@@ -40,7 +42,7 @@ class URLTest(TestCase):
         self.admin = Client()
         self.admin.login(
             username='admin',
-            password=ADMIN_PASSWORD
+            password=testwrapper.ADMIN_PASSWORD
         )
         self.admin.name = 'admin'
 
@@ -218,7 +220,10 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_claimant_details_by_slug(self):
-        url = '/claimant/{}/'.format(Claimant.objects.get(id=self.claimant_id_a).slug)
+        url = '/claimant/{}/'.format(
+            models.Claimant.objects.get(id=self.claimant_id_a).slug
+        )
+
         queries = [
             {
                 "user": self.public,
@@ -697,7 +702,7 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_expense_review_relative(self):
-        this_expense = Expense.objects.get(id=self.expense_id_a)
+        this_expense = models.Expense.objects.get(id=self.expense_id_a)
         url = '/fund/{}/expense/{}/review/'.format(self.fund_id_a, this_expense.relative_number)
         queries = [
             {
@@ -776,7 +781,7 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_expense_claim_relative(self):
-        this_expense = Expense.objects.get(id=self.expense_id_a)
+        this_expense = models.Expense.objects.get(id=self.expense_id_a)
         url = '/fund/{}/expense/{}/pdf/'.format(self.fund_id_a, this_expense.relative_number)
         queries = [
             {
@@ -827,7 +832,7 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_expense_details_relative(self):
-        this_expense = Expense.objects.get(id=self.expense_id_a)
+        this_expense = models.Expense.objects.get(id=self.expense_id_a)
         url = '/fund/{}/expense/{}/'.format(self.fund_id_a, this_expense.relative_number)
         queries = [
             {
