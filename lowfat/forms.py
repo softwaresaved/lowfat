@@ -678,6 +678,7 @@ class FundReviewForm(GarlicForm):
     class Meta:
         model = models.Fund
         fields = [
+            "status",
             # "ad_status",  # TODO uncomment in the future
             "category",
             "focus",
