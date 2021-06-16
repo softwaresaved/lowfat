@@ -1,13 +1,15 @@
-from django.test import TestCase, Client
+from django.test import Client, TestCase
 
-from .testwrapper import *
-from .models import *
+from . import (
+    models,
+    testwrapper,
+)
 
 
 class URLTest(TestCase):
     def setUp(self):
         # Create the users, claimants, funds and blogs then get a dictionary contain the test data
-        self.claimant_test_data = create_all()
+        self.claimant_test_data = testwrapper.create_all()
 
         # Every test needs a client.
         self.public = Client()
@@ -16,7 +18,7 @@ class URLTest(TestCase):
         self.claimant_a = Client()
         self.claimant_a.login(
             username='claimant-a',
-            password=CLAIMED_A_PASSWORD
+            password=testwrapper.CLAIMED_A_PASSWORD
         )
         self.claimant_a.name = 'claimant-a'
         # unpack outputs of create_all here for ease of use later
@@ -28,7 +30,7 @@ class URLTest(TestCase):
         self.claimant_b = Client()
         self.claimant_b.login(
             username='claimant-b',
-            password=CLAIMED_B_PASSWORD
+            password=testwrapper.CLAIMED_B_PASSWORD
         )
         self.claimant_b.name = 'claimant-b'
         # unpack outputs of create_all here for ease of use later
@@ -40,7 +42,7 @@ class URLTest(TestCase):
         self.admin = Client()
         self.admin.login(
             username='admin',
-            password=ADMIN_PASSWORD
+            password=testwrapper.ADMIN_PASSWORD
         )
         self.admin.name = 'admin'
 
@@ -113,7 +115,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -138,7 +140,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 302,
             },
-            ]
+        ]
 
         self.run_requests(url, queries, follow=False)
 
@@ -166,7 +168,7 @@ class URLTest(TestCase):
                 "expect_code": 200,
                 "final_url": "/",
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -190,7 +192,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 404,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -213,12 +215,15 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 404,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
     def test_claimant_details_by_slug(self):
-        url = '/claimant/{}/'.format(Claimant.objects.get(id=self.claimant_id_a).slug)
+        url = '/claimant/{}/'.format(
+            models.Claimant.objects.get(id=self.claimant_id_a).slug
+        )
+
         queries = [
             {
                 "user": self.public,
@@ -236,7 +241,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -260,7 +265,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -286,7 +291,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -312,7 +317,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -338,7 +343,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -416,7 +421,7 @@ class URLTest(TestCase):
                 },
                 "final_url_regex": r"/request/\d+/",
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -494,7 +499,7 @@ class URLTest(TestCase):
                 },
                 "final_url_regex": r"/request/\d+/",
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -518,7 +523,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -542,7 +547,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -566,7 +571,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -590,7 +595,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -614,7 +619,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -692,12 +697,12 @@ class URLTest(TestCase):
                 },
                 "final_url_regex": r"/request/\d+/expense/\d+",
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
     def test_expense_review_relative(self):
-        this_expense = Expense.objects.get(id=self.expense_id_a)
+        this_expense = models.Expense.objects.get(id=self.expense_id_a)
         url = '/fund/{}/expense/{}/review/'.format(self.fund_id_a, this_expense.relative_number)
         queries = [
             {
@@ -771,12 +776,12 @@ class URLTest(TestCase):
                 },
                 "final_url_regex": r"/request/\d+/expense/\d+",
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
     def test_expense_claim_relative(self):
-        this_expense = Expense.objects.get(id=self.expense_id_a)
+        this_expense = models.Expense.objects.get(id=self.expense_id_a)
         url = '/fund/{}/expense/{}/pdf/'.format(self.fund_id_a, this_expense.relative_number)
         queries = [
             {
@@ -796,7 +801,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -822,12 +827,12 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 404,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
     def test_expense_details_relative(self):
-        this_expense = Expense.objects.get(id=self.expense_id_a)
+        this_expense = models.Expense.objects.get(id=self.expense_id_a)
         url = '/fund/{}/expense/{}/'.format(self.fund_id_a, this_expense.relative_number)
         queries = [
             {
@@ -847,7 +852,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -871,7 +876,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -887,7 +892,7 @@ class URLTest(TestCase):
                 "user": self.public,
                 "expect_code": 200,
                 "post_data": {
-                    "draft_url":  "https://www.software.ac.uk/",
+                    "draft_url": "https://www.software.ac.uk/",
                     "status": "P",
                     "title": "Foo",
                     "published_url": "https://www.software.ac.uk/",
@@ -904,7 +909,7 @@ class URLTest(TestCase):
                 "user": self.claimant_a,
                 "expect_code": 200,
                 "post_data": {
-                    "draft_url":  "https://www.software.ac.uk/",
+                    "draft_url": "https://www.software.ac.uk/",
                     "status": "P",
                     "title": "Foo",
                     "published_url": "https://www.software.ac.uk/",
@@ -921,7 +926,7 @@ class URLTest(TestCase):
                 "user": self.claimant_b,
                 "expect_code": 200,
                 "post_data": {
-                    "draft_url":  "https://www.software.ac.uk/",
+                    "draft_url": "https://www.software.ac.uk/",
                     "status": "P",
                     "title": "Foo",
                     "published_url": "https://www.software.ac.uk/",
@@ -937,7 +942,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
                 "post_data": {
-                    "draft_url":  "https://www.software.ac.uk/",
+                    "draft_url": "https://www.software.ac.uk/",
                     "status": "P",
                     "title": "Foo",
                     "published_url": "https://www.software.ac.uk/",
@@ -945,7 +950,7 @@ class URLTest(TestCase):
                 },
                 "final_url_regex": r"/blog/\d+/",
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -969,7 +974,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -985,7 +990,7 @@ class URLTest(TestCase):
                 "user": self.public,
                 "expect_code": 200,
                 "post_data": {
-                    "draft_url":  "https://www.software.ac.uk/",
+                    "draft_url": "https://www.software.ac.uk/",
                 },
                 "final_url": "/login/?next=/blog/",
             },
@@ -997,7 +1002,7 @@ class URLTest(TestCase):
                 "user": self.claimant_a,
                 "expect_code": 200,
                 "post_data": {
-                    "draft_url":  "https://www.software.ac.uk/",
+                    "draft_url": "https://www.software.ac.uk/",
                 },
                 "final_url_regex": r"/blog/\d+/",
             },
@@ -1009,7 +1014,7 @@ class URLTest(TestCase):
                 "user": self.claimant_b,
                 "expect_code": 200,
                 "post_data": {
-                    "draft_url":  "https://www.software.ac.uk/",
+                    "draft_url": "https://www.software.ac.uk/",
                 },
                 "final_url_regex": r"/blog/\d+/",
             },
@@ -1021,7 +1026,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
                 "post_data": {
-                    "draft_url":  "https://www.software.ac.uk/",
+                    "draft_url": "https://www.software.ac.uk/",
                 },
                 "final_url_regex": r"/blog/",
             },
@@ -1030,11 +1035,11 @@ class URLTest(TestCase):
                 "expect_code": 200,
                 "post_data": {
                     "author": 1,
-                    "draft_url":  "https://www.software.ac.uk/",
+                    "draft_url": "https://www.software.ac.uk/",
                 },
                 "final_url_regex": r"/blog/\d+/",
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -1058,7 +1063,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -1085,7 +1090,7 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
 
@@ -1109,6 +1114,6 @@ class URLTest(TestCase):
                 "user": self.admin,
                 "expect_code": 200,
             },
-            ]
+        ]
 
         self.run_requests(url, queries)
