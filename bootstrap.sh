@@ -2,7 +2,7 @@
 #
 # Configure the CSS.
 
-STATIC_FOLDER=lowfat/static/
+STATIC_FOLDER=static/
 TMP_FOLDER=$(mktemp -d)
 BOOTSTRAP_ZIP=${TMP_FOLDER}/bootstrap.zip
 FONT_AWESOME_ZIP=${TMP_FOLDER}/fontawesome.zip
