@@ -38,12 +38,12 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool, default=False)
 
+
 ALLOWED_HOSTS = config(
     'ALLOWED_HOSTS',
     default='*' if DEBUG else '127.0.0.1,localhost,localhost.localdomain',
     cast=decouple.Csv()
 )
-
 
 # Application definition
 
@@ -51,25 +51,25 @@ DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.sites',
     'django.contrib.flatpages',
+    'django.contrib.messages',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.staticfiles',
 ]
 
 THIRD_PARTY_APPS = [
-    'django_countries',
-    'tagulous',
-    'crispy_forms',
-    'social_django',
-    'dbbackup',
+    'bootstrap_datepicker_plus',
     'constance',
     'constance.backends.database',
+    'crispy_forms',
+    'dbbackup',
+    'django_countries',
     'django_extensions',
-    'datetimewidget',
-    'simple_history',
     'imagekit',
+    'simple_history',
+    'social_django',
+    'tagulous',
 ]
 
 FIRST_PARTY_APPS = [

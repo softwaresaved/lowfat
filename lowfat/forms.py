@@ -1,3 +1,4 @@
+from bootstrap_datepicker_plus import DatePickerInput
 from datetime import datetime, date
 import logging
 import sys
@@ -14,7 +15,6 @@ from django.forms import (
     Form,
     ModelForm,
     Select,
-    SelectDateWidget,
     SelectMultiple,
     Textarea,
     ValidationError,
@@ -319,8 +319,8 @@ class FundForm(GarlicForm):
             'category': Select(attrs={"class": "select-single-item"}),
             'focus': Select(attrs={"class": "select-single-item"}),
             'country': Select(attrs={"class": "select-single-item"}),
-            'start_date': SelectDateWidget(),
-            'end_date': SelectDateWidget(),
+            'start_date': DatePickerInput(),
+            'end_date': DatePickerInput(),
         }
 
     required_css_class = 'form-field-required'
@@ -525,8 +525,8 @@ class FundPublicForm(GarlicForm):
             'category': Select(attrs={"class": "select-single-item"}),
             'focus': Select(attrs={"class": "select-single-item"}),
             'country': Select(attrs={"class": "select-single-item"}),
-            'start_date': SelectDateWidget(),
-            'end_date': SelectDateWidget(),
+            'start_date': DatePickerInput(),
+            'end_date': DatePickerInput(),
         }
 
     required_css_class = 'form-field-required'
@@ -937,8 +937,8 @@ class ExpenseReviewForm(GarlicForm):
         ]
 
         widgets = {
-            'asked_for_authorization_date': SelectDateWidget(),
-            'send_to_finance_date': SelectDateWidget(),
+            'asked_for_authorization_date': DatePickerInput(),
+            'send_to_finance_date': DatePickerInput(),
         }
 
     required_css_class = 'form-field-required'
