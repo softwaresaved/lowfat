@@ -4,6 +4,7 @@ from django.core.management.base import BaseCommand
 
 from lowfat.models import Fund, Expense
 
+
 class Command(BaseCommand):
     help = "Fix funding source"
 
@@ -19,7 +20,8 @@ class Command(BaseCommand):
                     claimant__forenames=line["forname_s"],
                     claimant__surname=line["surname"],
                     title=line["event_title"]
-                    )
+                )
+
                 for fund in funds:
                     fund.funds_from_default = line["new_funding_source_subcategory"]
                     fund.grant_default = line["funding_source"]

@@ -7,16 +7,14 @@ from django_extensions.management.jobs import DailyJob
 from ...models import Fund, Expense, Blog
 from ...mail import staff_reminder, staff_follow_up
 
+
 class Job(DailyJob):
     help = "Reminder staffs to review one request."
 
     def execute(self):
-        print("""Running {}
-
-config.DAYS_TO_ANSWER_BACK = {}""".format(
-    __file__,
-    config.DAYS_TO_ANSWER_BACK
-))
+        print(('Running {}\n\n'
+               'config.DAYS_TO_ANSWER_BACK = {}').format(
+                   __file__, config.DAYS_TO_ANSWER_BACK))
 
         today = datetime.now()
         all_unprocessed_requests = [

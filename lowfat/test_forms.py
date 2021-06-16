@@ -5,9 +5,11 @@ from django.test import TestCase
 from django.core.files import File
 from django.core.files.images import ImageFile
 
-from .testwrapper import *
-from .models import *
-from .forms import *
+from . import (
+    forms,
+    models,
+    testwrapper,
+)
 
 # Define the base directory for lowfat
 BASE_DIR = pathlib.Path(__name__).absolute().parent
@@ -37,7 +39,7 @@ class FellowFormTest(TestCase):
                 "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-            form = FellowForm(data, file_data)
+            form = forms.FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_email(self):
@@ -62,7 +64,7 @@ class FellowFormTest(TestCase):
                 "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-            form = FellowForm(data, file_data)
+            form = forms.FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_phone(self):
@@ -87,7 +89,7 @@ class FellowFormTest(TestCase):
                 "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-            form = FellowForm(data, file_data)
+            form = forms.FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_country(self):
@@ -112,7 +114,7 @@ class FellowFormTest(TestCase):
                 "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-            form = FellowForm(data, file_data)
+            form = forms.FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_city(self):
@@ -137,7 +139,7 @@ class FellowFormTest(TestCase):
                 "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-            form = FellowForm(data, file_data)
+            form = forms.FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_research_area(self):
@@ -162,7 +164,7 @@ class FellowFormTest(TestCase):
                 "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-            form = FellowForm(data, file_data)
+            form = forms.FellowForm(data, file_data)
         self.assertTrue(form.is_valid())
 
     def test_blank_research_area_code(self):
@@ -187,7 +189,7 @@ class FellowFormTest(TestCase):
                 "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-            form = FellowForm(data, file_data)
+            form = forms.FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_affiliation(self):
@@ -211,7 +213,7 @@ class FellowFormTest(TestCase):
                 "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-            form = FellowForm(data, file_data)
+            form = forms.FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_funding(self):
@@ -235,7 +237,7 @@ class FellowFormTest(TestCase):
                 "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-            form = FellowForm(data, file_data)
+            form = forms.FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_blank_description(self):
@@ -259,7 +261,7 @@ class FellowFormTest(TestCase):
                 "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-            form = FellowForm(data, file_data)
+            form = forms.FellowForm(data, file_data)
         self.assertFalse(form.is_valid())
 
     def test_null_photo(self):
@@ -278,7 +280,7 @@ class FellowFormTest(TestCase):
             "work_description": "Work",
         }
 
-        form = FellowForm(data, {})
+        form = forms.FellowForm(data, {})
         self.assertFalse(form.is_valid())
 
     def test_minimal_expected(self):
@@ -308,7 +310,7 @@ class FellowFormTest(TestCase):
                 "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-            form = FellowForm(data, file_data)
+            form = forms.FellowForm(data, file_data)
         self.assertTrue(form.is_valid())
 
     def test_expected(self):
@@ -349,14 +351,14 @@ class FellowFormTest(TestCase):
                 "photo": ImageFile(test_image, name="ali-christensen.jpg")
             }
 
-            form = FellowForm(data, file_data)
+            form = forms.FellowForm(data, file_data)
         self.assertTrue(form.is_valid())
 
 
 class FundFormTest(TestCase):
     def setUp(self):
-        create_users()
-        self.claimant_a_id, self.claimant_b_id = create_claimants()
+        testwrapper.create_users()
+        self.claimant_a_id, self.claimant_b_id = testwrapper.create_claimants()
 
     def test_null_claimant(self):
         data = {
@@ -378,7 +380,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_claimant(self):
@@ -402,7 +404,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_category(self):
@@ -425,7 +427,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_focus(self):
@@ -447,7 +449,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_title(self):
@@ -471,7 +473,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_url(self):
@@ -492,10 +494,10 @@ class FundFormTest(TestCase):
             "budget_request_others": 0.00,
             "justification": ":-)",
             "success_targeted": ":-)",
-            "approval_chain": ApprovalChain.ONE_TIME.value,  # pylint: disable=no-member
+            "approval_chain": models.ApprovalChain.ONE_TIME.value,  # pylint: disable=no-member
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertTrue(form.is_valid())
 
     def test_blank_url(self):
@@ -517,10 +519,10 @@ class FundFormTest(TestCase):
             "budget_request_others": 0.00,
             "justification": ":-)",
             "success_targeted": ":-)",
-            "approval_chain": ApprovalChain.ONE_TIME.value,  # pylint: disable=no-member
+            "approval_chain": models.ApprovalChain.ONE_TIME.value,  # pylint: disable=no-member
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertTrue(form.is_valid())
 
     def test_not_http_url(self):
@@ -542,10 +544,10 @@ class FundFormTest(TestCase):
             "budget_request_others": 0.00,
             "justification": ":-)",
             "success_targeted": ":-)",
-            "approval_chain": ApprovalChain.ONE_TIME.value,  # pylint: disable=no-member
+            "approval_chain": models.ApprovalChain.ONE_TIME.value,  # pylint: disable=no-member
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertTrue(form.is_valid())
 
     def test_null_country(self):
@@ -568,7 +570,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_country(self):
@@ -592,7 +594,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_city(self):
@@ -615,7 +617,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_city(self):
@@ -639,7 +641,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_start_date(self):
@@ -662,7 +664,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_start_date(self):
@@ -686,7 +688,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_old_start_date(self):
@@ -710,7 +712,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_end_date(self):
@@ -733,7 +735,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_end_date(self):
@@ -757,7 +759,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_old_end_date(self):
@@ -781,7 +783,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_budget_request_travel(self):
@@ -804,7 +806,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_budget_request_attendance_fees(self):  # pylint: disable=invalid-name
@@ -827,7 +829,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_budget_request_subsistence_cost(self):  # pylint: disable=invalid-name
@@ -850,7 +852,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_request_venue_hire(self):
@@ -873,7 +875,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_budget_request_catering(self):  # pylint: disable=invalid-name
@@ -896,7 +898,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_budget_request_others(self):
@@ -919,7 +921,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_justification(self):
@@ -942,7 +944,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_justification(self):
@@ -966,7 +968,7 @@ class FundFormTest(TestCase):
             "success_targeted": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_success_targeted(self):
@@ -989,7 +991,7 @@ class FundFormTest(TestCase):
             "justification": ":-)",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_success_targeted(self):
@@ -1013,7 +1015,7 @@ class FundFormTest(TestCase):
             "success_targeted": "",
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
     def test_minimal_expected(self):
@@ -1035,10 +1037,10 @@ class FundFormTest(TestCase):
             "budget_request_others": 0.00,
             "justification": ":-)",
             "success_targeted": ":-)",
-            "approval_chain": ApprovalChain.ONE_TIME.value,  # pylint: disable=no-member
+            "approval_chain": models.ApprovalChain.ONE_TIME.value,  # pylint: disable=no-member
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertTrue(form.is_valid())
 
     def test_full_expected(self):
@@ -1061,18 +1063,18 @@ class FundFormTest(TestCase):
             "justification": ":-)",
             "success_targeted": ":-)",
             "additional_info": "",
-            "approval_chain": ApprovalChain.ONE_TIME.value,  # pylint: disable=no-member
+            "approval_chain": models.ApprovalChain.ONE_TIME.value,  # pylint: disable=no-member
         }
 
-        form = FundForm(data)
+        form = forms.FundForm(data)
         self.assertTrue(form.is_valid())
 
 
 class FundReviewFormTest(TestCase):
     def setUp(self):
-        create_users()
-        self.claimant_a_id, self.claimant_b_id = create_claimants()
-        self.fund_id = create_fund(claimant_id=self.claimant_a_id).id
+        testwrapper.create_users()
+        self.claimant_a_id, self.claimant_b_id = testwrapper.create_claimants()
+        self.fund_id = testwrapper.create_fund(claimant_id=self.claimant_a_id).id
 
     def test_null_status(self):
         data = {
@@ -1086,7 +1088,7 @@ class FundReviewFormTest(TestCase):
             "notes_from_admin": ":-)",
         }
 
-        form = FundReviewForm(data)
+        form = forms.FundReviewForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_status(self):
@@ -1102,7 +1104,7 @@ class FundReviewFormTest(TestCase):
             "notes_from_admin": ":-)",
         }
 
-        form = FundReviewForm(data)
+        form = forms.FundReviewForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_category(self):
@@ -1116,7 +1118,7 @@ class FundReviewFormTest(TestCase):
             "budget_approved": 100.00,
         }
 
-        form = FundReviewForm(data)
+        form = forms.FundReviewForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_category(self):
@@ -1131,7 +1133,7 @@ class FundReviewFormTest(TestCase):
             "budget_approved": 100.00,
         }
 
-        form = FundReviewForm(data)
+        form = forms.FundReviewForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_focus(self):
@@ -1145,7 +1147,7 @@ class FundReviewFormTest(TestCase):
             "budget_approved": 100.00,
         }
 
-        form = FundReviewForm(data)
+        form = forms.FundReviewForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_focus(self):
@@ -1160,7 +1162,7 @@ class FundReviewFormTest(TestCase):
             "budget_approved": 100.00,
         }
 
-        form = FundReviewForm(data)
+        form = forms.FundReviewForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_fund_from_default(self):
@@ -1175,7 +1177,7 @@ class FundReviewFormTest(TestCase):
             "notes_from_admin": ":-)",
         }
 
-        form = FundReviewForm(data)
+        form = forms.FundReviewForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_fund_from_default(self):
@@ -1191,7 +1193,7 @@ class FundReviewFormTest(TestCase):
             "notes_from_admin": ":-)",
         }
 
-        form = FundReviewForm(data)
+        form = forms.FundReviewForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_grant(self):
@@ -1206,7 +1208,7 @@ class FundReviewFormTest(TestCase):
             "notes_from_admin": ":-)",
         }
 
-        form = FundReviewForm(data)
+        form = forms.FundReviewForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_grant(self):
@@ -1222,40 +1224,40 @@ class FundReviewFormTest(TestCase):
             "notes_from_admin": ":-)",
         }
 
-        form = FundReviewForm(data)
+        form = forms.FundReviewForm(data)
         self.assertFalse(form.is_valid())
 
     # TODO uncomment in the future
-    #def test_null_ad_status(self):
-    #    data = {
-    #        "status": "A",
-    #        "category": "A",
-    #        "focus": "C",
-    #        "required_blog_posts": 1,
-    #        "grant_heading": "F",
-    #        "grant": "SSI1",
-    #        "budget_approved": 100.00,
-    #        "notes_from_admin": ":-)",
-    #    }
+    # def test_null_ad_status(self):
+    #     data = {
+    #         "status": "A",
+    #         "category": "A",
+    #         "focus": "C",
+    #         "required_blog_posts": 1,
+    #         "grant_heading": "F",
+    #         "grant": "SSI1",
+    #         "budget_approved": 100.00,
+    #         "notes_from_admin": ":-)",
+    #     }
     #
-    #    form = FundReviewForm(data)
-    #    self.assertFalse(form.is_valid())
+    #     form = forms.FundReviewForm(data)
+    #     self.assertFalse(form.is_valid())
     #
-    #def test_blank_ad_status(self):
-    #    data = {
-    #        "status": "A",
-    #        "ad_status": "",
-    #        "category": "A",
-    #        "focus": "C",
-    #        "grant_heading": "F",
-    #        "grant": "SSI1",
-    #        "required_blog_posts": 1,
-    #        "budget_approved": 100.00,
-    #        "notes_from_admin": ":-)",
-    #    }
+    # def test_blank_ad_status(self):
+    #     data = {
+    #         "status": "A",
+    #         "ad_status": "",
+    #         "category": "A",
+    #         "focus": "C",
+    #         "grant_heading": "F",
+    #         "grant": "SSI1",
+    #         "required_blog_posts": 1,
+    #         "budget_approved": 100.00,
+    #         "notes_from_admin": ":-)",
+    #     }
     #
-    #    form = FundReviewForm(data)
-    #    self.assertFalse(form.is_valid())
+    #     form = forms.FundReviewForm(data)
+    #     self.assertFalse(form.is_valid())
 
     def test_null_required_blog_posts(self):
         data = {
@@ -1268,7 +1270,7 @@ class FundReviewFormTest(TestCase):
             "budget_approved": 100.00,
         }
 
-        form = FundReviewForm(data)
+        form = forms.FundReviewForm(data)
         self.assertTrue(form.is_valid())
 
     def test_null_budget_approved(self):
@@ -1283,7 +1285,7 @@ class FundReviewFormTest(TestCase):
             "notes_from_admin": ":-)",
         }
 
-        form = FundReviewForm(data)
+        form = forms.FundReviewForm(data)
         self.assertFalse(form.is_valid())
 
     def test_minimal_expected(self):
@@ -1298,7 +1300,7 @@ class FundReviewFormTest(TestCase):
             "budget_approved": 100.00,
         }
 
-        form = FundReviewForm(data)
+        form = forms.FundReviewForm(data)
         self.assertTrue(form.is_valid())
 
     def test_full_expected(self):
@@ -1314,15 +1316,15 @@ class FundReviewFormTest(TestCase):
             "notes_from_admin": ":-)",
         }
 
-        form = FundReviewForm(data)
+        form = forms.FundReviewForm(data)
         self.assertTrue(form.is_valid())
 
 
 class ExpenseFormTest(TestCase):
     def setUp(self):
-        create_users()
-        self.claimant_a_id, self.claimant_b_id = create_claimants()
-        self.fund_id = create_fund(claimant_id=self.claimant_a_id).id
+        testwrapper.create_users()
+        self.claimant_a_id, self.claimant_b_id = testwrapper.create_claimants()
+        self.fund_id = testwrapper.create_fund(claimant_id=self.claimant_a_id).id
 
     def test_null_fund(self):
         data = {
@@ -1334,7 +1336,7 @@ class ExpenseFormTest(TestCase):
                 "claim": File(fake_file, name='ec1.pdf'),
             }
 
-            form = ExpenseForm(data, file_data)
+            form = forms.ExpenseForm(data, file_data)
             self.assertFalse(form.is_valid())
 
     def test_blank_fund(self):
@@ -1348,7 +1350,7 @@ class ExpenseFormTest(TestCase):
                 "claim": File(fake_file, name='ec1.pdf'),
             }
 
-            form = ExpenseForm(data, file_data)
+            form = forms.ExpenseForm(data, file_data)
             self.assertFalse(form.is_valid())
 
     def test_null_amount_claimed(self):
@@ -1361,7 +1363,7 @@ class ExpenseFormTest(TestCase):
                 "claim": File(fake_file, name='ec1.pdf'),
             }
 
-            form = ExpenseForm(data, file_data)
+            form = forms.ExpenseForm(data, file_data)
             self.assertFalse(form.is_valid())
 
     def test_null_claim(self):
@@ -1370,7 +1372,7 @@ class ExpenseFormTest(TestCase):
             "amount_claimed": 100.00,
         }
 
-        form = ExpenseForm(data)
+        form = forms.ExpenseForm(data)
         self.assertFalse(form.is_valid())
 
     def test_full_expected(self):
@@ -1383,13 +1385,13 @@ class ExpenseFormTest(TestCase):
             file_data = {
                 "claim": File(fake_file, name='ec1.pdf'),
             }
-            form = ExpenseForm(data, file_data)
+            form = forms.ExpenseForm(data, file_data)
             self.assertTrue(form.is_valid())
 
 
 class ExpenseReviewFormTest(TestCase):
     def setUp(self):
-        self.claimant_test_data = create_all()
+        self.claimant_test_data = testwrapper.create_all()
         # unpack outputs of create_all here for ease of use later
         self.claimant_id_a = self.claimant_test_data['claimant-a']['claimant_id']
         self.fund_id_a = self.claimant_test_data['claimant-a']['fund_id']
@@ -1407,7 +1409,7 @@ class ExpenseReviewFormTest(TestCase):
                 "grant": "SSI1",
             }
 
-            form = ExpenseReviewForm(data)
+            form = forms.ExpenseReviewForm(data)
             self.assertTrue(form.is_valid())
 
     def test_grant(self):
@@ -1421,7 +1423,7 @@ class ExpenseReviewFormTest(TestCase):
                 "grant": grant,
             }
 
-            form = ExpenseReviewForm(data)
+            form = forms.ExpenseReviewForm(data)
             self.assertTrue(form.is_valid())
 
     def test_expense_status(self):
@@ -1435,7 +1437,7 @@ class ExpenseReviewFormTest(TestCase):
                 "grant": "SSI1",
             }
 
-            form = ExpenseReviewForm(data)
+            form = forms.ExpenseReviewForm(data)
             self.assertTrue(form.is_valid())
 
     def test_minimal_expected(self):
@@ -1448,7 +1450,7 @@ class ExpenseReviewFormTest(TestCase):
             "grant": "SSI1",
         }
 
-        form = ExpenseReviewForm(data)
+        form = forms.ExpenseReviewForm(data)
         self.assertTrue(form.is_valid())
 
     def test_full_expected(self):
@@ -1462,15 +1464,15 @@ class ExpenseReviewFormTest(TestCase):
             "notes_from_admin": ":-)",
         }
 
-        form = ExpenseReviewForm(data)
+        form = forms.ExpenseReviewForm(data)
         self.assertTrue(form.is_valid())
 
 
 class BlogFormTest(TestCase):
     def setUp(self):
-        create_users()
-        self.claimant_a_id, self.claimant_b_id = create_claimants()
-        self.fund_id = create_fund(claimant_id=self.claimant_a_id).id
+        testwrapper.create_users()
+        self.claimant_a_id, self.claimant_b_id = testwrapper.create_claimants()
+        self.fund_id = testwrapper.create_fund(claimant_id=self.claimant_a_id).id
 
     def test_null_draft_url(self):
         data = {
@@ -1478,7 +1480,7 @@ class BlogFormTest(TestCase):
             "final": True,
         }
 
-        form = BlogForm(data)
+        form = forms.BlogForm(data)
         self.assertFalse(form.is_valid())
 
     def test_blank_draft_url(self):
@@ -1488,7 +1490,7 @@ class BlogFormTest(TestCase):
             "final": True,
         }
 
-        form = BlogForm(data)
+        form = forms.BlogForm(data)
         self.assertFalse(form.is_valid())
 
     def test_null_final(self):
@@ -1497,7 +1499,7 @@ class BlogFormTest(TestCase):
             "draft_url": "https://www.software.ac.uk/",
         }
 
-        form = BlogForm(data)
+        form = forms.BlogForm(data)
         self.assertTrue(form.is_valid())
 
     def test_full_expected(self):
@@ -1508,13 +1510,13 @@ class BlogFormTest(TestCase):
             "final": True,
         }
 
-        form = BlogForm(data)
+        form = forms.BlogForm(data)
         self.assertTrue(form.is_valid())
 
 
 class BlogReviewFormTest(TestCase):
     def setUp(self):
-        self.claimant_test_data = create_all()
+        self.claimant_test_data = testwrapper.create_all()
         # unpack outputs of create_all here for ease of use later
         self.claimant_id_a = self.claimant_test_data['claimant-a']['claimant_id']
         self.fund_id_a = self.claimant_test_data['claimant-a']['fund_id']
@@ -1524,32 +1526,32 @@ class BlogReviewFormTest(TestCase):
     def test_blog_status(self):
         for status in ('U', 'R', 'L', 'P', 'D', 'O'):
             data = {
-                "draft_url":  "https://www.software.ac.uk/",
+                "draft_url": "https://www.software.ac.uk/",
                 "status": status,
                 "published_url": "https://www.software.ac.uk/",
             }
 
-            form = BlogReviewForm(data)
+            form = forms.BlogReviewForm(data)
             self.assertTrue(form.is_valid())
 
     def test_minimal_expected(self):
         data = {
-            "draft_url":  "https://www.software.ac.uk/",
+            "draft_url": "https://www.software.ac.uk/",
             "status": "P",
             "published_url": "https://www.software.ac.uk/",
         }
 
-        form = BlogReviewForm(data)
+        form = forms.BlogReviewForm(data)
         self.assertTrue(form.is_valid())
 
     def test_full_expected(self):
         data = {
-            "draft_url":  "https://www.software.ac.uk/",
+            "draft_url": "https://www.software.ac.uk/",
             "status": "P",
             "published_url": "https://www.software.ac.uk/",
             "title": "Title",
             "notes_from_admin": ":-)",
         }
 
-        form = BlogReviewForm(data)
+        form = forms.BlogReviewForm(data)
         self.assertTrue(form.is_valid())

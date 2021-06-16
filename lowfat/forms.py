@@ -1,4 +1,6 @@
 from datetime import datetime, date
+import logging
+import sys
 import textwrap
 
 from django.contrib.auth import get_user_model
@@ -18,11 +20,13 @@ from django.forms import (
     ValidationError,
 )
 
+from crispy_forms.bootstrap import PrependedText
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML
-from crispy_forms.bootstrap import PrependedText
 
-from .models import *
+from . import models
+
+logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 TODAY_YEAR = datetime.now().year
 SELECT_DATE_WIDGE_YEARS = [TODAY_YEAR + delta for delta in range(-3, 4)]
@@ -56,7 +60,7 @@ class GarlicForm(ModelForm):
 
 class ClaimantForm(GarlicForm):
     class Meta:
-        model = Claimant
+        model = models.Claimant
         fields = [
             'forenames',
             'surname',
@@ -146,7 +150,7 @@ class ClaimantForm(GarlicForm):
 
 class FellowForm(GarlicForm):
     class Meta:
-        model = Claimant
+        model = models.Claimant
         fields = [
             'forenames',
             'surname',
@@ -273,7 +277,7 @@ class FellowForm(GarlicForm):
 
 class FundForm(GarlicForm):
     class Meta:
-        model = Fund
+        model = models.Fund
         exclude = [  # pylint: disable=modelform-uses-exclude
             "success_reported",
             "status",
@@ -436,45 +440,45 @@ class FundForm(GarlicForm):
 
 class FundPublicForm(GarlicForm):
     forenames = CharField(
-        max_length=MAX_CHAR_LENGTH,
+        max_length=models.MAX_CHAR_LENGTH,
         required=True
     )
     surname = CharField(
-        max_length=MAX_CHAR_LENGTH,
+        max_length=models.MAX_CHAR_LENGTH,
         required=True
     )
     email = EmailField(
         required=True
     )
     phone = CharField(
-        max_length=MAX_CHAR_LENGTH,
+        max_length=models.MAX_CHAR_LENGTH,
         required=True,
         help_text="The number that we can contact you."
     )
-    #gender = CharField(
-    #    choices=GENDERS,
-    #    max_length=1,
-    #    default="R"
-    #)
-    #home_country = CountryField(
-    #    required=True,
-    #    default='GB'  # Default for United Kingdom
-    #)
+    # gender = CharField(
+    #     choices=GENDERS,
+    #     max_length=1,
+    #     default="R"
+    # )
+    # home_country = CountryField(
+    #     required=True,
+    #     default='GB'  # Default for United Kingdom
+    # )
     home_city = CharField(
         required=True,
-        max_length=MAX_CHAR_LENGTH
+        max_length=models.MAX_CHAR_LENGTH
     )
     affiliation = CharField(  # Home institution
-        max_length=MAX_CHAR_LENGTH,
+        max_length=models.MAX_CHAR_LENGTH,
         required=True,
     )
     department = CharField(  # Department within home institution
-        max_length=MAX_CHAR_LENGTH,
+        max_length=models.MAX_CHAR_LENGTH,
         required=True
     )
 
     class Meta:
-        model = Fund
+        model = models.Fund
         exclude = [  # pylint: disable=modelform-uses-exclude
             'claimant',
             'mandatory',
@@ -525,7 +529,6 @@ class FundPublicForm(GarlicForm):
             'end_date': SelectDateWidget(),
         }
 
-
     required_css_class = 'form-field-required'
     total_budget = CharField(required=False)
 
@@ -556,11 +559,11 @@ class FundPublicForm(GarlicForm):
                 HTML('<h2>Your details</h2>'),
                 'forenames',
                 'surname',
-                #'gender',
+                # 'gender',
                 'email',
                 'phone',
                 'home_city',
-                #'home_country',
+                # 'home_country',
                 'affiliation',
                 'department',
                 HTML('<h2>Funding request details</h2>'),
@@ -642,7 +645,7 @@ class FundPublicForm(GarlicForm):
 
 class FundGDPRForm(GarlicForm):
     class Meta:
-        model = Fund
+        model = models.Fund
         fields = [
             'can_be_included_in_calendar',
             'can_be_advertise_before',
@@ -677,10 +680,10 @@ class FundGDPRForm(GarlicForm):
 
 class FundReviewForm(GarlicForm):
     class Meta:
-        model = Fund
+        model = models.Fund
         fields = [
             "status",
-            #"ad_status",  # TODO uncomment in the future
+            # "ad_status",  # TODO uncomment in the future
             "category",
             "focus",
             "mandatory",
@@ -699,7 +702,6 @@ class FundReviewForm(GarlicForm):
             "activity": "Activities tag",
             'budget_approved': 'Total budget approved',
         }
-
 
     required_css_class = 'form-field-required'
     email = CharField(widget=Textarea, required=False)
@@ -787,7 +789,7 @@ class FundImportForm(Form):
 
 class ExpenseForm(GarlicForm):
     class Meta:
-        model = Expense
+        model = models.Expense
         fields = [
             'fund',
             'claim',
@@ -820,7 +822,6 @@ class ExpenseForm(GarlicForm):
             'fund': Select(attrs={"class": "select-single-item"}),
         }
 
-
     required_css_class = 'form-field-required'
 
     def __init__(self, *args, **kwargs):
@@ -839,8 +840,7 @@ class ExpenseForm(GarlicForm):
                         <li>You MUST fill out and attach the <a href='https://drive.google.com/file/d/1muv__x8fhiaGw2hI81sytXTgFqnOsVGl/view'>University of Edinburgh Payment for Non-Staff/Student Expenses form</a> along with your receipts to your expense claim.</li>
                         <li>The <a href='{{ terms_and_conditions_url }}'>Fellowship Programme Terms and Conditions</a> and the <a href='https://drive.google.com/file/d/1wjCD2anwNGgDqee_2dm1C0moPrqxNbju/view'>University of Edinburgh Finance Expenses Policy</a> apply to your request.</li>
                       </ol>
-                    </p>"""
-                )),
+                    </p>""")),
                 'claim',
                 PrependedText(
                     'amount_claimed',
@@ -868,14 +868,14 @@ class ExpenseForm(GarlicForm):
         )
 
         if "initial" in kwargs and "fund" in kwargs["initial"]:
-            self.fields['fund'].queryset = Fund.objects.filter(id=kwargs["initial"]["fund"].id)
+            self.fields['fund'].queryset = models.Fund.objects.filter(id=kwargs["initial"]["fund"].id)
         else:
-            self.fields['fund'].queryset = Fund.objects.filter(status__in=FUND_STATUS_APPROVED_SET)
+            self.fields['fund'].queryset = models.Fund.objects.filter(status__in=models.FUND_STATUS_APPROVED_SET)
 
 
 class ExpenseShortlistedForm(GarlicForm):
     class Meta:
-        model = Expense
+        model = models.Expense
         fields = [
             'fund',
             'claim',
@@ -892,7 +892,6 @@ class ExpenseShortlistedForm(GarlicForm):
         widgets = {
             'fund': Select(attrs={"class": "select-single-item"}),
         }
-
 
     required_css_class = 'form-field-required'
 
@@ -920,12 +919,12 @@ class ExpenseShortlistedForm(GarlicForm):
             )
         )
 
-        self.fields['fund'].queryset = Fund.objects.filter(status__in=FUND_STATUS_APPROVED_SET)
+        self.fields['fund'].queryset = models.Fund.objects.filter(status__in=models.FUND_STATUS_APPROVED_SET)
 
 
 class ExpenseReviewForm(GarlicForm):
     class Meta:
-        model = Expense
+        model = models.Expense
         fields = [
             'status',
             'final',
@@ -941,7 +940,6 @@ class ExpenseReviewForm(GarlicForm):
             'asked_for_authorization_date': SelectDateWidget(),
             'send_to_finance_date': SelectDateWidget(),
         }
-
 
     required_css_class = 'form-field-required'
     email = CharField(widget=Textarea, required=False)
@@ -985,7 +983,7 @@ class BlogForm(GarlicForm):
     )
 
     class Meta:
-        model = Blog
+        model = models.Blog
         fields = [
             'fund',
             'coauthor',
@@ -999,20 +997,23 @@ class BlogForm(GarlicForm):
             'draft_url': 'URL of blog post draft',
             'final': "Is this the final blog post draft associated with this funding request?",
             'notes_from_author': "Notes"
-            }
+        }
 
         widgets = {
             'fund': Select(attrs={"class": "select-single-item"}),
             'coauthor': SelectMultiple(attrs={"class": "select-many-item"}),
         }
 
-
     required_css_class = 'form-field-required'
 
     # workaround for "no such table: lowfat_claimant"
     try:
-        author_choices = [(this_claimant.id, this_claimant) for this_claimant in Claimant.objects.all()]
-    except:  # pylint: disable=bare-except
+        author_choices = [(this_claimant.id, this_claimant) for this_claimant in models.Claimant.objects.all()]
+
+    except:
+        logger.warning('Exception caught by bare except')
+        logger.warning('%s %s', *(sys.exc_info()[0:2]))
+
         author_choices = []
     author = ChoiceField(
         widget=Select(attrs={"class": "select-single-item"}),
@@ -1020,7 +1021,6 @@ class BlogForm(GarlicForm):
         choices=author_choices,
         label='Main author of draft'
     )
-
 
     def __init__(self, *args, user=None, **kwargs):
         super().__init__(*args, **kwargs)
@@ -1047,16 +1047,16 @@ class BlogForm(GarlicForm):
                 ButtonHolder(
                     Submit('submit', '{{ title }}')
                 )
-                )
             )
+        )
 
         if "initial" in kwargs and "fund" in kwargs["initial"]:
-            self.fields['fund'].queryset = Fund.objects.filter(id=kwargs["initial"]["fund"].id)
+            self.fields['fund'].queryset = models.Fund.objects.filter(id=kwargs["initial"]["fund"].id)
         else:
-            self.fields['fund'].queryset = Fund.objects.filter(status__in=FUND_STATUS_APPROVED_SET)
+            self.fields['fund'].queryset = models.Fund.objects.filter(status__in=models.FUND_STATUS_APPROVED_SET)
 
         if user:
-            self.fields['fund'].queryset = Fund.objects.filter(status__in=FUND_STATUS_APPROVED_SET)
+            self.fields['fund'].queryset = models.Fund.objects.filter(status__in=models.FUND_STATUS_APPROVED_SET)
 
         if self.is_staff:
             # Force staff to select one author
@@ -1066,7 +1066,7 @@ class BlogForm(GarlicForm):
 
 class BlogReviewForm(GarlicForm):
     class Meta:
-        model = Blog
+        model = models.Blog
         exclude = [  # pylint: disable=modelform-uses-exclude
             "fund",
             "author",
@@ -1075,7 +1075,6 @@ class BlogReviewForm(GarlicForm):
             "added",
             "updated",
         ]
-
 
     required_css_class = 'form-field-required'
     email = CharField(widget=Textarea, required=False)
@@ -1100,8 +1099,8 @@ class BlogReviewForm(GarlicForm):
                 ButtonHolder(
                     Submit('submit', 'Update')
                 )
-                )
             )
+        )
 
         self.fields['reviewer'].queryset = get_user_model().objects.filter(
             is_staff=True)
