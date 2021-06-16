@@ -11,6 +11,7 @@ django-picklefield>=3.0.0
 django-settings-export
 django-simple-history>=1.9.0
 django-imagekit>=4.0.2
+dj-database-url~=0.5.0
 geopy<=1.19.0
 html2text~=2020.1.16
 markdown~=3.3.3
@@ -20,6 +21,7 @@ pandas~=1.1.5
 pylint>=1.8.2
 pylint-django>=0.9.0
 pypdf2~=1.26.0
+python-decouple
 python-gnupg
 social-auth-app-django~=3.1.0
 social-auth-core~=3.3.1

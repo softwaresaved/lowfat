@@ -10,8 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
-import os
 from collections import OrderedDict
+import pathlib
+
+import decouple
+from decouple import config
+import dj_database_url
 
 
 URL_SRC = "https://github.com/softwaresaved/lowfat"
@@ -23,23 +27,27 @@ SETTINGS_EXPORT = [
 ]
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = pathlib.Path(__file__).absolute().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '_iy7)5@ids_q5m(b4!q$-)ie)&-943zx37$+9-9b#988^*f-+4'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool, default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config(
+    'ALLOWED_HOSTS',
+    default='*' if DEBUG else '127.0.0.1,localhost,localhost.localdomain',
+    cast=decouple.Csv()
+)
 
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,6 +56,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.flatpages',
+]
+
+THIRD_PARTY_APPS = [
     'django_countries',
     'tagulous',
     'crispy_forms',
@@ -58,9 +69,14 @@ INSTALLED_APPS = [
     'django_extensions',
     'datetimewidget',
     'simple_history',
-    'lowfat',
     'imagekit',
 ]
+
+FIRST_PARTY_APPS = [
+    'lowfat',
+]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + FIRST_PARTY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -111,10 +127,10 @@ SERIALIZATION_MODULES = {
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default':
+    config('DATABASE_URL',
+           default='sqlite:///' + str(BASE_DIR.joinpath('db.sqlite3')),
+           cast=dj_database_url.parse)
 }
 
 
@@ -126,9 +142,9 @@ LOGGING = {
     'disable_existing_loggers': False,
     'handlers': {
         'file': {
-            'level': 'INFO',
+            'level': config('LOG_LEVEL', default='INFO'),
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, 'lowfat.log'),
+            'filename': BASE_DIR.joinpath('lowfat.log'),
             'when': 'W6',
             'backupCount': 4,
             'formatter': 'timestamped',
@@ -137,7 +153,7 @@ LOGGING = {
     'loggers': {
         '': {
             'handlers': ['file'],
-            'level': 'INFO',
+            'level': config('LOG_LEVEL', default='INFO'),
             'propagate': True,
         },
     },
@@ -174,27 +190,29 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SOCIAL_AUTH_PIPELINE = (
-    'social_core.pipeline.social_auth.social_details',  # default pipeline
-    'social_core.pipeline.social_auth.social_uid',  # default pipeline
-    'social_core.pipeline.social_auth.auth_allowed',  # default pipeline
-    'social_core.pipeline.social_auth.social_user',  # default pipeline
-    'social_core.pipeline.user.get_username',  # default pipeline
-    'social_core.pipeline.user.create_user',  # default pipeline
-    'social_core.pipeline.social_auth.associate_user',  # default pipeline
-    'social_core.pipeline.social_auth.load_extra_data',  # default pipeline
-    'social_core.pipeline.user.user_details',  # default pipeline
+    # Default pipeline
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    # Custom
     'lowfat.auth.wire_profile',
 )
 
-SOCIAL_AUTH_GITHUB_KEY = ''
-SOCIAL_AUTH_GITHUB_SECRET = ''
+SOCIAL_AUTH_GITHUB_KEY = config('SOCIAL_AUTH_GITHUB_KEY', default='')
+SOCIAL_AUTH_GITHUB_SECRET = config('SOCIAL_AUTH_GITHUB_SECRET', default='')
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'en-gb'
+LANGUAGE_CODE = config('LANGUAGE_CODE', default='en-gb')
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = config('TIME_ZONE', default='UTC')
 
 USE_I18N = True
 
@@ -211,13 +229,17 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = config('STATIC_ROOT',
+                     default=BASE_DIR.joinpath('static'),
+                     cast=pathlib.Path)
 
 # Stored files
 # https://docs.djangoproject.com/en/1.9/ref/settings/#media-url
 
 MEDIA_URL = '/upload/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
+MEDIA_ROOT = config('MEDIA_ROOT',
+                    default=BASE_DIR.joinpath('upload'),
+                    cast=pathlib.Path)
 
 # Authentication system
 # https://docs.djangoproject.com/en/1.9/topics/auth/default/
@@ -226,37 +248,53 @@ LOGIN_URL = '/login/'  # The URL where requests are redirected for login, especi
 LOGIN_REDIRECT_URL = '/dashboard/'
 
 
-# Email
+# Email backend settings
+# See https://docs.djangoproject.com/en/3.0/topics/email
 
-# Email backend for development (print on console)
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST', default=None)
+DEFAULT_FROM_EMAIL = config(
+    'DEFAULT_FROM_EMAIL',
+    default='no-reply@software.ac.uk' if DEBUG else decouple.Undefined)
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
-# Email backend for development (save on file)
-# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-# EMAIL_FILE_PATH = '/tmp/lowfat-emails'
+if EMAIL_HOST is None:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# Default email address to use for various automated correspondence from the site manager(s).
-DEFAULT_FROM_EMAIL = 'no-reply@software.ac.uk'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST_USER = config('EMAIL_HOST_USER', default=None)
+    EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default=None)
 
-# The email address that error messages come from.
-SERVER_EMAIL = 'no-reply@software.ac.uk'
+    EMAIL_PORT = config('EMAIL_PORT', default=25, cast=int)
+    EMAIL_USE_TLS = config('EMAIL_USE_TLS',
+                           default=(EMAIL_PORT == 587),
+                           cast=bool)
+    EMAIL_USE_SSL = config('EMAIL_USE_SSL',
+                           default=(EMAIL_PORT == 465),
+                           cast=bool)
+
+# Subject-line prefix for email messages sent
+EMAIL_SUBJECT_PREFIX = config('EMAIL_SUBJECT_PREFIX', default='')
 
 # A list of all the people who get code error notifications.
 ADMINS = [
     ('admin', 'admin@software.ac.uk'),
 ]
 
-# Subject-line prefix for email messages sent
-EMAIL_SUBJECT_PREFIX = ""
-
 
 # Backup
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DBBACKUP_STORAGE_OPTIONS = {
-    'location': os.path.join(BASE_DIR, 'backups'),
+    'location':
+    config('DBBACKUP_STORAGE_LOCATION',
+           default=BASE_DIR.joinpath('backups'),
+           cast=pathlib.Path),
 }
+
 DBBACKUP_GPG_ALWAYS_TRUST = True
-DBBACKUP_GPG_RECIPIENT = ""  # XXX This variable need to be filled for --encrypt or --decrypt work properly.
+
+# This variable need to be filled for --encrypt or --decrypt work properly.
+DBBACKUP_GPG_RECIPIENT = config('DBBACKUP_GPG_RECIPIENT', default='')
 
 
 # Run time variables
