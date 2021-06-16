@@ -18,6 +18,8 @@ defusedxml==0.7.1
     # via
     #   python3-openid
     #   social-auth-core
+dj-database-url==0.5.0
+    # via -r requirements.in
 django-appconf==1.0.4
     # via django-imagekit
 django-bootstrap-datepicker-plus==3.0.5
