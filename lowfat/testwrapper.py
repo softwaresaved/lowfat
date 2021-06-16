@@ -8,7 +8,7 @@ from django.core.files import File
 from django.core.files.images import ImageFile
 from django.utils import timezone
 
-from .models import *
+from . import models
 
 User = get_user_model()
 
@@ -50,7 +50,7 @@ def create_claimants():
         We return a tuple containing the ids for claimant a and b
     """
     # Must be able to find a T&Cs otherwise 404
-    TermsAndConditions.objects.create(  # pylint: disable=unused-variable
+    models.TermsAndConditions.objects.create(  # pylint: disable=unused-variable
         year=str(timezone.now().year),
         url='Dummy URL'
     )
@@ -78,7 +78,7 @@ def create_claimants():
             "photo": ImageFile(test_image, name="ali-christensen.jpg"),
         })
 
-        claimant_a = Claimant(**data)
+        claimant_a = models.Claimant(**data)
         claimant_a.save()
 
     # define data for claimant_b
@@ -104,7 +104,7 @@ def create_claimants():
             "photo": ImageFile(test_image, name="ali-christensen.jpg"),
         })
 
-        claimant_b = Claimant(**data)
+        claimant_b = models.Claimant(**data)
         claimant_b.save()
     return claimant_a.id, claimant_b.id
 
@@ -115,7 +115,7 @@ def create_fund(*, claimant_id):
     Args:
         claimant_id: The id of a claimant stored in the testing database
     """
-    _claimant = Claimant.objects.get(id=claimant_id)
+    _claimant = models.Claimant.objects.get(id=claimant_id)
 
     data = {
         "claimant": _claimant,
@@ -135,9 +135,9 @@ def create_fund(*, claimant_id):
         "budget_request_others": "0.00",
         "justification": ":-)",
         "additional_info": "",
-        }
+    }
 
-    _fund = Fund(**data)
+    _fund = models.Fund(**data)
     _fund.save()
     return _fund
 
@@ -153,31 +153,31 @@ def create_all():
 
     claimant_test_data = {}
     for _claimant_id in claimant_ids:
-        _claimant = Claimant.objects.get(id=_claimant_id)
+        _claimant = models.Claimant.objects.get(id=_claimant_id)
         _fund = create_fund(claimant_id=_claimant_id)
 
         data = {
             "fund": _fund,
             "amount_claimed": "100.00",
-            }
+        }
 
         with open(BASE_DIR.joinpath("upload/expenses/ec1.pdf"), 'rb') as fake_file:
             data.update({
                 "claim": File(fake_file, name="ec1.pdf"),
             })
 
-            _expense = Expense(**data)
+            _expense = models.Expense(**data)
             _expense.save()
 
         data = {
             "fund": _fund,
             "author": _fund.claimant,
             "draft_url": "http://software.ac.uk",
-            }
+        }
 
-        _blog = Blog(**data)
+        _blog = models.Blog(**data)
         _blog.save()
-        claimant_test_data[f"{_claimant.user.username}"] ={
+        claimant_test_data[f"{_claimant.user.username}"] = {
             'claimant_id': _claimant_id,
             'fund_id': _fund.id,
             'expense_id': _expense.id,

@@ -1,5 +1,7 @@
 import copy
+import logging
 import os
+import sys
 
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
@@ -15,6 +17,8 @@ from lowfat.models import Blog, Claimant, Expense, Fund, FUND_STATUS_APPROVED_SE
 from lowfat.forms import BlogForm, BlogReviewForm
 from lowfat.mail import blog_review_notification, new_blog_notification
 
+logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
+
 User = get_user_model()
 
 
@@ -24,11 +28,17 @@ def blog_form(request, **kargs):  # pylint: disable=too-many-branches
     if "blog_id" in kargs:
         try:
             blog_to_edit = Blog.objects.get(id=kargs["blog_id"])
-        except:  # pylint: disable=bare-except
+
+        except:
+            logger.warning('Exception caught by bare except')
+            logger.warning('%s %s', *(sys.exc_info()[0:2]))
+
             blog_to_edit = None
             messages.error(request, "The blog that you want to edit doesn't exist.")
+
     else:
         blog_to_edit = None
+
     # Setup Fund if provided
     fund_id = request.GET.get("fund_id")
     if fund_id:
@@ -74,19 +84,25 @@ def blog_form(request, **kargs):  # pylint: disable=too-many-branches
         if not formset.cleaned_data["not_send_email_field"]:
             new_blog_notification(blog)
         return HttpResponseRedirect(
-            reverse('blog_detail', args=[blog.id,])
+            reverse('blog_detail', args=[blog.id])
         )
 
     # Limit dropdown list to claimant
     if not request.user.is_staff:
         try:
             claimant = Claimant.objects.get(user=request.user)
-        except:  # pylint: disable=bare-except
+
+        except:
+            logger.warning('Exception caught by bare except')
+            logger.warning('%s %s', *(sys.exc_info()[0:2]))
+
             return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/unavailable/'}))
+
         formset.fields["fund"].queryset = Fund.objects.filter(
             claimant=claimant,
             status__in=FUND_STATUS_APPROVED_SET
         )
+
     elif request.GET.get("claimant_id"):
         claimant = Claimant.objects.get(id=request.GET.get("claimant_id"))
         formset.fields["fund"].queryset = Fund.objects.filter(
@@ -133,7 +149,7 @@ def blog_form_public(request, access_token):  # pylint: disable=too-many-branche
         if not formset.cleaned_data["not_send_email_field"]:
             new_blog_notification(blog)
         return HttpResponseRedirect(
-            reverse('blog_detail_public', args=[blog.access_token,])
+            reverse('blog_detail_public', args=[blog.access_token])
         )
 
     # Show submission form.
@@ -161,9 +177,9 @@ def blog_detail(request, blog_id):
     try:
         blog = Blog.objects.get(id=blog_id)
 
-        if not (request.user.is_staff or
-                Claimant.objects.get(user=request.user) == blog.author or
-                Claimant.objects.get(user=request.user) in blog.coauthor.all()):
+        if not (request.user.is_staff
+                or Claimant.objects.get(user=request.user) == blog.author
+                or Claimant.objects.get(user=request.user) in blog.coauthor.all()):
             blog = None
 
     except ObjectDoesNotExist:
@@ -187,7 +203,7 @@ def blog_detail_public(request, access_token):
 def blog_edit(request, blog_id):
     if request.user.is_staff:  # pylint: disable=no-else-return
         return HttpResponseRedirect(
-            reverse('admin:lowfat_blog_change', args=[blog_id,])
+            reverse('admin:lowfat_blog_change', args=[blog_id])
         )
     else:
         return blog_form(request, blog_id=blog_id)
@@ -214,7 +230,7 @@ def blog_review(request, blog_id):
                     not formset.cleaned_data['not_copy_email_field']
                 )
             return HttpResponseRedirect(
-                reverse('blog_detail', args=[blog.id,])
+                reverse('blog_detail', args=[blog.id])
             )
 
     formset = BlogReviewForm(
@@ -239,7 +255,7 @@ def blog_review(request, blog_id):
 @login_required
 def blog_remove(request, blog_id):
     if request.user.is_staff:
-        redirect_url = reverse('admin:lowfat_blog_delete', args=[blog_id,])
+        redirect_url = reverse('admin:lowfat_blog_delete', args=[blog_id])
     else:
         if "next" in request.GET:
             redirect_url = request.GET["next"]
@@ -248,7 +264,11 @@ def blog_remove(request, blog_id):
 
         try:
             this_blog = Blog.objects.get(id=blog_id)
-        except:  # pylint: disable=bare-except
+
+        except:
+            logger.warning('Exception caught by bare except')
+            logger.warning('%s %s', *(sys.exc_info()[0:2]))
+
             this_blog = None
             messages.error(request, "The blog that you want to remove doesn't exist.")
 
@@ -295,7 +315,11 @@ def report_by_name(request, report_filename):
         with open("lowfat/reports/html/{}".format(report_filename), "r") as _file:
             response = HttpResponse(_file.read(), content_type="text/plain")
             return response
-    except:  # pylint: disable=bare-except
+
+    except:
+        logger.warning('Exception caught by bare except')
+        logger.warning('%s %s', *(sys.exc_info()[0:2]))
+
         raise Http404("Report does not exist.")  # pylint: disable=raise-missing-from
 
 

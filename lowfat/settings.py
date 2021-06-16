@@ -102,10 +102,10 @@ TEMPLATES = [
 WSGI_APPLICATION = 'lowfat.wsgi.application'
 
 SERIALIZATION_MODULES = {
-    'xml':    'tagulous.serializers.xml_serializer',
-    'json':   'tagulous.serializers.json',
+    'xml': 'tagulous.serializers.xml_serializer',
+    'json': 'tagulous.serializers.json',
     'python': 'tagulous.serializers.python',
-    'yaml':   'tagulous.serializers.pyyaml',
+    'yaml': 'tagulous.serializers.pyyaml',
 }
 
 # Database
@@ -245,7 +245,7 @@ SERVER_EMAIL = 'no-reply@software.ac.uk'
 # A list of all the people who get code error notifications.
 ADMINS = [
     ('admin', 'admin@software.ac.uk'),
-    ]
+]
 
 # Subject-line prefix for email messages sent
 EMAIL_SUBJECT_PREFIX = ""
