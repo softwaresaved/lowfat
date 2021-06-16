@@ -56,23 +56,19 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.staticfiles',
-    'django.contrib.flatpages',
 ]
 
 THIRD_PARTY_APPS = [
-    'django_countries',
-    'tagulous',
-    'social_django',
-    'dbbackup',
+    'bootstrap_datepicker_plus',
     'constance',
     'constance.backends.database',
-    'bootstrap_datepicker_plus',
     'crispy_forms',
+    'dbbackup',
+    'django_countries',
     'django_extensions',
     'imagekit',
-    'lowfat',
-    'social_django',
     'simple_history',
+    'social_django',
     'tagulous',
 ]
 
