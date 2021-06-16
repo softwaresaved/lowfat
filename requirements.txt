@@ -67,6 +67,8 @@ html2text==2020.1.16
     # via -r requirements.in
 idna==2.10
     # via requests
+importlib-metadata==4.5.0
+    # via markdown
 markdown==3.3.4
     # via -r requirements.in
 numpy==1.20.3
@@ -91,6 +93,8 @@ pypdf2==1.26.0
     # via -r requirements.in
 python-dateutil==2.8.1
     # via pandas
+python-decouple==3.4
+    # via -r requirements.in
 python-gnupg==0.4.7
     # via -r requirements.in
 python3-openid==3.2.0
@@ -124,5 +128,11 @@ social-auth-core==3.3.3
     #   social-auth-app-django
 sqlparse==0.4.1
     # via django
+typing-extensions==3.10.0.0
+    # via
+    #   asgiref
+    #   importlib-metadata
 urllib3==1.26.5
     # via requests
+zipp==3.4.1
+    # via importlib-metadata
