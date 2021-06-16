@@ -7,6 +7,7 @@ from django.core.management.base import BaseCommand
 
 from lowfat.models import Claimant
 
+
 class Command(BaseCommand):
     help = "Import CSV (old_applications.csv) with applications to claimantship to the database."
 
@@ -52,7 +53,7 @@ class Command(BaseCommand):
                 if photo:
                     applicants_dict.update({
                         "photo": photo,
-                        })
+                    })
 
                 applicant = Claimant(**applicants_dict)
                 applicant.save()

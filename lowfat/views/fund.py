@@ -1,4 +1,6 @@
 import copy
+import logging
+import sys
 
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
@@ -18,6 +20,8 @@ from lowfat.forms import FundForm, FundGDPRForm, FundImportForm, FundPublicForm,
 from lowfat.mail import fund_review_notification, new_fund_notification
 from .claimant import get_terms_and_conditions_url
 
+logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
+
 User = get_user_model()
 
 
@@ -26,20 +30,29 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches,too-many-s
     if not request.user.is_staff:
         try:
             claimant = Claimant.objects.get(user=request.user)
-        except:  # pylint: disable=bare-except
+
+        except:
+            logger.warning('Exception caught by bare except')
+            logger.warning('%s %s', *(sys.exc_info()[0:2]))
+
             claimant = None
 
     # Setup fund to edit if provide
     if "fund_id" in kargs:
         try:
             fund_to_edit = Fund.objects.get(id=kargs["fund_id"])
-        except:  # pylint: disable=bare-except
+
+        except:
+            logger.warning('Exception caught by bare except')
+            logger.warning('%s %s', *(sys.exc_info()[0:2]))
+
             fund_to_edit = None
             messages.error(request, "The funding request that you want to edit doesn't exist.")
-        if not (request.user.is_staff or
-                claimant == fund_to_edit.claimant):
+
+        if not (request.user.is_staff or claimant == fund_to_edit.claimant):
             fund_to_edit = None
             messages.error(request, "You don't have permission to edit the requested funding request.")
+
     else:
         fund_to_edit = None
 
@@ -99,7 +112,7 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches,too-many-s
                     )
 
             return HttpResponseRedirect(
-                reverse('fund_detail', args=[fund.id,])
+                reverse('fund_detail', args=[fund.id])
             )
 
     if not request.user.is_staff:
@@ -187,7 +200,7 @@ def fund_form_public(request):
             new_fund_notification(fund)
 
         return HttpResponseRedirect(
-            reverse('fund_detail_public', args=[fund.access_token,])
+            reverse('fund_detail_public', args=[fund.access_token])
         )
 
     # Show submission form.
@@ -271,7 +284,7 @@ def fund_review(request, fund_id):
                     not formset.cleaned_data['not_copy_email_field']
                 )
             return HttpResponseRedirect(
-                reverse('fund_detail', args=[fund.id,])
+                reverse('fund_detail', args=[fund.id])
             )
 
     formset = FundReviewForm(
@@ -293,7 +306,7 @@ def fund_review(request, fund_id):
 def fund_edit(request, fund_id):
     if request.user.is_staff:  # pylint: disable=no-else-return
         return HttpResponseRedirect(
-            reverse('admin:lowfat_fund_change', args=[fund_id,])
+            reverse('admin:lowfat_fund_change', args=[fund_id])
         )
     else:
         return fund_form(request, fund_id=fund_id)
@@ -302,22 +315,29 @@ def fund_edit(request, fund_id):
 @login_required
 def fund_remove(request, fund_id):
     if request.user.is_staff:
-        redirect_url = reverse('admin:lowfat_fund_delete', args=[fund_id,])
+        redirect_url = reverse('admin:lowfat_fund_delete', args=[fund_id])
+
     else:
         if "next" in request.GET:
             redirect_url = request.GET["next"]
+
         else:
             redirect_url = "/"
 
         try:
             this_fund = Fund.objects.get(id=fund_id)
-        except:  # pylint: disable=bare-except
+
+        except:
+            logger.warning('Exception caught by bare except')
+            logger.warning('%s %s', *(sys.exc_info()[0:2]))
+
             this_fund = None
             messages.error(request, "Funding request that you want to remove doesn't exist.")
 
         if this_fund and Claimant.objects.get(user=request.user) == this_fund.claimant:
             this_fund.remove()
             messages.success(request, 'Blog deleted with success.')
+
         else:
             messages.error(request, 'Only the claimant can remove the funding request.')
 

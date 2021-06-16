@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 
 from lowfat.models import Claimant, Fund
 
+
 class Command(BaseCommand):
     help = "CW19 funding request"
 
