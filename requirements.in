@@ -12,7 +12,7 @@ django-pandas
 django-picklefield>=3.0.0
 django-settings-export
 django-simple-history>=1.9.0
-django-tagulous==1.1.0
+django-tagulous
 django-imagekit>=4.0.2
 dj-database-url
 geopy<=1.19.0
