@@ -133,6 +133,10 @@ DATABASES = {
            cast=dj_database_url.parse)
 }
 
+# New setting in Django 3.2 - use AutoField to maintain consistency with previous versions
+# See https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Logging
 # https://docs.djangoproject.com/en/1.11/ref/settings/#logging
