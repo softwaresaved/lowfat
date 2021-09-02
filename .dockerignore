@@ -6,3 +6,4 @@ upload/
 settings.ini
 .tox/
 *.sqlite3
+lowfat_production/
