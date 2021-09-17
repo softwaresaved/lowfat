@@ -5,9 +5,11 @@ from django.core.management.base import BaseCommand
 
 from lowfat.models import Claimant, Fund, Expense
 
+
 def conv_date(new_date):
     day, month, year = new_date.split('/')
     return "{}-{}-{}".format(year, month, day)
+
 
 class Command(BaseCommand):
     help = "Import CSV (old_funds.csv) with funds from claimants to the database."

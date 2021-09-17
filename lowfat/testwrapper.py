@@ -1,13 +1,14 @@
 """
 Wrapper around tests
 """
-import io
+import pathlib
 
 from django.contrib.auth import get_user_model
-from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.files import File
+from django.core.files.images import ImageFile
 from django.utils import timezone
 
-from .models import *
+from . import models
 
 User = get_user_model()
 
@@ -15,7 +16,16 @@ ADMIN_PASSWORD = '123456'
 CLAIMED_A_PASSWORD = '123456'
 CLAIMED_B_PASSWORD = '123456'
 
+# Define the base directory for lowfat
+BASE_DIR = pathlib.Path(__name__).absolute().parent
+
+
 def create_users():
+    """
+    Creates three users for testing:
+        A superuser: admin
+        Two normal users: claimant-a and claimant-b
+    """
     User.objects.create_superuser(
         'admin',
         'admin@fake.lowfat.software.ac.uk',
@@ -33,40 +43,19 @@ def create_users():
     )
 
 
-def create_claimant():
-    create_users()
-
+def create_claimants():
+    """
+    Adds the claimants a/b to the test database with some data.
+    Returns:
+        We return a tuple containing the ids for claimant a and b
+    """
     # Must be able to find a T&Cs otherwise 404
-    terms = TermsAndConditions.objects.create(  # pylint: disable=unused-variable
+    models.TermsAndConditions.objects.create(  # pylint: disable=unused-variable
         year=str(timezone.now().year),
         url='Dummy URL'
     )
 
-    data = {
-        "user": User.objects.get(username="claimant-b"),
-        "forenames": "B",
-        "surname": "B",
-        "email": "b.b@fake.lowfat.software.ac.uk",
-        "phone": "+441111111111",
-        "gender": "M",
-        "home_country": "GB",
-        "home_city": "L",
-        "research_area": "Y000",
-        "research_area_code": "Y000",
-        "affiliation": "College",
-        "funding": "Self-funded",
-        "work_description": "Work",
-        "fellow": True,
-    }
-
-    with io.BytesIO(b'000') as fake_file:
-        data.update({
-            "photo": SimpleUploadedFile('b_b.jpg', fake_file.read()),
-        })
-
-    claimant = Claimant(**data)
-    claimant.save()
-
+    # define data for claimant_a
     data = {
         "user": User.objects.get(username="claimant-a"),
         "forenames": "A",
@@ -83,22 +72,53 @@ def create_claimant():
         "work_description": "Work",
         "fellow": True,
     }
-
-    with io.BytesIO(b'000') as fake_file:
+    # With claimant_a's image open make and save to the test_db claimant_a
+    with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
         data.update({
-            "photo": SimpleUploadedFile('a_a.jpg', fake_file.read()),
+            "photo": ImageFile(test_image, name="ali-christensen.jpg"),
         })
 
-    claimant = Claimant(**data)
-    claimant.save()
-    return claimant.id
+        claimant_a = models.Claimant(**data)
+        claimant_a.save()
 
-def create_fund():
-    claimant_id = create_claimant()
-    claimant = Claimant.objects.get(id=claimant_id)
+    # define data for claimant_b
+    data = {
+        "user": User.objects.get(username="claimant-b"),
+        "forenames": "B",
+        "surname": "B",
+        "email": "b.b@fake.lowfat.software.ac.uk",
+        "phone": "+441111111111",
+        "gender": "M",
+        "home_country": "GB",
+        "home_city": "L",
+        "research_area": "Y000",
+        "research_area_code": "Y000",
+        "affiliation": "College",
+        "funding": "Self-funded",
+        "work_description": "Work",
+        "fellow": True,
+    }
+    # With claimant_b's image open make and save to the test_db claimant_b
+    with open(BASE_DIR.joinpath("upload/photos/ali-christensen.jpg"), 'rb') as test_image:
+        data.update({
+            "photo": ImageFile(test_image, name="ali-christensen.jpg"),
+        })
+
+        claimant_b = models.Claimant(**data)
+        claimant_b.save()
+    return claimant_a.id, claimant_b.id
+
+
+def create_fund(*, claimant_id):
+    """
+    Creates a fund associated with the claimant defined by the argument claimant_id
+    Args:
+        claimant_id: The id of a claimant stored in the testing database
+    """
+    _claimant = models.Claimant.objects.get(id=claimant_id)
 
     data = {
-        "claimant": claimant,
+        "claimant": _claimant,
         "category": "A",
         "status": "A",
         "title": "Fake",
@@ -115,36 +135,53 @@ def create_fund():
         "budget_request_others": "0.00",
         "justification": ":-)",
         "additional_info": "",
-        }
+    }
 
-    fund = Fund(**data)
-    fund.save()
-    return claimant_id, fund.id
+    _fund = models.Fund(**data)
+    _fund.save()
+    return _fund
+
 
 def create_all():
-    claimant_id, fund_id = create_fund()
-    fund = Fund.objects.get(id=fund_id)
+    """
+    Create the users, claimants, funds and blogs using the methods defined above.
+    Returns:
+        claimant_test_data: A dictionary containing claimant_a and claimant_b and associated funds and blogs
+    """
+    create_users()
+    claimant_ids = create_claimants()
 
-    data = {
-        "fund": fund,
-        "amount_claimed": "100.00",
+    claimant_test_data = {}
+    for _claimant_id in claimant_ids:
+        _claimant = models.Claimant.objects.get(id=_claimant_id)
+        _fund = create_fund(claimant_id=_claimant_id)
+
+        data = {
+            "fund": _fund,
+            "amount_claimed": "100.00",
         }
 
-    with io.BytesIO(b'000') as fake_file:
-        data.update({
-            "claim": SimpleUploadedFile('fake-claim.jpg', fake_file.read()),
-        })
+        with open(BASE_DIR.joinpath("upload/expenses/ec1.pdf"), 'rb') as fake_file:
+            data.update({
+                "claim": File(fake_file, name="ec1.pdf"),
+            })
 
-    expense = Expense(**data)
-    expense.save()
+            _expense = models.Expense(**data)
+            _expense.save()
 
-    data = {
-        "fund": fund,
-        "author": fund.claimant,
-        "draft_url": "http://software.ac.uk",
+        data = {
+            "fund": _fund,
+            "author": _fund.claimant,
+            "draft_url": "http://software.ac.uk",
         }
 
-    blog = Blog(**data)
-    blog.save()
+        _blog = models.Blog(**data)
+        _blog.save()
+        claimant_test_data[f"{_claimant.user.username}"] = {
+            'claimant_id': _claimant_id,
+            'fund_id': _fund.id,
+            'expense_id': _expense.id,
+            'blog_id': _blog.id,
+        }
 
-    return claimant_id, fund_id, expense.id, blog.id
+    return claimant_test_data

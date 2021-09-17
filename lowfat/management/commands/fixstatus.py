@@ -4,6 +4,7 @@ from django.core.management.base import BaseCommand
 
 from lowfat.models import FUND_STATUS_APPROVED_SET, Fund, Expense
 
+
 class Command(BaseCommand):
     help = "Fix the status on the database."
 

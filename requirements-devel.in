@@ -1,0 +1,9 @@
+# Generate requirements-devel.txt using pip-tools
+# pip-compile [--upgrade] requirements-devel.in
+-c requirements.txt
+flake8
+pip-tools
+pytest
+tox
+vulture
+yapf

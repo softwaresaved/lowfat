@@ -1,4 +1,5 @@
 from datetime import datetime, date, timedelta
+import logging
 import re
 import uuid
 
@@ -19,6 +20,8 @@ import tagulous.models
 from lowfat.utils import ChoicesEnum
 from .blog import Blog
 from .expense import Expense
+
+logger = logging.getLogger(__name__)
 
 AD_STATUS = (
     ('U', 'Unprocessed'),  # Initial status
@@ -165,7 +168,6 @@ class ModelWithToken(models.Model):
     def access_token_is_valid(self):
         if self.access_token_expire_date is not None:
             return date.today() < self.access_token_expire_date
-
         return False
 
 
@@ -180,7 +182,7 @@ class Fund(ModelWithToken):
         ]
 
     # TODO Make claimant more generic to include staffs.
-    claimant = models.ForeignKey('Claimant')
+    claimant = models.ForeignKey('Claimant', on_delete=models.CASCADE)
     category = models.CharField(
         choices=FUND_CATEGORY,
         max_length=1,
@@ -277,7 +279,8 @@ class Fund(ModelWithToken):
     approver = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
-        blank=True
+        blank=True,
+        on_delete=models.CASCADE
     )
     required_blog_posts = models.IntegerField(
         null=False,
@@ -338,21 +341,22 @@ class Fund(ModelWithToken):
         super().save(*args, **kwargs)
 
     def update_latlon(self):
-        geolocator = Nominatim(
-            country_bias=self.country,
-            user_agent="lowfat/dev"
-        )
+        geolocator = Nominatim(user_agent="lowfat/dev")
+
         try:
             location = geolocator.geocode(
-                self.city
+                self.city,
+                country_codes=[self.country.code]
             )
+
             if location is not None:
                 self.lon = location.longitude
                 self.lat = location.latitude
 
                 self.save()
-        except Exception as exception:  # pylint: disable=broad-except
-            print(exception)
+
+        except Exception as exc:  # pylint: disable=broad-except
+            logger.error(exc, exc_info=True)
 
     def __str__(self):
         return "{} ({})".format(self.title, self.id)

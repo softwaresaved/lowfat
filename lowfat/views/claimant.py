@@ -1,5 +1,6 @@
 from datetime import datetime
 import logging
+import sys
 import zipfile
 
 from django.contrib import messages
@@ -9,8 +10,7 @@ from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse
-import django.utils
-
+from django.utils import timezone
 from constance import config
 
 from lowfat.forms import ClaimantForm, FellowForm
@@ -24,7 +24,7 @@ def get_terms_and_conditions_url(request):
     """Return the terms and conditions link associated with the user."""
     try:
         url = TermsAndConditions.objects.get(
-            year=str(django.utils.timezone.now().year)
+            year=str(timezone.now().year)
         ).url
 
     except TermsAndConditions.DoesNotExist as exc:
@@ -52,7 +52,7 @@ def get_terms_and_conditions_url(request):
 
             try:
                 url = TermsAndConditions.objects.get(
-                    year=str(django.utils.timezone.now().year)
+                    year=str(timezone.now().year)
                 ).url
 
             except TermsAndConditions.DoesNotExist as exc:
@@ -83,7 +83,7 @@ def index(request):
         'funds': [(fund, Blog.objects.filter(
             fund=fund,
             status="P"
-        )) for fund in Fund.objects.filter(category="H", start_date__gte=django.utils.timezone.now(), can_be_advertise_before=True)],
+        )) for fund in Fund.objects.filter(category="H", start_date__gte=timezone.now(), can_be_advertise_before=True)],
     }
 
     return render(request, 'lowfat/index.html', context)
@@ -181,7 +181,6 @@ def get_fellows_photos(request):
                 "{}.jpg".format(fellow.slug)
             )
 
-    # TODO Use BytesIO instead of real files
     return HttpResponse(
         open(zip_filename, 'rb'),
         content_type='application/zip'
@@ -202,36 +201,38 @@ def search(request):
     context = {
         "search": search_text,
         "fellows": Claimant.objects.filter(
-            (Q(forenames__contains=search_text) |
-             Q(surname__contains=search_text) |
-             Q(email__contains=search_text) |
-             Q(research_area__contains=search_text) |
-             Q(affiliation__contains=search_text) |
-             Q(work_description__contains=search_text) |
-             Q(website__contains=search_text) |
-             Q(github__contains=search_text) |
-             Q(twitter__contains=search_text)) &
-            (Q(fellow=True) | Q(collaborator=True))
+            (
+                Q(forenames__contains=search_text)
+                | Q(surname__contains=search_text)
+                | Q(email__contains=search_text)
+                | Q(research_area__contains=search_text)
+                | Q(affiliation__contains=search_text)
+                | Q(work_description__contains=search_text)
+                | Q(website__contains=search_text)
+                | Q(github__contains=search_text)
+                | Q(twitter__contains=search_text)
+            ) & (Q(fellow=True) | Q(collaborator=True))
         ),
         "claimants": Claimant.objects.filter(
-            (Q(forenames__contains=search_text) |
-             Q(surname__contains=search_text) |
-             Q(email__contains=search_text) |
-             Q(research_area__contains=search_text) |
-             Q(affiliation__contains=search_text) |
-             Q(work_description__contains=search_text) |
-             Q(website__contains=search_text) |
-             Q(github__contains=search_text) |
-             Q(twitter__contains=search_text)) &
-            Q(fellow=False)
+            (
+                Q(forenames__contains=search_text)
+                | Q(surname__contains=search_text)
+                | Q(email__contains=search_text)
+                | Q(research_area__contains=search_text)
+                | Q(affiliation__contains=search_text)
+                | Q(work_description__contains=search_text)
+                | Q(website__contains=search_text)
+                | Q(github__contains=search_text)
+                | Q(twitter__contains=search_text)
+            ) & Q(fellow=False)
         ),
         "funds": Fund.objects.filter(
-            Q(claimant__forenames__contains=search_text) |
-            Q(claimant__surname__contains=search_text) |
-            Q(title__contains=search_text) |
-            Q(url__contains=search_text) |
-            Q(justification__contains=search_text) |
-            Q(additional_info__contains=search_text)
+            Q(claimant__forenames__contains=search_text)
+            | Q(claimant__surname__contains=search_text)
+            | Q(title__contains=search_text)
+            | Q(url__contains=search_text)
+            | Q(justification__contains=search_text)
+            | Q(additional_info__contains=search_text)
         ),
     }
 
@@ -292,7 +293,7 @@ def claimant_promote(request, claimant_id):
     )
 
     return HttpResponseRedirect(
-        reverse('fellow_slug', args=[claimant.slug,])
+        reverse('fellow_slug', args=[claimant.slug])
     )
 
 
@@ -307,7 +308,7 @@ def claimant_demote(request, claimant_id):
     )
 
     return HttpResponseRedirect(
-        reverse('fellow_slug', args=[claimant.slug,])
+        reverse('fellow_slug', args=[claimant.slug])
     )
 
 
@@ -401,7 +402,11 @@ def my_profile(request):
     if not request.user.is_staff:
         try:
             claimant = Claimant.objects.get(user=request.user)
-        except:  # pylint: disable=bare-except
+
+        except:
+            logger.warning('Exception caught by bare except')
+            logger.warning('%s %s', *(sys.exc_info()[0:2]))
+
             return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/unavailable/'}))
 
         return _claimant_detail(request, claimant)

@@ -1,4 +1,5 @@
 from datetime import date
+import logging
 import itertools
 import re
 
@@ -6,7 +7,10 @@ from geopy.geocoders import Nominatim
 
 from constance import config
 
-import django.utils.text
+from imagekit.models import ImageSpecField
+from imagekit.processors import Thumbnail
+
+from django.utils import text
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
@@ -18,6 +22,8 @@ from django_countries.fields import CountryField
 from lowfat.jacs import JACS_3_0_PRINCIPAL_SUBJECT_CODES
 from .fund import Fund, FUND_STATUS_APPROVED_SET
 from .expense import Expense
+
+logger = logging.getLogger(__name__)
 
 GENDERS = (
     ('M', 'Male'),
@@ -92,7 +98,8 @@ class Claimant(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         null=True,
-        blank=True
+        blank=True,
+        on_delete=models.CASCADE
     )
 
     # Personal info (application details)
@@ -137,7 +144,12 @@ class Claimant(models.Model):
         upload_to='photos/',  # File will be uploaded to MEDIA_ROOT/photos
         null=True,
         blank=True,  # This need to be a JPG.
-        help_text="A professionally oriented (i.e. work related) thumbnail picture of yourself that you are happy to be published on the web - this should be 150px wide and 150px high (exact please)."
+        help_text="A professionally oriented (i.e. work related) thumbnail picture of yourself that you are"
+                  " happy to be published on the web - this should be 150px wide and 150px high (exact please)."
+    )
+    photo_thumb = ImageSpecField(
+        source='photo',
+        processors=[Thumbnail(width=150, height=150, upscale=True)]
     )
 
     # Professional info
@@ -199,6 +211,10 @@ class Claimant(models.Model):
         blank=True,  # This need to be a JPG.
         help_text="A professionally oriented (i.e. work related) main picture of yourself that you are happy to be published on the web - this should be 300px wide and 400px high (exact please)."
     )
+    photo_work_thumb = ImageSpecField(
+        source='photo_work_description',
+        processors=[Thumbnail(width=150, height=150, upscale=True)]
+    )
 
     # Social media
     institutional_website = models.CharField(
@@ -251,6 +267,7 @@ class Claimant(models.Model):
     terms_and_conditions = models.ForeignKey(
         'TermsAndConditions',
         null=True,
+        on_delete=models.CASCADE
     )
     application_year = models.IntegerField(
         null=False,
@@ -301,7 +318,8 @@ class Claimant(models.Model):
     mentor = models.ForeignKey(
         'self',
         blank=True,
-        null=True
+        null=True,
+        on_delete=models.CASCADE
     )
 
     # Control
@@ -316,7 +334,7 @@ class Claimant(models.Model):
         """
         Generate slug for Claimant - checking that it doesn't conflict with an existing Claimant.
         """
-        base_slug = django.utils.text.slugify("{0}-{1}".format(self.forenames, self.surname))
+        base_slug = text.slugify("{0}-{1}".format(self.forenames, self.surname))
         slug = base_slug
 
         for i in itertools.count():
@@ -356,21 +374,22 @@ class Claimant(models.Model):
         super().save(*args, **kwargs)
 
     def update_latlon(self):
-        geolocator = Nominatim(
-            country_bias=self.home_country,
-            user_agent="lowfat/dev"
-        )
+        geolocator = Nominatim(user_agent="lowfat/dev")
+
         try:
             location = geolocator.geocode(
-                self.home_city
+                self.home_city,
+                country_codes=[self.home_country.code]
             )
+
             if location is not None:
                 self.home_lon = location.longitude
                 self.home_lat = location.latitude
 
                 self.save()
-        except Exception as exception:  # pylint: disable=broad-except
-            print(exception)
+
+        except Exception as exc:  # pylint: disable=broad-except
+            logger.error(exc, exc_info=True)
 
     def __str__(self):
         return "{} ({}{})".format(
