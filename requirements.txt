@@ -59,7 +59,7 @@ django-settings-export==1.2.1
     # via -r requirements.in
 django-simple-history==3.0.0
     # via -r requirements.in
-django-tagulous==1.2.1
+django-tagulous==1.3.0
     # via -r requirements.in
 geographiclib==1.52
     # via geopy

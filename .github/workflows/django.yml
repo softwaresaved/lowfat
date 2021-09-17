@@ -1,13 +1,13 @@
 # This workflow will install Python dependencies, run tests and lint with a range of Python and Django versions
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: LowFAT
+name: lowFAT
 
 on:
   push:
-    branches: [ django-v3-port ]
+    branches: [ dev ]
   pull_request:
-    branches: [ django-v3-port ]
+    branches: [ dev ]
 
 jobs:
   build:
@@ -57,12 +57,6 @@ jobs:
       run: |
         # This feels slightly out of place here but isn't safe to do in Tox
         # as it will update the development database when run locally
-
-        # Loading fixtures fails with Django 3.2
-        # See https://github.com/softwaresaved/lowfat/issues/624
-        pip install -r requirements.txt
-        pip install django~=3.1.0
-
         python manage.py migrate
         python manage.py loaddata lowfat/fixtures/demo.json
       env:
