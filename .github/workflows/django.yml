@@ -57,6 +57,7 @@ jobs:
       run: |
         # This feels slightly out of place here but isn't safe to do in Tox
         # as it will update the development database when run locally
+        pip install -r requirements.txt
         python manage.py migrate
         python manage.py loaddata lowfat/fixtures/demo.json
       env:
