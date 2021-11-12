@@ -25,3 +25,4 @@ python-decouple
 python-gnupg
 social-auth-app-django
 social-auth-core
+unidecode
