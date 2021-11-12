@@ -3,8 +3,7 @@
 import logging
 
 from django.db import migrations
-
-from unidecode import unidecode
+from django.utils.text import slugify
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +22,7 @@ def fix_unicode_slugs(apps,
 
     for obj in Model.objects.all():
         old_slug = getattr(obj, slug_field)
-        new_slug = unidecode(old_slug)
+        new_slug = slugify(old_slug, allow_unicode=False)
 
         setattr(obj, slug_field, new_slug)
         obj.save()
