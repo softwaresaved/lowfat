@@ -211,6 +211,10 @@ SOCIAL_AUTH_PIPELINE = (
 SOCIAL_AUTH_GITHUB_KEY = config('SOCIAL_AUTH_GITHUB_KEY', default='')
 SOCIAL_AUTH_GITHUB_SECRET = config('SOCIAL_AUTH_GITHUB_SECRET', default='')
 
+# Should be True if running behind a reverse proxy e.g. Caddy
+# See https://python-social-auth.readthedocs.io/en/latest/configuration/settings.html#processing-redirects-and-urlopen
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = config('SOCIAL_AUTH_REDIRECT_IS_HTTPS', default=False)
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
