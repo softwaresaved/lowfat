@@ -8,12 +8,12 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro,z
       - staticfiles:/srv/static:ro
       - caddy_data:/data
       - caddy_config:/config
       # Keep uploaded files on host filesystem to ease migration
-      - ./upload:/srv/upload:ro
+      - ./upload:/srv/upload:ro,z
 
   web:
     build: .
@@ -22,7 +22,7 @@ services:
       - staticfiles:/app/static
       # Keep database and uploaded files on host filesystem to ease migration
       - ./db.sqlite3:/app/db.sqlite3:z
-      - ./upload:/app/upload
+      - ./upload:/app/upload:z
     env_file: ${DEPLOYMENT_ENVIRONMENT}.env
 
 volumes:
