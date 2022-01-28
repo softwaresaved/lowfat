@@ -831,13 +831,18 @@ class ExpenseForm(GarlicForm):
             Fieldset(
                 '',
                 'fund',
-                HTML("<p>If your funding request isn't on the drop down menu above please email <a href='mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}'>us</a>.</p>"),
+                HTML("<p>If your funding request isn't on the drop down menu above please <a href='mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}'>email us</a>.</p>"),
                 HTML(textwrap.dedent("""\
                     <p>
                       Before submitting your expense claim:
                       <ol>
-                        <li>Please follow the <a href='https://drive.google.com/file/d/1oddJAqzf7wIrzj7r3qPQ-ijoZzPcILQ9/view'>Guidelines for reimbursement of expenses from the Software Sustainability Institute</a>.</li>
-                        <li>You MUST fill out and attach the <a href='https://drive.google.com/file/d/1muv__x8fhiaGw2hI81sytXTgFqnOsVGl/view'>University of Edinburgh Payment for Non-Staff/Student Expenses form</a> along with your receipts to your expense claim.</li>
+                        <li>Please follow the <a href='https://software.ac.uk/SSI-expenses-guidelines'>Guidelines for reimbursement of expenses from the Software Sustainability Institute</a>.</li>
+                        <li>You MUST fill out and attach the the relevant University of Edinburgh Payment for Non-Staff/Student Expenses form along with your receipts and proofs of payment to your expense claim:
+                            <ul>
+                                <li><a href="https://bit.ly/SSI-expenses-UK-2022">Expenses claim form for UK bank account holders</a></li>
+                                <li><a href="https://bit.ly/SSI-expenses-foreign-2022">Expenses claim form for non-UK bank account holders</a></li>
+                            </ul>
+                        </li>
                         <li>The <a href='{{ terms_and_conditions_url }}'>Fellowship Programme Terms and Conditions</a> and the <a href='https://drive.google.com/file/d/1wjCD2anwNGgDqee_2dm1C0moPrqxNbju/view'>University of Edinburgh Finance Expenses Policy</a> apply to your request.</li>
                       </ol>
                     </p>""")),
