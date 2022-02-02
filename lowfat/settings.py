@@ -287,6 +287,7 @@ EMAIL_SUBJECT_PREFIX = config('EMAIL_SUBJECT_PREFIX', default='')
 # A list of all the people who get code error notifications.
 ADMINS = [
     ('admin', 'admin@software.ac.uk'),
+    ('James Graham', 'j.graham@software.ac.uk'),
 ]
 
 
