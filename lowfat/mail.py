@@ -161,7 +161,7 @@ def review_notification(email_url, user_email, context, mail, copy_to_staffs=Fal
 
         cc_addresses = [config.FELLOWS_MANAGEMENT_EMAIL]
         if copy_to_gatekeeper:
-            cc_addresses.append(config.WEBSITE_GATEKEEPER)
+            cc_addresses.append(config.WEBSITE_GATEKEEPER_EMAIL)
 
         # Email to claimant
         msg = EmailMultiAlternatives(
