@@ -53,9 +53,10 @@ def pdf(value):
 
         raise ValidationError("File doesn't look to be a PDF file.")  # pylint: disable=raise-missing-from
 
+
 def validate_document(value) -> None:
     """Check if file is a document.
-    
+
     e.g. Word document or OpenOffice / LibreOffice.
     """
     filepath = pathlib.Path(value.name)
