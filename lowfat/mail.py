@@ -9,6 +9,7 @@ from constance import config
 
 from html2text import html2text
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.sites.models import Site
@@ -174,9 +175,11 @@ def review_notification(request, email_url, user_email, context, mail, copy_to_s
             flatemail.title,
             plain_text,
             mail.sender.email,
+            settings.DEFAULT_FROM_EMAIL,
             user_email,
             cc=cc_addresses,
-            bcc=ast.literal_eval(config.STAFFS_EMAIL) if copy_to_staffs else None
+            bcc=ast.literal_eval(config.STAFFS_EMAIL) if copy_to_staffs else None,
+            reply_to=config.FELLOWS_MANAGEMENT_EMAIL
         )
         msg.attach_alternative(html, "text/html")
 
