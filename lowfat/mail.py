@@ -185,7 +185,7 @@ def review_notification(request, email_url, user_email, context, mail, copy_to_s
 
         try:
             msg.send(fail_silently=False)
-        
+
         except (ConnectionRefusedError, smtplib.SMTPRecipientsRefused) as exc:
             messages.error(request, "Failed to send notification email.")
             logger.error(exc)
@@ -193,7 +193,6 @@ def review_notification(request, email_url, user_email, context, mail, copy_to_s
         finally:
             # Every email is archived in the database
             mail.save()
-
 
 
 def fund_review_notification(request, message, sender, old, new, copy_to_staffs):
