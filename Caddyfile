@@ -1,0 +1,21 @@
+fellows.software.ac.uk, localhost
+
+# Use self-signed certificate
+# TODO provide location of production certificate
+tls internal
+
+root * /srv
+file_server
+
+@proxy_paths {
+    not path /static/*
+    not path /upload/*
+}
+
+# Forward all non-static paths to web container
+reverse_proxy @proxy_paths web:8000
+
+log {
+    output stderr
+    format single_field common_log
+}

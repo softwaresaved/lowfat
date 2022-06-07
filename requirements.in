@@ -1,0 +1,27 @@
+# requirements.in
+# pip-compile [--upgrade] requirements.in
+django~=3.2
+django-bootstrap-datepicker-plus
+django-constance[database]
+django-countries
+django-crispy-forms
+django-datetime-widget
+django-dbbackup
+django-extensions
+django-pandas
+django-picklefield
+django-settings-export
+django-simple-history
+django-tagulous
+django-imagekit
+dj-database-url
+geopy
+html2text
+markdown
+pandas
+Pillow
+pypdf2
+python-decouple
+python-gnupg
+social-auth-app-django
+social-auth-core

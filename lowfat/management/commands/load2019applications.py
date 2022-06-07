@@ -7,6 +7,7 @@ from django.db import IntegrityError
 
 from lowfat.models import Claimant
 
+
 class Command(BaseCommand):
     help = "Import CSV with 2019 applications."
 
@@ -74,7 +75,7 @@ class Command(BaseCommand):
                     applicant.user = new_user
                     applicant.save()
 
-            except IntegrityError as exception:
+            except IntegrityError:
                 try:
                     applicant = Claimant.objects.get(
                         email=applicants_dict["email"]

@@ -6,6 +6,7 @@ import nbformat
 from nbconvert.preprocessors import ExecutePreprocessor
 from nbconvert import HTMLExporter
 
+
 class Job(DailyJob):
     help = "Convert Jupyter Notebook in lowfat/reports to HTML page in lowfat/reports/html."
 

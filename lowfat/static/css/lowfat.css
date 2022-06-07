@@ -10,6 +10,15 @@ td > pre {
     padding: 0px 10px 0px 0px;
 }
 
+/* Default Bootstrap 3 text colors do not meet 4.5:1 contrast requirement. */
+.navbar-brand {
+    color: #727272 !important;
+}
+
+.navbar-nav > li > a {
+    color: #727272 !important;
+}
+
 @media (min-width: 768px) {
     .navbar-nav > li > form {  /* From Bootstrap */
         padding-top: 10px;
@@ -48,7 +57,7 @@ a.icon:hover {
 span.asteriskField,
 span.asteriskField::after,
 span.asteriskField::before {
-    color: red;
+    color: #e00;
 }
 
 span.asteriskField::after {

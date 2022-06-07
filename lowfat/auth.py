@@ -6,7 +6,8 @@ at http://python-social-auth.readthedocs.io/en/latest/pipeline.html
 """
 from .models import Claimant
 
-def wire_profile(backend, user, response, details, *args, **kwargs):  #pylint: disable=unused-argument
+
+def wire_profile(backend, user, response, details, *args, **kwargs):  # pylint: disable=unused-argument
 
     """Wire GitHub profile with Fellow profile.
 

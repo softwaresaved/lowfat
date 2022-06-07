@@ -12,13 +12,15 @@ from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 from django.template import Context, Template
 
-from .models import *
+from . import models
 from .settings import DEFAULT_FROM_EMAIL, SITE_ID
+
 
 def html2text_fix(html):
     """Remove split text in blockquotes."""
     # Workaround until https://github.com/Alir3z4/html2text/pull/179/files is merged.
     return html2text(html).replace("\n\n>", "\n>")
+
 
 def mail_staffs(subject, message, fail_silently=False, connection=None, html_message=None):
     """Overwrite of Django mail_staffs()"""
@@ -32,6 +34,7 @@ def mail_staffs(subject, message, fail_silently=False, connection=None, html_mes
     )
     msg.attach_alternative(html_message, "text/html")
     msg.send(fail_silently=fail_silently)
+
 
 def new_notification(staff_url, email_url, user_email, context, mail):
     if config.STAFF_EMAIL_NOTIFICATION:
@@ -79,6 +82,7 @@ def new_notification(staff_url, email_url, user_email, context, mail):
         mail.justification = plain_text
         mail.save()
 
+
 def new_fund_notification(fund):
     staff_url = "/email/template/fund/staff/"
     email_url = "/email/template/fund/claimant/"
@@ -86,7 +90,7 @@ def new_fund_notification(fund):
     user_context = {
         "fund": fund,
     }
-    mail = FundSentMail(
+    mail = models.FundSentMail(
         **{
             "justification": "",
             "sender": None,
@@ -97,6 +101,7 @@ def new_fund_notification(fund):
 
     new_notification(staff_url, email_url, user_email, user_context, mail)
 
+
 def new_expense_notification(expense):
     staff_url = "/email/template/expense/staff/"
     email_url = "/email/template/expense/claimant/"
@@ -104,7 +109,7 @@ def new_expense_notification(expense):
     user_context = {
         "expense": expense,
     }
-    mail = ExpenseSentMail(
+    mail = models.ExpenseSentMail(
         **{
             "justification": "",
             "sender": None,
@@ -113,8 +118,8 @@ def new_expense_notification(expense):
         }
     )
 
-
     new_notification(staff_url, email_url, user_email, user_context, mail)
+
 
 def new_blog_notification(blog):
     staff_url = "/email/template/blog/staff/"
@@ -125,7 +130,7 @@ def new_blog_notification(blog):
     context = {
         "blog": blog,
     }
-    mail = BlogSentMail(
+    mail = models.BlogSentMail(
         **{
             "justification": "",
             "sender": None,
@@ -135,6 +140,7 @@ def new_blog_notification(blog):
     )
 
     new_notification(staff_url, email_url, user_email, context, mail)
+
 
 def review_notification(email_url, user_email, context, mail, copy_to_staffs=False, copy_to_gatekeeper=False):   # pylint: disable=too-many-arguments
     """Compose the message and send the email."""
@@ -155,7 +161,7 @@ def review_notification(email_url, user_email, context, mail, copy_to_staffs=Fal
 
         cc_addresses = [config.FELLOWS_MANAGEMENT_EMAIL]
         if copy_to_gatekeeper:
-            cc_addresses.append(config.WEBSITE_GATEKEEPER)
+            cc_addresses.append(config.WEBSITE_GATEKEEPER_EMAIL)
 
         # Email to claimant
         msg = EmailMultiAlternatives(
@@ -171,13 +177,14 @@ def review_notification(email_url, user_email, context, mail, copy_to_staffs=Fal
         # Every email is archived in the database
         mail.save()
 
+
 def fund_review_notification(message, sender, old, new, copy_to_staffs):
     user_email = [new.claimant.email]
     context = {
         "old": old,
         "new": new,
     }
-    mail = FundSentMail(
+    mail = models.FundSentMail(
         **{
             "justification": message,
             "sender": sender,
@@ -195,6 +202,7 @@ def fund_review_notification(message, sender, old, new, copy_to_staffs):
 
     review_notification(email_url, user_email, context, mail, copy_to_staffs)
 
+
 def expense_review_notification(message, sender, old, new, copy_to_staffs):
     user_email = [new.fund.claimant.email]
 
@@ -202,7 +210,7 @@ def expense_review_notification(message, sender, old, new, copy_to_staffs):
         "old": old,
         "new": new,
     }
-    mail = ExpenseSentMail(
+    mail = models.ExpenseSentMail(
         **{
             "justification": message,
             "sender": sender,
@@ -220,6 +228,7 @@ def expense_review_notification(message, sender, old, new, copy_to_staffs):
 
     review_notification(email_url, user_email, context, mail, copy_to_staffs)
 
+
 def blog_review_notification(message, sender, old, new, copy_to_staffs):
     user_email = [new.author.email]
     if new.coauthor.all():
@@ -228,7 +237,7 @@ def blog_review_notification(message, sender, old, new, copy_to_staffs):
         "old": old,
         "new": new,
     }
-    mail = BlogSentMail(
+    mail = models.BlogSentMail(
         **{
             "justification": message,
             "sender": sender,
@@ -253,6 +262,7 @@ def blog_review_notification(message, sender, old, new, copy_to_staffs):
         copy_to_gatekeeper = False
 
     review_notification(email_url, user_email, context, mail, copy_to_staffs, copy_to_gatekeeper)
+
 
 def staff_reminder(request):  # pylint: disable=invalid-name
     if config.STAFF_EMAIL_REMINDER:
@@ -280,6 +290,7 @@ def staff_reminder(request):  # pylint: disable=invalid-name
             fail_silently=False
         )
 
+
 def staff_follow_up(requests):  # pylint: disable=invalid-name
     if config.STAFF_EMAIL_FOLLOW_UP:
         staff_url = "/email/template/staff/follow_up/"
@@ -304,6 +315,7 @@ def staff_follow_up(requests):  # pylint: disable=invalid-name
             html_message=html,
             fail_silently=False
         )
+
 
 def claimant_profile_update_notification(claimant):  # pylint: disable=invalid-name
     if config.STAFF_EMAIL_REMINDER:

@@ -4,6 +4,7 @@ from django.core.management.base import BaseCommand
 
 from lowfat.models import Fund
 
+
 class Command(BaseCommand):
     help = "Add activities"
 
@@ -19,7 +20,8 @@ class Command(BaseCommand):
                     claimant__forenames=line["fornames"],
                     claimant__surname=line["surname"],
                     title=line["title"]
-                    )
+                )
+
                 for fund in funds:
                     if line["category"] == "Organising":
                         fund.category = "H"

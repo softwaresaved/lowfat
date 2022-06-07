@@ -6,6 +6,7 @@ from django.core.management.base import BaseCommand
 
 from lowfat.models import Claimant
 
+
 class Command(BaseCommand):
     help = "Import CSV with 2018 applications."
 

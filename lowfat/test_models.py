@@ -2,6 +2,7 @@ from django.test import TestCase
 
 from .models import Claimant, fix_url
 
+
 class FixURLTest(TestCase):
     def test_none(self):
         url = None

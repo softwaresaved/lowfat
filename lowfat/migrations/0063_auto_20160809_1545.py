@@ -6,7 +6,7 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
+    atomic = False
     dependencies = [
         ('lowfat', '0062_auto_20160809_1541'),
     ]
