@@ -214,6 +214,7 @@ def expense_review(request, expense_id):
             messages.success(request, 'Expense claim updated.')
             if not formset.cleaned_data["not_send_email_field"]:
                 expense_review_notification(
+                    request,
                     formset.cleaned_data['email'],
                     request.user,
                     old_expense,
