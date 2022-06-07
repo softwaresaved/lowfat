@@ -1,11 +1,13 @@
 """Validator functions."""
 import logging
+import pathlib
 import sys
 from urllib import request
 from urllib.error import HTTPError
 
 from django.core.exceptions import ValidationError
 
+import magic
 import PyPDF2
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
@@ -50,3 +52,25 @@ def pdf(value):
         logger.warning('%s %s', *(sys.exc_info()[0:2]))
 
         raise ValidationError("File doesn't look to be a PDF file.")  # pylint: disable=raise-missing-from
+
+def validate_document(value) -> None:
+    """Check if file is a document.
+    
+    e.g. Word document or OpenOffice / LibreOffice.
+    """
+    filepath = pathlib.Path(value.name)
+    if filepath.suffix not in {
+        ".doc",
+        ".docx",
+        ".odt"
+    }:
+        raise ValidationError("File name doesn't look like a document.")
+
+    mimetype = magic.from_file(value.file)
+    if mimetype not in {
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/vnd.oasis.opendocument.text"
+    }:
+        logger.warning("Invalid MIME type for document '%s'", value.name)
+        raise ValidationError("Document does not appear to be of required type.")

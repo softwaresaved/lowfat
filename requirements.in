@@ -23,5 +23,6 @@ Pillow
 pypdf2
 python-decouple
 python-gnupg
+python-magic
 social-auth-app-django
 social-auth-core
