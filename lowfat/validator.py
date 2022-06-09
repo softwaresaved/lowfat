@@ -57,21 +57,27 @@ def pdf(value):
 def validate_document(value) -> None:
     """Check if file is a document.
 
-    e.g. Word document or OpenOffice / LibreOffice.
+    e.g. Word document, OpenOffice / LibreOffice, or PDF.
     """
     filepath = pathlib.Path(value.name)
-    if filepath.suffix not in {
-        ".doc",
-        ".docx",
-        ".odt"
-    }:
-        raise ValidationError("File name doesn't look like a document.")
+    expected_mime_types = {
+        ".doc": [
+            "application/msword",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        ],
+        ".docx": [
+            "application/msword",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        ],
+        ".odt": ["application/vnd.oasis.opendocument.text"],
+        ".pdf": ["application/pdf"],
+    }
 
-    mimetype = magic.from_file(value.file)
-    if mimetype not in {
-        "application/msword",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "application/vnd.oasis.opendocument.text"
-    }:
-        logger.warning("Invalid MIME type for document '%s'", value.name)
-        raise ValidationError("Document does not appear to be of required type.")
+    try:
+        expected = expected_mime_types[filepath.suffix]
+        if magic.from_buffer(value.file.open("rb").file.read(), mime=True) not in expected:
+            raise ValidationError(
+                "Document does not appear to be of expected type.")
+
+    except KeyError as exc:
+        raise ValidationError("Document has unexpected extension.") from exc
