@@ -793,6 +793,7 @@ class ExpenseForm(GarlicForm):
         fields = [
             'fund',
             'claim',
+            'receipts',
             'amount_claimed',
             'justification_for_extra',
             'invoice',
@@ -807,7 +808,8 @@ class ExpenseForm(GarlicForm):
 
         labels = {
             'fund': 'Choose approved funding request',
-            'claim': 'PDF copy of claim and receipt(s)',
+            'claim': 'Completed claim form',
+            'receipts': 'PDF copy of receipt(s)',
             'justification_for_extra': "If the claim is greater by 20% than the amount requested please provide justification",
             'invoice': "Do you need to claim this expense via an invoice from your institution or company?",
             'final': "Is this the final expense claim associated with this funding request?",
@@ -847,6 +849,7 @@ class ExpenseForm(GarlicForm):
                       </ol>
                     </p>""")),
                 'claim',
+                'receipts',
                 PrependedText(
                     'amount_claimed',
                     '£',
@@ -884,13 +887,15 @@ class ExpenseShortlistedForm(GarlicForm):
         fields = [
             'fund',
             'claim',
+            'receipts',
             'amount_claimed',
             'justification_for_extra',
         ]
 
         labels = {
             'fund': 'Choose approved funding request',
-            'claim': 'PDF copy of claim and receipt(s)',
+            'claim': 'Completed claim form',
+            'receipts': 'PDF copy of receipt(s)',
             'justification_for_extra': "If the claim is greater by 20% than the amount requested please provide justification",
         }
 
