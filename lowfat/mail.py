@@ -174,7 +174,6 @@ def review_notification(request, email_url, user_email, context, mail, copy_to_s
         msg = EmailMultiAlternatives(
             flatemail.title,
             plain_text,
-            mail.sender.email,
             settings.DEFAULT_FROM_EMAIL,
             user_email,
             cc=cc_addresses,
