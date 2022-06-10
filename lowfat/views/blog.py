@@ -223,6 +223,7 @@ def blog_review(request, blog_id):
             messages.success(request, 'Blog updated.')
             if not formset.cleaned_data["not_send_email_field"]:
                 blog_review_notification(
+                    request,
                     formset.cleaned_data['email'],
                     request.user,
                     old_blog,

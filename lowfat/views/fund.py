@@ -104,6 +104,7 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches,too-many-s
                 messages.success(request, 'Funding request approved.')
                 if not formset.cleaned_data["not_send_email_field"]:
                     fund_review_notification(
+                        request,
                         "",
                         request.user,
                         fund,
@@ -277,6 +278,7 @@ def fund_review(request, fund_id):
                 messages.success(request, 'Funding request updated.')
             if not formset.cleaned_data["not_send_email_field"]:
                 fund_review_notification(
+                    request,
                     formset.cleaned_data['email'],
                     request.user,
                     old_fund,
