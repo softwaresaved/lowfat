@@ -8,8 +8,8 @@ from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.shortcuts import render
+from django.http import HttpResponseRedirect, Http404
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
 from PyPDF2 import PdfFileMerger, PdfFileReader
@@ -18,6 +18,8 @@ from lowfat.models import Claimant, Expense, Fund, FUND_STATUS_APPROVED_SET, Exp
 from lowfat.forms import ExpenseForm, ExpenseReviewForm, ExpenseShortlistedForm
 from lowfat.mail import expense_review_notification, new_expense_notification
 from .claimant import get_terms_and_conditions_url
+
+from .base import FileFieldView, OwnerStaffOrTokenMixin
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
@@ -165,10 +167,6 @@ def expense_detail_public(request, access_token):
         expense = None
 
     return _expense_detail(request, expense)
-
-
-def expense_detail(request, expense_id):
-    raise Http404("URL not supported in lowFAT 2.x.")
 
 
 @login_required
@@ -340,42 +338,36 @@ def expense_append_relative(request, fund_id, expense_relative_number):
     )
 
 
-def _expense_claim(request, expense):
-    if expense is None:
-        raise Http404("PDF does not exist.")
+class ExpenseClaimView(OwnerStaffOrTokenMixin, FileFieldView):
+    """Download an expense claim form document."""
+    model = Expense
+    field_name = "claim"
+    owner_field = "fund.claimant.user"
 
-    with open(expense.claim.path, "rb") as _file:
-        response = HttpResponse(_file.read(), content_type="application/pdf")
-        response['Content-Disposition'] = 'inline; filename="{}"'.format(
-            expense.claim_clean_name())
-    return response
+    def get_object(self, queryset=None):
+        if "token" in self.kwargs:
+            return get_object_or_404(self.model,
+                                     access_token=self.kwargs["access_token"])
 
-
-def expense_claim(request, expense_id):
-    raise Http404("URL not supported in lowFAT 2.x.")
-
-
-@login_required
-def expense_claim_relative(request, fund_id, expense_relative_number):
-    try:
-        fund = Fund.objects.get(id=fund_id)
-        expense = Expense.objects.get(fund=fund, relative_number=expense_relative_number)
-
-        if not (request.user.is_staff or Claimant.objects.get(
-                user=request.user) == expense.fund.claimant):
-            expense = None
-    except ObjectDoesNotExist:
-        expense = None
-
-    return _expense_claim(request, expense)
+        return get_object_or_404(
+            self.model,
+            fund=self.kwargs["fund_id"],
+            relative_number=self.kwargs["expense_relative_number"])
 
 
-def expense_claim_public(request, access_token):
-    try:
-        expense = Expense.objects.get(access_token=access_token)
-        if not expense.access_token_is_valid():
-            expense = None
-    except ObjectDoesNotExist:
-        expense = None
+class ExpenseReceiptsView(OwnerStaffOrTokenMixin, FileFieldView):
+    """Download an expense claim receipts document."""
+    model = Expense
+    field_name = "receipts"
+    owner_field = "fund.claimant.user"
 
-    return _expense_claim(request, expense)
+    def get_object(self, queryset=None):
+        if "token" in self.kwargs:
+            return get_object_or_404(self.model,
+                                     access_token=self.kwargs["access_token"])
+
+        return get_object_or_404(
+            self.model,
+            fund=self.kwargs["fund_id"],
+            relative_number=self.kwargs["expense_relative_number"])
+
