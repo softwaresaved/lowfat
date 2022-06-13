@@ -2,11 +2,15 @@
 Send email for some views.
 """
 import ast
+import smtplib
+import logging
 
 from constance import config
 
 from html2text import html2text
 
+from django.conf import settings
+from django.contrib import messages
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
@@ -14,6 +18,9 @@ from django.template import Context, Template
 
 from . import models
 from .settings import DEFAULT_FROM_EMAIL, SITE_ID
+
+
+logger = logging.getLogger(__name__)
 
 
 def html2text_fix(html):
@@ -142,7 +149,7 @@ def new_blog_notification(blog):
     new_notification(staff_url, email_url, user_email, context, mail)
 
 
-def review_notification(email_url, user_email, context, mail, copy_to_staffs=False, copy_to_gatekeeper=False):   # pylint: disable=too-many-arguments
+def review_notification(request, email_url, user_email, context, mail, copy_to_staffs=False, copy_to_gatekeeper=False):   # pylint: disable=too-many-arguments
     """Compose the message and send the email."""
     if config.CLAIMANT_EMAIL_NOTIFICATION and email_url is not None:
         # Generate message
@@ -167,18 +174,27 @@ def review_notification(email_url, user_email, context, mail, copy_to_staffs=Fal
         msg = EmailMultiAlternatives(
             flatemail.title,
             plain_text,
-            mail.sender.email,
+            settings.DEFAULT_FROM_EMAIL,
             user_email,
             cc=cc_addresses,
-            bcc=ast.literal_eval(config.STAFFS_EMAIL) if copy_to_staffs else None
+            bcc=ast.literal_eval(config.STAFFS_EMAIL) if copy_to_staffs else None,
+            reply_to=config.FELLOWS_MANAGEMENT_EMAIL
         )
         msg.attach_alternative(html, "text/html")
-        msg.send(fail_silently=False)
-        # Every email is archived in the database
-        mail.save()
+
+        try:
+            msg.send(fail_silently=False)
+
+        except (ConnectionRefusedError, smtplib.SMTPRecipientsRefused) as exc:
+            messages.error(request, "Failed to send notification email.")
+            logger.error(exc)
+
+        finally:
+            # Every email is archived in the database
+            mail.save()
 
 
-def fund_review_notification(message, sender, old, new, copy_to_staffs):
+def fund_review_notification(request, message, sender, old, new, copy_to_staffs):
     user_email = [new.claimant.email]
     context = {
         "old": old,
@@ -200,10 +216,10 @@ def fund_review_notification(message, sender, old, new, copy_to_staffs):
     else:
         email_url = None
 
-    review_notification(email_url, user_email, context, mail, copy_to_staffs)
+    review_notification(request, email_url, user_email, context, mail, copy_to_staffs)
 
 
-def expense_review_notification(message, sender, old, new, copy_to_staffs):
+def expense_review_notification(request, message, sender, old, new, copy_to_staffs):
     user_email = [new.fund.claimant.email]
 
     context = {
@@ -226,10 +242,10 @@ def expense_review_notification(message, sender, old, new, copy_to_staffs):
     else:
         email_url = None
 
-    review_notification(email_url, user_email, context, mail, copy_to_staffs)
+    review_notification(request, email_url, user_email, context, mail, copy_to_staffs)
 
 
-def blog_review_notification(message, sender, old, new, copy_to_staffs):
+def blog_review_notification(request, message, sender, old, new, copy_to_staffs):
     user_email = [new.author.email]
     if new.coauthor.all():
         user_email.extend([author.email for author in new.coauthor.all()])
@@ -261,7 +277,7 @@ def blog_review_notification(message, sender, old, new, copy_to_staffs):
         email_url = None
         copy_to_gatekeeper = False
 
-    review_notification(email_url, user_email, context, mail, copy_to_staffs, copy_to_gatekeeper)
+    review_notification(request, email_url, user_email, context, mail, copy_to_staffs, copy_to_gatekeeper)
 
 
 def staff_reminder(request):  # pylint: disable=invalid-name
