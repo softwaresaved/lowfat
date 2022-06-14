@@ -178,7 +178,7 @@ def review_notification(request, email_url, user_email, context, mail, copy_to_s
             user_email,
             cc=cc_addresses,
             bcc=ast.literal_eval(config.STAFFS_EMAIL) if copy_to_staffs else None,
-            reply_to=config.FELLOWS_MANAGEMENT_EMAIL
+            reply_to=[config.FELLOWS_MANAGEMENT_EMAIL]
         )
         msg.attach_alternative(html, "text/html")
 
