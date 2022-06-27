@@ -9,7 +9,6 @@ from constance import config
 
 from html2text import html2text
 
-from django.conf import settings
 from django.contrib import messages
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.sites.models import Site
