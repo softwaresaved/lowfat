@@ -95,7 +95,7 @@ class Expense(ModelWithToken):
     #: PDF of receipts for claim
     receipts = models.FileField(
         upload_to='expenses/',
-        validators=[validator.pdf],
+        validators=[validator.validate_pdf],
         blank=False,
         null=True
     )

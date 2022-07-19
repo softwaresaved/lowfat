@@ -1,14 +1,13 @@
 """Validator functions."""
 import logging
 import pathlib
-import sys
+import typing
 from urllib import request
 from urllib.error import HTTPError
 
 from django.core.exceptions import ValidationError
 
 import magic
-import PyPDF2
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
@@ -36,48 +35,45 @@ def online_document(url):
         raise ValidationError("Can't access online document.")
 
 
-def pdf(value):
-    """Check if filename looks like a PDF file."""
-
-    filename = value.name.lower()
-
-    if not filename.endswith(".pdf"):
-        raise ValidationError("File name doesn't look to be a PDF file.")
-
-    try:
-        _ = PyPDF2.PdfFileReader(value.file)
-
-    except:
-        logger.warning('Exception caught by bare except')
-        logger.warning('%s %s', *(sys.exc_info()[0:2]))
-
-        raise ValidationError("File doesn't look to be a PDF file.")  # pylint: disable=raise-missing-from
-
-
-def validate_document(value) -> None:
-    """Check if file is a document.
-
-    e.g. Word document, OpenOffice / LibreOffice, or PDF.
+def make_mimetype_validator(expected_types: typing.Mapping[str, typing.Collection[str]]):
+    """Make a validator for a Django `FileField` which validates file extension and MIME type.
+    
+    :param expected_types: Dictionary mapping file extension to list of permitted MIME types.
     """
-    filepath = pathlib.Path(value.name)
-    expected_mime_types = {
-        ".doc": [
-            "application/msword",
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-        ],
-        ".docx": [
-            "application/msword",
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-        ],
-        ".odt": ["application/vnd.oasis.opendocument.text"],
-        ".pdf": ["application/pdf"],
-    }
+    def validator(value) -> None:
+        """Django field validator for file extension and MIME type.
+        
+        Raises `ValidationError` if field value is invalid.
+        """
+        filepath = pathlib.Path(value.name)
 
-    try:
-        expected = expected_mime_types[filepath.suffix]
-        if magic.from_buffer(value.file.open("rb").file.read(), mime=True) not in expected:
-            raise ValidationError(
-                "Document does not appear to be of expected type.")
+        try:
+            expected = expected_types[filepath.suffix]
+            if magic.from_buffer(value.file.open("rb").file.read(), mime=True) not in expected:
+                raise ValidationError(
+                    "Document does not appear to be of expected type.")
 
-    except KeyError as exc:
-        raise ValidationError("Document has unexpected extension.") from exc
+        except KeyError as exc:
+            raise ValidationError("Document has unexpected extension.") from exc
+
+    return validator
+
+
+validate_pdf = make_mimetype_validator({
+    ".pdf": ["application/pdf"],
+})
+pdf = validate_pdf  # Name used in old migrations - kept for compatibility
+
+
+validate_document = make_mimetype_validator({
+    ".doc": [
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ],
+    ".docx": [
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ],
+    ".odt": ["application/vnd.oasis.opendocument.text"],
+    ".pdf": ["application/pdf"],
+})

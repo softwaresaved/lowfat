@@ -20,7 +20,6 @@ html2text
 markdown
 pandas
 Pillow
-pypdf2
 python-decouple
 python-gnupg
 python-magic
