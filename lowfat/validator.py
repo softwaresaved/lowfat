@@ -37,12 +37,12 @@ def online_document(url):
 
 def make_mimetype_validator(expected_types: typing.Mapping[str, typing.Collection[str]]):
     """Make a validator for a Django `FileField` which validates file extension and MIME type.
-    
+
     :param expected_types: Dictionary mapping file extension to list of permitted MIME types.
     """
     def validator(value) -> None:
         """Django field validator for file extension and MIME type.
-        
+
         Raises `ValidationError` if field value is invalid.
         """
         filepath = pathlib.Path(value.name)

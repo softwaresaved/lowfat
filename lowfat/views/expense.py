@@ -370,4 +370,3 @@ class ExpenseReceiptsView(OwnerStaffOrTokenMixin, FileFieldView):
             self.model,
             fund=self.kwargs["fund_id"],
             relative_number=self.kwargs["expense_relative_number"])
-
