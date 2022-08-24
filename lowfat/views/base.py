@@ -63,5 +63,11 @@ class OwnerStaffOrTokenMixin(UserPassesTestMixin):
         if self.allow_token and "token" in self.kwargs:
             return obj.access_token_is_valid()
 
-        return self.request.user.is_staff or self.request.user.pk == self.recurse_getattr(
+        return self.request.user.is_staff or self.request.user == self.recurse_getattr(
             obj, self.owner_field)
+
+    def handle_no_permission(self):
+        if self.request.user.is_authenticated:
+            raise Http404
+
+        return super().handle_no_permission()
