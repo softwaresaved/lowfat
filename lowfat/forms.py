@@ -1,4 +1,4 @@
-from bootstrap_datepicker_plus import DatePickerInput
+from bootstrap_datepicker_plus.widgets import DatePickerInput
 from datetime import datetime, date
 import logging
 import sys
