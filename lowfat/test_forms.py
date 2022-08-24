@@ -1384,6 +1384,7 @@ class ExpenseFormTest(TestCase):
         with open(BASE_DIR.joinpath("upload/expenses/ec1.pdf"), 'rb') as fake_file:
             file_data = {
                 "claim": File(fake_file, name='ec1.pdf'),
+                "receipts": File(fake_file, name='ec1-receipts.pdf')
             }
             form = forms.ExpenseForm(data, file_data)
             self.assertTrue(form.is_valid())
