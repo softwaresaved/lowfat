@@ -12,7 +12,8 @@ from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
-from PyPDF2 import PdfFileMerger, PdfFileReader
+from PyPDF2 import PdfMerger
+from PyPDF2.errors import PdfReadError
 
 from lowfat.models import Claimant, Expense, Fund, FUND_STATUS_APPROVED_SET, ExpenseSentMail
 from lowfat.forms import ExpenseForm, ExpenseReviewForm, ExpenseShortlistedForm
@@ -284,54 +285,40 @@ def expense_remove_relative(request, fund_id, expense_relative_number):
 
 
 @login_required
-def expense_append_relative(request, fund_id, expense_relative_number):
-    try:
-        this_expense = Expense.objects.get(
-            fund=Fund.objects.get(id=fund_id),
-            relative_number=expense_relative_number
-        )
+def expense_append_relative(request, fund_id: int, expense_relative_number: int):
+    """Append pages to the expense receipts PDF.
 
-    except:
-        logger.warning('Exception caught by bare except')
-        logger.warning('%s %s', *(sys.exc_info()[0:2]))
+    Expects POST request containing a PDF to append.
+    """
+    fund = get_object_or_404(Fund, id=fund_id)
+    this_expense = get_object_or_404(Expense,
+                                     fund=fund,
+                                     relative_number=expense_relative_number)
 
-        this_expense = None
-        messages.error(request, "The expense that you want doesn't exist.")
-
-    if request.POST and request.FILES and this_expense:
-        try:
-            # Workaround for 'bytes' object has no attribute 'seek'
-            # Suggestion by ƘɌỈSƬƠƑ
-            # https://stackoverflow.com/a/38678468/1802726
-            request_pdf_io = io.BytesIO(request.FILES["pdf"].read())
-            PdfFileReader(request_pdf_io)
-            request_pdf_io.seek(0)
-
-        except:
-            logger.warning('Exception caught by bare except')
-            logger.warning('%s %s', *(sys.exc_info()[0:2]))
-
-            messages.error(request, 'File is not a PDF.')
-
+    if request.POST and request.FILES:
         # Backup of original PDF
         shutil.copyfile(
-            this_expense.claim.path,
-            "{}-backup.pdf".format(this_expense.claim.path)
+            this_expense.receipts.path,
+            f"{this_expense.receipts.path}-backup.pdf"
         )
 
         # Based on Emile Bergeron's suggestion
         # https://stackoverflow.com/a/29871560/1802726
-        merger = PdfFileMerger()
-        with open(this_expense.claim.path, "rb") as _file:
-            # Workaround for 'bytes' object has no attribute 'seek'
-            # Suggestion by ƘɌỈSƬƠƑ
-            # https://stackoverflow.com/a/38678468/1802726
-            original_pdf_io = io.BytesIO(_file.read())
-            merger.append(original_pdf_io)
-            merger.append(request_pdf_io)
-            merger.write(this_expense.claim.path)
+        merger = PdfMerger()
+        try:
+            with open(this_expense.receipts.path, "rb") as _file:
+                # Files need to be cast as `BytesIO` to provide `.seek()`
+                # https://stackoverflow.com/a/38678468/1802726
+                original_pdf_io = io.BytesIO(_file.read())
+                request_pdf_io = io.BytesIO(request.FILES["pdf"].read())
+                merger.append(original_pdf_io)
+                merger.append(request_pdf_io)
+                merger.write(this_expense.receipts.path)
 
-        messages.success(request, 'PDF updated.')
+                messages.success(request, 'Receipts PDF updated.')
+
+        except PdfReadError:
+            messages.error(request, 'Uploaded file is not a PDF.')
 
     return HttpResponseRedirect(
         reverse('expense_detail_relative', args=[fund_id, expense_relative_number])
