@@ -19,9 +19,10 @@ geopy
 html2text
 markdown
 pandas
-Pillow
+pillow
 pypdf2
 python-decouple
 python-gnupg
+python-magic
 social-auth-app-django
 social-auth-core

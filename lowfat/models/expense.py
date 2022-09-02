@@ -7,7 +7,7 @@ from django.urls import reverse
 
 from simple_history.models import HistoricalRecords
 
-from lowfat.validator import pdf
+from .. import validator
 
 EXPENSE_STATUS = (
     ('S', 'Submitted'),
@@ -85,10 +85,21 @@ class Expense(ModelWithToken):
 
     # Form
     fund = models.ForeignKey('Fund', on_delete=models.CASCADE)
+
+    #: Completed claim form
     claim = models.FileField(
         upload_to='expenses/',  # File will be uploaded to MEDIA_ROOT/expenses
-        validators=[pdf]
+        validators=[validator.validate_document]
     )
+
+    #: PDF of receipts for claim
+    receipts = models.FileField(
+        upload_to='expenses/',
+        validators=[validator.validate_pdf],
+        blank=False,
+        null=True
+    )
+
     amount_claimed = models.DecimalField(
         max_digits=MAX_DIGITS,
         decimal_places=2,

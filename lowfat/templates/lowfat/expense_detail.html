@@ -19,16 +19,7 @@
   {% endif %}
   {% endif %}
 </h1>
-<object
-  class="expense-review-pdf"
-  {% if user.is_authenticated %}
-  data="{% url 'expense_claim_relative' expense.fund.id expense.relative_number %}"
-  {% else %}
-  data="{% url 'expense_claim_public' expense.access_token %}"
-  {% endif %}
-  type="application/pdf">
-  <p>You will need to download the <a href="{% url 'expense_claim_relative' expense.fund.id expense.relative_number %}">PDF file.</a></p>
-</object>
+
 <table class="table table-bordered">
     <tbody>
         <tr>
@@ -75,16 +66,50 @@
           <th>Status</th>
           <td>{{ expense.get_status_display }}</td>
         </tr>
+
+        {% if expense.claim %}
+        <tr>
+          <td><b>Claim form</b></td>
+          <td>
+            <a {% if user.is_authenticated %}
+               href="{% url 'expense_claim_relative' expense.fund.id expense.relative_number %}"
+               {% else %}
+               href="{% url 'expense_claim_public' expense.access_token %}"
+               {% endif %}>
+              Download
+              <i class="fas fa-file"></i>
+            </a>
+          </td>
+        </tr>
+        {% endif %}
+
+        {% if expense.receipts %}
+        <tr>
+          <td><b>Receipts</b></td>
+          <td>
+            <a {% if user.is_authenticated %}
+               href="{% url 'expense_receipts_relative' expense.fund.id expense.relative_number %}"
+               {% else %}
+               href="{% url 'expense_receipts_public' expense.access_token %}"
+               {% endif %}>
+              Download
+              <i class="fas fa-file"></i>
+            </a>
+          </td>
+        </tr>
+        {% endif %}
+
         {% if user.is_authenticated %}
         <tr>
-          <th>Add pages</th>
+          <th>Append another PDF to receipts</th>
           <td>
-            <form class="form-inline" action="/request/{{ expense.fund.id }}/expense/{{ expense.relative_number }}/append" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <form class="form-inline" action="/request/{{ expense.fund.id }}/expense/{{ expense.relative_number }}/append/" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
               <div class="form-group">
-                <label for="add-page">PDF file</label>
+                <label for="pdf" class="sr-only">Append another PDF to receipts</label>
                 <input type="file" id="pdf" name="pdf" required>
               </div>
-              <button type="submit" class="btn btn-default">Send pages</button>
+              <button type="submit" class="btn btn-default">Add pages</button>
             </form>
           </td>
         </tr>

@@ -164,6 +164,7 @@ def create_all():
         with open(BASE_DIR.joinpath("upload/expenses/ec1.pdf"), 'rb') as fake_file:
             data.update({
                 "claim": File(fake_file, name="ec1.pdf"),
+                "receipts": File(fake_file, name="ec1-receipts.pdf"),
             })
 
             _expense = models.Expense(**data)

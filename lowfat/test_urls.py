@@ -623,84 +623,6 @@ class URLTest(TestCase):
 
         self.run_requests(url, queries)
 
-    def test_expense_review(self):
-        url = '/expense/{}/review/'.format(self.expense_id_a)
-        queries = [
-            {
-                "user": self.public,
-                "expect_code": 200,
-                "final_url_regex": r"/admin/login/\?next=/expense/\d+/review",
-            },
-            {
-                "user": self.public,
-                "expect_code": 200,
-                "post_data": {
-                    "status": "S",
-                    "asked_for_authorization_date": "2016-01-01",
-                    "send_to_finance_date": "2016-01-01",
-                    "amount_authorized_for_payment": 100.00,
-                    "grant_heading": "F",
-                    "grant": "SSI1",
-                },
-                "final_url_regex": r"/admin/login/\?next=/expense/\d+/review",
-            },
-            {
-                "user": self.claimant_a,
-                "expect_code": 200,
-                "final_url_regex": r"/admin/login/\?next=/expense/\d+/review",
-            },
-            {
-                "user": self.claimant_a,
-                "expect_code": 200,
-                "post_data": {
-                    "status": "S",
-                    "asked_for_authorization_date": "2016-01-01",
-                    "send_to_finance_date": "2016-01-01",
-                    "amount_authorized_for_payment": 100.00,
-                    "grant_heading": "F",
-                    "grant": "SSI1",
-                },
-                "final_url_regex": r"/admin/login/\?next=/expense/\d+/review",
-            },
-            {
-                "user": self.claimant_b,
-                "expect_code": 200,
-                "final_url_regex": r"/admin/login/\?next=/expense/\d+/review",
-            },
-            {
-                "user": self.claimant_b,
-                "expect_code": 200,
-                "post_data": {
-                    "status": "S",
-                    "asked_for_authorization_date": "2016-01-01",
-                    "send_to_finance_date": "2016-01-01",
-                    "amount_authorized_for_payment": 100.00,
-                    "grant_heading": "F",
-                    "grant": "SSI1",
-                },
-                "final_url_regex": r"/admin/login/\?next=/expense/\d+/review",
-            },
-            {
-                "user": self.admin,
-                "expect_code": 200,
-            },
-            {
-                "user": self.admin,
-                "expect_code": 200,
-                "post_data": {
-                    "status": "S",
-                    "asked_for_authorization_date": "2016-01-01",
-                    "send_to_finance_date": "2016-01-01",
-                    "amount_authorized_for_payment": 100.00,
-                    "grant_heading": "F",
-                    "grant": "SSI1",
-                },
-                "final_url_regex": r"/request/\d+/expense/\d+",
-            },
-        ]
-
-        self.run_requests(url, queries)
-
     def test_expense_review_relative(self):
         this_expense = models.Expense.objects.get(id=self.expense_id_a)
         url = '/fund/{}/expense/{}/review/'.format(self.fund_id_a, this_expense.relative_number)
@@ -782,12 +704,12 @@ class URLTest(TestCase):
 
     def test_expense_claim_relative(self):
         this_expense = models.Expense.objects.get(id=self.expense_id_a)
-        url = '/fund/{}/expense/{}/pdf/'.format(self.fund_id_a, this_expense.relative_number)
+        url = '/fund/{}/expense/{}/claim/'.format(self.fund_id_a, this_expense.relative_number)
         queries = [
             {
                 "user": self.public,
                 "expect_code": 200,
-                "final_url_regex": r"/login/\?next=/fund/\d+/expense/\d+/pdf",
+                "final_url_regex": r"/login/\?next=/fund/\d+/expense/\d+/claim",
             },
             {
                 "user": self.claimant_a,
@@ -805,27 +727,26 @@ class URLTest(TestCase):
 
         self.run_requests(url, queries)
 
-    def test_expense_details(self):
-        """
-        All 404 view deprecated
-        """
-        url = '/expense/{}/'.format(self.expense_id_a)
+    def test_expense_receipts_relative(self):
+        this_expense = models.Expense.objects.get(id=self.expense_id_a)
+        url = '/fund/{}/expense/{}/receipts/'.format(self.fund_id_a, this_expense.relative_number)
         queries = [
             {
                 "user": self.public,
-                "expect_code": 404,
+                "expect_code": 200,
+                "final_url_regex": r"/login/\?next=/fund/\d+/expense/\d+/receipts",
             },
             {
                 "user": self.claimant_a,
-                "expect_code": 404,
+                "expect_code": 200,
             },
             {
                 "user": self.claimant_b,
-                "expect_code": 404,
+                "expect_code": 404,  # A 404 is expected as claimant_b is trying to access claimant_a's expense
             },
             {
                 "user": self.admin,
-                "expect_code": 404,
+                "expect_code": 200,
             },
         ]
 
