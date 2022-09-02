@@ -8,6 +8,7 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y \
   curl \
+  libmagic1 \
   unzip \
   && rm -rf /var/lib/apt/lists/*
 
