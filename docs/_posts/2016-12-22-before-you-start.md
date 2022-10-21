@@ -24,26 +24,24 @@ We follow [PEP8](https://www.python.org/dev/peps/pep-0008/).
 
 If you are using [Anaconda](https://docs.continuum.io/anaconda/) you can run the follow commands:
 
+To create a development server
 ~~~
-$ git clone git@github.com:softwaresaved/lowfat.git
-$ cd lowfat
-$ conda create -n lowfat python=3.6
-$ source activate lowfat
-$ python -m pip install -r requirements.txt
+python3 -m venv .venv
+source .venv/bin/activate
+pip3 install wheel
+pip3 install -r requirements.txt
+cp .env_template .env
+# Add the Secret key to .env
+# add 'DEBUG=True' to .env
+bash bootstrap.sh
+python3 manage.py loaddata lowfat/fixtures/*.json
+bash entrypoint.sh
+python3 manage.py createsuperuser
+python3 manage.py runserver
 ~~~
-
-Similar commands can be used if you aren't using Anaconda.
-
-~~~
-$ git clone git@github.com:softwaresaved/lowfat.git
-$ cd lowfat
-$ python3 -m venv .venv
-$ source .venv/bin/activate
-$ pip install -r requirements.txt
-~~~
+{: .language-plain-text }
 
 You can also start a production-like environment using Docker.
-
 ~~~
 $ docker-compose up --build
 ~~~
