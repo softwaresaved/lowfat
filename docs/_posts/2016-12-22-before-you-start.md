@@ -34,8 +34,8 @@ cp .env_template .env
 # Add the Secret key to .env
 # add 'DEBUG=True' to .env
 bash bootstrap.sh
-python3 manage.py loaddata lowfat/fixtures/*.json
 bash entrypoint.sh
+python3 manage.py loaddata lowfat/fixtures/*.json
 python3 manage.py createsuperuser
 python3 manage.py runserver
 ~~~
