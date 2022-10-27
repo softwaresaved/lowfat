@@ -96,9 +96,9 @@
       </td>
     </tr>
     {% endif %}
-    {% if user.is_staff %}
+    {% if user.is_staff or user == fund.claimant %}
     <tr>
-      <th>Justication</th>
+      <th>Justification</th>
       <td>{{ fund.justification | markdown | safe }}</td>
     </tr>
     <tr>
