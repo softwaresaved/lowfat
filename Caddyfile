@@ -15,7 +15,3 @@ file_server
 # Forward all non-static paths to web container
 reverse_proxy @proxy_paths web:8000
 
-log {
-    output stderr
-    format single_field common_log
-}
