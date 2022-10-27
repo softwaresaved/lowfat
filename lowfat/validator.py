@@ -1,12 +1,13 @@
 """Validator functions."""
 import logging
-import sys
+import pathlib
+import typing
 from urllib import request
 from urllib.error import HTTPError
 
 from django.core.exceptions import ValidationError
 
-import PyPDF2
+import magic
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
@@ -34,19 +35,45 @@ def online_document(url):
         raise ValidationError("Can't access online document.")
 
 
-def pdf(value):
-    """Check if filename looks like a PDF file."""
+def make_mimetype_validator(expected_types: typing.Mapping[str, typing.Collection[str]]):
+    """Make a validator for a Django `FileField` which validates file extension and MIME type.
 
-    filename = value.name.lower()
+    :param expected_types: Dictionary mapping file extension to list of permitted MIME types.
+    """
+    def validator(value) -> None:
+        """Django field validator for file extension and MIME type.
 
-    if not filename.endswith(".pdf"):
-        raise ValidationError("File name doesn't look to be a PDF file.")
+        Raises `ValidationError` if field value is invalid.
+        """
+        filepath = pathlib.Path(value.name)
 
-    try:
-        _ = PyPDF2.PdfFileReader(value.file)
+        try:
+            expected = expected_types[filepath.suffix]
+            if magic.from_buffer(value.file.open("rb").file.read(), mime=True) not in expected:
+                raise ValidationError(
+                    "Document does not appear to be of expected type.")
 
-    except:
-        logger.warning('Exception caught by bare except')
-        logger.warning('%s %s', *(sys.exc_info()[0:2]))
+        except KeyError as exc:
+            raise ValidationError("Document has unexpected extension.") from exc
 
-        raise ValidationError("File doesn't look to be a PDF file.")  # pylint: disable=raise-missing-from
+    return validator
+
+
+validate_pdf = make_mimetype_validator({
+    ".pdf": ["application/pdf"],
+})
+pdf = validate_pdf  # Name used in old migrations - kept for compatibility
+
+
+validate_document = make_mimetype_validator({
+    ".doc": [
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ],
+    ".docx": [
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ],
+    ".odt": ["application/vnd.oasis.opendocument.text"],
+    ".pdf": ["application/pdf"],
+})

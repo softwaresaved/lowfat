@@ -10,9 +10,6 @@
   <a title="Remove" class="btn btn-default" href="{% url 'expense_remove_relative' expense.fund.id expense.relative_number %}" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>
   {% endif %}
 </h1>
-<object class="expense-review-pdf" data="{% url 'expense_claim_relative' expense.fund.id expense.relative_number %}" type="application/pdf">
-  <p>You will need to download the <a href="{% url 'expense_claim_relative' expense.fund.id expense.relative_number %}">PDF file.</a></p>
-</object>
 
 <div class="row">
   <div class="col-md-6">
@@ -68,6 +65,7 @@
     </table>
     {% include "lowfat/communication.html" %}
   </div>
+
   <div class="col-md-6" style="background:
        {% if expense.fund.total_of_blog_posts < expense.fund.required_blog_posts %}
        #fcf8e3
@@ -82,10 +80,35 @@
           <th>Received date</th>
           <td>{{ expense.added }}</td>
         </tr>
+
+        {% if expense.claim %}
+        <tr>
+          <td><b>Claim form</b></td>
+          <td>
+            <a href="{% url 'expense_claim_relative' expense.fund.id expense.relative_number %}">
+              Download
+              <i class="fas fa-file"></i>
+            </a>
+          </td>
+        </tr>
+        {% endif %}
+
+        {% if expense.receipts %}
+        <tr>
+          <td><b>Receipts</b></td>
+          <td>
+            <a href="{% url 'expense_receipts_relative' expense.fund.id expense.relative_number %}">
+              Download
+              <i class="fas fa-file"></i>
+            </a>
+          </td>
+        </tr>
+        {% endif %}
+
         {% if expense.advance_booking %}
         <tr>
           <th>Advance booking</th>
-          <td>{{ expense.advance_bookinge }}</td>
+          <td>{{ expense.advance_booking }}</td>
         </tr>
         {% endif %}
       </tbody>

@@ -8,16 +8,19 @@ from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.shortcuts import render
+from django.http import HttpResponseRedirect, Http404
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
-from PyPDF2 import PdfFileMerger, PdfFileReader
+from PyPDF2 import PdfMerger
+from PyPDF2.errors import PdfReadError
 
 from lowfat.models import Claimant, Expense, Fund, FUND_STATUS_APPROVED_SET, ExpenseSentMail
 from lowfat.forms import ExpenseForm, ExpenseReviewForm, ExpenseShortlistedForm
 from lowfat.mail import expense_review_notification, new_expense_notification
 from .claimant import get_terms_and_conditions_url
+
+from .base import FileFieldView, OwnerStaffOrTokenMixin
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
@@ -167,10 +170,6 @@ def expense_detail_public(request, access_token):
     return _expense_detail(request, expense)
 
 
-def expense_detail(request, expense_id):
-    raise Http404("URL not supported in lowFAT 2.x.")
-
-
 @login_required
 def expense_detail_relative(request, fund_id, expense_relative_number):
     this_fund = Fund.objects.get(id=fund_id)
@@ -214,6 +213,7 @@ def expense_review(request, expense_id):
             messages.success(request, 'Expense claim updated.')
             if not formset.cleaned_data["not_send_email_field"]:
                 expense_review_notification(
+                    request,
                     formset.cleaned_data['email'],
                     request.user,
                     old_expense,
@@ -285,96 +285,75 @@ def expense_remove_relative(request, fund_id, expense_relative_number):
 
 
 @login_required
-def expense_append_relative(request, fund_id, expense_relative_number):
-    try:
-        this_expense = Expense.objects.get(
-            fund=Fund.objects.get(id=fund_id),
-            relative_number=expense_relative_number
-        )
+def expense_append_relative(request, fund_id: int, expense_relative_number: int):
+    """Append pages to the expense receipts PDF.
 
-    except:
-        logger.warning('Exception caught by bare except')
-        logger.warning('%s %s', *(sys.exc_info()[0:2]))
+    Expects POST request containing a PDF to append.
+    """
+    fund = get_object_or_404(Fund, id=fund_id)
+    this_expense = get_object_or_404(Expense,
+                                     fund=fund,
+                                     relative_number=expense_relative_number)
 
-        this_expense = None
-        messages.error(request, "The expense that you want doesn't exist.")
-
-    if request.POST and request.FILES and this_expense:
-        try:
-            # Workaround for 'bytes' object has no attribute 'seek'
-            # Suggestion by ƘɌỈSƬƠƑ
-            # https://stackoverflow.com/a/38678468/1802726
-            request_pdf_io = io.BytesIO(request.FILES["pdf"].read())
-            PdfFileReader(request_pdf_io)
-            request_pdf_io.seek(0)
-
-        except:
-            logger.warning('Exception caught by bare except')
-            logger.warning('%s %s', *(sys.exc_info()[0:2]))
-
-            messages.error(request, 'File is not a PDF.')
-
+    if request.POST and request.FILES:
         # Backup of original PDF
         shutil.copyfile(
-            this_expense.claim.path,
-            "{}-backup.pdf".format(this_expense.claim.path)
+            this_expense.receipts.path,
+            f"{this_expense.receipts.path}-backup.pdf"
         )
 
         # Based on Emile Bergeron's suggestion
         # https://stackoverflow.com/a/29871560/1802726
-        merger = PdfFileMerger()
-        with open(this_expense.claim.path, "rb") as _file:
-            # Workaround for 'bytes' object has no attribute 'seek'
-            # Suggestion by ƘɌỈSƬƠƑ
-            # https://stackoverflow.com/a/38678468/1802726
-            original_pdf_io = io.BytesIO(_file.read())
-            merger.append(original_pdf_io)
-            merger.append(request_pdf_io)
-            merger.write(this_expense.claim.path)
+        merger = PdfMerger()
+        try:
+            with open(this_expense.receipts.path, "rb") as _file:
+                # Files need to be cast as `BytesIO` to provide `.seek()`
+                # https://stackoverflow.com/a/38678468/1802726
+                original_pdf_io = io.BytesIO(_file.read())
+                request_pdf_io = io.BytesIO(request.FILES["pdf"].read())
+                merger.append(original_pdf_io)
+                merger.append(request_pdf_io)
+                merger.write(this_expense.receipts.path)
 
-        messages.success(request, 'PDF updated.')
+                messages.success(request, 'Receipts PDF updated.')
+
+        except PdfReadError:
+            messages.error(request, 'Uploaded file is not a PDF.')
 
     return HttpResponseRedirect(
         reverse('expense_detail_relative', args=[fund_id, expense_relative_number])
     )
 
 
-def _expense_claim(request, expense):
-    if expense is None:
-        raise Http404("PDF does not exist.")
+class ExpenseClaimView(OwnerStaffOrTokenMixin, FileFieldView):
+    """Download an expense claim form document."""
+    model = Expense
+    field_name = "claim"
+    owner_field = "fund.claimant.user"
 
-    with open(expense.claim.path, "rb") as _file:
-        response = HttpResponse(_file.read(), content_type="application/pdf")
-        response['Content-Disposition'] = 'inline; filename="{}"'.format(
-            expense.claim_clean_name())
-    return response
+    def get_object(self, queryset=None):
+        if "token" in self.kwargs:
+            return get_object_or_404(self.model,
+                                     access_token=self.kwargs["access_token"])
 
-
-def expense_claim(request, expense_id):
-    raise Http404("URL not supported in lowFAT 2.x.")
-
-
-@login_required
-def expense_claim_relative(request, fund_id, expense_relative_number):
-    try:
-        fund = Fund.objects.get(id=fund_id)
-        expense = Expense.objects.get(fund=fund, relative_number=expense_relative_number)
-
-        if not (request.user.is_staff or Claimant.objects.get(
-                user=request.user) == expense.fund.claimant):
-            expense = None
-    except ObjectDoesNotExist:
-        expense = None
-
-    return _expense_claim(request, expense)
+        return get_object_or_404(
+            self.model,
+            fund=self.kwargs["fund_id"],
+            relative_number=self.kwargs["expense_relative_number"])
 
 
-def expense_claim_public(request, access_token):
-    try:
-        expense = Expense.objects.get(access_token=access_token)
-        if not expense.access_token_is_valid():
-            expense = None
-    except ObjectDoesNotExist:
-        expense = None
+class ExpenseReceiptsView(OwnerStaffOrTokenMixin, FileFieldView):
+    """Download an expense claim receipts document."""
+    model = Expense
+    field_name = "receipts"
+    owner_field = "fund.claimant.user"
 
-    return _expense_claim(request, expense)
+    def get_object(self, queryset=None):
+        if "token" in self.kwargs:
+            return get_object_or_404(self.model,
+                                     access_token=self.kwargs["access_token"])
+
+        return get_object_or_404(
+            self.model,
+            fund=self.kwargs["fund_id"],
+            relative_number=self.kwargs["expense_relative_number"])

@@ -55,7 +55,8 @@ FUND_PATTERNS = [
     path('<int:fund_id>/expense/<int:expense_relative_number>/edit/', views.expense_edit_relative, name="expense_edit_relative"),
     path('<int:fund_id>/expense/<int:expense_relative_number>/remove/', views.expense_remove_relative, name="expense_remove_relative"),
     path('<int:fund_id>/expense/<int:expense_relative_number>/append/', views.expense_append_relative, name="expense_append_relative"),
-    path('<int:fund_id>/expense/<int:expense_relative_number>/pdf/', views.expense_claim_relative, name="expense_claim_relative"),
+    path('<int:fund_id>/expense/<int:expense_relative_number>/claim/', views.ExpenseClaimView.as_view(), name="expense_claim_relative"),
+    path('<int:fund_id>/expense/<int:expense_relative_number>/receipts/', views.ExpenseReceiptsView.as_view(), name="expense_receipts_relative"),
     path('<int:fund_id>/review/', views.fund_review, name="fund_review"),
     path('<int:fund_id>/edit/', views.fund_edit, name="fund_edit"),
     path('<int:fund_id>/remove/', views.fund_remove, name="fund_remove"),
@@ -67,6 +68,7 @@ FUND_PATTERNS = [
 ]
 
 urlpatterns = [  # pylint: disable=invalid-name
+    # Auth views
     path('login/reset/',
          auth_views.PasswordResetView.as_view(template_name='lowfat/password_reset.html',
                                               email_template_name='lowfat/password_reset_email.html',
@@ -87,29 +89,38 @@ urlpatterns = [  # pylint: disable=invalid-name
     path('disconnect/',
          auth_views.LogoutView.as_view(next_page='/'),
          name="sign_out"),
-    path('', views.index),
     path('', include('social_django.urls', namespace='social')),
-    path('pages/', include('django.contrib.flatpages.urls')),
+
+    # Includes
     path('claimant/', include(CLAIMED_PATTERNS)),
     path('fellow/', include(FELLOW_PATTERNS)),
     path('request/', include(FUND_PATTERNS)),
+    path('fund/', include((FUND_PATTERNS, "fund_"), namespace="lowfat")),
+    path('pages/', include('django.contrib.flatpages.urls')),
+    path('staff/', include(STAFF_PATTERNS)),
+    path('admin/', admin.site.urls),
+
+    # Public views
     path('public/request/<access_token>/expense/', views.expense_form_public, name="expense_form_public"),
     path('public/request/<access_token>/blog/', views.blog_form_public, name="blog_form_public"),
     path('public/request/<access_token>', views.fund_detail_public, name="fund_detail_public"),
     path('public/request/', views.fund_form_public, name="fund_public"),
     path('public/expense/<access_token>/', views.expense_detail_public, name="expense_detail_public"),
-    path('public/expense/<access_token>/pdf', views.expense_claim_public, name="expense_claim_public"),
+    path('public/expense/<access_token>/pdf', views.ExpenseClaimView.as_view(), name="expense_claim_public"),
     path('public/blog/<access_token>/', views.blog_detail_public, name="blog_detail_public"),
-    path('fund/', include((FUND_PATTERNS, "fund_"), namespace="lowfat")),
-    path('expense/<int:expense_id>/pdf/', views.expense_claim, name="expense_claim"),
-    path('expense/<int:expense_id>/review/', views.expense_review, name="expense_review"),
-    path('expense/<int:expense_id>/', views.expense_detail, name="expense_detail"),
+
+    # Expense views
     path('expense/', views.expense_form, name="expense"),
+
+    # Blog views
     path('blog/<int:blog_id>/review/', views.blog_review, name="blog_review"),
     path('blog/<int:blog_id>/edit/', views.blog_edit, name="blog_edit"),
     path('blog/<int:blog_id>/remove/', views.blog_remove, name="blog_remove"),
     path('blog/<int:blog_id>/', views.blog_detail, name="blog_detail"),
     path('blog/', views.blog_form, name="blog"),
+
+    # Standalone page views
+    path('', views.index),
     path('dashboard/', views.dashboard, name="dashboard"),
     path('promote/', views.promote, name="promote"),
     path('my-profile/', views.my_profile, name="my_profile"),
@@ -118,7 +129,6 @@ urlpatterns = [  # pylint: disable=invalid-name
     path('report/', views.report, name="report"),
     path('search/', views.search, name="search"),
     path('recent-actions/', views.recent_actions, name="recent_actions"),
-    path('staff/', include(STAFF_PATTERNS)),
-    path('admin/', admin.site.urls),
     path('index/', views.index, name="index"),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + staticfiles_urlpatterns()
