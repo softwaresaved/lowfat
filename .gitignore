@@ -1,6 +1,7 @@
 fixtures/
 lowfat/fixtures/
 static
+tmp/emails/
 upload
 
 # Data
