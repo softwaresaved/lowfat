@@ -266,7 +266,10 @@ DEFAULT_FROM_EMAIL = config(
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 if EMAIL_HOST is None:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+    p = pathlib.Path('./tmp/emails/')
+    p.mkdir(parents=True, exist_ok=True)
+    EMAIL_FILE_PATH = config('EMAIL_FILE_PATH', default=p)
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST_USER = config('EMAIL_HOST_USER', default=None)
