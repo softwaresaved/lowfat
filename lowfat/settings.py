@@ -267,7 +267,6 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 if EMAIL_HOST is None:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST_USER = config('EMAIL_HOST_USER', default=None)
@@ -287,7 +286,6 @@ EMAIL_SUBJECT_PREFIX = config('EMAIL_SUBJECT_PREFIX', default='')
 # A list of all the people who get code error notifications.
 ADMINS = [
     ('admin', 'admin@software.ac.uk'),
-    ('James Graham', 'j.graham@software.ac.uk'),
 ]
 
 
