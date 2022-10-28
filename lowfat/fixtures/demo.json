@@ -368,6 +368,27 @@
     }
 },
 {
+    "model": "lowfat.termsandconditions",
+    "pk": "2020",
+    "fields": {
+        "url": "https://www.software.ac.uk/fellowship-programme/2020/terms-and-conditions"
+    }
+},
+{
+    "model": "lowfat.termsandconditions",
+    "pk": "2021",
+    "fields": {
+        "url": "https://www.software.ac.uk/fellowship-programme/2021/terms-and-conditions"
+    }
+},
+{
+    "model": "lowfat.termsandconditions",
+    "pk": "2022",
+    "fields": {
+        "url": "https://www.software.ac.uk/fellowship-programme/2022/terms-and-conditions"
+    }
+},
+{
     "model": "lowfat.claimant",
     "pk": 1,
     "fields": {
