@@ -115,8 +115,20 @@ span.asteriskField::before {
 .ribbon.collaborator span {
     background: Chocolate;
 }
+.ribbon.fellows-2023 span {
+    background: Orchid;
+}
+.ribbon.fellows-2022 span {
+    background: SlateBlue;
+}
+.ribbon.fellows-2021 span {
+    background: LightGreen;
+}
 .ribbon.fellows-2020 span {
     background: Gold;
+}
+.ribbon.fellows-2019 span {
+    background: IndianRed;
 }
 .ribbon.fellows-2018 span {
     background: DodgerBlue;
