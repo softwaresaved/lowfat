@@ -9,8 +9,12 @@ Welcome to the documentation of the Software Sustainability Institute's Fellowsh
 
 ## Users
 ### Fellows
+WIP
+*See tutorial for claimants*
 
 ### Staff
+WIP
+*See tutorial for staff*
 
 ## Developers
 
@@ -51,9 +55,6 @@ development cycle we impose the following process.
 For backing up the database in preparation for a site update.
 
 [Backup]({% post_url 2016-12-09-backup %})
-
-
-
 
 ### Reuse and Redistribution
 
