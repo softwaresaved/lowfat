@@ -51,13 +51,13 @@ def new_notification(staff_url, email_url, user_email, context, mail):
             "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
         })
 
-        flatemail = FlatPage.objects.get(url=staff_url)
-        template = Template(flatemail.content)
+        flat_email = FlatPage.objects.get(url=staff_url)
+        template = Template(flat_email.content)
         jinja_context = Context(context)
         html = template.render(jinja_context)
         plain_text = html2text_fix(html)
         mail_staffs(
-            flatemail.title,
+            flat_email.title,
             plain_text,
             html_message=html,
             fail_silently=False
@@ -71,13 +71,13 @@ def new_notification(staff_url, email_url, user_email, context, mail):
             "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
         })
 
-        flatemail = FlatPage.objects.get(url=email_url)
-        template = Template(flatemail.content)
+        flat_email = FlatPage.objects.get(url=email_url)
+        template = Template(flat_email.content)
         jinja_context = Context(context)
         html = template.render(jinja_context)
         plain_text = html2text_fix(html)
         msg = EmailMultiAlternatives(
-            flatemail.title,
+            flat_email.title,
             plain_text,
             DEFAULT_FROM_EMAIL,
             user_email,
