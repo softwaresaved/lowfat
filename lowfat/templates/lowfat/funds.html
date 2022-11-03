@@ -28,6 +28,11 @@
       <th>
         Title
       </th>
+      {% if user.is_staff or claimant and user == claimant.user %}
+      <th>
+        ID
+      </th>
+      {% endif %}
       {% if user.is_staff %}
       <th>
         Fellow
@@ -50,11 +55,6 @@
       {% if user.is_staff or claimant and user == claimant.user %}
       <th>
         Actions
-      </th>
-      {% endif %}
-      {% if user.is_staff or claimant and user == claimant.user %}
-      <th>
-        ID number
       </th>
       {% endif %}
     </tr>
@@ -110,6 +110,9 @@
         )
         {% endif %}
       </td>
+      {% if user.is_staff or claimant and user == claimant.user %}
+      <td>{{fund.id}}</td>
+      {% endif %}
       {% if user.is_staff %}
       <td>
         <a href="{% url 'fellow_slug' fund.claimant.slug %}">{{ fund.claimant.fullname }}</a>
@@ -149,9 +152,6 @@
         <a title="Remove" href="{% url 'fund_remove' fund.id %}?next={{ request.path }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
         {% endif %}
       </td>
-      {% endif %}
-      {% if user.is_staff or claimant and user == claimant.user %}
-      <td>{{fund.id}}</td>
       {% endif %}
     </tr>
     {% endfor %}
