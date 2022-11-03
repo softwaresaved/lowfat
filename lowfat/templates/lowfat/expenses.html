@@ -48,6 +48,11 @@
         Funding Request
       </th>
       {% endif %}
+      {% if user.is_staff or claimant and user == claimant.user %}
+      <th>
+        ID
+      </th>
+      {% endif %}
       <th>
         Status
       </th>
@@ -101,6 +106,9 @@
       <td>
         <a title='View' href="{% url 'fund_detail' expense.fund.id %}">{{ expense.fund.title }}</a>
       </td>
+      {% endif %}
+      {% if user.is_staff or claimant and user == claimant.user %}
+      <td>{{expense.fund.id}}</td>
       {% endif %}
       <td>
         {{ expense.get_status_display }}
@@ -165,9 +173,9 @@
     <tr>
       <td
         {% if user.is_staff %}
-        colspan="8"
+        colspan="9"
         {% elif claimant and user == claimant.user or fund.claimant and user == fund.claimant.user %}
-        colspan="6"
+        colspan="7"
         {% else %}
         colspan="3"
         {% endif %}
