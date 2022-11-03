@@ -52,6 +52,11 @@
         Actions
       </th>
       {% endif %}
+      {% if user.is_staff or claimant and user == claimant.user %}
+      <th>
+        ID number
+      </th>
+      {% endif %}
     </tr>
     {% if funds %}
     {% for fund, blog in funds %}
@@ -145,15 +150,18 @@
         {% endif %}
       </td>
       {% endif %}
+      {% if user.is_staff or claimant and user == claimant.user %}
+      <td>{{fund.id}}</td>
+      {% endif %}
     </tr>
     {% endfor %}
     {% else %}
     <tr>
       <td
         {% if user.is_staff %}
-        colspan="8"
+        colspan="9"
         {% elif claimant and user == claimant.user %}
-        colspan="6"
+        colspan="7"
         {% else %}
         colspan="3"
         {% endif %}
