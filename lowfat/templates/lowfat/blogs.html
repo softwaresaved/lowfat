@@ -52,6 +52,11 @@
         Funding Request
       </th>
       {% endif %}
+      {% if user.is_staff or claimant and user == claimant.user %}
+      <th>
+        ID
+      </th>
+      {% endif %}
       {% if user.is_staff or claimant and user == claimant.user or fund.claimant and user == fund.claimant.user %}
       <th>
         Status
@@ -110,6 +115,9 @@
         {% endif %}
       </td>
       {% endif %}
+      {% if user.is_staff or claimant and user == claimant.user %}
+      <td>{{blog.fund.id}}</td>
+      {% endif %}
       {% if user.is_staff or claimant and user == claimant.user or fund.claimant and user == fund.claimant.user %}
       <td>
         {{ blog.get_status_display }}
@@ -148,9 +156,9 @@
     <tr>
       <td
         {% if user.is_staff %}
-        colspan="7"
+        colspan="8"
         {% elif claimant and user == claimant.user or fund.claimant and user == fund.claimant.user %}
-        colspan="5"
+        colspan="6"
         {% else %}
         colspan="2"
         {% endif %}
