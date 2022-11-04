@@ -3,7 +3,7 @@
 
 {% block content %}
 <h1>
-  Blog Review
+  Blog Review (Funding Request ID: {{ blog.fund.id }})
   {% if user.is_staff %}
   <a title="View" class="btn btn-default" href="{% url 'blog_detail' blog.id %}" role="button"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View</a>
   {% endif %}

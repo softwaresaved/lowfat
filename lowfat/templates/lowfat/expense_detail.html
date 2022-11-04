@@ -1,7 +1,7 @@
 {% extends "lowfat/base.html" %}
 
 {% block content %}
-<h1>Expense Detail
+<h1>Expense Detail (Funding Request ID: {{ expense.fund.id }})
   <span
   {% if expense.status in 'A' %}
   class="label label-success"

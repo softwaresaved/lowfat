@@ -2,7 +2,7 @@
 {% load markdown %}
 
 {% block content %}
-<h1>Funding request
+<h1>Funding request #{{ fund.id }}
   <span
     {% if fund.status in 'AMF' %}
     class="label label-success"
