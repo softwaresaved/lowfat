@@ -169,6 +169,12 @@ LOGGING = {
     }
 }
 
+# User Model Customisation
+# DO NOT DO THIS!
+# READ THIS: https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#changing-to-a-custom-user-model-mid-project
+# https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#substituting-a-custom-user-model
+
+# AUTH_USER_MODEL = 'lowfat.MyUser'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
