@@ -1,7 +1,7 @@
 {% extends "lowfat/base.html" %}
 
 {% block content %}
-<h1>Blog Detail
+<h1>Blog Detail (Funding Request ID: {{ blog.fund.id }})
   <span
      {% if blog.status in 'PDO' %}
      class="label label-success"

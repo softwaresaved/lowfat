@@ -28,6 +28,11 @@
       <th>
         Title
       </th>
+      {% if user.is_staff or claimant and user == claimant.user %}
+      <th>
+        ID
+      </th>
+      {% endif %}
       {% if user.is_staff %}
       <th>
         Fellow
@@ -105,6 +110,9 @@
         )
         {% endif %}
       </td>
+      {% if user.is_staff or claimant and user == claimant.user %}
+      <td>{{fund.id}}</td>
+      {% endif %}
       {% if user.is_staff %}
       <td>
         <a href="{% url 'fellow_slug' fund.claimant.slug %}">{{ fund.claimant.fullname }}</a>
@@ -151,9 +159,9 @@
     <tr>
       <td
         {% if user.is_staff %}
-        colspan="8"
+        colspan="9"
         {% elif claimant and user == claimant.user %}
-        colspan="6"
+        colspan="7"
         {% else %}
         colspan="3"
         {% endif %}
