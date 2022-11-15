@@ -84,7 +84,7 @@ pandas==1.4.3
     #   django-pandas
 pilkit==2.0
     # via django-imagekit
-pillow==9.2.0
+pillow==9.3.0
     # via -r requirements.in
 pycparser==2.21
     # via cffi
