@@ -96,7 +96,6 @@
       </td>
     </tr>
     {% endif %}
-    {% if user.is_staff or user == fund.claimant %}
     <tr>
       <th>Justification</th>
       <td>{{ fund.justification | markdown | safe }}</td>
@@ -113,7 +112,6 @@
       <th>Additional information</th>
       <td>{{ fund.additional_info | markdown | safe }}</td>
     </tr>
-    {% endif %}
   </tbody>
 </table>
 <h2>Budget Summary</h2>
