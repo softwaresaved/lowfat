@@ -334,12 +334,14 @@ def staff_follow_up(requests):  # pylint: disable=invalid-name
 def claimant_profile_update_notification(claimant):  # pylint: disable=invalid-name
     if config.STAFF_EMAIL_REMINDER:
         staff_url = "/email/template/claimant/staff/update/"
-
+        # need to access the third element of the history because each claimant change is saved twice in
+        # claimant_form() once in 'claimant = formset.save()' and once in 'claimant.update_latlon()'
         context = {
             "claimant": claimant,
             "protocol": "https",
             "site": Site.objects.get(id=SITE_ID),
             "FELLOWS_MANAGEMENT_EMAIL": config.FELLOWS_MANAGEMENT_EMAIL,
+            "previous_email": claimant.history.all()[2].email
         }
 
         flatemail = FlatPage.objects.get(url=staff_url)
