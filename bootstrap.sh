@@ -17,7 +17,7 @@ curl \
     --silent \
     -L \
     -o $BOOTSTRAP_ZIP \
-    https://github.com/twbs/bootstrap/releases/download/v3.3.6/bootstrap-3.3.6-dist.zip
+    https://github.com/twbs/bootstrap/releases/download/v5.2.3/bootstrap-5.2.3-dist.zip
 unzip \
     -q \
     -u \
@@ -91,18 +91,18 @@ curl \
     --silent \
     -L \
     -o $SELECTIZE_ZIP \
-    https://github.com/selectize/selectize.js/archive/v0.12.4.zip
+    https://github.com/selectize/selectize.js/archive/v0.15.2.zip
 unzip \
     -q \
     -p \
     $SELECTIZE_ZIP \
-    selectize.js-0.12.4/dist/css/selectize.bootstrap3.css \
-    > $TMP_FOLDER/selectize/css/selectize.bootstrap3.css
+    selectize.js-0.15.2/dist/css/selectize.bootstrap5.css \
+    > $TMP_FOLDER/selectize/css/selectize.bootstrap5.css
 unzip \
     -q \
     -p \
     $SELECTIZE_ZIP \
-    selectize.js-0.12.4/dist/js/standalone/selectize.min.js \
+    selectize.js-0.15.2/dist/js/standalone/selectize.min.js \
     > $TMP_FOLDER/selectize/js/selectize.min.js
 
 # Tagulous
