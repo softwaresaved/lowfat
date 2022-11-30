@@ -237,7 +237,7 @@ USE_TZ = False
 DATE_FORMAT = "l, d F Y"  # British English style
 DATETIME_FORMAT = "l, d F Y"  # British English style
 
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
