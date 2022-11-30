@@ -1,20 +1,20 @@
 <h2>
   Expenses
   {% if not user.is_authenticated and fund.access_token_is_valid %}
-  <a class="btn btn-default" href="{% url 'expense_form_public' fund.access_token %}">Submit expense claim</a>
+  <a class="btn btn-secondary" href="{% url 'expense_form_public' fund.access_token %}">Submit expense claim</a>
   {% else %}
   {% if user.is_staff or claimant and user == claimant.user or fund.claimant and user == fund.claimant.user %}
   {% if fund %}
   {% if fund.status not in "RFCX" %}
-  <a class="btn btn-default" href="{% url 'expense' %}{% if fund %}?fund_id={{fund.id}}{% endif %}">Submit expense claim</a>
+  <a class="btn btn-secondary" href="{% url 'expense' %}{% if fund %}?fund_id={{fund.id}}{% endif %}">Submit expense claim</a>
   {% else %}
-  <a class="btn btn-default" href="{% url 'expense' %}?claimant_id={{claimant.id}}">Submit expense claim</a>
+  <a class="btn btn-secondary" href="{% url 'expense' %}?claimant_id={{claimant.id}}">Submit expense claim</a>
   {% endif %}
   {% else %}
   {% if user.is_staff and claimant %}
-  <a class="btn btn-default" href="{% url 'expense' %}?claimant_id={{claimant.id}}">Submit expense claim</a>
+  <a class="btn btn-secondary" href="{% url 'expense' %}?claimant_id={{claimant.id}}">Submit expense claim</a>
   {% else %}
-  <a class="btn btn-default" href="{% url 'expense' %}">Submit expense claim</a>
+  <a class="btn btn-secondary" href="{% url 'expense' %}">Submit expense claim</a>
   {% endif %}
   {% endif %}
   {% endif %}

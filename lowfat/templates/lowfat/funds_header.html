@@ -2,9 +2,9 @@
   Funding requests
   {% if user.is_staff or claimant and user == claimant.user %}
   {% if user.is_staff %}
-  <a class="btn btn-default" href="{% url 'fund' %}?claimant_id={{claimant.id}}">Make a funding request</a>
+  <a class="btn btn-secondary" href="{% url 'fund' %}?claimant_id={{claimant.id}}">Make a funding request</a>
   {% else %}
-  <a class="btn btn-default" href="{% url 'fund' %}">Make a funding request</a>
+  <a class="btn btn-secondary" href="{% url 'fund' %}">Make a funding request</a>
   {% endif %}
   {% endif %}
 </h2>

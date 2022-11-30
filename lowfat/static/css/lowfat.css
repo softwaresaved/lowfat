@@ -19,7 +19,7 @@ td > pre {
     color: #727272 !important;
 }
 
-@media (min-width: 768px) {
+@include media-breakpoint-up(sm) {
     .navbar-nav > li > form {  /* From Bootstrap */
         padding-top: 10px;
         padding-bottom: 10px;
@@ -73,7 +73,7 @@ span.asteriskField::before {
    left: 12px; top: 7px;
    z-index: 1;
    overflow: hidden;
-   width: 75px; height: 75px;
+   width: 75rem; height: 75px;
    text-align: right;
    transform: rotate(-90deg);
 }

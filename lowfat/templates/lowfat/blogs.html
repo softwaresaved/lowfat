@@ -1,15 +1,15 @@
 <h2>
   Blog Posts
   {% if not user.is_authenticated and fund.access_token_is_valid %}
-  <a class="btn btn-default" href="{% url 'blog_form_public' fund.access_token %}">Submit a blog post</a>
+  <a class="btn btn-secondary" href="{% url 'blog_form_public' fund.access_token %}">Submit a blog post</a>
   {% else %}
   {% if user.is_staff or claimant and user == claimant.user or fund.claimant and user == fund.claimant.user %}
   {% if claimant %}
-  <a class="btn btn-default" href="{% url 'blog' %}?claimant_id={{claimant.id}}">Submit a blog post</a>
+  <a class="btn btn-secondary" href="{% url 'blog' %}?claimant_id={{claimant.id}}">Submit a blog post</a>
   {% elif fund %}
-  <a class="btn btn-default" href="{% url 'blog' %}?fund_id={{fund.id}}">Submit a blog post</a>
+  <a class="btn btn-secondary" href="{% url 'blog' %}?fund_id={{fund.id}}">Submit a blog post</a>
   {% else %}
-  <a class="btn btn-default" href="{% url 'blog' %}">Submit a blog post</a>
+  <a class="btn btn-secondary" href="{% url 'blog' %}">Submit a blog post</a>
   {% endif %}
   {% endif %}
   {% endif %}

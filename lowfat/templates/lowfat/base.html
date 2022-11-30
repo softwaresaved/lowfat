@@ -48,18 +48,18 @@
     {% if form %}{{ form.media }}{% endif %}
   </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-light navbar-fixed-top navbar-expand-sm bg-light">
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
+          <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-logo" href="https://software.ac.uk">
-            <img img="{{ organisation_name }} logo"class="logo img-responsive" src="{% static 'img/logo.png' %}"
+            <img img="{{ organisation_name }} logo"class="logo img-fluid" src="{% static 'img/logo.png' %}"
                  alt="Logo of the Software Sustainability Institute">
           </a>
           <a class="navbar-brand" href="{% url 'index' %}">lowFAT</a>
@@ -76,7 +76,7 @@
                 <div class="input-group">
                   <input class="form-control" type="text" name="search" {% if search %}value="{{ search }}"{% endif %}>
                   <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Search</button>
+                    <button class="btn btn-secondary" type="button">Search</button>
                   </span>
                 </div>
               </form>
@@ -92,13 +92,12 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 Options
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                <span class="caret"></span>
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>     
               </a>
               <ul class="dropdown-menu">
-                <li><a href="{% url 'fund' %}">Make a funding request</a></li>
-                <li><a href="{% url 'expense' %}">Submit expense claim</a></li>
-                <li><a href="{% url 'blog' %}">Submit a blog post</a></li>
+                <li><a class="dropdown-item" href="{% url 'fund' %}">Make a funding request</a></li>
+                <li><a class="dropdown-item" href="{% url 'expense' %}">Submit expense claim</a></li>
+                <li><a class="dropdown-item" href="{% url 'blog' %}">Submit a blog post</a></li>
               </ul>
             </li>
             <li>
@@ -132,11 +131,11 @@
     <footer class="footer">
       <div class="container">
         <ul class="list-inline">
-          <li><a href="{{ organisation_website }}">{{ organisation_name }}</a></li>
-          <li><a href="/pages/privacy/">Privacy</a></li>
-          <li><a href="https://docs.google.com/document/d/1CwQSNwtS3KeE6VZtOZTba2Q7Hz4VuLSEgcMJL_gLTOo">
+          <li class="list-inline-item"><a href="{{ organisation_website }}">{{ organisation_name }}</a></li>
+          <li class="list-inline-item"><a href="/pages/privacy/">Privacy</a></li>
+          <li class="list-inline-item"><a href="https://docs.google.com/document/d/1CwQSNwtS3KeE6VZtOZTba2Q7Hz4VuLSEgcMJL_gLTOo">
               Accessibility Statement</a></li>
-          <li><a href="mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}">Contact us</a></li>
+          <li class="list-inline-item"><a href="mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}">Contact us</a></li>
           </ul>
         <p class="text-muted text-center">Powered with
           <a href="http://python.org/">Python 3</a>,
