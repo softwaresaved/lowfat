@@ -35,9 +35,9 @@
         <br>
 
         {% if user.is_staff %}
-            <a class="icon" href="mailto:{{ claimant.email }}"
-               aria-label="Contact {{ claimant.fullname }}">
-                <i class="fas fa-envelope" aria-hidden="true"></i>
+            <a class="icon" href="mailto:{{ claimant.email }}">
+                <i class="fas fa-envelope" aria-hidden="true" title="Email {{ claimant.fullname }}"></i></i>
+                <span class="visually-hidden">Email {{ claimant.fullname }}</span>
             </a>
 
         {% endif %}
@@ -45,77 +45,77 @@
         {% if claimant.institutional_website %}
             <a class="icon" href="{{ claimant.institutional_website }}">
                 <i class="fas fa-cloud" aria-hidden="true" title="{{ claimant.fullname }}'s institutional website"></i>
-                <span class="sr-only">{{ claimant.fullname }}'s institutional website</span>
+                <span class="visually-hidden">{{ claimant.fullname }}'s institutional website</span>
             </a>
         {% endif %}
 
         {% if claimant.website %}
             <a class="icon" href="{{ claimant.website }}">
                 <i class="fas fa-cloud" aria-hidden="true" title="{{ claimant.fullname }}'s website"></i>
-                <span class="sr-only">{{ claimant.fullname }}'s website</span>
+                <span class="visually-hidden">{{ claimant.fullname }}'s website</span>
             </a>
         {% endif %}
 
         {% if claimant.website_feed %}
             <a class="icon" href="{{ claimant.website_feed }}" title="{{ claimant.fullname }}'s website feed">
                 <i class="fas fa-rss" aria-hidden="true"></i>
-                <span class="sr-only">{{ claimant.fullname}}'s website feed</span>
+                <span class="visually-hidden">{{ claimant.fullname}}'s website feed</span>
             </a>
         {% endif %}
 
         {% if claimant.orcid %}
             <a class="icon" href="http://orcid.org/{{ claimant.orcid }}" title="{{ claimant.fullname }}'s ORCID profile">
                 <i class="ai ai-orcid" aria-hidden="true"></i>
-                <span class="sr-only">{{ claimant.fullname}}'s ORCID profile</span>
+                <span class="visually-hidden">{{ claimant.fullname}}'s ORCID profile</span>
             </a>
         {% endif %}
 
         {% if claimant.google_scholar %}
             <a class="icon" href="https://scholar.google.co.uk/citations?user={{ claimant.google_scholar }}" title="{{ claimant.fullname }}'s Google Scholar profile">
                 <i class="ai ai-google-scholar" aria-hidden="true"></i>
-                <span class="sr-only">{{ claimant.fullname}}'s Google Scholar profile</span>
+                <span class="visually-hidden">{{ claimant.fullname}}'s Google Scholar profile</span>
             </a>
         {% endif %}
 
         {% if claimant.github %}
             <a class="icon" href="http://github.com/{{ claimant.github }}" title="{{ claimant.fullname }}'s GitHub profile">
                 <i class="fab fa-github" aria-hidden="true"></i>
-                <span class="sr-only">{{ claimant.fullname}}'s GitHub profile</span>
+                <span class="visually-hidden">{{ claimant.fullname}}'s GitHub profile</span>
             </a>
         {% endif %}
 
         {% if claimant.gitlab %}
             <a class="icon" href="https://gitlab.com/{{ claimant.gitlab }}" title="{{ claimant.fullname }}'s GitLab profile">
                 <i class="fab fa-gitlab" aria-hidden="true"></i>
-                <span class="sr-only">{{ claimant.fullname}}'s GitLab profile</span>
+                <span class="visually-hidden">{{ claimant.fullname}}'s GitLab profile</span>
             </a>
         {% endif %}
 
         {% if claimant.bitbucket %}
             <a class="icon" href="https://bitbucket.org/{{ claimant.bitbucket }}" title="{{ claimant.fullname }}'s Bitbucket profile">
                 <i class="fab fa-bitbucket" aria-hidden="true"></i>
-                <span class="sr-only">{{ claimant.fullname}}'s Bitbucket profile</span>
+                <span class="visually-hidden">{{ claimant.fullname}}'s Bitbucket profile</span>
             </a>
         {% endif %}
 
         {% if claimant.twitter %}
             <a class="icon" href="https://twitter.com/{{ claimant.twitter }}" title="{{ claimant.fullname }}'s Twitter profile">
                 <i class="fab fa-twitter" aria-hidden="true"></i>
-                <span class="sr-only">{{ claimant.fullname}}'s Twitter profile</span>
+                <span class="visually-hidden">{{ claimant.fullname}}'s Twitter profile</span>
             </a>
         {% endif %}
 
         {% if claimant.linkedin %}
             <a class="icon" href="https://www.linkedin.com/in/{{ claimant.linkedin }}" title="{{ claimant.fullname }}'s LinkedIn profile">
                 <i class="fab fa-linkedin" aria-hidden="true"></i>
-                <span class="sr-only">{{ claimant.fullname}}'s LinkedIn profile</span>
+                <span class="visually-hidden">{{ claimant.fullname}}'s LinkedIn profile</span>
             </a>
         {% endif %}
 
         {% if claimant.facebook %}
             <a class="icon" href="https://facebook.com/{{ claimant.facebook }}" title="{{ claimant.fullname }}'s Facebook profile">
                 <i class="fab fa-facebook" aria-hidden="true"></i>
-                <span class="sr-only">{{ claimant.fullname}}'s Facebook profile</span>
+                <span class="visually-hidden">{{ claimant.fullname}}'s Facebook profile</span>
             </a>
         {% endif %}
 

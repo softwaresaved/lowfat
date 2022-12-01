@@ -106,7 +106,7 @@
             <form class="form-inline" action="/request/{{ expense.fund.id }}/expense/{{ expense.relative_number }}/append/" method="post" enctype="multipart/form-data">
               {% csrf_token %}
               <div class="form-control">
-                <label for="pdf" class="sr-only">Append another PDF to receipts</label>
+                <label for="pdf" class="visually-hidden">Append another PDF to receipts</label>
                 <input type="file" id="pdf" name="pdf" required>
               </div>
               <button type="submit" class="btn btn-secondary">Add pages</button>
