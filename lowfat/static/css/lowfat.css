@@ -12,15 +12,15 @@ td > pre {
 
 /* Default Bootstrap 3 text colors do not meet 4.5:1 contrast requirement. */
 .navbar-brand {
-    color: #727272 !important;
+    color: #727272 !important; 
 }
 
-.navbar-nav > li > a {
+.nav-link {
     color: #727272 !important;
 }
 
 @media (min-width: 768px) {
-    .navbar-nav > li > form {  /* From Bootstrap */
+    .navbar-item {  /* From Bootstrap */
         padding-top: 10px;
         padding-bottom: 10px;
     }
@@ -32,6 +32,10 @@ div.fellow {
 }
 
 a.icon:hover {
+    text-decoration: none;
+}
+
+a:hover, a:focus, a:active, a:visited, a:link{
     text-decoration: none;
 }
 
