@@ -21,12 +21,16 @@
   {% endif %}
 </h2>
 {% if user.is_staff %}
-<ul class="nav nav-tabs">
-  <li role="presentation" {% if expenses_status == 'SCAR' %}class="active"{% endif %}>
-    <a href="?funding_requests={{ funding_requests_status }}&expenses=WSCPAF&blogs={{ blogs_status }}">All</a>
+<ul class="nav">
+  <li {% if expenses_status == 'SCAR' %}class="nav-item"{% endif %}>
+    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses=WSCPAF&blogs={{ blogs_status }}">All</a>
   </li>
-  <li role="presentation" {% if expenses_status == 'SC' %}class="active"{% endif %}><a href="?funding_requests={{ funding_requests_status }}&expenses=WSCP&blogs={{ blogs_status }}">Pending</a></li>
-  <li role="presentation" {% if expenses_status == 'A' %}class="active"{% endif %}><a href="?funding_requests={{ funding_requests_status }}&expenses=AF&blogs={{ blogs_status }}">Approved</a></li>
+  <li {% if expenses_status == 'SC' %}class="nav-item"{% endif %}>
+    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses=WSCP&blogs={{ blogs_status }}">Pending</a>
+  </li>
+  <li {% if expenses_status == 'A' %}class="nav-item"{% endif %}>
+    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses=AF&blogs={{ blogs_status }}">Approved</a>
+  </li>
 </ul>
 {% endif %}
 <table class="table table-bordered sortable">

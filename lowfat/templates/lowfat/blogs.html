@@ -18,18 +18,18 @@
 <p><strong>This fund requires {{ fund.required_blog_posts }} blog posts.</strong></p>
 {% endif %}
 {% if user.is_staff %}
-<ul class="nav nav-tabs">
-  <li role="presentation" {% if blogs_status == 'URCGLPMDOX' %}class="active"{% endif %}>
-    <a href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=URCGLPMDOX">All</a>
+<ul class="nav">
+  <li {% if blogs_status == 'URCGLPMDOX' %}class="nav-item"{% endif %}>
+    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=URCGLPMDOX">All</a>
   </li>
-  <li role="presentation" {% if blogs_status == 'URCGL' %}class="active"{% endif %}>
-    <a href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=URCGL">Pending</a>
+  <li {% if blogs_status == 'URCGL' %}class="nav-item"{% endif %}>
+    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=URCGL">Pending</a>
   </li>
-  <li role="presentation" {% if blogs_status == 'P' %}class="active"{% endif %}>
-    <a href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=P">Published</a>
+  <li {% if blogs_status == 'P' %}class="nav-item"{% endif %}>
+    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=P">Published</a>
   </li>
-  <li role="presentation" {% if blogs_status == 'MDOX' %}class="active"{% endif %}>
-    <a href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=MDOX">Other</a>
+  <li {% if blogs_status == 'MDOX' %}class="nav-item"{% endif %}>
+    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=MDOX">Other</a>
   </li>
 </ul>
 {% endif %}
