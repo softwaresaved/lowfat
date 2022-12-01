@@ -30,7 +30,7 @@
 
     <!-- Begin Javascript block -->
     <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
     <!-- Bootstrap -->
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
@@ -48,15 +48,15 @@
     {% if form %}{{ form.media }}{% endif %}
   </head>
   <body>
-    <nav class="navbar navbar-light navbar-fixed-top navbar-expand-sm bg-light">
-      <div class="container">
+    <nav class="navbar navbar-light navbar-expand-sm bg-light">
+      <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
+            {% comment %} <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+            <span class="icon-bar"></span> {% endcomment %}
           </button>
           <a class="navbar-logo" href="https://software.ac.uk">
             <img img="{{ organisation_name }} logo"class="logo img-fluid" src="{% static 'img/logo.png' %}"
@@ -66,11 +66,11 @@
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-right">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             {% if user.is_authenticated %}
             {% if user.is_staff %}
-            <li>
+            <li class="nav-item">
               <form class="form-inline" action="{% url 'search' %}" method="post">
                 {% csrf_token %}
                 <div class="input-group">
@@ -82,36 +82,35 @@
               </form>
             </li>
             {% else %}
-            <li>
-              <a href="{% url 'my_profile' %}">My Profile</a>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'my_profile' %}">My Profile</a>
             </li>
             {% endif %}
-            <li>
-              <a href="{% url 'dashboard' %}">My Dashboard</a>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'dashboard' %}">My Dashboard</a>
             </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                Options
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>     
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Options  
               </a>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="{% url 'fund' %}">Make a funding request</a></li>
                 <li><a class="dropdown-item" href="{% url 'expense' %}">Submit expense claim</a></li>
                 <li><a class="dropdown-item" href="{% url 'blog' %}">Submit a blog post</a></li>
               </ul>
             </li>
-            <li>
-              <a href="{% url 'sign_out' %}">Sign out</a>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'sign_out' %}">Sign out</a>
             </li>
             {% else %}
-            <li>
-              <a href="{% url 'fund_public' %}">Make a funding request</a>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'fund_public' %}">Make a funding request</a>
             </li>
-            <li>
-              <a href="{% url 'sign_in' %}">Sign in</a>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'sign_in' %}">Sign in</a>
             </li>
-            <li>
-              <a href="{% url 'social:begin' 'github' %}">Sign in with GitHub</a>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'social:begin' 'github' %}">Sign in with GitHub</a>
             </li>
             {% endif %}
           </ul>
