@@ -19,7 +19,7 @@ td > pre {
     color: #727272 !important;
 }
 
-@include media-breakpoint-up(sm) {
+@media (min-width: 768px) {
     .navbar-nav > li > form {  /* From Bootstrap */
         padding-top: 10px;
         padding-bottom: 10px;
