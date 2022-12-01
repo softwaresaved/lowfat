@@ -29,7 +29,7 @@ curl \
     --silent \
     -L \
     -o $FONT_AWESOME_ZIP \
-    https://use.fontawesome.com/releases/v5.6.3/fontawesome-free-5.6.3-web.zip
+    https://use.fontawesome.com/releases/v6.2.1/fontawesome-free-6.2.1-web.zip
 unzip \
     -q \
     -u \
@@ -102,7 +102,7 @@ unzip \
     -q \
     -p \
     $SELECTIZE_ZIP \
-    selectize.js-0.15.2/dist/js/standalone/selectize.min.js \
+    selectize.js-0.15.2/dist/js/selectize.min.js \
     > $TMP_FOLDER/selectize/js/selectize.min.js
 
 # Tagulous
