@@ -74,10 +74,10 @@ span.asteriskField::before {
 
 .ribbon {
    position: absolute;
-   left: 12px; top: 7px;
+   left: 24px; top: 12px;
    z-index: 1;
    overflow: hidden;
-   width: 75rem; height: 75px;
+   width: 75px; height: 75px;
    text-align: right;
    transform: rotate(-90deg);
 }
@@ -98,7 +98,7 @@ span.asteriskField::before {
 .ribbon span::before {
    content: '';
    position: absolute;
-   left: 0px; top: 100%;
+   left: 0%; top: 100%;
    z-index: -1;
    border-left: 3px solid #000000;
    border-right: 3px solid transparent;

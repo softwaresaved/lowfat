@@ -10,29 +10,30 @@
     {% endif %}
 
     <div class='card col-lg border-0'>
-        {% if claimant.fellow %}
-            <div class="ribbon fellows-{{ claimant.application_year | add:"1" }}">
-                <span>{{ claimant.application_year | add:"1" }}</span>
-            </div>
+        <div class='card-body'>
+            {% if claimant.fellow %}
+                <div class="ribbon fellows-{{ claimant.application_year | add:"1" }}">
+                    <span>{{ claimant.application_year | add:"1" }}</span>
+                </div>
 
-        {% elif claimant.collaborator %}
-            <div class="ribbon collaborator">
-                <span>Collab.</span>
-            </div>
-        {% endif %}
-
-        <a href="{% url 'fellow_slug' claimant.slug %}">
-            {% if claimant.photo %}
-                <img src="{{claimant.photo_thumb.url}}" alt="Photo of {{ claimant.fullname }}" class="card-img-top rounded-circle grid-photo">
-            {% else %}
-                <div class="passport-photo"></div>
+            {% elif claimant.collaborator %}
+                <div class="ribbon collaborator">
+                    <span>Collab.</span>
+                </div>
             {% endif %}
 
-            <br>
-            {{ claimant.fullname }}
-        </a>
+            <a href="{% url 'fellow_slug' claimant.slug %}">
+                {% if claimant.photo %}
+                    <img src="{{claimant.photo_thumb.url}}" alt="Photo of {{ claimant.fullname }}" class="card-img-top rounded-circle grid-photo">
+                {% else %}
+                    <div class="passport-photo"></div>
+                {% endif %}
 
-        <div class='card-body'>
+                <br>
+                {{ claimant.fullname }}
+            </a>
+            
+            <br>
 
             {% if user.is_staff %}
                 <a class="icon" href="mailto:{{ claimant.email }}">
