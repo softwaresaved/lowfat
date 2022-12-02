@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>Software Sustainability Institute</h1>
-<div class="container">
+<div class="container-fluid">
 
 {% for claimant in claimants %}
     {% if forloop.counter0|divisibleby:"6" %}
@@ -11,8 +11,10 @@
 
     <div class="fellow col-md-2">
         {% if claimant.fellow %}
-            <div class="ribbon fellows-{{ claimant.application_year | add:"1" }}">
-                <span>{{ claimant.application_year | add:"1" }}</span>
+            <div class='card'>
+                <div class="ribbon fellows-{{ claimant.application_year | add:"1" }}">
+                    <span>{{ claimant.application_year | add:"1" }}</span>
+                </div>
             </div>
 
         {% elif claimant.collaborator %}
@@ -36,7 +38,7 @@
 
         {% if user.is_staff %}
             <a class="icon" href="mailto:{{ claimant.email }}">
-                <i class="fas fa-envelope" aria-hidden="true" title="Email {{ claimant.fullname }}"></i></i>
+                <i class="fas fa-envelope" aria-hidden="true" title="Email {{ claimant.fullname }}"></i>
                 <span class="visually-hidden">Email {{ claimant.fullname }}</span>
             </a>
 
