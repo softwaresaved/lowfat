@@ -63,6 +63,7 @@ THIRD_PARTY_APPS = [
     'constance',
     'constance.backends.database',
     'crispy_forms',
+    'crispy_bootstrap5',
     'dbbackup',
     'django_countries',
     'django_extensions',
@@ -236,6 +237,8 @@ USE_TZ = False
 
 DATE_FORMAT = "l, d F Y"  # British English style
 DATETIME_FORMAT = "l, d F Y"  # British English style
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
