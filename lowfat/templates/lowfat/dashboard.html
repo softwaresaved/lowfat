@@ -5,16 +5,16 @@
 <p>If you need us to process something please use one of the links below:</p>
 {% if user.is_staff or user.is_staff %}
 <div class="d-grid gap-2 d-lg-block">
-  <a role="button" class="btn btn-secondary" href="{% url 'claimant' %}">Create claimant profile</a>
-  <a role="button" class="btn btn-secondary" href="{% url 'promote' %}">Promote claimant profile to fellow profile</a>
-  <a role="button" class="btn btn-secondary" href="{% url 'report' %}">View summary report of events <strong>(Work in progress)</strong></a>
+  <a role="button" class="btn btn-outline-secondary" href="{% url 'claimant' %}">Create claimant profile</a>
+  <a role="button" class="btn btn-outline-secondary" href="{% url 'promote' %}">Promote claimant profile to fellow profile</a>
+  <a role="button" class="btn btn-outline-secondary" href="{% url 'report' %}">View summary report of events <strong>(Work in progress)</strong></a>
 </div>
 <br>
 {% endif %}
 <div class="d-grid gap-2 d-lg-block">
-  <a role="button" class="btn btn-secondary" href="{% url 'fund' %}">Make a funding request</a>
-  <a role="button" class="btn btn-secondary" href="{% url 'expense' %}">Submit expense claim</a>
-  <a role="button" class="btn btn-secondary" href="{% url 'blog' %}">Submit a blog post</a>
+  <a role="button" class="btn btn-outline-secondary" href="{% url 'fund' %}">Make a funding request</a>
+  <a role="button" class="btn btn-outline-secondary" href="{% url 'expense' %}">Submit expense claim</a>
+  <a role="button" class="btn btn-outline-secondary" href="{% url 'blog' %}">Submit a blog post</a>
 </div>
 {% if user.is_staff or claimant.fellow %}
 <p><a href="{% url 'fund_ical' token=ical_token %}">Click here</a> to access the shared calendar of events related with fellows.</p>

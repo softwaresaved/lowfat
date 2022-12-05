@@ -63,11 +63,11 @@
     <tr
       {% if user.is_staff or claimant and user == claimant.user %}
       {% if fund.status in 'URC' %}
-      class="danger"
+      class="table-danger"
       {% elif fund.status in 'P' %}
-      class="warning"
+      class="table-warning"
       {% elif fund.status in 'AMF' %}
-      class="success"
+      class="table-success"
       {% endif %}
       {% endif %}
       >
