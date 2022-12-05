@@ -1,19 +1,19 @@
 {% if user.is_staff %}
-<ul class="nav">
+<ul class="nav nav-tabs">
   <li {% if funding_requests_status == 'UPAMRF' %}class="nav-item"{% endif %}>
-    <a class="nav-link active" href="?funding_requests=UPAMRF&expenses={{ expenses_status }}&blogs={{ blogs_status }}">All</a>
+    <a class="nav-link" href="?funding_requests=UPAMRF&expenses={{ expenses_status }}&blogs={{ blogs_status }}">All</a>
   </li>
   <li {% if funding_requests_status == 'UP' %}class="nav-item"{% endif %}>
-    <a class="nav-link active" href="?funding_requests=UP&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Pending</a>
+    <a class="nav-link" href="?funding_requests=UP&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Pending</a>
   </li>
   <li {% if funding_requests_status == 'AM' %}class="nav-item"{% endif %}>
-    <a class="nav-link active" href="?funding_requests=AM&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Approved</a>
+    <a class="nav-link" href="?funding_requests=AM&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Approved</a>
   </li>
   <li {% if funding_requests_status == 'R' %}class="nav-item"{% endif %}>
-    <a class="nav-link active" href="?funding_requests=R&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Rejected</a>
+    <a class="nav-link" href="?funding_requests=R&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Rejected</a>
   </li>
   <li {% if funding_requests_status == 'F' %}class="nav-item"{% endif %}>
-    <a class="nav-link active" href="?funding_requests=F&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Archived</a>
+    <a class="nav-link" href="?funding_requests=F&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Archived</a>
   </li>
 </ul>
 {% endif %}
