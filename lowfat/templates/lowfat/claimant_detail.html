@@ -181,9 +181,12 @@
   </div>
 </div>
 {% if user.is_staff %}
-<div class="row bg-info">
-  <div class="fellow col-md-12">
+<div class="row">
+  <div class="card col-lg border-0 bg-primary" style="--bs-bg-opacity: .10;">
     <h1>Staff view</h1>
+    {% if claimant.photo_work_description %}
+      <img src="{{claimant.photo_work_thumb.url}}" alt="Photo of {{ claimant.fullname }}" class="card-img-top">
+    {% endif %}
     {% include 'lowfat/claimant_detail_website.html' %}
     {% include 'lowfat/finances.html' %}
     {% include 'lowfat/funds_header.html' %}
@@ -191,7 +194,6 @@
     {% include 'lowfat/expenses.html' %}
     {% include 'lowfat/blogs.html' %}
   </div>
-</div>
 {% else %}
 <h2>Previous events</h2>
 {% include 'lowfat/funds.html' %}
