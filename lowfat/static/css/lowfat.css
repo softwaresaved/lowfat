@@ -19,6 +19,9 @@ td > pre {
     color: #727272 !important;
 }
 
+html { font-size: 14px; }
+body { font-size: 1rem; }
+
 @media (min-width: 768px) {
     .navbar-item {  /* From Bootstrap */
         padding-top: 10px;
