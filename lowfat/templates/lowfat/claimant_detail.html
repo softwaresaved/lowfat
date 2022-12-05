@@ -20,10 +20,10 @@
   {% endif %}
 
   {% if user == claimant.user %}
-  <a class="btn btn-outline-secondary" href="{% url 'fellow' %}?full=true" role="button">Edit</a>
+  <a class="btn btn-outline-dark" href="{% url 'fellow' %}?full=true" role="button">Edit</a>
   {% endif %}
   {% if user.is_staff %}
-  <a class="btn btn-outline-secondary" href="{% url 'admin:lowfat_claimant_change' claimant.id %}" role="button">Edit</a>
+  <a class="btn btn-outline-dark" href="{% url 'admin:lowfat_claimant_change' claimant.id %}" role="button">Edit</a>
   {% endif %}
 </h1>
 <div class="row">
