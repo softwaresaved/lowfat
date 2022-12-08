@@ -51,6 +51,7 @@ django-extensions==3.2.0
     # via -r requirements.in
 django-imagekit==4.1.0
     # via -r requirements.in
+django-import-export==3.0.1
 django-pandas==0.6.6
     # via -r requirements.in
 django-picklefield==3.1
