@@ -15,6 +15,7 @@ from import_export.admin import ImportExportModelAdmin
 # We want a required email in the user creation form, we have to patch it in the following way.
 admin.site.unregister(User)
 
+
 # This re registers the User model to the admin panel
 # We define the email form in the fieldsets.
 @admin.register(User)
@@ -40,10 +41,12 @@ class MyUserAdmin(UserAdmin):
 class FundActivityAdmin(SimpleHistoryAdmin):
     pass
 
+
 # Add ability to export claimant data
 class ClaimantResource(resources.ModelResource):
     class Meta:
         model = models.Claimant
+        
 
 @admin.register(models.Claimant)
 class ClaimantAdmin(SimpleHistoryAdmin, ImportExportModelAdmin):
