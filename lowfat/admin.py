@@ -46,7 +46,7 @@ class FundActivityAdmin(SimpleHistoryAdmin):
 class ClaimantResource(resources.ModelResource):
     class Meta:
         model = models.Claimant
-        
+     
 
 @admin.register(models.Claimant)
 class ClaimantAdmin(SimpleHistoryAdmin, ImportExportModelAdmin):
