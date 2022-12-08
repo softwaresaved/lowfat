@@ -68,6 +68,7 @@ THIRD_PARTY_APPS = [
     'django_countries',
     'django_extensions',
     'imagekit',
+    'import_export',
     'simple_history',
     'social_django',
     'tagulous',

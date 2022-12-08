@@ -7,12 +7,13 @@ from django import forms
 from . import models
 
 from django.contrib.auth.admin import UserAdmin
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
 
 # This removes the user registration for the User model.
 # This is only necessary because we don't have a custom user model.
 # We want a required email in the user creation form, we have to patch it in the following way.
 admin.site.unregister(User)
-
 
 # This re registers the User model to the admin panel
 # We define the email form in the fieldsets.
@@ -39,9 +40,14 @@ class MyUserAdmin(UserAdmin):
 class FundActivityAdmin(SimpleHistoryAdmin):
     pass
 
+# Add ability to export claimant data
+class ClaimantResource(resources.ModelResource):
+    class Meta:
+        model = models.Claimant
 
 @admin.register(models.Claimant)
-class ClaimantAdmin(SimpleHistoryAdmin):
+class ClaimantAdmin(SimpleHistoryAdmin, ImportExportModelAdmin):
+    resource_classes = [ClaimantResource]
     fieldsets = [
         (
             None,
