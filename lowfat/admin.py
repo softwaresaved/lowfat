@@ -8,7 +8,7 @@ from . import models
 
 from django.contrib.auth.admin import UserAdmin
 from import_export import resources
-from import_export.admin import ImportExportModelAdmin
+from import_export.admin import ExportMixin
 
 # This removes the user registration for the User model.
 # This is only necessary because we don't have a custom user model.
@@ -49,7 +49,7 @@ class ClaimantResource(resources.ModelResource):
 
 
 @admin.register(models.Claimant)
-class ClaimantAdmin(SimpleHistoryAdmin, ImportExportModelAdmin):
+class ClaimantAdmin(ExportMixin, SimpleHistoryAdmin):
     resource_classes = [ClaimantResource]
     fieldsets = [
         (
