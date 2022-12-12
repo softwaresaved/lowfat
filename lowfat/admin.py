@@ -7,6 +7,8 @@ from django import forms
 from . import models
 
 from django.contrib.auth.admin import UserAdmin
+from import_export import resources
+from import_export.admin import ExportMixin
 
 # This removes the user registration for the User model.
 # This is only necessary because we don't have a custom user model.
@@ -40,8 +42,15 @@ class FundActivityAdmin(SimpleHistoryAdmin):
     pass
 
 
+# Add ability to export claimant data
+class ClaimantResource(resources.ModelResource):
+    class Meta:
+        model = models.Claimant
+
+
 @admin.register(models.Claimant)
-class ClaimantAdmin(SimpleHistoryAdmin):
+class ClaimantAdmin(ExportMixin, SimpleHistoryAdmin):
+    resource_classes = [ClaimantResource]
     fieldsets = [
         (
             None,

@@ -1,19 +1,19 @@
 {% if user.is_staff %}
 <ul class="nav nav-tabs">
-  <li role="presentation" {% if funding_requests_status == 'UPAMRF' %}class="active"{% endif %}>
-    <a href="?funding_requests=UPAMRF&expenses={{ expenses_status }}&blogs={{ blogs_status }}">All</a>
+  <li {% if funding_requests_status == 'UPAMRF' %}class="nav-item"{% endif %}>
+    <a class="nav-link" href="?funding_requests=UPAMRF&expenses={{ expenses_status }}&blogs={{ blogs_status }}">All</a>
   </li>
-  <li role="presentation" {% if funding_requests_status == 'UP' %}class="active"{% endif %}>
-    <a href="?funding_requests=UP&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Pending</a>
+  <li {% if funding_requests_status == 'UP' %}class="nav-item"{% endif %}>
+    <a class="nav-link" href="?funding_requests=UP&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Pending</a>
   </li>
-  <li role="presentation" {% if funding_requests_status == 'AM' %}class="active"{% endif %}>
-    <a href="?funding_requests=AM&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Approved</a>
+  <li {% if funding_requests_status == 'AM' %}class="nav-item"{% endif %}>
+    <a class="nav-link" href="?funding_requests=AM&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Approved</a>
   </li>
-  <li role="presentation" {% if funding_requests_status == 'R' %}class="active"{% endif %}>
-    <a href="?funding_requests=R&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Rejected</a>
+  <li {% if funding_requests_status == 'R' %}class="nav-item"{% endif %}>
+    <a class="nav-link" href="?funding_requests=R&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Rejected</a>
   </li>
-  <li role="presentation" {% if funding_requests_status == 'F' %}class="active"{% endif %}>
-    <a href="?funding_requests=F&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Archived</a>
+  <li {% if funding_requests_status == 'F' %}class="nav-item"{% endif %}>
+    <a class="nav-link" href="?funding_requests=F&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Archived</a>
   </li>
 </ul>
 {% endif %}
@@ -63,11 +63,11 @@
     <tr
       {% if user.is_staff or claimant and user == claimant.user %}
       {% if fund.status in 'URC' %}
-      class="danger"
+      class="table-danger"
       {% elif fund.status in 'P' %}
-      class="warning"
+      class="table-warning"
       {% elif fund.status in 'AMF' %}
-      class="success"
+      class="table-success"
       {% endif %}
       {% endif %}
       >

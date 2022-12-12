@@ -6,9 +6,9 @@
 <h1>
   Funding Request #{{ fund.id }} Review 
   {% if user.is_staff %}
-  <a title="View" class="btn btn-default" href="{% url 'fund_detail' fund.id %}" role="button"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View</a>
-  <a title="Edit" class="btn btn-default" href="{% url 'fund_edit' fund.id %}" role="button"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
-  <a title="Remove" class="btn btn-default" href="{% url 'fund_remove' fund.id %}" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>
+  <a title="View" class="btn btn-outline-dark" href="{% url 'fund_detail' fund.id %}" role="button"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View</a>
+  <a title="Edit" class="btn btn-outline-dark" href="{% url 'fund_edit' fund.id %}" role="button"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
+  <a title="Remove" class="btn btn-outline-dark" href="{% url 'fund_remove' fund.id %}" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>
   {% endif %}
 </h1>
 {% if fund.access_token %}
