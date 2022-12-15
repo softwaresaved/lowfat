@@ -81,7 +81,7 @@ urlpatterns = [  # pylint: disable=invalid-name
          auth_views.PasswordResetConfirmView.as_view(template_name='lowfat/password_reset_confirm.html'),
          name="password_reset_confirm"),
     path('login/reset/complete/',
-         auth_views.PasswordResetConfirmView.as_view(template_name='lowfat/password_reset_complete.html'),
+         auth_views.PasswordResetCompleteView.as_view(template_name='lowfat/password_reset_complete.html'),
          name="password_reset_complete"),
     path('login/',
          auth_views.LoginView.as_view(template_name='lowfat/sign_in.html'),

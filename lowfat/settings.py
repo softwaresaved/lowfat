@@ -63,10 +63,12 @@ THIRD_PARTY_APPS = [
     'constance',
     'constance.backends.database',
     'crispy_forms',
+    'crispy_bootstrap5',
     'dbbackup',
     'django_countries',
     'django_extensions',
     'imagekit',
+    'import_export',
     'simple_history',
     'social_django',
     'tagulous',
@@ -169,6 +171,12 @@ LOGGING = {
     }
 }
 
+# User Model Customisation
+# DO NOT DO THIS!
+# READ THIS: https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#changing-to-a-custom-user-model-mid-project
+# https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#substituting-a-custom-user-model
+
+# AUTH_USER_MODEL = 'lowfat.MyUser'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -231,7 +239,9 @@ USE_TZ = False
 DATE_FORMAT = "l, d F Y"  # British English style
 DATETIME_FORMAT = "l, d F Y"  # British English style
 
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/

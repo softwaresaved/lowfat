@@ -1,19 +1,19 @@
 {% if user.is_staff %}
 <ul class="nav nav-tabs">
-  <li role="presentation" {% if funding_requests_status == 'UPAMRF' %}class="active"{% endif %}>
-    <a href="?funding_requests=UPAMRF&expenses={{ expenses_status }}&blogs={{ blogs_status }}">All</a>
+  <li {% if funding_requests_status == 'UPAMRF' %}class="nav-item"{% endif %}>
+    <a class="nav-link" href="?funding_requests=UPAMRF&expenses={{ expenses_status }}&blogs={{ blogs_status }}">All</a>
   </li>
-  <li role="presentation" {% if funding_requests_status == 'UP' %}class="active"{% endif %}>
-    <a href="?funding_requests=UP&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Pending</a>
+  <li {% if funding_requests_status == 'UP' %}class="nav-item"{% endif %}>
+    <a class="nav-link" href="?funding_requests=UP&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Pending</a>
   </li>
-  <li role="presentation" {% if funding_requests_status == 'AM' %}class="active"{% endif %}>
-    <a href="?funding_requests=AM&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Approved</a>
+  <li {% if funding_requests_status == 'AM' %}class="nav-item"{% endif %}>
+    <a class="nav-link" href="?funding_requests=AM&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Approved</a>
   </li>
-  <li role="presentation" {% if funding_requests_status == 'R' %}class="active"{% endif %}>
-    <a href="?funding_requests=R&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Rejected</a>
+  <li {% if funding_requests_status == 'R' %}class="nav-item"{% endif %}>
+    <a class="nav-link" href="?funding_requests=R&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Rejected</a>
   </li>
-  <li role="presentation" {% if funding_requests_status == 'F' %}class="active"{% endif %}>
-    <a href="?funding_requests=F&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Archived</a>
+  <li {% if funding_requests_status == 'F' %}class="nav-item"{% endif %}>
+    <a class="nav-link" href="?funding_requests=F&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Archived</a>
   </li>
 </ul>
 {% endif %}
@@ -28,6 +28,11 @@
       <th>
         Title
       </th>
+      {% if user.is_staff or claimant and user == claimant.user %}
+      <th>
+        ID
+      </th>
+      {% endif %}
       {% if user.is_staff %}
       <th>
         Fellow
@@ -58,11 +63,11 @@
     <tr
       {% if user.is_staff or claimant and user == claimant.user %}
       {% if fund.status in 'URC' %}
-      class="danger"
+      class="table-danger"
       {% elif fund.status in 'P' %}
-      class="warning"
+      class="table-warning"
       {% elif fund.status in 'AMF' %}
-      class="success"
+      class="table-success"
       {% endif %}
       {% endif %}
       >
@@ -105,6 +110,9 @@
         )
         {% endif %}
       </td>
+      {% if user.is_staff or claimant and user == claimant.user %}
+      <td>{{fund.id}}</td>
+      {% endif %}
       {% if user.is_staff %}
       <td>
         <a href="{% url 'fellow_slug' fund.claimant.slug %}">{{ fund.claimant.fullname }}</a>
@@ -116,8 +124,8 @@
       <td>
         {{ fund.get_status_display }}
         {% if fund.status == 'F' %}
-        - contact <a href="claimants-management@software.ac.uk">claimants-management@software.ac.uk</a>
-        if need
+        - contact <a href="fellows-management@software.ac.uk">fellows-management@software.ac.uk </a>
+        if needed
         {% endif %}
       </td>
       <td {% if fund.status in 'AMF' %} sorttable_customkey="{{ fund.approved | date:'Ymd' }}" {% endif %}>
@@ -151,9 +159,9 @@
     <tr>
       <td
         {% if user.is_staff %}
-        colspan="8"
+        colspan="9"
         {% elif claimant and user == claimant.user %}
-        colspan="6"
+        colspan="7"
         {% else %}
         colspan="3"
         {% endif %}

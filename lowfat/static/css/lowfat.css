@@ -12,15 +12,18 @@ td > pre {
 
 /* Default Bootstrap 3 text colors do not meet 4.5:1 contrast requirement. */
 .navbar-brand {
+    color: #727272 !important; 
+}
+
+.nav-link {
     color: #727272 !important;
 }
 
-.navbar-nav > li > a {
-    color: #727272 !important;
-}
+html { font-size: 14px; }
+body { font-size: 1rem; }
 
 @media (min-width: 768px) {
-    .navbar-nav > li > form {  /* From Bootstrap */
+    .navbar-item {  /* From Bootstrap */
         padding-top: 10px;
         padding-bottom: 10px;
     }
@@ -32,6 +35,10 @@ div.fellow {
 }
 
 a.icon:hover {
+    text-decoration: none;
+}
+
+a:hover, a:focus, a:active, a:visited, a:link{
     text-decoration: none;
 }
 
@@ -70,7 +77,7 @@ span.asteriskField::before {
 
 .ribbon {
    position: absolute;
-   left: 12px; top: 7px;
+   left: 24px; top: 12px;
    z-index: 1;
    overflow: hidden;
    width: 75px; height: 75px;
@@ -94,7 +101,7 @@ span.asteriskField::before {
 .ribbon span::before {
    content: '';
    position: absolute;
-   left: 0px; top: 100%;
+   left: 0%; top: 100%;
    z-index: -1;
    border-left: 3px solid #000000;
    border-right: 3px solid transparent;
@@ -115,8 +122,20 @@ span.asteriskField::before {
 .ribbon.collaborator span {
     background: Chocolate;
 }
+.ribbon.fellows-2023 span {
+    background: Orchid;
+}
+.ribbon.fellows-2022 span {
+    background: SlateBlue;
+}
+.ribbon.fellows-2021 span {
+    background: LightGreen;
+}
 .ribbon.fellows-2020 span {
     background: Gold;
+}
+.ribbon.fellows-2019 span {
+    background: IndianRed;
 }
 .ribbon.fellows-2018 span {
     background: DodgerBlue;

@@ -30,9 +30,10 @@
 
     <!-- Begin Javascript block -->
     <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
     <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
     <!-- Sorttable -->
@@ -48,67 +49,66 @@
     {% if form %}{{ form.media }}{% endif %}
   </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
+    <nav class="navbar navbar-light navbar-expand-sm fixed-top bg-light">
+      <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+        <div class="navbar-brand">
+          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
           </button>
           <a class="navbar-logo" href="https://software.ac.uk">
-            <img img="{{ organisation_name }} logo"class="logo img-responsive" src="{% static 'img/logo.png' %}"
+            <img img="{{ organisation_name }} logo"class="logo img-fluid" src="{% static 'img/logo.png' %}"
                  alt="Logo of the Software Sustainability Institute">
           </a>
           <a class="navbar-brand" href="{% url 'index' %}">lowFAT</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-right">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             {% if user.is_authenticated %}
             {% if user.is_staff %}
-            <li>
-              <form class="form-inline" action="{% url 'search' %}" method="post">
+            <li class="nav-item">
+              <form class="d-flex" action="{% url 'search' %}" method="post">
                 {% csrf_token %}
                 <div class="input-group">
-                  <input class="form-control" type="text" name="search" {% if search %}value="{{ search }}"{% endif %}>
+                  <input class="form-control" type="text" name="search" placeholder="Search" {% if search %}value="{{ search }}"{% endif %}>
                   <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Search</button>
+                    <button class="btn btn-outline-dark" type="button">Search</button>
                   </span>
                 </div>
               </form>
             </li>
             {% else %}
-            <li>
-              <a href="{% url 'my_profile' %}">My Profile</a>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'my_profile' %}">My Profile</a>
             </li>
             {% endif %}
-            <li>
-              <a href="{% url 'dashboard' %}">My Dashboard</a>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'dashboard' %}">My Dashboard</a>
             </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="{% url 'fund' %}">Make a funding request</a></li>
-                <li><a href="{% url 'expense' %}">Submit expense claim</a></li>
-                <li><a href="{% url 'blog' %}">Submit a blog post</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Options  
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'fund' %}">Make a funding request</a></li>
+                <li><a class="dropdown-item" href="{% url 'expense' %}">Submit expense claim</a></li>
+                <li><a class="dropdown-item" href="{% url 'blog' %}">Submit a blog post</a></li>
               </ul>
             </li>
-            <li>
-              <a href="{% url 'sign_out' %}">Sign out</a>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'sign_out' %}">Sign out</a>
             </li>
             {% else %}
-            <li>
-              <a href="{% url 'fund_public' %}">Make a funding request</a>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'fund_public' %}">Make a funding request</a>
             </li>
-            <li>
-              <a href="{% url 'sign_in' %}">Sign in</a>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'sign_in' %}">Sign in</a>
             </li>
-            <li>
-              <a href="{% url 'social:begin' 'github' %}">Sign in with GitHub</a>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'social:begin' 'github' %}">Sign in with GitHub</a>
             </li>
             {% endif %}
           </ul>
@@ -128,11 +128,11 @@
     <footer class="footer">
       <div class="container">
         <ul class="list-inline">
-          <li><a href="{{ organisation_website }}">{{ organisation_name }}</a></li>
-          <li><a href="/pages/privacy/">Privacy</a></li>
-          <li><a href="https://docs.google.com/document/d/1CwQSNwtS3KeE6VZtOZTba2Q7Hz4VuLSEgcMJL_gLTOo">
+          <li class="list-inline-item"><a href="{{ organisation_website }}">{{ organisation_name }}</a></li>
+          <li class="list-inline-item"><a href="/pages/privacy/">Privacy</a></li>
+          <li class="list-inline-item"><a href="https://docs.google.com/document/d/1CwQSNwtS3KeE6VZtOZTba2Q7Hz4VuLSEgcMJL_gLTOo">
               Accessibility Statement</a></li>
-          <li><a href="mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}">Contact us</a></li>
+          <li class="list-inline-item"><a href="mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}">Contact us</a></li>
           </ul>
         <p class="text-muted text-center">Powered with
           <a href="http://python.org/">Python 3</a>,

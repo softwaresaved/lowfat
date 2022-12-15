@@ -1,8 +1,40 @@
 from django.contrib import admin
 
 from simple_history.admin import SimpleHistoryAdmin
-
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django import forms
 from . import models
+
+from django.contrib.auth.admin import UserAdmin
+from import_export import resources
+from import_export.admin import ExportMixin
+
+# This removes the user registration for the User model.
+# This is only necessary because we don't have a custom user model.
+# We want a required email in the user creation form, we have to patch it in the following way.
+admin.site.unregister(User)
+
+
+# This re registers the User model to the admin panel
+# We define the email form in the fieldsets.
+@admin.register(User)
+class MyUserAdmin(UserAdmin):
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('username', 'email', 'password1', 'password2'),
+        }),
+    )
+
+    # We need to make the email EmailField a required field, it isn't by default.
+    # We create a quick custom class deprecating the original email replacing it with
+    # a required email field.
+    class MyUserCreationForm(UserCreationForm):
+        email = forms.EmailField(required=True)
+
+    # Deprecate the add_form from UserAdmin with the custom MyUserCreationForm
+    add_form = MyUserCreationForm
 
 
 @admin.register(models.FundActivity)
@@ -10,8 +42,15 @@ class FundActivityAdmin(SimpleHistoryAdmin):
     pass
 
 
+# Add ability to export claimant data
+class ClaimantResource(resources.ModelResource):
+    class Meta:
+        model = models.Claimant
+
+
 @admin.register(models.Claimant)
-class ClaimantAdmin(SimpleHistoryAdmin):
+class ClaimantAdmin(ExportMixin, SimpleHistoryAdmin):
+    resource_classes = [ClaimantResource]
     fieldsets = [
         (
             None,
