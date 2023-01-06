@@ -295,7 +295,7 @@ class FundForm(GarlicForm):
 
         labels = {
             'claimant': 'Requester name',
-            'mandatory': 'Is this related with Fellows face to face selection meeting, Fellows inaugural meeting or Collaborations Workshop?',
+            'mandatory': 'Is this related to a Fellows Inaugural meeting or Collaborations Workshop?',
             'title': 'Event title',
             'url': 'Event webpage link',
             'country': 'Country in which event is taking place',
@@ -308,10 +308,14 @@ class FundForm(GarlicForm):
             'budget_request_venue_hire': "Venue hire",
             'budget_request_catering': "Catering",
             'budget_request_others': "Other costs",
-            'success_targeted': "Successful outputs and outcomes",
-            'can_be_included_in_calendar': "Can we include your participation in this event into the private Fellows calendar?",
-            'can_be_advertise_before': "Can we public promote your involvement in this event before it takes place?",
-            'can_be_advertise_after': "Can we public promote your involvement in this event after it takes place?"
+            'direct_invoice': "Will expenses related to this request need to be claimed directly via an invoice from your institution or supplier and the Institute?",
+            'justification': "For requests from individual £3000 Fellowship awards, please justify how this activity is in scope of your proposed Fellowship plans or how it furthers your goals for the Fellowship. For requests from the communal pot of funding, please justify how this activity supports the goals of the Institute (https://software.ac.uk/about). For requests relating to a Fellows Inaugural Meeting or Collaborations Workshop, please give a brief justification for the request.",
+            'success_targeted': "Please specify what outputs (what may be produced) and outcomes (what change it could lead to) "
+                  "are likely to be produced from your participation in this event. These can include learning goals "
+                  "being met, collaborations, reports etc.",
+            'additional_info': "Please specify details and breakdown of the costs. For example, indicating the mode(s) of travel and its associated cost. You can also add any other additional information here.",
+            'can_be_advertise_before': "Can we publicly promote your involvement in this event before it takes place?",
+            'can_be_advertise_after': "Can we publicly promote your involvement in this event after it takes place?"
         }
 
         widgets = {
@@ -319,8 +323,8 @@ class FundForm(GarlicForm):
             'category': Select(attrs={"class": "select-single-item"}),
             'focus': Select(attrs={"class": "select-single-item"}),
             'country': Select(attrs={"class": "select-single-item"}),
-            'start_date': DatePickerInput(),
-            'end_date': DatePickerInput(),
+            'start_date': DatePickerInput(options={"format": "YYYY-MM-DD"}),
+            'end_date': DatePickerInput(options={"format": "YYYY-MM-DD"}),
         }
 
     required_css_class = 'form-field-required'
@@ -350,7 +354,7 @@ class FundForm(GarlicForm):
         self.helper.layout = Layout(
             Fieldset(
                 '',
-                HTML('<p>To apply for expenses for eligible events, please fill in this form at least one month before the start date of the event you wish to attend or organise.</p><h2>Requester details</h2>'),
+                HTML('<p>To apply for expenses for eligible events, please fill in this form at least one month before the start date of the event you wish to attend or organise.</p><p>The application will then be reviewed by the Management team, and the Fellow will be informed by email (normally within two weeks) whether the application is successful (the Fellow may be contacted for further information before a decision is made).</p><p>Once the request is approved, the Fellow pays for their expenses and collects receipts and proofs of payment (e.g. bank/card statements) for all expenses incurred. Please note: If the Fellow requires support with costs up front (for example, such as invoices directly between the supplier and the Institute), then the Fellow needs to contact the Management team before submitting a funding request to find out what is possible. Setting up suppliers can take up to two months, so we recommend the Fellow gets in contact to discuss well before this.</p><p>After the activity is completed, the Fellow submits their associated <a href="https://fellows.software.ac.uk/blog/">blog post(s)</a> and <a href="https://fellows.software.ac.uk/expense/">expense claim(s)</a>.</p><h2>Requester details</h2>'),
                 'claimant',
                 HTML('<h2>Funding request details</h2>'),
                 'category',
@@ -411,15 +415,17 @@ class FundForm(GarlicForm):
                     disabled=True,
                     value=0.00
                 ),
-                HTML('<h2>Justification for attending or organising the event</h2><p>When filling in the questions below please consider the following points:</p><ul><li>For attending conferences/workshops: will the conference focus on a significant field, will you meet significant researchers, will there be a focus on research software?</li><li>For organising workshops: how will the event help your domain, how will the event help the Institute, how will the event help you.</li><li>For policy related work: how might participation or organisation help the policy goals of the Institute, such as improving software and improved research (this can include people and tools perspectives).</li><li>For other: please state reasons - note it maybe good to discuss matter with the Institute Community Lead before filling the form to make sure the rationale is aligned to the Institute and to your own objectives.</li></ul>'),
+                'direct_invoice',
+                HTML('<h2>Justification for attending or organising the event</h2><p>When filling in the questions below please consider the following points:</p><ul><li>For attending conferences/workshops: will the conference focus on a significant field, will you meet significant researchers, will there be a focus on research software?</li><li>For organising workshops: how will the event help your domain, how will the event help the Institute, how will the event help you?</li><li>For policy related work: how might participation or organisation help the policy goals of the Institute, such as improving software and improved research (this can include people and tools perspectives)?</li><li>For other: please state reasons - note it may be good to discuss with the Institute Community Team before filling the form to make sure the rationale is aligned to the Institute and to your own objectives.</li></ul>'),
+                HTML('<h4>Justification</h4>'),
                 'justification',
-                HTML('<p>Please specify what outputs (what maybe be produced) and outcomes (what change it could lead to) are likely to be produced from your participation in this event. These can include learning goals being met, collaborations, reports etc.</p>'),
+                HTML('<h4>Successful outputs and outcomes</h4>'),
                 'success_targeted',
+                HTML('<h4>Additional information</h4>'),
                 'additional_info',
-                HTML('<h2>Details of people being sponsored from your Fellowship funds</h2><p>If you are sponsoring others to take part in this event from your Fellowship funds please give their names and email addresses below, if you do not know their names at this stage please state whether there is sponsorship of others needed in this request. In either case please provide some justification.</p>'),
+                HTML('<h2>Details of people being sponsored from your Fellowship funds</h2><p>If you are sponsoring others to take part in this event from your Fellowship funds please give their names and email addresses below.  If you do not know their names at this stage please state whether there is sponsorship of others needed in this request. In either case please provide some justification.</p>'),
                 'extra_sponsored',
                 HTML('<h2>Publicity</h2>'),
-                'can_be_included_in_calendar',
                 'can_be_advertise_before',
                 'can_be_advertise_after',
                 'not_send_email_field' if self.is_staff else None,
@@ -525,8 +531,8 @@ class FundPublicForm(GarlicForm):
             'category': Select(attrs={"class": "select-single-item"}),
             'focus': Select(attrs={"class": "select-single-item"}),
             'country': Select(attrs={"class": "select-single-item"}),
-            'start_date': DatePickerInput(),
-            'end_date': DatePickerInput(),
+            'start_date': DatePickerInput(options={"format": "YYYY-MM-DD"}),
+            'end_date': DatePickerInput(options={"format": "YYYY-MM-DD"}),
         }
 
     required_css_class = 'form-field-required'
@@ -947,8 +953,8 @@ class ExpenseReviewForm(GarlicForm):
         ]
 
         widgets = {
-            'asked_for_authorization_date': DatePickerInput(),
-            'send_to_finance_date': DatePickerInput(),
+            'asked_for_authorization_date': DatePickerInput(options={"format": "YYYY-MM-DD"}),
+            'send_to_finance_date': DatePickerInput(options={"format": "YYYY-MM-DD"}),
         }
 
     required_css_class = 'form-field-required'
