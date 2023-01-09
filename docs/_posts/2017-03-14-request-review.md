@@ -9,4 +9,4 @@ To review funding requests for an event,
 fill the form ilustrated below.
 **Details and guidance are on the form itself.**
 
-![Screenshot of request review form]({{site.baseurl}}/img/request-review.png){: .img-responsive}
+![Screenshot of request review form]({{site.baseurl}}/img/request-review.png){: .img-fluid}

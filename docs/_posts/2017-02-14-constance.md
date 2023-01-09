@@ -9,7 +9,7 @@ order: 6
 Administrators can change some settings on run time
 using {{site.demo_site}}/admin/constance/config/.
 
-![]({{site.baseurl}}/img/constance.png){: .img-responsive}
+![]({{site.baseurl}}/img/constance.png){: .img-fluid}
 
 New variables **need** to be added first into
 `CONSTANCE_CONFIG` on `settings.py`.
