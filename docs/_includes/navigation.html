@@ -1,9 +1,9 @@
-<ul class="nav flex-column">
-    <li class="nav-item">
-        <a class="nav-link" href="{{ site.baseurl }}/">Home</a>
+<ul class="nav nav-list">
+    <li>
+        <a href="{{ site.baseurl }}/">Home</a>
     </li>
-    <li class = "nav-item">
-        Project Status<br><a class="nav-link" href="https://travis-ci.org/softwaresaved/lowfat"><img alt="Build Status" src="https://travis-ci.org/softwaresaved/lowfat.svg?branch=master"></a>
+    <li>
+        Project Status<br><a href="https://travis-ci.org/softwaresaved/lowfat"><img alt="Build Status" src="https://travis-ci.org/softwaresaved/lowfat.svg?branch=master"></a>
     </li>
     {% for section in site.sections %}
         {% assign attr = section[0] %}
@@ -11,10 +11,10 @@
 
         {% for page in site.categories[attr] %}
             {% if forloop.first %}
-                <li class="nav-item">{{ label }}</li>
+                <li class="nav-header">{{ label }}</li>
             {% endif %}
-            <li order="{{ page.order }}">{{ page.order }}
-                <a class="nav-link" href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
+            <li data-order="{{ page.order }}">
+                <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
             </li>
         {% endfor %}
     {% endfor %}
