@@ -13,7 +13,7 @@
             {% if forloop.first %}
                 <li class="nav-item">{{ label }}</li>
             {% endif %}
-            <li class="nav-item" data-order="{{ page.order }}">
+            <li data-order="{{ page.order }}">
                 <a class="nav-link" href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
             </li>
         {% endfor %}
