@@ -138,7 +138,7 @@ def dashboard(request):
         funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UP"  # Pending
         expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCP"  # Pending
         blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URCGL"  # Pending
-        
+
         context.update(
             {
                 'funding_requests_status': funding_requests_status,

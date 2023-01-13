@@ -310,9 +310,7 @@ class FundForm(GarlicForm):
             'budget_request_others': "Other costs",
             'direct_invoice': "Will expenses related to this request need to be claimed directly via an invoice from your institution or supplier and the Institute?",
             'justification': "For requests from individual £3000 Fellowship awards, please justify how this activity is in scope of your proposed Fellowship plans or how it furthers your goals for the Fellowship. For requests from the communal pot of funding, please justify how this activity supports the goals of the Institute (https://software.ac.uk/about). For requests relating to a Fellows Inaugural Meeting or Collaborations Workshop, please give a brief justification for the request.",
-            'success_targeted': "Please specify what outputs (what may be produced) and outcomes (what change it could lead to) "
-                  "are likely to be produced from your participation in this event. These can include learning goals "
-                  "being met, collaborations, reports etc.",
+            'success_targeted': "Please specify what outputs (what may be produced) and outcomes (what change it could lead to) are likely to be produced from your participation in this event. These can include learning goals being met, collaborations, reports etc.",
             'additional_info': "Please specify details and breakdown of the costs. For example, indicating the mode(s) of travel and its associated cost. You can also add any other additional information here.",
             'can_be_advertise_before': "Can we publicly promote your involvement in this event before it takes place?",
             'can_be_advertise_after': "Can we publicly promote your involvement in this event after it takes place?"
