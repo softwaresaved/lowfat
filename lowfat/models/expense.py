@@ -99,7 +99,7 @@ class Expense(ModelWithToken):
         blank=False,
         null=True
     )
-    
+
     #: Supporting documentation
     supporting_docs = models.FileField(
         upload_to='expenses/',  # File will be uploaded to MEDIA_ROOT/expenses

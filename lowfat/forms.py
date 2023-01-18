@@ -69,7 +69,6 @@ class GarlicForm(ModelForm):
         initial=False,
         label="In case of a foreign currency payment or a hotel booking, have you included your bank statement to show the exact amount deducted from your account?"
     )
-    
 
     def __init__(self, *args, **kwargs):
         # Add staff option to not send email notification
@@ -885,7 +884,7 @@ class ExpenseForm(GarlicForm):
                                 <li>Please do not fill out this form if your University will claim directly from SSI only if the institute is in the UK.</li>
                             </ul>
                         </li>
-                        <li>You MUST compile an itemised list of expenses and all receipts/proofs of payment as a single PDF file. 
+                        <li>You MUST compile an itemised list of expenses and all receipts/proofs of payment as a single PDF file.
                             <ul>
                                 <li>List and number each item so it matches a receipt (do not sum receipts into e.g. “Meals”).</li>
                                 <li>For each item claimed, a detailed payment receipt must be provided.</li>
