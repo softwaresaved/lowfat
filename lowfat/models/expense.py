@@ -181,6 +181,11 @@ class Expense(ModelWithToken):
         null=True,
         blank=True
     )
+    upload_final_claim_form = models.FileField(
+        upload_to='expenses/',  
+        blank=True,
+        null=True
+    )
 
     # Control
     added = models.DateTimeField(auto_now_add=True)

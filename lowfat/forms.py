@@ -1009,6 +1009,7 @@ class ExpenseReviewForm(GarlicForm):
             'amount_authorized_for_payment',
             'grant_heading',
             'grant',
+            'upload_final_claim_form',
             'notes_from_admin',
         ]
 
@@ -1037,6 +1038,7 @@ class ExpenseReviewForm(GarlicForm):
                     step=0.01,
                     onblur="this.value = parseFloat(this.value).toFixed(2);"
                 ),
+                'upload_final_claim_form',
                 'grant',
                 'grant_heading',
                 'notes_from_admin',

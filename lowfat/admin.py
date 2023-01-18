@@ -309,6 +309,8 @@ class ExpenseAdmin(SimpleHistoryAdmin):
             'fields': [
                 'fund',
                 'claim',
+                'receipts',
+                'supporting_docs',
                 'amount_claimed',
                 'justification_for_extra',
                 'final',
@@ -338,6 +340,7 @@ class ExpenseAdmin(SimpleHistoryAdmin):
                 'send_to_finance_date',
                 'grant_heading',
                 'grant',
+                'upload_final_claim_form',
                 'notes_from_admin',
             ]
         })
