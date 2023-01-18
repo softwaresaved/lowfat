@@ -797,7 +797,7 @@ class ExpenseForm(GarlicForm):
         required=True,
         initial=False,
         label="Have you filled out sections 1-4 and signed the form?"
-        )
+    )
 
     items_listed = BooleanField(
         widget=CheckboxInput,
@@ -805,21 +805,21 @@ class ExpenseForm(GarlicForm):
         initial=False,
         label="Have you listed and numbered each item you are claiming for so it matches a receipt?"
     )
-    
+
     payment_proof = BooleanField(
         widget=CheckboxInput,
         required=True,
         initial=False,
         label="Have you included a proper proof of payment in the form of a formal receipt or invoice (preferably a VAT invoice) for each expense you are claiming for? "
     )
-    
+
     bank_statement = BooleanField(
         widget=CheckboxInput,
         required=False,
         initial=False,
         label="In case of a foreign currency payment or a hotel booking, have you included your bank statement to show the exact amount deducted from your account?"
     )
-    
+
     class Meta:
         model = models.Expense
         fields = [
