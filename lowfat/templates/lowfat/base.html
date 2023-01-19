@@ -74,7 +74,7 @@
                 <div class="input-group">
                   <input class="form-control" type="text" name="search" placeholder="Search" {% if search %}value="{{ search }}"{% endif %}>
                   <span class="input-group-btn">
-                    <button class="btn btn-outline-dark" type="button">Search</button>
+                    <button class="btn btn-outline-dark" type="submit">Search</button>
                   </span>
                 </div>
               </form>
@@ -96,6 +96,9 @@
                 <li><a class="dropdown-item" href="{% url 'expense' %}">Submit expense claim</a></li>
                 <li><a class="dropdown-item" href="{% url 'blog' %}">Submit a blog post</a></li>
               </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://softwaresaved.github.io/lowfat/">Documentation</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'sign_out' %}">Sign out</a>

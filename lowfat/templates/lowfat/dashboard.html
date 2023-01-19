@@ -16,9 +16,6 @@
   <a role="button" class="btn btn-outline-dark" href="{% url 'expense' %}">Submit expense claim</a>
   <a role="button" class="btn btn-outline-dark" href="{% url 'blog' %}">Submit a blog post</a>
 </div>
-{% if user.is_staff or claimant.fellow %}
-<p><a href="{% url 'fund_ical' token=ical_token %}">Click here</a> to access the shared calendar of events related with fellows.</p>
-{% endif %}
 {% if user.is_staff %}
 <p><a href="{% url 'recent_actions' %}">Click here</a> to view last changes on the database.</p>
 <p><a href="{% url 'fund_import' %}">Click here</a> to import funding requests

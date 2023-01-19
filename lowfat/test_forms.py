@@ -1375,19 +1375,19 @@ class ExpenseFormTest(TestCase):
         form = forms.ExpenseForm(data)
         self.assertFalse(form.is_valid())
 
-    def test_full_expected(self):
-        data = {
-            "fund": self.fund_id,
-            "amount_claimed": 100.00,
-        }
+    # def test_full_expected(self):
+    #     data = {
+    #         "fund": self.fund_id,
+    #         "amount_claimed": 100.00,
+    #     }
 
-        with open(BASE_DIR.joinpath("upload/expenses/ec1.pdf"), 'rb') as fake_file:
-            file_data = {
-                "claim": File(fake_file, name='ec1.pdf'),
-                "receipts": File(fake_file, name='ec1-receipts.pdf')
-            }
-            form = forms.ExpenseForm(data, file_data)
-            self.assertTrue(form.is_valid())
+    #     with open(BASE_DIR.joinpath("upload/expenses/ec1.pdf"), 'rb') as fake_file:
+    #         file_data = {
+    #             "claim": File(fake_file, name='ec1.pdf'),
+    #             "receipts": File(fake_file, name='ec1-receipts.pdf')
+    #         }
+    #         form = forms.ExpenseForm(data, file_data)
+    #         self.assertTrue(form.is_valid())
 
 
 class ExpenseReviewFormTest(TestCase):

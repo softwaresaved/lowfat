@@ -295,23 +295,25 @@ class FundForm(GarlicForm):
 
         labels = {
             'claimant': 'Requester name',
-            'mandatory': 'Is this related with Fellows face to face selection meeting, Fellows inaugural meeting or Collaborations Workshop?',
+            'mandatory': 'Is this related to a Fellows Inaugural meeting or Collaborations Workshop?',
             'title': 'Event title',
             'url': 'Event webpage link',
             'country': 'Country in which event is taking place',
             'city': 'City in which the event is taking place',
-            'start_date': 'Start date of event',
-            'end_date': 'End date of event',
+            'start_date': 'Start date of event (YYYY-MM-DD)',
+            'end_date': 'End date of event (YYYY-MM-DD)',
             'budget_request_travel': "Travel costs (e.g. airfare or ground transportation)",
             'budget_request_attendance_fees': "Attendance fees (e.g. workshop / event registration costs)",
             'budget_request_subsistence_cost': "Subsistence costs (e.g. accommodation and meals)",
             'budget_request_venue_hire': "Venue hire",
             'budget_request_catering': "Catering",
             'budget_request_others': "Other costs",
-            'success_targeted': "Successful outputs and outcomes",
-            'can_be_included_in_calendar': "Can we include your participation in this event into the private Fellows calendar?",
-            'can_be_advertise_before': "Can we public promote your involvement in this event before it takes place?",
-            'can_be_advertise_after': "Can we public promote your involvement in this event after it takes place?"
+            'direct_invoice': "Will expenses related to this request need to be claimed directly via an invoice from your institution or supplier and the Institute?",
+            'justification': "For requests from individual £3000 Fellowship awards, please justify how this activity is in scope of your proposed Fellowship plans or how it furthers your goals for the Fellowship. For requests from the communal pot of funding, please justify how this activity supports the goals of the Institute (https://software.ac.uk/about). For requests relating to a Fellows Inaugural Meeting or Collaborations Workshop, please give a brief justification for the request.",
+            'success_targeted': "Please specify what outputs (what may be produced) and outcomes (what change it could lead to) are likely to be produced from your participation in this event. These can include learning goals being met, collaborations, reports etc.",
+            'additional_info': "Please specify details and breakdown of the costs. For example, indicating the mode(s) of travel and its associated cost. You can also add any other additional information here.",
+            'can_be_advertise_before': "Can we publicly promote your involvement in this event before it takes place?",
+            'can_be_advertise_after': "Can we publicly promote your involvement in this event after it takes place?"
         }
 
         widgets = {
@@ -319,8 +321,8 @@ class FundForm(GarlicForm):
             'category': Select(attrs={"class": "select-single-item"}),
             'focus': Select(attrs={"class": "select-single-item"}),
             'country': Select(attrs={"class": "select-single-item"}),
-            'start_date': DatePickerInput(),
-            'end_date': DatePickerInput(),
+            'start_date': DatePickerInput(options={"format": "YYYY-MM-DD"}),
+            'end_date': DatePickerInput(options={"format": "YYYY-MM-DD"}),
         }
 
     required_css_class = 'form-field-required'
@@ -350,7 +352,7 @@ class FundForm(GarlicForm):
         self.helper.layout = Layout(
             Fieldset(
                 '',
-                HTML('<p>To apply for expenses for eligible events, please fill in this form at least one month before the start date of the event you wish to attend or organise.</p><h2>Requester details</h2>'),
+                HTML('<p>To apply for expenses for eligible events, please fill in this form at least one month before the start date of the event you wish to attend or organise.</p><p>The application will then be reviewed by the Management team, and the Fellow will be informed by email (normally within two weeks) whether the application is successful (the Fellow may be contacted for further information before a decision is made).</p><p>Once the request is approved, the Fellow pays for their expenses and collects receipts and proofs of payment (e.g. bank/card statements) for all expenses incurred. Please note: If the Fellow requires support with costs up front (for example, such as invoices directly between the supplier and the Institute), then the Fellow needs to contact the Management team before submitting a funding request to find out what is possible. Setting up suppliers can take up to two months, so we recommend the Fellow gets in contact to discuss well before this.</p><p>After the activity is completed, the Fellow submits their associated <a href="https://fellows.software.ac.uk/blog/">blog post(s)</a> and <a href="https://fellows.software.ac.uk/expense/">expense claim(s)</a>.</p><h2>Requester details</h2>'),
                 'claimant',
                 HTML('<h2>Funding request details</h2>'),
                 'category',
@@ -411,15 +413,17 @@ class FundForm(GarlicForm):
                     disabled=True,
                     value=0.00
                 ),
-                HTML('<h2>Justification for attending or organising the event</h2><p>When filling in the questions below please consider the following points:</p><ul><li>For attending conferences/workshops: will the conference focus on a significant field, will you meet significant researchers, will there be a focus on research software?</li><li>For organising workshops: how will the event help your domain, how will the event help the Institute, how will the event help you.</li><li>For policy related work: how might participation or organisation help the policy goals of the Institute, such as improving software and improved research (this can include people and tools perspectives).</li><li>For other: please state reasons - note it maybe good to discuss matter with the Institute Community Lead before filling the form to make sure the rationale is aligned to the Institute and to your own objectives.</li></ul>'),
+                'direct_invoice',
+                HTML('<h2>Justification for attending or organising the event</h2><p>When filling in the questions below please consider the following points:</p><ul><li>For attending conferences/workshops: will the conference focus on a significant field, will you meet significant researchers, will there be a focus on research software?</li><li>For organising workshops: how will the event help your domain, how will the event help the Institute, how will the event help you?</li><li>For policy related work: how might participation or organisation help the policy goals of the Institute, such as improving software and improved research (this can include people and tools perspectives)?</li><li>For other: please state reasons - note it may be good to discuss with the Institute Community Team before filling the form to make sure the rationale is aligned to the Institute and to your own objectives.</li></ul>'),
+                HTML('<h4>Justification</h4>'),
                 'justification',
-                HTML('<p>Please specify what outputs (what maybe be produced) and outcomes (what change it could lead to) are likely to be produced from your participation in this event. These can include learning goals being met, collaborations, reports etc.</p>'),
+                HTML('<h4>Successful outputs and outcomes</h4>'),
                 'success_targeted',
+                HTML('<h4>Additional information</h4>'),
                 'additional_info',
-                HTML('<h2>Details of people being sponsored from your Fellowship funds</h2><p>If you are sponsoring others to take part in this event from your Fellowship funds please give their names and email addresses below, if you do not know their names at this stage please state whether there is sponsorship of others needed in this request. In either case please provide some justification.</p>'),
+                HTML('<h2>Details of people being sponsored from your Fellowship funds</h2><p>If you are sponsoring others to take part in this event from your Fellowship funds please give their names and email addresses below.  If you do not know their names at this stage please state whether there is sponsorship of others needed in this request. In either case please provide some justification.</p>'),
                 'extra_sponsored',
                 HTML('<h2>Publicity</h2>'),
-                'can_be_included_in_calendar',
                 'can_be_advertise_before',
                 'can_be_advertise_after',
                 'not_send_email_field' if self.is_staff else None,
@@ -525,8 +529,8 @@ class FundPublicForm(GarlicForm):
             'category': Select(attrs={"class": "select-single-item"}),
             'focus': Select(attrs={"class": "select-single-item"}),
             'country': Select(attrs={"class": "select-single-item"}),
-            'start_date': DatePickerInput(),
-            'end_date': DatePickerInput(),
+            'start_date': DatePickerInput(options={"format": "YYYY-MM-DD"}),
+            'end_date': DatePickerInput(options={"format": "YYYY-MM-DD"}),
         }
 
     required_css_class = 'form-field-required'
@@ -788,12 +792,41 @@ class FundImportForm(Form):
 
 
 class ExpenseForm(GarlicForm):
+    form_complete = BooleanField(
+        widget=CheckboxInput,
+        required=True,
+        initial=False,
+        label="Have you filled out sections 1-4 and signed the form?"
+    )
+
+    items_listed = BooleanField(
+        widget=CheckboxInput,
+        required=True,
+        initial=False,
+        label="Have you listed and numbered each item you are claiming for so it matches a receipt?"
+    )
+
+    payment_proof = BooleanField(
+        widget=CheckboxInput,
+        required=True,
+        initial=False,
+        label="Have you included a proper proof of payment in the form of a formal receipt or invoice (preferably a VAT invoice) for each expense you are claiming for? "
+    )
+
+    bank_statement = BooleanField(
+        widget=CheckboxInput,
+        required=False,
+        initial=False,
+        label="In case of a foreign currency payment or a hotel booking, have you included your bank statement to show the exact amount deducted from your account?"
+    )
+
     class Meta:
         model = models.Expense
         fields = [
             'fund',
             'claim',
             'receipts',
+            'supporting_docs',
             'amount_claimed',
             'justification_for_extra',
             'invoice',
@@ -808,8 +841,9 @@ class ExpenseForm(GarlicForm):
 
         labels = {
             'fund': 'Choose approved funding request',
-            'claim': 'Completed claim form',
-            'receipts': 'PDF copy of receipt(s)',
+            'claim': 'Upload completed claim form (.docx file preferred)',
+            'receipts': 'Upload PDF copy of receipt(s) and proof(s) of payment',
+            'supporting_docs': 'Upload supporting documentation if applicable',
             'justification_for_extra': "If the claim is greater by 20% than the amount requested please provide justification",
             'invoice': "Do you need to claim this expense via an invoice from your institution or company?",
             'final': "Is this the final expense claim associated with this funding request?",
@@ -817,7 +851,7 @@ class ExpenseForm(GarlicForm):
             'recipient_email': "E-mail",
             'recipient_affiliation': "Affiliation",
             'recipient_group': "Group",
-            'recipient_connection': "Reason for submit the recipient claim",
+            'recipient_connection': "Reason for submitting the recipient claim",
         }
 
         widgets = {
@@ -832,24 +866,56 @@ class ExpenseForm(GarlicForm):
         self.helper.layout = Layout(
             Fieldset(
                 '',
+                HTML("<p>If your funding request isn't on the drop down menu below please email us at <a href='mailto:fellows-management@software.ac.uk'>fellows-management@software.ac.uk</a>.</p>"),
                 'fund',
-                HTML("<p>If your funding request isn't on the drop down menu above please <a href='mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}'>email us</a>.</p>"),
                 HTML(textwrap.dedent("""\
                     <p>
                       Before submitting your expense claim:
                       <ol>
-                        <li>Please follow the <a href='https://software.ac.uk/SSI-expenses-guidelines'>Guidelines for reimbursement of expenses from the Software Sustainability Institute</a>.</li>
-                        <li>You MUST fill out and attach the the relevant University of Edinburgh Payment for Non-Staff/Student Expenses form along with your receipts and proofs of payment to your expense claim:
+                        <li>Please follow the <a href='https://software.ac.uk/SSI-expenses-guidelines'>Guidelines for reimbursement of expenses from the Software Sustainability Institute</a>.
                             <ul>
-                                <li><a href="https://bit.ly/SSI-expenses-UK-2022">Expenses claim form for UK bank account holders</a></li>
-                                <li><a href="https://bit.ly/SSI-expenses-foreign-2022">Expenses claim form for non-UK bank account holders</a></li>
+                                <li>The Fellowship Programme Terms and Conditions and the <a href="https://www.ed.ac.uk/sites/default/files/atoms/files/new_expenses_policy.docx">University of Edinburgh Finance Expenses Policy</a> apply to your claim.
+                                </li>
                             </ul>
                         </li>
-                        <li>The <a href='{{ terms_and_conditions_url }}'>Fellowship Programme Terms and Conditions</a> and the <a href='https://drive.google.com/file/d/1wjCD2anwNGgDqee_2dm1C0moPrqxNbju/view'>University of Edinburgh Finance Expenses Policy</a> apply to your request.</li>
+                        <li>You MUST fill out the University of Edinburgh Payment of Non-Staff <a href='https://www.ed.ac.uk/sites/default/files/atoms/files/non_staff_expenses_claim_form.docx'>Expenses form</a>.
+                            <ul>
+                                <li>Fill out Sections 1 - 4.</li>
+                                <li>Leave the visitor/student number blank.</li>
+                                <li>State your Name and Home Address (not your Work Address).</li>
+                                <li>Make sure you have filled out your bank details correctly and clearly.</li>
+                                <li>Don’t forget to sign the claim form. Electronic signature is fine.</li>
+                                <li>Please do not fill out this form if your University will claim directly from SSI only if the institute is in the UK.</li>
+                            </ul>
+                        </li>
+                        <li>You MUST compile an itemised list of expenses and all receipts/proofs of payment as a single PDF file.
+                            <ul>
+                                <li>List and number each item so it matches a receipt (do not sum receipts into e.g. “Meals”).</li>
+                                <li>For each item claimed, a detailed payment receipt must be provided.</li>
+                                <li>When purchasing goods or services from VAT registered business, a VAT receipt must be provided.</li>
+                                <li>Credit or debit card receipts are not sufficient on their own. An accompanying itemised receipt is necessary.</li>
+                                <li>Hotel booking confirmation is not accepted as proof of payment, even if it does show an advance payment. Instead, a VAT invoice subsequent to the stay should be obtained and provided.</li>
+                                <li>Likewise, online order confirmation is not accepted as proof of payment, even if it does show an advance payment. Instead, a VAT invoice should be obtained and provided.</li>
+                                <li>A statement of your credit card/bank account should be present in the following cases:</li>
+                                    <ul>
+                                        <li>For hotel bookings</li>
+                                        <li>For Non-GBP reimbursements</li>
+                                            <ul>
+                                                <li>For payments done in another currency and to be reimbursed in GBP</li>
+                                                <li>For payments done in any currency but to be reimbursed in a non-GBP account</li>
+                                            </ul>
+                                    </ul>
+                            </ul>
+                        </li>
                       </ol>
                     </p>""")),
                 'claim',
+                'form_complete',
                 'receipts',
+                'items_listed',
+                'payment_proof',
+                'bank_statement',
+                'supporting_docs',
                 PrependedText(
                     'amount_claimed',
                     '£',
@@ -943,12 +1009,13 @@ class ExpenseReviewForm(GarlicForm):
             'amount_authorized_for_payment',
             'grant_heading',
             'grant',
+            'upload_final_claim_form',
             'notes_from_admin',
         ]
 
         widgets = {
-            'asked_for_authorization_date': DatePickerInput(),
-            'send_to_finance_date': DatePickerInput(),
+            'asked_for_authorization_date': DatePickerInput(options={"format": "YYYY-MM-DD"}),
+            'send_to_finance_date': DatePickerInput(options={"format": "YYYY-MM-DD"}),
         }
 
     required_css_class = 'form-field-required'
@@ -971,6 +1038,7 @@ class ExpenseReviewForm(GarlicForm):
                     step=0.01,
                     onblur="this.value = parseFloat(this.value).toFixed(2);"
                 ),
+                'upload_final_claim_form',
                 'grant',
                 'grant_heading',
                 'notes_from_admin',
