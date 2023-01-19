@@ -182,7 +182,7 @@ class Expense(ModelWithToken):
         blank=True
     )
     upload_final_claim_form = models.FileField(
-        upload_to='expenses/',  
+        upload_to='expenses/',
         blank=True,
         null=True
     )
