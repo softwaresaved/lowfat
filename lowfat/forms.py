@@ -792,12 +792,41 @@ class FundImportForm(Form):
 
 
 class ExpenseForm(GarlicForm):
+    form_complete = BooleanField(
+        widget=CheckboxInput,
+        required=True,
+        initial=False,
+        label="Have you filled out sections 1-4 and signed the form?"
+    )
+
+    items_listed = BooleanField(
+        widget=CheckboxInput,
+        required=True,
+        initial=False,
+        label="Have you listed and numbered each item you are claiming for so it matches a receipt?"
+    )
+
+    payment_proof = BooleanField(
+        widget=CheckboxInput,
+        required=True,
+        initial=False,
+        label="Have you included a proper proof of payment in the form of a formal receipt or invoice (preferably a VAT invoice) for each expense you are claiming for? "
+    )
+
+    bank_statement = BooleanField(
+        widget=CheckboxInput,
+        required=False,
+        initial=False,
+        label="In case of a foreign currency payment or a hotel booking, have you included your bank statement to show the exact amount deducted from your account?"
+    )
+
     class Meta:
         model = models.Expense
         fields = [
             'fund',
             'claim',
             'receipts',
+            'supporting_docs',
             'amount_claimed',
             'justification_for_extra',
             'invoice',
@@ -812,8 +841,9 @@ class ExpenseForm(GarlicForm):
 
         labels = {
             'fund': 'Choose approved funding request',
-            'claim': 'Completed claim form',
-            'receipts': 'PDF copy of receipt(s)',
+            'claim': 'Upload completed claim form (.docx file preferred)',
+            'receipts': 'Upload PDF copy of receipt(s) and proof(s) of payment',
+            'supporting_docs': 'Upload supporting documentation if applicable',
             'justification_for_extra': "If the claim is greater by 20% than the amount requested please provide justification",
             'invoice': "Do you need to claim this expense via an invoice from your institution or company?",
             'final': "Is this the final expense claim associated with this funding request?",
@@ -821,7 +851,7 @@ class ExpenseForm(GarlicForm):
             'recipient_email': "E-mail",
             'recipient_affiliation': "Affiliation",
             'recipient_group': "Group",
-            'recipient_connection': "Reason for submit the recipient claim",
+            'recipient_connection': "Reason for submitting the recipient claim",
         }
 
         widgets = {
@@ -836,24 +866,56 @@ class ExpenseForm(GarlicForm):
         self.helper.layout = Layout(
             Fieldset(
                 '',
+                HTML("<p>If your funding request isn't on the drop down menu below please email us at <a href='mailto:fellows-management@software.ac.uk'>fellows-management@software.ac.uk</a>.</p>"),
                 'fund',
-                HTML("<p>If your funding request isn't on the drop down menu above please <a href='mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}'>email us</a>.</p>"),
                 HTML(textwrap.dedent("""\
                     <p>
                       Before submitting your expense claim:
                       <ol>
-                        <li>Please follow the <a href='https://software.ac.uk/SSI-expenses-guidelines'>Guidelines for reimbursement of expenses from the Software Sustainability Institute</a>.</li>
-                        <li>You MUST fill out and attach the the relevant University of Edinburgh Payment for Non-Staff/Student Expenses form along with your receipts and proofs of payment to your expense claim:
+                        <li>Please follow the <a href='https://software.ac.uk/SSI-expenses-guidelines'>Guidelines for reimbursement of expenses from the Software Sustainability Institute</a>.
                             <ul>
-                                <li><a href="https://bit.ly/SSI-expenses-UK-2022">Expenses claim form for UK bank account holders</a></li>
-                                <li><a href="https://bit.ly/SSI-expenses-foreign-2022">Expenses claim form for non-UK bank account holders</a></li>
+                                <li>The Fellowship Programme Terms and Conditions and the <a href="https://www.ed.ac.uk/sites/default/files/atoms/files/new_expenses_policy.docx">University of Edinburgh Finance Expenses Policy</a> apply to your claim.
+                                </li>
                             </ul>
                         </li>
-                        <li>The <a href='{{ terms_and_conditions_url }}'>Fellowship Programme Terms and Conditions</a> and the <a href='https://drive.google.com/file/d/1wjCD2anwNGgDqee_2dm1C0moPrqxNbju/view'>University of Edinburgh Finance Expenses Policy</a> apply to your request.</li>
+                        <li>You MUST fill out the University of Edinburgh Payment of Non-Staff <a href='https://www.ed.ac.uk/sites/default/files/atoms/files/non_staff_expenses_claim_form.docx'>Expenses form</a>.
+                            <ul>
+                                <li>Fill out Sections 1 - 4.</li>
+                                <li>Leave the visitor/student number blank.</li>
+                                <li>State your Name and Home Address (not your Work Address).</li>
+                                <li>Make sure you have filled out your bank details correctly and clearly.</li>
+                                <li>Don’t forget to sign the claim form. Electronic signature is fine.</li>
+                                <li>Please do not fill out this form if your University will claim directly from SSI only if the institute is in the UK.</li>
+                            </ul>
+                        </li>
+                        <li>You MUST compile an itemised list of expenses and all receipts/proofs of payment as a single PDF file.
+                            <ul>
+                                <li>List and number each item so it matches a receipt (do not sum receipts into e.g. “Meals”).</li>
+                                <li>For each item claimed, a detailed payment receipt must be provided.</li>
+                                <li>When purchasing goods or services from VAT registered business, a VAT receipt must be provided.</li>
+                                <li>Credit or debit card receipts are not sufficient on their own. An accompanying itemised receipt is necessary.</li>
+                                <li>Hotel booking confirmation is not accepted as proof of payment, even if it does show an advance payment. Instead, a VAT invoice subsequent to the stay should be obtained and provided.</li>
+                                <li>Likewise, online order confirmation is not accepted as proof of payment, even if it does show an advance payment. Instead, a VAT invoice should be obtained and provided.</li>
+                                <li>A statement of your credit card/bank account should be present in the following cases:</li>
+                                    <ul>
+                                        <li>For hotel bookings</li>
+                                        <li>For Non-GBP reimbursements</li>
+                                            <ul>
+                                                <li>For payments done in another currency and to be reimbursed in GBP</li>
+                                                <li>For payments done in any currency but to be reimbursed in a non-GBP account</li>
+                                            </ul>
+                                    </ul>
+                            </ul>
+                        </li>
                       </ol>
                     </p>""")),
                 'claim',
+                'form_complete',
                 'receipts',
+                'items_listed',
+                'payment_proof',
+                'bank_statement',
+                'supporting_docs',
                 PrependedText(
                     'amount_claimed',
                     '£',
@@ -947,6 +1009,7 @@ class ExpenseReviewForm(GarlicForm):
             'amount_authorized_for_payment',
             'grant_heading',
             'grant',
+            'upload_final_claim_form',
             'notes_from_admin',
         ]
 
@@ -975,6 +1038,7 @@ class ExpenseReviewForm(GarlicForm):
                     step=0.01,
                     onblur="this.value = parseFloat(this.value).toFixed(2);"
                 ),
+                'upload_final_claim_form',
                 'grant',
                 'grant_heading',
                 'notes_from_admin',

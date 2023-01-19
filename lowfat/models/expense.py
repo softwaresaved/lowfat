@@ -100,6 +100,13 @@ class Expense(ModelWithToken):
         null=True
     )
 
+    #: Supporting documentation
+    supporting_docs = models.FileField(
+        upload_to='expenses/',  # File will be uploaded to MEDIA_ROOT/expenses
+        blank=True,
+        null=True
+    )
+
     amount_claimed = models.DecimalField(
         max_digits=MAX_DIGITS,
         decimal_places=2,
@@ -137,7 +144,7 @@ class Expense(ModelWithToken):
     recipient_connection = models.CharField(
         max_length=MAX_CHAR_LENGTH,
         blank=True,
-        help_text="You need to provide a reason for submit the recipient claim. An common reasons is \"because the recipient was of of the speakers on that workshop.\""
+        help_text="You need to provide a reason for submitting the recipient claim. A common reason is \"because the recipient was one of the speakers of that workshop.\""
     )
 
     # Admin fields
@@ -173,6 +180,11 @@ class Expense(ModelWithToken):
     notes_from_admin = models.TextField(
         null=True,
         blank=True
+    )
+    upload_final_claim_form = models.FileField(
+        upload_to='expenses/',
+        blank=True,
+        null=True
     )
 
     # Control
