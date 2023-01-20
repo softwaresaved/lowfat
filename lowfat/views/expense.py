@@ -359,3 +359,37 @@ class ExpenseReceiptsView(OwnerStaffOrTokenMixin, FileFieldView):
             self.model,
             fund=self.kwargs["fund_id"],
             relative_number=self.kwargs["expense_relative_number"])
+
+
+class ExpenseSupportingDocsView(OwnerStaffOrTokenMixin, FileFieldView):
+    """Download supporting documents for the expenses claim."""
+    model = Expense
+    field_name = "supporting_docs"
+    owner_field = "fund.claimant.user"
+
+    def get_object(self, queryset=None):
+        if "token" in self.kwargs:
+            return get_object_or_404(self.model,
+                                     access_token=self.kwargs["access_token"])
+
+        return get_object_or_404(
+            self.model,
+            fund=self.kwargs["fund_id"],
+            relative_number=self.kwargs["expense_relative_number"])
+        
+
+class ExpenseFinalClaimFormView(OwnerStaffOrTokenMixin, FileFieldView):
+    """Download final claim form."""
+    model = Expense
+    field_name = "upload_final_claim_form"
+    owner_field = "fund.claimant.user"
+
+    def get_object(self, queryset=None):
+        if "token" in self.kwargs:
+            return get_object_or_404(self.model,
+                                     access_token=self.kwargs["access_token"])
+
+        return get_object_or_404(
+            self.model,
+            fund=self.kwargs["fund_id"],
+            relative_number=self.kwargs["expense_relative_number"])
