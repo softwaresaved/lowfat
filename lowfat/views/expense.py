@@ -376,7 +376,7 @@ class ExpenseSupportingDocsView(OwnerStaffOrTokenMixin, FileFieldView):
             self.model,
             fund=self.kwargs["fund_id"],
             relative_number=self.kwargs["expense_relative_number"])
-        
+
 
 class ExpenseFinalClaimFormView(OwnerStaffOrTokenMixin, FileFieldView):
     """Download final claim form."""
