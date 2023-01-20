@@ -106,6 +106,10 @@
             <th>Others</th>
             <td>£{{ fund.budget_request_others|floatformat:2 }}</td>
         </tr>
+        <tr>
+          <th>Add suppliers</th>
+          <td>{{ fund.direct_invoice }}</td>
+      </tr>
     </tbody>
 </table>
 {% include "lowfat/communication.html" %}
