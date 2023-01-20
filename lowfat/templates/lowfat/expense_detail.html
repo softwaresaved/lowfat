@@ -99,6 +99,30 @@
         </tr>
         {% endif %}
 
+        {% if expense.supporting_docs %}
+        <tr>
+          <td><b>Supporting Documents</b></td>
+          <td>
+            <a href="{% url 'expense_supporting_docs_relative' expense.fund.id expense.relative_number %}">
+              Download
+              <i class="fas fa-file"></i>
+            </a>
+          </td>
+        </tr>
+        {% endif %}
+
+        {% if expense.upload_final_claim_form %}
+        <tr>
+          <td><b>Final Claim Form</b></td>
+          <td>
+            <a href="{% url 'expense_final_claim_form_relative' expense.fund.id expense.relative_number %}">
+              Download
+              <i class="fas fa-file"></i>
+            </a>
+          </td>
+        </tr>
+        {% endif %}
+
         {% if user.is_authenticated %}
         <tr>
           <th>Append another PDF to receipts</th>
