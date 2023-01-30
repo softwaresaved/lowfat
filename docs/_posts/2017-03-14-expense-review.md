@@ -10,5 +10,6 @@ fill the form
 ilustrated below.
 **Details and guidance are on the form itself.**
 
-![Screenshot of expense review form]({{site.baseurl}}/img/expense-review.png){: .img-fluid}
+![Screenshot of expense review form]({{site.baseurl}}/img/expense-review-2023-1.png){: .img-fluid}
+![Screenshot of expense review form]({{site.baseurl}}/img/expense-review-2023-2.png){: .img-fluid}
 
