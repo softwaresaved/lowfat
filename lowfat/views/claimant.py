@@ -88,6 +88,15 @@ def index(request):
 
     return render(request, 'lowfat/index.html', context)
 
+def event_report(request):
+    context = {
+        'funds': Fund.objects.filter(
+            status__in = {"A", "M", "F"},
+            mandatory = False,
+        )
+    }
+    return render(request, 'lowfat/event_report.html', context)
+
 
 @login_required
 def dashboard(request):

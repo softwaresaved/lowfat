@@ -1,0 +1,17 @@
+{% extends "lowfat/base.html" %}
+
+{% block content %}
+<h1>Activities of Software Sustainability Institute Fellows</h1>
+
+<ul>
+{% if funds %}
+{% for fund in funds %}
+    <li>
+    {{ fund.title }}
+    </li>
+{% endfor %}
+{% endif %}
+</ul>
+
+
+{% endblock %}
