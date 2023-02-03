@@ -3,7 +3,7 @@
 {% block content %}
 <h1>Activities of Software Sustainability Institute Fellows</h1>
 
-<h2>Domain Specific Events Organised</h2>
+<h2>Domain Specific Events Organised (N = {{ n_domain_specific_events_organised }})</h2>
 <ul>
     {% if domain_specific_events_organised %}
     {% for fund in domain_specific_events_organised %}
@@ -14,7 +14,7 @@
     {% endif %}
 </ul>
 
-<h2>Domain Specific Events Attended</h2>
+<h2>Domain Specific Events Attended (N = {{ n_domain_specific_events_attended }})</h2>
 <ul>
     {% if domain_specific_events_attended %}
     {% for fund in domain_specific_events_attended %}
@@ -25,7 +25,7 @@
     {% endif %}
 </ul>
 
-<h2>Cross Cutting Events Organised</h2>
+<h2>Cross Cutting Events Organised (N = {{ n_cross_cutting_events_organised }})</h2>
 <ul>
     {% if cross_cutting_events_organised %}
     {% for fund in cross_cutting_events_organised %}
@@ -36,7 +36,7 @@
     {% endif %}
 </ul>
 
-<h2>Cross Cutting Events Attended</h2>
+<h2>Cross Cutting Events Attended (N = {{ n_cross_cutting_events_attended }})</h2>
 <ul>
     {% if cross_cutting_events_attended %}
     {% for fund in cross_cutting_events_attended  %}
@@ -48,7 +48,7 @@
 </ul>
 
 
-<h2>All Events</h2>
+<h2>All Events (N = {{ n_funds }})</h2>
 <ul>
 {% if funds %}
 {% for fund in funds %}

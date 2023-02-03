@@ -89,27 +89,53 @@ def index(request):
     return render(request, 'lowfat/index.html', context)
 
 def event_report(request):
-    context = {
-        'funds': Fund.objects.filter(
+    funds = Fund.objects.filter(
             status__in = {"A", "M", "F"},
-            mandatory = False,
-        ),
-        'domain_specific_events_attended': Fund.objects.filter(
+            mandatory = False 
+    ) 
+    
+    n_funds = len(funds)
+    
+    domain_specific_events_attended = Fund.objects.filter(
             focus = "D",
-            category = "A",
-        ),
-        'domain_specific_events_organised': Fund.objects.filter(
+            category = "A"
+    )
+    
+    n_domain_specific_events_attended = len(domain_specific_events_attended)
+    
+    domain_specific_events_organised = Fund.objects.filter(
             focus = "D",
             category = "H",
-        ),
-        'cross_cutting_events_attended': Fund.objects.filter(
+        )
+    
+    n_domain_specific_events_organised = len(domain_specific_events_organised)
+    
+    cross_cutting_events_attended = Fund.objects.filter(
             focus = "C",
             category = "A",
-        ),
-        'cross_cutting_events_organised': Fund.objects.filter(
+        )
+
+    n_cross_cutting_events_attended = len(cross_cutting_events_attended)
+    
+    cross_cutting_events_organised = Fund.objects.filter(
             focus = "C",
             category = "H",
-        ),                
+        )
+    
+    n_cross_cutting_events_organised = len(cross_cutting_events_organised)
+    
+    
+    context = {
+        'funds': funds,
+        'n_funds': n_funds,
+        'domain_specific_events_attended': domain_specific_events_attended, 
+        'n_domain_specific_events_attended': n_domain_specific_events_attended,
+        'domain_specific_events_organised': domain_specific_events_organised,
+        'n_domain_specific_events_organised': n_domain_specific_events_organised,
+        'cross_cutting_events_attended': cross_cutting_events_attended,
+        'n_cross_cutting_events_attended': n_cross_cutting_events_attended,
+        'cross_cutting_events_organised': cross_cutting_events_organised, 
+        'n_cross_cutting_events_organised': n_cross_cutting_events_organised,             
     }
     return render(request, 'lowfat/event_report.html', context)
 
