@@ -93,7 +93,23 @@ def event_report(request):
         'funds': Fund.objects.filter(
             status__in = {"A", "M", "F"},
             mandatory = False,
-        )
+        ),
+        'domain_specific_events_attended': Fund.objects.filter(
+            focus = "D",
+            category = "A",
+        ),
+        'domain_specific_events_organised': Fund.objects.filter(
+            focus = "D",
+            category = "H",
+        ),
+        'cross_cutting_events_attended': Fund.objects.filter(
+            focus = "C",
+            category = "A",
+        ),
+        'cross_cutting_events_organised': Fund.objects.filter(
+            focus = "C",
+            category = "H",
+        ),                
     }
     return render(request, 'lowfat/event_report.html', context)
 
