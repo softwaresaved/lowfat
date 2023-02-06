@@ -5,10 +5,10 @@
 {% comment %} create a dropdown with choices as years_unique, which filters the funds shown {% endcomment %}
 <center>
     <hr>
-    Select a year:
+    <h3>Choose a year: </h3> 
     <form method="POST">
         {% csrf_token %}
-        <select name="year">
+        <select name="year" >
             <option selected disabled=true>--Select Year--</option>
             {% for year in years_unique %}
             <option>{{ year }}</option>
@@ -18,51 +18,57 @@
         <hr>
     </form>
 
-<h2>Domain Specific Events Organised (N = {{ n_domain_specific_events_organised }})</h2>
-<ul>
-    {% if domain_specific_events_organised %}
-    {% for fund in domain_specific_events_organised %}
-        <li>
-        {{ fund.title }}
-        </li>
-    {% endfor %}
-    {% endif %}
-</ul>
+<div class="container-fluid">
+    <div class="row">
+        <div class="card border-secondary m-3 col-lg">
+            <h4 class="card-title">Domain Specific Events Organised (N = {{ n_domain_specific_events_organised }})</h4>
+            <ul class="list-group list-group-flush">
+                {% if domain_specific_events_organised %}
+                {% for fund in domain_specific_events_organised %}
+                <li class="list-group-item">{{ fund.title }}</li>
+                {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
 
-<h2>Domain Specific Events Attended (N = {{ n_domain_specific_events_attended }})</h2>
-<ul>
-    {% if domain_specific_events_attended %}
-    {% for fund in domain_specific_events_attended %}
-        <li>
-        {{ fund.title }}
-        </li>
-    {% endfor %}
-    {% endif %}
-</ul>
+        <div class="card border-secondary m-3 col-lg">
+            <h4 class="card-title">Domain Specific Events Attended (N = {{ n_domain_specific_events_attended }})</h4>
+            <ul class="list-group list-group-flush">
+                {% if domain_specific_events_attended %}
+                {% for fund in domain_specific_events_attended %}
+                <li class="list-group-item">{{ fund.title }}</li>
+                {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="card border-secondary m-3 col-lg">
+            <h4 class="card-title">Cross Cutting Events Organised (N = {{ n_cross_cutting_events_organised }})</h4>
+            <ul class="list-group list-group-flush">
+                {% if cross_cutting_events_organised %}
+                {% for fund in cross_cutting_events_organised %}
+                <li class="list-group-item">{{ fund.title }}</li>
+                {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
 
-<h2>Cross Cutting Events Organised (N = {{ n_cross_cutting_events_organised }})</h2>
-<ul>
-    {% if cross_cutting_events_organised %}
-    {% for fund in cross_cutting_events_organised %}
-        <li>
-        {{ fund.title }}
-        </li>
-    {% endfor %}
-    {% endif %}
-</ul>
+        <div class="card border-secondary m-3 col-lg">
+            <h4 class="card-title">Cross Cutting Events Attended (N = {{ n_cross_cutting_events_attended }})</h4>
+            <ul class="list-group list-group-flush">
+                {% if cross_cutting_events_attended %}
+                {% for fund in cross_cutting_events_attended %}
+                <li class="list-group-item">{{ fund.title }}</li>
+                {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
 
-<h2>Cross Cutting Events Attended (N = {{ n_cross_cutting_events_attended }})</h2>
-<ul>
-    {% if cross_cutting_events_attended %}
-    {% for fund in cross_cutting_events_attended  %}
-        <li>
-        {{ fund.title }}
-        </li>
-    {% endfor %}
-    {% endif %}
-</ul> 
-
-<h2>All Events (N = {{ n_funds }})</h2>
+{% comment %} <h2>All Events (N = {{ n_funds }})</h2>
 <ul>
 {% if funds %}
 {% for fund in funds %}
@@ -71,7 +77,7 @@
     </li>
 {% endfor %}
 {% endif %}
-</ul>
+</ul> {% endcomment %}
 
 
 {% endblock %}
