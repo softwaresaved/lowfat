@@ -1,9 +1,39 @@
 {% extends "lowfat/base.html" %}
 
 {% block content %}
-<h1>Activities of Software Sustainability Institute Fellows In {{ current_year }}</h1>
+<h1>Activities of Software Sustainability Institute Fellows</h1>
+{% comment %} create a dropdown with choices as years_unique, which filters the funds shown {% endcomment %}
+<center>
+    <hr>
+    Select a year:
+    <form method="POST">
+        {% csrf_token %}
+        <select name="year">
+            <option selected disabled=true>--Select Year--</option>
+            {% for year in years_unique %}
+            <option>{{ year }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Apply">
+        <hr>
+        <table>
+            <tr>
+                <th>Event Name</th>
+                <th>Event Start Date</th>
+            </tr>
+            {% for fund in funds %}
+            <tr>
+                <td>{{ fund.title }}</td>
+                <td> {{ fund.start_date }} </td>
+            <tr>
+            {% endfor %}
+        </table>
+    </form>
 
-<h2>Domain Specific Events Organised (N = {{ n_domain_specific_events_organised }})</h2>
+
+{% comment %} {{ years_unique }} {% endcomment %}
+
+{% comment %} <h2>Domain Specific Events Organised (N = {{ n_domain_specific_events_organised }})</h2>
 <ul>
     {% if domain_specific_events_organised %}
     {% for fund in domain_specific_events_organised %}
@@ -45,8 +75,7 @@
         </li>
     {% endfor %}
     {% endif %}
-</ul>
-
+</ul> 
 
 <h2>All Events (N = {{ n_funds }})</h2>
 <ul>
@@ -57,7 +86,7 @@
     </li>
 {% endfor %}
 {% endif %}
-</ul>
+</ul>{% endcomment %}
 
 
 {% endblock %}
