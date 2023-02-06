@@ -89,43 +89,47 @@ def index(request):
     return render(request, 'lowfat/index.html', context)
 
 def event_report(request):
+    
+    current_year = datetime.now().year
+    
     funds = Fund.objects.filter(
             status__in = {"A", "M", "F"},
-            mandatory = False 
+            mandatory = False,
+            start_date__year = current_year,
     ) 
     
     n_funds = len(funds)
     
-    domain_specific_events_attended = Fund.objects.filter(
+    domain_specific_events_attended = funds.filter(
             focus = "D",
             category = "A"
     )
     
     n_domain_specific_events_attended = len(domain_specific_events_attended)
     
-    domain_specific_events_organised = Fund.objects.filter(
+    domain_specific_events_organised = funds.filter(
             focus = "D",
             category = "H",
         )
     
     n_domain_specific_events_organised = len(domain_specific_events_organised)
     
-    cross_cutting_events_attended = Fund.objects.filter(
+    cross_cutting_events_attended = funds.filter(
             focus = "C",
             category = "A",
         )
 
     n_cross_cutting_events_attended = len(cross_cutting_events_attended)
     
-    cross_cutting_events_organised = Fund.objects.filter(
+    cross_cutting_events_organised = funds.filter(
             focus = "C",
             category = "H",
         )
     
     n_cross_cutting_events_organised = len(cross_cutting_events_organised)
-    
-    
+
     context = {
+        'current_year': current_year,
         'funds': funds,
         'n_funds': n_funds,
         'domain_specific_events_attended': domain_specific_events_attended, 
