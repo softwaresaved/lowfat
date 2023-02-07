@@ -19,7 +19,7 @@
         <hr>
     </form>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-success">
     <thead>
         <tr>
             <th scope="col">Total Events - {{ n_funds }}</th>
@@ -30,14 +30,14 @@
     <tbody>
         <tr>
             <th scope="row">Domain Focus - {{ n_domain_specific }}</th>
-            <td class="table-success">
+            <td>
                 {% if domain_specific_events_organised %}
                 {% for fund in domain_specific_events_organised %}
                 {{ fund.title }}<br>
                 {% endfor %}
                 {% endif %}
             </td>
-            <td class="table-info">
+            <td>
                 {% if domain_specific_events_attended %}
                 {% for fund in domain_specific_events_attended %}
                 {{ fund.title }}<br>
@@ -47,14 +47,14 @@
         </tr>
         <tr>
             <th scope="row">Cross Cutting - {{ n_cross_cutting }}</th>
-            <td class="table-warning"> 
+            <td> 
                 {% if cross_cutting_events_organised %}
                 {% for fund in cross_cutting_events_organised %}
                 {{ fund.title }}<br>
                 {% endfor %}
                 {% endif %}
             </td>
-            <td class="table-danger">
+            <td>
                 {% if cross_cutting_events_attended %}
                 {% for fund in cross_cutting_events_attended %}
                 {{ fund.title }}<br>
