@@ -10,6 +10,7 @@
         {% csrf_token %}
         <select name="year" >
             <option selected disabled=true>--Select Year--</option>
+            <option>All Years</option>
             {% for year in years_unique %}
             <option>{{ year }}</option>
             {% endfor %}
