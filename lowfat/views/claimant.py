@@ -128,6 +128,11 @@ def event_report(request):
             category = "H",
     )
     n_cross_cutting_events_organised = len(cross_cutting_events_organised)
+    
+    n_domain_specific = n_domain_specific_events_attended + n_domain_specific_events_organised 
+    n_cross_cutting = n_cross_cutting_events_attended + n_cross_cutting_events_organised
+    n_organised = n_domain_specific_events_organised + n_cross_cutting_events_organised
+    n_attended = n_domain_specific_events_attended + n_cross_cutting_events_attended
 
     if request.method=="POST":
          
@@ -164,6 +169,11 @@ def event_report(request):
         )  
         n_cross_cutting_events_organised = len(cross_cutting_events_organised)
         
+        n_domain_specific = n_domain_specific_events_attended + n_domain_specific_events_organised 
+        n_cross_cutting = n_cross_cutting_events_attended + n_cross_cutting_events_organised
+        n_organised = n_domain_specific_events_organised + n_cross_cutting_events_organised
+        n_attended = n_domain_specific_events_attended + n_cross_cutting_events_attended
+        
     context = {
         'years_unique': years_unique,
         'search_year': search_year,
@@ -176,7 +186,11 @@ def event_report(request):
         'cross_cutting_events_attended': cross_cutting_events_attended,
         'n_cross_cutting_events_attended': n_cross_cutting_events_attended,
         'cross_cutting_events_organised': cross_cutting_events_organised, 
-        'n_cross_cutting_events_organised': n_cross_cutting_events_organised,             
+        'n_cross_cutting_events_organised': n_cross_cutting_events_organised,
+        'n_domain_specific': n_domain_specific,
+        'n_cross_cutting': n_cross_cutting,
+        'n_organised': n_organised,
+        'n_attended': n_attended,           
     }
             
     return render(request, 'lowfat/event_report.html', context)
