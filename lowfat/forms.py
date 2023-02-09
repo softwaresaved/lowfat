@@ -878,20 +878,19 @@ class ExpenseForm(GarlicForm):
                                 </li>
                             </ul>
                         </li>
-                        <li>You MUST fill out the University of Edinburgh Payment of Non-Staff <a href='https://www.ed.ac.uk/sites/default/files/atoms/files/non_staff_expenses_claim_form.docx'>Expenses form</a>.
+                        <li>You MUST fill out the University of Edinburgh Payment of Non-Staff <a href='https://www.software.ac.uk/attach/Non_staff_expenses_claim_form_-_with_list_2023.docx'>Expenses form</a>.
                             <ul>
-                                <li>Fill out Sections 1 - 4.</li>
+                                <li>Fill out Sections 1 - 4 (pages 1-2) and page 6.</li>
                                 <li>Leave the visitor/student number blank.</li>
                                 <li>State your Name and Home Address (not your Work Address).</li>
                                 <li>Make sure you have filled out your bank details correctly and clearly.</li>
-                                <li>Don’t forget to sign the claim form. Electronic signature is fine.</li>
-                                <li>Please do not fill out this form if your University will claim directly from SSI only if the institute is in the UK.</li>
+                                <li>Don't forget to sign the claim form. Electronic signature is fine.</li>
+                                <li>List and number each item so it matches a receipt (do not sum receipts into e.g. 'Meals').</li>
                             </ul>
                         </li>
-                        <li>You MUST compile an itemised list of expenses and all receipts/proofs of payment as a single PDF file.
+                        <li>You MUST compile all receipts/proofs of payment as a single PDF file.</li>
                             <ul>
-                                <li>List and number each item so it matches a receipt (do not sum receipts into e.g. “Meals”).</li>
-                                <li>For each item claimed, a detailed payment receipt must be provided.</li>
+                                <li>For each item claimed, a detailed payment receipt must be provided and numbered.</li>
                                 <li>When purchasing goods or services from VAT registered business, a VAT receipt must be provided.</li>
                                 <li>Credit or debit card receipts are not sufficient on their own. An accompanying itemised receipt is necessary.</li>
                                 <li>Hotel booking confirmation is not accepted as proof of payment, even if it does show an advance payment. Instead, a VAT invoice subsequent to the stay should be obtained and provided.</li>
