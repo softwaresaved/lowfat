@@ -888,7 +888,7 @@ class ExpenseForm(GarlicForm):
                                 <li>List and number each item so it matches a receipt (do not sum receipts into e.g. 'Meals').</li>
                             </ul>
                         </li>
-                        <li>You MUST compile all receipts/proofs of payment as a single PDF file.</li>
+                        <li>You MUST compile all receipts/proofs of payment as a single PDF file.
                             <ul>
                                 <li>For each item claimed, a detailed payment receipt must be provided and numbered.</li>
                                 <li>When purchasing goods or services from VAT registered business, a VAT receipt must be provided.</li>
