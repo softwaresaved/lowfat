@@ -88,6 +88,7 @@ def index(request):
 
     return render(request, 'lowfat/index.html', context)
 
+@staff_member_required
 def event_report(request):
     
     funds=Fund.objects.filter(
@@ -107,30 +108,26 @@ def event_report(request):
             focus = "D",
             category = "A"
     )
-    n_domain_specific_events_attended = len(domain_specific_events_attended)
     
     domain_specific_events_organised = funds.filter(
             focus = "D",
             category = "H",
     )
-    n_domain_specific_events_organised = len(domain_specific_events_organised)
     
     cross_cutting_events_attended = funds.filter(
             focus = "C",
             category = "A",
     )
-    n_cross_cutting_events_attended = len(cross_cutting_events_attended)
     
     cross_cutting_events_organised = funds.filter(
             focus = "C",
             category = "H",
     )
-    n_cross_cutting_events_organised = len(cross_cutting_events_organised)
     
-    n_domain_specific = n_domain_specific_events_attended + n_domain_specific_events_organised 
-    n_cross_cutting = n_cross_cutting_events_attended + n_cross_cutting_events_organised
-    n_organised = n_domain_specific_events_organised + n_cross_cutting_events_organised
-    n_attended = n_domain_specific_events_attended + n_cross_cutting_events_attended
+    n_domain_specific = len(domain_specific_events_attended) + len(domain_specific_events_organised)
+    n_cross_cutting = len(cross_cutting_events_attended) + len(cross_cutting_events_organised)
+    n_organised = len(domain_specific_events_organised) + len(cross_cutting_events_organised)
+    n_attended = len(domain_specific_events_attended) + len(cross_cutting_events_attended)
     
     search_year = request.POST.get('year')
     
@@ -147,30 +144,26 @@ def event_report(request):
                 focus = "D",
                 category = "A"
         )
-        n_domain_specific_events_attended = len(domain_specific_events_attended)
         
         domain_specific_events_organised = funds.filter(
                 focus = "D",
                 category = "H",
         )
-        n_domain_specific_events_organised = len(domain_specific_events_organised)
         
         cross_cutting_events_attended = funds.filter(
                 focus = "C",
                 category = "A",
         )
-        n_cross_cutting_events_attended = len(cross_cutting_events_attended)
         
         cross_cutting_events_organised = funds.filter(
                 focus = "C",
                 category = "H",
         )  
-        n_cross_cutting_events_organised = len(cross_cutting_events_organised)
         
-        n_domain_specific = n_domain_specific_events_attended + n_domain_specific_events_organised 
-        n_cross_cutting = n_cross_cutting_events_attended + n_cross_cutting_events_organised
-        n_organised = n_domain_specific_events_organised + n_cross_cutting_events_organised
-        n_attended = n_domain_specific_events_attended + n_cross_cutting_events_attended
+        n_domain_specific = len(domain_specific_events_attended) + len(domain_specific_events_organised)
+        n_cross_cutting = len(cross_cutting_events_attended) + len(cross_cutting_events_organised)
+        n_organised = len(domain_specific_events_organised) + len(cross_cutting_events_organised)
+        n_attended = len(domain_specific_events_attended) + len(cross_cutting_events_attended)
         
     context = {
         'years_unique': years_unique,
@@ -178,13 +171,9 @@ def event_report(request):
         'funds': funds,
         'n_funds': n_funds,
         'domain_specific_events_attended': domain_specific_events_attended, 
-        'n_domain_specific_events_attended': n_domain_specific_events_attended,
         'domain_specific_events_organised': domain_specific_events_organised,
-        'n_domain_specific_events_organised': n_domain_specific_events_organised,
         'cross_cutting_events_attended': cross_cutting_events_attended,
-        'n_cross_cutting_events_attended': n_cross_cutting_events_attended,
         'cross_cutting_events_organised': cross_cutting_events_organised, 
-        'n_cross_cutting_events_organised': n_cross_cutting_events_organised,
         'n_domain_specific': n_domain_specific,
         'n_cross_cutting': n_cross_cutting,
         'n_organised': n_organised,
