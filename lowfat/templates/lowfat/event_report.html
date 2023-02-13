@@ -1,8 +1,8 @@
 {% extends "lowfat/base.html" %}
 
 {% block content %}
-<h1>Activities of Software Sustainability Institute Fellows {% if date_from %}from {{ date_from_formatted }} until {{ date_until_formatted }} {% endif %}
-    {% if mandatory_included %} Including Mandatory Events {% else %} Not Including Mandatory Events {% endif %}
+<h1>Activities of Software Sustainability Institute Fellows {% if date_from %}from {{ date_from_formatted }} until {{ date_until_formatted }}
+    {% if mandatory_included %} Including Mandatory Events {% else %} Not Including Mandatory Events {% endif %}{% endif %}
 </h1>
 <center>
     <hr>
@@ -18,10 +18,10 @@
         <input type="date" id="date_until" name="date_until"> 
         <br><br>
 
-        <input type="checkbox" id="mandatory_included" name="mandatory_included" value="True">
+        <input type="checkbox" id="mandatory_included" name="mandatory_included" value="mandatory_included">
         <label for="mandatory_included">Include mandatory events</label>
-        <br>
-        <br>
+        <br><br>
+
         <p><button>Submit</button></p>
     
     </form>

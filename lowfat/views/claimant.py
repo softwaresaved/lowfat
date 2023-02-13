@@ -91,37 +91,17 @@ def index(request):
 @staff_member_required
 def event_report(request):
     
-    funds=Fund.objects.filter(
-        status__in = {"A", "M", "F"},
-        mandatory = False,
-    )
-        
-    n_funds = len(funds)
-        
-    domain_specific_events_attended = funds.filter(
-            focus = "D",
-            category = "A"
-    )
+    funds = None 
+    n_funds = 0
+    domain_specific_events_attended = None
+    domain_specific_events_organised = None
+    cross_cutting_events_attended = None
+    cross_cutting_events_organised = None
     
-    domain_specific_events_organised = funds.filter(
-            focus = "D",
-            category = "H",
-    )
-    
-    cross_cutting_events_attended = funds.filter(
-            focus = "C",
-            category = "A",
-    )
-    
-    cross_cutting_events_organised = funds.filter(
-            focus = "C",
-            category = "H",
-    )
-    
-    n_domain_specific = len(domain_specific_events_attended) + len(domain_specific_events_organised)
-    n_cross_cutting = len(cross_cutting_events_attended) + len(cross_cutting_events_organised)
-    n_organised = len(domain_specific_events_organised) + len(cross_cutting_events_organised)
-    n_attended = len(domain_specific_events_attended) + len(cross_cutting_events_attended)
+    n_domain_specific = 0
+    n_cross_cutting = 0
+    n_organised = 0
+    n_attended = 0
     
     date_from = request.POST.get('date_from')
     date_until = request.POST.get('date_until')
@@ -142,7 +122,7 @@ def event_report(request):
             funds = funds.filter(
                 mandatory=False
             )
-            
+         
         n_funds = len(funds)
         
         domain_specific_events_attended = funds.filter(
