@@ -95,12 +95,6 @@ def event_report(request):
         status__in = {"A", "M", "F"},
         mandatory = False,
     )
-    
-    years = []
-    for fund in funds:
-        year = fund.start_date.year
-        years.append(year)
-        years_unique = sorted(set(years), reverse=True)
         
     n_funds = len(funds)
         
@@ -129,14 +123,19 @@ def event_report(request):
     n_organised = len(domain_specific_events_organised) + len(cross_cutting_events_organised)
     n_attended = len(domain_specific_events_attended) + len(cross_cutting_events_attended)
     
-    search_year = request.POST.get('year')
+    date_from = request.POST.get('date_from')
+    date_until = request.POST.get('date_until')
     
-    if request.method == "POST" and search_year!= "All Years":
+    date_from_formatted = None
+    date_until_formatted = None
+    
+    if request.method == "POST":
     
         funds = Fund.objects.filter(
                 status__in = {"A", "M", "F"},
                 mandatory = False,
-                start_date__year=search_year
+                start_date__gte=date_from,
+                start_date__lte=date_until,
         ) 
         n_funds = len(funds)
         
@@ -165,9 +164,14 @@ def event_report(request):
         n_organised = len(domain_specific_events_organised) + len(cross_cutting_events_organised)
         n_attended = len(domain_specific_events_attended) + len(cross_cutting_events_attended)
         
+        date_from_formatted = datetime.strptime(date_from, '%Y-%m-%d').strftime('%d/%m/%Y')
+        date_until_formatted = datetime.strptime(date_until, '%Y-%m-%d').strftime('%d/%m/%Y')
+        
     context = {
-        'years_unique': years_unique,
-        'search_year': search_year,
+        'date_from': date_from,
+        'date_from_formatted': date_from_formatted,
+        'date_until': date_until,
+        'date_until_formatted': date_until_formatted,
         'funds': funds,
         'n_funds': n_funds,
         'domain_specific_events_attended': domain_specific_events_attended, 

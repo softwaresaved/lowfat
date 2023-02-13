@@ -1,22 +1,27 @@
 {% extends "lowfat/base.html" %}
 
 {% block content %}
-<h1>Activities of Software Sustainability Institute Fellows {% if search_year %}in {{ search_year }} {% endif %}</h1>
-{% comment %} create a dropdown with choices as years_unique, which filters the funds shown {% endcomment %}
+<h1>Activities of Software Sustainability Institute Fellows {% if date_from %}from {{ date_from_formatted }} until {{ date_until_formatted }} {% endif %}</h1>
 <center>
     <hr>
-    <h3>Filter events by start date: </h3> 
+
     <form method="POST">
         {% csrf_token %}
-        <select name="year" >
-            <option selected disabled=true>--Select Year--</option>
-            <option>All Years</option>
-            {% for year in years_unique %}
-            <option>{{ year }}</option>
-            {% endfor %}
-        </select>
-        <input type="submit" value="Apply">
+        <label for="start">Show events with start dates from:</label>
+
+        <input type="date" id="date_from" name="date_from"
+            min="2000-01-01" max="2033-01-01">
+
+        <label for="start">until:</label>
+
+        <input type="date" id="date_until" name="date_until"
+            min="2000-01-01" max="2033-01-01"> 
+
+        <br><br>
+        <p><button>Submit</button></p>
+    
     </form>
+
     <p>Includes only non-mandatory events which have been approved or archived. Events shown in reverse chronological order of start date.</p>
     <hr>
 
