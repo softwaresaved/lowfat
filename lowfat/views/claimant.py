@@ -119,9 +119,9 @@ def event_report(request):
     if request.method == "POST":
 
         funds = Fund.objects.filter(
-                status__in={"A", "M", "F"},
-                start_date__gte=date_from,
-                start_date__lte=date_until,
+            status__in={"A", "M", "F"},
+            start_date__gte=date_from,
+            start_date__lte=date_until,
         )
         if not mandatory_included:
             funds = funds.filter(
