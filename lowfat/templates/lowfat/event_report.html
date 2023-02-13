@@ -11,13 +11,11 @@
         {% csrf_token %}
         <label for="date_from">Show events with start dates from:</label>
 
-        <input type="date" id="date_from" name="date_from"
-            min="2000-01-01" max="2033-01-01">
+        <input type="date" id="date_from" name="date_from">
 
         <label for="date_until">until:</label>
 
-        <input type="date" id="date_until" name="date_until"
-            min="2000-01-01" max="2033-01-01"> 
+        <input type="date" id="date_until" name="date_until"> 
         <br><br>
 
         <input type="checkbox" id="mandatory_included" name="mandatory_included" value="True">
@@ -28,7 +26,7 @@
     
     </form>
 
-    <p>Includes only events which have been approved or archived. Events shown in reverse chronological order of start date.</p>
+    <p>Includes only events that have been approved or archived. Events shown in reverse chronological order of start date.</p>
     <hr>
 
 <table class="table table-bordered">
