@@ -90,6 +90,10 @@ def index(request):
 
 @staff_member_required
 def event_report(request):
+    """
+    A table of fellows' activities, split by organised vs attended and domain focused vs cross cutting,
+    which can be filtered within a date range of their start dates. By default only non-mandatory events are included.
+    """
     
     funds = None 
     n_funds = 0
