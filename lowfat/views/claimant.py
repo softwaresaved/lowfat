@@ -117,9 +117,9 @@ def event_report(request):
     date_until_formatted = None
 
     if request.method == "POST":
-    
+
         funds = Fund.objects.filter(
-                status__in = {"A", "M", "F"},
+                status__in={"A", "M", "F"},
                 start_date__gte=date_from,
                 start_date__lte=date_until,
         )
@@ -131,23 +131,23 @@ def event_report(request):
         n_funds = len(funds)
 
         domain_specific_events_attended = funds.filter(
-                focus = "D",
-                category = "A"
+            focus="D",
+            category="A"
         )
 
         domain_specific_events_organised = funds.filter(
-                focus = "D",
-                category = "H",
+            focus="D",
+            category="H",
         )
 
         cross_cutting_events_attended = funds.filter(
-                focus = "C",
-                category = "A",
+            focus="C",
+            category="A",
         )
 
         cross_cutting_events_organised = funds.filter(
-                focus = "C",
-                category = "H",
+            focus="C",
+            category="H",
         )
 
         n_domain_specific = len(domain_specific_events_attended) + len(domain_specific_events_organised)
@@ -173,7 +173,7 @@ def event_report(request):
         'n_domain_specific': n_domain_specific,
         'n_cross_cutting': n_cross_cutting,
         'n_organised': n_organised,
-        'n_attended': n_attended,        
+        'n_attended': n_attended,
     }
 
     return render(request, 'lowfat/event_report.html', context)
