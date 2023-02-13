@@ -1,28 +1,34 @@
 {% extends "lowfat/base.html" %}
 
 {% block content %}
-<h1>Activities of Software Sustainability Institute Fellows {% if date_from %}from {{ date_from_formatted }} until {{ date_until_formatted }} {% endif %}</h1>
+<h1>Activities of Software Sustainability Institute Fellows {% if date_from %}from {{ date_from_formatted }} until {{ date_until_formatted }} {% endif %}
+    {% if mandatory_included %} Including Mandatory Events {% else %} Not Including Mandatory Events {% endif %}
+</h1>
 <center>
     <hr>
 
     <form method="POST">
         {% csrf_token %}
-        <label for="start">Show events with start dates from:</label>
+        <label for="date_from">Show events with start dates from:</label>
 
         <input type="date" id="date_from" name="date_from"
             min="2000-01-01" max="2033-01-01">
 
-        <label for="start">until:</label>
+        <label for="date_until">until:</label>
 
         <input type="date" id="date_until" name="date_until"
             min="2000-01-01" max="2033-01-01"> 
-
         <br><br>
+
+        <input type="checkbox" id="mandatory_included" name="mandatory_included" value="True">
+        <label for="mandatory_included">Include mandatory events</label>
+        <br>
+        <br>
         <p><button>Submit</button></p>
     
     </form>
 
-    <p>Includes only non-mandatory events which have been approved or archived. Events shown in reverse chronological order of start date.</p>
+    <p>Includes only events which have been approved or archived. Events shown in reverse chronological order of start date.</p>
     <hr>
 
 <table class="table table-bordered">

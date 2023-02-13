@@ -126,6 +126,8 @@ def event_report(request):
     date_from = request.POST.get('date_from')
     date_until = request.POST.get('date_until')
     
+    mandatory_included = request.POST.get('mandatory_included')
+    
     date_from_formatted = None
     date_until_formatted = None
     
@@ -133,10 +135,14 @@ def event_report(request):
     
         funds = Fund.objects.filter(
                 status__in = {"A", "M", "F"},
-                mandatory = False,
                 start_date__gte=date_from,
                 start_date__lte=date_until,
         ) 
+        if not mandatory_included:
+            funds = funds.filter(
+                mandatory=False
+            )
+            
         n_funds = len(funds)
         
         domain_specific_events_attended = funds.filter(
@@ -172,6 +178,7 @@ def event_report(request):
         'date_from_formatted': date_from_formatted,
         'date_until': date_until,
         'date_until_formatted': date_until_formatted,
+        'mandatory_included': mandatory_included,
         'funds': funds,
         'n_funds': n_funds,
         'domain_specific_events_attended': domain_specific_events_attended, 
