@@ -24,21 +24,21 @@
     <thead>
         <tr>
             <th scope="col">Total Events - {{ n_funds }}</th>
-            <th scope="col">Organised - {{ n_organised }}</th>
-            <th scope="col">Attended - {{ n_attended }}</th>
+            <th scope="col" class="table-warning">Organised - {{ n_organised }}</th>
+            <th scope="col" class="table-secondary">Attended - {{ n_attended }}</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <th scope="row">Domain Focus - {{ n_domain_specific }}</th>
-            <td>
+            <th scope="row" class="table-info">Domain Focus - {{ n_domain_specific }}</th>
+            <td class="table-success">
                 {% if domain_specific_events_organised %}
                 {% for fund in domain_specific_events_organised %}
                 <a href="{% url "fund_detail" fund.id %}">{{ fund.title }}</a> - {{ fund.claimant.fullname }}<br>
                 {% endfor %}
                 {% endif %}
             </td>
-            <td>
+            <td class="table-primary">
                 {% if domain_specific_events_attended %}
                 {% for fund in domain_specific_events_attended %}
                 <a href="{% url "fund_detail" fund.id %}">{{ fund.title }}</a> - {{ fund.claimant.fullname }}<br>
@@ -47,15 +47,15 @@
             </td>
         </tr>
         <tr>
-            <th scope="row">Cross Cutting - {{ n_cross_cutting }}</th>
-            <td> 
+            <th scope="row" class="table-danger">Cross Cutting - {{ n_cross_cutting }}</th>
+            <td style="background-color: #ffd9b3"> 
                 {% if cross_cutting_events_organised %}
                 {% for fund in cross_cutting_events_organised %}
                 <a href="{% url "fund_detail" fund.id %}">{{ fund.title }}</a> - {{ fund.claimant.fullname }}<br>
                 {% endfor %}
                 {% endif %}
             </td>
-            <td>
+            <td style="background-color: #ddccff">
                 {% if cross_cutting_events_attended %}
                 {% for fund in cross_cutting_events_attended %}
                 <a href="{% url "fund_detail" fund.id %}">{{ fund.title }}</a> - {{ fund.claimant.fullname }}<br>
