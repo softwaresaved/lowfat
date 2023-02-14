@@ -1,3 +1,10 @@
+"""
+Tests use the django testing tools and are run through tox.
+The configuration of tox can be found in the file 'tox.ini'.
+Users, claimants, funds and blogs for testing are created using functions in 'testwrapper.py'.
+test_urls.py tests each of the urls from the perspective of the public, claimants and admin.
+"""
+
 from django.test import Client, TestCase
 
 from . import (
@@ -8,6 +15,9 @@ from . import (
 
 class URLTest(TestCase):
     def setUp(self):
+        """Creates the users, claimants, funds and blogs using the functions from testwrapper.py.
+        Sets up the test client to use as a dummy web browser for public, claimant_a, claimant_b, and admin.
+        """
         # Create the users, claimants, funds and blogs then get a dictionary contain the test data
         self.claimant_test_data = testwrapper.create_all()
 
@@ -55,7 +65,8 @@ class URLTest(TestCase):
                 "expect_code": 200,
                 "post_data": {"foo": bar"},
             }
-        ]"""
+        ]
+        """
         for query in queries:
             if "post_data" in query:
                 response = query["user"].post(url, query["post_data"], follow=follow)
