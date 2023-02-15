@@ -74,7 +74,7 @@ markdown==3.4.1
     # via -r requirements.in
 numpy==1.23.2
     # via pandas
-oauthlib==3.2.1
+oauthlib==3.2.2
     # via
     #   requests-oauthlib
     #   social-auth-core
