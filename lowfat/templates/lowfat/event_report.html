@@ -1,0 +1,78 @@
+{% extends "lowfat/base.html" %}
+
+{% block content %}
+<h1>Activities of Software Sustainability Institute Fellows {% if date_from %}from {{ date_from_formatted }} until {{ date_until_formatted }}
+    {% if mandatory_included %} Including Mandatory Events {% else %} Not Including Mandatory Events {% endif %}{% endif %}
+</h1>
+<center>
+    <hr>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="date_from">Show events with start dates from:</label>
+
+        <input type="date" id="date_from" name="date_from">
+
+        <label for="date_until">until:</label>
+
+        <input type="date" id="date_until" name="date_until"> 
+        <br><br>
+
+        <input type="checkbox" id="mandatory_included" name="mandatory_included" value="mandatory_included">
+        <label for="mandatory_included">Include mandatory events</label>
+        <br><br>
+
+        <p><button>Submit</button></p>
+    
+    </form>
+
+    <p>Includes only events that have been approved or archived. Events shown in reverse chronological order of start date.</p>
+    <hr>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Total Events - {{ n_funds }}</th>
+            <th scope="col" class="table-warning">Organised - {{ n_organised }}</th>
+            <th scope="col" class="table-secondary">Attended - {{ n_attended }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row" class="table-info">Domain Focus - {{ n_domain_specific }}</th>
+            <td class="table-success">
+                {% if domain_specific_events_organised %}
+                {% for fund in domain_specific_events_organised %}
+                <a href="{% url "fund_detail" fund.id %}">{{ fund.title }}</a> - {{ fund.claimant.fullname }}<br>
+                {% endfor %}
+                {% endif %}
+            </td>
+            <td class="table-primary">
+                {% if domain_specific_events_attended %}
+                {% for fund in domain_specific_events_attended %}
+                <a href="{% url "fund_detail" fund.id %}">{{ fund.title }}</a> - {{ fund.claimant.fullname }}<br>
+                {% endfor %}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th scope="row" class="table-danger">Cross Cutting - {{ n_cross_cutting }}</th>
+            <td style="background-color: #ffd9b3"> 
+                {% if cross_cutting_events_organised %}
+                {% for fund in cross_cutting_events_organised %}
+                <a href="{% url "fund_detail" fund.id %}">{{ fund.title }}</a> - {{ fund.claimant.fullname }}<br>
+                {% endfor %}
+                {% endif %}
+            </td>
+            <td style="background-color: #ddccff">
+                {% if cross_cutting_events_attended %}
+                {% for fund in cross_cutting_events_attended %}
+                <a href="{% url "fund_detail" fund.id %}">{{ fund.title }}</a> - {{ fund.claimant.fullname }}<br>
+                {% endfor %}
+                {% endif %}
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}
