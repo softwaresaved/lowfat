@@ -1,10 +1,3 @@
-"""
-Tests use the django testing tools and are run through tox.
-The configuration of tox can be found in the file 'tox.ini'.
-Users, claimants, funds and blogs for testing are created using functions in 'testwrapper.py'.
-test_urls.py tests each of the urls from the perspective of the public, claimants and admin.
-"""
-
 from django.test import Client, TestCase
 
 from . import (
@@ -15,9 +8,6 @@ from . import (
 
 class URLTest(TestCase):
     def setUp(self):
-        """Creates the users, claimants, funds and blogs using the functions from testwrapper.py.
-        Sets up the test client to use as a dummy web browser for public, claimant_a, claimant_b, and admin.
-        """
         # Create the users, claimants, funds and blogs then get a dictionary contain the test data
         self.claimant_test_data = testwrapper.create_all()
 
@@ -65,8 +55,7 @@ class URLTest(TestCase):
                 "expect_code": 200,
                 "post_data": {"foo": bar"},
             }
-        ]
-        """
+        ]"""
         for query in queries:
             if "post_data" in query:
                 response = query["user"].post(url, query["post_data"], follow=follow)
@@ -107,8 +96,6 @@ class URLTest(TestCase):
                     )
 
     def test_sign_in(self):
-        """Tests login for public, claimants and admin.
-        """
         url = '/login/'
 
         queries = [
@@ -133,8 +120,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_sign_in_with_github(self):
-        """Test login with github.
-        """
         url = '/login/github/'
 
         # We don't test the final_url because GitHub redirect will not work locally.
@@ -160,7 +145,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries, follow=False)
 
     def test_disconnect(self):
-        """Tests url when user is disconnected (uses LogoutView)."""
         url = '/disconnect/'
 
         queries = [
@@ -189,7 +173,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_my_profile(self):
-        """Tests view of own profile."""
         url = '/my-profile/'
         queries = [
             {
@@ -214,7 +197,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_claimant_details_by_id(self):
-        """Tests claimant detail page."""
         url = '/claimant/{}/'.format(self.claimant_id_a)
         queries = [
             {
@@ -238,7 +220,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_claimant_details_by_slug(self):
-        """Tests claimant details page when accessed by slug."""
         url = '/claimant/{}/'.format(
             models.Claimant.objects.get(id=self.claimant_id_a).slug
         )
@@ -265,7 +246,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_claimant(self):
-        """Tests page for creating claimants."""
         url = '/claimant/'
         queries = [
             {
@@ -290,8 +270,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_claimant_promote_view(self):
-        """Tests page for promoting claimants to fellows.
-        """
         url = '/promote/'
         queries = [
             {
@@ -318,7 +296,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_claimant_promote(self):
-        """Tests page showing that a claimant has been promoted to a fellow."""
         url = '/fellow/{}/promote/'.format(self.claimant_id_a)
         queries = [
             {
@@ -345,7 +322,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_claimant_demote(self):
-        """Tests page for a fellow demoted to a claimant."""
         url = '/fellow/{}/demote/'.format(self.claimant_id_a)
         queries = [
             {
@@ -372,7 +348,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_fund_review(self):
-        """Tests funding request review page."""
         url = '/fund/{}/review/'.format(self.fund_id_a)
         queries = [
             {
@@ -451,7 +426,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_request_review(self):
-        """Tests funding request review page."""
         url = '/request/{}/review/'.format(self.fund_id_a)
         queries = [
             {
@@ -530,7 +504,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_fund_details(self):
-        """Tests page showing details of a funding request."""
         url = '/fund/{}/'.format(self.fund_id_a)
         queries = [
             {
@@ -555,7 +528,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_request_details(self):
-        """Tests page showing details of a funding request."""
         url = '/request/{}/'.format(self.fund_id_a)
         queries = [
             {
@@ -580,7 +552,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_fund(self):
-        """Tests funding request form page."""
         url = '/fund/'
         queries = [
             {
@@ -605,7 +576,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_request(self):
-        """Tests funding request form page."""
         url = '/request/'
         queries = [
             {
@@ -630,7 +600,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_request_with_id(self):
-        """Tests page of funding request detail for own funding request and the funding request of another claimant."""
         url = '/request/{}/'.format(self.fund_id_a)
         queries = [
             {
@@ -655,7 +624,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_expense_review_relative(self):
-        """Tests review of expense claim."""
         this_expense = models.Expense.objects.get(id=self.expense_id_a)
         url = '/fund/{}/expense/{}/review/'.format(self.fund_id_a, this_expense.relative_number)
         queries = [
@@ -735,7 +703,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_expense_claim_relative(self):
-        """Tests link to uploaded expense claim document."""
         this_expense = models.Expense.objects.get(id=self.expense_id_a)
         url = '/fund/{}/expense/{}/claim/'.format(self.fund_id_a, this_expense.relative_number)
         queries = [
@@ -761,7 +728,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_expense_receipts_relative(self):
-        """Tests link to uploaded receipts."""
         this_expense = models.Expense.objects.get(id=self.expense_id_a)
         url = '/fund/{}/expense/{}/receipts/'.format(self.fund_id_a, this_expense.relative_number)
         queries = [
@@ -787,7 +753,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_expense_details_relative(self):
-        """Tests page showing detail of an expense claim."""
         this_expense = models.Expense.objects.get(id=self.expense_id_a)
         url = '/fund/{}/expense/{}/'.format(self.fund_id_a, this_expense.relative_number)
         queries = [
@@ -813,7 +778,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_expense(self):
-        """Tests page showing expense claim form."""
         url = '/expense/'
         queries = [
             {
@@ -838,7 +802,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_blog_review(self):
-        """Tests blog review page."""
         url = '/blog/{}/review/'.format(self.blog_id_a)
         queries = [
             {
@@ -913,7 +876,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_blog_details(self):
-        """Tests page showing detail about blog post."""
         url = '/blog/{}/'.format(self.blog_id_a)
         queries = [
             {
@@ -938,7 +900,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_blog(self):
-        """Tests page showing form for submitting a blog post draft."""
         url = '/blog/'
         queries = [
             {
@@ -1004,7 +965,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_dashboard(self):
-        """Tests dashboard."""
         url = '/dashboard/'
         queries = [
             {
@@ -1029,7 +989,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_geo(self):
-        """Tests geojson url."""
         url = '/geojson/'
         final_url = "/admin/login/?next=/geojson/"
         queries = [
@@ -1057,7 +1016,6 @@ class URLTest(TestCase):
         self.run_requests(url, queries)
 
     def test_index(self):
-        """Tests index page."""
         url = '/index/'
 
         queries = [

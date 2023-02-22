@@ -16,7 +16,6 @@ BASE_DIR = pathlib.Path(__name__).absolute().parent
 
 
 class FellowFormTest(TestCase):
-    """Test that fellow form is not valid when required fields are left blank but is valid when all required fields contain data."""
 
     def test_blank_name(self):
         data = {
@@ -357,7 +356,6 @@ class FellowFormTest(TestCase):
 
 
 class FundFormTest(TestCase):
-    """Test that funding request form is not valid when required fields are missing but is valid when all required fields contain data."""
     def setUp(self):
         testwrapper.create_users()
         self.claimant_a_id, self.claimant_b_id = testwrapper.create_claimants()
@@ -1073,7 +1071,6 @@ class FundFormTest(TestCase):
 
 
 class FundReviewFormTest(TestCase):
-    """Test that funding request review form is not valid when required fields are left blank but is valid when all required fields contain data."""
     def setUp(self):
         testwrapper.create_users()
         self.claimant_a_id, self.claimant_b_id = testwrapper.create_claimants()
@@ -1324,7 +1321,6 @@ class FundReviewFormTest(TestCase):
 
 
 class ExpenseFormTest(TestCase):
-    """Test that expense claim form is not valid when required fields are left blank but is valid when all required fields contain data."""
     def setUp(self):
         testwrapper.create_users()
         self.claimant_a_id, self.claimant_b_id = testwrapper.create_claimants()
@@ -1395,7 +1391,6 @@ class ExpenseFormTest(TestCase):
 
 
 class ExpenseReviewFormTest(TestCase):
-    """Test that expense claim review form is not valid when required fields are left blank but is valid when all required fields contain data."""
     def setUp(self):
         self.claimant_test_data = testwrapper.create_all()
         # unpack outputs of create_all here for ease of use later
@@ -1475,7 +1470,6 @@ class ExpenseReviewFormTest(TestCase):
 
 
 class BlogFormTest(TestCase):
-    """Test that blog post form is not valid when required fields are left blank but is valid when all required fields contain data."""
     def setUp(self):
         testwrapper.create_users()
         self.claimant_a_id, self.claimant_b_id = testwrapper.create_claimants()
@@ -1522,7 +1516,6 @@ class BlogFormTest(TestCase):
 
 
 class BlogReviewFormTest(TestCase):
-    """Test that blog post review form is not valid when required fields are left blank but is valid when all required fields contain data."""
     def setUp(self):
         self.claimant_test_data = testwrapper.create_all()
         # unpack outputs of create_all here for ease of use later

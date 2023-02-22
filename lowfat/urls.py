@@ -132,6 +132,5 @@ urlpatterns = [  # pylint: disable=invalid-name
     path('search/', views.search, name="search"),
     path('recent-actions/', views.recent_actions, name="recent_actions"),
     path('index/', views.index, name="index"),
-    path('event-report/', views.event_report, name="event_report"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + staticfiles_urlpatterns()
