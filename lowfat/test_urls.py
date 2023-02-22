@@ -1,3 +1,10 @@
+"""
+Tests use the django testing tools and are run through tox.
+The configuration of tox can be found in the file 'tox.ini'.
+Users, claimants, funds and blogs for testing are created using functions in 'testwrapper.py'.
+test_urls.py tests each of the urls from the perspective of the public, claimants and admin.
+"""
+
 from django.test import Client, TestCase
 
 from . import (
