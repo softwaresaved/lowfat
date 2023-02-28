@@ -43,7 +43,7 @@ FUND_STATUS = (
     ('U', 'Unprocessed'),  # Initial status
     ('P', 'Processing'),  # When someone was assigned to review the request
     ('A', 'Approved'),  # Fund was approved. Funds are reserved.
-    ('M', 'Approved'),  # Fund was approved by machine. Funds are reserved.
+    ('M', 'Approved by machine'),  # Fund was approved by machine. Funds are reserved.
     ('R', 'Rejected'),  # Fund was rejected.
     ('F', 'Archived'),  # Approved funds with all claims and blog posts were processed. No funds are reserved.
     ('C', 'Cancelled'),  # When the fellow decided to cancel their request.
