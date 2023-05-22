@@ -198,30 +198,6 @@ def dashboard(request):
         funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPAMRF"  # Pending
         expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCPAF"  # All
         blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URCGLPMDOX"  # All
-        
-        # funds = pair_fund_with_blog(
-        #             Fund.objects.filter(
-        #                 claimant=claimant,
-        #                 status__in=funding_requests_status
-        #             ),
-        #             "P"
-        #         )
-        
-        funds = Fund.objects.filter(
-                        claimant=claimant,
-                        status__in=funding_requests_status)
-        
-        page = request.GET.get('page', 1)
-        paginator = Paginator(funds, 5)
-        
-        try:
-            funds = paginator.page(page)
-        
-        except PageNotAnInteger:
-            funds = paginator.page(1)
-        
-        except EmptyPage:
-            funds = paginator.page(paginator.num_pages)
 
         context.update(
             {
@@ -230,7 +206,13 @@ def dashboard(request):
                 'blogs_status': blogs_status,
                 'claimant': claimant,
                 'budget_available': claimant.claimantship_available(),
-                'funds': funds,
+                'funds': pair_fund_with_blog(
+                    Fund.objects.filter(
+                        claimant=claimant,
+                        status__in=funding_requests_status
+                    ),
+                    "P"
+                ),
                 'expenses': Expense.objects.filter(
                     fund__claimant=claimant,
                     status__in=expenses_status
