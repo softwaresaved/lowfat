@@ -16,7 +16,6 @@ from constance import config
 from lowfat.forms import ClaimantForm, FellowForm
 from lowfat.mail import claimant_profile_update_notification
 from lowfat.models import Blog, Claimant, Expense, Fund, FUND_STATUS_APPROVED_SET, TermsAndConditions, pair_fund_with_blog
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
