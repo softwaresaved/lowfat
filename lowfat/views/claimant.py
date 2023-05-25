@@ -74,6 +74,7 @@ def get_terms_and_conditions_url(request):
 
     return url
 
+
 @staff_member_required
 def event_report(request):
     """
@@ -162,6 +163,7 @@ def event_report(request):
     }
 
     return render(request, 'lowfat/event_report.html', context)
+
 
 def index(request):
     context = {
