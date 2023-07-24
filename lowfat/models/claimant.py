@@ -439,9 +439,11 @@ class Claimant(models.Model):
             grant_heading="F"
         )
 
+        # Minus sum of amount approved not amount claimed
+        
         spent_from_committed = 0
         for fund in this_claimant_funds:
-            spent_from_committed += sum([expense.amount_claimed for expense in Expense.objects.filter(
+            spent_from_committed += sum([expense.fund.budget_approved for expense in Expense.objects.filter(
                 fund=fund,
                 status__in=['A', 'M', 'F']
             )])
