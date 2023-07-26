@@ -456,4 +456,4 @@ class Claimant(models.Model):
             grant_heading="F"
         )
 
-        return sum([expense.amount_claimed for expense in this_claimant_expenses])
+        return sum([expense.amount_authorized_for_payment for expense in this_claimant_expenses])
