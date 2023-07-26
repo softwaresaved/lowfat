@@ -691,29 +691,30 @@ class FundFormTest(TestCase):
         form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
-    def test_old_start_date(self):
-        data = {
-            "claimant": self.claimant_a_id,
-            "category": "A",
-            "focus": "C",
-            "title": "Fake",
-            "url": "http://fake.com",
-            "country": "GB",
-            "city": "L",
-            "start_date": date.today() - timedelta(1),
-            "end_date": date.today() + timedelta(2),
-            "budget_request_travel": 100.00,
-            "budget_request_attendance_fees": 0.00,
-            "budget_request_subsistence_cost": 0.00,
-            "budget_request_venue_hire": 0.00,
-            "budget_request_catering": 0.00,
-            "budget_request_others": 0.00,
-            "justification": ":-)",
-            "success_targeted": ":-)",
-        }
+    # Commented out because there is no longer a requirement for a start date in the future
+    # def test_old_start_date(self):
+    #     data = {
+    #         "claimant": self.claimant_a_id,
+    #         "category": "A",
+    #         "focus": "C",
+    #         "title": "Fake",
+    #         "url": "http://fake.com",
+    #         "country": "GB",
+    #         "city": "L",
+    #         "start_date": date.today() - timedelta(1),
+    #         "end_date": date.today() + timedelta(2),
+    #         "budget_request_travel": 100.00,
+    #         "budget_request_attendance_fees": 0.00,
+    #         "budget_request_subsistence_cost": 0.00,
+    #         "budget_request_venue_hire": 0.00,
+    #         "budget_request_catering": 0.00,
+    #         "budget_request_others": 0.00,
+    #         "justification": ":-)",
+    #         "success_targeted": ":-)",
+    #     }
 
-        form = forms.FundForm(data)
-        self.assertFalse(form.is_valid())
+    #     form = forms.FundForm(data)
+    #     self.assertFalse(form.is_valid())
 
     def test_null_end_date(self):
         data = {
@@ -762,29 +763,30 @@ class FundFormTest(TestCase):
         form = forms.FundForm(data)
         self.assertFalse(form.is_valid())
 
-    def test_old_end_date(self):
-        data = {
-            "claimant": self.claimant_a_id,
-            "category": "A",
-            "focus": "C",
-            "title": "Fake",
-            "url": "http://fake.com",
-            "country": "GB",
-            "city": "L",
-            "start_date": date.today() + timedelta(1),
-            "end_date": date.today() - timedelta(2),
-            "budget_request_travel": 100.00,
-            "budget_request_attendance_fees": 0.00,
-            "budget_request_subsistence_cost": 0.00,
-            "budget_request_venue_hire": 0.00,
-            "budget_request_catering": 0.00,
-            "budget_request_others": 0.00,
-            "justification": ":-)",
-            "success_targeted": ":-)",
-        }
+    # Commented out because there is no longer a requirement for an end date in the future
+    # def test_old_end_date(self):
+    #     data = {
+    #         "claimant": self.claimant_a_id,
+    #         "category": "A",
+    #         "focus": "C",
+    #         "title": "Fake",
+    #         "url": "http://fake.com",
+    #         "country": "GB",
+    #         "city": "L",
+    #         "start_date": date.today() + timedelta(1),
+    #         "end_date": date.today() - timedelta(2),
+    #         "budget_request_travel": 100.00,
+    #         "budget_request_attendance_fees": 0.00,
+    #         "budget_request_subsistence_cost": 0.00,
+    #         "budget_request_venue_hire": 0.00,
+    #         "budget_request_catering": 0.00,
+    #         "budget_request_others": 0.00,
+    #         "justification": ":-)",
+    #         "success_targeted": ":-)",
+    #     }
 
-        form = forms.FundForm(data)
-        self.assertFalse(form.is_valid())
+    #     form = forms.FundForm(data)
+    #     self.assertFalse(form.is_valid())
 
     def test_null_budget_request_travel(self):
         data = {

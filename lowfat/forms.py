@@ -1,5 +1,5 @@
 from bootstrap_datepicker_plus.widgets import DatePickerInput
-from datetime import datetime, date
+from datetime import datetime
 import logging
 import sys
 import textwrap
