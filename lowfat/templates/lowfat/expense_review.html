@@ -32,7 +32,7 @@
         <tr>
           <th>Budget approved</th>
           <td>
-            {% if expense.fund.status in 'AF' %}
+            {% if expense.fund.status in 'AMF' %}
             £{{ expense.fund.budget_approved }}
             {% else %}
             £0.00
