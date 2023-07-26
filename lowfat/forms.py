@@ -328,18 +328,18 @@ class FundForm(GarlicForm):
     required_css_class = 'form-field-required'
     total_budget = CharField(required=False)
 
-    def clean_start_date(self):
-        if 'start_date' in self.cleaned_data:
-            date_from_today = self.cleaned_data['start_date'] - date.today()
-            if date_from_today.days <= 0:
-                raise ValidationError('"Start date of event" must be in the future.')
-        return self.cleaned_data['start_date']
+    # def clean_start_date(self):
+    #     if 'start_date' in self.cleaned_data:
+    #         date_from_today = self.cleaned_data['start_date'] - date.today()
+    #         if date_from_today.days <= 0:
+    #             raise ValidationError('"Start date of event" must be in the future.')
+    #     return self.cleaned_data['start_date']
 
     def clean_end_date(self):
-        if 'end_date' in self.cleaned_data:
-            date_from_today = self.cleaned_data['end_date'] - date.today()
-            if date_from_today.days <= 0:
-                raise ValidationError('"End date of event" must be in the future.')
+        # if 'end_date' in self.cleaned_data:
+        #     date_from_today = self.cleaned_data['end_date'] - date.today()
+        #     if date_from_today.days <= 0:
+        #         raise ValidationError('"End date of event" must be in the future.')
         if 'start_date' in self.cleaned_data and 'end_date' in self.cleaned_data:
             duration = self.cleaned_data['end_date'] - self.cleaned_data['start_date']
             if duration.days < 0:
@@ -536,18 +536,18 @@ class FundPublicForm(GarlicForm):
     required_css_class = 'form-field-required'
     total_budget = CharField(required=False)
 
-    def clean_start_date(self):
-        if 'start_date' in self.cleaned_data:
-            date_from_today = self.cleaned_data['start_date'] - date.today()
-            if date_from_today.days <= 0:
-                raise ValidationError('"Start date of event" must be in the future.')
-        return self.cleaned_data['start_date']
+    # def clean_start_date(self):
+    #     if 'start_date' in self.cleaned_data:
+    #         date_from_today = self.cleaned_data['start_date'] - date.today()
+    #         if date_from_today.days <= 0:
+    #             raise ValidationError('"Start date of event" must be in the future.')
+    #     return self.cleaned_data['start_date']
 
     def clean_end_date(self):
-        if 'end_date' in self.cleaned_data:
-            date_from_today = self.cleaned_data['end_date'] - date.today()
-            if date_from_today.days <= 0:
-                raise ValidationError('"End date of event" must be in the future.')
+        # if 'end_date' in self.cleaned_data:
+        #     date_from_today = self.cleaned_data['end_date'] - date.today()
+        #     if date_from_today.days <= 0:
+        #         raise ValidationError('"End date of event" must be in the future.')
         if 'start_date' in self.cleaned_data and 'end_date' in self.cleaned_data:
             duration = self.cleaned_data['end_date'] - self.cleaned_data['start_date']
             if duration.days < 0:
