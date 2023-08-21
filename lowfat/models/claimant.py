@@ -455,7 +455,7 @@ class Claimant(models.Model):
                 status__in=['A', 'M', 'F']
             )])
 
-        return sum([fund.budget_approved for fund in this_claimant_funds]) - (spent_from_committed_final + spent_from_committed_other) 
+        return sum([fund.budget_approved for fund in this_claimant_funds]) - (spent_from_committed_final + spent_from_committed_other)
 
     def claimantship_spent(self):
         """Return the amount already spent from the claimantship grant."""
