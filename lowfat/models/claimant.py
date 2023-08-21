@@ -466,9 +466,9 @@ class Claimant(models.Model):
         )
 
         return sum([expense.amount_authorized_for_payment for expense in this_claimant_expenses])
-    
+
     def claimantship_total(self):
         """The total of available, committed, spent and passed funds.
         To be used for the width of the money bar graph to prevent it spilling onto 2 lines."""
-        
+
         return self.claimantship_committed() + self.claimantship_spent() + abs(self.claimantship_available()) + self.claimantship_passed()
