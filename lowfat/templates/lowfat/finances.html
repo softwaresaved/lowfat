@@ -3,28 +3,35 @@
 <figure>
   <div class="money-bar-graph">
     {% if claimant.claimantship_spent > 0 %}
-    <span style="width:{% widthratio claimant.claimantship_spent 3000 90 %}%"
+    <span style="width:{% widthratio claimant.claimantship_spent claimant.claimantship_total 100 %}%"
           class="money-used"
           title="Spent">
       £{{ claimant.claimantship_spent|floatformat:2 }}
     </span>
     {% endif %}
     {% if claimant.claimantship_committed > 0 %}
-    <span style="width:{% widthratio claimant.claimantship_committed 3000 90 %}%"
+    <span style="width:{% widthratio claimant.claimantship_committed claimant.claimantship_total 100 %}%"
           class="money-reserved"
           title="Commited">
       £{{ claimant.claimantship_committed|floatformat:2 }}
     </span>
     {% endif %}
-    {% if claimant.claimantship_available %}
-    <span style="width:{% widthratio claimant.claimantship_available 3000 90 %}%"
+    {% if claimant.claimantship_available > 0 %}
+    <span style="width:{% widthratio claimant.claimantship_available claimant.claimantship_total 100 %}%"
           class="money-available"
           title="Available">
       £{{ claimant.claimantship_available|floatformat:2 }}
     </span>
     {% endif %}
+    {% if claimant.claimantship_available < 0 %}
+    <span style="width:{% widthratio claimant.claimantship_available claimant.claimantship_total 100 %}%"
+          class="money-passed"
+          title="Available">
+      £{{ claimant.claimantship_available|floatformat:2 }}
+    </span>
+    {% endif %}
     {% if claimant.claimantship_passed %}
-    <span style="width:{% widthratio claimant.claimantship_passed 3000 90 %}%"
+    <span style="width:{% widthratio claimant.claimantship_passed claimant.claimantship_total 100 %}%"
           class="money-passed"
           title="Passed">
       £{{ claimant.claimantship_passed|floatformat:2 }}
@@ -52,5 +59,10 @@
     <th>Spent <span title="Sum of all approved expenses claim" class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></th>
     <td>£{{ claimant.claimantship_spent|floatformat:2 }}</td>
   <tr>
+  <tr>
+    <th>Total <span title="Sum of all categories" class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></th>
+    <td>£{{ claimant.claimantship_total|floatformat:2 }}</td>
+  <tr>
+
   </tbody>
 </table>
