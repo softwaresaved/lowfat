@@ -439,14 +439,30 @@ class Claimant(models.Model):
             grant_heading="F"
         )
 
-        spent_from_committed = 0
+        spent_from_committed_final = 0
+        spent_from_committed_other = 0
+        
         for fund in this_claimant_funds:
-            spent_from_committed += sum([expense.fund.budget_approved for expense in Expense.objects.filter(
+            
+            spent_from_committed_final += sum([expense.fund.budget_approved for expense in Expense.objects.filter(
                 fund=fund,
+                final=True,
                 status__in=['A', 'M', 'F']
             )])
+            
+            spent_from_committed_other += sum([expense.amount_authorized_for_payment for expense in Expense.objects.filter(
+                fund=fund,
+                final=False,
+                status__in=['A', 'M', 'F']
+            )])
+                
+            # if expense.final == False
+            # spent_from_committed += sum([expense.amount_claimed for expense in Expense.objects.filter(
+            #     fund=fund,
+            #     status__in=['A', 'M', 'F']
+            # )])
 
-        return sum([fund.budget_approved for fund in this_claimant_funds]) - spent_from_committed
+        return sum([fund.budget_approved for fund in this_claimant_funds]) - (spent_from_committed_final + spent_from_committed_other) 
 
     def claimantship_spent(self):
         """Return the amount already spent from the claimantship grant."""
