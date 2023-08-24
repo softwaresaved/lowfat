@@ -120,7 +120,7 @@ class Expense(ModelWithToken):
         default=False
     )
     final = models.BooleanField(
-        default=False
+        default=True
     )
     advance_booking = models.BooleanField(
         default=False
