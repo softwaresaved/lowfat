@@ -323,6 +323,7 @@ def search(request):
             | Q(url__contains=search_text)
             | Q(justification__contains=search_text)
             | Q(additional_info__contains=search_text)
+            | Q(id__contains=search_text)
         ),
     }
 
