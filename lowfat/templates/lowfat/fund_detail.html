@@ -14,11 +14,11 @@
     >{{ fund.get_status_display }}</span>
   {% if user.is_authenticated %}
   {% if user.is_staff %}
-  <a title="Review" class="btn btn-outline-dark" href="{% url 'fund_review' fund.id %}" role="button"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Review</a>
+  <a title="Review" class="btn btn-outline-dark" href="{% url 'fund_review' fund.id %}" role="button"><span class="fa-solid fa-check" aria-hidden="true"></span> Review</a>
   {% endif %}
   {% if user.is_staff or fund.status in "UP" %}
-  <a title="Edit" class="btn btn-outline-dark" href="{% url 'fund_edit' fund.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
-  <a title="Remove" class="btn btn-outline-dark" href="{% url 'fund_remove' fund.id %}?next={% url 'dashboard' %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>
+  <a title="Edit" class="btn btn-outline-dark" href="{% url 'fund_edit' fund.id %}"><span class="fa-solid fa-edit" aria-hidden="true"></span> Edit</a>
+  <a title="Remove" class="btn btn-outline-dark" href="{% url 'fund_remove' fund.id %}?next={% url 'dashboard' %}"><span class="fa-solid fa-remove" aria-hidden="true"></span> Remove</a>
   {% endif %}
   {% endif %}
 </h1>
@@ -45,15 +45,14 @@
       <th>Status</th>
       <td>
         {{ fund.get_status_display }}
-        <span class="glyphicon glyphicon glyphicon-info-sign" title="{{ fund.status_help }}" aria-hidden="true"></span>
+        <span class="fa-solid fa-info" title="{{ fund.status_help }}" aria-hidden="true"></span>
       </td>
     </tr>
     {% if user.is_staff %}
     <tr>
       <th>
         Activities tag
-        <a href="/pages/guide/activities-tag/"><span class="glyphicon
-                                                     glyphicon glyphicon-info-sign" title="More information about the tags." aria-hidden="true"></span>
+        <a href="/pages/guide/activities-tag/"><span class="fa-solid fa-info" title="More information about the tags." aria-hidden="true"></span>
       </th>
       <td>
         {% for tag in fund.activity.all %}

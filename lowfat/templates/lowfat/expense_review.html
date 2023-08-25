@@ -5,9 +5,9 @@
 <h1>
   Expense Review (Funding Request ID: {{ expense.fund.id }})
   {% if user.is_staff %}
-  <a title="View" class="btn btn-outline-dark" href="{% url 'expense_detail_relative' expense.fund.id expense.relative_number %}" role="button"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View</a>
-  <a title="Edit" class="btn btn-outline-dark" href="{% url 'expense_edit_relative' expense.fund.id expense.relative_number %}" role="button"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
-  <a title="Remove" class="btn btn-outline-dark" href="{% url 'expense_remove_relative' expense.fund.id expense.relative_number %}" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>
+  <a title="View" class="btn btn-outline-dark" href="{% url 'expense_detail_relative' expense.fund.id expense.relative_number %}" role="button"><span class="fa-solid fa-eye" aria-hidden="true"></span> View</a>
+  <a title="Edit" class="btn btn-outline-dark" href="{% url 'expense_edit_relative' expense.fund.id expense.relative_number %}" role="button"><span class="fa-solid fa-edit" aria-hidden="true"></span> Edit</a>
+  <a title="Remove" class="btn btn-outline-dark" href="{% url 'expense_remove_relative' expense.fund.id expense.relative_number %}" role="button"><span class="fa-solid fa-remove" aria-hidden="true"></span> Remove</a>
   {% endif %}
 </h1>
 

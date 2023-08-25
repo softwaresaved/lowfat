@@ -17,7 +17,7 @@
         <tr>
           <td>
             {% if claimant.fellow %}
-                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                <span class="fa-solid fa-check" aria-hidden="true"></span>
             {% endif %}
             </td>
             <td>{{ claimant.fullname }}</td>
@@ -25,11 +25,11 @@
             <td>
               {% if claimant.fellow %}
               <a href="{% url 'fellow_demote'  claimant.id %}">
-                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                <span class="fa-solid fa-minus" aria-hidden="true"></span>
               </a>
               {% else %}
               <a href="{% url 'fellow_promote'  claimant.id %}">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span class="fa-solid fa-plus" aria-hidden="true"></span>
               </a>
               {% endif %}
             </td>

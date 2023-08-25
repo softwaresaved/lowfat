@@ -11,11 +11,11 @@
   >{{ expense.get_status_display }}</span>
   {% if user.is_authenticated %}
   {% if user.is_staff %}
-  <a title="Review" class="btn btn-outline-dark" href="{% url 'expense_review_relative' expense.fund.id expense.relative_number %}" role="button"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Review</a>
+  <a title="Review" class="btn btn-outline-dark" href="{% url 'expense_review_relative' expense.fund.id expense.relative_number %}" role="button"><span class="fa-solid fa-check" aria-hidden="true"></span> Review</a>
   {% endif %}
   {% if user.is_staff or expense.status in "SC" %}
-  <a title="Edit" class="btn btn-outline-dark" href="{% url 'expense_edit_relative' expense.fund.id expense.relative_number %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
-  <a title="Remove" class="btn btn-outline-dark" href="{% url 'expense_remove_relative' expense.fund.id expense.relative_number %}?next={% url 'dashboard' %}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>
+  <a title="Edit" class="btn btn-outline-dark" href="{% url 'expense_edit_relative' expense.fund.id expense.relative_number %}"><span class="fa-solid fa-edit" aria-hidden="true"></span> Edit</a>
+  <a title="Remove" class="btn btn-outline-dark" href="{% url 'expense_remove_relative' expense.fund.id expense.relative_number %}?next={% url 'dashboard' %}"><span class="fa-solid fa-remove" aria-hidden="true"></span> Remove</a>
   {% endif %}
   {% endif %}
 </h1>

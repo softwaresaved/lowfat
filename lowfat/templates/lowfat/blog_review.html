@@ -5,11 +5,11 @@
 <h1>
   Blog Review (Funding Request ID: {{ blog.fund.id }})
   {% if user.is_staff %}
-  <a title="View" class="btn btn-outline-dark" href="{% url 'blog_detail' blog.id %}" role="button"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View</a>
+  <a title="View" class="btn btn-outline-dark" href="{% url 'blog_detail' blog.id %}" role="button"><span class="fa-solid fa-eye" aria-hidden="true"></span> View</a>
   {% endif %}
   {% if user.is_staff %}
-  <a title="Edit" class="btn btn-outline-dark" href="{% url 'blog_edit' blog.id %}" role="button"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>
-  <a title="Remove" class="btn btn-outline-dark" href="{% url 'blog_remove' blog.id %}" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>
+  <a title="Edit" class="btn btn-outline-dark" href="{% url 'blog_edit' blog.id %}" role="button"><span class="fa-solid fa-edit" aria-hidden="true"></span> Edit</a>
+  <a title="Remove" class="btn btn-outline-dark" href="{% url 'blog_remove' blog.id %}" role="button"><span class="fa-solid fa-remove" aria-hidden="true"></span> Remove</a>
   {% endif %}
 </h1>
 <iframe class="blog-review-html" src="{{ blog.draft_url }}">
