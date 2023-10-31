@@ -872,13 +872,13 @@ class ExpenseForm(GarlicForm):
                     <p>
                       Before submitting your expense claim:
                       <ol>
-                        <li>Please follow the <a href='https://software.ac.uk/SSI-expenses-guidelines'>Guidelines for reimbursement of expenses from the Software Sustainability Institute</a>.
+                        <li>Please follow the <a href='https://www.software.ac.uk/guide/guidelines-reimbursement-expenses-supported-software-sustainability-institute'>Guidelines for reimbursement of expenses from the Software Sustainability Institute</a>.
                             <ul>
                                 <li>The Fellowship Programme Terms and Conditions and the <a href="https://www.ed.ac.uk/sites/default/files/atoms/files/new_expenses_policy.docx">University of Edinburgh Finance Expenses Policy</a> apply to your claim.
                                 </li>
                             </ul>
                         </li>
-                        <li>You MUST fill out the University of Edinburgh Payment of Non-Staff <a href='https://www.software.ac.uk/attach/Non_staff_expenses_claim_form_-_with_list_2023.docx'>Expenses form</a>.
+                        <li>You MUST fill out the <a href='https://www.ed.ac.uk/sites/default/files/atoms/files/non_staff_expenses_claim_form_v3.docx'>University of Edinburgh Payment of Non-Staff Expenses form</a>.
                             <ul>
                                 <li>Fill out Sections 1-4 (pages 1-2) and page 6.</li>
                                 <li>Leave the visitor/student number blank.</li>
