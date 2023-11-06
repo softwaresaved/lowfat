@@ -133,7 +133,7 @@ typing-extensions==4.3.0
     # via
     #   django-countries
     #   pypdf2
-urllib3==1.26.12
+urllib3==1.26.18
     # via requests
 zipp==3.17.0
     # via importlib-metadata
