@@ -439,14 +439,23 @@ class Claimant(models.Model):
             grant_heading="F"
         )
 
-        spent_from_committed = 0
+        spent_from_committed_final = 0
+        spent_from_committed_other = 0
+
         for fund in this_claimant_funds:
-            spent_from_committed += sum([expense.fund.budget_approved for expense in Expense.objects.filter(
+            spent_from_committed_final += sum([expense.fund.budget_approved for expense in Expense.objects.filter(
                 fund=fund,
+                final=True,
                 status__in=['A', 'M', 'F']
             )])
 
-        return sum([fund.budget_approved for fund in this_claimant_funds]) - spent_from_committed
+            spent_from_committed_other += sum([expense.amount_authorized_for_payment for expense in Expense.objects.filter(
+                fund=fund,
+                final=False,
+                status__in=['A', 'M', 'F']
+            )])
+
+        return sum([fund.budget_approved for fund in this_claimant_funds]) - (spent_from_committed_final + spent_from_committed_other)
 
     def claimantship_spent(self):
         """Return the amount already spent from the claimantship grant."""
@@ -457,3 +466,9 @@ class Claimant(models.Model):
         )
 
         return sum([expense.amount_authorized_for_payment for expense in this_claimant_expenses])
+
+    def claimantship_total(self):
+        """The total of available, committed, spent and passed funds.
+        To be used for the width of the money bar graph to prevent it spilling onto 2 lines."""
+
+        return self.claimantship_committed() + self.claimantship_spent() + abs(self.claimantship_available()) + self.claimantship_passed()

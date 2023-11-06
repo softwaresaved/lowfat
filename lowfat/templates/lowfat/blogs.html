@@ -37,6 +37,11 @@
   <tbody>
     <tr>
       {% if user.is_staff or claimant and user == claimant.user or fund.claimant and user == fund.claimant.user %}
+      {% if user.is_staff or claimant and user == claimant.user %}
+      <th>
+        ID
+      </th>
+      {% endif %}
       <th>
         Submitted date
       </th>
@@ -50,11 +55,6 @@
       </th>
       <th>
         Funding Request
-      </th>
-      {% endif %}
-      {% if user.is_staff or claimant and user == claimant.user %}
-      <th>
-        ID
       </th>
       {% endif %}
       {% if user.is_staff or claimant and user == claimant.user or fund.claimant and user == fund.claimant.user %}
@@ -84,6 +84,9 @@
       {% endif %}
       {% endif %}
       >
+      {% if user.is_staff or claimant and user == claimant.user %}
+      <td>{{blog.fund.id}}</td>
+      {% endif %}
       {% if user.is_staff or claimant and user == claimant.user or fund.claimant and user == fund.claimant.user %}
       <td sorttable_customkey="{{ blog.added | date:'Ymd' }}">
         {{ blog.added }}
@@ -115,9 +118,6 @@
         {% endif %}
       </td>
       {% endif %}
-      {% if user.is_staff or claimant and user == claimant.user %}
-      <td>{{blog.fund.id}}</td>
-      {% endif %}
       {% if user.is_staff or claimant and user == claimant.user or fund.claimant and user == fund.claimant.user %}
       <td>
         {{ blog.get_status_display }}
@@ -138,15 +138,15 @@
       {% if user.is_staff or claimant and user == claimant.user or fund.claimant and user == fund.claimant.user %}
       <td>
         {% if user.is_staff %}
-        <a class="icon" href="mailto:{{ blog.author.email }}"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+        <a class="icon" href="mailto:{{ blog.author.email }}"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>
         {% endif %}
-        <a title="View" href="{% url 'blog_detail' blog.id %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+        <a title="View" href="{% url 'blog_detail' blog.id %}"><span class="fa-solid fa-eye" aria-hidden="true"></span></a>
         {% if user.is_staff %}
-        <a  title="Review" href="{% url 'blog_review' blog.id %}"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
+        <a  title="Review" href="{% url 'blog_review' blog.id %}"><span class="fa-solid fa-check" aria-hidden="true"></span></a>
         {% endif %}
         {% if user.is_staff or blog.status == "U" %}
-        <a  title="Edit" href="{% url 'blog_edit' blog.id %}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-        <a  title="Remove" href="{% url 'blog_remove' blog.id %}?next={{ request.path }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+        <a  title="Edit" href="{% url 'blog_edit' blog.id %}"><span class="fa-solid fa-edit" aria-hidden="true"></span></a>
+        <a  title="Remove" href="{% url 'blog_remove' blog.id %}?next={{ request.path }}"><span class="fa-solid fa-remove" aria-hidden="true"></span></a>
         {% endif %}
       </td>
       {% endif %}
