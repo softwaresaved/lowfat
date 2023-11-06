@@ -110,7 +110,7 @@ pytz==2022.2.1
     #   django-datetime-widget
     #   django-dbbackup
     #   pandas
-requests==2.28.1
+requests==2.31.0
     # via
     #   requests-oauthlib
     #   social-auth-core
