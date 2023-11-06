@@ -12,7 +12,7 @@ cffi==1.15.1
     # via cryptography
 charset-normalizer==2.1.1
     # via requests
-cryptography==38.0.3
+cryptography==41.0.4
     # via social-auth-core
 defusedxml==0.7.1
     # via
@@ -70,6 +70,8 @@ html2text==2020.1.16
     # via -r requirements.in
 idna==3.3
     # via requests
+importlib-metadata==6.8.0
+    # via markdown
 markdown==3.4.1
     # via -r requirements.in
 numpy==1.23.2
@@ -128,6 +130,10 @@ social-auth-core==4.3.0
 sqlparse==0.4.2
     # via django
 typing-extensions==4.3.0
-    # via django-countries
+    # via
+    #   django-countries
+    #   pypdf2
 urllib3==1.26.12
     # via requests
+zipp==3.17.0
+    # via importlib-metadata
