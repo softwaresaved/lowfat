@@ -36,20 +36,20 @@
 <table class="table table-bordered">
   <tbody>
   <tr>
-    <th>Grant <span title="Initial fellowship grant" class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+    <th>Grant <span title="Initial fellowship grant" class="fa-solid fa-question" aria-hidden="true"></span>
 </th>
     <td>£{{ claimant.claimantship_grant|floatformat:2 }}</td>
   </tr>
   <tr>
-    <th>Available (until {{ claimant.inauguration_grant_expiration }}) <span title="Fellowship grant not committed or spent" class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></th>
+    <th>Available (until {{ claimant.inauguration_grant_expiration }}) <span title="Fellowship grant not committed or spent" class="fa-solid fa-question" aria-hidden="true"></span></th>
     <td>£{{ claimant.claimantship_available|floatformat:2 }}</td>
   </tr>
   <tr>
-    <th>Committed <span title="Sum of approved funding requests' budget" class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></th>
+    <th>Committed <span title="Sum of approved funding requests' budget" class="fa-solid fa-question" aria-hidden="true"></span></th>
     <td>£{{ claimant.claimantship_committed|floatformat:2 }}</td>
   </tr>
   <tr>
-    <th>Spent <span title="Sum of all approved expenses claim" class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></th>
+    <th>Spent <span title="Sum of all approved expenses claim" class="fa-solid fa-question" aria-hidden="true"></span></th>
     <td>£{{ claimant.claimantship_spent|floatformat:2 }}</td>
   <tr>
   </tbody>
