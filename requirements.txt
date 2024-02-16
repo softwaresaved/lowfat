@@ -12,8 +12,7 @@ cffi==1.15.1
     # via cryptography
 charset-normalizer==2.1.1
     # via requests
-crispy-bootstrap5==0.7
-cryptography==38.0.3
+cryptography==42.0.2
     # via social-auth-core
 defusedxml==0.7.1
     # via
@@ -51,7 +50,6 @@ django-extensions==3.2.0
     # via -r requirements.in
 django-imagekit==4.1.0
     # via -r requirements.in
-django-import-export==3.0.1
 django-pandas==0.6.6
     # via -r requirements.in
 django-picklefield==3.1
@@ -72,6 +70,8 @@ html2text==2020.1.16
     # via -r requirements.in
 idna==3.3
     # via requests
+importlib-metadata==7.0.1
+    # via markdown
 markdown==3.4.1
     # via -r requirements.in
 numpy==1.23.2
@@ -130,6 +130,10 @@ social-auth-core==4.3.0
 sqlparse==0.4.2
     # via django
 typing-extensions==4.3.0
-    # via django-countries
+    # via
+    #   django-countries
+    #   pypdf2
 urllib3==1.26.12
     # via requests
+zipp==3.17.0
+    # via importlib-metadata
