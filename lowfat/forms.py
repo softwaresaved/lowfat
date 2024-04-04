@@ -878,7 +878,7 @@ class ExpenseForm(GarlicForm):
                                 </li>
                             </ul>
                         </li>
-                        <li>You MUST fill out the <a href='https://www.ed.ac.uk/sites/default/files/atoms/files/non_staff_expenses_claim_form_v3.docx'>University of Edinburgh Payment of Non-Staff Expenses form</a>.
+                        <li>You MUST fill out the University of Edinburgh Payment of Non-Staff Expenses form which can be downloaded from <a href='https://www.software.ac.uk/guide/guidelines-reimbursement-expenses-supported-software-sustainability-institute'>this page of the SSI website</a>.
                             <ul>
                                 <li>Fill out Sections 1-4 (pages 1-2) and page 6.</li>
                                 <li>Leave the visitor/student number blank.</li>
