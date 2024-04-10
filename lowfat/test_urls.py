@@ -12,6 +12,9 @@ from . import (
     testwrapper,
 )
 
+import PIL
+PIL.Image.ANTIALIAS = PIL.Image.LANCZOS
+
 
 class URLTest(TestCase):
     def setUp(self):
