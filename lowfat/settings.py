@@ -62,6 +62,7 @@ THIRD_PARTY_APPS = [
     'bootstrap_datepicker_plus',
     'constance',
     'constance.backends.database',
+    'corsheaders',
     'crispy_forms',
     'crispy_bootstrap5',
     'dbbackup',
@@ -90,9 +91,15 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'lowfat.urls'
+
+CSRF_TRUSTED_ORIGINS = [
+    'localhost:8000',
+    'https://fellows.software.ac.uk',
+]
 
 TEMPLATES = [
     {
