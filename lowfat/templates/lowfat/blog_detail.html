@@ -17,7 +17,7 @@
   {% endif %}
   {% if user.is_staff or blog.status == "U" %}
   <a title="Edit" class="btn btn-outline-dark" href="{% url 'blog_edit' blog.id %}" role="button"><span class="fa-solid fa-edit" aria-hidden="true"></span> Edit</a>
-  <a title="Remove" class="btn btn-outline-dark" href="{% url 'blog_remove' blog.id %}?next={% url 'dashboard' %}" role="button"><span class="fa-solid fa-remove" aria-hidden="true"></span> Remove</a>
+  {% comment %} <a title="Remove" class="btn btn-outline-dark" href="{% url 'blog_remove' blog.id %}?next={% url 'dashboard' %}" role="button"><span class="fa-solid fa-remove" aria-hidden="true"></span> Remove</a> {% endcomment %}
   {% endif %}
   {% endif %}
 </h1>
