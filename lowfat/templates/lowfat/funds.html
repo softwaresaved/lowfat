@@ -155,7 +155,7 @@
         {% endif %}
         {% if user.is_staff or fund.status in "UP" %}
         <a title="Edit" href="{% url 'fund_edit' fund.id %}"><span class="fa-solid fa-edit" aria-hidden="true"></span></a>
-        <a title="Remove" href="{% url 'fund_remove' fund.id %}?next={{ request.path }}"><span class="fa-solid fa-remove" aria-hidden="true"></span></a>
+        {% comment %} <a title="Remove" href="{% url 'fund_remove' fund.id %}?next={{ request.path }}"><span class="fa-solid fa-remove" aria-hidden="true"></span></a> {% endcomment %}
         {% endif %}
       </td>
       {% endif %}

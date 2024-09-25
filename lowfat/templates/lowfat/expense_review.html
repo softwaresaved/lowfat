@@ -7,7 +7,7 @@
   {% if user.is_staff %}
   <a title="View" class="btn btn-outline-dark" href="{% url 'expense_detail_relative' expense.fund.id expense.relative_number %}" role="button"><span class="fa-solid fa-eye" aria-hidden="true"></span> View</a>
   <a title="Edit" class="btn btn-outline-dark" href="{% url 'expense_edit_relative' expense.fund.id expense.relative_number %}" role="button"><span class="fa-solid fa-edit" aria-hidden="true"></span> Edit</a>
-  <a title="Remove" class="btn btn-outline-dark" href="{% url 'expense_remove_relative' expense.fund.id expense.relative_number %}" role="button"><span class="fa-solid fa-remove" aria-hidden="true"></span> Remove</a>
+  {% comment %} <a title="Remove" class="btn btn-outline-dark" href="{% url 'expense_remove_relative' expense.fund.id expense.relative_number %}" role="button"><span class="fa-solid fa-remove" aria-hidden="true"></span> Remove</a> {% endcomment %}
   {% endif %}
 </h1>
 

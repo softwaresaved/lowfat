@@ -8,7 +8,7 @@
   {% if user.is_staff %}
   <a title="View" class="btn btn-outline-dark" href="{% url 'fund_detail' fund.id %}" role="button"><span class="fa-solid fa-eye" aria-hidden="true"></span> View</a>
   <a title="Edit" class="btn btn-outline-dark" href="{% url 'fund_edit' fund.id %}" role="button"><span class="fa-solid fa-edit" aria-hidden="true"></span> Edit</a>
-  <a title="Remove" class="btn btn-outline-dark" href="{% url 'fund_remove' fund.id %}" role="button"><span class="fa-solid fa-remove" aria-hidden="true"></span> Remove</a>
+  {% comment %} <a title="Remove" class="btn btn-outline-dark" href="{% url 'fund_remove' fund.id %}" role="button"><span class="fa-solid fa-remove" aria-hidden="true"></span> Remove</a> {% endcomment %}
   {% endif %}
 </h1>
 {% if fund.access_token %}

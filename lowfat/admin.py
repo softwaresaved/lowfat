@@ -140,6 +140,7 @@ class ClaimantAdmin(ExportMixin, SimpleHistoryAdmin):
                     "attended_inaugural_meeting",
                     "attended_collaborations_workshop",
                     "notes_from_admin",
+                    "supplier_number",
                 ],
             },
         ),
@@ -161,7 +162,7 @@ class ClaimantAdmin(ExportMixin, SimpleHistoryAdmin):
         'affiliation',
         'funding',
         'funding_notes',
-        'work_description'
+        'work_description',
     ]
     list_filter = [
         'fellow',

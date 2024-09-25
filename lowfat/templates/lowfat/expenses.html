@@ -138,7 +138,7 @@
         {% endif %}
         {% if user.is_staff or expense.status in "SC" %}
         <a  title="Edit" href="{% url 'expense_edit_relative' expense.fund.id expense.relative_number %}"><span class="fa-solid fa-edit" aria-hidden="true"></span></a>
-        <a  title="Remove" href="{% url 'expense_remove_relative' expense.fund.id expense.relative_number %}?next={{ request.path }}"><span class="fa-solid fa-remove" aria-hidden="true"></span></a>
+        {% comment %} <a  title="Remove" href="{% url 'expense_remove_relative' expense.fund.id expense.relative_number %}?next={{ request.path }}"><span class="fa-solid fa-remove" aria-hidden="true"></span></a> {% endcomment %}
       </td>
       {% endif %}
       {% endif %}

@@ -177,6 +177,12 @@
           <td>{{ claimant.work_description | markdown | safe }}</td>
         </tr>
         {% endif %}
+        {% if user.is_staff or claimant and user == claimant.user %}
+        <tr>
+          <th>Supplier Number</th>
+          <td>{{ claimant.supplier_number | markdown | safe }}</td>
+        </tr>
+        {% endif %}
     </table>
   </div>
 </div>

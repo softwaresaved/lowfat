@@ -18,7 +18,7 @@
   {% endif %}
   {% if user.is_staff or fund.status in "UP" %}
   <a title="Edit" class="btn btn-outline-dark" href="{% url 'fund_edit' fund.id %}"><span class="fa-solid fa-edit" aria-hidden="true"></span> Edit</a>
-  <a title="Remove" class="btn btn-outline-dark" href="{% url 'fund_remove' fund.id %}?next={% url 'dashboard' %}"><span class="fa-solid fa-remove" aria-hidden="true"></span> Remove</a>
+  {% comment %} <a title="Remove" class="btn btn-outline-dark" href="{% url 'fund_remove' fund.id %}?next={% url 'dashboard' %}"><span class="fa-solid fa-remove" aria-hidden="true"></span> Remove</a> {% endcomment %}
   {% endif %}
   {% endif %}
 </h1>
