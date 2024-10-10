@@ -14,7 +14,7 @@ EXPENSE_STATUS = (
     ('C', 'Processing'),
     ('A', 'Approved'),
     ('R', 'Rejected'),  # When expense was rejected.
-    ('X', 'Remove'),  # When the fellow decided to remove their request.
+    ('X', 'Removed'),  # When the fellow decided to remove their request.
 )
 
 GRANT_HEADING = (

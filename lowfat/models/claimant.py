@@ -303,6 +303,10 @@ class Claimant(models.Model):
         null=True,
         blank=True
     )
+    supplier_number = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
 
     # Application
     screencast_url = models.CharField(

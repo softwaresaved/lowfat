@@ -47,7 +47,7 @@ FUND_STATUS = (
     ('R', 'Rejected'),  # Fund was rejected.
     ('F', 'Archived'),  # Approved funds with all claims and blog posts were processed. No funds are reserved.
     ('C', 'Cancelled'),  # When the fellow decided to cancel their request.
-    ('X', 'Remove'),  # When the fellow decided to remove their request.
+    ('X', 'Removed'),  # When the fellow decided to remove their request.
 )
 
 #: Set of statuses which constitute an approved fund
@@ -64,6 +64,7 @@ FUND_STATUS_LONG_DESCRIPTION = {
     'R': "Your fund request was declided.",
     'F': "We archived your fund request since all the expense claims were processed.",
     'C': "You decided to cancel this request for any reason.",
+    'X': "You decided to remove this request.",
 }
 
 GRANT_HEADING = (
