@@ -1,26 +1,27 @@
 ---
 layout: default
-title: "FAT Documentation"
+title: "lowFAT Documentation"
 ---
 
 # LowFAT User and Developer Guide
 
-Welcome to the documentation of the Software Sustainability Institute's Fellowship Administration Tool (FAT).
+Welcome to the documentation of the Software Sustainability Institute's Low effort Fellowship Administration Tool (lowFAT).
 
 ## Users
 ### Fellows
-WIP
+
 *See tutorial for claimants*
 
 ### Staff
-WIP
+
 *See tutorial for staff*
 
 ## Developers
 
-LowFAT is open source anyone can make a copy and add remove features. For those looking to add (or remove) functionality
-from LowFAT they should follow this guide. For SSI staff , or external contributors, working directly on the LowFAT 
-repository careful consideration should be paid to the workflow section to ensure adherence to our development practice.
+LowFAT is open source, anyone can make a copy and add or remove features. For those looking to add (or remove) functionality
+from LowFAT they should follow this guide. For SSI staff, or external contributors, when working directly on the LowFAT 
+repository, careful consideration should be paid to the workflow section to ensure adherence to our development practice.
+*See developers section*
 
 #### License
 
@@ -58,7 +59,7 @@ For backing up the database in preparation for a site update.
 
 ### Reuse and Redistribution
 
-We wrote FAT to be one of our internal tools, but it is released under the BSD 3-Clause License and you are welcome to re-use it.
+We wrote lowFAT to be one of our internal tools, but it is released under the BSD 3-Clause License and you are welcome to re-use it.
 
 **If you have any questions, please open an issue on [GitHub](https://github.com/softwaresaved/lowfat/issues).**
 
