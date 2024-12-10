@@ -264,7 +264,7 @@ class Fund(ModelWithToken):
         decimal_places=2,
         default=0.00
     )
-    # direct_invoice = models.BooleanField(default=False)
+
     payment_receiver = models.CharField(
         choices=FUND_PAYMENT_RECEIVER,
         max_length=1,
