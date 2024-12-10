@@ -308,6 +308,8 @@ class FundForm(GarlicForm):
             'budget_request_venue_hire': "Venue hire",
             'budget_request_catering': "Catering",
             'budget_request_others': "Other costs",
+            'payment_receiver': "Who will receive the payment?",
+            'claim_method': "How will you or they be claiming?",
             # 'direct_invoice': "Will expenses related to this request require a purchase order?",
             'justification': "For requests from individual £3000 Fellowship awards, please justify how this activity is in scope of your proposed Fellowship plans or how it furthers your goals for the Fellowship. For requests from the communal pot of funding, please justify how this activity supports the goals of the Institute (https://software.ac.uk/about). For requests relating to a Fellows Inaugural Meeting or Collaborations Workshop, please give a brief justification for the request.",
             'success_targeted': "Please specify what outputs (what may be produced) and outcomes (what change it could lead to) are likely to be produced from your participation in this event. These can include learning goals being met, collaborations, reports etc.",
@@ -323,6 +325,8 @@ class FundForm(GarlicForm):
             'country': Select(attrs={"class": "select-single-item"}),
             'start_date': DatePickerInput(options={"format": "YYYY-MM-DD"}),
             'end_date': DatePickerInput(options={"format": "YYYY-MM-DD"}),
+            'payment_receiver': Select(attrs={"class": "select-single-item"}),
+            'claim_method': Select(attrs={"class": "select-single-item"}),
         }
 
     required_css_class = 'form-field-required'
@@ -414,9 +418,8 @@ class FundForm(GarlicForm):
                     value=0.00
                 ),
                 HTML('<h2>Is a Purchase Order Required?</h2><p>If the payment is for a third-party organisation or individual, a purchase order (PO) may be required. If a PO is required, this must be raised <b>before</b> the event takes place.</p><p>For us to raise a PO, we need to know who we are paying (name/address etc.), what we are buying and how much it is going to cost e.g. Catering for an event on 28th May for 20 people, costing £160 plus VAT, provided by XYZ Catering.</p><p>If the supplier already exists on our system, there should be minimal delay in getting the PO issued.  If the supplier is a new supplier, the accounts payable team will contact the supplier for additional information, and it can take up to 3 months for the PO to be issued.</p><p>If you are paying an individual to reimburse their out-of-pocket expenses, this is done after the event using a simple claim form, but <b>you</b> need to upload the claim form onto lowFAT as it will be offset against your funding request.  It can take up to six weeks for these expenses to be reimbursed.</p><p>If you are paying an individual for their time e.g. 3 hours at £30 per hour to provide training or a workshop, this is treated by the University of Edinburgh as an appointment or engagement and requires an Employment Status Check to be completed <b>before</b> any work is started. It can take up to 3 months for the Employment Status Check to be completed.  Any work undertaken before these checks are completed will not be paid.  The way the payment is made depends on the outcome of these checks. The person undertaking this work will be required to have registered with HMRC for self assessment tax and must be able to provide a Unique Tax Reference No (UTR). Again, <b>you</b> should upload the claim form to lowFAT as it will be offset against your funding request.</p>'),
-                
-                
-
+                'payment_receiver',
+                'claim_method',
                 HTML('<h2>Justification for attending or organising the event</h2><p>When filling in the questions below please consider the following points:</p><ul><li>For attending conferences/workshops: will the conference focus on a significant field, will you meet significant researchers, will there be a focus on research software?</li><li>For organising workshops: how will the event help your domain, how will the event help the Institute, how will the event help you?</li><li>For policy related work: how might participation or organisation help the policy goals of the Institute, such as improving software and improved research (this can include people and tools perspectives)?</li><li>For other: please state reasons - note it may be good to discuss with the Institute Community Team before filling the form to make sure the rationale is aligned to the Institute and to your own objectives.</li></ul>'),
                 HTML('<h4>Justification</h4>'),
                 'justification',
