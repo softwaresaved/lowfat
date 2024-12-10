@@ -40,15 +40,15 @@ FUND_FOCUS = (
 )
 
 FUND_PAYMENT_RECEIVER = (
-    ('A', 'Me (the fellow)'),
-    ('B', 'Third party'),
-    ('C', 'Combination of both'),
+    ('A', 'A - Me (the fellow)'),
+    ('B', 'B - Third party'),
+    ('C', 'C - Combination of both'),
 )
 
 FUND_CLAIM_METHOD = (
-    ('A', 'Expense claim'),
-    ('B', 'Invoice'),
-    ('C', 'Combination of both')
+    ('A', 'A - Expense claim'),
+    ('B', 'B - Invoice'),
+    ('C', 'C - Combination of both')
 )
 
 FUND_STATUS = (
