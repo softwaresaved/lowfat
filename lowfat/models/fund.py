@@ -39,6 +39,18 @@ FUND_FOCUS = (
     ('C', 'Cross cutting'),
 )
 
+FUND_PAYMENT_RECEIVER = (
+    ('A', 'Me (the fellow)'),
+    ('B', 'Third party'),
+    ('C', 'Combination of both'),
+)
+
+FUND_CLAIM_METHOD = (
+    ('A', 'Expense claim'),
+    ('B', 'Invoice'),
+    ('C', 'Combination of both')
+)
+
 FUND_STATUS = (
     ('U', 'Unprocessed'),  # Initial status
     ('P', 'Processing'),  # When someone was assigned to review the request
@@ -79,6 +91,7 @@ GRANTS = (
     ('SSI3', 'Software Sustainability Institute - Phase 3'),
     ('SSI4', 'Software Sustainability Institute - Phase 4'),
 )
+
 
 MAX_CHAR_LENGTH = 120
 MAX_DIGITS = 10
@@ -251,7 +264,19 @@ class Fund(ModelWithToken):
         decimal_places=2,
         default=0.00
     )
-    direct_invoice = models.BooleanField(default=False)
+    # direct_invoice = models.BooleanField(default=False)
+    payment_receiver = models.CharField(
+        choices=FUND_PAYMENT_RECEIVER,
+        max_length=1,
+        default="A"
+    )
+    
+    claim_method = models.CharField(
+        choices=FUND_CLAIM_METHOD,
+        max_length=1,
+        default="A"
+    )
+    
     justification = models.TextField()
     success_targeted = models.TextField()
     success_reported = models.TextField(blank=True)  # Only provide later

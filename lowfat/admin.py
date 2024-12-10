@@ -220,7 +220,7 @@ class FundAdmin(SimpleHistoryAdmin):
                 'focus',
                 'activity',
                 'mandatory',
-                'direct_invoice'
+                # 'direct_invoice'
             ]
         }),
         ('Publicity', {
@@ -262,7 +262,7 @@ class FundAdmin(SimpleHistoryAdmin):
         'grant_heading',
         'focus',
         'mandatory',
-        'direct_invoice',
+        # 'direct_invoice',
         'activity',
     ]
 
