@@ -37,7 +37,7 @@ odfpy==1.4.1
 openpyxl==3.1.2
 pandas==1.4.3
 pilkit==2.0
-pillow==10.2.0
+pillow==9.5.0
 pycparser==2.21
 PyJWT==2.4.0
 PyPDF2==2.10.3
