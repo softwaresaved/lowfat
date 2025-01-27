@@ -41,6 +41,11 @@
         ID
       </th>
       {% endif %}
+      {% if user.is_staff %}    
+      <th>
+        Fellow
+      </th>
+      {% endif %}    
       {% if user.is_staff or claimant and user == claimant.user %}
       <th>
         Submitted date
@@ -50,9 +55,6 @@
         Claim
       </th>
       {% if user.is_staff %}
-      <th>
-        Fellow
-      </th>
       <th>
         Funding Request
       </th>
@@ -86,6 +88,11 @@
       {% if user.is_staff or claimant and user == claimant.user %}
       <td>{{expense.fund.id}}</td>
       {% endif %}
+      {% if user.is_staff %}    
+      <td>
+        <a title='View' href="{% url 'fellow_slug' expense.fund.claimant.slug %}">{{ expense.fund.claimant.fullname }}</a>
+      </td>
+      {% endif %}    
       {% if user.is_staff or claimant and user == claimant.user %}
       <td sorttable_customkey="{{ expense.added | date:'Ymd' }}">
         {{ expense.added }}
@@ -107,9 +114,6 @@
         {% endif %}
       </td>
       {% if user.is_staff %}
-      <td>
-        <a title='View' href="{% url 'fellow_slug' expense.fund.claimant.slug %}">{{ expense.fund.claimant.fullname }}</a>
-      </td>
       <td>
         <a title='View' href="{% url 'fund_detail' expense.fund.id %}">{{ expense.fund.title }}</a>
       </td>
