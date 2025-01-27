@@ -95,7 +95,7 @@
       {% endif %}    
       {% if user.is_staff or claimant and user == claimant.user %}
       <td sorttable_customkey="{{ expense.added | date:'Ymd' }}">
-        {{ expense.added }}
+        {{ expense.added | date:"d M Y"}}
       </td>
       {% endif %}
       <td>
