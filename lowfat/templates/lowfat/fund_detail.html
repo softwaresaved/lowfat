@@ -22,7 +22,7 @@
   {% endif %}
   {% endif %}
 </h1>
-<h2>General Details</h1>
+<h2>General Details</h2>
 <table class="table table-bordered">
   <tbody>
     {% if user.is_staff %}
@@ -52,7 +52,7 @@
     <tr>
       <th>
         Activities tag
-        <a href="/pages/guide/activities-tag/"><span class="fa-solid fa-info" title="More information about the tags." aria-hidden="true"></span>
+        <a href="/pages/guide/activities-tag/"><span class="fa-solid fa-info" title="More information about the tags." aria-hidden="true"></span></a>
       </th>
       <td>
         {% for tag in fund.activity.all %}

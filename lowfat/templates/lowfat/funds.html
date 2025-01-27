@@ -52,6 +52,9 @@
         Amount Requested
       </th>
       <th>
+        Amount Approved
+      </th>          
+      <th>
         Approved date
       </th>
       {% endif %}
@@ -134,6 +137,13 @@
       <td>
         £{{ fund.budget_total|floatformat:2 }}
       </td>
+      <td> 
+      {% if fund.status in 'AMF' %} 
+          £{{ fund.budget_approved|floatformat:2 }}
+          {% else %}
+          N/A
+          {% endif %}
+      </td>    
       <td {% if fund.status in 'AMF' %} sorttable_customkey="{{ fund.approved | date:'Ymd' }}" {% endif %}>
         {% if fund.status in 'AMF' %}
         {{ fund.approved }}
