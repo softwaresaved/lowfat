@@ -89,7 +89,7 @@
       {% endif %}
       {% if user.is_staff or claimant and user == claimant.user or fund.claimant and user == fund.claimant.user %}
       <td sorttable_customkey="{{ blog.added | date:'Ymd' }}">
-        {{ blog.added }}
+        {{ blog.added | date:"d M Y"}}
       </td>
       {% endif %}
       <td>
