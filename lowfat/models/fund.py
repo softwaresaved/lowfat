@@ -61,7 +61,7 @@ FUND_STATUS_LONG_DESCRIPTION = {
     'P': "One of your staffs is reviewing your request. You should have our reply soon.",
     'A': "Your fund request was approved.",
     'M': "Your fund request was pre-approved.",
-    'R': "Your fund request was declided.",
+    'R': "Your fund request was declined.",
     'F': "We archived your fund request since all the expense claims were processed.",
     'C': "You decided to cancel this request for any reason.",
     'X': "You decided to remove this request.",
