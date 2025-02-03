@@ -124,8 +124,8 @@
         )
         {% endif %}
       </td>
-      <td sorttable_customkey="{{ fund.start_date | date:'Ymd' }}">{{ fund.start_date }}</td>
-      <td sorttable_customkey="{{ fund.end_date | date:'Ymd' }}">{{fund.end_date}}</td>
+      <td sorttable_customkey="{{ fund.start_date | date:'Ymd' }}">{{ fund.start_date | date:"d M Y"}}</td>
+      <td sorttable_customkey="{{ fund.end_date | date:'Ymd' }}">{{fund.end_date | date:"d M Y"}}</td>
       {% if user.is_staff or claimant and user == claimant.user %}
       <td>
         {{ fund.get_status_display }}
