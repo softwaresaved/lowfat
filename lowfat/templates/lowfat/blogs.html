@@ -42,16 +42,16 @@
         ID
       </th>
       {% endif %}
+      {% if user.is_staff %}
+      <th>
+        Fellow
+      </th>
       <th>
         Submitted date
       </th>
       {% endif %}
       <th>
         Blog
-      </th>
-      {% if user.is_staff %}
-      <th>
-        Fellow
       </th>
       <th>
         Funding Request
@@ -87,6 +87,11 @@
       {% if user.is_staff or claimant and user == claimant.user %}
       <td>{{blog.fund.id}}</td>
       {% endif %}
+      {% if user.is_staff %}
+      <td>
+        <a href="{% url 'fellow_slug' blog.author.slug %}">{{ blog.author.fullname }}</a>
+      </td>
+    {% endif %}
       {% if user.is_staff or claimant and user == claimant.user or fund.claimant and user == fund.claimant.user %}
       <td sorttable_customkey="{{ blog.added | date:'Ymd' }}">
         {{ blog.added | date:"d M Y"}}
@@ -109,9 +114,6 @@
         {% endif %}
       </td>
       {% if user.is_staff %}
-      <td>
-        <a href="{% url 'fellow_slug' blog.author.slug %}">{{ blog.author.fullname }}</a>
-      </td>
       <td>
         {% if blog.fund %}
         <a href="{% url 'fund_detail' blog.fund.id %}">{{ blog.fund.title }}</a>
