@@ -1,0 +1,409 @@
+d2c98f8f - phillybroadbent, 2 hours ago : Merge pull request #782 from softwaresaved/dev
+c05c801b - phillybroadbent, 4 weeks ago : Added supplier number field to claimant model, made available to edit in admin interface and view in fellow profile
+fd447eb8 - phillybroadbent, 4 weeks ago : #758 Added information about purchase orders to funcding request form
+1080ee5d - phillybroadbent, 10 weeks ago : Removed the ability to delete funding requests, expense claims, and blog posts #763
+c537a44f - phillybroadbent, 10 weeks ago : Merge pull request #780 from softwaresaved/master
+c2fa5e7f - Mario Antonioletti, 6 months ago : Removed a .DS_Store file.
+01c7d889 - phillybroadbent, 6 months ago : Merge pull request #769 from softwaresaved/dev
+dc4848a7 - phillybroadbent, 6 months ago : Editing local CSRF trusted origin
+e64120ab - phillybroadbent, 6 months ago : Adding CSRF trusted hosts to django settings
+c72a56aa - phillybroadbent, 6 months ago : Merge pull request #755 from softwaresaved/dev
+5ebd47ea - phillybroadbent, 6 months ago : Updated maintainer name
+c9075fc5 - phillybroadbent, 6 months ago : Merge branch 'dev' of github.com:softwaresaved/lowfat into dev
+560da4c2 - phillybroadbent, 6 months ago : Updated link to expenses form #765
+516f1ffd - Giacomo Peru, 6 months ago : Merge pull request #767 from softwaresaved/gperu-patch-1
+3be74fc8 - Giacomo Peru, 6 months ago : Create stakeholders.md
+ccad16cd - phillybroadbent, 8 months ago : Merge branch 'master' into dev
+f311616d - phillybroadbent, 8 months ago : Edited versions of python in workflow file
+c52f45c4 - phillybroadbent, 8 months ago : Added workaround to enable use of pillow 10.2 necessary for security fix
+f14294a8 - phillybroadbent, 8 months ago : Update verisons of python and django in workflow and tox
+0de385ba - phillybroadbent, 8 months ago : Update django and pillow
+fb08f3c7 - phillybroadbent, 10 months ago : Merge pull request #746 from softwaresaved/dev
+21210c3d - phillybroadbent, 10 months ago : Updated icons in finance template
+c469e32b - phillybroadbent, 10 months ago : Fixing linter problems
+b14743d6 - phillybroadbent, 10 months ago : Reverted funding summary bar plot to previous method of calculation
+fcce8e58 - phillybroadbent, 11 months ago : Restoring previous dependencies
+f216ebd3 - phillybroadbent, 11 months ago : Edited expense claim email #732
+39fd7cb4 - phillybroadbent, 11 months ago : Merge pull request #742 from softwaresaved/dependabot/pip/urllib3-1.26.18
+39fe4979 - phillybroadbent, 11 months ago : Merge pull request #743 from softwaresaved/dependabot/pip/certifi-2023.7.22
+087b205b - phillybroadbent, 11 months ago : Merge pull request #744 from softwaresaved/dependabot/pip/cryptography-41.0.4
+0636677b - phillybroadbent, 11 months ago : Merge pull request #745 from softwaresaved/dependabot/pip/requests-2.31.0
+a8a9b18d - phillybroadbent, 11 months ago : Merge pull request #741 from softwaresaved/dependabot/pip/pillow-10.0.1
+c61a8a4a - dependabot[bot], 11 months ago : build(deps): bump urllib3 from 1.26.12 to 1.26.18
+27a06338 - dependabot[bot], 11 months ago : build(deps): bump requests from 2.28.1 to 2.31.0
+34547d76 - phillybroadbent, 11 months ago : Merge pull request #740 from softwaresaved/dependabot/pip/django-3.2.23
+bd85ce67 - dependabot[bot], 11 months ago : build(deps): bump cryptography from 38.0.3 to 41.0.4
+e313f771 - dependabot[bot], 11 months ago : build(deps): bump certifi from 2022.12.7 to 2023.7.22
+25a46d5a - dependabot[bot], 11 months ago : build(deps): bump pillow from 9.3.0 to 10.0.1
+14a26f6f - dependabot[bot], 11 months ago : build(deps): bump django from 3.2.19 to 3.2.23
+a2946158 - phillybroadbent, 11 months ago : Merge pull request #715 from softwaresaved/dependabot/pip/django-3.2.19
+76c30e9c - phillybroadbent, 11 months ago : Merge pull request #739 from softwaresaved/dev
+7748d73e - phillybroadbent, 11 months ago : Updated links to expenses form and guidance
+68d14cad - phillybroadbent, 1 year, 1 month ago : Added funding request id to search query
+d678ca97 - phillybroadbent, 1 year, 1 month ago : Replaced remaining glyphicons with font awesome
+223260c4 - phillybroadbent, 1 year, 1 month ago : Moved ID number to first column of all tables
+b86547da - phillybroadbent, 1 year, 1 month ago : Changed tickbox for final expense claim to ticked by default
+3fab33bf - phillybroadbent, 1 year, 1 month ago : Removed whitespace according to linter
+136d317a - phillybroadbent, 1 year, 1 month ago : Fixed styling according to linter
+6ede1053 - phillybroadbent, 1 year, 1 month ago : Edited money bar graph so that it does not spill over into two lines
+8b826f21 - phillybroadbent, 1 year, 1 month ago : Fixing styling according to linter
+3207401c - phillybroadbent, 1 year, 1 month ago : Calculation of amount committed dependent on whether expense claim is final
+103d178c - phillybroadbent, 1 year, 2 months ago : Merge pull request #730 from softwaresaved/dev
+1b213772 - phillybroadbent, 1 year, 2 months ago : Reduced total width of money bar graph so it does not go over the line
+e45be653 - phillybroadbent, 1 year, 2 months ago : Amount spent calculated from amouth authorised for payment rather than amount claimed
+97d8670b - phillybroadbent, 1 year, 2 months ago : Merge pull request #728 from softwaresaved/dev
+a66a29f2 - phillybroadbent, 1 year, 2 months ago : Edited amount committed calculation for funding summary
+47682bdd - phillybroadbent, 1 year, 2 months ago : Removed tests for start and end date in the future
+d7ea7d56 - phillybroadbent, 1 year, 2 months ago : Removed date validation so that funding requests can be made for events in the past
+6e16148d - phillybroadbent, 1 year, 2 months ago : Approved budget now shows up in expense review when approved by machine or approved
+534befd8 - phillybroadbent, 1 year, 3 months ago : Merge pull request #724 from softwaresaved/723-replace-view-summary-report-of-events
+42ae5959 - phillybroadbent, 1 year, 3 months ago : Edited button linking to event report
+af7b52ac - phillybroadbent, 1 year, 4 months ago : Merge pull request #719 from softwaresaved/dev
+cf4fe501 - phillybroadbent, 1 year, 4 months ago : Merge pull request #718 from softwaresaved/709-update-ssi-branding
+f8852c32 - phillybroadbent, 1 year, 4 months ago : Updated logo and favicon
+7ee74fce - phillybroadbent, 1 year, 4 months ago : Merge pull request #716 from softwaresaved/711-add-total-budget-request-column-to-funding-request-dashboard
+e93b514c - phillybroadbent, 1 year, 4 months ago : Removed unused imports
+cf8031c8 - phillybroadbent, 1 year, 4 months ago : Fixing styling issues
+475c1d6b - phillybroadbent, 1 year, 4 months ago : Added amount requested to funding requests table of dashboard #711
+6d9e240c - dependabot[bot], 1 year, 5 months ago : build(deps): bump django from 3.2.16 to 3.2.19
+a7fa332a - phillybroadbent, 1 year, 7 months ago : Fixed formatting of event_report view
+476bba7b - phillybroadbent, 1 year, 7 months ago : Edited label for approved by machine fund status
+2e7c4622 - phillybroadbent, 1 year, 7 months ago : Adding in testing documentation
+a4e424c4 - phillybroadbent, 1 year, 7 months ago : Adding in event reporting page
+6ebbd103 - phillybroadbent, 1 year, 7 months ago : Added in changes to expenses claim form
+ba7253aa - phillybroadbent, 1 year, 7 months ago : Reverting to previous commit to troubleshoot deployment
+7ee6347f - phillybroadbent, 1 year, 7 months ago : Merge pull request #705 from softwaresaved/dev
+35414b00 - phillybroadbent, 1 year, 7 months ago : Merge pull request #697 from softwaresaved/dependabot/pip/django-3.2.17
+6e3c3add - phillybroadbent, 1 year, 7 months ago : Merge pull request #698 from softwaresaved/dependabot/pip/oauthlib-3.2.2
+55ad97b8 - dependabot[bot], 1 year, 7 months ago : build(deps): bump oauthlib from 3.2.1 to 3.2.2
+eda4d706 - dependabot[bot], 1 year, 7 months ago : build(deps): bump django from 3.2.16 to 3.2.17
+dd577fb9 - phillybroadbent, 1 year, 7 months ago : Merge pull request #699 from softwaresaved/dependabot/pip/cryptography-39.0.1
+51dcdc20 - phillybroadbent, 1 year, 7 months ago : Merge pull request #703 from softwaresaved/622-tests-should-have-basic-docstrings
+e6cda81b - phillybroadbent, 1 year, 7 months ago : Added basic docstrings to tests and testing info to docs
+462c17a7 - phillybroadbent, 1 year, 7 months ago : Added docstrings to url tests
+7d2a0408 - phillybroadbent, 1 year, 7 months ago : Merge pull request #702 from softwaresaved/581-add-event-reporting-view
+5b026d9b - phillybroadbent, 1 year, 7 months ago : Removed unnecessary indent
+3a09a4e8 - phillybroadbent, 1 year, 7 months ago : Further edited styling of event-report view in line with linter
+2a2d70fb - phillybroadbent, 1 year, 7 months ago : Edited styling of event-report view in line with linter
+235148f4 - phillybroadbent, 1 year, 7 months ago : Tidied event_report view and added docstring
+ba5b84fe - phillybroadbent, 1 year, 7 months ago : Edited so table starts with zero events before filter applied
+12a55d13 - phillybroadbent, 1 year, 7 months ago : Edited event reporting page formatting
+524d4b65 - phillybroadbent, 1 year, 7 months ago : Added checkbox for inclusion of mandatory events
+bff9d24e - phillybroadbent, 1 year, 7 months ago : Added date picker for start and end dates of event report
+afdf3516 - phillybroadbent, 1 year, 7 months ago : Added colours to event reporting table
+a4c9c149 - phillybroadbent, 1 year, 7 months ago : Limited event report page to staff only, added links and names to table
+6744470a - phillybroadbent, 1 year, 8 months ago : Merge pull request #701 from softwaresaved/700-update-link-to-expense-claim-form-and-relevant-instructions
+9f7f1cc9 - phillybroadbent, 1 year, 8 months ago : Correcting list item error
+f47e1fc9 - phillybroadbent, 1 year, 8 months ago : Edited expenses claim form in accordance with issue #700
+856b039a - dependabot[bot], 1 year, 8 months ago : build(deps): bump cryptography from 38.0.3 to 39.0.1
+e74c8822 - phillybroadbent, 1 year, 8 months ago : Edited table colour
+8d1bc9fc - phillybroadbent, 1 year, 8 months ago : Added option to display events from all years
+b414d265 - phillybroadbent, 1 year, 8 months ago : Put event reporting info into a table
+24a3e922 - phillybroadbent, 1 year, 8 months ago : Arranged event reporting page into grid
+9b99efa3 - phillybroadbent, 1 year, 8 months ago : Split the filtered events into categories
+e95fd979 - phillybroadbent, 1 year, 8 months ago : Added dropdown year filter for all events
+c988127e - phillybroadbent, 1 year, 8 months ago : Included events only from the current year in activities overview
+914486e4 - phillybroadbent, 1 year, 8 months ago : Added number of events to each category
+1f2b5d9a - phillybroadbent, 1 year, 8 months ago : Split activities by focus and category
+70984b8b - phillybroadbent, 1 year, 8 months ago : Added page with list of approved funding requests for non-mandatory events
+be38ff8c - phillybroadbent, 1 year, 8 months ago : Updated screenshots for developers tutorial
+f670c338 - phillybroadbent, 1 year, 8 months ago : Updated screenshots for staff tutorial
+72fd1271 - phillybroadbent, 1 year, 8 months ago : Updated screenshots for staff tutorial
+98daaf1f - phillybroadbent, 1 year, 8 months ago : Updated screenshots of forms
+cf064e25 - phillybroadbent, 1 year, 8 months ago : Updated screenshots for status of request
+5e50dee8 - phillybroadbent, 1 year, 8 months ago : Updated screenshots for how much money is left doc
+301da859 - phillybroadbent, 1 year, 8 months ago : Edited screenshots to prevent boxes being cut off
+0d5c7525 - phillybroadbent, 1 year, 8 months ago : Edited screenshots to prevent repetition of header
+422d9ffe - phillybroadbent, 1 year, 8 months ago : Updated images for claimant workflow documentation
+0d81e8bb - phillybroadbent, 1 year, 8 months ago : Merge pull request #694 from softwaresaved/dev
+2f589219 - phillybroadbent, 1 year, 8 months ago : Merge pull request #693 from softwaresaved/691-funding-request-admin-page
+a3e88184 - phillybroadbent, 1 year, 8 months ago : Added download of supporting docs and final claim form to expense detail page
+7b326cd4 - phillybroadbent, 1 year, 8 months ago : Added direct_invoice var to expense review page as Add Suppliers
+1df86b23 - phillybroadbent, 1 year, 8 months ago : Merge pull request #692 from softwaresaved/690-expense-claim-uploads
+432632b3 - phillybroadbent, 1 year, 8 months ago : Edited styling in line with linter
+240efc1d - phillybroadbent, 1 year, 8 months ago : Added ability to download supporting documents and final claim form from expense review page #690
+10b0b502 - phillybroadbent, 1 year, 8 months ago : Merge pull request #689 from softwaresaved/dev
+7385a78e - phillybroadbent, 1 year, 8 months ago : Merge pull request #688 from softwaresaved/686-update-expense-claim-submission-page
+7d357020 - phillybroadbent, 1 year, 8 months ago : Removed trailing whitespace according to linter
+532abf37 - phillybroadbent, 1 year, 8 months ago : Added functionality to save files uploaded to the expense review form
+88aaec96 - phillybroadbent, 1 year, 8 months ago : Removed trailing whitespace according to linter
+a0ebcbda - phillybroadbent, 1 year, 8 months ago : Added uploaded final claim form variable to expenses model
+60b9c99c - phillybroadbent, 1 year, 8 months ago : Added option for admin to upload final claim form
+7bb3bf09 - phillybroadbent, 1 year, 8 months ago : Fixed styling according to linter and temporarily removed one expense form test
+3d5c5cbf - phillybroadbent, 1 year, 8 months ago : Moved additional fields from GarlicForm class to ExpenseForm class
+fa2cdd32 - phillybroadbent, 1 year, 8 months ago : Fixing styling according to linter
+8cd370d4 - phillybroadbent, 1 year, 8 months ago : Added supporting_docs field and edited recipient_connection field
+11ef4416 - phillybroadbent, 1 year, 8 months ago : Edited expense request form as specified in issue #686
+e5bc1dd9 - phillybroadbent, 1 year, 8 months ago : Merge pull request #685 from softwaresaved/683-add-a-link-to-documentation-in-menu
+cf9868d1 - phillybroadbent, 1 year, 8 months ago : Merge pull request #684 from softwaresaved/681-update-funding-request-page
+c02f862b - phillybroadbent, 1 year, 8 months ago : Fixed code style according to linter
+ed384e1e - phillybroadbent, 1 year, 8 months ago : Added a link to the lowfat documentation to navigation bar
+5948d36d - phillybroadbent, 1 year, 8 months ago : Added direct invoice question to admin
+bb603e23 - phillybroadbent, 1 year, 8 months ago : Removed line breaks
+6f7c582a - phillybroadbent, 1 year, 8 months ago : Added line break between nav items
+bbaf2e03 - phillybroadbent, 1 year, 8 months ago : Removed nav-links to fix ordering
+cd7d02ad - phillybroadbent, 1 year, 8 months ago : Printed page ordering
+4857a94d - phillybroadbent, 1 year, 8 months ago : Edited ordering argument
+a983d6a2 - phillybroadbent, 1 year, 8 months ago : Removed data ordering as it was not working
+82c1bcdf - phillybroadbent, 1 year, 8 months ago : Removed class nav-item to fix ordering
+7584234f - phillybroadbent, 1 year, 9 months ago : Updated header formatting
+c03cca26 - phillybroadbent, 1 year, 9 months ago : Added flex-column option to nav list
+a7cab43e - phillybroadbent, 1 year, 9 months ago : Removed line additional line breaks, some lines with multiple items
+0579f328 - phillybroadbent, 1 year, 9 months ago : Added line breaks to navigation bar
+352ce03c - phillybroadbent, 1 year, 9 months ago : Edited nav items styling
+769507d0 - phillybroadbent, 1 year, 9 months ago : Updated nav items to bootstrap5
+7507aa59 - phillybroadbent, 1 year, 9 months ago : Changed img-responsive to img-fluid in docs
+065021eb - phillybroadbent, 1 year, 9 months ago : Added migration of database fields added and altered by recent changes
+35ee87f1 - phillybroadbent, 1 year, 9 months ago : Edited funding request form, migration of additional field not working
+62d8d26e - phillybroadbent, 1 year, 9 months ago : Merge pull request #680 from softwaresaved/679-search-button-not-working
+a96c7326 - phillybroadbent, 1 year, 9 months ago : Edited button bootstrap so that it submits the data
+e58f2284 - phillybroadbent, 1 year, 9 months ago : Merge pull request #678 from softwaresaved/677-remove-shared-calendar-of-events
+48afd5ba - phillybroadbent, 1 year, 9 months ago : Removed reference to link to calendar from dashboard #677
+e843e0d9 - Philip Grylls, 1 year, 9 months ago : Merge pull request #675 from softwaresaved/dev
+1d54d4c5 - Philip Grylls, 1 year, 9 months ago : Merge branch 'master' into dev
+bbe4361c - Philip Grylls, 1 year, 9 months ago : Merge pull request #672 from softwaresaved/410-migrate-to-bootstrap-50
+b0ae4ca4 - Philip Grylls, 1 year, 9 months ago : Merge pull request #670 from softwaresaved/dependabot/pip/cryptography-38.0.3
+6243ea95 - dependabot[bot], 1 year, 9 months ago : build(deps): bump cryptography from 37.0.4 to 38.0.3
+ba0d4e71 - Philip Grylls, 1 year, 9 months ago : Merge pull request #674 from softwaresaved/dependabot/pip/certifi-2022.12.7
+8e7ea31c - dependabot[bot], 1 year, 10 months ago : build(deps): bump certifi from 2022.6.15 to 2022.12.7
+0db469ca - phillybroadbent, 1 year, 10 months ago : Removed import option, leaving only export option
+98ac816c - phillybroadbent, 1 year, 10 months ago : Removed whitespace
+e103f73b - phillybroadbent, 1 year, 10 months ago : Removed whitespace from blank line according to linter style
+1f415b68 - phillybroadbent, 1 year, 10 months ago : Added blank lines to admin.py according to linter style
+8c99732e - phillybroadbent, 1 year, 10 months ago : Merge pull request #673 from softwaresaved/663-export-data-from-lowfat
+968b08d3 - phillybroadbent, 1 year, 10 months ago : Added to admin site the option to export claimant data
+f25757d1 - phillybroadbent, 1 year, 10 months ago : Made options for filtering tables as tabs
+3d8ece04 - phillybroadbent, 1 year, 10 months ago : Photo showing up on staff view of claimant profile but at the top rather than the right
+ce9d3ce0 - phillybroadbent, 1 year, 10 months ago : Edited background colour on staff view of claimant detail
+f96533ca - phillybroadbent, 1 year, 10 months ago : Changed button text to darker colour
+8fad3aa2 - phillybroadbent, 1 year, 10 months ago : Reduced text size from 16px to 14px
+e5c3e17b - phillybroadbent, 1 year, 10 months ago : Updated code for table and button colours
+79a4b76c - phillybroadbent, 1 year, 10 months ago : Added crispy-bootstrap5 so that crispy forms works with bootstrap
+32ff21d6 - phillybroadbent, 1 year, 10 months ago : Edited dropdown menu alignment so it did not run off the screen
+50980e7a - phillybroadbent, 1 year, 10 months ago : Dropdown working but goes off right side of screen
+9f979271 - phillybroadbent, 1 year, 10 months ago : Put image within card body and readjusted ribbon position
+43a5a7dc - phillybroadbent, 1 year, 10 months ago : Removed borders from cards
+2e5ede7e - phillybroadbent, 1 year, 10 months ago : Single column of fellows at larger screen size to prevent overlapping
+11948e38 - phillybroadbent, 1 year, 10 months ago : Added card, ribbons showing but in wrong place
+8904f857 - phillybroadbent, 1 year, 10 months ago : Increased footer padding so it does not overlap with content
+48ab7c5b - phillybroadbent, 1 year, 10 months ago : Edited navbar so elements stick to the right and set search placeholder
+8bbea81c - phillybroadbent, 1 year, 10 months ago : Updated formatting for filtering options
+3b8bc38a - phillybroadbent, 1 year, 10 months ago : Removed underscores from icons and text by setting text decoration to none
+a8f590bf - phillybroadbent, 1 year, 10 months ago : Corrected file path for updated version of selectize
+ec036f04 - phillybroadbent, 1 year, 10 months ago : Updated screen reader text elements
+42d7d1e9 - phillybroadbent, 1 year, 10 months ago : Updated navbar items
+be7f3be0 - phillybroadbent, 1 year, 10 months ago : Updated block buttons to v5
+25813cf5 - phillybroadbent, 1 year, 10 months ago : Reinstated original lowfat.css
+b5fc6670 - phillybroadbent, 1 year, 10 months ago : Changes from v3 to v4 of bootstrap
+09efc4bd - phillybroadbent, 1 year, 10 months ago : Updated links to bootstrap and selectize
+4e79bc0a - phillybroadbent, 1 year, 10 months ago : Updated download links for bootstrap v5.2.3 and selectize v0.15.2 #410
+bc5f10df - phillybroadbent, 1 year, 10 months ago : Merge pull request #671 from softwaresaved/641-assertionerror-in-passwordresetconfirmview
+1471f8d3 - phillybroadbent, 1 year, 10 months ago : Changed duplicated PasswordResetConfirmView to PasswordResetCompleteView
+eb0b21f7 - phillybroadbent, 1 year, 10 months ago : Merge pull request #664 from softwaresaved/583-edit-email-notification-claimant-profile-updated-actions-required
+fe8847c8 - phillybroadbent, 1 year, 10 months ago : Merge pull request #668 from softwaresaved/538-review-default-email-when-funding-request-is-archived
+7cf4b380 - PipGrylls, 1 year, 10 months ago : Fixing tox file for flake ignore
+7c120010 - PipGrylls, 1 year, 10 months ago : Fixing lint error
+f71196b5 - PipGrylls, 1 year, 10 months ago : tox file format incorrect removing some commeted ignores
+c99a44f5 - PipGrylls, 1 year, 10 months ago : fixing lint errots
+caf6fb04 - Philip Grylls, 1 year, 10 months ago : Merge pull request #666 from softwaresaved/dependabot/pip/pillow-9.3.0
+9be97125 - Philip Grylls, 1 year, 10 months ago : Merge pull request #665 from softwaresaved/631-view-of-justification-information-in-funding-requests-for-fellowsclaimants
+db520cf5 - dependabot[bot], 1 year, 10 months ago : build(deps): bump pillow from 9.2.0 to 9.3.0
+27f4f8d6 - phillybroadbent, 1 year, 10 months ago : Edited email address in funding request and expenses tables #538
+53eb9e3c - phillybroadbent, 1 year, 10 months ago : Edited fund_detail and fund_review templates to allow claimant to see additional information from their funding requests #631
+9cf6b090 - phillybroadbent, 1 year, 10 months ago : Added previous email to context dictionary of claimant_profile_update_notification() and to email text #583
+c80dcfa7 - phillybroadbent, 1 year, 11 months ago : Added updated email address to the email text #583
+74039ae8 - Philip Grylls, 1 year, 11 months ago : Merge pull request #661 from softwaresaved/613-add-number-id-of-expensesfunding-requests-to-dashboard
+1b059b54 - Philip Grylls, 1 year, 11 months ago : Merge pull request #662 from softwaresaved/630-ensure-that-a-claimant-account-cant-be-created-with-no-email-address
+052f4417 - PipGrylls, 1 year, 11 months ago : Adding custom user creation warnings
+08dd3f13 - PipGrylls, 1 year, 11 months ago : modifying admin to include custom UserAdmin to make the UsercreationForm have a required email
+224d77c0 - phillybroadbent, 1 year, 11 months ago : Added funding request ID to the detail and review pages for funding requests, expenses and blogs #613
+3dc736a3 - phillybroadbent, 1 year, 11 months ago : Added funding request id to blogs table of dashboard #613
+9a751915 - phillybroadbent, 1 year, 11 months ago : Added funding request ID to expenses table on dashboard #613
+2fef2d64 - phillybroadbent, 1 year, 11 months ago : Reordered columns and shortened ID column title #613
+0e69d67a - phillybroadbent, 1 year, 11 months ago : Fund ID added as a column in the funding requests table on dashboard #613
+87f9785a - phillybroadbent, 1 year, 11 months ago : Merge pull request #659 from softwaresaved/621-accessibility-issues
+681b919f - phillybroadbent, 1 year, 11 months ago : Removed screen reader text not needed due to new text label #621
+75493ea9 - phillybroadbent, 1 year, 11 months ago : Added text label to + icon for drop-down list
+e6d832c1 - Philip Grylls, 1 year, 11 months ago : Merge pull request #658 from softwaresaved/654-ribbon-colours-for-recent-years
+c78ae9b4 - Philip Grylls, 1 year, 11 months ago : Merge pull request #657 from softwaresaved/dev
+cb02f95e - phillybroadbent, 1 year, 11 months ago : Merge branch 'master' into dev
+74b4615c - Philip Grylls, 1 year, 11 months ago : Merge pull request #655 from softwaresaved/650-have-an-email-server-in-the-development-environment
+7fd63b24 - PipGrylls, 1 year, 11 months ago : adding WIP tags for staff and fellows section
+f2dd3bfb - PipGrylls, 1 year, 11 months ago : restructuing devloper documentation guides
+7e849ff0 - phillybroadbent, 1 year, 11 months ago : Added sample colours to ribbons for recent years
+e5e9bc0c - PipGrylls, 1 year, 11 months ago : Merge remote-tracking branch 'origin/dev' into 650-have-an-email-server-in-the-development-environment
+761c5d67 - Philip Grylls, 1 year, 11 months ago : Merge pull request #653 from softwaresaved/647-more-mock-fellow-profiles
+40ffd8af - phillybroadbent, 1 year, 11 months ago : Added more mock profiles #647
+e8f2389f - PipGrylls, 1 year, 11 months ago : config.*_EMAIL_NOTIFCATION is always false?
+19d36515 - PipGrylls, 1 year, 11 months ago : Adding email folder to gitignore
+d3d9eb99 - PipGrylls, 1 year, 11 months ago : adding a debug filebased mail server
+28f0597a - PipGrylls, 1 year, 11 months ago : updating admins
+0a273caf - phillybroadbent, 1 year, 11 months ago : Merge remote-tracking branch 'origin/dev' into 647-more-mock-fellow-profiles
+57a22817 - phillybroadbent, 1 year, 11 months ago : Making sure git tracks fixtures
+40d8ead6 - Philip Grylls, 1 year, 11 months ago : Merge pull request #652 from softwaresaved/648-update-terms-and-conditions-in-dev-env
+8464a557 - PipGrylls, 1 year, 11 months ago : adding 2020, 2021, & 2022 terms and conditions to the fictures #648
+afc06135 - Philip Grylls, 1 year, 11 months ago : Merge pull request #651 from softwaresaved/local-docker
+b1112486 - Philip Grylls, 1 year, 11 months ago : Merge pull request #645 from softwaresaved/dependabot/pip/django-3.2.16
+d49c2a76 - Philip Grylls, 1 year, 11 months ago : Merge pull request #646 from softwaresaved/dependabot/pip/oauthlib-3.2.1
+57808ad4 - dependabot[bot], 1 year, 11 months ago : build(deps): bump oauthlib from 3.2.0 to 3.2.1
+7941d4e0 - Philip Grylls, 1 year, 11 months ago : Merge pull request #644 from softwaresaved/local-docker
+0d9364b5 - dependabot[bot], 1 year, 11 months ago : build(deps): bump django from 3.2.15 to 3.2.16
+f6fb03da - Philip Grylls, 1 year, 11 months ago : Merge pull request #642 from softwaresaved/dev
+322419bc - phillybroadbent, 1 year, 11 months ago : Merge branch 'local-docker' of github.com:softwaresaved/lowfat into local-docker
+48962a7b - phillybroadbent, 1 year, 11 months ago : Fixed typo and edited to allow fellows to view justification, success and additional information
+d008ce40 - PipGrylls, 1 year, 11 months ago : switching order of setup to avoid bug
+f8860602 - Pip Grylls, 1 year, 11 months ago : detailing the full setup
+3328045a - PipGrylls, 1 year, 11 months ago : adding a template for the .env file
+e36501d5 - PipGrylls, 1 year, 11 months ago : working on getting lowfat to load locally
+ff7f29a1 - James Graham, 2 years, 1 month ago : fix: add missing dependency to Dockerfile
+50ccbcf8 - James Graham, 2 years, 1 month ago : Merge pull request #640 from softwaresaved/feat/issue-637
+6652cbd0 - James Graham, 2 years, 1 month ago : fix: update PDF merge view to work on receipts
+2418aa5c - James Graham, 2 years, 1 month ago : ci: update supported Python versions in CI
+44cec9c3 - James Graham, 2 years, 1 month ago : build: update tested Django versions to 3.2+
+abbdc763 - James Graham, 2 years, 1 month ago : fix: return correct response code from failed permission check
+69aed329 - James Graham, 2 years, 1 month ago : test: update tests to match file upload changes
+febdc005 - James Graham, 2 years, 1 month ago : refactor: clean up unused URLs
+7ed6992b - James Graham, 2 years, 1 month ago : fix: update bootstrap datepicker import
+5d2381ab - James Graham, 2 years, 1 month ago : style: fix linting errors
+6b565dec - James Graham, 2 years, 1 month ago : build: add PyPDF2 and update all other requirements
+8d428bdb - James Graham, 2 years, 1 month ago : feat: add download links to expense detail and review pages
+9790ae43 - James Graham, 2 years, 2 months ago : refactor: unify file type validators
+16f5604b - James Graham, 2 years, 3 months ago : style: remove unused import
+eccb86ca - James Graham, 2 years, 3 months ago : fix: switch to fellows management email for notifications
+3f5ca457 - James Graham, 2 years, 3 months ago : fix: provide correct type `reply_to` argument of mail
+9e39acc1 - James Graham, 2 years, 3 months ago : feat: add file views for claim form and receipts
+1ea6207b - James Graham, 2 years, 3 months ago : Merge branch 'dev' into feat/issue-637
+2f985e66 - James Graham, 2 years, 4 months ago : fix: remove incorrect argument from `EmailMultiAlternatives`
+6809c402 - James Graham, 2 years, 4 months ago : Merge pull request #639 from softwaresaved/fix/email
+d75def63 - James Graham, 2 years, 4 months ago : feat: split expense claim field into `claim` and `receipts`
+718f4d04 - James Graham, 2 years, 4 months ago : refactor: check that file type matches extension
+ae243508 - James Graham, 2 years, 4 months ago : style: fix linter complaints
+407de855 - James Graham, 2 years, 4 months ago : feat: add document file validator
+9c38427a - James Graham, 2 years, 4 months ago : style: fix linting errors
+c6784fdf - James Graham, 2 years, 4 months ago : fix: send review notifications from default server mail address
+155d1644 - James Graham, 2 years, 4 months ago : fix: alert rather than crash when encountering email failure
+275f346c - James Graham, 2 years, 4 months ago : Merge pull request #638 from softwaresaved/dev
+5147cba5 - James Graham, 2 years, 7 months ago : fix: send review emails to correct gatekeeper address
+2fe05afc - James Graham, 2 years, 7 months ago : fix: serve staticfiles in development
+f91434d9 - James Graham, 2 years, 8 months ago : build: add myself to list of server admins
+0a9371d0 - James Graham, 2 years, 8 months ago : build: remove now unused bootstrap script
+67ff97db - James Graham, 2 years, 8 months ago : fix: update expense claim guidance
+231ec764 - James Graham, 2 years, 8 months ago : build: add SELinux tag to docker-compose volumes
+2f9e9ca6 - James Graham, 2 years, 8 months ago : fix: update default year in claimant fields
+41c4eeb2 - James Graham, 2 years, 8 months ago : Merge pull request #633 from softwaresaved/fix/deployment
+1c919e68 - James Graham, 2 years, 10 months ago : fix: add config option to allow login redirects over http
+9b76d7be - James Graham, 2 years, 10 months ago : refactor: replace with django slugify
+8f0dd6d7 - James Graham, 2 years, 10 months ago : fix(build): add missing dependency - unidecode
+a970086e - James Graham, 2 years, 10 months ago : fix: add migration to fix unicode slugs
+2b9c3139 - James Graham, 3 years ago : Merge pull request #632 from softwaresaved/django-v3-port
+895ef3a8 - James Graham, 3 years ago : ci: restore missing requirements install
+f3e5d35b - James Graham, 3 years ago : ci: update CI config now branch is closing
+d0428522 - James Graham, 3 years, 1 month ago : chore: exclude lowfat_production dir from git and Docker
+263a9bdc - James Graham, 3 years, 1 month ago : docs(build): update usage comments in requirements files
+537d7e72 - James Graham, 3 years, 1 month ago : fix: set DEFAULT_AUTO_FIELD
+67781892 - James Graham, 3 years, 1 month ago : fix: update usage of geopy to match latest version
+af366813 - James Graham, 3 years, 1 month ago : build: unpin all deps in requirements.in except Django
+5b351fee - James Graham, 3 years, 1 month ago : fix(build): update django-tagulous
+b49b84c3 - James Graham, 3 years, 1 month ago : build: update dev requirements to fix conflict
+3f8c08ce - James Graham, 3 years, 3 months ago : Merge pull request #628 from softwaresaved/cleanup_and_warnings
+2210d033 - James Graham, 3 years, 3 months ago : fix: restore original demo.json fixture content
+1eea46dc - James Graham, 3 years, 3 months ago : fix(ci): provide test secret key and update path
+0d7a7171 - James Graham, 3 years, 3 months ago : fix: remove duplicate apps in settings.py
+6eb70058 - James Graham, 3 years, 3 months ago : fix(build): add dj-database-url to requirements
+22db322f - James Graham, 3 years, 3 months ago : ci: switch target Python versions to 3.7+
+5be3274a - James Graham, 3 years, 3 months ago : fix(build): add python-decouple to requirements
+5d41a66e - Pip Grylls, 3 years, 3 months ago : Merge branch 'cleanup_and_warnings' of https://github.com/softwaresaved/lowfat into cleanup_and_warnings Need to pull changes
+0d15a1cd - Pip Grylls, 3 years, 3 months ago : restoring flatpages sites and demo_temp to fixtures
+26d0ad1c - Philip Grylls, 3 years, 3 months ago : Merge branch 'django-v3-port' into cleanup_and_warnings
+77cc7d03 - Pip Grylls, 3 years, 3 months ago : Merge branch 'cleanup_and_warnings' of https://github.com/softwaresaved/lowfat into cleanup_and_warnings
+ebee933b - Pip Grylls, 3 years, 3 months ago : updated documentation and removed old fixtures
+58bb7b17 - Philip Grylls, 3 years, 3 months ago : Merge pull request #627 from softwaresaved/feat/extract-config
+a5c33efb - Philip Grylls, 3 years, 3 months ago : Merge branch 'django-v3-port' into feat/extract-config
+5ccdc1ba - Philip Grylls, 3 years, 3 months ago : Merge branch 'django-v3-port' into cleanup_and_warnings
+6227af83 - Philip Grylls, 3 years, 3 months ago : Merge pull request #625 from softwaresaved/style/flake8
+cec6cd92 - Pip Grylls, 3 years, 3 months ago : dependacies listed properly using pip-compile
+2a10bc16 - Pip Grylls, 3 years, 3 months ago : cleaning dependancies #617
+b459df3c - Pip Grylls, 3 years, 3 months ago : ready to merge
+b5f363bc - Pip Grylls, 3 years, 3 months ago : updating dependendences #413
+e9aefb52 - James Graham, 3 years, 3 months ago : ci: rollback to django 3.1 for fixture test
+9532dad9 - James Graham, 3 years, 3 months ago : style: log warnings from uses of bare except
+6708789f - Pip Grylls, 3 years, 3 months ago : adding lowfat/fixtures to gitignorer whilst moving fixtures to better mathc expectations
+5566ba65 - Pip Grylls, 3 years, 3 months ago : fixed Auto-created primary key used when not defining a primary key type warning
+abef5710 - James Graham, 3 years, 3 months ago : fix: re-add accidentally deleted form field
+82925449 - James Graham, 3 years, 3 months ago : test: remove Django < 2.2 from default tox list
+2a145d0f - James Graham, 3 years, 3 months ago : style: exclude star imports from linter in inits
+2c205090 - James Graham, 3 years, 3 months ago : style: replace star imports in test code
+b3cee1a0 - James Graham, 3 years, 3 months ago : style: remove star import from mail.py
+01ed0e14 - James Graham, 3 years, 3 months ago : style: remove star import from admin.py
+301e78ee - James Graham, 3 years, 3 months ago : style: remove star import from forms.py
+82c6fc96 - James Graham, 3 years, 3 months ago : style: fix simple lint errors in tests
+62967fa1 - James Graham, 3 years, 3 months ago : style: fix simple linting errors in forms.py
+5cd288ce - James Graham, 3 years, 3 months ago : style: fix simple linter complaints in mail.py
+97efc9a4 - Pip Grylls, 3 years, 3 months ago : adding date widget
+291fb868 - James Graham, 3 years, 3 months ago : style: fix simple linter complaints
+e655ad29 - James Graham, 3 years, 3 months ago : style: fix linter errors in lowfat/admin.py
+16d7c4ea - James Graham, 3 years, 3 months ago : style: fix lint errors in lowfat/views/
+ab05dea4 - James Graham, 3 years, 3 months ago : style: fix lint errors in jobs
+c10dda15 - James Graham, 3 years, 3 months ago : style: fix lint errors in management commands
+e61715e4 - James Graham, 3 years, 3 months ago : fix(deploy): apply correct SELinux type to DB
+b9390be7 - James Graham, 3 years, 3 months ago : fix(deploy): run `bootstrap.sh` at container start
+fba24dad - James Graham, 3 years, 3 months ago : feat: allow reading config from env vars or file
+b3910a07 - Pip Grylls, 3 years, 3 months ago : All tests passing
+7f0023f9 - Pip Grylls, 3 years, 3 months ago : Refactor and commeting of tests to make the logic more visible
+0d2efd71 - Pip Grylls, 3 years, 3 months ago : Refactoring testwapper to be better with namespaces and more logical in creation of users
+0771b913 - Pip Grylls, 3 years, 3 months ago : updating tests
+15264ac9 - James Graham, 3 years, 4 months ago : Merge pull request #620 from softwaresaved/fix/a11y
+59e75577 - James Graham, 3 years, 4 months ago : Merge pull request #619 from softwaresaved/build/docker-deployment
+d3c2157a - Pip Grylls, 3 years, 4 months ago : updating tests
+03c95ab7 - James Graham, 3 years, 4 months ago : fix(a11y): increase contrast on nav text and forms
+93283545 - James Graham, 3 years, 4 months ago : fix(a11y): remove blank icon from index page
+c9074f1f - Pip Grylls, 3 years, 4 months ago : chanding django utils use
+16128a83 - James Graham, 3 years, 4 months ago : fix(a11y): add labels to link icons on index page
+174dff24 - Pip Grylls, 3 years, 4 months ago : fixing / and index
+1a497e6a - James Graham, 3 years, 4 months ago : docs: update developer docs with new process
+d29022cb - James Graham, 3 years, 4 months ago : fix(build): don't expose web on localhost:8000
+f7945be2 - James Graham, 3 years, 4 months ago : build: add Caddy and Gunicorn to Docker deployment
+7c77c4da - James Graham, 3 years, 4 months ago : build: add initial Docker setup
+56da3c2f - Pip Grylls, 3 years, 4 months ago : fix merge
+e72e09fb - Pip Grylls, 3 years, 4 months ago : ci integration tests
+3160b383 - Pip Grylls, 3 years, 4 months ago : mid v3 migration
+6e1269b4 - James Graham, 3 years, 4 months ago : test: rollback olded tested django version to 2.0
+c433f32b - Pip Grylls, 3 years, 4 months ago : fixing merge conflicts
+5706785e - Pip Grylls, 3 years, 4 months ago : before merge
+4b6107f0 - Philip Grylls, 3 years, 4 months ago : Merge pull request #611 from softwaresaved/django-migration-ci
+360ded61 - James Graham, 3 years, 4 months ago : fix: update URLs to end in /
+e23be512 - James Graham, 3 years, 4 months ago : test: use Tox to manage test environments
+4bd3c9b0 - James Graham, 3 years, 4 months ago : refactor: rename test files to match convention
+45624e9f - James Graham, 3 years, 4 months ago : ci: fix django version numbers
+3d13697d - James Graham, 3 years, 4 months ago : Merge pull request #614 from softwaresaved/rainsworth-docs
+d400db0b - Dr. Rachael Ainsworth, 3 years, 4 months ago : grammar fixes
+e0b5c78b - Dr. Rachael Ainsworth, 3 years, 4 months ago : grammar fixes
+8eebc18e - Dr. Rachael Ainsworth, 3 years, 4 months ago : grammar fixes
+b362d009 - Dr. Rachael Ainsworth, 3 years, 4 months ago : grammar fixes
+0eb67312 - Dr. Rachael Ainsworth, 3 years, 4 months ago : grammar fixes
+8da82347 - Dr. Rachael Ainsworth, 3 years, 4 months ago : grammar fixes
+a1feec15 - Giacomo, 3 years, 7 months ago : Create .DS_Store
+9a4857c8 - James Graham, 3 years, 8 months ago : build: fix syntax error in Django version spec
+33792ecb - James Graham, 3 years, 8 months ago : ci: add all Django minor versions to CI
+1d99b340 - James Graham, 3 years, 8 months ago : Merge remote-tracking branch 'origin/django-v3-port' into django-migration-ci
+d6da6755 - Pip Grylls, 3 years, 8 months ago : post 2.0 instlattion bugs, note atomic = False added to migtation 0063 and 0083
+9f9bfe43 - Pip Grylls, 3 years, 8 months ago : switching fgrom function to class baised auth_views
+11a315f5 - Pip Grylls, 3 years, 8 months ago : adding cascade on delete to the models
+0a87c9ab - Pip Grylls, 3 years, 8 months ago : changing url to path and refactoring include
+352ceee3 - Pip Grylls, 3 years, 8 months ago : changing url to path and replacing the syntax
+497219ef - James Graham, 3 years, 8 months ago : ci: use strings for Django versions in CI matrix
+ab79b187 - James Graham, 3 years, 8 months ago : ci: drop Python 3.6 and stop fail-fast
+d2b41d9b - James Graham, 3 years, 8 months ago : build: downgrade pinned pandas dependency
+54e76710 - James Graham, 3 years, 8 months ago : ci: add CI config for Django version migration
+e05d1bc8 - James Graham, 3 years, 8 months ago : build: add requirements-devel files
+fb092707 - Pip Grylls, 3 years, 8 months ago : Fixed the commit hook this also adds full tests passing with the downside of tests creating lots of junk files
+84c1aa25 - Pip Grylls, 3 years, 8 months ago : linting
+51f79318 - Pip Grylls, 3 years, 8 months ago : only one test failing
+8666fcd7 - Pip Grylls, 3 years, 8 months ago : All the tests eoor need to work on how they use test files
+656a2afb - Pip Grylls, 3 years, 8 months ago : changed the tests to use a test image rather than bytes object
+4bdd9643 - Pip Grylls, 3 years, 8 months ago : modified tests to use a real image to prevent PIL throwing errors
+93f528aa - Pip Grylls, 3 years, 8 months ago : Removed facesquashing using django-imagekit and adding photo_thumb and photo_work_thumb to claiment model
+6423791f - James Graham, 3 years, 10 months ago : Merge branch 'elena-kolomeets-split-models-views' into dev
+60f0cacb - Elena, 3 years, 10 months ago : Pylint: reorder imports, disable E1101 (no-member)
+336ff049 - Elena, 3 years, 10 months ago : Split views.py in several files;delete models.py,views.py
+fe96e7a8 - Elena, 3 years, 10 months ago : Split models.py file in several files.
