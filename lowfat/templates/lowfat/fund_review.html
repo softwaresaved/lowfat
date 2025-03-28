@@ -2,11 +2,14 @@
 {% load crispy_forms_tags %}
 {% load markdown %}
 
+
 {% block content %}
 <h1>
   Funding Request #{{ fund.id }} Review 
   {% if user.is_staff %}
   <a title="View" class="btn btn-outline-dark" href="{% url 'fund_detail' fund.id %}" role="button"><span class="fa-solid fa-eye" aria-hidden="true"></span> View</a>
+  {% endif %}
+{% if user.is_superuser %}
   <a title="Edit" class="btn btn-outline-dark" href="{% url 'fund_edit' fund.id %}" role="button"><span class="fa-solid fa-edit" aria-hidden="true"></span> Edit</a>
   {% comment %} <a title="Remove" class="btn btn-outline-dark" href="{% url 'fund_remove' fund.id %}" role="button"><span class="fa-solid fa-remove" aria-hidden="true"></span> Remove</a> {% endcomment %}
   {% endif %}
@@ -16,7 +19,7 @@
   This funding request was made using the public form.
 </div>
 {% endif %}
-<h2>General Details</h1>
+<h2>General Details</h2>
 <table class="table table-bordered">
     <tbody>
         <tr>
