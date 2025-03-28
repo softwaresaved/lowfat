@@ -1,4 +1,5 @@
 {% extends "lowfat/base.html" %}
+{% load fund_edit_permissions %}
 {% load markdown %}
 
 {% block content %}
@@ -16,8 +17,9 @@
   {% if user.is_staff %}
   <a title="Review" class="btn btn-outline-dark" href="{% url 'fund_review' fund.id %}" role="button"><span class="fa-solid fa-check" aria-hidden="true"></span> Review</a>
   {% endif %}
-  {% if user.is_staff or fund.status in "UP" %}
-  <a title="Edit" class="btn btn-outline-dark" href="{% url 'fund_edit' fund.id %}"><span class="fa-solid fa-edit" aria-hidden="true"></span> Edit</a>
+ {% comment %} {% if user.is_staff or fund.status in "UP" %}{% endcomment %}
+      {% if user|can_edit_fund:fund %}
+          <a title="Edit" class="btn btn-outline-dark" href="{% url 'fund_edit' fund.id %}"><span class="fa-solid fa-edit" aria-hidden="true"></span> Edit</a>
   {% comment %} <a title="Remove" class="btn btn-outline-dark" href="{% url 'fund_remove' fund.id %}?next={% url 'dashboard' %}"><span class="fa-solid fa-remove" aria-hidden="true"></span> Remove</a> {% endcomment %}
   {% endif %}
   {% endif %}
