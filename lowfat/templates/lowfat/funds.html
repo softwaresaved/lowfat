@@ -1,3 +1,4 @@
+{% load fund_edit_permissions %}
 {% if user.is_staff %}
 <ul class="nav nav-tabs">
   <li {% if funding_requests_status == 'UPAMRF' %}class="nav-item"{% endif %}>
@@ -163,7 +164,8 @@
         {% if user.is_staff %}
         <a title="Review" href="{% url 'fund_review' fund.id %}"><span class="fa-solid fa-check" aria-hidden="true"></span></a>
         {% endif %}
-        {% if user.is_staff or fund.status in "UP" %}
+        {% comment %}{% if user.is_staff or fund.status in "UP" %}{% endcomment %}
+          {% if user|can_edit_fund:fund %}
         <a title="Edit" href="{% url 'fund_edit' fund.id %}"><span class="fa-solid fa-edit" aria-hidden="true"></span></a>
         {% comment %} <a title="Remove" href="{% url 'fund_remove' fund.id %}?next={{ request.path }}"><span class="fa-solid fa-remove" aria-hidden="true"></span></a> {% endcomment %}
         {% endif %}
