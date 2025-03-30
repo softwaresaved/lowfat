@@ -348,6 +348,7 @@ class FundForm(GarlicForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['additional_info'].required = True
 
         self.helper.layout = Layout(
             Fieldset(
@@ -364,7 +365,12 @@ class FundForm(GarlicForm):
                 'city',
                 'start_date',
                 'end_date',
-                HTML('<h2>Costs</h2><p>Please provide an estimate of your costs below. All values should be entered in GBP. See the terms and conditions for details (<a href="{{ terms_and_conditions_url }}">{{ terms_and_conditions_url }}</a>)</p><p>Please fill in all cost sections that are relevant to your event type.</p>'),
+                HTML('''
+                <h2>Costs</h2>
+                <p>Please provide an estimate of your costs below. All values should be entered in GBP. See the terms and conditions for details (<a href="{{ terms_and_conditions_url }}">{{ terms_and_conditions_url }}</a>).</p>
+                <p>Please fill in all cost sections that are relevant to your event type.</p>
+                <p>You <strong>must</strong> include a cost breakdown in the <strong>"Additional information</strong>" section at the end of the form.</p>
+                '''),
                 PrependedText(
                     'budget_request_travel',
                     '£',
@@ -420,11 +426,11 @@ class FundForm(GarlicForm):
                 'justification',
                 HTML('<h4>Successful outputs and outcomes</h4>'),
                 'success_targeted',
-                HTML('<h4>Additional information</h4>'),
-                'additional_info',
                 HTML('<h2>Details of people being sponsored from your Fellowship funds</h2><p>If you are sponsoring others to take part in this event from your Fellowship funds please give their names and email addresses below.  If you do not know their names at this stage please state whether there is sponsorship of others needed in this request. In either case please provide some justification.</p>'),
                 'extra_sponsored',
-                HTML('<h2>Publicity</h2>'),
+                HTML('<h2>Additional information</h2>'),
+                'additional_info',
+                HTML('<h4>Publicity</h4>'),
                 'can_be_advertise_before',
                 'can_be_advertise_after',
                 'not_send_email_field' if self.is_staff else None,
