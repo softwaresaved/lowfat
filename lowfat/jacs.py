@@ -169,4 +169,5 @@ JACS_3_0_PRINCIPAL_SUBJECT_CODES = (
     ("X3", "(X3) Academic studies in education"),
     ("X9", "(X9) Others in education"),
     ("Y0", "(Y0) Combined"),
+    ("NA", "(NA) N/A - I do not research"),
 )
