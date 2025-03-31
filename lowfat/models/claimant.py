@@ -37,6 +37,8 @@ CAREER_STAGES = (
     ('2', 'Early (e.g Research Assistant/Associate, first grant holder, Lecturer, Research Software Engineer)'),
     ('3', 'Mid / Recognised (e.g. Senior Lecturer, Reader, Senior Researcher, Senior Research Software Engineer, Research Software Group Leader)'),
     ('4', 'Established / Experienced / Senior  (e.g. Professor, Director of Research Computing, Distinguished Engineer, Chief Data Scientist)'),
+    ('5', 'Other - My career stage is not reflected in these options')
+
 )
 
 MAX_CHAR_LENGTH = 120
@@ -158,6 +160,13 @@ class Claimant(models.Model):
         max_length=1,
         default="M"
     )
+
+    career_stage_other = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True,
+        help_text="If your career stage is not listed, please specify it here."
+    )
+
     job_title_when_apply = models.CharField(
         max_length=MAX_CHAR_LENGTH,
         blank=True
