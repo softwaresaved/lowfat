@@ -70,6 +70,7 @@ class ClaimantForm(GarlicForm):
             'home_country',
             'home_city',
             'career_stage_when_apply',
+            'career_stage_other',
             'affiliation',
             'work_description',
             'institutional_website',
@@ -103,6 +104,7 @@ class ClaimantForm(GarlicForm):
                 'home_city',
                 HTML('<h2>Professional details</h2>'),
                 'career_stage_when_apply',
+                'career_stage_other',
                 'affiliation',
                 'work_description',
                 HTML('<h2>Social Networks</h2>'),
@@ -146,6 +148,24 @@ class ClaimantForm(GarlicForm):
                 )
             )
         )
+        self.fields['career_stage_other'].label = "If Other, please describe your career stage"
+        self.fields['career_stage_other'].help_text = "Only fill this in if you selected 'My career stage is not reflected in these options.'"
+
+    def clean(self):
+        cleaned_data = super().clean()
+        career_stage = cleaned_data.get('career_stage_when_apply')
+        other = cleaned_data.get('career_stage_other')
+
+        if career_stage == '5' and not other:
+            self.add_error('career_stage_other', 'Please describe your career stage.')
+
+        if career_stage != '5' and other:
+            self.add_error('career_stage_other', "Please leave this blank unless you selected 'Other'.")
+
+        return cleaned_data
+
+
+
 
 
 class FellowForm(GarlicForm):
@@ -162,6 +182,7 @@ class FellowForm(GarlicForm):
             'photo',
             'photo_work_description',
             'career_stage_when_apply',
+            'career_stage_other',
             'job_title_when_apply',
             'research_area',
             'research_area_code',
@@ -221,6 +242,7 @@ class FellowForm(GarlicForm):
                 'photo',
                 HTML('<h2>Professional details</h2>'),
                 'career_stage_when_apply',
+                'career_stage_other',
                 'job_title_when_apply',
                 'research_area',
                 'research_area_code',
@@ -273,7 +295,22 @@ class FellowForm(GarlicForm):
                 )
             )
         )
+        self.fields['career_stage_other'].label = "If Other, please describe your career stage"
+        self.fields['career_stage_other'].help_text = "Only fill this in if you selected 'My career stage is not reflected in these options.'"
 
+    def clean(self):
+        cleaned_data = super().clean()
+        career_stage = cleaned_data.get('career_stage_when_apply')
+        other = cleaned_data.get('career_stage_other')
+
+        if career_stage == '5' and not other:
+            self.add_error('career_stage_other', 'Please describe your career stage.')
+
+        if career_stage != '5' and other:
+            self.add_error('career_stage_other', "Please leave this blank unless you selected 'Other'.")
+
+
+        return cleaned_data
 
 class FundForm(GarlicForm):
     class Meta:
