@@ -45,4 +45,10 @@
 {% if claimant.facebook %}
 <p><a class="icon" href="https://facebook.com/{{ claimant.facebook }}">My Facebook</a></p>
 {% endif %}
+{% if claimant.bluesky %}
+<p><a class="icon" href="https://bsky.app/profile/{{ claimant.facebook }}">My Bluesky</a></p>
+{% endif %}
+{% if claimant.mastodon_url %}
+<p><a class="icon" href="{{ claimant.mastodon_url }}">My Mastodon</a></p>
+{% endif %}
 {% endblock %}

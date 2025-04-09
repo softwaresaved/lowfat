@@ -271,6 +271,21 @@ class Claimant(models.Model):
         blank=True
     )
 
+    bluesky = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True
+    )
+
+    mastodon_username = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True,
+    )
+
+    mastodon_instance = models.CharField(
+        max_length=MAX_CHAR_LENGTH,
+        blank=True,
+    )
+
     # Admin fields
     slug = models.CharField(max_length=MAX_CHAR_LENGTH)
     terms_and_conditions = models.ForeignKey(
@@ -479,3 +494,8 @@ class Claimant(models.Model):
         )
 
         return sum([expense.amount_authorized_for_payment for expense in this_claimant_expenses])
+    @property
+    def mastodon_url(self):
+        if self.mastodon_username and self.mastodon_instance:
+            return f"https://{self.mastodon_instance}/@{self.mastodon_username}"
+        return ""
