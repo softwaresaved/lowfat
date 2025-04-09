@@ -22,9 +22,11 @@
   {% if user == claimant.user %}
   <a class="btn btn-outline-dark" href="{% url 'fellow' %}?full=true" role="button">Edit</a>
   {% endif %}
+{% comment %}
   {% if user.is_staff %}
   <a class="btn btn-outline-dark" href="{% url 'admin:lowfat_claimant_change' claimant.id %}" role="button">Edit</a>
   {% endif %}
+  {% endcomment %}
 </h1>
 <div class="row">
   <div class="fellow col-md-2">
@@ -164,6 +166,24 @@
             <a class="icon" href="https://facebook.com/{{ claimant.facebook }}">{{ claimant.facebook }}</a>
           </td>
         </tr>
+        {% endif %}
+        {% if claimant.bluesky %}
+            <tr>
+            <th>Bluesky</th>
+            <td>
+            <a class="icon" href="https://bsky.app/profile/{{ claimant.bluesky }}">{{ claimant.bluesky }}</a>
+            </td>
+            </tr>
+        {% endif %}
+        {% if claimant.mastodon_url %}
+            <tr>
+                <th>Mastodon</th>
+                <td>
+                    <a class="icon" href="{{ claimant.mastodon_url }}">
+                        @{{ claimant.mastodon_username }}/@{{ claimant.mastodon_instance }}
+                    </a>
+                </td>
+            </tr>
         {% endif %}
         {% if claimant.interests %}
         <tr>

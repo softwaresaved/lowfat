@@ -110,6 +110,9 @@ class ClaimantAdmin(ExportMixin, SimpleHistoryAdmin):
                     "twitter",
                     "linkedin",
                     "facebook",
+                    "bluesky",
+                    "mastodon_username",
+                    "mastodon_instance",
                 ]
             },
         ),
@@ -183,6 +186,14 @@ class ClaimantAdmin(ExportMixin, SimpleHistoryAdmin):
         form = super().get_form(request, obj, **kwargs)
 
         class CustomAdminForm(form):
+            def __init__(self_inner, *args, **kwargs):
+                super().__init__(*args, **kwargs)
+
+                self_inner.fields['bluesky'].help_text = 'Enter the Bluesky handle in the format `username.bsky.social`'
+                self_inner.fields['mastodon_username'].help_text = 'Enter the username part (e.g. `username` if the handle is @usernamel@mastodon.social)'
+                self_inner.fields['mastodon_instance'].help_text = 'Enter the instance domain (e.g. `mastodon.social`)'
+
+
             def clean(self):
                 cleaned_data = super().clean()
                 career_stage = cleaned_data.get('career_stage_when_apply')

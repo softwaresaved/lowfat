@@ -22,8 +22,7 @@ from django.forms import (
 
 from crispy_forms.bootstrap import PrependedText
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML
-
+from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML, Div
 from . import models
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
@@ -84,12 +83,19 @@ class ClaimantForm(GarlicForm):
             'twitter',
             'linkedin',
             'facebook',
+            'bluesky',
+            'mastodon_username',
+            'mastodon_instance',
         ]
 
     required_css_class = 'form-field-required'
 
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        self.fields['mastodon_username'].label = ""
+        self.fields['mastodon_instance'].label = ""
 
         self.helper.layout = Layout(
             Fieldset(
@@ -143,6 +149,17 @@ class ClaimantForm(GarlicForm):
                     'facebook',
                     'https://facebook.com/'
                 ),
+                PrependedText(
+                    'bluesky',
+                    'https://bsky.app/profile/'
+                ),
+                HTML('<label class="form-label mb-2">Mastodon</label>'),
+                Div(
+                    Div(PrependedText('mastodon_username', '@'), css_class="col-auto"),
+                    Div(PrependedText('mastodon_instance', '/@'), css_class="col-auto"),
+                    css_class="form-row d-flex align-items-center"
+                ),
+                HTML('<div class="form-text text-muted mt-0 mb-4">Please enter your Mastodon account in the format <code>@username@instancename</code>.</div>'),
                 ButtonHolder(
                     Submit('submit', 'Add')
                 )
@@ -204,6 +221,9 @@ class FellowForm(GarlicForm):
             'twitter',
             'linkedin',
             'facebook',
+            'bluesky',
+            'mastodon_username',
+            'mastodon_instance'
         ]
 
         labels = {
@@ -226,6 +246,9 @@ class FellowForm(GarlicForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        self.fields['mastodon_username'].label = ""
+        self.fields['mastodon_instance'].label = ""
 
         self.helper.layout = Layout(
             Fieldset(
@@ -290,6 +313,17 @@ class FellowForm(GarlicForm):
                     'facebook',
                     'https://facebook.com/'
                 ),
+                PrependedText(
+                    'bluesky',
+                    'https://bsky.app/profile/'
+                ),
+                HTML('<label class="form-label mb-2">Mastodon</label>'),
+                Div(
+                    Div(PrependedText('mastodon_username', '@',placeholder="username"), css_class="col-auto"),
+                    Div(PrependedText('mastodon_instance', '/@',placeholder="instance name"), css_class="col-auto"),
+                    css_class="form-row d-flex align-items-center"
+                ),
+                HTML('<div class="form-text text-muted mt-0 mb-4">Please enter your Mastodon account in the format <code>@username@instancename</code>.</div>'),
                 ButtonHolder(
                     Submit('submit', 'Add')
                 )

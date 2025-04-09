@@ -29,7 +29,7 @@ curl \
     --silent \
     -L \
     -o $FONT_AWESOME_ZIP \
-    https://use.fontawesome.com/releases/v6.2.1/fontawesome-free-6.2.1-web.zip
+    https://use.fontawesome.com/releases/v6.7.2/fontawesome-free-6.7.2-web.zip
 unzip \
     -q \
     -u \
