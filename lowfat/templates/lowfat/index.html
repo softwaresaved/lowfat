@@ -8,7 +8,6 @@
     {% if forloop.counter0|divisibleby:"6" %}
         <div class="row">
     {% endif %}
-
     <div class='card col-lg border-0'>
         <div class='card-body'>
             {% if claimant.fellow %}
@@ -142,10 +141,8 @@
     {% if forloop.counter|divisibleby:"6" %}
         </div>
     {% endif %}
-
+    <!-- DEBUG: reached end of claimant loop -->
 {% endfor %}
-<ul>
-</div>
 
 <h2>Events</h2>
 

@@ -22,11 +22,9 @@
   {% if user == claimant.user %}
   <a class="btn btn-outline-dark" href="{% url 'fellow' %}?full=true" role="button">Edit</a>
   {% endif %}
-{% comment %}
-  {% if user.is_staff %}
+  {% if user.is_superuser %}
   <a class="btn btn-outline-dark" href="{% url 'admin:lowfat_claimant_change' claimant.id %}" role="button">Edit</a>
   {% endif %}
-  {% endcomment %}
 </h1>
 <div class="row">
   <div class="fellow col-md-2">

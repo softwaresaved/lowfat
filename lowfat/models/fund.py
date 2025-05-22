@@ -47,7 +47,7 @@ FUND_STATUS = (
     ('R', 'Rejected'),  # Fund was rejected.
     ('F', 'Archived'),  # Approved funds with all claims and blog posts were processed. No funds are reserved.
     ('C', 'Cancelled'),  # When the fellow decided to cancel their request.
-    ('X', 'Removed'),  # When the fellow decided to remove their request.
+    ('X', 'Removed'),  # When the fellow decided to remove their request. UPDATE: The option is only available to the admin!
 )
 
 #: Set of statuses which constitute an approved fund
