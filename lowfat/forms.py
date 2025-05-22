@@ -24,6 +24,7 @@ from crispy_forms.bootstrap import PrependedText
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML, Div
 from . import models
+from lowfat.models import FUND_STATUS
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
@@ -788,8 +789,20 @@ class FundReviewForm(GarlicForm):
     required_css_class = 'form-field-required'
     email = CharField(widget=Textarea, required=False)
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, *args, user=None, is_staff=False, **kwargs):
+        super().__init__(*args, **kwargs) # extract is_staff before calling super()
+        self.user = user
+        self.is_staff = is_staff
+
+        if self.is_staff and not self.user.is_superuser:
+            self.fields['status'].choices = [
+                (key,label) for key, label in FUND_STATUS if key != "X"
+            ]
+        else:
+            self.fields['status'].help_text = (
+                "Setting status to 'Removed' will hide this request from all users and dashboards. "
+                "Use only if this request should no longer be visible."
+            )
 
         self.helper.layout = Layout(
             Fieldset(

@@ -261,13 +261,16 @@ def fund_detail(request, fund_id):
 @staff_member_required
 def fund_review(request, fund_id):
     this_fund = Fund.objects.get(id=fund_id)
+    print("🔍 DEBUG: request.user.is_staff in view:", request.user.is_staff)
 
     if request.POST:
         # Handle submission
         old_fund = copy.deepcopy(this_fund)
         formset = FundReviewForm(
             request.POST,
-            instance=this_fund
+            instance=this_fund,
+            is_staff=request.user.is_staff,
+            user=request.user
         )
 
         if formset.is_valid():
@@ -287,13 +290,18 @@ def fund_review(request, fund_id):
                 )
             return HttpResponseRedirect(
                 reverse('fund_detail', args=[fund.id])
+
             )
 
-    formset = FundReviewForm(
-        None,
-        instance=this_fund,
-        is_staff=bool(request.user.is_staff)
-    )
+    else:
+        formset = FundReviewForm(
+            None,
+            instance=this_fund,
+            is_staff=request.user.is_staff,
+            user=request.user
+        )
+
+    print("🛠️ DEBUG: is_staff inside form:", formset.is_staff)
 
     context = {
         'fund': this_fund,

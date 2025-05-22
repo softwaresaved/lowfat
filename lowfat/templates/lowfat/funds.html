@@ -1,8 +1,8 @@
 {% load fund_edit_permissions %}
 {% if user.is_staff %}
 <ul class="nav nav-tabs">
-  <li {% if funding_requests_status == 'UPAMRF' %}class="nav-item"{% endif %}>
-    <a class="nav-link" href="?funding_requests=UPAMRF&expenses={{ expenses_status }}&blogs={{ blogs_status }}">All</a>
+  <li {% if funding_requests_status == 'UPAMRFC' %}class="nav-item"{% endif %}>
+    <a class="nav-link" href="?funding_requests=UPAMRFC&expenses={{ expenses_status }}&blogs={{ blogs_status }}">All</a>
   </li>
   <li {% if funding_requests_status == 'UP' %}class="nav-item"{% endif %}>
     <a class="nav-link" href="?funding_requests=UP&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Pending</a>
@@ -12,6 +12,9 @@
   </li>
   <li {% if funding_requests_status == 'R' %}class="nav-item"{% endif %}>
     <a class="nav-link" href="?funding_requests=R&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Rejected</a>
+  </li>
+  <li {% if funding_requests_status == 'C' %}class="nav-item"{% endif %}>
+    <a class="nav-link" href="?funding_requests=C&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Cancelled</a>
   </li>
   <li {% if funding_requests_status == 'F' %}class="nav-item"{% endif %}>
     <a class="nav-link" href="?funding_requests=F&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Archived</a>
@@ -75,6 +78,10 @@
       class="table-warning"
       {% elif fund.status in 'AMF' %}
       class="table-success"
+      {% comment %}
+      {% elif fund.status in 'C' %}
+      class="table-light"
+      {% endcomment %}
       {% endif %}
       {% endif %}
       >
@@ -139,21 +146,21 @@
         £{{ fund.budget_total|floatformat:2 }}
       </td>
       <td> 
-      {% if fund.status in 'AMF' %} 
+      {% if fund.status in 'AMFC' %}
           £{{ fund.budget_approved|floatformat:2 }}
           {% else %}
           N/A
           {% endif %}
       </td>    
-      <td {% if fund.status in 'AMF' %} sorttable_customkey="{{ fund.approved | date:'Ymd' }}" {% endif %}>
-        {% if fund.status in 'AMF' %}
-        {{ fund.approved | date:"d M Y"}}
-        {% elif fund.status in 'UP' %}
+<td {% if fund.status %} sorttable_customkey="{{ fund.approved | date:'Ymd' }}" {% endif %}>
+        {% if fund.approved %}
+            {{ fund.approved | date:"d M Y" }}
+    {% elif fund.status in 'UP' %}
         Not approved yet.
-        {% else %}
-        Not approved.
-        {% endif %}
-      </td>
+    {% else %}
+        None
+    {% endif %}
+</td>
       {% endif %}
       {% if user.is_authenticated %}
       <td>

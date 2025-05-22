@@ -395,19 +395,19 @@ CONSTANCE_CONFIG = OrderedDict([
     )),
     ("MAINTENANCE_DAY", (
         4,
-        "Day when maintenance normaly take place.",
+        "Day when maintenance normally take place.",
     )),
     ("MAINTENANCE_HOUR", (
         9,
-        "Hour when maintenance normaly take placece.",
+        "Hour when maintenance normally take placece.",
     )),
     ("FELLOWSHIP_EXPENSES_END_DAY", (
         31,
-        "Day deadline that expenses must be submited.",
+        "Day deadline that expenses must be submitted.",
     )),
     ("FELLOWSHIP_EXPENSES_END_MONTH", (
         3,
-        "Month deadline that expenses must be submited.",
+        "Month deadline that expenses must be submitted.",
     )),
     ("PRE_APPROVED_FUNDING_REQUEST_BUDGET", (
         250,

@@ -3,7 +3,7 @@
 {% block content %}
 <h1>Software Sustainability Institute Fellowship Programme</h1>
 <p>If you need us to process something please use one of the links below:</p>
-{% if user.is_staff or user.is_staff %}
+{% if user.is_staff %}
 <div class="d-grid gap-2 d-lg-block">
   <a role="button" class="btn btn-outline-dark" href="{% url 'claimant' %}">Create claimant profile</a>
   <a role="button" class="btn btn-outline-dark" href="{% url 'promote' %}">Promote claimant profile to fellow profile</a>
@@ -19,7 +19,7 @@
 {% if user.is_staff %}
 <p><a href="{% url 'recent_actions' %}">Click here</a> to view last changes on the database.</p>
 <p><a href="{% url 'fund_import' %}">Click here</a> to import funding requests
-  from a CSV file. <spanp class="text-danger">This is an experimental feature. You will not have access to debug information!</span></p>
+  from a CSV file. <span class="text-danger">This is an experimental feature. You will not have access to debug information!</span></p>
 {% else %}
 <p>If you need any help please email <a href="mailto:{{ config.FELLOWS_MANAGEMENT_EMAIL }}">us</a>.</p>
 {% endif %}
