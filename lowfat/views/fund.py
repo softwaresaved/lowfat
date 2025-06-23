@@ -261,7 +261,7 @@ def fund_detail(request, fund_id):
 @staff_member_required
 def fund_review(request, fund_id):
     this_fund = Fund.objects.get(id=fund_id)
-    print("🔍 DEBUG: request.user.is_staff in view:", request.user.is_staff)
+
 
     if request.POST:
         # Handle submission
@@ -301,7 +301,6 @@ def fund_review(request, fund_id):
             user=request.user
         )
 
-    print("🛠️ DEBUG: is_staff inside form:", formset.is_staff)
 
     context = {
         'fund': this_fund,
