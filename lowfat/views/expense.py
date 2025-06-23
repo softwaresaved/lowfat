@@ -26,19 +26,20 @@ logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 
 @login_required
-def expense_form(request, **kargs):
+def expense_form(request, **kwargs):
     # Setup Expense to edit if provided
     expense_to_edit = None
 
-    if "fund_id" in kargs and "expense_relative_number" in kargs:
+    if "fund_id" in kwargs and "expense_relative_number" in kwargs:
         try:
             expense_to_edit = Expense.objects.get(
-                fund__id=kargs["fund_id"],
-                relative_number=kargs["expense_relative_number"]
+                fund__id=kwargs["fund_id"],
+                relative_number=kwargs["expense_relative_number"]
             )
 
         except Expense.DoesNotExist:
             messages.error(request, "The expense that you want to edit doesn't exist.")
+            return HttpResponseRedirect(reverse("dashboard")) # fallback redirect
 
     # Setup Fund if provided
     fund_id = request.GET.get("fund_id")
@@ -56,6 +57,20 @@ def expense_form(request, **kargs):
 
     except Claimant.DoesNotExist:
         claimant = None
+
+    # check if claimant is allowed to edit this expense
+    if expense_to_edit:
+        is_claimant = claimant and expense_to_edit.fund.claimant == claimant
+        is_superuser = request.user.is_superuser
+
+        if not is_superuser:
+            if not is_claimant:
+                messages.error(request, "You don't have permission to edit the requested funding request.")
+                return HttpResponseRedirect(reverse('expense_detail_relative', args=[expense_to_edit.fund.id, expense_to_edit.relative_number]))
+            if expense_to_edit.status != "S":
+                messages.error(request, "You can only edit an expense claim that is in 'Submitted' status.")
+                return HttpResponseRedirect(reverse('expense_detail_relative', args=[expense_to_edit.fund.id, expense_to_edit.relative_number]))
+
 
     if claimant and not claimant.fellow:
         formset = ExpenseShortlistedForm(
@@ -83,19 +98,30 @@ def expense_form(request, **kargs):
             reverse('expense_detail_relative', args=[expense.fund.id, expense.relative_number])
         )
 
-    # Limit dropdown list to claimant
-    if fund_id:
-        claimant = Claimant.objects.filter(id=fund.claimant.id)
-    elif request.GET.get("claimant_id"):
-        claimant = Claimant.objects.filter(id=request.GET.get("claimant_id"))
-    elif request.user.is_staff:
-        claimant = Claimant.objects.all()
-    else:
-        claimant = Claimant.objects.filter(user=request.user)
-        if not claimant:
-            return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/unavailable/'}))
+    # Limit dropdown list to claimant's own funds (only if fund field is present in the form)
+    if "fund" in formset.fields:
+        if expense_to_edit:
+            claimant_qs = Claimant.objects.filter(id=expense_to_edit.fund.claimant.id)
+        elif fund_id:
+            try:
+                fund = Fund.objects.get(id=fund_id)
+                claimant_qs = Claimant.objects.filter(id=fund.claimant.id)
+            except Fund.DoesNotExist:
+                claimant_qs = Claimant.objects.none()
+        elif request.GET.get("claimant_id"):
+            claimant_qs = Claimant.objects.filter(id=request.GET.get("claimant_id"))
+        elif request.user.is_staff:
+            claimant_qs = Claimant.objects.all()
+        else:
+            claimant_qs = Claimant.objects.filter(user=request.user)
+
+            if not claimant_qs.exists():
+                return HttpResponseRedirect(
+                    reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/unavailable/'})
+                )
+
         formset.fields["fund"].queryset = Fund.objects.filter(
-            claimant__in=claimant,
+            claimant__in=claimant_qs,
             status__in=FUND_STATUS_APPROVED_SET
         )
 
@@ -208,7 +234,9 @@ def expense_review(request, expense_id):
         old_expense = copy.deepcopy(this_expense)
         formset = ExpenseReviewForm(request.POST,
                                     request.FILES or None,
-                                    instance=this_expense)
+                                    instance=this_expense,
+                                    is_staff=request.user.is_staff,
+                                    user=request.user)
 
         if formset.is_valid():
             expense = formset.save()
@@ -235,7 +263,8 @@ def expense_review(request, expense_id):
     formset = ExpenseReviewForm(
         None,
         instance=this_expense,
-        is_staff=bool(request.user.is_staff)
+        is_staff=request.user.is_staff,
+        user=request.user
     )
 
     context = {

@@ -24,7 +24,7 @@ from crispy_forms.bootstrap import PrependedText
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML, Div
 from . import models
-from lowfat.models import FUND_STATUS
+from lowfat.models import FUND_STATUS, EXPENSE_STATUS
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
@@ -800,8 +800,9 @@ class FundReviewForm(GarlicForm):
             ]
         else:
             self.fields['status'].help_text = (
-                "Setting status to 'Removed' will hide this request from all users and dashboards. "
-                "Use only if this request should no longer be visible."
+                "Setting status to 'Removed' will hide this request from the main dashboards, "
+                "but it will still appear under the 'All' tab and in the admin panel. "
+                "Use only if this request should be excluded from normal workflows."
             )
 
         self.helper.layout = Layout(
@@ -1031,8 +1032,9 @@ class ExpenseForm(GarlicForm):
             )
         )
 
-        if "initial" in kwargs and "fund" in kwargs["initial"]:
-            self.fields['fund'].queryset = models.Fund.objects.filter(id=kwargs["initial"]["fund"].id)
+        initial = kwargs.get('initial') or {}
+        if "fund" in initial:
+            self.fields['fund'].queryset = models.Fund.objects.filter(id=initial["fund"].id)
         else:
             self.fields['fund'].queryset = models.Fund.objects.filter(status__in=models.FUND_STATUS_APPROVED_SET)
 
@@ -1111,9 +1113,21 @@ class ExpenseReviewForm(GarlicForm):
     required_css_class = 'form-field-required'
     email = CharField(widget=Textarea, required=False)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, user=None, is_staff=False, **kwargs):
         super().__init__(*args, **kwargs)
-
+        self.user = user
+        self.is_staff = is_staff
+        if self.is_staff and not self.user.is_superuser:
+            self.fields["status"].choices = [
+                (key, label) for key, label in EXPENSE_STATUS if key != "X"
+            ]
+        else:
+            self.fields["status"].help_text = (
+                "Setting status to 'Removed' will hide this request from the main dashboards, "
+                "but it will still appear under the 'All' tab and in the admin panel. "
+                "Use only if this request should be excluded from normal workflows."
+            )
+        self.helper = FormHelper()
         self.helper.layout = Layout(
             Fieldset(
                 '',

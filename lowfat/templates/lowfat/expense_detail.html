@@ -1,4 +1,5 @@
 {% extends "lowfat/base.html" %}
+{% load expense_edit_permissions %}
 
 {% block content %}
 <h1>Expense Detail (Funding Request ID: {{ expense.fund.id }})
@@ -13,7 +14,7 @@
   {% if user.is_staff %}
   <a title="Review" class="btn btn-outline-dark" href="{% url 'expense_review_relative' expense.fund.id expense.relative_number %}" role="button"><span class="fa-solid fa-check" aria-hidden="true"></span> Review</a>
   {% endif %}
-  {% if user.is_staff or expense.status in "SC" %}
+  {% if user|can_edit_expense:expense %}
   <a title="Edit" class="btn btn-outline-dark" href="{% url 'expense_edit_relative' expense.fund.id expense.relative_number %}"><span class="fa-solid fa-edit" aria-hidden="true"></span> Edit</a>
   {% comment %} <a title="Remove" class="btn btn-outline-dark" href="{% url 'expense_remove_relative' expense.fund.id expense.relative_number %}?next={% url 'dashboard' %}"><span class="fa-solid fa-remove" aria-hidden="true"></span> Remove</a> {% endcomment %}
   {% endif %}

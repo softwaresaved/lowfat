@@ -1,8 +1,8 @@
 {% load fund_edit_permissions %}
 {% if user.is_staff %}
 <ul class="nav nav-tabs">
-  <li {% if funding_requests_status == 'UPAMRFC' %}class="nav-item"{% endif %}>
-    <a class="nav-link" href="?funding_requests=UPAMRFC&expenses={{ expenses_status }}&blogs={{ blogs_status }}">All</a>
+  <li {% if funding_requests_status == 'UPAMRFCX' %}class="nav-item"{% endif %}>
+    <a class="nav-link" href="?funding_requests=UPAMRFCX&expenses={{ expenses_status }}&blogs={{ blogs_status }}">All</a>
   </li>
   <li {% if funding_requests_status == 'UP' %}class="nav-item"{% endif %}>
     <a class="nav-link" href="?funding_requests=UP&expenses={{ expenses_status }}&blogs={{ blogs_status }}">Pending</a>
@@ -72,16 +72,16 @@
     {% for fund, blog in funds %}
     <tr
       {% if user.is_staff or claimant and user == claimant.user %}
-      {% if fund.status in 'URC' %}
+      {% if fund.status in 'UR' %}
       class="table-danger"
       {% elif fund.status in 'P' %}
       class="table-warning"
       {% elif fund.status in 'AMF' %}
       class="table-success"
-      {% comment %}
       {% elif fund.status in 'C' %}
       class="table-light"
-      {% endcomment %}
+      {% elif fund.status in 'X' %}
+      class="table-dark"
       {% endif %}
       {% endif %}
       >
@@ -146,7 +146,7 @@
         £{{ fund.budget_total|floatformat:2 }}
       </td>
       <td> 
-      {% if fund.status in 'AMFC' %}
+      {% if fund.status in 'AMFCX' %}
           £{{ fund.budget_approved|floatformat:2 }}
           {% else %}
           N/A
