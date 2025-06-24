@@ -80,6 +80,18 @@ GRANTS = (
     ('SSI4', 'Software Sustainability Institute - Phase 4'),
 )
 
+FUND_PAYMENT_RECEIVER_CHOICES = [
+    ('A', 'A. Me (the Fellow)'),
+    ('B', 'B. Third party'),
+    ('C', 'C. Combination of both'),
+]
+
+FUND_CLAIM_METHOD_CHOICES = [
+    ('A', 'A. Expense claim'),
+    ('B', 'B. Invoice'),
+    ('C', 'C. Combination of both'),
+]
+
 MAX_CHAR_LENGTH = 120
 MAX_DIGITS = 10
 MAX_URL_LENGTH = 360
@@ -251,7 +263,19 @@ class Fund(ModelWithToken):
         decimal_places=2,
         default=0.00
     )
-    direct_invoice = models.BooleanField(default=False)
+    #direct_invoice = models.BooleanField(default=False)
+    fund_payment_receiver = models.CharField(
+        max_length=1,
+        choices=FUND_PAYMENT_RECEIVER_CHOICES,
+        null=True,
+        blank=True,
+    )
+    fund_claim_method = models.CharField(
+        max_length=1,
+        choices=FUND_CLAIM_METHOD_CHOICES,
+        null=True,
+        blank=True,
+    )
     justification = models.TextField()
     success_targeted = models.TextField()
     success_reported = models.TextField(blank=True)  # Only provide later

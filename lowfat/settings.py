@@ -19,7 +19,7 @@ import dj_database_url
 
 
 URL_SRC = "https://github.com/softwaresaved/lowfat"
-VERSION = "1.20.0"
+VERSION = "1.21.0"
 
 SETTINGS_EXPORT = [
     'URL_SRC',
@@ -348,6 +348,14 @@ CONSTANCE_CONFIG = OrderedDict([
     ("FELLOWS_MANAGEMENT_EMAIL", (
         "fellows-management@software.ac.uk",
         "Contact address to fellows management staffs.",
+    )),
+    ("FUND_FINANCE_EMAIL", (
+        "finance@software.ac.uk",
+        "Finance address to receive payment choice updates.",
+    )),
+    ("FUND_FINANCE_EMAIL_CC", (
+        "fellows-management@software.ac.uk",
+        "CC Address to receive payment choice updates",
     )),
     ("ONETIME_APPROVAL_EMAIL", (
         "fellows-management@software.ac.uk",

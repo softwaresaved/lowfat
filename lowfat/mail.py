@@ -14,7 +14,7 @@ from django.contrib.flatpages.models import FlatPage
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 from django.template import Context, Template
-
+from django.conf import settings
 from . import models
 from .settings import DEFAULT_FROM_EMAIL, SITE_ID
 
@@ -355,3 +355,29 @@ def claimant_profile_update_notification(claimant):  # pylint: disable=invalid-n
             html_message=html,
             fail_silently=False
         )
+
+def notify_finance_if_needed(fund):
+    if fund.fund_payment_receiver in ['B', 'C'] or fund.fund_claim_method in ['B', 'C']:
+        submitted_on = fund.added.strftime("%Y-%m-%d") if fund.added else "Unknown date"
+        user_name = fund.claimant.fullname() if fund.claimant else "Unknown user"
+        user_email = fund.claimant.email if fund.claimant and fund.claimant.email else "Unknown email"
+
+        domain = Site.objects.get(id=SITE_ID).domain
+        fund_link = f"https://{domain}/fund/{fund.id}/review/"
+
+        subject = f"[ACTION REQUIRED] Possible PO or Employment Status Check for {user_name}"
+        body = (
+            f"On {submitted_on}, {user_name} submitted a funding request #{fund.id}, which might require a "
+            f"Purchase Order or Employment Status Check.\n\n"
+            f"Request details: {fund_link}\n\n"
+            f"Please investigate and if needed contact {user_name} at {user_email}."
+        )
+
+        email = EmailMultiAlternatives(
+            subject=subject,
+            body=body,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[config.FUND_FINANCE_EMAIL],
+            cc=[config.FUND_FINANCE_EMAIL_CC],
+        )
+        email.send(fail_silently=False)
