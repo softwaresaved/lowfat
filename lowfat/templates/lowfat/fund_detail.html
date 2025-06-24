@@ -162,9 +162,15 @@
       <td>£{{ fund.budget_request_others|floatformat:2 }}</td>
     </tr>
     <tr>
-      <th>Add suppliers</th>
-      <td>{{ fund.direct_invoice }}</td>
-  </tr>
+     {% comment %} <th>Add suppliers</th>{% endcomment %}
+      {% comment %}<td>{{ fund.direct_invoice }}</td>{% endcomment %}
+   <th>Who receives payment</th>
+    <td>{{ fund.get_fund_payment_receiver_display }}</td>
+      </tr>
+     <tr>
+      <th>Claim method</th>
+      <td>{{ fund.get_fund_claim_method_display }}</td>
+    </tr>
   </tbody>
 </table>
 {% if fund.status in 'AMF' or expenses or blogs %}

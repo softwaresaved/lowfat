@@ -251,7 +251,10 @@ class FundAdmin(SimpleHistoryAdmin):
                 'focus',
                 'activity',
                 'mandatory',
-                'direct_invoice'
+#                'direct_invoice'
+                'fund_payment_receiver',
+                'fund_claim_method',
+
             ]
         }),
         ('Publicity', {
@@ -293,8 +296,10 @@ class FundAdmin(SimpleHistoryAdmin):
         'grant_heading',
         'focus',
         'mandatory',
-        'direct_invoice',
+#        'direct_invoice',
         'activity',
+        'fund_payment_receiver',
+        'fund_claim_method',
     ]
 
 class AmountListFilter(admin.SimpleListFilter):
