@@ -130,7 +130,7 @@
       {% endif %}
       <td>
         {% if blog.status in 'P' %}
-        {{ blog.updated }}
+        {{ blog.updated | date:"d M Y"}}
         {% elif blog.status in 'URCGL' %}
         Not published yet
         {% else %}
