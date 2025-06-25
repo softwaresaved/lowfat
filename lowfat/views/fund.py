@@ -262,7 +262,6 @@ def fund_detail(request, fund_id):
 def fund_review(request, fund_id):
     this_fund = Fund.objects.get(id=fund_id)
 
-
     if request.POST:
         # Handle submission
         old_fund = copy.deepcopy(this_fund)
@@ -300,7 +299,6 @@ def fund_review(request, fund_id):
             is_staff=request.user.is_staff,
             user=request.user
         )
-
 
     context = {
         'fund': this_fund,

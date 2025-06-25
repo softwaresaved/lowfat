@@ -39,7 +39,7 @@ def expense_form(request, **kwargs):
 
         except Expense.DoesNotExist:
             messages.error(request, "The expense that you want to edit doesn't exist.")
-            return HttpResponseRedirect(reverse("dashboard")) # fallback redirect
+            return HttpResponseRedirect(reverse("dashboard"))  # fallback redirect
 
     # Setup Fund if provided
     fund_id = request.GET.get("fund_id")
@@ -70,7 +70,6 @@ def expense_form(request, **kwargs):
             if expense_to_edit.status != "S":
                 messages.error(request, "You can only edit an expense claim that is in 'Submitted' status.")
                 return HttpResponseRedirect(reverse('expense_detail_relative', args=[expense_to_edit.fund.id, expense_to_edit.relative_number]))
-
 
     if claimant and not claimant.fellow:
         formset = ExpenseShortlistedForm(

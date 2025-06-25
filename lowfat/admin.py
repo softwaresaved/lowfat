@@ -193,7 +193,6 @@ class ClaimantAdmin(ExportMixin, SimpleHistoryAdmin):
                 self_inner.fields['mastodon_username'].help_text = 'Enter the username part (e.g. `username` if the handle is @usernamel@mastodon.social)'
                 self_inner.fields['mastodon_instance'].help_text = 'Enter the instance domain (e.g. `mastodon.social`)'
 
-
             def clean(self):
                 cleaned_data = super().clean()
                 career_stage = cleaned_data.get('career_stage_when_apply')
@@ -206,8 +205,8 @@ class ClaimantAdmin(ExportMixin, SimpleHistoryAdmin):
                     self.add_error('career_stage_other', _("Please leave this blank unless you selected 'Other'."))
 
                 return cleaned_data
-
         return CustomAdminForm
+
 
 @admin.register(models.Fund)
 class FundAdmin(SimpleHistoryAdmin):
@@ -250,8 +249,7 @@ class FundAdmin(SimpleHistoryAdmin):
                 'category',
                 'focus',
                 'activity',
-                'mandatory',
-#                'direct_invoice'
+                'mandatory',  # 'direct_invoice',
                 'fund_payment_receiver',
                 'fund_claim_method',
 
@@ -295,12 +293,12 @@ class FundAdmin(SimpleHistoryAdmin):
         'grant',
         'grant_heading',
         'focus',
-        'mandatory',
-#        'direct_invoice',
+        'mandatory',  # 'direct_invoice',
         'activity',
         'fund_payment_receiver',
         'fund_claim_method',
     ]
+
 
 class AmountListFilter(admin.SimpleListFilter):
     # Human-readable title which will be displayed in the

@@ -356,6 +356,7 @@ def claimant_profile_update_notification(claimant):  # pylint: disable=invalid-n
             fail_silently=False
         )
 
+
 def notify_finance_if_needed(fund):
     if fund.fund_payment_receiver in ['B', 'C'] or fund.fund_claim_method in ['B', 'C']:
         submitted_on = fund.added.strftime("%Y-%m-%d") if fund.added else "Unknown date"

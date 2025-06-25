@@ -4,13 +4,14 @@ from lowfat.models import Claimant, Fund, TermsAndConditions
 from datetime import date
 from django.utils import timezone
 
+
 class FundEditAccessTest(TestCase):
     def setUp(self):
         User = get_user_model()
         self.terms = TermsAndConditions.objects.create(
-        year=str(timezone.now().year),
-        url="http://example.com/terms"
-)
+            year=str(timezone.now().year),
+            url="http://example.com/terms"
+        )
         # Create test_fellow2 user
         self.fellow = User.objects.create_user(
             username="test_fellow_ui",

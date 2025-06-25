@@ -494,6 +494,7 @@ class Claimant(models.Model):
         )
 
         return sum([expense.amount_authorized_for_payment for expense in this_claimant_expenses])
+
     @property
     def mastodon_url(self):
         if self.mastodon_username and self.mastodon_instance:

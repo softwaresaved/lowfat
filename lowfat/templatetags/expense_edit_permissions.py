@@ -2,6 +2,7 @@ from django import template
 
 register = template.Library()
 
+
 @register.filter
 def can_edit_expense(user, expense):
     if user.is_superuser:
