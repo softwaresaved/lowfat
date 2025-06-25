@@ -14,7 +14,7 @@ class FundEditAccessTest(TestCase):
         # Create test_fellow2 user
         self.fellow = User.objects.create_user(
             username="test_fellow_ui",
-            password="Ecs2023!!",
+            password="12345!!",
             is_staff=False
         )
 
