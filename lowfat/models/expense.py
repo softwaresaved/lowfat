@@ -11,10 +11,11 @@ from .. import validator
 
 EXPENSE_STATUS = (
     ('S', 'Submitted'),
-    ('C', 'Processing'),
+    ('P', 'Processing'),  # Renamed C -> P
     ('A', 'Approved'),
     ('R', 'Rejected'),  # When expense was rejected.
-    ('X', 'Removed'),  # When the fellow decided to remove their request.
+    ('C', 'Cancelled'),  # NEW: Staff can cancel instead of removing
+    ('X', 'Removed'),  # LEGACY: Previously used when a fellow or staff removed an expense. No longer triggered via UI. Currently reserved for superuser use only (e.g. via admin panel).
 )
 
 GRANT_HEADING = (

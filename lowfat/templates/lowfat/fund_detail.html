@@ -1,4 +1,5 @@
 {% extends "lowfat/base.html" %}
+{% load fund_edit_permissions %}
 {% load markdown %}
 
 {% block content %}
@@ -16,13 +17,14 @@
   {% if user.is_staff %}
   <a title="Review" class="btn btn-outline-dark" href="{% url 'fund_review' fund.id %}" role="button"><span class="fa-solid fa-check" aria-hidden="true"></span> Review</a>
   {% endif %}
-  {% if user.is_staff or fund.status in "UP" %}
-  <a title="Edit" class="btn btn-outline-dark" href="{% url 'fund_edit' fund.id %}"><span class="fa-solid fa-edit" aria-hidden="true"></span> Edit</a>
+ {% comment %} {% if user.is_staff or fund.status in "UP" %}{% endcomment %}
+      {% if user|can_edit_fund:fund %}
+          <a title="Edit" class="btn btn-outline-dark" href="{% url 'fund_edit' fund.id %}"><span class="fa-solid fa-edit" aria-hidden="true"></span> Edit</a>
   {% comment %} <a title="Remove" class="btn btn-outline-dark" href="{% url 'fund_remove' fund.id %}?next={% url 'dashboard' %}"><span class="fa-solid fa-remove" aria-hidden="true"></span> Remove</a> {% endcomment %}
   {% endif %}
   {% endif %}
 </h1>
-<h2>General Details</h1>
+<h2>General Details</h2>
 <table class="table table-bordered">
   <tbody>
     {% if user.is_staff %}
@@ -52,7 +54,7 @@
     <tr>
       <th>
         Activities tag
-        <a href="/pages/guide/activities-tag/"><span class="fa-solid fa-info" title="More information about the tags." aria-hidden="true"></span>
+        <a href="/pages/guide/activities-tag/"><span class="fa-solid fa-info" title="More information about the tags." aria-hidden="true"></span></a>
       </th>
       <td>
         {% for tag in fund.activity.all %}
@@ -160,9 +162,15 @@
       <td>£{{ fund.budget_request_others|floatformat:2 }}</td>
     </tr>
     <tr>
-      <th>Add suppliers</th>
-      <td>{{ fund.direct_invoice }}</td>
-  </tr>
+     {% comment %} <th>Add suppliers</th>{% endcomment %}
+      {% comment %}<td>{{ fund.direct_invoice }}</td>{% endcomment %}
+   <th>Who receives payment</th>
+    <td>{{ fund.get_fund_payment_receiver_display }}</td>
+      </tr>
+     <tr>
+      <th>Claim method</th>
+      <td>{{ fund.get_fund_claim_method_display }}</td>
+    </tr>
   </tbody>
 </table>
 {% if fund.status in 'AMF' or expenses or blogs %}

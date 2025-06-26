@@ -8,7 +8,6 @@
     {% if forloop.counter0|divisibleby:"6" %}
         <div class="row">
     {% endif %}
-
     <div class='card col-lg border-0'>
         <div class='card-body'>
             {% if claimant.fellow %}
@@ -32,7 +31,7 @@
                 <br>
                 {{ claimant.fullname }}
             </a>
-            
+
             <br>
 
             {% if user.is_staff %}
@@ -98,7 +97,6 @@
                     <span class="visually-hidden">{{ claimant.fullname}}'s Bitbucket profile</span>
                 </a>
             {% endif %}
-
             {% if claimant.twitter %}
                 <a class="icon" href="https://twitter.com/{{ claimant.twitter }}" title="{{ claimant.fullname }}'s Twitter profile">
                     <i class="fab fa-twitter" aria-hidden="true"></i>
@@ -112,14 +110,24 @@
                     <span class="visually-hidden">{{ claimant.fullname}}'s LinkedIn profile</span>
                 </a>
             {% endif %}
-
             {% if claimant.facebook %}
                 <a class="icon" href="https://facebook.com/{{ claimant.facebook }}" title="{{ claimant.fullname }}'s Facebook profile">
                     <i class="fab fa-facebook" aria-hidden="true"></i>
                     <span class="visually-hidden">{{ claimant.fullname}}'s Facebook profile</span>
                 </a>
             {% endif %}
-
+        {% if claimant.bluesky %}
+            <a class="icon" href="https://bsky.app/profile/{{ claimant.bluesky }}" title="{{ claimant.fullname }}'s Bluesky profile">
+                <i class="fa-brands fa-bluesky" aria-hidden="true"></i>
+                <span class="visually-hidden">{{ claimant.fullname }}'s Bluesky profile</span>
+            </a>
+        {% endif %}
+        {% if claimant.mastodon_url %}
+            <a class="icon" href="{{ claimant.mastodon_url }}" title="{{ claimant.fullname }}'s Mastodon profile">
+                <i class="fab fa-mastodon" aria-hidden="true"></i>
+                <span class="visually-hidden">{{ claimant.fullname }}'s Mastodon profile</span>
+            </a>
+        {% endif %}
             {% if user.is_staff or user.is_staff %}
                 <br>
                 £{{ claimant.claimantship_available|floatformat:2 }}
@@ -127,15 +135,14 @@
 
         </div>
 
+
     </div>
 
     {% if forloop.counter|divisibleby:"6" %}
         </div>
     {% endif %}
-
+    <!-- DEBUG: reached end of claimant loop -->
 {% endfor %}
-<ul>
-</div>
 
 <h2>Events</h2>
 
