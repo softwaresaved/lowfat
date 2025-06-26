@@ -17,7 +17,7 @@ from constance import config
 from lowfat.management.commands import loadoldfunds
 from lowfat.models import ApprovalChain, Blog, Claimant, Expense, Fund, FUND_STATUS_APPROVED_SET, FundSentMail
 from lowfat.forms import FundForm, FundGDPRForm, FundImportForm, FundPublicForm, FundReviewForm
-from lowfat.mail import fund_review_notification, new_fund_notification
+from lowfat.mail import fund_review_notification, new_fund_notification, notify_finance_if_needed
 from .claimant import get_terms_and_conditions_url
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
@@ -98,7 +98,7 @@ def fund_form(request, **kargs):  # pylint: disable=too-many-branches,too-many-s
             # The reason for this is to save staffs to copy and paste the approved amount.
             fund.budget_approved = fund.budget_total()
             fund.save()
-
+            notify_finance_if_needed(fund)
             # Attempt to pre approved funding request.
             if fund.pre_approve():
                 messages.success(request, 'Funding request approved.')
@@ -267,7 +267,9 @@ def fund_review(request, fund_id):
         old_fund = copy.deepcopy(this_fund)
         formset = FundReviewForm(
             request.POST,
-            instance=this_fund
+            instance=this_fund,
+            is_staff=request.user.is_staff,
+            user=request.user
         )
 
         if formset.is_valid():
@@ -287,13 +289,16 @@ def fund_review(request, fund_id):
                 )
             return HttpResponseRedirect(
                 reverse('fund_detail', args=[fund.id])
+
             )
 
-    formset = FundReviewForm(
-        None,
-        instance=this_fund,
-        is_staff=bool(request.user.is_staff)
-    )
+    else:
+        formset = FundReviewForm(
+            None,
+            instance=this_fund,
+            is_staff=request.user.is_staff,
+            user=request.user
+        )
 
     context = {
         'fund': this_fund,

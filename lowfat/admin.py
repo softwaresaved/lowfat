@@ -4,6 +4,7 @@ from simple_history.admin import SimpleHistoryAdmin
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.utils.translation import gettext_lazy as _
 from . import models
 
 from django.contrib.auth.admin import UserAdmin
@@ -82,6 +83,7 @@ class ClaimantAdmin(ExportMixin, SimpleHistoryAdmin):
             {
                 "fields": [
                     "career_stage_when_apply",
+                    "career_stage_other",
                     "job_title_when_apply",
                     "research_area",
                     "research_area_code",
@@ -108,6 +110,9 @@ class ClaimantAdmin(ExportMixin, SimpleHistoryAdmin):
                     "twitter",
                     "linkedin",
                     "facebook",
+                    "bluesky",
+                    "mastodon_username",
+                    "mastodon_instance",
                 ]
             },
         ),
@@ -177,6 +182,31 @@ class ClaimantAdmin(ExportMixin, SimpleHistoryAdmin):
         'research_software_engineer',
     ]
 
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+
+        class CustomAdminForm(form):
+            def __init__(self_inner, *args, **kwargs):
+                super().__init__(*args, **kwargs)
+
+                self_inner.fields['bluesky'].help_text = 'Enter the Bluesky handle in the format `username.bsky.social`'
+                self_inner.fields['mastodon_username'].help_text = 'Enter the username part (e.g. `username` if the handle is @usernamel@mastodon.social)'
+                self_inner.fields['mastodon_instance'].help_text = 'Enter the instance domain (e.g. `mastodon.social`)'
+
+            def clean(self):
+                cleaned_data = super().clean()
+                career_stage = cleaned_data.get('career_stage_when_apply')
+                career_stage_other = cleaned_data.get('career_stage_other')
+
+                if career_stage == '5' and not career_stage_other:
+                    self.add_error('career_stage_other', _('Please describe your career stage if "Other" is selected.'))
+
+                if career_stage != '5' and career_stage_other:
+                    self.add_error('career_stage_other', _("Please leave this blank unless you selected 'Other'."))
+
+                return cleaned_data
+        return CustomAdminForm
+
 
 @admin.register(models.Fund)
 class FundAdmin(SimpleHistoryAdmin):
@@ -219,8 +249,10 @@ class FundAdmin(SimpleHistoryAdmin):
                 'category',
                 'focus',
                 'activity',
-                'mandatory',
-                'direct_invoice'
+                'mandatory',  # 'direct_invoice',
+                'fund_payment_receiver',
+                'fund_claim_method',
+
             ]
         }),
         ('Publicity', {
@@ -261,9 +293,10 @@ class FundAdmin(SimpleHistoryAdmin):
         'grant',
         'grant_heading',
         'focus',
-        'mandatory',
-        'direct_invoice',
+        'mandatory',  # 'direct_invoice',
         'activity',
+        'fund_payment_receiver',
+        'fund_claim_method',
     ]
 
 

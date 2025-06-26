@@ -1,3 +1,4 @@
+{% load expense_edit_permissions %}
 <h2>
   Expenses
   {% if not user.is_authenticated and fund.access_token_is_valid %}
@@ -22,14 +23,17 @@
 </h2>
 {% if user.is_staff %}
 <ul class="nav">
-  <li {% if expenses_status == 'SCAR' %}class="nav-item"{% endif %}>
-    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses=WSCPAF&blogs={{ blogs_status }}">All</a>
+  <li {% if expenses_status == 'SPCARX' %}class="nav-item"{% endif %}>
+    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses=WSCPAFX&blogs={{ blogs_status }}">All</a>
   </li>
-  <li {% if expenses_status == 'SC' %}class="nav-item"{% endif %}>
-    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses=WSCP&blogs={{ blogs_status }}">Pending</a>
+  <li {% if expenses_status == 'SP' %}class="nav-item"{% endif %}>
+    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses=WSP&blogs={{ blogs_status }}">Pending</a>
   </li>
   <li {% if expenses_status == 'A' %}class="nav-item"{% endif %}>
     <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses=AF&blogs={{ blogs_status }}">Approved</a>
+  </li>
+  <li {% if expenses_status == 'C' %}class="nav-item"{% endif %}>
+    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses=C&blogs={{ blogs_status }}">Cancelled</a>
   </li>
 </ul>
 {% endif %}
@@ -41,6 +45,11 @@
         ID
       </th>
       {% endif %}
+      {% if user.is_staff %}    
+      <th>
+        Fellow
+      </th>
+      {% endif %}    
       {% if user.is_staff or claimant and user == claimant.user %}
       <th>
         Submitted date
@@ -50,9 +59,6 @@
         Claim
       </th>
       {% if user.is_staff %}
-      <th>
-        Fellow
-      </th>
       <th>
         Funding Request
       </th>
@@ -77,18 +83,29 @@
     <tr
       {% if expense.status in 'S' %}
       class="table-danger"
-      {% elif expense.status in 'C' %}
+      {% elif expense.status in 'P' %}
       class="table-warning"
       {% elif expense.status in 'A' %}
       class="table-success"
+      {% elif expense.status in 'R' %}
+      class="table-secondary"
+      {% elif expense.status in 'C' %}
+      class="table-light"
+      {% elif expense.status in 'X' %}
+      class="table-dark"
       {% endif %}
       >
       {% if user.is_staff or claimant and user == claimant.user %}
       <td>{{expense.fund.id}}</td>
       {% endif %}
+      {% if user.is_staff %}    
+      <td>
+        <a title='View' href="{% url 'fellow_slug' expense.fund.claimant.slug %}">{{ expense.fund.claimant.fullname }}</a>
+      </td>
+      {% endif %}    
       {% if user.is_staff or claimant and user == claimant.user %}
       <td sorttable_customkey="{{ expense.added | date:'Ymd' }}">
-        {{ expense.added }}
+        {{ expense.added | date:"d M Y"}}
       </td>
       {% endif %}
       <td>
@@ -107,9 +124,6 @@
         {% endif %}
       </td>
       {% if user.is_staff %}
-      <td>
-        <a title='View' href="{% url 'fellow_slug' expense.fund.claimant.slug %}">{{ expense.fund.claimant.fullname }}</a>
-      </td>
       <td>
         <a title='View' href="{% url 'fund_detail' expense.fund.id %}">{{ expense.fund.title }}</a>
       </td>
@@ -136,10 +150,10 @@
         {% if user.is_staff %}
         <a  title="Review" href="{% url 'expense_review_relative' expense.fund.id expense.relative_number %}"><span class="fa-solid fa-check" aria-hidden="true"></span></a>
         {% endif %}
-        {% if user.is_staff or expense.status in "SC" %}
+        {% if user|can_edit_expense:expense %}
         <a  title="Edit" href="{% url 'expense_edit_relative' expense.fund.id expense.relative_number %}"><span class="fa-solid fa-edit" aria-hidden="true"></span></a>
         {% comment %} <a  title="Remove" href="{% url 'expense_remove_relative' expense.fund.id expense.relative_number %}?next={{ request.path }}"><span class="fa-solid fa-remove" aria-hidden="true"></span></a> {% endcomment %}
-      </td>
+            </td>
       {% endif %}
       {% endif %}
     </tr>

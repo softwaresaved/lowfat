@@ -47,7 +47,7 @@ FUND_STATUS = (
     ('R', 'Rejected'),  # Fund was rejected.
     ('F', 'Archived'),  # Approved funds with all claims and blog posts were processed. No funds are reserved.
     ('C', 'Cancelled'),  # When the fellow decided to cancel their request.
-    ('X', 'Removed'),  # When the fellow decided to remove their request.
+    ('X', 'Removed'),  # When the fellow decided to remove their request. UPDATE: The option is only available to the admin!
 )
 
 #: Set of statuses which constitute an approved fund
@@ -61,7 +61,7 @@ FUND_STATUS_LONG_DESCRIPTION = {
     'P': "One of your staffs is reviewing your request. You should have our reply soon.",
     'A': "Your fund request was approved.",
     'M': "Your fund request was pre-approved.",
-    'R': "Your fund request was declided.",
+    'R': "Your fund request was declined.",
     'F': "We archived your fund request since all the expense claims were processed.",
     'C': "You decided to cancel this request for any reason.",
     'X': "You decided to remove this request.",
@@ -79,6 +79,18 @@ GRANTS = (
     ('SSI3', 'Software Sustainability Institute - Phase 3'),
     ('SSI4', 'Software Sustainability Institute - Phase 4'),
 )
+
+FUND_PAYMENT_RECEIVER_CHOICES = [
+    ('A', 'A. Me (the Fellow)'),
+    ('B', 'B. Third party'),
+    ('C', 'C. Combination of both'),
+]
+
+FUND_CLAIM_METHOD_CHOICES = [
+    ('A', 'A. Expense claim'),
+    ('B', 'B. Invoice'),
+    ('C', 'C. Combination of both'),
+]
 
 MAX_CHAR_LENGTH = 120
 MAX_DIGITS = 10
@@ -251,7 +263,19 @@ class Fund(ModelWithToken):
         decimal_places=2,
         default=0.00
     )
-    direct_invoice = models.BooleanField(default=False)
+    # direct_invoice = models.BooleanField(default=False)
+    fund_payment_receiver = models.CharField(
+        max_length=1,
+        choices=FUND_PAYMENT_RECEIVER_CHOICES,
+        null=True,
+        blank=True,
+    )
+    fund_claim_method = models.CharField(
+        max_length=1,
+        choices=FUND_CLAIM_METHOD_CHOICES,
+        null=True,
+        blank=True,
+    )
     justification = models.TextField()
     success_targeted = models.TextField()
     success_reported = models.TextField(blank=True)  # Only provide later
