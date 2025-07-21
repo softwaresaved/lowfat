@@ -1,4 +1,5 @@
 {% extends "lowfat/base.html" %}
+{% load blog_edit_permissions %}
 
 {% block content %}
 <h1>Blog Detail (Funding Request ID: {{ blog.fund.id }})
@@ -15,7 +16,8 @@
   {% if user.is_staff %}
   <a  title="Review" class="btn btn-outline-dark" href="{% url 'blog_review' blog.id %}" role="button"><span class="fa-solid fa-check" aria-hidden="true"></span> Review</a>
   {% endif %}
-  {% if user.is_staff or blog.status == "U" %}
+  {% comment %}{% if user.is_staff or blog.status == "U" %}{% endcomment %}
+  {% if user|can_edit_blog:blog %}
   <a title="Edit" class="btn btn-outline-dark" href="{% url 'blog_edit' blog.id %}" role="button"><span class="fa-solid fa-edit" aria-hidden="true"></span> Edit</a>
   {% comment %} <a title="Remove" class="btn btn-outline-dark" href="{% url 'blog_remove' blog.id %}?next={% url 'dashboard' %}" role="button"><span class="fa-solid fa-remove" aria-hidden="true"></span> Remove</a> {% endcomment %}
   {% endif %}

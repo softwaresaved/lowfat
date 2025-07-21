@@ -29,5 +29,12 @@ maxItems: null,
 <p class="text-warning">Fields marked with <span class="asteriskField">*</span> are required.</p>
 <p class="text-info">We support Markdown on multi-line fields.</p>
 <p>If you need any help please email us at <a href="mailto:fellows-management@software.ac.uk">fellows-management@software.ac.uk</a>.</p>
+
+    {% if warning_message %}
+<div class="alert alert-warning" role="alert">
+  {{ warning_message }}
+</div>
+{% endif %}
+
 {% crispy formset formset.helper %}
 {% endblock %}
