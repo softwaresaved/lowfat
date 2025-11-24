@@ -24,7 +24,7 @@ from crispy_forms.bootstrap import PrependedText
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, HTML, Div
 from . import models
-from lowfat.models import FUND_STATUS, EXPENSE_STATUS
+from lowfat.models import FUND_STATUS, EXPENSE_STATUS, BLOG_POST_STATUS
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
@@ -1265,8 +1265,26 @@ class BlogReviewForm(GarlicForm):
     required_css_class = 'form-field-required'
     email = CharField(widget=Textarea, required=False)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, user=None, is_staff=False, **kwargs):
         super().__init__(*args, **kwargs)
+        self.user = user
+        self.is_staff = is_staff
+
+        if self.is_staff and not self.user.is_superuser:
+            self.fields['status'].choices = [(key, label) for key, label in BLOG_POST_STATUS if key != "X"
+                                             ]
+            if getattr(self.instance, "status", None) == "X":
+                self.fields['status'].help_text = (
+                    "<strong>Warning:</strong> This blog post is currently <em>Removed</em>. "
+                    "If you submit changes, the status will be updated to the selected value above. "
+                    "Only admins can re-remove posts."
+                )
+        else:
+            self.fields['status'].help_text = (
+                "Setting status to 'Removed' will hide this request from the main dashboards, "
+                "but it will still appear under the 'All' tab and in the admin panel. "
+                "Use only if this request should be excluded from normal workflows."
+            )
 
         self.helper.layout = Layout(
             Fieldset(
