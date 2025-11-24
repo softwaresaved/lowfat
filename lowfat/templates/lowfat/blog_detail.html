@@ -1,19 +1,25 @@
 {% extends "lowfat/base.html" %}
 {% load blog_edit_permissions %}
+{% load blog_extras %}
 
 {% block content %}
 <h1>Blog Detail (Funding Request ID: {{ blog.fund.id }})
   <span
-     {% if blog.status in 'PDO' %}
+     {% if blog.status in 'P' %}
      class="label label-success"
      {% elif blog.status in 'U' %}
      class="label label-danger"
+     {% elif blog.status in "KMO" %}
+     class="table-light"
+     {% elif blog.status in "DX" %}
+     class="table-dark"
      {% else %}
      class="label label-warning"
      {% endif %}
-  >{{ blog.get_status_display }}</span>
+  >{{ blog.status|blog_status_label }}</span>
   {% if user.is_authenticated %}
-  {% if user.is_staff %}
+      {# Staff can only review if the blog is NOT Removed #}
+  {% if user.is_staff and blog.status != "X" %}
   <a  title="Review" class="btn btn-outline-dark" href="{% url 'blog_review' blog.id %}" role="button"><span class="fa-solid fa-check" aria-hidden="true"></span> Review</a>
   {% endif %}
   {% comment %}{% if user.is_staff or blog.status == "U" %}{% endcomment %}

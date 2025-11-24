@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
@@ -260,10 +260,24 @@ def blog_edit(request, blog_id):
 def blog_review(request, blog_id):
     this_blog = Blog.objects.get(id=blog_id)
 
+    # ------ Non-superusers can not edit Removed blogs --------
+    if this_blog.status == 'X' and not request.user.is_superuser:
+        messages.warning(
+            request,
+            "This blog post has been marked as Removed and can only be edited by an administrator."
+        )
+        return HttpResponseRedirect(
+            reverse('blog_detail', args=[this_blog.id])
+        )
+
     if request.POST:
         # Handle submission
         old_blog = copy.deepcopy(this_blog)
-        formset = BlogReviewForm(request.POST, instance=this_blog)
+        formset = BlogReviewForm(request.POST,
+                                 instance=this_blog,
+                                 user=request.user,
+                                 is_staff=bool(request.user.is_staff),
+                                 )
 
         if formset.is_valid():
             blog = formset.save()
@@ -280,12 +294,13 @@ def blog_review(request, blog_id):
             return HttpResponseRedirect(
                 reverse('blog_detail', args=[blog.id])
             )
-
-    formset = BlogReviewForm(
-        None,
-        instance=this_blog,
-        is_staff=bool(request.user.is_staff)
-    )
+    else:
+        formset = BlogReviewForm(
+            None,
+            instance=this_blog,
+            user=request.user,
+            is_staff=bool(request.user.is_staff),
+        )
 
     # Limit dropdown list to staffs
     if not this_blog.reviewer:

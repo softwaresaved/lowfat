@@ -1,5 +1,5 @@
 {% load blog_edit_permissions %}
-
+{% load blog_extras %}
 <h2>
   Blog Posts
   {% if not user.is_authenticated and fund.access_token_is_valid %}
@@ -21,18 +21,26 @@
 {% endif %}
 {% if user.is_staff %}
 <ul class="nav">
-  <li {% if blogs_status == 'URCGLPMDOX' %}class="nav-item"{% endif %}>
-    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=URCGLPMDOX">All</a>
+{# === All blogs (everything, including legacy M/O) === #}
+  <li {% if blogs_status == 'URCGPKLMDOX' %}class="nav-item"{% endif %}>
+    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=URCGPKLMDOX">All</a>
   </li>
+{# === Pending (waiting or in-progress) === #}
   <li {% if blogs_status == 'URCGL' %}class="nav-item"{% endif %}>
     <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=URCGL">Pending</a>
   </li>
+  {# === Published only === #}
   <li {% if blogs_status == 'P' %}class="nav-item"{% endif %}>
     <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=P">Published</a>
   </li>
-  <li {% if blogs_status == 'MDOX' %}class="nav-item"{% endif %}>
-    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=MDOX">Other</a>
+{# === Cancelled (new K + legacy M/O) === #}
+  <li {% if blogs_status == 'KMO' %}class="nav-item"{% endif %}>
+    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=KMO">Cancelled</a>
   </li>
+{# === Other (Rejected + Remove) === #}
+<li {% if blogs_status == 'DX' %}class="nav-item"{% endif %}>
+ <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses={{ expenses_status }}&blogs=DX">Other</a>
+</li>
 </ul>
 {% endif %}
 <table class="table table-bordered sortable">
@@ -73,10 +81,14 @@
     {% for blog in blogs %}
     <tr
       {% if user.is_staff or claimant and user == claimant.user %}
-      {% if blog.status in 'PDO' %}
+      {% if blog.status in 'P' %}
       class="table-success"
       {% elif blog.status in 'U' %}
       class="table-danger"
+      {% elif blog.status in "KMO" %}
+      class="table-light"
+      {% elif blog.status in "DX" %}
+      class="table-dark"
       {% else %}
       class="table-warning"
       {% endif %}
@@ -104,7 +116,7 @@
         </a>
         {% endif %}
         {% else %}
-        {% if user.is_staff %}
+        {% if user.is_staff and blog.status != "X" %}
         <a title="Review" href="{% url 'blog_review' blog.id %}">{{ blog.draft_url }}</a>
         {% else %}
         <a href="{{ blog.draft_url }}">{{ blog.draft_url }}</a>
@@ -124,7 +136,8 @@
     {% endif %}
       {% if user.is_staff or claimant and user == claimant.user or fund.claimant and user == fund.claimant.user %}
       <td>
-        {{ blog.get_status_display }}
+{% comment %}        {{ blog.get_status_display }}{% endcomment %}
+        {{ blog.status|blog_status_label }}
         {% if blog.status in "RCGL" and blog.reviewer %}
         (Please contact <a href="mailto:{{ blog.reviewer.email }}">{{ blog.reviewer.get_full_name }}</a>.)
         {% endif %}
@@ -145,7 +158,7 @@
         <a class="icon" href="mailto:{{ blog.author.email }}"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>
         {% endif %}
         <a title="View" href="{% url 'blog_detail' blog.id %}"><span class="fa-solid fa-eye" aria-hidden="true"></span></a>
-        {% if user.is_staff %}
+        {% if user.is_staff and blog.status != "X" %}
         <a  title="Review" href="{% url 'blog_review' blog.id %}"><span class="fa-solid fa-check" aria-hidden="true"></span></a>
         {% endif %}
         {% if user|can_edit_blog:blog %}

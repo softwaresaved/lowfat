@@ -7,7 +7,6 @@ def can_edit_blog(user, blog):
     # Superusers can always edit
     if user.is_superuser:
         return True
-
     # Only allow if the user is the author coauthor
     claimant = getattr(blog,'author',None)
     coauthors = getattr(blog,'coauthor',None)
