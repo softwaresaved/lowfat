@@ -12,9 +12,12 @@ from .. import validator
 EXPENSE_STATUS = (
     ('S', 'Submitted'),
     ('P', 'Processing'),  # Renamed C -> P
+    ('E','Returned to Claimant for Review/Action'), # NEW #813, Edit required / Needs action
+    ('N','Pending for Approval'), # NEW #813, Next approval step
     ('A', 'Approved'),
+    ('B', 'Waiting for Blog Post'),  # NEW #813
     ('R', 'Rejected'),  # When expense was rejected.
-    ('C', 'Cancelled'),  # NEW: Staff can cancel instead of removing
+    ('C', 'Cancelled'),  # NEW: Staff can cancel instead of removing, 2025 Release
     ('X', 'Removed'),  # LEGACY: Previously used when a fellow or staff removed an expense. No longer triggered via UI. Currently reserved for superuser use only (e.g. via admin panel).
 )
 

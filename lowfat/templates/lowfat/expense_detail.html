@@ -4,10 +4,18 @@
 {% block content %}
 <h1>Expense Detail (Funding Request ID: {{ expense.fund.id }})
   <span
-  {% if expense.status in 'A' %}
-  class="label label-success"
-  {% else %}
-  class="label label-warning"
+  {% if expense.status in 'SE' %}
+    class="label label-danger"
+  {% elif expense.status in 'PN' %}
+    class="label label-warning"
+  {% elif expense.status == 'A' %}
+    class="label label-success"
+  {% elif expense.status == 'R' %}
+    class="label label-secondary"
+  {% elif expense.status == 'C' %}
+    class="label label-light"
+  {% elif expense.status == 'X' %}
+    class="label label-dark"
   {% endif %}
   >{{ expense.get_status_display }}</span>
   {% if user.is_authenticated %}
@@ -56,7 +64,7 @@
         {% if expense.advance_booking %}
         <tr>
           <th>Advance booking</th>
-          <td>{{ expense.advance_bookinge }}</td>
+          <td>{{ expense.advance_booking }}</td>
         </tr>
         {% endif %}
         <tr>

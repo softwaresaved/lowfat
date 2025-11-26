@@ -23,11 +23,11 @@
 </h2>
 {% if user.is_staff %}
 <ul class="nav">
-  <li {% if expenses_status == 'SPCARX' %}class="nav-item"{% endif %}>
-    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses=WSCPAFX&blogs={{ blogs_status }}">All</a>
+  <li {% if expenses_status == 'SPENABRCX' %}class="nav-item"{% endif %}>
+    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses=WFSPENABRCX&blogs={{ blogs_status }}">All</a>
   </li>
-  <li {% if expenses_status == 'SP' %}class="nav-item"{% endif %}>
-    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses=WSP&blogs={{ blogs_status }}">Pending</a>
+  <li {% if expenses_status == 'SPENB' %}class="nav-item"{% endif %}>
+    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses=WSPENP&blogs={{ blogs_status }}">Pending</a>
   </li>
   <li {% if expenses_status == 'A' %}class="nav-item"{% endif %}>
     <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses=AF&blogs={{ blogs_status }}">Approved</a>
@@ -81,9 +81,9 @@
     {% if expenses %}
     {% for expense in expenses %}
     <tr
-      {% if expense.status in 'S' %}
+      {% if expense.status in 'SE' %}
       class="table-danger"
-      {% elif expense.status in 'P' %}
+      {% elif expense.status in 'PN' %}
       class="table-warning"
       {% elif expense.status in 'A' %}
       class="table-success"
