@@ -194,9 +194,9 @@ def dashboard(request):
             return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/welcome/'}))
 
         # Setup query parameters
-        funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPAMRF"  # Pending
-        expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WSCPAF"  # All
-        blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URCGLPMDOX"  # All
+        funding_requests_status = request.GET["funding_requests"] if "funding_requests" in request.GET else "UPAMRFCX"  # All
+        expenses_status = request.GET["expenses"] if "expenses" in request.GET else "WFSPENABRCX"  # All
+        blogs_status = request.GET["blogs"] if "blogs" in request.GET else "URCGPKLMDOX"  # All
 
         context.update(
             {
