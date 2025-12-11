@@ -26,10 +26,12 @@ maxItems: null,
 
 {% block content %}
 <h1>{{ title }}</h1>
-<p class="text-warning">Fields marked with <span class="asteriskField">*</span> are required.</p>
-<p class="text-info">We support Markdown on multi-line fields.</p>
+<p class="p-2 bg-warning-subtle text-dark fw-semibold rounded">
+    <i class="fa-solid fa-triangle-exclamation text-dark me-1"></i>
+    <span class="visually-hidden">Important: </span>
+    Fields marked with <span class="asteriskField">*</span> are required.</p>
+<p> We support <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank"> Markdown </a> on multi-line fields.</p>
 <p>If you need any help please email us at <a href="mailto:fellows-management@software.ac.uk">fellows-management@software.ac.uk</a>.</p>
-
     {% if warning_message %}
 <div class="alert alert-warning" role="alert">
   {{ warning_message }}
