@@ -4,7 +4,7 @@
 * Add issue to project https://github.com/orgs/softwaresaved/projects/35/views/1 (No Status)
 
 ##  Triage
-* Issues in https://github.com/orgs/softwaresaved/projects/35/views/1 without status (No Status) are discussed between Giacomo, Oscar and Philly 
+* Issues in https://github.com/orgs/softwaresaved/projects/35/views/1 without status (No Status) are discussed between Giacomo, Oscar and Mehtap 
 * If needed more information is added to an issue under discussion before adding it to a workflow
 * When appropriate,  an issue is 
   * assigned to an assignee for development

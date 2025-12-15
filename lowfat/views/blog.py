@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
@@ -108,8 +108,8 @@ def blog_form(request, **kargs):  # pylint: disable=too-many-branches
                 if linked_fund:
                     # Author can reassign: show their approved funds + the current linked one
                     formset.fields["fund"].queryset = Fund.objects.filter(
-                        Q(claimant=claimant, status__in=models.FUND_STATUS_APPROVED_SET) |
-                        Q(id=linked_fund.id)
+                        Q(claimant=claimant, status__in=models.FUND_STATUS_APPROVED_SET)
+                        | Q(id=linked_fund.id)
                     ).distinct()
                 else:
                     formset.fields["fund"].queryset = Fund.objects.filter(
@@ -142,7 +142,7 @@ def blog_form(request, **kargs):  # pylint: disable=too-many-branches
 #        "js_files": ["js/blog.js"],
 #    }
 
-     # Show submission form.
+# Show submission form.
     warning_message = None
 
     if blog_to_edit and blog_to_edit.status in ['R', 'C']:

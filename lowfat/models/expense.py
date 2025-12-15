@@ -12,8 +12,8 @@ from .. import validator
 EXPENSE_STATUS = (
     ('S', 'Submitted'),
     ('P', 'Processing'),  # Renamed C -> P
-    ('E','Returned to Claimant for Review/Action'), # NEW #813, Edit required / Needs action
-    ('N','Pending for Approval'), # NEW #813, Next approval step
+    ('E', 'Returned to Claimant for Review/Action'),  # NEW #813, Edit required / Needs action
+    ('N', 'Pending for Approval'),  # NEW #813, Next approval step
     ('A', 'Approved'),
     ('B', 'Waiting for Blog Post'),  # NEW #813
     ('R', 'Rejected'),  # When expense was rejected.

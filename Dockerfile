@@ -1,6 +1,6 @@
 FROM python:3.8-slim
 
-LABEL maintainer="Philippa Broadbent <p.k.broadbent@soton.ac.uk>"
+LABEL maintainer="Mehtap Ozbey Arabaci <m.ozbey-arabaci@soton.ac.uk>"
 
 ENV PYTHONUNBUFFERED=1
 

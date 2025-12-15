@@ -10,6 +10,6 @@ def can_edit_expense(user, expense):
     claimant = getattr(expense.fund, "claimant", None)
     is_fellow_owner = claimant and claimant.user == user
 
-    #Fellow can only edit in these states:
-    editable_statuses = {"S","E"} # Submitted, Returned to the claimant
+    # Fellow can only edit in these states:
+    editable_statuses = {"S", "E"}  # Submitted, Returned to the claimant
     return is_fellow_owner and expense.status in editable_statuses

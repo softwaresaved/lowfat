@@ -67,7 +67,7 @@ def expense_form(request, **kwargs):
             if not is_claimant:
                 messages.error(request, "You don't have permission to edit this expense claim.")
                 return HttpResponseRedirect(reverse('expense_detail_relative', args=[expense_to_edit.fund.id, expense_to_edit.relative_number]))
-            if expense_to_edit.status not in {"S","E"}:
+            if expense_to_edit.status not in {"S", "E"}:
                 messages.error(request, "You can only edit an expense claim that is in 'Submitted' or 'Returned to claimant for review/action' status.")
                 return HttpResponseRedirect(reverse('expense_detail_relative', args=[expense_to_edit.fund.id, expense_to_edit.relative_number]))
 

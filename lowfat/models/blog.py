@@ -16,12 +16,12 @@ BLOG_POST_STATUS = (
     ('R', 'Waiting to be reviewed'),  # Blog post is assigned to one staff to be reviewed.
     ('C', 'Reviewing loop'),  # Blog post is waiting for another reviewing interaction.
     ('G', 'Waiting to be proofread'),  # Blog post is assigned to be proofread by the community officer.
-#    ('L', 'Waiting to be published'),  # Blog post will be published by the community officer.
+    # ('L', 'Waiting to be published'),  # Blog post will be published by the community officer.
     ('P', 'Published'),  # Blog post is published and have a URL at the website.
-#   ('M', 'Mistaked'),  # Blog post submitted by mistake.
-    ('K', 'Cancelled'), # New blog post status inline with fund and expense claim model status.
+    #   ('M', 'Mistaked'),  # Blog post submitted by mistake.
+    ('K', 'Cancelled'),  # New blog post status inline with fund and expense claim model status.
     ('D', 'Rejected'),  # Blog post is rejected for any reason.
-#    ('O', 'Out of date'),  # Blog post that wait too long to be published for any reason.
+    #    ('O', 'Out of date'),  # Blog post that wait too long to be published for any reason.
     ('X', 'Removed'),  # When the fellow decided to remove their request...Update: Changed Remove--->Removed to be consistent with fund & expense statuses
 )
 
