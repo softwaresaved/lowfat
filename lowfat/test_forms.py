@@ -1456,7 +1456,8 @@ class ExpenseReviewFormTest(TestCase):
             self.assertTrue(form.is_valid())
 
     def test_expense_status(self):
-        for status in ('S', 'C', 'A', 'R', 'X'):
+        statuses = [k for k, _ in models.EXPENSE_STATUS]
+        for status in statuses:
             data = {
                 "status": status,
                 "asked_for_authorization_date": "2016-01-01",
@@ -1467,7 +1468,7 @@ class ExpenseReviewFormTest(TestCase):
             }
 
             form = forms.ExpenseReviewForm(data)
-            self.assertTrue(form.is_valid())
+            self.assertTrue(form.is_valid(), msg=form.errors)
 
     def test_minimal_expected(self):
         data = {
@@ -1553,7 +1554,7 @@ class BlogReviewFormTest(TestCase):
         self.blog_id_a = self.claimant_test_data['claimant-a']['blog_id']
 
     def test_blog_status(self):
-        for status in ('U', 'R', 'L', 'P', 'D', 'O'):
+        for status in ('U', 'R', 'C', 'G', 'P', 'K', 'D', 'X'):
             data = {
                 "draft_url": "https://www.software.ac.uk/",
                 "status": status,
