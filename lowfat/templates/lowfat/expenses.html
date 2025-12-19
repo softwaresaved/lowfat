@@ -23,11 +23,11 @@
 </h2>
 {% if user.is_staff %}
 <ul class="nav">
-  <li {% if expenses_status == 'SPCARX' %}class="nav-item"{% endif %}>
-    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses=WSCPAFX&blogs={{ blogs_status }}">All</a>
+  <li {% if expenses_status == 'WFSPENABRCX' %}class="nav-item"{% endif %}>
+    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses=WFSPENABRCX&blogs={{ blogs_status }}">All</a>
   </li>
-  <li {% if expenses_status == 'SP' %}class="nav-item"{% endif %}>
-    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses=WSP&blogs={{ blogs_status }}">Pending</a>
+  <li {% if expenses_status == 'WSPENB' %}class="nav-item"{% endif %}>
+    <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses=WSPENB&blogs={{ blogs_status }}">Pending</a>
   </li>
   <li {% if expenses_status == 'A' %}class="nav-item"{% endif %}>
     <a class="nav-link active" href="?funding_requests={{ funding_requests_status }}&expenses=AF&blogs={{ blogs_status }}">Approved</a>
@@ -45,15 +45,19 @@
         ID
       </th>
       {% endif %}
-      {% if user.is_staff %}    
+      {% if user.is_staff %}
       <th>
         Fellow
       </th>
-      {% endif %}    
+      {% endif %}
       {% if user.is_staff or claimant and user == claimant.user %}
       <th>
-        Submitted date
+          Submitted date
       </th>
+          <th>
+              Last updated
+          </th>
+
       {% endif %}
       <th>
         Claim
@@ -81,34 +85,35 @@
     {% if expenses %}
     {% for expense in expenses %}
     <tr
-      {% if expense.status in 'S' %}
+      {% if expense.status in 'SE' %}
       class="table-danger"
-      {% elif expense.status in 'P' %}
+      {% elif expense.status in 'PN' %}
       class="table-warning"
       {% elif expense.status in 'A' %}
       class="table-success"
-      {% elif expense.status in 'R' %}
+      {% elif expense.status in 'RX' %}
       class="table-secondary"
       {% elif expense.status in 'C' %}
       class="table-light"
-      {% elif expense.status in 'X' %}
-      class="table-dark"
       {% endif %}
       >
       {% if user.is_staff or claimant and user == claimant.user %}
       <td>{{expense.fund.id}}</td>
       {% endif %}
-      {% if user.is_staff %}    
+      {% if user.is_staff %}
       <td>
         <a title='View' href="{% url 'fellow_slug' expense.fund.claimant.slug %}">{{ expense.fund.claimant.fullname }}</a>
       </td>
-      {% endif %}    
+      {% endif %}
       {% if user.is_staff or claimant and user == claimant.user %}
       <td sorttable_customkey="{{ expense.added | date:'Ymd' }}">
         {{ expense.added | date:"d M Y"}}
       </td>
+       <td sorttable_customkey="{{ expense.updated|date:'YmdHis' }}">
+          {{ expense.updated | date:"d M Y"}}
+       </td>
       {% endif %}
-      <td>
+    <td>
         {% if expense.claim %}
         <a
           {% if user.is_staff %}
@@ -153,8 +158,8 @@
         {% if user|can_edit_expense:expense %}
         <a  title="Edit" href="{% url 'expense_edit_relative' expense.fund.id expense.relative_number %}"><span class="fa-solid fa-edit" aria-hidden="true"></span></a>
         {% comment %} <a  title="Remove" href="{% url 'expense_remove_relative' expense.fund.id expense.relative_number %}?next={{ request.path }}"><span class="fa-solid fa-remove" aria-hidden="true"></span></a> {% endcomment %}
-            </td>
       {% endif %}
+          </td>
       {% endif %}
     </tr>
     {% endfor %}

@@ -19,7 +19,7 @@ import dj_database_url
 
 
 URL_SRC = "https://github.com/softwaresaved/lowfat"
-VERSION = "1.21.0"
+VERSION = "1.21.1"
 
 SETTINGS_EXPORT = [
     'URL_SRC',

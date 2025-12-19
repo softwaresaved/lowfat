@@ -11,7 +11,7 @@
     <div class='card col-lg border-0'>
         <div class='card-body'>
             {% if claimant.fellow %}
-                <div class="ribbon fellows-{{ claimant.application_year | add:"1" }}" class="card-img-top">
+                <div class="ribbon fellows-{{ claimant.application_year|add:"1" }} card-img-top">
                     <span>{{ claimant.application_year | add:"1" }}</span>
                 </div>
 
@@ -151,5 +151,5 @@
 {% include 'lowfat/funds.html' %}
 
 <p>Check <a href="{% url 'fund_past' %}">previous events</a> also organized by Institute fellows.</p>
-
+</div>
 {% endblock %}
