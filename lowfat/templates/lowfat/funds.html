@@ -72,7 +72,7 @@
     {% for fund, blog in funds %}
     <tr
       {% if user.is_staff or claimant and user == claimant.user %}
-      {% if fund.status in 'UR' %}
+      {% if fund.status in 'U' %}
       class="table-danger"
       {% elif fund.status in 'P' %}
       class="table-warning"
@@ -80,8 +80,8 @@
       class="table-success"
       {% elif fund.status in 'C' %}
       class="table-light"
-      {% elif fund.status in 'X' %}
-      class="table-dark"
+      {% elif fund.status in 'RX' %}
+      class="table-secondary"
       {% endif %}
       {% endif %}
       >

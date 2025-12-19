@@ -26,6 +26,5 @@ def blog_status_label(code: str) -> str:
     """
     Map a blog status code (including legacy codes) to a label.
 
-    Used in templates like: {{ blog.status|blog_status_label }}.
     """
     return LABELS.get(code, code)

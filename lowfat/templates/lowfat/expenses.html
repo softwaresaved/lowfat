@@ -91,12 +91,10 @@
       class="table-warning"
       {% elif expense.status in 'A' %}
       class="table-success"
-      {% elif expense.status in 'R' %}
+      {% elif expense.status in 'RX' %}
       class="table-secondary"
       {% elif expense.status in 'C' %}
       class="table-light"
-      {% elif expense.status in 'X' %}
-      class="table-dark"
       {% endif %}
       >
       {% if user.is_staff or claimant and user == claimant.user %}
