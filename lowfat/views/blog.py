@@ -4,6 +4,7 @@ import os
 import sys
 
 from django.contrib import messages
+from django.db.models import Q
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
@@ -13,6 +14,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse
 
+from lowfat import models
 from lowfat.models import Blog, Claimant, Expense, Fund, FUND_STATUS_APPROVED_SET, BlogSentMail
 from lowfat.forms import BlogForm, BlogReviewForm
 from lowfat.mail import blog_review_notification, new_blog_notification
@@ -52,7 +54,8 @@ def blog_form(request, **kargs):  # pylint: disable=too-many-branches
         request.POST or None,
         request.FILES or None,
         instance=blog_to_edit,
-        initial=None if blog_to_edit else initial,
+        # initial=None if blog_to_edit else initial,
+        **({"initial": initial} if not blog_to_edit else {}),
         is_staff=bool(request.user.is_staff)
     )
 
@@ -87,7 +90,7 @@ def blog_form(request, **kargs):  # pylint: disable=too-many-branches
             reverse('blog_detail', args=[blog.id])
         )
 
-    # Limit dropdown list to claimant
+    # Dropdown logic for the Fund field (handles new & edit cases)
     if not request.user.is_staff:
         try:
             claimant = Claimant.objects.get(user=request.user)
@@ -98,12 +101,34 @@ def blog_form(request, **kargs):  # pylint: disable=too-many-branches
 
             return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', kwargs={'url': '/unavailable/'}))
 
-        formset.fields["fund"].queryset = Fund.objects.filter(
-            claimant=claimant,
-            status__in=FUND_STATUS_APPROVED_SET
-        )
+        if blog_to_edit:
+            linked_fund = blog_to_edit.fund
+            formset.fields["fund"].required = False
+            if blog_to_edit.author == claimant:
+                if linked_fund:
+                    # Author can reassign: show their approved funds + the current linked one
+                    formset.fields["fund"].queryset = Fund.objects.filter(
+                        Q(claimant=claimant, status__in=models.FUND_STATUS_APPROVED_SET)
+                        | Q(id=linked_fund.id)
+                    ).distinct()
+                else:
+                    formset.fields["fund"].queryset = Fund.objects.filter(
+                        claimant=claimant,
+                        status__in=FUND_STATUS_APPROVED_SET
+                    )
+            else:
+                # Coauthor: only see the linked fund (if any), no reassignment
+                formset.fields["fund"].queryset = Fund.objects.filter(id=linked_fund.id) if linked_fund else Fund.objects.none()
+        else:
+            # New blog post: claimant can only select from their approved funds (or leave empty)
+            formset.fields["fund"].required = False
+            formset.fields["fund"].queryset = Fund.objects.filter(
+                claimant=claimant,
+                status__in=models.FUND_STATUS_APPROVED_SET
+            )
 
     elif request.GET.get("claimant_id"):
+        # For staff explicitly passing claimant_id (staff already bypass this normally)
         claimant = Claimant.objects.get(id=request.GET.get("claimant_id"))
         formset.fields["fund"].queryset = Fund.objects.filter(
             claimant=claimant,
@@ -111,10 +136,32 @@ def blog_form(request, **kargs):  # pylint: disable=too-many-branches
         )
 
     # Show submission form.
+#    context = {
+#        "title": "Edit blog post draft" if blog_to_edit else "Submit blog post draft",
+#        "formset": formset,
+#        "js_files": ["js/blog.js"],
+#    }
+
+# Show submission form.
+    warning_message = None
+
+    if blog_to_edit and blog_to_edit.status in ['R', 'C']:
+        if blog_to_edit.status == 'R':
+            warning_message = (
+                "This blog post is currently waiting to be reviewed. "
+                "Please edit only if advised by your reviewer or staff."
+            )
+        elif blog_to_edit.status == 'C':
+            warning_message = (
+                "This blog post is in the reviewing loop. "
+                "Only make edits that were specifically requested by your reviewer or staff."
+            )
+
     context = {
         "title": "Edit blog post draft" if blog_to_edit else "Submit blog post draft",
         "formset": formset,
         "js_files": ["js/blog.js"],
+        "warning_message": warning_message,
     }
     return render(request, 'lowfat/form.html', context)
 
@@ -213,10 +260,24 @@ def blog_edit(request, blog_id):
 def blog_review(request, blog_id):
     this_blog = Blog.objects.get(id=blog_id)
 
+    # ------ Non-superusers can not edit Removed blogs --------
+    if this_blog.status == 'X' and not request.user.is_superuser:
+        messages.warning(
+            request,
+            "This blog post has been marked as Removed and can only be edited by an administrator."
+        )
+        return HttpResponseRedirect(
+            reverse('blog_detail', args=[this_blog.id])
+        )
+
     if request.POST:
         # Handle submission
         old_blog = copy.deepcopy(this_blog)
-        formset = BlogReviewForm(request.POST, instance=this_blog)
+        formset = BlogReviewForm(request.POST,
+                                 instance=this_blog,
+                                 user=request.user,
+                                 is_staff=bool(request.user.is_staff),
+                                 )
 
         if formset.is_valid():
             blog = formset.save()
@@ -233,12 +294,13 @@ def blog_review(request, blog_id):
             return HttpResponseRedirect(
                 reverse('blog_detail', args=[blog.id])
             )
-
-    formset = BlogReviewForm(
-        None,
-        instance=this_blog,
-        is_staff=bool(request.user.is_staff)
-    )
+    else:
+        formset = BlogReviewForm(
+            None,
+            instance=this_blog,
+            user=request.user,
+            is_staff=bool(request.user.is_staff),
+        )
 
     # Limit dropdown list to staffs
     if not this_blog.reviewer:

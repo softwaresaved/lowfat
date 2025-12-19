@@ -1,5 +1,7 @@
 {% extends "lowfat/base.html" %}
 {% load crispy_forms_tags %}
+{% load blog_edit_permissions %}
+{% load blog_extras %}
 
 {% block content %}
 <h1>
@@ -7,7 +9,7 @@
   {% if user.is_staff %}
   <a title="View" class="btn btn-outline-dark" href="{% url 'blog_detail' blog.id %}" role="button"><span class="fa-solid fa-eye" aria-hidden="true"></span> View</a>
   {% endif %}
-  {% if user.is_staff %}
+  {% if user|can_edit_blog:blog %}
   <a title="Edit" class="btn btn-outline-dark" href="{% url 'blog_edit' blog.id %}" role="button"><span class="fa-solid fa-edit" aria-hidden="true"></span> Edit</a>
   {% comment %} <a title="Remove" class="btn btn-outline-dark" href="{% url 'blog_remove' blog.id %}" role="button"><span class="fa-solid fa-remove" aria-hidden="true"></span> Remove</a> {% endcomment %}
   {% endif %}
