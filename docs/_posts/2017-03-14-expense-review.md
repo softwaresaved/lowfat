@@ -5,7 +5,7 @@ category: staff
 date: 2017-03-14 12:52:37
 order: 4
 ---
-To review expense caim
+To review expense claim
 fill the form
 ilustrated below.
 **Details and guidance are on the form itself.**
