@@ -155,3 +155,43 @@ td, th {
 .money-passed {
     background: black;
 }
+
+/* index.md card updated styling */
+.card-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  flex: 1;
+  min-width: 250px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  float: none;
+}
+
+/* Button colour variants */
+.fellows-btn {
+  background-color: #007ACC;
+}
+
+.staff-btn {
+  background-color: #28A745;
+}
+
+.developers-btn {
+  background-color: #6F42C1;
+}
