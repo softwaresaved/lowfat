@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Run Time Settings"
-category: staff
+category: dev
 date: 2017-02-14 16:24:19
 order: 6
 ---
