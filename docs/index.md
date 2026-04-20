@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "lowFAT"
+navigation: false
 ---
 
 # Welcome to lowFAT
@@ -16,19 +17,19 @@ This page offers documentation if you are a **Fellow**, a **Staff member**, or a
   <div class="card">
     <h2>Fellows</h2>
     <p>Manage your claims, submit expenses, and track your Fellowship activities.</p>
-    <a href="{% post_url 2026-02-06-getting-started-fellows %}" style="display: inline-block; margin-top: 10px; padding: 10px 15px; background-color: #007ACC; color: white; border-radius: 5px; text-decoration: none;">Fellows Guide</a>
+    <a href="{{ site.baseurl }}{% post_url 2026-02-06-getting-started-fellows %}" style="display: inline-block; margin-top: 10px; padding: 10px 15px; background-color: #007ACC; color: white; border-radius: 5px; text-decoration: none;">Fellows Guide</a>
   </div>
 
   <div class="card">
     <h2>Staff</h2>
     <p>Manage applications, approvals, and reports for the Fellowship Programme.</p>
-    <a href="{% post_url 2016-12-22-getting-started-staff %}" style="display: inline-block; margin-top: 10px; padding: 10px 15px; background-color: #28A745; color: white; border-radius: 5px; text-decoration: none;">Staff Guide</a>
+    <a href="{{ site.baseurl }}{% post_url 2016-12-22-getting-started-staff %}" style="display: inline-block; margin-top: 10px; padding: 10px 15px; background-color: #28A745; color: white; border-radius: 5px; text-decoration: none;">Staff Guide</a>
   </div>
 
   <div class="card">
     <h2>Developers</h2>
     <p>Learn more or contribute to the development of lowFAT.</p>
-    <a href="{% post_url 2016-12-09-setup %}" style="display: inline-block; margin-top: 10px; padding: 10px 15px; background-color: #6F42C1; color: white; border-radius: 5px; text-decoration: none;">Developers Guide</a>
+    <a href="{{ site.baseurl }}{% post_url 2016-12-09-setup %}" style="display: inline-block; margin-top: 10px; padding: 10px 15px; background-color: #6F42C1; color: white; border-radius: 5px; text-decoration: none;">Developers Guide</a>
   </div>
 
 </div>

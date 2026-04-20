@@ -26,3 +26,14 @@ The development lifecycle for LowFAT should follow this pattern.
 The maintainers of LowFAT will periodically run full tests on the dev branch. On success open pull requests to main and 
 deploy new versions. In rare occasions where critical bugs arise issue branches will be pulled directly to main.
 
+<div class="doc-pagination">
+  <a class="doc-prev" href="{{ site.baseurl }}{% post_url 2016-12-09-testing %}">
+    <span class="arrow">←</span>
+    <span class="label">Testing</span>
+  </a>
+
+  <a class="doc-next" href="{{ site.baseurl }}{% post_url 2017-02-15-models %}">
+    <span class="label">Models</span>
+    <span class="arrow">→</span>
+  </a>
+</div>

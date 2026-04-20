@@ -11,3 +11,10 @@ This guide is intended for SSI staff with administrative responsibilities within
 ## Accessing lowFAT
 lowFAT is hosted at [https://fellows.software.ac.uk/](https://fellows.software.ac.uk/). Staff should bookmark this address for easy access.
 To log in, click "Sign in" (not "Sign in with Github") and enter your SSI staff credentials. If you have not received your login credentials or need a password reset, contact the system administrator or email [fellows-management@software.ac.uk](mailto:fellows-management@software.ac.uk).
+
+<div class="doc-pagination single">
+  <a class="doc-next" href="{{ site.baseurl }}{% post_url 2017-02-14-navigating-the-interface-staff %}">
+    <span class="label">Navigating the Interface</span>
+    <span class="arrow">→</span>
+  </a>
+</div>

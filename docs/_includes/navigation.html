@@ -1,17 +1,24 @@
 <ul class="nav flex-column">
-    <li class="nav-item">
-        <h1><a class="nav-link active" href="{{ site.baseurl }}/">Home</a></h1>
+    <li class="nav-item nav-home-link">
+        <a class="nav-link" href="{{ site.baseurl }}/">← Home</a>
     </li>
+
+    {% assign current_category = page.category %}
+
     {% for section in site.sections %}
         {% assign attr = section[0] %}
         {% assign label = section[1] %}
 
+        {% if current_category %}
+            {% if attr != current_category %}
+                {% continue %}
+            {% endif %}
+        {% endif %}
+
         {% if site.categories[attr] %}
             {% assign sorted_pages = site.categories[attr] | sort: "order" %}
+            <li class="nav-item"><b>{{ label }}</b></li>
             {% for page in sorted_pages %}
-                {% if forloop.first %}
-                    <li class="nav-item"><b>{{ label }}</b></li>
-                {% endif %}
                 <li class="nav-item" data-order="{{ page.order }}">
                     <a class="nav-link" href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
                 </li>

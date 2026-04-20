@@ -5,20 +5,26 @@ category: claimant
 order: 2
 ---
 
-Once you are logged in, you will be directed to the **Dashboard**, where you can access all key functionalities of lowFAT.
+Once you are logged in, you will be directed to the **Dashboard**, where you can access the main features of lowFAT.
 
-Below are the main areas you will interact with.
+Below are the key areas of the interface.
 
 ## Top Navigation Menu
 
-- **My Profile**
-- **My Dashboard** (default view)
-- **Options**
-  - Make a funding request
-  - Submit an expense claim
-  - Submit a blog post
-- **Documentation** (to follow)
-- **Sign out**
+The top navigation bar allows you to access all main areas of lowFAT:
+
+<div class="doc-screenshot">
+  <img src="{{ site.baseurl }}/img/top-navigation-2026.png" alt="Top Navigation Menu" class="img-fluid">
+</div>
+
+- **My Profile** – view and manage your personal and professional details  
+- **My Dashboard** – your main workspace (default view after login)  
+- **Options** – contains additional actions:
+  - Make a Funding Request  
+  - Submit an Expense Claim  
+  - Submit a Blogpost  
+- **Documentation** – access the user guide (this documentation)
+- **Sign out** – log out of your account
 
 ---
 
@@ -29,27 +35,22 @@ On this page, you will find an overview of your profile, including key details s
 - Name  
 - Affiliation  
 - Research area code  
-- Fellowship inauguration year  
-- Email address  
+- Fellowship inauguration Year  
+- Email address 
 
-![]({{site.baseurl}}/img/claimant-profile-2026.png){: .img-fluid}
+Depending on your profile, additional information may also be displayed, such as links to your website, publications, or professional profiles.
 
-### Supplier Number
+<div class="doc-screenshot">
+  <img src="{{ site.baseurl }}/img/claimant-profile-2026.png" alt="Example of a completed claimant profile page" class="img-fluid">
+</div>
 
-The **supplier number** is a unique identifier used for administrative and financial purposes, such as processing payments. It is issued by the University Finance Department.
-
-- This number will be issued after your first claim has been submitted.
-- It will be added to lowFAT by SSI Finance.
-- Please insert this number on all future expense claim forms.
-
-This section provides a comprehensive snapshot of your Fellowship information.
-
+Overall, your profile page provides a comprehensive snapshot of your Fellowship information.
 You can also view:
 
 - A record of past events you have attended or organised  
 - Any blog posts you have published as part of your Fellowship activities  
 
-These features help you track your engagement and contributions within the Fellowship Programme. These details are also displayed on the public-facing side of the lowFAT website, showcasing your involvement to a wider audience.
+These help you track your engagement within the Fellowship Programme and are also displayed on the public-facing side of the lowFAT website, showcasing your involvement to a wider audience.
 
 ---
 
@@ -90,18 +91,40 @@ Please keep this information up to date, as it may be used for:
 
 ### Information for the Website
 
-Update the information you would like displayed on the public-facing side of lowFAT.
-
-- Your listed interests are used as **“areas of expertise”** on the SSI website. Please use clear and specific keywords.
-- The **Short Biography** can be up to 300 words and will also be displayed on the SSI website.
+Update the information you would like displayed on the public-facing side of lowFAT. 
+Your listed interests are used as **“areas of expertise”** on the SSI website. Please use clear and specific keywords.
 
 ### Social Networks
 
 Add or update links to your professional social media accounts or online profiles.
 
-You are welcome to share only the websites, blogs, and social media accounts you feel comfortable displaying. If you wish to include additional accounts, you can mention them in your short biography.
+You are welcome to share only the websites, blogs, and social media accounts you feel comfortable displaying.
+
+If you would like to include additional links or information, you can mention them in your **"short biography"**. This can be up to 300 words and will also be displayed on the SSI website.
 
 When you update your profile on lowFAT, the Fellowship Programme Team will receive a notification. We will update the website accordingly as soon as possible.
 
+### Supplier Number
+
+This is a unique identifier used for administrative and financial purposes, such as processing payments. It is issued by the University Finance Department.
+
+- This number will be issued after your first claim has been submitted.
+- It will be added to lowFAT by SSI Finance.
+- Please insert this number on all future expense claim forms.
+
 For any questions or comments, please email:  
 [fellows-management@software.ac.uk](mailto:fellows-management@software.ac.uk)
+
+---
+
+<div class="doc-pagination">
+  <a class="doc-prev" href="{{ site.baseurl }}{% post_url 2026-02-06-getting-started-fellows %}">
+    <span class="arrow">←</span>
+    <span class="label">Getting Started</span>
+  </a>
+
+  <a class="doc-next" href="{{ site.baseurl }}{% post_url 2026-02-06-my-dashboard %}">
+    <span class="label">My Dashboard</span>
+    <span class="arrow">→</span>
+  </a>
+</div>

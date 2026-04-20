@@ -5,8 +5,26 @@ category: claimant
 order: 1
 ---
 
-Getting started with lowFAT is simple and intuitive. This section is specifically for SSI Fellows and will guide you through the steps to access and navigate the platform, ensuring you can make the most of its features from the outset.
+Welcome to the Fellows guide for lowFAT.
 
+lowFAT (Low Effort Fellowship Administration Tool) is the Software Sustainability Institute’s (SSI) platform for managing your Fellowship activities. You can use it to submit funding requests, claim expenses, manage your profile, and track your outputs such as blog posts.
+
+If you are new to the system, this page will help you get started with accessing your account and understanding the first steps.
+
+---
+
+## In this section
+
+This guide covers the main areas you will use in lowFAT:
+
+- [Navigating the Interface]({{ site.baseurl }}{% post_url 2026-02-06-navigating-the-interface %})
+- [My Dashboard]({{ site.baseurl }}{% post_url 2026-02-06-my-dashboard %})
+- [Make a Funding Request]({{ site.baseurl }}{% post_url 2026-02-06-funding-request %})
+- [Submit an Expense Claim]({{ site.baseurl }}{% post_url 2026-02-06-expense-claim %})
+- [Submit a Blogpost]({{ site.baseurl }}{% post_url 2026-02-06-blogpost %})
+
+
+---
 
 ## Accessing lowFAT
 
@@ -15,29 +33,37 @@ lowFAT is hosted at:
 
 Please bookmark this address for easy access.
 
+---
 
-### Login Credentials
+## Logging in
 
 To access lowFAT:
 
-- Click **“Sign in”** (not **“Sign in with GitHub”**).
-- Enter your unique login credentials, which will be provided to you by the Software Sustainability Institute (SSI).
-- Once you’ve entered your details, click the **“Login”** button.
+- Click **“Sign in”** (not **“Sign in with GitHub”**)
+- Enter your login credentials provided by the Software Sustainability Institute (SSI)
+- Click **“Login”**
 
-### If you have not received your login details
+---
 
-Please contact the Fellowship Programme Team at:  
+## Need help?
+
+If you have not received your login details, or are unable to access your account, please contact:  
 [fellows-management@software.ac.uk](mailto:fellows-management@software.ac.uk)
 
-### If you have forgotten your password
-
-You can reset your password via the sign-in page by entering your email address:  
+If you have forgotten your password, you can reset it here:  
 [https://fellows.software.ac.uk/login/reset/](https://fellows.software.ac.uk/login/reset/)
 
-If you experience any issues accessing your account, you can request a manual reset by emailing:  
-[fellows-management@software.ac.uk](mailto:fellows-management@software.ac.uk)
-
+---
 
 ## System Requirements
 
 _To follow._
+
+---
+
+<div class="doc-pagination single">
+  <a class="doc-next" href="{{ site.baseurl }}{% post_url 2026-02-06-navigating-the-interface %}">
+    <span class="label">Navigating the Interface</span>
+    <span class="arrow">→</span>
+  </a>
+</div>

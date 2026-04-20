@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "File system"
+title: "File System"
 category: dev
 date: 2016-12-09 17:09:34
 order: 2
@@ -52,3 +52,15 @@ order: 2
 - `upload/`
 
   Where user upload files are stored.
+
+<div class="doc-pagination">
+  <a class="doc-prev" href="{{ site.baseurl }}{% post_url 2016-12-09-setup %}">
+    <span class="arrow">←</span>
+    <span class="label">Setup</span>
+  </a>
+
+  <a class="doc-next" href="{{ site.baseurl }}{% post_url 2017-07-25-url %}">
+    <span class="label">Style Guide and URL</span>
+    <span class="arrow">→</span>
+  </a>
+</div>

@@ -1,162 +1,229 @@
 ---
 layout: page
-title: "Submit an expense claim"
+title: "Submit an Expense Claim"
 category: claimant
 order: 5
 ---
 
-This section outlines the steps required to submit an expense claim via lowFAT.  
-Please read carefully to ensure your submission is complete and meets all requirements.
+Submitting an expense claim in lowFAT involves completing a form and uploading the required documentation.  
+This guide walks you through the process step by step.
 
 ---
 
-## Choose an Approved Funding Request
+## Accessing the Expense Claim Form
 
-Start by selecting your **approved funding request** from the dropdown menu.
+You can submit an expense claim in any of the following ways:
 
-If your funding request is not listed, please contact the Fellowship Programme Team for assistance.
+- Click **“Options”** in the top navigation menu and select **“Submit expense claim”**
+- Click the **“Submit expense claim”** button on the dashboard
+- Click the same button within the **“Expenses”** section
 
----
-
-## Before Submitting Your Expense Claim
-
-Please ensure you have read and followed:
-
-- The **Guidelines for Reimbursement of Expenses** from the Software Sustainability Institute (SSI).
-- The **Fellowship Programme Terms and Conditions** for your cohort.
-- The **University of Edinburgh Finance Expenses Policy** (linked on the guidelines webpage).
-
-You **must** complete the **University of Edinburgh Payment of Non-Staff Expenses Form**, available on the SSI website.
-
-### Important
-
-- Always download a **fresh copy** of the form each time you submit a claim.
-- The University of Edinburgh updates forms regularly (sometimes without notice).
-- Even if updates are announced, best practice is to download the latest version directly from the website.
-
-If you have any questions, please contact the relevant SSI Finance contact.
+<div class="doc-screenshot">
+  <img src="{{ site.baseurl }}/img/making-an-expense-claim.png" alt="Ways to access the expense claim form" class="img-fluid">
+</div>
 
 ---
 
-## General Rules
+## Before You Start
 
-- Be clear and tidy in your submission.
-- Only **actual incurred costs**, supported by proof of payment, can be reimbursed.
-- A **receipt or invoice for every expense claimed is compulsory**.
-- Always state the correct **currency** in which you wish to be paid.
+Expense claims must follow the relevant guidance and policies:
 
-### Bank / Card Statement Excerpts Required For:
-
-- All foreign currency payments  
-- Accommodation bookings  
-- Conference tickets  
-- International flights  
-- Part payments from a group bill (e.g. shared meal)  
-
-Please number all receipts according to their receipt number in **Section 4** of the claim form.  
-If you need additional lines, contact: [finance@software.ac.uk](mailto:finance@software.ac.uk)
-
-Detailed guidance is available in the official University of Edinburgh Policy (see SSI reimbursement guidelines webpage).
-
----
-
-## Examples of Acceptable Expenditure
-
-Reasonable expenses incurred in pursuit of University of Edinburgh (SSI) business will be reimbursed.
-
-Certain items are subject to limits and conditions as set out in the official policy.
-
-### Travel
-
-- Travel should normally be by the **cheapest means**.
-- Business or first-class flights/train tickets are **not permitted**.
-- Internal UK flights are **not permitted** under the UoE Sustainable Travel Policy.
-- Taxis are permitted.
-- AirBnB is allowed but discouraged (check policy first).
-- Travel insurance cannot be booked on your behalf.
-
-### Other Rules
-
-- Alcohol will **not** be reimbursed.
-- Equipment and subscriptions supporting online activities are allowed.
-  - This does **not** include computers, laptops, tablets, monitors, or printers.
-- Avoid paying in cash where possible.
-- Always obtain a receipt for cash payments.
-
-See also: eligible expenses for SSI Fellowship funds.
-
----
-
-## Proof of Payment Requirements
-
-For each item claimed:
-
-- A detailed payment receipt must be provided.
-- For VAT-registered businesses, a **VAT receipt** is required.
-- Card slips alone are **not sufficient**.
-- Booking confirmations are **not accepted** as proof of payment.
-  - A VAT invoice must be obtained after the stay.
-- Online order confirmations are not sufficient.
-  - A VAT invoice must be obtained.
-
-### Bank/Card Statement Extracts Required For:
-
-- Foreign currency payments  
-- Accommodation  
-- Conference tickets  
-- International flights  
-- Partial group payments  
-
-All receipts and proof of payment must be compiled into a **single PDF document**.
+- The [**Guidelines for Reimbursement of Expenses by the SSI**](https://www.software.ac.uk/guide/guidelines-reimbursement-expenses-supported-software-sustainability-institute)  
+- The **Fellowship Programme Terms and Conditions** for your cohort  
+- The **University of Edinburgh (UoE) Finance Expenses Policy** (linked from the guidelines page)  
 
 ---
 
 ## Preparing a Claim
 
-- SSI Fellows must submit expense claims via **lowFAT**.
-- If you supported someone else using your Fellowship funds, they should email their claim directly to the Finance Team.
-- Paper receipts should be scanned and included.
-- Store original paper receipts safely for audit purposes.
-- Native digital receipts do not require paper copies.
-- Group all expenses relating to one event into a **single submission** where possible.
-- All expense claims linked to a funding request must be submitted by the Fellow via lowFAT.
+Before filling in the form, make sure you have:
+
+- An **approved funding request**  
+- A completed **UoE Payment of Non-Staff Expenses Form (Sections 1–5)** (available on the SSI website)
+- A **single PDF** containing all receipts and proof of payment  
+- Any required **bank/card statement extracts**  
+- Your **Supplier Number** (available in your profile)  
+
+<div class="box-note">
+<strong>Please note:</strong><br>
+
+The University of Edinburgh updates the forms regularly (sometimes without notice). Therefore, always 
+download a <strong>fresh copy</strong> from the official website each time you submit a claim.<br>
+</div>
+
+Additional guidance:
+
+- SSI Fellows must submit expense claims via **lowFAT**  
+- If you supported someone else using your Fellowship funds, they should email their claim directly to the Finance Team  
+- Paper receipts should be scanned and included  
+- Store original paper receipts safely for audit purposes  
+- Native digital receipts do not require paper copies  
+- Group all expenses relating to one event into a **single submission** where possible  
+- All expense claims linked to a funding request must be submitted by the Fellow via lowFAT  
 
 ---
 
-## Claiming Part of a Receipt / Invoice
+## Completing the Expense Claim Form
 
-If claiming part of a shared receipt:
+<div class="doc-screenshot">
+<div style="max-height: 550px; overflow-y: auto; border: 1px solid #ddd;">
+  <img src="{{ site.baseurl }}/img/expense-claim-form-2026.png" style="width:100%;">
+</div>
+</div>
 
-- Provide the original receipt.
-- Mark the items you ordered.
-- Provide a matching card slip or bank statement extract.
+Once the form is open, complete the following sections:
+
+### Choose an approved funding request
+
+Select your **approved funding request** from the dropdown.
+
+If it is not listed, contact:  
+[fellows-management@software.ac.uk](mailto:fellows-management@software.ac.uk)
+
+### Upload your completed form
+
+- Upload the completed **UoE Expense Claim Form (Sections 1–5)**
+- Ensure Section 4 is fully completed
+- Tick “**receipt attached**” for each item
+- Expenses without receipts will not be reimbursed
+- Keep the file in **Word format (.doc/.docx)**
+
+### Upload receipts and proof of payment
+
+- Upload a **single PDF file** containing:
+  - All receipts  
+  - Proof of payment  
+- Number each receipt to match Section 4
+- Include VAT invoices where applicable
+- Include bank statements where required.
+
+### Confirm required checks
+
+You will be asked to confirm that:
+
+- Receipts are numbered correctly  
+- Proof of payment is included  
+- Bank/card statements are provided where required
+
+### Upload supporting documentation (if applicable)
+
+You may upload additional supporting documents where relevant, such as:
+
+- Travel confirmations  
+- Booking details  
+- Supporting correspondence  
+- Any documents that help clarify your claim  
+
+This step is optional but recommended where additional context may be helpful.
+
+### Enter amount claimed
+
+- Enter the total amount in **GBP**
+- If the claim exceeds the approved amount by **more than 20%**, provide justification
+
+Tick the following relevant options:
+
+- Indicate if claiming via an institutional/company **invoice**
+- Confirm if this is your **final expense claim** linked to the funding request
+
+### Recipient (if claiming for someone else)
+
+Only complete this section if claiming on behalf of another person.
+
+---
+
+## General Rules
+
+- Be clear and tidy in your submission
+- Only **actual incurred costs**, supported by proof of payment, can be reimbursed
+- A **receipt or invoice for every expense claimed is compulsory**
+- Always state the correct **currency** in which you wish to be paid
+
+## Proof of Payment Requirements
+
+For each item claimed:
+
+- A **detailed receipt or VAT invoice** must be provided  
+- For VAT-registered businesses, a **VAT receipt is required**  
+- Card slips alone are **not sufficient**  
+- Booking confirmations are **not accepted** as proof of payment  
+  - A VAT invoice must be obtained after the stay
+- Online order confirmations are not sufficient
+  - A VAT invoice must be obtained  
+
+Bank/Card statements must be provided for:
+
+- **Foreign currency payments**  
+- **Accommodation bookings**  
+- **Conference tickets**  
+- **International flights**  
+- **Part payments from a group bill (e.g. shared meals)**  
+
+All receipts and proof of payment must be compiled into a **single PDF document**.
+
+---
+
+## Examples of Acceptable Expenditure
+
+Reasonable expenses incurred in support of SSI Fellowship activities can be reimbursed, subject to policy.
+
+### Travel
+
+- Travel should normally be by the **cheapest reasonable means**  
+- Business or first-class travel is **not permitted**  
+- Internal UK flights are **not permitted** under the UoE Sustainable Travel Policy  
+- Taxis are permitted where appropriate  
+- AirBnB is allowed but may be subject to restrictions  
+- Travel insurance cannot be booked on your behalf  
+
+<div class="box-note">
+<strong>Advance booking:</strong><br>
+In some cases, SSI can arrange travel in advance (e.g. long-haul flights). This is handled outside the standard expense claim process and there are administrative limitations. 
+To discuss options, contact: 
+<a href="mailto:fellows-management@software.ac.uk">fellows-management@software.ac.uk</a>
+</div>
+
+### Other Rules
+
+- Alcohol will **not** be reimbursed  
+- Equipment and subscriptions supporting online activities are allowed  
+  - This excludes computers, laptops, tablets, monitors, or printers  
+- Avoid paying in cash where possible — and always obtain a receipt if you do
+
+---
+
+## Common Scenarios
+
+### Shared expenses
+
+- Provide the full receipt  
+- Clearly mark the items you are claiming  
+- Provide matching proof of payment  
 
 ### Tipping
 
-- The payment slip/statement must reflect the tip.
-- Tips must not exceed **10%** of your claimed total.
+- Must be reflected in the payment record  
+- Must not exceed **10%** of the claimed amount  
 
 ### Alcohol
 
-- Clearly mark alcoholic items so they can be deducted.
+- Must be clearly marked so it can be excluded  
 
-If registration or accommodation covers multiple people, a **bank statement is compulsory**.
+If accommodation or registration covers multiple people, a **bank statement is required**.
 
----
+### Foreign Currency
 
-## Foreign Currency
-
-- Avoid paying in cash.
-- Prefer card or account transfer.
+- Avoid paying in cash
+- Prefer card or bank transfer  
 - Provide both:
   - Detailed receipt  
   - Bank/card statement showing currency conversion  
 
-If no GBP value appears on your bank statement, indicate the foreign currency amount and follow Section 4 instructions in the claim form.
+If no GBP value appears on your statement, indicate the foreign currency and follow Section 4 instructions in the claim form
 
 ---
 
-## Expenses Claim Form Instructions
+## Completing the University of Edinburgh Expense Form
 
 If your UK university is claiming directly from SSI:
 
@@ -166,18 +233,14 @@ If your UK university is claiming directly from SSI:
 - Setup may take up to **two months**.
 - Work cannot begin before a Purchase Order is issued.
 
----
-
-## For All Other Claimants
-
-Please complete **Sections 1–5** of the form.
+For all other claimants, please complete **Sections 1–5** of the form:
 
 ### Section 1
 
-- Insert your **Supplier Number** (found in your lowFAT Profile).
-  - Issued after your first claim.
-- Insert your **Name and Home Address** (not work address).
-- Ensure bank details are correct.
+- Insert your **Supplier Number** (found in your lowFAT Profile)
+  - Issued after your first claim
+- Insert your **Name and Home Address** (not work address)
+- Ensure bank details are correct
 
 ### Section 3
 
@@ -188,8 +251,8 @@ Example: `777 J Smith – Travel to London for RSECon`
 
 ### Section 5
 
-- Insert your name.
-- Insert the submission date.
+- Insert your name
+- Insert the submission date
 
 ### File Naming
 
@@ -201,18 +264,7 @@ Example: `777 J Smith`
 - Keep the file in **MS Word format**.
 - Do not change the file format.
 
----
-
-## Advance Booking
-
-In some cases, SSI can book more expensive travel (e.g. long-haul flights).
-
-There are administrative limitations.  
-To discuss, email: [fellows-management@software.ac.uk](mailto:fellows-management@software.ac.uk)
-
----
-
-## Invoicing the SSI
+### Invoicing the SSI
 
 If you are being paid directly for a service (e.g. honorarium):
 
@@ -228,42 +280,14 @@ You must:
 
 ---
 
-## Upload Completed Claim Form
+<div class="doc-pagination">
+  <a class="doc-prev" href="{{ site.baseurl }}{% post_url 2026-02-06-funding-request %}">
+    <span class="arrow">←</span>
+    <span class="label">Make a Funding Request</span>
+  </a>
 
-- Upload the completed claim form (Sections 1–5).
-- Ensure Section 4 is completed.
-- Tick “receipt attached” for every listed expense.
-- Expenses without receipts will not be reimbursed.
-- Do not change the document format.
-
----
-
-## Upload Receipts and Supporting Documentation
-
-Upload:
-
-- A single PDF containing all receipts and proof of payment.
-- Number each receipt and match it to Section 4.
-- Include VAT invoices where applicable.
-- Include bank statements where required.
-
----
-
-## Amount Claimed
-
-Enter the total amount in **GBP**.
-
-If the claim is **20% higher** than the originally requested amount, you must provide justification.
-
----
-
-## Invoice and Final Claim
-
-- Indicate if claiming via an institutional/company invoice.
-- Confirm if this is your **final expense claim** linked to the funding request.
-
----
-
-## Email Notification Preferences
-
-You may suppress email notifications for this update by selecting the relevant option.
+  <a class="doc-next" href="{{ site.baseurl }}{% post_url 2026-02-06-blogpost %}">
+    <span class="label">Submit an Blogpost</span>
+    <span class="arrow">→</span>
+  </a>
+</div>

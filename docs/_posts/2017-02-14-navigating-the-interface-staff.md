@@ -1,59 +1,125 @@
 ---
 layout: page
-title: "Navigating the interface"
+title: "Navigating the Interface"
 category: staff
 order: 2
 ---
-From the home page, staffs can search for any term into the database and have access to via the header bar to: 
-- My Dashboard
-- Activities Overview
-- Options
-- Documentation
-- Sign out
 
-![]({{site.baseurl}}/img/home-staff-2023.png){: .img-fluid}
+When you sign in, you land on the **Dashboard**.
 
-## Fellow Profile
-A summary of the Fellow's personal and professional details, including their name, affiliation, research area, Fellowship year, email address, and supplier number.
-![]({{site.baseurl}}/img/fellow-2023-1.png){: .img-fluid}
+The dashboard shows an overview of all activities in the system, including funding requests, expense claims, and blog posts, grouped by status.
 
-## Finances
-An overview of how the Fellow's grant is allocated. Useful for quickly checking whether a Fellow has sufficient funds before approving a request, or for answering queries about remaining budget.
-- Finances
-    - Grant (total amount awarded)
-    - Available (green)
-    - Committed (orange)
-    - Spent (red)
-![]({{site.baseurl}}/img/fellow-2023-2.png){: .img-fluid}
+<div class="doc-screenshot">
+  <img src="{{ site.baseurl }}/img/dashboard-staff-2026.png" alt="Staff dashboard" class="img-fluid">
+</div>
 
-## Fellow Submissions
-An overview of everything the Fellow has submitted through lowFAT — funding requests, expense claims, and blog posts — each with their current status. This is the quickest way to get an coherent picture of where a Fellow is in the programme cycle.
-- Funding request 
-    - Requests submitted by the Fellow and their status.
-- Expenses
-    - Expense claims submitted by the Fellow and their status
-- Blog posts
-    - Blog posts submitted by the Fellows and their status
-![]({{site.baseurl}}/img/fellow-2023-3.png){: .img-fluid}
+You can move around lowFAT using:
 
-### Profile Update Notifications
-Whenever a Fellow updates their profile, the Fellowship Programme Team receives an automatic notification. Staff should:
-•	Review the updated information for accuracy and completeness
-•	Update the SSI website accordingly as soon as possible
-•	Contact the Fellow via fellows-management@software.ac.uk if any clarification is needed
+- The **top navigation bar**
+- The **search bar**
 
-### Assigning Supplier Numbers
-The supplier number is a unique identifier issued by the University of Edinburgh Finance department, used to process payments. This is not automatically assigned — it is issued after a Fellow's first expense claim is submitted and processed.
+From the navigation bar, you can access:
 
-Once issued, staff must add the supplier number to the Fellow's profile in lowFAT. The Fellow will then be instructed to include this number on all future expense claim forms.
+- Activities Overview  
+- Options  
+- Documentation  
+- Sign out  
 
-## My Dashboard
-On the dashboard,
-staffs will find information about **all** requests
-separated by status and the option to take some actions.
+You can also use the search bar to find:
 
-![]({{site.baseurl}}/img/dashboard-staff-2023-1.png){: .img-fluid}
-![]({{site.baseurl}}/img/dashboard-staff-2023-2.png){: .img-fluid}
+- Fellows  
+- Funding requests  
+- Expense claims  
+- Blog posts  
 
-## Activities Overview
-to follow.
+Selecting a result will take you to the relevant detail page.
+
+---
+
+## Fellow Detail Page
+
+Selecting a Fellow (via search or dashboard) opens their **Fellow Detail** page, which is divided into two main parts:
+
+<div class="doc-screenshot">
+<div style="max-height: 550px; overflow-y: auto; border: 1px solid #ddd;">
+  <img src="{{ site.baseurl }}/img/fellow-detail-2026.png" style="width:100%;">
+</div>
+</div>
+
+### Profile Information
+
+The top section displays the Fellow’s personal and professional details, including:
+
+- Name  
+- Affiliation  
+- Research area  
+- Fellowship year  
+- Email address  
+- Supplier number  
+- External links (e.g. ORCID, GitHub, website)
+
+<div class="box-note">
+<strong>Assigning Supplier Numbers:</strong><br>
+
+The supplier number is <strong>a unique identifier</strong> issued by the University of Edinburgh Finance department, used to process payments.
+
+<ul>
+  <li>It is assigned after the first expense claim is submitted and processed</li>
+  <li>It must be added manually to the Fellow’s profile in lowFAT</li>
+  <li>Fellows must include this number on all future expense claim forms</li>
+</ul>
+</div> 
+
+### Staff View (Website Profile Preview)
+
+This section shows how the Fellow’s profile appears on the SSI website, including:
+
+- Profile summary (e.g. “My work”)  
+- Online presence (links and social profiles)  
+
+This allows staff to review how the Fellow’s information will be presented publicly.
+
+### Finances
+
+This section shows how a Fellow’s grant is allocated. It is useful for quickly checking whether a Fellow has sufficient funds before approving a request, or for responding to queries about their remaining budget. 
+
+It includes:
+
+- **Grant** – total amount awarded
+- **Available** – remaining funds available to use
+- **Committed** – funds already allocated to approved requests
+- **Spent** – funds already claimed and processed
+
+### Fellow Submissions
+
+This section shows everything the Fellow has submitted through lowFAT:
+
+- **Funding requests** – including status and amounts  
+- **Expenses** – submitted claims and their status  
+- **Blog posts** – drafts and published posts  
+
+This provides a clear overview of where the Fellow is in the programme lifecycle.
+
+## Profile Update Notifications
+
+Whenever a Fellow updates their profile, the Fellowship Programme Team receives an automatic notification. 
+
+Staff should: 
+
+- Review the updated information for accuracy and completeness 
+- Update the SSI website accordingly as soon as possible 
+- Contact the Fellow via [fellows-management@software.ac.uk](mailto:fellows-management@software.ac.uk) if any clarification is needed
+
+---
+
+<div class="doc-pagination">
+  <a class="doc-prev" href="{{ site.baseurl }}{% post_url 2016-12-22-getting-started-staff %}">
+    <span class="arrow">←</span>
+    <span class="label">Getting Started</span>
+  </a>
+
+  <a class="doc-next" href="{{ site.baseurl }}{% post_url 2017-03-14-request-review %}">
+    <span class="label">Reviewing Funding Requests</span>
+    <span class="arrow">→</span>
+  </a>
+</div>
