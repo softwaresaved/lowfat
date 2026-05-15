@@ -258,7 +258,7 @@ Example: `777 J Smith – Travel to London for RSECon`
 
 Save the form as:
 
-> LowFAT ID – Initial Family Name  
+> lowFAT ID – Initial Family Name  
 Example: `777 J Smith`
 
 - Keep the file in **MS Word format**.

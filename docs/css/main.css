@@ -156,22 +156,40 @@ td, th {
     background: black;
 }
 
+.landing-page {
+  padding-top: 20px;
+}
+
+.landing-intro h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.landing-intro p {
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
 /* index.md card updated styling */
 .card-container {
   display: flex;
-  gap: 20px;
+  gap: 30px;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  margin: 30px 0;
 }
 
 .card {
-  flex: 1;
-  min-width: 250px;
+  flex: 1 1 300px;
+  max-width: 360px;
   border: 1px solid #ddd;
   border-radius: 10px;
-  padding: 20px;
+  padding: 28px 24px;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 
 .card-button {
   display: inline-block;
@@ -181,6 +199,15 @@ td, th {
   border-radius: 5px;
   text-decoration: none;
   float: none;
+}
+
+
+.guide-card-section {
+  background: #f8f9fb;
+  border: 1px solid #e3e6ea;
+  border-radius: 14px;
+  padding: 36px;
+  margin: 36px 0 32px 0;
 }
 
 /* Button colour variants */
@@ -194,6 +221,22 @@ td, th {
 
 .developers-btn {
   background-color: #6F42C1;
+}
+
+.info-card-container {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin: 24px 0;
+}
+
+.info-card {
+  flex: 1 1 300px;
+  border: none;
+  border-radius: 0;
+  padding: 0 10px;
+  background: transparent;
+  box-shadow: none;
 }
 
 /* Documentation pagination */

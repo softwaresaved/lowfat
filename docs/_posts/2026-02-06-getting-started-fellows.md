@@ -23,6 +23,20 @@ This guide covers the main areas you will use in lowFAT:
 - [Submit an Expense Claim]({{ site.baseurl }}{% post_url 2026-02-06-expense-claim %})
 - [Submit a Blogpost]({{ site.baseurl }}{% post_url 2026-02-06-blogpost %})
 
+---
+
+## System Requirements
+
+lowFAT is accessed through a web browser and does not require any additional software installation.
+
+We recommend using an up-to-date version of:
+
+- Google Chrome
+- Mozilla Firefox
+- Microsoft Edge
+- Safari
+
+You will also need internet access. Some parts of lowFAT, such as funding requests and expense claims, may require uploading files including receipts, PDFs, or images. 
 
 ---
 
@@ -52,12 +66,6 @@ If you have not received your login details, or are unable to access your accoun
 
 If you have forgotten your password, you can reset it here:  
 [https://fellows.software.ac.uk/login/reset/](https://fellows.software.ac.uk/login/reset/)
-
----
-
-## System Requirements
-
-_To follow._
 
 ---
 

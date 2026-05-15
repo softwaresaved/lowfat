@@ -46,7 +46,7 @@ When reviewing an expense claim, staff should verify the following:
 - The claim form is:
   - Saved in **MS Word format**  
   - Named correctly:  
-    - `LowFAT ID – Initial Family Name`  
+    - `lowFAT ID – Initial Family Name`  
     - Example: `777 J Smith`  
 
 - **Receipts and documentation:**
