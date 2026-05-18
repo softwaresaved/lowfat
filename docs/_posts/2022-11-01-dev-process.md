@@ -1,14 +1,14 @@
 ---
 layout: page
 title: "Development Cycle"
-category: dev
+category: old
 date: 2022-11-01 14:41:00
 order: 4
 ---
 
 ## Development Lifecycle
 
-The development lifecycle for LowFAT should follow this pattern.
+The development lifecycle for lowFAT should follow this pattern.
 
 1. Raise issues at the [GitHub Issues](https://github.com/softwaresaved/lowfat/issues) page.
 2. Collect issues into a milestone at [GitHub Milestones](https://github.com/softwaresaved/lowfat/milestones).
@@ -23,6 +23,17 @@ The development lifecycle for LowFAT should follow this pattern.
 
 ## Pull to main
 
-The maintainers of LowFAT will periodically run full tests on the dev branch. On success open pull requests to main and 
+The maintainers of lowFAT will periodically run full tests on the dev branch. On success open pull requests to main and 
 deploy new versions. In rare occasions where critical bugs arise issue branches will be pulled directly to main.
 
+<div class="doc-pagination">
+  <a class="doc-prev" href="{{ site.baseurl }}{% post_url 2016-12-09-testing %}">
+    <span class="arrow">←</span>
+    <span class="label">Testing</span>
+  </a>
+
+  <a class="doc-next" href="{{ site.baseurl }}{% post_url 2017-02-15-models %}">
+    <span class="label">Models</span>
+    <span class="arrow">→</span>
+  </a>
+</div>

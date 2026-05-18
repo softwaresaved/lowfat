@@ -1,65 +1,65 @@
 ---
 layout: default
-title: "lowFAT Documentation"
+title: "lowFAT"
+navigation: false
 ---
 
-# LowFAT User and Developer Guide
+<div class="landing-page" markdown="1">
 
-Welcome to the documentation of the Software Sustainability Institute's Low effort Fellowship Administration Tool (lowFAT).
+<div class="box-warning" markdown="1">
+This documentation is being updated. Some pages may change as the Fellow, Staff, and Developer guides are reviewed.
+</div>
 
-## Users
-### Fellows
+# Welcome to lowFAT
 
-*See tutorial for claimants*
+**lowFAT** (Low effort Fellowship Administration Tool) is the Software Sustainability Institute’s open-source tool to manage Fellowship programmes efficiently.
 
-### Staff
+This page offers documentation if you are a **Fellow**, a **Staff member**, or a **Developer**.
 
-*See tutorial for staff*
+<div class="guide-card-section">
+<div class="card-container">
 
-## Developers
+  <div class="card">
+    <h2>Fellows</h2>
+    <p>Manage your claims, submit expenses, and track your Fellowship activities.</p>
+    <a href="{{ site.baseurl }}{% post_url 2026-02-06-getting-started-fellows %}" style="display: inline-block; margin-top: 10px; padding: 10px 15px; background-color: #007ACC; color: white; border-radius: 5px; text-decoration: none;">Fellow Guide</a>
+  </div>
 
-LowFAT is open source, anyone can make a copy and add or remove features. For those looking to add (or remove) functionality
-from LowFAT they should follow this guide. For SSI staff, or external contributors, when working directly on the LowFAT 
-repository, careful consideration should be paid to the workflow section to ensure adherence to our development practice.
-*See developers section*
+  <div class="card">
+    <h2>Staff</h2>
+    <p>Manage applications, approvals, and reports for the Fellowship Programme.</p>
+    <a href="{{ site.baseurl }}{% post_url 2016-12-22-getting-started-staff %}" style="display: inline-block; margin-top: 10px; padding: 10px 15px; background-color: #28A745; color: white; border-radius: 5px; text-decoration: none;">Staff Guide</a>
+  </div>
 
-#### License
+  <div class="card">
+    <h2>Developers</h2>
+    <p>Learn more about the lowFAT codebase and contributor workflows.</p>
+    <a href="{{ site.baseurl }}{% post_url 2026-05-08-getting-started-developers %}" style="display: inline-block; margin-top: 10px; padding: 10px 15px; background-color: #6F42C1; color: white; border-radius: 5px; text-decoration: none;">Developer Guide</a>
+  </div>
+</div>
+</div>
 
-LowFAT is licensed under the BSD 3-Clause License and by submiting any pull request to lowFAT you agree to make your contribution also avaiable under the BSD 3-Clause License.
 
-#### Code Style
+<div class="info-card-container">
+<div class="info-card" markdown="1">
 
-We follow [PEP8](https://www.python.org/dev/peps/pep-0008/).
+## License & Code Style
 
+- **License:** BSD 3-Clause License. By submitting a pull request, you agree to license your contributions under BSD 3-Clause.  
+- **Code Style:** We follow [PEP8](https://www.python.org/dev/peps/pep-0008/).
 
-#### Guides
-To install LowFAT and start a local working server.
+</div>
 
-[Setup]({% post_url 2016-12-09-setup %})
+<div class="info-card" markdown="1">
 
-For testing on the local server including logging in as an admin or a user.
+## Reuse & Redistribution
 
-[Testing]({% post_url 2016-12-09-testing %})
+lowFAT was originally developed as an internal tool, but you are **welcome to reuse or redistribute it** under the BSD 3-Clause License.
 
-Before making changes please now familiarise yourself with the following information:
-- [Files]({% post_url 2016-12-09-file-system %})
-- [Style Guide and URL patterns]({% post_url 2017-07-25-url %})
-- [Models]({% post_url 2017-02-15-models %})
-- [Model View Controller]({% post_url 2017-04-20-mvc %})
-- [GitHub OAuth]({% post_url 2016-12-09-github %})
+**Questions?** Open an issue on [GitHub](https://github.com/softwaresaved/lowfat/issues).
 
-Now you should be ready to plan your update be it adding a feature, fixing a bug, or updating the styling. To ease the 
-development cycle we impose the following process. 
+</div>
 
-[Development Cycle]({% post_url 2022-11-01-dev-process %})
+</div>
 
-For backing up the database in preparation for a site update.
-
-[Backup]({% post_url 2016-12-09-backup %})
-
-### Reuse and Redistribution
-
-We wrote lowFAT to be one of our internal tools, but it is released under the BSD 3-Clause License and you are welcome to re-use it.
-
-**If you have any questions, please open an issue on [GitHub](https://github.com/softwaresaved/lowfat/issues).**
-
+</div>

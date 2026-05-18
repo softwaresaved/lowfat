@@ -155,3 +155,194 @@ td, th {
 .money-passed {
     background: black;
 }
+
+.landing-page {
+  padding-top: 20px;
+}
+
+.landing-intro h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.landing-intro p {
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+/* index.md card updated styling */
+.card-container {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  margin: 30px 0;
+}
+
+.card {
+  flex: 1 1 300px;
+  max-width: 360px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 28px 24px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+.card-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  float: none;
+}
+
+
+.guide-card-section {
+  background: #f8f9fb;
+  border: 1px solid #e3e6ea;
+  border-radius: 14px;
+  padding: 36px;
+  margin: 36px 0 32px 0;
+}
+
+/* Button colour variants */
+.fellows-btn {
+  background-color: #007ACC;
+}
+
+.staff-btn {
+  background-color: #28A745;
+}
+
+.developers-btn {
+  background-color: #6F42C1;
+}
+
+.info-card-container {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin: 24px 0;
+}
+
+.info-card {
+  flex: 1 1 300px;
+  border: none;
+  border-radius: 0;
+  padding: 0 10px;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Documentation pagination */
+.doc-pagination {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Center it when there is one*/
+.doc-pagination.single {
+  justify-content: center;
+}
+
+.doc-next,
+.doc-prev {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  text-shadow: none;
+}
+.doc-next .arrow,
+.doc-prev .arrow {
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.doc-next {
+  background-color: #007ACC;
+  color: white;
+}
+
+.doc-next:hover {
+  background-color: #005fa3;
+  transform: translateY(-1px);
+  color: white;
+}
+
+.doc-prev {
+  background-color: #e9ecef;
+  color: #333;
+}
+
+.doc-prev:hover {
+  background-color: #d6d8db;
+  transform: translateY(-1px);
+  color: #333;
+}
+
+.doc-next .arrow,
+.doc-prev .arrow {
+  transition: transform 0.2s ease;
+}
+
+.doc-next:hover .arrow {
+  transform: translateX(4px);
+}
+
+.doc-prev:hover .arrow {
+  transform: translateX(-4px);
+}
+
+.nav-home-link {
+  margin-bottom: 16px;
+}
+
+.nav-home-link a {
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding-left: 0;
+  color: #007ACC;
+  text-decoration: none;
+}
+
+.nav-home-link a:hover {
+  text-decoration: underline;
+}
+
+.doc-screenshot {
+  background: #f8f9fb;
+  border: 1px solid #e3e6ea;
+  border-radius: 10px;
+  padding: 16px;
+  margin: 20px 0 30px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.doc-screenshot img {
+  width: 100%;
+  border-radius: 6px;
+}
+.box-note {
+  background-color: #f8f9fb;
+  border: 1px solid #e3e6ea;
+  border-left: 4px solid #d21f1f;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 20px 0;
+  color: #333;
+}
