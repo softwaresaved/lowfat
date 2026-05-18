@@ -6,6 +6,10 @@ navigation: false
 
 <div class="landing-page" markdown="1">
 
+<div class="box-warning" markdown="1">
+This documentation is being updated. Some pages may change as the Fellow, Staff, and Developer guides are reviewed.
+</div>
+
 # Welcome to lowFAT
 
 **lowFAT** (Low effort Fellowship Administration Tool) is the Software Sustainability Institute’s open-source tool to manage Fellowship programmes efficiently.
