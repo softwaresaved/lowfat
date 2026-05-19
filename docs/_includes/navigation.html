@@ -1,23 +1,28 @@
 <ul class="nav flex-column">
-    <li class="nav-item">
-        <a class="nav-link active" href="{{ site.baseurl }}/">Home</a>
+    <li class="nav-item nav-home-link">
+        <a class="nav-link" href="{{ site.baseurl }}/">← Home</a>
     </li>
-    <!-- <li class="nav-item">
-        Project Status<br><a href="https://travis-ci.org/softwaresaved/lowfat"><img alt="Build Status" src="https://travis-ci.org/softwaresaved/lowfat.svg?branch=main"></a>
-    </li> -->
+
+    {% assign current_category = page.category %}
+
     {% for section in site.sections %}
         {% assign attr = section[0] %}
         {% assign label = section[1] %}
 
-        {% for page in site.categories[attr] %}
-            {% if forloop.first %}
-                <li class="nav-item"><b>{{ label }}</b></li>
+        {% if current_category %}
+            {% if attr != current_category %}
+                {% continue %}
             {% endif %}
-            <li class="nav-item" data-order="{{ page.order }}">
-                <a class="nav-link" href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
-            </li>
-        {% endfor %}
+        {% endif %}
+
+        {% if site.categories[attr] %}
+            {% assign sorted_pages = site.categories[attr] | sort: "order" %}
+            <li class="nav-item"><b>{{ label }}</b></li>
+            {% for page in sorted_pages %}
+                <li class="nav-item" data-order="{{ page.order }}">
+                    <a class="nav-link" href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
+                </li>
+            {% endfor %}
+        {% endif %}
     {% endfor %}
-<!-- List additional links. It is recommended to add a divider
-    e.g. <li class="divider"></li> first to break up the content. -->
 </ul>

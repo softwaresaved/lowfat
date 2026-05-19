@@ -11,7 +11,7 @@ google_analytics_id: ''
 # Default instance
 demo_site: 'https://fellows.software.ac.uk'
 
-# Enable/show navigation. There are there options:
+# Enable/show navigation. There are three options:
 #   0 - always hide
 #   1 - always show
 #   2 - show only if posts are present
